@@ -1,0 +1,3049 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Prediction | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 3 Prediction | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Prediction | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Prediction | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="description.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prediction" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Prediction</h1>
+<p>In many disciplines there is a near-exclusive use of the statistical models for causal inference<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> and the assumption that models with high explanatory power are inherently of high predictive power <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>. There is a constant tug-of-war between prediction versus explanation, and experts are leaning on one side or the other. Some experts warn against over-reliance on explanatory models with poor predictive power <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>, whereas some warn against over-reliance on predictive models that lack causal explanatory power that can guide intervention <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>; Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl, Glymour, and Jewell <a href="#ref-pearlCausalInferenceStatistics2016" role="doc-biblioref">2016</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>It is thus important to differentiate between the two and take into account the research question that we are trying to answer. In this book, I define predictive modeling by using definition from Galit Shmueli “as the process of applying a statistical model or data mining algorithm to data for the purpose of predicting new or future observations” <span class="citation">(Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>, 291)</span>. Usually this predictive statistical model is treated as a <em>black box</em>. Black box approach implies that we are not really interested in underlying mechanism and relationships between the predictor variables, only in predictive performance of the model <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span></p>
+<p>Linear regression model from <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> section already introduced predictive question (“If I know someone’s YoYoIR1 score, what would be his or her MAS score? Is the prediction within SESOI?”) to <em>complement</em> the association one (“How is YoYoIR1 associated with MAS?”). This section will continue this quest and introduce essential concepts and caveats of the predictive analysis needed to answer predictive questions.</p>
+<div id="overfitting" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Overfitting</h2>
+<p>To explain a few caveats with predictive modeling, let’s take slightly more complex example (although we will come back to YoYoIR1 and MAS relationship later). Imagine we know the <em>true</em> relationship between back squat <em>relative 1RM</em> (BS)<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> and vertical jump height during a bodyweight squat jump (SJ; measured in cm). This true relationship is usually referred to as <em>data generating process</em> (DGP) <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>)</span> and one of the aims of causal inference tasks is to uncover parameters and mechanism of DGP from the acquired sample<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. With predictive tasks this aim is of no direct interest, but rather reliable prediction regarding new or unseen observations.</p>
+<p>DGP is usually unknown, but with simulations, such as this one, DGP is known and it is used to generate the sample data. Simulation is thus excellent teaching tool, since one can <em>play</em> with the problem and understand how the statistical analysis works, since the true DGP is known and can be compared with estimates <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>; Hopkins <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>; Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>DGP is assumed to consist of <em>systematic component</em> <span class="math inline">\(f(x)\)</span> and <em>stochastic component</em> <span class="math inline">\(\epsilon\)</span> (Equation <a href="prediction.html#eq:systematic-stochastic">(3.1)</a>).</p>
+<p><span class="math display" id="eq:systematic-stochastic">\[
+\begin{equation}
+  Y = f(X) + \epsilon
+  \tag{3.1}
+\end{equation}
+\]</span>
+Systematic component is assumed to be <em>fixed</em> in the population (constant from sample to sample) and captures the <em>true</em> relationship <span class="math inline">\(f(X)\)</span> among variables in the population (e.g. this can also be termed <em>signal</em>), while stochastic component represents <em>random noise</em> or <em>random error</em>, that varies from sample to sample, although its distribution remains the same. Random error is assumed to be normally distributed with mean of 0 and standard deviation which represents estimated parameter (either with <code>RMSE</code> or <code>RSE</code>). Thus, <code>RMSE</code> or <code>RSE</code> are <em>estimates</em> of <span class="math inline">\(\epsilon\)</span>.</p>
+<p>In our example, the relationship between SJ and BS is expressed with the following Equation <a href="prediction.html#eq:sj-bs-equation">(3.2)</a>.</p>
+<p><span class="math display" id="eq:sj-bs-equation">\[
+\begin{equation}
+  \begin{split}
+    SJ &amp;= 30 + 15\times BS\times\sin(BS)+\epsilon \\
+    \epsilon &amp;\sim \mathcal{N}(0,\,2)
+  \end{split}
+  \tag{3.2}
+\end{equation}
+\]</span></p>
+<p>Systematic component in the DGP is represented with <span class="math inline">\(30 + 15\times BS\times\sin(BS)\)</span>, and stochastic component is represented with the <em>known</em> random error (<span class="math inline">\(\epsilon\)</span>) that is normally distributed with the mean equal to zero and standard deviation equal to 2cm (<span class="math inline">\(\mathcal{N}(0,\,2)\)</span>). This random error can be termed <em>irreducible error</em> <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>, since it is inherent to the true DGP. As will be demonstrated shortly, models that perform better than this irreducible error are said to <em>overfit</em>. In other words, models are jumping to the noise.</p>
+<p>The objective of causal inference or explanatory modeling is to estimate the <span class="math inline">\(f(X)\)</span> (estimate is indicated with the <em>hat</em> symbol: <span class="math inline">\(\hat{f}(x)\)</span>) or to understand the underlying DGP. With the predictive analysis, the goal is to find the best estimate of <span class="math inline">\(Y\)</span> or <span class="math inline">\(\hat{y}\)</span>. The underlying DGP is treated as a <em>black box</em>.</p>
+<p>To demonstrate a concept of overfitting, we are going to generate two samples (N=35 observations) from the DGP with BS ranging from 0.8 to 2.5. These samples are <em>training</em> and <em>testing</em> sample (Figure <a href="prediction.html#fig:bs-sj-training-testing">3.1</a>). Training sample is used to <em>train</em> the prediction model, while <em>testing</em> sample will be used as a <em>holdout</em> sample for evaluating model performance on the <em>unseen</em> data.</p>
+<div class="figure" style="text-align: center"><span id="fig:bs-sj-training-testing"></span>
+<img src="03-Prediction_files/figure-html/bs-sj-training-testing-1.png" alt="Two samples simulated from the known DGP. Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP" width="90%" />
+<p class="caption">
+Figure 3.1: <strong>Two samples simulated from the known DGP. </strong>Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP
+</p>
+</div>
+
+<p>Model used to predict SJ from BS will be <em>polynomial linear regression</em>. Equation <a href="prediction.html#eq:polynomial-equation">(3.3)</a> explains first, second, and third degree polynomial linear regression function and provides a form for n-degree polynomials. Please, note that first degree polynomial function represents simple linear regression.</p>
+<p><span class="math display" id="eq:polynomial-equation">\[
+\begin{equation}
+  \begin{split}
+    \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 \\
+    \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 + \hat{\beta}_2 x_i^2 \\
+    \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 + \hat{\beta}_2 x_i^2 + \hat{\beta}_3 x_i^3 \\
+    \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 + \dots + \hat{\beta}_n x_i^n
+  \end{split}
+  \tag{3.3}
+\end{equation}
+\]</span></p>
+<p>Increasing polynomial degrees increases the <em>flexibility</em> of the polynomial regression model, and thus can represent <em>tuning parameter</em> that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure <a href="prediction.html#fig:poly-fit-model">3.2</a> contains model performance on the training data for polynomial degrees ranging from 1 to 20.</p>
+<div class="figure" style="text-align: center"><span id="fig:poly-fit-model"></span>
+<img src="03-Prediction_files/figure-html/poly-fit-model-1.png" alt="Model fit with varying polynomial degrees. More degrees equals better model fit" width="90%" />
+<p class="caption">
+Figure 3.2: <strong>Model fit with varying polynomial degrees. </strong>More degrees equals better model fit
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="prediction.html#fig:poly-fit-model">3.2</a>, the more flexible the model (or the higher the polynomial degree) the better it fits the data. But how do these models perform on the unseen, testing data sample? In order to quantify model performance, <code>RMSE</code> metric is used. Figure <a href="prediction.html#fig:testing-training-poly-errors">3.3</a> demonstrates performance of the polynomial regression model on the training and testing data sample across different polynomial degrees.</p>
+<div class="figure" style="text-align: center"><span id="fig:testing-training-poly-errors"></span>
+<img src="03-Prediction_files/figure-html/testing-training-poly-errors-1.png" alt="Testing and training errors across varying polynomial degrees. Model error is estimated with the RMSE metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn’t imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data" width="90%" />
+<p class="caption">
+Figure 3.3: <strong>Testing and training errors across varying polynomial degrees. </strong>Model error is estimated with the <code>RMSE</code> metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn’t imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="prediction.html#fig:testing-training-poly-errors">3.3</a>, models with higher polynomial degrees tend to overfit (indicated by performance better than the known irreducible error <span class="math inline">\(\epsilon\)</span> visualized with the horizontal line at 2cm). Performance on the training data sample improves as the polynomial degrees increase, which is not the case with the performance on the testing data sample. There is clearly the best polynomial degree that has the best predictive performance on the unseen data. Polynomial degrees on the left of the vertical dashed line are said to <em>underfit</em>, while polynomial degrees on the right are said to overfit.</p>
+<p>The take home message is that predictive performance on the training data can be too optimistic, and for evaluating predictive performance of the model, unseen data must be used, otherwise the model might overfit.</p>
+</div>
+<div id="cross-validation" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Cross-Validation</h2>
+<p>In order to evaluate predictive performance of the model, researchers usually remove some percent of data to be used as a testing or holdout sample. Unfortunately, this is not always possible (although it is recommended, particularly to evaluate final model performance, especially when there are multiple models and model tuning). One solution to these problems is <em>cross-validation</em> technique <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>; Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>. There are numerous variations of the cross-validation, but the simplest one is <em>n-fold</em> cross validation (Figure 15). N-fold cross validation involve splitting the data into 5 to 10 equal folds and using one fold as a testing or hold-out sample while performing model training on the other folds. This is repeated over N-iteration (in this case 5 to 10) and the model performance is averaged to get <em>cross-validated model performance</em>.</p>
+<div class="figure" style="text-align: center"><span id="fig:cross-validation"></span>
+<img src="figures/cross-validation.png" alt="Cross-Validation" width="90%" />
+<p class="caption">
+Figure 3.4: <strong>Cross-Validation</strong>
+</p>
+</div>
+
+<p>With predictive analysis and <em>machine learning</em>, different model’s tuning parameters are evaluated (as well as multiple different models) to estimate the one that gives the best predictive performance. It is thus important to utilize techniques such as cross-validation to avoid overfitting and too optimistic model selection.</p>
+<p>Certain models, such as <em>lasso</em>, <em>ridge regression</em>, and <em>elastic-net</em> implement <em>regularization</em> parameters that <em>penalizes</em> the model complexity and are used as a tuning variable <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>; Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>. This is useful in situations when there are a lot of predictors, and it is easy to overfit the model. Selecting the best regularization parameter that has the best cross-validated performance helps in simplifying the model and avoiding the overfit. These topics are beyond the scope of this book, and interested readers are directed to references provided.</p>
+<div id="sample-mean-as-the-simplest-predictive-model" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Sample <code>mean</code> as the simplest predictive model</h3>
+<p>We have already discussed in <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a> section that sample <code>mean</code> can be considered simplest model that describes a particular sample with the lowest <code>RMSE</code>. But can it be used for prediction?</p>
+<p>Here is an example to demonstrate both sample <code>mean</code> as a predictive model, as well as to demonstrate cross-validation technique. Let’s assume that we have collected N=10 observations: 15, 19, 28, 28, 30, 57, 71, 88, 95, 97. Sample <code>mean</code> is equal to 52.8. If we assume that the sample <code>mean</code> represents our prediction for the observations, we can easily calculate <em>prediction error</em> for each observation, which is simple difference (column <code>Error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>).</p>
+
+<table>
+<caption>
+<span id="tab:mean-as-prediction-differences">Table 3.1: </span><strong>Sample <code>mean</code> as prediction with associated prediction errors</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Observed
+</th>
+<th style="text-align:right;">
+Predicted
+</th>
+<th style="text-align:right;">
+Error
+</th>
+<th style="text-align:right;">
+Absolute Error
+</th>
+<th style="text-align:right;">
+Squared Error
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+37.8
+</td>
+<td style="text-align:right;">
+37.8
+</td>
+<td style="text-align:right;">
+1428.84
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+33.8
+</td>
+<td style="text-align:right;">
+33.8
+</td>
+<td style="text-align:right;">
+1142.44
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+24.8
+</td>
+<td style="text-align:right;">
+24.8
+</td>
+<td style="text-align:right;">
+615.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+24.8
+</td>
+<td style="text-align:right;">
+24.8
+</td>
+<td style="text-align:right;">
+615.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+22.8
+</td>
+<td style="text-align:right;">
+22.8
+</td>
+<td style="text-align:right;">
+519.84
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+-4.2
+</td>
+<td style="text-align:right;">
+4.2
+</td>
+<td style="text-align:right;">
+17.64
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+-18.2
+</td>
+<td style="text-align:right;">
+18.2
+</td>
+<td style="text-align:right;">
+331.24
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+-35.2
+</td>
+<td style="text-align:right;">
+35.2
+</td>
+<td style="text-align:right;">
+1239.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+-42.2
+</td>
+<td style="text-align:right;">
+42.2
+</td>
+<td style="text-align:right;">
+1780.84
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+-44.2
+</td>
+<td style="text-align:right;">
+44.2
+</td>
+<td style="text-align:right;">
+1953.64
+</td>
+</tr>
+</tbody>
+</table>
+<p>Besides simple difference, Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a> provides errors (or losses) using two common <em>loss functions</em> (see <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a> section in <a href="description.html#description">Description</a> chapter): <em>absolute loss</em> (column <code>Absolute Error</code>) and <em>quadratic loss</em> (column <code>Squared Error</code>).</p>
+<p>We need to <em>aggregate</em> these errors or losses into a single metric using the <em>cost function</em>. If we calculate the mean of the prediction errors (column <code>Error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>), we are going to get 0. This is because the positive and negative errors cancel each other out for the sample <code>mean</code> estimator. This error estimator is often referred to as <em>mean bias error</em> (<code>MBE</code>) or simply <em>bias</em> and is often used in <em>validity</em> and <em>reliability</em> analysis (see [Validity] and [Reliability] sections).</p>
+<p>If we take the mean of the absolute prediction errors (column <code>Absolute error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>) we are going to get <em>mean absolute error</em> (<code>MAE</code>) estimator, which is in this example equal to 28.8.</p>
+<p>If we take the mean of the squared prediction errors (column <code>Squared error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>) we are going to get <em>mean square error</em> (<code>MSE</code>) estimator, often called <em>variance</em> in the case of describing sample dispersion. In this example <code>MSE</code> is equal to 964.36. To <em>bring</em> back <code>MSE</code> to the same scale with the observation scale, square root of the <code>MSE</code> is taken. This represents <em>root mean square error</em> (<code>RMSE</code>), which is equal to 31.05. As explained in <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a> section, sample <code>mean</code> represents statistical model of the central tendency with the lowest <code>RMSE</code>.</p>
+<p>Aforementioned error estimators, <code>MBE</code>, <code>MAE</code>, <code>MSE</code>, and <code>RMSE</code> can be considered different <em>cost functions</em>. Which one should be used<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>? As always, it depends <span class="citation">(Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>. Assuming Gaussian normal distribution of the errors, <code>MSE</code> and <code>RMSE</code> have very useful mathematical properties that can be utilized in modeling stochastic or random components (i.e. <em>random error propagation</em> and prediction error decomposition in <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section). This property will be utilized thorough this book and particularly in the [Example of randomized control trial] section when estimating random or stochastic component of the treatment effect. I personally prefer to report multiple estimators, including error estimators, which is also a strategy suggested by <span class="citation">Chai and Draxler (<a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>The are, of course, other loss and cost functions that could be used. For example, one might only use the <em>maximal error</em> (<code>MaxErr</code>) and <em>minimal error</em> (<code>MinErr</code>), rather than average. Discussion and review of these different metrics is beyond the scope of this book (for more information please check the package <em>Metrics</em> <span class="citation">(Hamner and Frasco <a href="#ref-R-Metrics" role="doc-biblioref">2018</a>)</span> and the following references <span class="citation">(Botchkarev <a href="#ref-botchkarevNewTypologyDesign2019" role="doc-biblioref">2019</a>; Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>; Willmott and Matsuura <a href="#ref-willmottAdvantagesMeanAbsolute2005" role="doc-biblioref">2005</a>; Barron <a href="#ref-barronGeneralAdaptiveRobust2019" role="doc-biblioref">2019</a>)</span>). Figure <a href="prediction.html#fig:loss-function-metrics-example">3.5</a> visualize the most common loss functions that are used in both model training and as <em>performance metrics</em>. It is important to keep in mind that in the case of OLS regression, <code>MSE</code> (or <code>RMSE</code>) is minimized. It is thus important to make a distinction between cost function used in the optimization and model training (i.e. in OLS, parameters of the model are found so that <code>MSE</code> is minimized; in some machine-learning models <code>Huber loss</code> or <code>Rigde loss</code><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> is minimized; see Figure <a href="prediction.html#fig:loss-function-metrics-example">3.5</a>) versus cost function used as a performance metric (e.g. reporting <code>pEquivalent</code>, <code>MaxErr</code> or <code>MinErr</code> for OLS models).</p>
+<div class="figure" style="text-align: center"><span id="fig:loss-function-metrics-example"></span>
+<img src="03-Prediction_files/figure-html/loss-function-metrics-example-1.png" alt="Common loss functions. A. Trellis plot of each loss function. B. Plot of all loss functions on a common scale. Huber loss is a combination of absolute and quadratic loss." width="90%" />
+<p class="caption">
+Figure 3.5: <strong>Common loss functions. A. </strong> Trellis plot of each loss function. <strong>B.</strong> Plot of all loss functions on a common scale. <em>Huber loss</em> is a combination of absolute and quadratic loss.
+</p>
+</div>
+
+<p>The take-away point is to understand that there are multiple performance metrics that can be utilized and it is best to report multiple of them.</p>
+<p>Estimates for <code>MBE</code>, <code>MAE</code>, <code>MSE</code><a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, and <code>RMSE</code> represent <em>training sample</em> predictive performance since sample <code>mean</code> is estimated using this very sample. We are interested how sample <code>mean</code>, as predictive model, perform on the unseen data. Cross-validation is one method to estimate model performance on unseen data. Table <a href="prediction.html#tab:mean-cross-validation">3.2</a> contains 3-fold cross-validation sample used to train the model (in this case estimate sample <code>mean</code>) and to evaluate the performance on unseen data.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:mean-cross-validation">Table 3.2: </span><strong>Example cross-validation using sample <code>mean</code> as the prediction model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Fold
+</th>
+<th style="text-align:left;">
+Training sample
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:left;">
+Testing Sample
+</th>
+<th style="text-align:right;">
+MBE
+</th>
+<th style="text-align:right;">
+MAE
+</th>
+<th style="text-align:right;">
+RMSE
+</th>
+<th style="text-align:right;">
+MinErr
+</th>
+<th style="text-align:right;">
+MaxErr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+15 19 28 – 30 – 71 88 95 –
+</td>
+<td style="text-align:right;">
+49.43
+</td>
+<td style="text-align:left;">
+– – – 28 – 57 – – – 97
+</td>
+<td style="text-align:right;">
+-11.24
+</td>
+<td style="text-align:right;">
+25.52
+</td>
+<td style="text-align:right;">
+30.44
+</td>
+<td style="text-align:right;">
+-47.57
+</td>
+<td style="text-align:right;">
+21.43
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 19 – 28 – 57 – 88 – 97
+</td>
+<td style="text-align:right;">
+50.67
+</td>
+<td style="text-align:left;">
+– – 28 – 30 – 71 – 95 –
+</td>
+<td style="text-align:right;">
+-5.33
+</td>
+<td style="text-align:right;">
+27.00
+</td>
+<td style="text-align:right;">
+28.81
+</td>
+<td style="text-align:right;">
+-44.33
+</td>
+<td style="text-align:right;">
+22.67
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+– – 28 28 30 57 71 – 95 97
+</td>
+<td style="text-align:right;">
+58.00
+</td>
+<td style="text-align:left;">
+15 19 – – – – – 88 – –
+</td>
+<td style="text-align:right;">
+17.33
+</td>
+<td style="text-align:right;">
+37.33
+</td>
+<td style="text-align:right;">
+37.73
+</td>
+<td style="text-align:right;">
+-30.00
+</td>
+<td style="text-align:right;">
+43.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>Since this is a small sample, we can repeat cross-validation few times. This is called <em>repeated cross-validation</em>. Let’s repeat 3-folds cross-validation for 5 repeats (Table <a href="prediction.html#tab:repeated-cross-validation">3.3</a>).</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:repeated-cross-validation">Table 3.3: </span><strong>Example repeated cross-validation using sample <code>mean</code> as the prediction model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Repeat
+</th>
+<th style="text-align:right;">
+Fold
+</th>
+<th style="text-align:left;">
+Training sample
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:left;">
+Testing Sample
+</th>
+<th style="text-align:right;">
+MBE
+</th>
+<th style="text-align:right;">
+MAE
+</th>
+<th style="text-align:right;">
+RMSE
+</th>
+<th style="text-align:right;">
+MinErr
+</th>
+<th style="text-align:right;">
+MaxErr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+15 19 28 – 30 – 71 88 95 –
+</td>
+<td style="text-align:right;">
+49.43
+</td>
+<td style="text-align:left;">
+– – – 28 – 57 – – – 97
+</td>
+<td style="text-align:right;">
+-11.24
+</td>
+<td style="text-align:right;">
+25.52
+</td>
+<td style="text-align:right;">
+30.44
+</td>
+<td style="text-align:right;">
+-47.57
+</td>
+<td style="text-align:right;">
+21.43
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 19 – 28 – 57 – 88 – 97
+</td>
+<td style="text-align:right;">
+50.67
+</td>
+<td style="text-align:left;">
+– – 28 – 30 – 71 – 95 –
+</td>
+<td style="text-align:right;">
+-5.33
+</td>
+<td style="text-align:right;">
+27.00
+</td>
+<td style="text-align:right;">
+28.81
+</td>
+<td style="text-align:right;">
+-44.33
+</td>
+<td style="text-align:right;">
+22.67
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+– – 28 28 30 57 71 – 95 97
+</td>
+<td style="text-align:right;">
+58.00
+</td>
+<td style="text-align:left;">
+15 19 – – – – – 88 – –
+</td>
+<td style="text-align:right;">
+17.33
+</td>
+<td style="text-align:right;">
+37.33
+</td>
+<td style="text-align:right;">
+37.73
+</td>
+<td style="text-align:right;">
+-30.00
+</td>
+<td style="text-align:right;">
+43.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+– 19 28 – 30 57 71 88 – –
+</td>
+<td style="text-align:right;">
+48.83
+</td>
+<td style="text-align:left;">
+15 – – 28 – – – – 95 97
+</td>
+<td style="text-align:right;">
+-9.92
+</td>
+<td style="text-align:right;">
+37.25
+</td>
+<td style="text-align:right;">
+38.83
+</td>
+<td style="text-align:right;">
+-48.17
+</td>
+<td style="text-align:right;">
+33.83
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 – 28 28 – 57 – – 95 97
+</td>
+<td style="text-align:right;">
+53.33
+</td>
+<td style="text-align:left;">
+– 19 – – 30 – 71 88 – –
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+27.50
+</td>
+<td style="text-align:right;">
+28.45
+</td>
+<td style="text-align:right;">
+-34.67
+</td>
+<td style="text-align:right;">
+34.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+15 19 – 28 30 – 71 88 95 97
+</td>
+<td style="text-align:right;">
+55.38
+</td>
+<td style="text-align:left;">
+– – 28 – – 57 – – – –
+</td>
+<td style="text-align:right;">
+12.87
+</td>
+<td style="text-align:right;">
+14.50
+</td>
+<td style="text-align:right;">
+19.39
+</td>
+<td style="text-align:right;">
+-1.63
+</td>
+<td style="text-align:right;">
+27.37
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+– 19 28 28 30 57 71 88 – –
+</td>
+<td style="text-align:right;">
+45.86
+</td>
+<td style="text-align:left;">
+15 – – – – – – – 95 97
+</td>
+<td style="text-align:right;">
+-23.14
+</td>
+<td style="text-align:right;">
+43.71
+</td>
+<td style="text-align:right;">
+44.66
+</td>
+<td style="text-align:right;">
+-51.14
+</td>
+<td style="text-align:right;">
+30.86
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 19 – – 30 – – 88 95 97
+</td>
+<td style="text-align:right;">
+57.33
+</td>
+<td style="text-align:left;">
+– – 28 28 – 57 71 – – –
+</td>
+<td style="text-align:right;">
+11.33
+</td>
+<td style="text-align:right;">
+18.17
+</td>
+<td style="text-align:right;">
+21.84
+</td>
+<td style="text-align:right;">
+-13.67
+</td>
+<td style="text-align:right;">
+29.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+15 – 28 28 – 57 71 – 95 97
+</td>
+<td style="text-align:right;">
+55.86
+</td>
+<td style="text-align:left;">
+– 19 – – 30 – – 88 – –
+</td>
+<td style="text-align:right;">
+10.19
+</td>
+<td style="text-align:right;">
+31.62
+</td>
+<td style="text-align:right;">
+31.94
+</td>
+<td style="text-align:right;">
+-32.14
+</td>
+<td style="text-align:right;">
+36.86
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+– 19 28 – 30 57 71 88 – 97
+</td>
+<td style="text-align:right;">
+55.71
+</td>
+<td style="text-align:left;">
+15 – – 28 – – – – 95 –
+</td>
+<td style="text-align:right;">
+9.71
+</td>
+<td style="text-align:right;">
+35.90
+</td>
+<td style="text-align:right;">
+36.37
+</td>
+<td style="text-align:right;">
+-39.29
+</td>
+<td style="text-align:right;">
+40.71
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 – – 28 30 – 71 – 95 97
+</td>
+<td style="text-align:right;">
+56.00
+</td>
+<td style="text-align:left;">
+– 19 28 – – 57 – 88 – –
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+24.50
+</td>
+<td style="text-align:right;">
+28.19
+</td>
+<td style="text-align:right;">
+-32.00
+</td>
+<td style="text-align:right;">
+37.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+15 19 28 28 – 57 – 88 95 –
+</td>
+<td style="text-align:right;">
+47.14
+</td>
+<td style="text-align:left;">
+– – – – 30 – 71 – – 97
+</td>
+<td style="text-align:right;">
+-18.86
+</td>
+<td style="text-align:right;">
+30.29
+</td>
+<td style="text-align:right;">
+33.41
+</td>
+<td style="text-align:right;">
+-49.86
+</td>
+<td style="text-align:right;">
+17.14
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+15 19 – 28 – 57 – 88 95 97
+</td>
+<td style="text-align:right;">
+57.00
+</td>
+<td style="text-align:left;">
+– – 28 – 30 – 71 – – –
+</td>
+<td style="text-align:right;">
+14.00
+</td>
+<td style="text-align:right;">
+23.33
+</td>
+<td style="text-align:right;">
+24.26
+</td>
+<td style="text-align:right;">
+-14.00
+</td>
+<td style="text-align:right;">
+29.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+15 – 28 28 30 – 71 88 95 –
+</td>
+<td style="text-align:right;">
+50.71
+</td>
+<td style="text-align:left;">
+– 19 – – – 57 – – – 97
+</td>
+<td style="text-align:right;">
+-6.95
+</td>
+<td style="text-align:right;">
+28.10
+</td>
+<td style="text-align:right;">
+32.60
+</td>
+<td style="text-align:right;">
+-46.29
+</td>
+<td style="text-align:right;">
+31.71
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+– 19 28 – 30 57 71 – – 97
+</td>
+<td style="text-align:right;">
+50.33
+</td>
+<td style="text-align:left;">
+15 – – 28 – – – 88 95 –
+</td>
+<td style="text-align:right;">
+-6.17
+</td>
+<td style="text-align:right;">
+35.00
+</td>
+<td style="text-align:right;">
+35.92
+</td>
+<td style="text-align:right;">
+-44.67
+</td>
+<td style="text-align:right;">
+35.33
+</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate cross-validated prediction performance metrics, average of testing <code>MBE</code>, <code>MAE</code>, <code>RMSE</code>, <code>MinErr</code>, and <code>MaxErr</code> is calculated and reported as <code>cvMBE</code>, <code>cvMAE</code>, <code>cvRMSE</code>, <code>cvMinErr</code>, and <code>cvMaxErr</code> (Table <a href="prediction.html#tab:cv-performance-metrics">3.4</a>). Prediction performance metrics don’t need to be averaged across cross-validation samples and can be instead estimated by <em>binding</em> (or <em>pooling</em>) all cross-validated samples together (i.e. target variable and predicted target variable). More about this at the end of this chapter in <a href="prediction.html#practical-example-mas-and-yoyoir1-prediction">Practical example: MAS and YoYoIR1 prediction</a> section.</p>
+
+<table>
+<caption>
+<span id="tab:cv-performance-metrics">Table 3.4: </span><strong>Cross-validated prediction performance metrics (estimators)</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+cvMBE
+</th>
+<th style="text-align:right;">
+cvMAE
+</th>
+<th style="text-align:right;">
+cvRMSE
+</th>
+<th style="text-align:right;">
+cvMinErr
+</th>
+<th style="text-align:right;">
+cvMaxErr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+29.32
+</td>
+<td style="text-align:right;">
+31.52
+</td>
+<td style="text-align:right;">
+-35.29
+</td>
+<td style="text-align:right;">
+31.37
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen from the Table <a href="prediction.html#tab:cv-performance-metrics">3.4</a>, all performance metrics estimated using repeated cross-validation are larger than the when estimated using the training data (full sample). Utilizing cross-validated estimates of performance (or error) should be used over training estimates when discussing predictive performance of the models. Unfortunately, this is almost never the case in sport science literature, where prediction is never estimated on unseen data and the model performance estimates can suffer from over-fitting.</p>
+<p>Using sample <code>mean</code> as predictive model represents simplistic example, although this type of model is usually referred to as <em>baseline</em> model. Baseline models are used as benchmarks or anchor when discussing performance of more elaborate and complex predictive models. We will come back to these at the end of this section when we will perform predictive analysis of the linear regression model used in <a href="description.html#magnitude-based-estimators">Magnitude-based estimators</a> section for predicting MAS from YoYoIR1 (and <em>vice versa</em>) tests.</p>
+</div>
+</div>
+<div id="bias-variance-decomposition-and-trade-off" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Bias-Variance decomposition and trade-off</h2>
+<p>Prediction error can be <em>decomposed</em> into two components, <em>reducible</em> and <em>irreducible</em> error<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>. Reducible error is the error that can be reduced with a better model, while irreducible error is the unknown error inherent to the DGP itself <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>. Reducible error can be further divided into <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> (Figure <a href="prediction.html#fig:bias-variance">3.6</a> and Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>).</p>
+<p><span class="math display" id="eq:reducible-irreducible">\[
+\begin{equation}
+  \begin{split}
+    Prediction \; error &amp;= Reducible \; error + Irreducible \; error \\
+    Prediction \; error &amp;= (Bias^2 + Variance) + Irreducible \; error
+  \end{split}
+  \tag{3.4}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(Bias^2\)</span> represents constant or systematic error, which is introduced by approximating a real-life problem, which may be extremely complicated, by a much simpler model <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>. <span class="math inline">\(Variance\)</span> represents variable or random error, and refers to the amount by which model parameters would change if we estimated it by using a different training data set <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:bias-variance"></span>
+<img src="figures/bias-variance.png" alt="Bias and variance decomposition of the error. A. Visual representation of \(Bias^2\) and \(Variance\) using the shooting target. B. Error can be decomposed to \(Bias^2\), \(Variance\), and \(Irreducible \: error\), where \(Bias^2\) represents constant or systematic error and \(Variance\) represents variable or random error" width="100%" />
+<p class="caption">
+Figure 3.6: <strong>Bias and variance decomposition of the error. A. </strong>Visual representation of <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> using the shooting target. <strong>B.</strong> Error can be decomposed to <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span>, and <span class="math inline">\(Irreducible \: error\)</span>, where <span class="math inline">\(Bias^2\)</span> represents constant or systematic error and <span class="math inline">\(Variance\)</span> represents variable or random error
+</p>
+</div>
+
+<p>To understand this concept, we need to run a simulation using <em>known</em> relationship between BS and SJ (see Figure <a href="prediction.html#fig:bs-sj-training-testing">3.1</a>, Figure <a href="prediction.html#fig:poly-fit-model">3.2</a>, and Equation <a href="prediction.html#eq:sj-bs-equation">(3.2)</a>). Prediction error decomposition to bias and variance is done for a <em>single</em> data point. To do that we need to differentiate between the following variables:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> predictors. In our case we only have one <span class="math inline">\(x\)</span> predictor - <span class="math inline">\(BS\)</span> and we will use <span class="math inline">\(BS = 1.75\)</span> for this simulation</li>
+<li><span class="math inline">\(y_{true}\)</span> value for a particular <span class="math inline">\(x\)</span> values. In our case <span class="math inline">\(SJ\)</span> variable represents target variable <span class="math inline">\(y\)</span>, which is equal to <span class="math inline">\(SJ = 30 + 15\times BS\times\sin(BS)\)</span> or <span class="math inline">\(SJ=55.83\)</span>cm. Both <span class="math inline">\(x\)</span> and <span class="math inline">\(y_{true}\)</span> values are constant across simulations</li>
+<li><span class="math inline">\(y_{observed}\)</span> represents observed <span class="math inline">\(y\)</span> which differs from <span class="math inline">\(y_{true}\)</span> due stochastic component <span class="math inline">\(\epsilon\)</span>. This implies that <span class="math inline">\(y_{observed}\)</span> randomly varies across simulations. The equation for <span class="math inline">\(y_{observed}\)</span> is: <span class="math inline">\(SJ = 30 + 15\times BS\times\sin(BS) + \mathcal{N}(0,\,2)\)</span>. Error <span class="math inline">\(\epsilon\)</span> represents irreducible error, because it is inherent to DGP and it is equal to <span class="math inline">\(\mathcal{N}(0,\,2)\)</span>.</li>
+<li><span class="math inline">\(y_{predicted}\)</span> represents model prediction using the training sample of <span class="math inline">\(x\)</span> and <span class="math inline">\(y_{observed}\)</span> values.</li>
+</ul>
+<p>For every simulation (N=200 simulations in total), the whole sample of N=35 observations is generated from the known DGP. This includes <span class="math inline">\(x\)</span>, <span class="math inline">\(y_{true}\)</span>, and <span class="math inline">\(y_{observed}\)</span> variables. Polynomial regression models (from 1 to 20 polynomial degrees) are being fitted (or trained) using <span class="math inline">\(x\)</span> predictors (in our case <span class="math inline">\(BS\)</span> variable) and <span class="math inline">\(y_{observed}\)</span> as our target variable. True <span class="math inline">\(y\)</span> (<span class="math inline">\(y_{true}\)</span>) is thus unknown to the model, but only to us. After models are trained, we estimate <span class="math inline">\(y_{predicted}\)</span> using <span class="math inline">\(BS = 1.75\)</span>, for which the <span class="math inline">\(y_{true}\)</span> is equal to <span class="math inline">\(SJ=55.83\)</span>cm.</p>
+<p>Table <a href="prediction.html#tab:ten-simulations-bias-variance">3.5</a> contains results of the first 10 simulations for 2nd degree polynomial model.</p>
+
+<table>
+<caption>
+<span id="tab:ten-simulations-bias-variance">Table 3.5: </span><strong>Results of first 10 simulations for 2nd degree polynomial linear regression model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+sim
+</th>
+<th style="text-align:right;">
+model
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+y_true
+</th>
+<th style="text-align:right;">
+y_observed
+</th>
+<th style="text-align:right;">
+y_predicted
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+54.65
+</td>
+<td style="text-align:right;">
+55.27
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+53.80
+</td>
+<td style="text-align:right;">
+55.34
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+56.03
+</td>
+<td style="text-align:right;">
+55.34
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+55.71
+</td>
+<td style="text-align:right;">
+55.68
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+55.52
+</td>
+<td style="text-align:right;">
+54.91
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+57.55
+</td>
+<td style="text-align:right;">
+55.81
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+52.03
+</td>
+<td style="text-align:right;">
+55.08
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+56.35
+</td>
+<td style="text-align:right;">
+55.92
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+54.05
+</td>
+<td style="text-align:right;">
+54.64
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+58.16
+</td>
+<td style="text-align:right;">
+55.57
+</td>
+</tr>
+</tbody>
+</table>
+<p>To estimate reducible error, <code>MSE</code> estimator is used (Equation <a href="prediction.html#eq:MSE-reducible-error">(3.5)</a>.</p>
+<p><span class="math display" id="eq:MSE-reducible-error">\[
+\begin{equation}
+  Reducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j,x=1.75}} - y_{true_{x=1.75}})^2
+  \tag{3.5}
+\end{equation}
+\]</span></p>
+<p>Reducible error can be decomposed to <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>, or systematic error and variable or random error. <span class="math inline">\(Bias^2\)</span> is squared difference between <span class="math inline">\(y_{true}\)</span> and mean of <span class="math inline">\(y_{predicted}\)</span> across simulations (Equation <a href="prediction.html#eq:bias-equation">(3.6)</a>).</p>
+<p><span class="math display" id="eq:bias-equation">\[
+\begin{equation}
+  Bias^2 = (\frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j, x=1.75}}) - y_{true_{x=1.75}})^2
+  \tag{3.6}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(Variance\)</span> represents, pretty much, <code>SD</code> of the of the <span class="math inline">\(y_{predicted}\)</span> and it is an estimate of how much the predictions vary across simulations (Equation <a href="prediction.html#eq:variance-equation">(3.7)</a>).</p>
+<p><span class="math display" id="eq:variance-equation">\[
+\begin{equation}
+  Variance = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(\bar{y_{predicted_{x=1.75}}} - y_{predicted_{j, x=1.75}})^2
+  \tag{3.7}
+\end{equation}
+\]</span></p>
+<p>Reducible error is thus equal to the sum of <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>.</p>
+<p>If you remember from <a href="description.html#description">Description</a> section, <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> are nothing more than measure of central tendency (i.e. systematic or constant error) and measure of spread (i.e. variable or random error). Figure <a href="prediction.html#fig:bias-variance">3.6</a> also illustrates this concept.</p>
+<p>Irreducible error is estimated using <code>MSE</code> as well (Equation MSE-irreducible-error).</p>
+<p><span class="math display" id="eq:MSE-irreducible-error">\[
+\begin{equation}
+  Irreducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{observed_{x=1.75}} - y_{true_{x=1.75}})^2
+  \tag{3.8}
+\end{equation}
+\]</span></p>
+<p>Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because <code>MSE</code> is mean squared error, and <code>RMSE</code>, which is equivalent to <code>SD</code>, is calculated by doing square root of <code>MSE</code>). This might not be exactly 4cm due <em>sampling error</em> which is the topic of [Statistical inference] section.</p>
+<p>As explained in Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>, <span class="math inline">\(Prediction \: error\)</span> is equal to sum of <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span> and <span class="math inline">\(Irreducible \: error\)</span>. Table contains estimated aforementioned errors using all 200 simulations for 2nd degree polynomial linear regression.</p>
+
+<table>
+<caption>
+<span id="tab:example-error-decomposition">Table 3.6: </span><strong>Calculated errors for all 200 simulations for 2nd degree polynomial linear regression</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+model
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+y_true
+</th>
+<th style="text-align:right;">
+Prediction error
+</th>
+<th style="text-align:right;">
+Bias^2
+</th>
+<th style="text-align:right;">
+Variance
+</th>
+<th style="text-align:right;">
+Irreducible error
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+55.83
+</td>
+<td style="text-align:right;">
+5.17
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+4.87
+</td>
+</tr>
+</tbody>
+</table>
+<p>This decomposition of errors is one useful mathematical property when using squared erors that I alluded to in the <a href="prediction.html#cross-validation">Cross-Validation</a> section when discussing prediction error metrics.</p>
+<p>If we perfrom this analysis for each degree of polynomial fit, we will estimate prediction error, as well as <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> across model complexity (i.e. polynomial degrees). This is visualized in the Figure <a href="prediction.html#fig:bias-variance-simulation">3.7</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:bias-variance-simulation"></span>
+<img src="03-Prediction_files/figure-html/bias-variance-simulation-1.png" alt="Bias and Variance error decomposition. \(Prediction \: error\) is indicated with the black line, and is decomposed to \(Bias^2\), \(Variance\), and \(Irreducible \: error\). These are represents with areas of different color" width="90%" />
+<p class="caption">
+Figure 3.7: <strong>Bias and Variance error decomposition. </strong><span class="math inline">\(Prediction \: error\)</span> is indicated with the black line, and is decomposed to <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span>, and <span class="math inline">\(Irreducible \: error\)</span>. These are represents with areas of different color
+</p>
+</div>
+
+<p>Beside decomposition of <span class="math inline">\(Prediction \: error\)</span> to <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span> and <span class="math inline">\(Irreducible \: error\)</span>, it is important to notice the <em>trade-off</em> between <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>. Linear regression models with lower polynomial degree, particularly 1st degree which is simple linear regression, has higher <span class="math inline">\(Bias^2\)</span> due imposed <em>linearity</em> of the model (we can say that linear regression model is more <em>biased</em>). As <span class="math inline">\(Bias^2\)</span> decreases with more flexible models (i.e. higher polynomial degree), <span class="math inline">\(Variance\)</span> increase due model being too <em>jumpy</em> across simulations. To achieve best prediction (or the lower <span class="math inline">\(Prediction \: error\)</span>) a balance between <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> needs to be found, both within a particular model and across models. The <em>free lunch</em> theorem <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span> states that there is no single model that is the best across all different sets of problems. One needs to evaluate multiple models<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> to estimate which one is the best for a particular problem at hand.</p>
+<p>To estimate <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>, <em>true</em> DGP must be known. Unfortunately, we do not know these for the real world problems, only for simulations. But even when we do not know <span class="math inline">\(y_{true}\)</span> values (and thus <span class="math inline">\(Irreducible \: error\)</span>), concepts of <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> can be applied in cross-validation samples (particularly when using multiple repeats) and can estimated using <span class="math inline">\(y_{observed}\)</span>. I will provide one such analysis in <a href="prediction.html#practical-example-mas-and-yoyoir1-prediction">Practical example: MAS and YoYoIR1 prediction</a> section.</p>
+</div>
+<div id="interpretability" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Interpretability</h2>
+<p>As explained, predictive models put predictive performance over explanation of the underlying DGP mechanism (which is treated as a black box). However, sometimes we might be interested in which predictor is the most important, how do predictions change when particular predictor changes, or why<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> model made a particular prediction for a case of interest <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Ribeiro, Singh, and Guestrin <a href="#ref-ribeiroWhyShouldTrust2016" role="doc-biblioref">2016</a>)</span>. Model interpretability can be defined as the degree to which a human can understand the cause of a decision <span class="citation">(Miller <a href="#ref-millerExplanationArtificialIntelligence2017" role="doc-biblioref">2017</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Biecek and Burzykowski <a href="#ref-biecekPredictiveModelsExplore2019" role="doc-biblioref">2019</a>)</span>. Some models are more inherently interpretable (e.g. linear regression) and some are indeed very complex and hard to interpret (e.g. random forest or neural networks). For this reason, there are <em>model-agnostic</em> techniques that can help increase model interpretability.</p>
+<p>Excellent book and R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> package by Christoph Molnar <span class="citation">(Molnar, Bischl, and Casalicchio <a href="#ref-molnarImlPackageInterpretable2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>)</span> demonstrates a few model-agnostic interpretation techniques. One such technique is estimating which predictor is the most important (<em>variable importance</em>). One method for estimating variable importance involves <em>perturbing</em> one predictor and estimating the change in model performance. The predictor whose perturbing causes the biggest change in model performance can be considered the most important <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>)</span>. There are others approaches for estimating variable importance <span class="citation">(B. M. Greenwell <a href="#ref-RJ-2017-016" role="doc-biblioref">2017</a><a href="#ref-RJ-2017-016" role="doc-biblioref">b</a>)</span>. Those interested in further details can also check <em>vip</em> <span class="citation">(Greenwell, Boehmke, and Gray <a href="#ref-R-vip" role="doc-biblioref">2020</a>)</span> R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> package.</p>
+<p>One might be interested in how the predicted outcome changes when particular predictor changes. Techniques such as <em>partial dependence plot</em> (PDP), <em>individual conditional expectation</em> (ICE) and <em>accumulated local effects</em> (ALE) can be helpful in interpreting the effect of particular predictor on predicted outcome <span class="citation">(Molnar, Bischl, and Casalicchio <a href="#ref-molnarImlPackageInterpretable2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Goldstein et al. <a href="#ref-goldsteinPeekingBlackBox2013" role="doc-biblioref">2013</a>; Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>; B. M. Greenwell <a href="#ref-R-pdp" role="doc-biblioref">2017</a><a href="#ref-R-pdp" role="doc-biblioref">a</a>)</span>. Similar techniques are utilized in [Prediction as a complement to causal inference] section. Interested readers are also directed toward <em>visreg</em> <span class="citation">(Breheny and Burchett <a href="#ref-R-visreg" role="doc-biblioref">2017</a>)</span> and <em>effects</em> <span class="citation">(Fox and Weisberg <a href="#ref-R-effects_a" role="doc-biblioref">2018</a>; Fox <a href="#ref-R-effects_b" role="doc-biblioref">2003</a>; Fox and Hong <a href="#ref-R-effects_c" role="doc-biblioref">2009</a>)</span> R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> packages for more information about visualizing models.</p>
+<p>It is important to keep in mind that these model-agnostic explanations should not be automatically treated as causal explanations <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, but as mere association and descriptive analysis that can still be useful in understanding and interpreting the underlying predictive <em>black-box</em>. They are not without problems, such as correlated variables, interactions and other issues <span class="citation">(Altmann et al. <a href="#ref-altmannLimitationsInterpretableMachine2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>According to Judea Pearl <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, prediction models should belong to the first level of <em>ladder of causation</em><a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a>, which represents simple “curve fitting”. Although in under special conditions these techniques can have causal interpretation <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>The distinctions, similarities and issues between predictive modeling, machine learning and causal inference is currently hot topic in debates between machine learning specialists, statisticians and philosophers of science and it is beyond the scope of this book to delve into the debate. Interested readers are directed towards work by Miguel Hernan <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>, <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>, Judea Pearl <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl, Glymour, and Jewell <a href="#ref-pearlCausalInferenceStatistics2016" role="doc-biblioref">2016</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>, <a href="#ref-pearlCausalInferenceStatistics2009" role="doc-biblioref">2009</a>)</span>, Samantha Kleinberg <span class="citation">(Kleinberg <a href="#ref-kleinbergWhyGuideFinding2015" role="doc-biblioref">2015</a>, <a href="#ref-kleinbergCausalityProbabilityTime2018" role="doc-biblioref">2018</a>)</span> and others <span class="citation">(Watts et al. <a href="#ref-wattsExplanationPredictionCausality2018" role="doc-biblioref">2018</a>; Saddiki and Balzer <a href="#ref-saddikiPrimerCausalityData2018" role="doc-biblioref">2018</a>; Kleinberg, Liang, and Mullainathan <a href="#ref-kleinbergTheoryPredictiveIt2017" role="doc-biblioref">2017</a>; Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>. The next [Causal Inference] section introduces the causal inference as a specific task of statistical modeling.</p>
+</div>
+<div id="magnitude-based-prediction-estimators" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Magnitude-based prediction estimators</h2>
+<p>Similar to the magnitude-based estimators from <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> section, one can utilize target variable SESOI to get magnitude-based estimates of predictive performance of the model. Rather than utilizing RSE as an estimate of the model fit in the training data, one can utilize <em>cross-validated RMSE</em> (<code>cvRMSE</code>), <code>SESOI to cvRMSE</code>, as well as <em>cross-validated proportion of practically equivalent residuals</em> (<code>cvPPER</code>) estimators.</p>
+<p>Continuing with the squat jump height and relative squat 1RM example, one can assume that the SESOI in the squat jump is ±1cm. For the sake of example, we can <em>feature engineer</em> <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>, <a href="#ref-kuhnFeatureEngineeringSelection2019" role="doc-biblioref">2019</a>)</span> relative squat 1RM variable to include all 20 degree polynomials. This way, we have created 20 predictor variables. To avoid overfitting, <em>elastic-net model</em> <span class="citation">(Friedman, Hastie, and Tibshirani <a href="#ref-friedmanRegularizationPathsGeneralized2010" role="doc-biblioref">2010</a>)</span> implemented in the <em>caret</em> R package <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Kuhn et al. <a href="#ref-kuhnCaretClassificationRegression2018" role="doc-biblioref">2018</a>)</span> is utilized, as well as repeated cross-validation involving 3 splits repeated 10 times. Predictive model performance is evaluated by using <code>cvRMSE</code>, together with magnitude-based performance estimators (<code>SESOI to cvRMSE</code> and <code>cvPPER</code>).</p>
+<p>Elastic-net model represents regression method that linearly combines the <em>L1</em> and <em>L2</em> penalties of the lasso and ridge methods, or <em>alpha</em> and <em>lambda</em> tuning parameters <span class="citation">(Friedman, Hastie, and Tibshirani <a href="#ref-friedmanRegularizationPathsGeneralized2010" role="doc-biblioref">2010</a>; James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>; Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>)</span>. Total of nine combinations of tuning parameters is evaluated using aforementioned repeated cross-validation, and the model with minimal <code>cvRMSE</code> is selected as the best one. Performance metrics of the best model are further reported. Table <a href="prediction.html#tab:predictive-metrics-mag-based">3.7</a> contains cross-validated best model performance metrics together with model performance on the training data set.</p>
+
+<table>
+<caption>
+<span id="tab:predictive-metrics-mag-based">Table 3.7: </span><strong>Common predictive metrics and magnitude-based predictive metrics. </strong>Metrics starting with <strong>cv</strong> indicate cross-validated performance metrics. Metrics without <strong>cv</strong> indicate performance metrics on the training data set, which is often more optimistic
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+SESOI (cm)
+</th>
+<th style="text-align:right;">
+cvRMSE (cm)
+</th>
+<th style="text-align:right;">
+SESOI to cvRMSE
+</th>
+<th style="text-align:right;">
+cvPPER
+</th>
+<th style="text-align:right;">
+RMSE (cm)
+</th>
+<th style="text-align:right;">
+SESOI to RMSE
+</th>
+<th style="text-align:right;">
+PPER
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+±1
+</td>
+<td style="text-align:right;">
+2.19
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+1.99
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+</tbody>
+</table>
+<p>Utilizing <em>apriori</em> known SESOI gives us practical <em>anchor</em> to evaluate predictive model performance. Reported <code>SESOI to cvRMSE</code> (0.91) as well as <code>cvPPER</code> (0.34) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn’t produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized.</p>
+<p>Model performance can be visualized using the training data set (Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a>). <code>PPER</code> estimator, for both cross-validate estimate and training data performance estimate, utilized <code>SD</code> of the residuals and provided SESOI. Grey band on panels A and B on Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a> represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance.</p>
+<div class="figure" style="text-align: center"><span id="fig:elastic-net-prediction"></span>
+<img src="03-Prediction_files/figure-html/elastic-net-prediction-1.png" alt="Model performance on the training data set. A. Model with the lowest cvRMSE is selected. SESOI is depicted as grey band around the model prediction (blue line). B. Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. PPER represents proportion of residuals inside the SESOI band" width="90%" />
+<p class="caption">
+Figure 3.8: <strong>Model performance on the training data set. A. </strong>Model with the lowest <code>cvRMSE</code> is selected. SESOI is depicted as grey band around the model prediction (blue line). <strong>B.</strong> Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. <code>PPER</code> represents proportion of residuals inside the SESOI band
+</p>
+</div>
+
+<p>Predictive tasks are focusing on providing the best predictions on the novel or unseen data without much concern about the underlying DGP. Predictive model performance can be evaluated by using magnitude-based approach to give insights into practical significance of the predictions. These magnitude-based prediction estimators, can be used to complement explanatory or causal inference tasks, rather than relying solely on the group-based and average-based estimators. This topic is further discussed in the [Prediction as a complement to causal inference] section.</p>
+</div>
+<div id="practical-example-mas-and-yoyoir1-prediction" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Practical example: MAS and YoYoIR1 prediction</h2>
+<p>In <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> we have used two physical performance tests, MAS and YoYoIR1, to showcase relationship or association between two variables. Besides mere association, we have stepped into the domain of prediction by utilizing magnitude-based estimators such as <code>PPER</code> and <code>SESOI to RMSE</code>. As you have learned so far in this section, these predictions were made on the training data set. Let’s implement concepts learned so far to estimate predictive performance on the unseen data. Why is this important? Although very simple model, we are interested in predicting MAS from YoYoIR1 test score for a new or unseen individual. For this reason, it is important to get estimates of model performance on the unseen athletes.</p>
+<div id="predicting-mas-from-yoyoir1" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Predicting MAS from YoYoIR1</h3>
+<p>Let’s first estimate predictive performance when predicting MAS scores from the YoYoIR1 score using MAS SESOI ±0.5km/h and linear regression.</p>
+<p>Figure <a href="prediction.html#fig:mas-yoyo-ba">3.9</a> consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts <span class="math inline">\(y_{predicted}\)</span> (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals <span class="math inline">\(y_residual = y_{predicted} - y_{observed}\)</span>, or Predicted MAS - MAS. The data points represent model performance on the full training data set.</p>
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-ba"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-1.png" alt="Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted MAS) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted MAS - MAS. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
+<p class="caption">
+Figure 3.9: <strong>Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. </strong> Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. <strong>B.</strong> Scatter plot between <span class="math inline">\(y_{predicted}\)</span> (fitted or predicted MAS) against model residual <span class="math inline">\(y_{residual} = y_{predicted} - y_{observed}\)</span>, or Predicted MAS - MAS. Dotted lines indicate <em>Levels of Agreement</em> (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
+</p>
+</div>
+
+<p>Predictive performance for the full training data set is enlisted in the Table <a href="prediction.html#tab:mas-yoyo-training-performance">3.8</a>.</p>
+
+<table>
+<caption>
+<span id="tab:mas-yoyo-training-performance">Table 3.8: </span><strong>Predictive performance using the full training data set</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+MBE
+</th>
+<th style="text-align:right;">
+MAE
+</th>
+<th style="text-align:right;">
+RMSE
+</th>
+<th style="text-align:right;">
+PPER
+</th>
+<th style="text-align:right;">
+SESOI.to.RMSE
+</th>
+<th style="text-align:right;">
+R.squared
+</th>
+<th style="text-align:right;">
+MinErr
+</th>
+<th style="text-align:right;">
+MaxErr
+</th>
+<th style="text-align:right;">
+MaxAbsErr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+4.73
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+</tbody>
+</table>
+<p>But as already explained, these are not predictive performance estimators for the unseen data. To estimate how the model performs on the unseen data (i.e. unseen athletes in this case), cross-validation is performed using 3 folds and 5 repeats. Estimated predictive performance for every cross-validation sample is enlisted in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance">3.9</a>.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:mas-yoyo-cv-performance">Table 3.9: </span><strong>Predictive performance for every repeated cross-validated sample</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+fold
+</th>
+<th style="text-align:right;">
+MBE
+</th>
+<th style="text-align:right;">
+MAE
+</th>
+<th style="text-align:right;">
+RMSE
+</th>
+<th style="text-align:right;">
+PPER
+</th>
+<th style="text-align:right;">
+SESOI to RMSE
+</th>
+<th style="text-align:right;">
+R-squared
+</th>
+<th style="text-align:right;">
+MinErr
+</th>
+<th style="text-align:right;">
+MaxErr
+</th>
+<th style="text-align:right;">
+MaxAbsErr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Fold1.Rep1
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+-0.46
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Fold1.Rep2
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+7.15
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+-0.22
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Fold1.Rep3
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+3.74
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Fold1.Rep4
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+3.52
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+Fold1.Rep5
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+4.20
+</td>
+<td style="text-align:right;">
+0.77
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+Fold2.Rep1
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+5.18
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+Fold2.Rep2
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+4.16
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+Fold2.Rep3
+</td>
+<td style="text-align:right;">
+-0.14
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+4.65
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+-0.38
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+Fold2.Rep4
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+5.92
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+Fold2.Rep5
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+3.76
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+-0.50
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+Fold3.Rep1
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+6.27
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+Fold3.Rep2
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+Fold3.Rep3
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+4.74
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+Fold3.Rep4
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+3.57
+</td>
+<td style="text-align:right;">
+0.83
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+Fold3.Rep5
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+5.29
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+-0.32
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+</tbody>
+</table>
+<p>As explained in <a href="prediction.html#cross-validation">Cross-Validation</a> section, to calculate overall cross-validated performance, the <code>mean</code> is calculated for the performance metrics in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance">3.9</a>. Besides reporting the <code>mean</code> as the summary for predictive performances across cross-validated samples, <code>SD</code>, <code>min</code>, and <code>max</code> can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to <em>bind</em> or <em>pool</em> all <span class="math inline">\(y_{observed}\)</span> and <span class="math inline">\(y_{predicted}\)</span> scores from the test samples together and then calculate <em>overall</em> predictive performance metrics. These pooled cross_validated <span class="math inline">\(y_{observed}\)</span> and <span class="math inline">\(y_{predicted}\)</span> can also be visualized using the residuals plot (Panel C in Figure <a href="prediction.html#fig:mas-yoyo-ba-cross-validated">3.10</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-ba-cross-validated"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-cross-validated-1.png" alt="Residuals plot. A. Model residuals using the training data. This is exactly the same as panel B in Figure 3.9. B. Model residuals using the cross-validated training data. C. Model residuals using the cross-validated testing data." width="90%" />
+<p class="caption">
+Figure 3.10: <strong>Residuals plot. A. </strong> Model residuals using the training data. This is exactly the same as panel B in Figure <a href="prediction.html#fig:mas-yoyo-ba">3.9</a>. <strong>B.</strong> Model residuals using the cross-validated training data. <strong>C.</strong> Model residuals using the cross-validated testing data.
+</p>
+</div>
+
+<p>As can be seen from the panels B and C in Figure <a href="prediction.html#fig:mas-yoyo-ba-cross-validated">3.10</a>, since we have used 5 repeats of the 3-fold cross-validations, each <span class="math inline">\(y_{observed}\)</span> will have 5 assigned <span class="math inline">\(y_{predicted}\)</span> scores. These can be used to estimate <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> as explained in the <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section. Since we do not know the <span class="math inline">\(y_{true}\)</span> scores, we can only estimate <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> of the model for each <span class="math inline">\(y_{observed}\)</span> using cross-validated <span class="math inline">\(y_{predicted}\)</span>. This is, of course, only possible if multiple repeats of cross-validation are performed. It bears repeating that this <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> decomposition of the prediction error using cross-validated <span class="math inline">\(y_{predicted}\)</span> and <span class="math inline">\(y_{observed}\)</span> are <strong>NOT</strong> the same as when using simulation and known DGP as done in <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section.</p>
+<p>But these can be useful diagnostic tools for checking where the model fails (e.g. what particular observation might be problematic or outlier, as well how does <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> changes across <span class="math inline">\(y_{observed}\)</span> continuum). These two concepts are depicted on Figure <a href="prediction.html#fig:mas-yoyo-bias-variance-index">3.11</a> and Figure <a href="prediction.html#fig:mas-yoyo-bias-variance-y-obs">3.12</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-variance-index"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-index-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\), and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represents observation index, as in \(y_{i, observed}\)" width="90%" />
+<p class="caption">
+Figure 3.11: <strong>Prediction error (<span class="math inline">\(MSE\)</span>), <span class="math inline">\(Bias^2\)</span>, and <span class="math inline">\(Variance\)</span> across repeated cross-validated testing data. </strong>X-axis on the panels represents observation <em>index</em>, as in <span class="math inline">\(y_{i, observed}\)</span>
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-variance-y-obs"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-y-obs-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\) and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represent \(y_{observed}\). Since there might be multiple equal \(y_{observed}\), min and max are used and represent ribbon over mean (indicated by line)" width="90%" />
+<p class="caption">
+Figure 3.12: <strong>Prediction error (<span class="math inline">\(MSE\)</span>), <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> across repeated cross-validated testing data. </strong>X-axis on the panels represent <span class="math inline">\(y_{observed}\)</span>. Since there might be multiple equal <span class="math inline">\(y_{observed}\)</span>, <code>min</code> and <code>max</code> are used and represent <em>ribbon</em> over <code>mean</code> (indicated by line)
+</p>
+</div>
+
+<p>Since <span class="math inline">\(Bias\)</span> and <span class="math inline">\(Variance\)</span> represent a quantitative summary of the residuals across cross-validations, the residuals and predicted observations across cross-validation testing folds can be visualized in more details as depicted on Figures <a href="prediction.html#fig:mas-yoyo-bias-cv-prediction-index">3.13</a> and <a href="prediction.html#fig:mas-yoyo-bias-cv-prediction-observation">3.14</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-cv-prediction-index"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-index-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
+<p class="caption">
+Figure 3.13: <strong>Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation.</strong> Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents <span class="math inline">\(Variance\)</span>, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents <span class="math inline">\(Bias\)</span>.
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-cv-prediction-observation"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-observation-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
+<p class="caption">
+Figure 3.14: <strong>Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value.</strong> Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents <span class="math inline">\(Variance\)</span>, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents <span class="math inline">\(Bias\)</span>.
+</p>
+</div>
+
+<p>Cross-validated, <em>pooled</em>, and full training data set predictive performance metrics can be found in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>. Please note that the <em>pooled</em> predictive performance metrics are in the column <code>testing.pooled</code>.</p>
+
+<table>
+<caption>
+<span id="tab:mas-yoyo-cv-performance-summary">Table 3.10: </span><strong>Predictive performance summary</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+metric
+</th>
+<th style="text-align:right;">
+training
+</th>
+<th style="text-align:right;">
+training.pooled
+</th>
+<th style="text-align:right;">
+testing.pooled
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MBE
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPER
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI to RMSE
+</td>
+<td style="text-align:right;">
+4.73
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+4.33
+</td>
+<td style="text-align:right;">
+4.65
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+<td style="text-align:right;">
+7.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R-squared
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MinErr
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
+<td style="text-align:right;">
+-0.49
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+-0.33
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxErr
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxAbsErr
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+</tbody>
+</table>
+<p>Summary from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a> as well as the individual cross-validated sample predictive performance from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance">3.9</a> are visually represented in the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:mas-yoyo-cv-graphical"></span>
+<img src="03-Prediction_files/figure-html/mas-yoyo-cv-graphical-1.png" alt="Cross-validated model performance. Dot and line bar indicate mean, min and max of the cross-validated performance. Dotted line indicate model performance on the training data set." width="90%" />
+<p class="caption">
+Figure 3.15: <strong>Cross-validated model performance. </strong>Dot and line bar indicate <code>mean</code>, <code>min</code> and <code>max</code> of the cross-validated performance. Dotted line indicate model performance on the training data set.
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>, cross-validated prediction performance metrics do not differ much<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a> from the metrics estimated using the full training sample (calculated in <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> section and in the Table <a href="prediction.html#tab:mas-yoyo-training-performance">3.8</a>, and indicated by the dotted horizontal line in the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>). For some more complex models, these differences can be much larger and are clear indication of the model over-fitting.</p>
+<p>Overall, predicting MAS from the YoYoIR1 score, <em>given</em> the data collected, SESOI of ±0.5km/h, and linear regression as a model, is practically excellent. Please note that prediction can be practically useful (given SESOI) (<code>PPER</code>; CV from 0.9 to 1) even when <code>R-squared</code> is relatively low (CV from 0.27 to 0.87). And the <em>vice versa</em> in some cases. That’s the reason why we need to utilize magnitude-based estimators as a complement of contemporary estimators such as <code>R-squared</code>, <code>RSE</code>, and <code>RMSE</code>.</p>
+</div>
+<div id="predicting-yoyoir1-from-mas" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Predicting YoYoIR1 from MAS</h3>
+<p>As shown in <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a>, predicting YoYoIR1 from MAS scores was not practically useful (or precise enough). But for the sake of completeness, let’s perform cross-validated prediction (using 3 folds and 5 repeats). YoYoIR1 SESOI is taken to be ±40m.</p>
+<p>Figure <a href="prediction.html#fig:yoyo-mas-ba">3.16</a> depicts modified Bland-Altman plot for predictions using the full training data set. Visual inspection demonstrates that many points are outside of SESOI band, indicating poor practically significant (or useful) predictions.</p>
+<div class="figure" style="text-align: center"><span id="fig:yoyo-mas-ba"></span>
+<img src="03-Prediction_files/figure-html/yoyo-mas-ba-1.png" alt="Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted YoYoIR1) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
+<p class="caption">
+Figure 3.16: <strong>Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. </strong> Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. <strong>B.</strong> Scatter plot between <span class="math inline">\(y_{predicted}\)</span> (fitted or predicted YoYoIR1) against model residual <span class="math inline">\(y_{residual} = y_{predicted} - y_{observed}\)</span>, or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate <em>Levels of Agreement</em> (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
+</p>
+</div>
+
+<p>Predictive performance metrics can be found in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>. As already expected, predicting YoYoIR1 from the MAS score, <strong>given</strong> the data collected, SESOI and linear regression model is not precise enough to be practically useful. Please note that the <code>R-squared</code> is very close to <code>R-squared</code> from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>, but the <code>PPER</code> is much worse. Another reason to complement contemporary estimators with magnitude-based ones.</p>
+
+<table>
+<caption>
+<span id="tab:yoyo-mas-cv-performance-summary">Table 3.11: </span><strong>Predictive performance summary</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+metric
+</th>
+<th style="text-align:right;">
+training
+</th>
+<th style="text-align:right;">
+training.pooled
+</th>
+<th style="text-align:right;">
+testing.pooled
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MBE
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+3.13
+</td>
+<td style="text-align:right;">
+1.95
+</td>
+<td style="text-align:right;">
+50.33
+</td>
+<td style="text-align:right;">
+-96.20
+</td>
+<td style="text-align:right;">
+82.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:right;">
+104.69
+</td>
+<td style="text-align:right;">
+103.04
+</td>
+<td style="text-align:right;">
+112.98
+</td>
+<td style="text-align:right;">
+112.59
+</td>
+<td style="text-align:right;">
+24.99
+</td>
+<td style="text-align:right;">
+66.61
+</td>
+<td style="text-align:right;">
+154.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:right;">
+129.30
+</td>
+<td style="text-align:right;">
+127.55
+</td>
+<td style="text-align:right;">
+138.73
+</td>
+<td style="text-align:right;">
+135.92
+</td>
+<td style="text-align:right;">
+26.46
+</td>
+<td style="text-align:right;">
+82.62
+</td>
+<td style="text-align:right;">
+175.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPER
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI to RMSE
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R-squared
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MinErr
+</td>
+<td style="text-align:right;">
+-235.93
+</td>
+<td style="text-align:right;">
+-261.63
+</td>
+<td style="text-align:right;">
+-253.04
+</td>
+<td style="text-align:right;">
+-193.59
+</td>
+<td style="text-align:right;">
+43.68
+</td>
+<td style="text-align:right;">
+-253.04
+</td>
+<td style="text-align:right;">
+-76.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxErr
+</td>
+<td style="text-align:right;">
+284.07
+</td>
+<td style="text-align:right;">
+309.00
+</td>
+<td style="text-align:right;">
+323.53
+</td>
+<td style="text-align:right;">
+225.37
+</td>
+<td style="text-align:right;">
+89.69
+</td>
+<td style="text-align:right;">
+51.02
+</td>
+<td style="text-align:right;">
+323.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxAbsErr
+</td>
+<td style="text-align:right;">
+284.07
+</td>
+<td style="text-align:right;">
+309.00
+</td>
+<td style="text-align:right;">
+323.53
+</td>
+<td style="text-align:right;">
+260.89
+</td>
+<td style="text-align:right;">
+44.88
+</td>
+<td style="text-align:right;">
+158.47
+</td>
+<td style="text-align:right;">
+323.53
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the second part of this book, we will get back to this example and estimate predictive performance using different models besides linear regression (like baseline prediction and <em>regression trees</em>)</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-altmannLimitationsInterpretableMachine2019">
+<p>Altmann, Thomas, Jakob Bodensteiner, Cord Dankers, Thommy Dassen, Nikolas Fritz, Sebastian Gruber, Philipp Kopper, Veronika Kronseder, Moritz Wagner, and Emanuel Renkl. 2019. <em>Limitations of Interpretable Machine Learning Methods</em>.</p>
+</div>
+<div id="ref-barronGeneralAdaptiveRobust2019">
+<p>Barron, Jonathan T. 2019. “A General and Adaptive Robust Loss Function.” <em>arXiv:1701.03077 [Cs, Stat]</em>, April. <a href="http://arxiv.org/abs/1701.03077">http://arxiv.org/abs/1701.03077</a>.</p>
+</div>
+<div id="ref-biecekPredictiveModelsExplore2019">
+<p>Biecek, Przemyslaw, and Tomasz Burzykowski. 2019. <em>Predictive Models: Explore, Explain, and Debug</em>.</p>
+</div>
+<div id="ref-botchkarevNewTypologyDesign2019">
+<p>Botchkarev, Alexei. 2019. “A New Typology Design of Performance Metrics to Measure Errors in Machine Learning Regression Algorithms.” <em>Interdisciplinary Journal of Information, Knowledge, and Management</em> 14: 045–076. <a href="https://doi.org/10.28945/4184">https://doi.org/10.28945/4184</a>.</p>
+</div>
+<div id="ref-R-visreg">
+<p>Breheny, Patrick, and Woodrow Burchett. 2017. “Visualization of Regression Models Using Visreg.” <em>The R Journal</em> 9 (2): 56–71.</p>
+</div>
+<div id="ref-breimanStatisticalModelingTwo2001">
+<p>Breiman, Leo. 2001. “Statistical Modeling: The Two Cultures.” <em>Statistical Science</em> 16 (3): 199–215.</p>
+</div>
+<div id="ref-carseyMonteCarloSimulation2013">
+<p>Carsey, Thomas, and Jeffrey Harden. 2013. <em>Monte Carlo Simulation and Resampling Methods for Social Science</em>. 1 edition. Los Angeles: Sage Publications, Inc.</p>
+</div>
+<div id="ref-chaiRootMeanSquare2014">
+<p>Chai, T., and R. R. Draxler. 2014. “Root Mean Square Error (RMSE) or Mean Absolute Error (MAE)? Arguments Against Avoiding RMSE in the Literature.” <em>Geoscientific Model Development</em> 7 (3): 1247–50. <a href="https://doi.org/10.5194/gmd-7-1247-2014">https://doi.org/10.5194/gmd-7-1247-2014</a>.</p>
+</div>
+<div id="ref-R-effects_b">
+<p>Fox, John. 2003. “Effect Displays in R for Generalised Linear Models.” <em>Journal of Statistical Software</em> 8 (15): 1–27. <a href="http://www.jstatsoft.org/v08/i15/">http://www.jstatsoft.org/v08/i15/</a>.</p>
+</div>
+<div id="ref-R-effects_c">
+<p>Fox, John, and Jangman Hong. 2009. “Effect Displays in R for Multinomial and Proportional-Odds Logit Models: Extensions to the effects Package.” <em>Journal of Statistical Software</em> 32 (1): 1–24. <a href="http://www.jstatsoft.org/v32/i01/">http://www.jstatsoft.org/v32/i01/</a>.</p>
+</div>
+<div id="ref-R-effects_a">
+<p>Fox, John, and Sanford Weisberg. 2018. “Visualizing Fit and Lack of Fit in Complex Regression Models with Predictor Effect Plots and Partial Residuals.” <em>Journal of Statistical Software</em> 87 (9): 1–27. <a href="https://doi.org/10.18637/jss.v087.i09">https://doi.org/10.18637/jss.v087.i09</a>.</p>
+</div>
+<div id="ref-friedmanRegularizationPathsGeneralized2010">
+<p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2010. “Regularization Paths for Generalized Linear Models via Coordinate Descent.” <em>Journal of Statistical Software</em> 33 (1): 1–22.</p>
+</div>
+<div id="ref-goldsteinPeekingBlackBox2013">
+<p>Goldstein, Alex, Adam Kapelner, Justin Bleich, and Emil Pitkin. 2013. “Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation.” <em>arXiv:1309.6392 [Stat]</em>, September. <a href="http://arxiv.org/abs/1309.6392">http://arxiv.org/abs/1309.6392</a>.</p>
+</div>
+<div id="ref-R-vip">
+<p>Greenwell, Brandon, Brad Boehmke, and Bernie Gray. 2020. <em>Vip: Variable Importance Plots</em>. <a href="https://CRAN.R-project.org/package=vip">https://CRAN.R-project.org/package=vip</a>.</p>
+</div>
+<div id="ref-R-pdp">
+<p>Greenwell, Brandon M. 2017a. “Pdp: An R Package for Constructing Partial Dependence Plots.” <em>The R Journal</em> 9 (1): 421–36. <a href="https://journal.r-project.org/archive/2017/RJ-2017-016/index.html">https://journal.r-project.org/archive/2017/RJ-2017-016/index.html</a>.</p>
+</div>
+<div id="ref-RJ-2017-016">
+<p>Greenwell, Brandon M. 2017b. “Pdp: An R Package for Constructing Partial Dependence Plots.” <em>The R Journal</em> 9 (1): 421–36. <a href="https://doi.org/10.32614/RJ-2017-016">https://doi.org/10.32614/RJ-2017-016</a>.</p>
+</div>
+<div id="ref-R-Metrics">
+<p>Hamner, Ben, and Michael Frasco. 2018. <em>Metrics: Evaluation Metrics for Machine Learning</em>. <a href="https://CRAN.R-project.org/package=Metrics">https://CRAN.R-project.org/package=Metrics</a>.</p>
+</div>
+<div id="ref-hernanDoesWaterKill2016">
+<p>Hernán, Miguel A. 2016. “Does Water Kill? A Call for Less Casual Causal Inferences.” <em>Annals of Epidemiology</em> 26 (10): 674–80. <a href="https://doi.org/10.1016/j.annepidem.2016.08.016">https://doi.org/10.1016/j.annepidem.2016.08.016</a>.</p>
+</div>
+<div id="ref-hernanCausalDiagramsDraw2017">
+<p>Hernán, Miguel A. 2017. “Causal Diagrams: Draw Your Assumptions Before Your Conclusions Course | PH559x | edX.” <em>edX</em>. https://courses.edx.org/courses/course-v1:HarvardX+PH559x+3T2017/course/.</p>
+</div>
+<div id="ref-hernanCWordScientificEuphemisms2018">
+<p>Hernán, Miguel A. 2018. “The C-Word: Scientific Euphemisms Do Not Improve Causal Inference from Observational Data.” <em>American Journal of Public Health</em> 108 (5): 616–19. <a href="https://doi.org/10.2105/AJPH.2018.304337">https://doi.org/10.2105/AJPH.2018.304337</a>.</p>
+</div>
+<div id="ref-hernanSecondChanceGet2019">
+<p>Hernán, Miguel A., John Hsu, and Brian Healy. 2019. “A Second Chance to Get Causal Inference Right: A Classification of Data Science Tasks.” <em>CHANCE</em> 32 (1): 42–49. <a href="https://doi.org/10.1080/09332480.2019.1579578">https://doi.org/10.1080/09332480.2019.1579578</a>.</p>
+</div>
+<div id="ref-hernanCausalInference2019">
+<p>Hernán, Miguel A., and JM Robins. n.d. <em>Causal Inference</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
+</div>
+<div id="ref-hopkinsUnderstandingStatisticsUsing2007">
+<p>Hopkins, Will G. 2007. “Understanding Statistics by Using Spreadsheets to Generate and Analyze Samples.” <em>Sportscience.org</em>. https://www.sportsci.org/2007/wghstats.htm.</p>
+</div>
+<div id="ref-jamesIntroductionStatisticalLearning2017">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2017. <em>An Introduction to Statistical Learning: With Applications in R</em>. 1st ed. 2013, Corr. 7th printing 2017 edition. New York: Springer.</p>
+</div>
+<div id="ref-kleinbergTheoryPredictiveIt2017">
+<p>Kleinberg, Jon, Annie Liang, and Sendhil Mullainathan. 2017. “The Theory Is Predictive, but Is It Complete? An Application to Human Perception of Randomness.” <em>arXiv:1706.06974 [Cs, Stat]</em>, June. <a href="http://arxiv.org/abs/1706.06974">http://arxiv.org/abs/1706.06974</a>.</p>
+</div>
+<div id="ref-kleinbergCausalityProbabilityTime2018">
+<p>Kleinberg, Samantha. 2018. <em>Causality, Probability, and Time</em>.</p>
+</div>
+<div id="ref-kleinbergWhyGuideFinding2015">
+<p>Kleinberg, Samantha. 2015. <em>Why: A Guide to Finding and Using Causes</em>. 1 edition. Beijing ; Boston: O’Reilly Media.</p>
+</div>
+<div id="ref-kuhnFeatureEngineeringSelection2019">
+<p>Kuhn, Max, and Kjell Johnson. 2019. <em>Feature Engineering and Selection: A Practical Approach for Predictive Models.</em> Milton: CRC Press LLC.</p>
+</div>
+<div id="ref-kuhnAppliedPredictiveModeling2018">
+<p>Kuhn, Max, and Kjell Johnson. 2018. <em>Applied Predictive Modeling</em>. 1st ed. 2013, Corr. 2nd printing 2016 edition. New York: Springer.</p>
+</div>
+<div id="ref-kuhnCaretClassificationRegression2018">
+<p>Kuhn, Max, Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, et al. 2018. <em>Caret: Classification and Regression Training</em>.</p>
+</div>
+<div id="ref-millerExplanationArtificialIntelligence2017">
+<p>Miller, Tim. 2017. “Explanation in Artificial Intelligence: Insights from the Social Sciences.” <em>arXiv:1706.07269 [Cs]</em>, June. <a href="http://arxiv.org/abs/1706.07269">http://arxiv.org/abs/1706.07269</a>.</p>
+</div>
+<div id="ref-molnarInterpretableMachineLearning2018">
+<p>Molnar, Christoph. 2018. <em>Interpretable Machine Learning</em>. Leanpub.</p>
+</div>
+<div id="ref-molnarImlPackageInterpretable2018">
+<p>Molnar, Christoph, Bernd Bischl, and Giuseppe Casalicchio. 2018. “Iml: An R Package for Interpretable Machine Learning.” <em>JOSS</em> 3 (26): 786. <a href="https://doi.org/10.21105/joss.00786">https://doi.org/10.21105/joss.00786</a>.</p>
+</div>
+<div id="ref-pearlCausalInferenceStatistics2009">
+<p>Pearl, Judea. 2009. “Causal Inference in Statistics: An Overview.” <em>Statistics Surveys</em> 3 (0): 96–146. <a href="https://doi.org/10.1214/09-SS057">https://doi.org/10.1214/09-SS057</a>.</p>
+</div>
+<div id="ref-pearlSevenToolsCausal2019">
+<p>Pearl, Judea. 2019. “The Seven Tools of Causal Inference, with Reflections on Machine Learning.” <em>Communications of the ACM</em> 62 (3): 54–60. <a href="https://doi.org/10.1145/3241036">https://doi.org/10.1145/3241036</a>.</p>
+</div>
+<div id="ref-pearlCausalInferenceStatistics2016">
+<p>Pearl, Judea, Madelyn Glymour, and Nicholas P. Jewell. 2016. <em>Causal Inference in Statistics: A Primer</em>. 1 edition. Chichester, West Sussex: Wiley.</p>
+</div>
+<div id="ref-pearlBookWhyNew2018">
+<p>Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. 1 edition. New York: Basic Books.</p>
+</div>
+<div id="ref-R-base">
+<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-ribeiroWhyShouldTrust2016">
+<p>Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. “"Why Should I Trust You?": Explaining the Predictions of Any Classifier.” <em>arXiv:1602.04938 [Cs, Stat]</em>, February. <a href="http://arxiv.org/abs/1602.04938">http://arxiv.org/abs/1602.04938</a>.</p>
+</div>
+<div id="ref-rousseletPracticalIntroductionBootstrap2019">
+<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
+</div>
+<div id="ref-saddikiPrimerCausalityData2018">
+<p>Saddiki, Hachem, and Laura B. Balzer. 2018. “A Primer on Causality in Data Science.” <em>arXiv:1809.02408 [Stat]</em>, September. <a href="http://arxiv.org/abs/1809.02408">http://arxiv.org/abs/1809.02408</a>.</p>
+</div>
+<div id="ref-shmueliExplainPredict2010">
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3): 289–310. <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.</p>
+</div>
+<div id="ref-wattsExplanationPredictionCausality2018">
+<p>Watts, Duncan J, Emorie D Beck, Elisa Jayne Bienenstock, Jake Bowers, Aaron Frank, Anthony Grubesic, Jake Hofman, Julia Marie Rohrer, and Matthew Salganik. 2018. “Explanation, Prediction, and Causality: Three Sides of the Same Coin?” October. <a href="https://doi.org/10.31219/osf.io/u6vz5">https://doi.org/10.31219/osf.io/u6vz5</a>.</p>
+</div>
+<div id="ref-willmottAdvantagesMeanAbsolute2005">
+<p>Willmott, Cj, and K Matsuura. 2005. “Advantages of the Mean Absolute Error (MAE) over the Root Mean Square Error (RMSE) in Assessing Average Model Performance.” <em>Climate Research</em> 30: 79–82. <a href="https://doi.org/10.3354/cr030079">https://doi.org/10.3354/cr030079</a>.</p>
+</div>
+<div id="ref-yarkoniChoosingPredictionExplanation2017">
+<p>Yarkoni, Tal, and Jacob Westfall. 2017. “Choosing Prediction over Explanation in Psychology: Lessons from Machine Learning.” <em>Perspectives on Psychological Science</em> 12 (6): 1100–1122. <a href="https://doi.org/10.1177/1745691617693393">https://doi.org/10.1177/1745691617693393</a>.</p>
+</div>
+<div id="ref-zhaoCausalInterpretationsBlackBox2019">
+<p>Zhao, Qingyuan, and Trevor Hastie. 2019. “Causal Interpretations of Black-Box Models.” <em>Journal of Business &amp; Economic Statistics</em>, July, 1–10. <a href="https://doi.org/10.1080/07350015.2019.1624293">https://doi.org/10.1080/07350015.2019.1624293</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="15">
+<li id="fn15"><p>Some authors refer to causal inference as “explanatory” modeling <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>, although Miguel Hernan warns against using such a somewhat-misleading term “because causal effects may be quantified while remaining unexplained (randomized trials identify causal effects even if the causal mechanisms that explain them are unknown)” <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>, 43)</span>. Andrew Gelman also makes distinctions between <em>forward causal inference</em> and <em>reverse causal inference</em> that might be useful in distinguishing between identifying causal effects and explaining them <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span>. This is elaborated in the [Causal inference] section of this book.<a href="prediction.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>For example, if an athlete lifted 175kg for a single rep in the back squat, and was unable to lift more, this represents his back squat 1RM, or one repetition maximum. Relative 1RM is calculated by dividing 1RM with athlete’s bodyweight. For example, an athlete with 175kg 1RM weights 85kg. His relative 1RM is equal to 2.05.<a href="prediction.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>Uncovering DGP parameters is not solely the goal of the causal inference (although causal inference task is to uncover or quantify causal mechanism), but also the main goal in the statistical inference where the aim is to quantify uncertainty about the <em>true</em> population parameters from the acquired sample. More about this topic in the [Statistical Inference] section.<a href="prediction.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>As explained in <a href="introduction.html#introduction">Introduction</a> section, I will mostly focus at variables on continuous ratio scale. Prediction error metrics differ for target variable that is on nominal scale (i.e. <em>classification</em> task) and involve estimators such as <code>accuracy</code>, <code>specificity</code>, <code>sensitivity</code>, <em>area under curve</em> (<code>AUC</code>) <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Lantz <a href="#ref-lantzMachineLearningExpert2019" role="doc-biblioref">2019</a>)</span>.<a href="prediction.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>Although I’ve used the term <em>loss</em> here, these loss functions are also aggregated using <code>sum</code> or <code>mean</code> to create <code>Huber cost</code> or <code>Ridge cost</code>. <code>Huber loss</code> is a combination of absolute and quadratic losses and it’s property is better <em>robustness</em> to outliers.<a href="prediction.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p><code>MSE</code> will be removed from the further analysis and tables since it is equivalent to RMSE, just squared.<a href="prediction.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>As it will be explained in [Statistical inference] section, there are two kinds of uncertainty: <em>aleatory</em> and <em>epistemic</em>. Aleatory uncertainty is inherent randomness and it is usually represented as irreducible error. Epistemic uncertainty is due to the lack of knowledge or information, which can be considered reducible error. In other words, better models or models with more information will be able to reduce prediction error by reducing the reducible or epistemic uncertainty. The upper ceiling of the predictive performance is determined by irreducible error (which is unknown). Please refer to the [Statistical inference] section for more information.<a href="prediction.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>Or to utilize subject matter knowledge needed to select the model. More about this topic can be found in the [Subject matter knowledge] section.<a href="prediction.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>With the recent laws such as European’s DGPR, predictive models needs to be able to explain or provide explanation why particular decision or prediction has been made. Christoph Molnar explains the need for model interpretability with one interesting example: “By default, machine learning models pick up biases from the training data. This can turn your machine learning models into racists that discriminate against protected groups. Interpretability is a useful debugging tool for detecting bias in machine learning models. It might happen that the machine learning model’s, you have trained for, automatic approval or rejection of credit applications discriminates against a minority. Your main goal is to grant loans only to people who will eventually repay them. The incompleteness of the problem formulation in this case lies in the fact that you not only want to minimize loan defaults, but are also obliged not to discriminate on the basis of certain demographics. This is an additional constraint that is part of your problem formulation (granting loans in a low-risk and compliant way) that is not covered by the loss function the machine learning model was optimized for.” <span class="citation">(Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>, 11)</span><a href="prediction.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>“Pearl’s causal meta-model involves a three-level abstraction he calls the ladder of causation. The lowest level, <em>Association</em> (seeing/observing), entails the sensing of regularities or patterns in the input data, expressed as correlations. The middle level, <em>Intervention</em> (doing), predicts the effects of deliberate actions, expressed as causal relationships. The highest level, <em>Counterfactuals</em> (imagining), involves constructing a theory of (part of) the world that explains why specific actions have specific effects and what happens in the absence of such actions” <span class="citation">(Wikipedia contributors <a href="#ref-wiki:xxx" role="doc-biblioref">2019</a>)</span><a href="prediction.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>As you will learn in [Statistical inference] section, we can perform statistical tests (in this case <em>t-test</em>) to check whether the average of the cross-validated performance metric differ from metric estimated on the full training sample.<a href="prediction.html#fnref25" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="description.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/03-Prediction.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

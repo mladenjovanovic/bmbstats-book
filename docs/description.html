@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Description | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 2 Description | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Description | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Description | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="prediction.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="description" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Description</h1>
+<p>Description provides <em>quantitative summary</em> of the acquired data sample. These quantitative summaries are termed <em>descriptive statistics</em> or <em>descriptive estimators</em> and are usually broken down into two main categories: <em>measures of central tendency</em>, and <em>measures of spread / dispersion</em>. The stance taken in this book is that descriptive statistics involve <em>all</em> quantitative summaries (or <em>aggregates</em>) that are used to describe data without making predictive or causal claims. For example, <em>linear regression</em> between two variables can be used as a descriptive tool if the aim is to measure <em>linear association</em> between two variables, but it can be also used in predictive and causal tasks. <em>Effect sizes</em> such as <code>change</code>, <code>percent change</code> or <code>Cohen's d</code> represent descriptive statistics used to compare two or more groups, and are commonly used in causal tasks to estimate <em>average causal effect</em> of the treatment.</p>
+<p>To provide further explanation of the descriptive statistics, three common descriptive tasks in sport science are given as examples: (1) comparing two independent groups, (2) comparing two dependent groups, (3) measuring association between two variables.</p>
+<div id="comparing-two-independent-groups" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Comparing two independent groups</h2>
+<p>Imagine we carried collection of body height measurements and we obtained N=100 observations using N=50 female and N=50 male subjects. Collected data is visualized in Figure <a href="description.html#fig:common-techniques-to-visualize-independent-groups">2.1</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:common-techniques-to-visualize-independent-groups"></span>
+<img src="02-Description_files/figure-html/common-techniques-to-visualize-independent-groups-1.png" alt="Common techniques to visualize independent groups observations. Before any analysis takes place, it is always a good practice to visualize the data first. Ideally, we want to visualize the complete data set, rather than only provide descriptive summaries, such as means. A. Simple scatter-plot with jitter to avoid overlap between the points. B. Mean and standard deviation as error bars. C. Box-plot. Horizontal line represents median, or 50th percentile, whereas boxes represent 25th and 75th percentile. Vertical lines usually represent min and max, although they can extend up to 1.5xIQR (inter-quartile range) with point outside of that interval plotted as outliers. D. Violin plots representing double-side density plots with 25th, 50th and 75th percentile lines. E. Density plots indicating sample distribution. F. Raincloud plot (Allen et al. 2019, 2018) which combine kernel density plots as clouds with accompanying 25th, 50th and 75th percentile lines, mean±SD error bars and jittered points as rain" width="90%" />
+<p class="caption">
+Figure 2.1: <strong>Common techniques to visualize independent groups observations</strong>. Before any analysis takes place, it is always a good practice to visualize the data first. Ideally, we want to visualize the complete data set, rather than only provide descriptive summaries, such as means. <strong>A.</strong> Simple scatter-plot with jitter to avoid overlap between the points. <strong>B.</strong> Mean and standard deviation as error bars. <strong>C.</strong> Box-plot. Horizontal line represents median, or 50th percentile, whereas boxes represent 25th and 75th percentile. Vertical lines usually represent min and max, although they can extend up to 1.5xIQR (inter-quartile range) with point outside of that interval plotted as <em>outliers</em>. <strong>D.</strong> Violin plots representing double-side density plots with 25th, 50th and 75th percentile lines. <strong>E.</strong> Density plots indicating sample distribution. <strong>F.</strong> Raincloud plot <span class="citation">(Allen et al. <a href="#ref-allenRaincloudPlotsMultiplatform2019" role="doc-biblioref">2019</a>, <a href="#ref-allenRaincloudplotsTutorialsCodebase2018" role="doc-biblioref">2018</a>)</span> which combine kernel density plots as <em>clouds</em> with accompanying 25th, 50th and 75th percentile lines, mean±SD error bars and jittered points as <em>rain</em>
+</p>
+</div>
+
+<p>Commonly provided descriptive statistics for each group can be found in the Table <a href="description.html#tab:common-descriptive-statistics-or-estimators">2.1</a>. <code>Mean</code>, <code>median</code> and <code>mode</code> are common measures of central tendencies. <em>Standard deviation</em> (<code>SD</code>), <em>median absolute difference</em> (<code>MAD</code>), <em>inter-quartile range</em> (<code>IQR</code>), <code>min</code>, <code>max</code> and <code>range</code> are common measures of spread or dispersion. <em>Percent coefficient of variation</em> (<code>% CV</code>) is also a measure of dispersion, but <em>standardized</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> which allows comparison of variables that are on different scales. <em>Skewness</em> (<code>skew</code>) is usually described as a measure of a symmetry. A perfectly symmetrical data set will have a skewness of 0. <code>Kurtosis</code> measures the tail-heaviness of the distribution. More in depth discussion of descriptive estimators, particularly <em>robust estimators</em> <span class="citation">(Rousselet, Pernet, and Wilcox <a href="#ref-rousseletDifferencesMeansRobust2017" role="doc-biblioref">2017</a>; Wilcox, Peterson, and McNitt-Gray <a href="#ref-wilcoxDataAnalysesWhen2018" role="doc-biblioref">2018</a>; Wilcox and Rousselet <a href="#ref-wilcoxGuideRobustStatistical2017" role="doc-biblioref">2017</a>; Wilcox <a href="#ref-wilcoxIntroductionRobustEstimation2016" role="doc-biblioref">2016</a>)</span> is beyond the topic of this short overview.</p>
+
+<table>
+<caption><span id="tab:common-descriptive-statistics-or-estimators">Table 2.1: </span><strong>Common descriptive statistics or estimators</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Estimator</th>
+<th align="right">Male</th>
+<th align="right">Female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">n</td>
+<td align="right">50.00</td>
+<td align="right">50.00</td>
+</tr>
+<tr class="even">
+<td align="left">mean (cm)</td>
+<td align="right">175.90</td>
+<td align="right">163.18</td>
+</tr>
+<tr class="odd">
+<td align="left">SD (cm)</td>
+<td align="right">9.32</td>
+<td align="right">8.20</td>
+</tr>
+<tr class="even">
+<td align="left">% CV</td>
+<td align="right">5.30</td>
+<td align="right">5.02</td>
+</tr>
+<tr class="odd">
+<td align="left">median (cm)</td>
+<td align="right">176.30</td>
+<td align="right">164.00</td>
+</tr>
+<tr class="even">
+<td align="left">MAD (cm)</td>
+<td align="right">9.52</td>
+<td align="right">8.86</td>
+</tr>
+<tr class="odd">
+<td align="left">IQR (cm)</td>
+<td align="right">11.24</td>
+<td align="right">11.67</td>
+</tr>
+<tr class="even">
+<td align="left">mode (cm)</td>
+<td align="right">176.26</td>
+<td align="right">164.94</td>
+</tr>
+<tr class="odd">
+<td align="left">min (cm)</td>
+<td align="right">154.24</td>
+<td align="right">145.59</td>
+</tr>
+<tr class="even">
+<td align="left">max (cm)</td>
+<td align="right">193.90</td>
+<td align="right">181.12</td>
+</tr>
+<tr class="odd">
+<td align="left">range (cm)</td>
+<td align="right">39.66</td>
+<td align="right">35.53</td>
+</tr>
+<tr class="even">
+<td align="left">skew</td>
+<td align="right">0.08</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-0.53</td>
+<td align="right">-0.69</td>
+</tr>
+</tbody>
+</table>
+<div id="sample-mean-as-the-simplest-statistical-model" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Sample <code>mean</code> as the simplest statistical model</h3>
+<p>In the <a href="introduction.html#introduction">Introduction</a> of this book, statistical models are defined as “Small Worlds” or simplifications of the complex and uncertain reality. From this perspective, sample <code>mean</code> can be considered the simplest statistical model. With this estimator we are representing all of the data points with one quantitative summary (i.e. <em>aggregate</em>). However, how do we choose an estimate that represents the sample the best? Estimate that has the minimal <em>error</em> is selected as the <em>optimal</em> representative. Error is defined using a <em>loss function</em> that penalizes difference between the model estimate or prediction (<span class="math inline">\(\hat{y_i}\)</span>) and observations (<span class="math inline">\(y_i\)</span>) (Equation <a href="description.html#eq:loss-function">(2.1)</a>). The difference between model prediction (<span class="math inline">\(\hat{y_i}\)</span>) and observations (<span class="math inline">\(y_i\)</span>) is called <em>residual</em>.</p>
+<p><span class="math display" id="eq:loss-function">\[
+\begin{equation}
+  Loss \: function = f(observed, predicted)
+  \tag{2.1}
+\end{equation}
+\]</span></p>
+<p>Two most common loss functions are <em>absolute loss</em> (also referred to as <span class="math inline">\(L1\)</span>) (Equation <a href="description.html#eq:absolute-loss">(2.2)</a>) and <em>quadratic loss</em> (also referred to as <em>squared errors</em> or <span class="math inline">\(L2\)</span>) (Equation <a href="description.html#eq:quadratic-loss">(2.3)</a>). Please refer to section <a href="prediction.html#sample-mean-as-the-simplest-predictive-model">Sample <code>mean</code> as the simplest predictive model</a> in <a href="prediction.html#prediction">Prediction</a> chapter for more examples.</p>
+<p><span class="math display" id="eq:absolute-loss">\[
+\begin{equation}
+  absolute \: loss = \mid{\hat{y_i} - y_i\mid}
+  \tag{2.2}
+\end{equation}
+\]</span></p>
+<p><span class="math display" id="eq:quadratic-loss">\[
+\begin{equation}
+  quadratic \: loss = (\hat{y_i} - y_i)^2
+  \tag{2.3}
+\end{equation}
+\]</span></p>
+<p><em>Cost function</em> is an <em>aggregate</em> of the loss function (Equation <a href="description.html#eq:cost-function">(2.4)</a>).</p>
+<p><span class="math display" id="eq:cost-function">\[
+\begin{equation}
+  Cost \: function = f(Loss \: function (observed, predicted))
+  \tag{2.4}
+\end{equation}
+\]</span></p>
+<p>Since loss function is defined on a data point (i.e. <span class="math inline">\(y_i\)</span>), we need to aggregate losses into a single metric. This is done with a cost function, usually using <code>sum</code> or <code>mean</code>.</p>
+<p>One such cost function is <em>root-mean-square-error</em> (<code>RMSE</code>) (Equation <a href="description.html#eq:rmse-equation">(2.5)</a>). <code>RMSE</code> takes the square root of the mean of the quadratic loss (note the <span class="math inline">\((\hat{y_i} - y_i)^2\)</span> in the <code>RMSE</code> equation, which represent quadratic loss). <code>RMSE</code> thus represents a measure of the <em>model fit</em>, or how good the model fits the data. Lower <code>RMSE</code> means lower error and thus a better fit.</p>
+<p><span class="math display" id="eq:rmse-equation">\[
+\begin{equation}
+  RMSE = \sqrt{\frac{1}{n}\Sigma_{i=1}^{n}(\hat{y_i} - y_i)^2}
+  \tag{2.5}
+\end{equation}
+\]</span>
+By using body height data from the female group, we can <em>search</em> for a body height estimate that minimizes the <code>RMSE</code> (Figure <a href="description.html#fig:sample-mean-as-the-simplest-statistical-model">2.2</a>). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model.</p>
+<div class="figure" style="text-align: center"><span id="fig:sample-mean-as-the-simplest-statistical-model"></span>
+<img src="02-Description_files/figure-html/sample-mean-as-the-simplest-statistical-model-1.png" alt="Sample mean as the simplest statistical model. A. Dashed line represents the estimate, in this case the mean of the sample. Vertical line represent residuals between estimate and observed values. B. Each estimate has a RMSE value. Central tendency estimate with the lowest RMSE value is the sample mean. C. Similar to panel A, this panel depicts residuals for a central tendency estimate with higher RMSE" width="90%" />
+<p class="caption">
+Figure 2.2: <strong>Sample mean as the simplest statistical model.</strong> <strong>A.</strong> Dashed line represents the estimate, in this case the <code>mean</code> of the sample. Vertical line represent residuals between estimate and observed values. <strong>B.</strong> Each estimate has a <code>RMSE</code> value. Central tendency estimate with the lowest <code>RMSE</code> value is the sample <code>mean</code>. <strong>C.</strong> Similar to panel A, this panel depicts residuals for a central tendency estimate with higher <code>RMSE</code>
+</p>
+</div>
+
+<p>As the result of this search, the body height estimate that minimizes the error is 163.18cm, and accompanying RMSE is equal to 8.12cm. As it can be read from the Table <a href="description.html#tab:common-descriptive-statistics-or-estimators">2.1</a>, this optimal body height estimate is equal to calculated sample <code>mean</code>. Standard deviation of the sample is equal to <code>RMSE</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. From statistical modeling perspective, sample mean can be considered sample estimate that minimizes the sample <code>SD</code>, and sample <code>SD</code> can be seen as the measure of the model fit.</p>
+<p>This search for the optimal estimate that minimizes the cost function can be expanded to other statistical models. For example, linear regression can be seen as a search for the line that minimizes <code>RMSE</code>. This approach of estimating model parameters or estimators belongs to the family of <em>ordinary least squares</em> (OLS) methods, although there are other approaches such as <em>maximum likelihood estimation</em> (MLE) which will be discussed in [Statistical inference] section <span class="citation">(Foreman <a href="#ref-foremanDataSmartUsing2014" role="doc-biblioref">2014</a>)</span>. The solutions to some of these models can be found <em>analytically</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, but for some there is no analytic solution and <em>computational</em> approaches must be utilized. These computation approaches are referred to as <em>optimization algorithms</em>. The example given here involves only one parameter that needs to be optimized, in this case body height estimate, but real-life problems involve numerous parameters. The simple search through parameters <em>state-space</em> would take forever when it comes to problems involving more than only a few parameters. Algorithms that solve this computational problems are numerous, out of which the most popular ones are <em>gradient descent</em>, and <em>Markov Chain Monte-Carlo</em> (MCMC), which is utilized in <em>Bayesian inference</em> (will be discussed in [Bayesian perspective] section).</p>
+<p>The take-home message from this short interlude is that even the simple descriptive statistics can be seen as statistical models.</p>
+<p>If we take another cost function, for example <em>mean absolute error</em> (<code>MAE</code>) (Equation <a href="description.html#eq:mae-equation">(2.6)</a>) and if we <em>optimize</em> so that the sample central tendency estimate minimizes MAE, we will get <code>median</code> estimator.</p>
+<p><span class="math display" id="eq:mae-equation">\[
+\begin{equation}
+  MAE = \frac{1}{n}\Sigma_{i=1}^{n}\mid{\hat{y_i} - y_i\mid}
+  \tag{2.6}
+\end{equation}
+\]</span></p>
+<p>We will expand this discussion about loss functions, cost functions, and performance metrics in <a href="prediction.html#sample-mean-as-the-simplest-predictive-model">Sample <code>mean</code> as the simplest predictive model</a> section. For more information please check the package <em>Metrics</em> <span class="citation">(Hamner and Frasco <a href="#ref-R-Metrics" role="doc-biblioref">2018</a>)</span> and the following references <span class="citation">(Botchkarev <a href="#ref-botchkarevNewTypologyDesign2019" role="doc-biblioref">2019</a>; Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>; Willmott and Matsuura <a href="#ref-willmottAdvantagesMeanAbsolute2005" role="doc-biblioref">2005</a>; Barron <a href="#ref-barronGeneralAdaptiveRobust2019" role="doc-biblioref">2019</a>)</span>.</p>
+</div>
+<div id="effect-sizes" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Effect Sizes</h3>
+<p>Besides describing groups, we are often interested in comparing them. In order to achieve this task, a collection of estimators termed <em>effect size statistics</em> are utilized. Effect size can be defined in a <em>narrow sense</em> or in a <em>broad sense</em>. Briefly, the narrow sense refers to a family of standardized measures such as <code>Cohen’s d</code>, while the broad sense refers to any measure of interest, standardized or not. The approach to effect size statistics in this book is thus in a broad sense of the definition, in which all group comparison estimators are considered effect sizes statistics. In order to estimate effect sizes, one group needs to be considered <em>baseline</em> or <em>control</em>. The most common effect size statistics can be found in the Table <a href="description.html#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">2.2</a> where female body height is considered baseline and compared with male body height.</p>
+
+<table>
+<caption><span id="tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">Table 2.2: </span><strong>Effect size statistics for estimating differences between two independent groups</strong></caption>
+<thead>
+<tr class="header">
+<th align="right">Difference (cm)</th>
+<th align="right">SDdiff (cm)</th>
+<th align="right">% CVdiff</th>
+<th align="right">% Difference</th>
+<th align="right">Ratio</th>
+<th align="right">Cohen’s d</th>
+<th align="right">CLES</th>
+<th align="right">OVL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">12.73</td>
+<td align="right">12.41</td>
+<td align="right">97.55</td>
+<td align="right">7.8</td>
+<td align="right">1.08</td>
+<td align="right">-1.45</td>
+<td align="right">0.85</td>
+<td align="right">0.47</td>
+</tr>
+</tbody>
+</table>
+<p><code>Difference</code>, or <code>mean difference</code> (<code>mean diff</code>) is calculated by subtracting group <code>means</code>. Using body height as an example, the <code>mean diff</code> between males and females is calculated by using the following equation <a href="description.html#eq:mean-difference-equation">(2.7)</a>:</p>
+<p><span class="math display" id="eq:mean-difference-equation">\[
+\begin{equation}
+  \begin{split}
+    mean_{difference} &amp;= mean_{males} - mean_{females} \\
+    mean_{males} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}male_i  \\
+    mean_{females} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}female_i
+  \end{split}
+  \tag{2.7}
+\end{equation}
+\]</span></p>
+<p><code>% CVdiff</code>, or percent coefficient of variation of the difference is the standard deviation of the difference (<code>SDdiff</code> - explained shortly) divided by <code>mean diff</code> (Equation <a href="description.html#eq:diff-percent-cv-equation">(2.8)</a>):</p>
+<p><span class="math display" id="eq:diff-percent-cv-equation">\[
+\begin{equation}
+  \%\;CV_{difference} = 100\times\frac{SD_{difference}}{mean_{difference}}
+  \tag{2.8}
+\end{equation}
+\]</span></p>
+<p><code>% Difference</code>, or <code>mean percent difference</code> is calculated by dividing <code>mean diff</code> with the <code>mean</code> of the baseline group, in this case the female group, multiplied by 100 (Equation <a href="description.html#eq:percent-diff-equation">(2.9)</a>):</p>
+<p><span class="math display" id="eq:percent-diff-equation">\[
+\begin{equation}
+  mean_{\% difference} = 100\times\frac{mean_{difference}}{mean_{females}}
+  \tag{2.9}
+\end{equation}
+\]</span></p>
+<p><code>Mean ratio</code>, as its name suggests, is simple ratio between the two <code>means</code> (Equation <a href="description.html#eq:mean-ratio-equation">(2.10)</a>):</p>
+<p><span class="math display" id="eq:mean-ratio-equation">\[
+\begin{equation}
+  mean_{ratio} = \frac{mean_{males}}{mean_{females}}
+  \tag{2.10}
+\end{equation}
+\]</span></p>
+<p><code>Cohen's d</code> represent standardized effects size and thus preferable effect size statistic. For this reason, <code>Cohen's d</code> is commonly written as ES, short of effect size. <code>Cohen's d</code> for the independent groups is calculated by dividing <code>mean diff</code> (Equation <a href="description.html#eq:mean-difference-equation">(2.7)</a>) with <code>pooled standard deviation</code> (<a href="description.html#eq:cohen-diff-equation">(2.11)</a>).</p>
+<p><span class="math display" id="eq:cohen-diff-equation">\[
+\begin{equation}
+  Cohen&#39;s\;d = \frac{mean_{difference}}{SD_{pooled}}
+  \tag{2.11}
+\end{equation}
+\]</span></p>
+<p><code>Pooled standard deviation</code> represents <em>combined</em> standard deviations from two groups (Equation <a href="description.html#eq:pooled-SD-equation">(2.12)</a>).</p>
+<p><span class="math display" id="eq:pooled-SD-equation">\[
+\begin{equation}
+  SD_{pooled} = \sqrt{\frac{(n_{males} - 1) SD_{males}^2 + (n_{females} - 1) SD_{females}^2}{n_{males}+n_{females} - 2}}
+  \tag{2.12}
+\end{equation}
+\]</span></p>
+<p>Why <code>Cohen's d</code> should be used instead of other effect size estimators can be demonstrated by a simple example, coming from a study by <span class="citation">Buchheit and Rabbani (<a href="#ref-buchheit3015Intermittent2014" role="doc-biblioref">2014</a>)</span>. In this study, authors examined the relationship between the performance in the <em>YoYo Intermittent Recovery Test Level 1</em> (YoYoIR1) and the <em>30-15 Intermittent Fitness Test</em> (30-15IFT), and compared the <em>sensitivity</em> of both tests to the training. Although this study used two dependent groups (Pre-training and Post-training), the rationale can be applied to the topic of estimating effect sizes between the two independent groups. Table <a href="description.html#tab:perc-change-vs-cohensd">2.3</a> contains Pre-training results and the effect sizes estimated with <code>percent change</code><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and <code>Cohen's d</code>.</p>
+<table>
+<caption><span id="tab:perc-change-vs-cohensd">Table 2.3: </span> <strong>Training intervention effect sizes for YoYoIR1 and 30-15IFT.</strong> Modified from <span class="citation">Buchheit and Rabbani (<a href="#ref-buchheit3015Intermittent2014" role="doc-biblioref">2014</a>)</span></caption>
+<thead>
+<tr class="header">
+<th align="left">Test</th>
+<th align="left">Pre-training</th>
+<th align="right">% Change</th>
+<th align="right">Cohen’s d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">YoYoIR1</td>
+<td align="left">1031 ± 257 m</td>
+<td align="right">35 %</td>
+<td align="right">1.2</td>
+</tr>
+<tr class="even">
+<td align="left">30-15IFT</td>
+<td align="left">17.4 ± 1.1 kmh<sup>-1</sup></td>
+<td align="right">7 %</td>
+<td align="right">1.1</td>
+</tr>
+</tbody>
+</table>
+<p>Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and velocity reached respectively), <code>percent change</code> estimator is not a good choice to compare the effect sizes between the two tests<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. Since <code>Cohen's d</code> is standardized estimator, it should be used when comparing tests or measures that are at different scales.</p>
+<p>After estimating effect sizes, the question that naturally follows up is the question of <em>magnitude</em>. In other words - “how big is the effect?”. Since <code>Cohen's d</code> is standardized estimator, it allows for establishment of qualitative magnitude thresholds. Based on the original work by Cohen <span class="citation">(Cohen <a href="#ref-cohenStatisticalPowerAnalysis1988" role="doc-biblioref">1988</a>)</span>, Hopkins <span class="citation">(Hopkins <a href="#ref-hopkinsNewViewStatistics2006" role="doc-biblioref">2006</a>; Hopkins et al. <a href="#ref-hopkinsProgressiveStatisticsStudies2009" role="doc-biblioref">2009</a>)</span> suggested the following magnitudes of effect (Table (<a href="description.html#tab:magnitudes-of-effect">2.4</a>). According to the Table (<a href="description.html#tab:magnitudes-of-effect">2.4</a>, the body height difference between males and females would be considered <em>large</em>, as well as changes in both YoYoIR1 and 30-15IFT.</p>
+<table>
+<caption><span id="tab:magnitudes-of-effect">Table 2.4: </span> <strong>Magnitudes of effect</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Magnitude of effect</th>
+<th align="center">Trivial</th>
+<th align="center">Small</th>
+<th align="center">Moderate</th>
+<th align="center">Large</th>
+<th align="center">Very Large</th>
+<th align="center">Nearly Perfect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Cohen’s d</td>
+<td align="center">0 - 0.2</td>
+<td align="center">0.2 - 0.6</td>
+<td align="center">0.6 - 1.2</td>
+<td align="center">1.2 - 2.0</td>
+<td align="center">2.0 - 4.0</td>
+<td align="center">&gt; 4.0</td>
+</tr>
+</tbody>
+</table>
+<p><code>Cohen's d</code>, as well as associated magnitudes of effect, are commonly hard to interpret by non-statistically trained professionals (e.g. coaches). <span class="citation">McGraw and Wong (<a href="#ref-mcgrawCommonLanguageEffect1992" role="doc-biblioref">1992</a>)</span> suggested <em>common language effect size</em> (<code>CLES</code>) estimator instead, which could be more intuitive to understand. <code>CLES</code> represents the probability that an observation sampled at random from one group will be greater than an observation sampled at random from other group. For example, if we take random male and random female from our two groups and repeat that 100 times<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, how many times a male would be taller than a female (Figure <a href="description.html#fig:drawing-random-hundred-pairs">2.3</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:drawing-random-hundred-pairs"></span>
+<img src="02-Description_files/figure-html/drawing-random-hundred-pairs-1.png" alt="Drawing random 100 pairs to estimate probability of males being taller than females. A. Scatterplot of 100 pairs drawn at random from two samples. Since we are comparing paired males and females, lines can be drawn between each of 100 draws. Blue line indicates taller male, while orange line indicates taller female. B. Distribution of the difference between males and females for each of 100 pairs drawn" width="90%" />
+<p class="caption">
+Figure 2.3: <strong>Drawing random 100 pairs to estimate probability of males being taller than females.</strong> <strong>A.</strong> Scatterplot of 100 pairs drawn at random from two samples. Since we are comparing paired males and females, lines can be drawn between each of 100 draws. Blue line indicates taller male, while orange line indicates taller female. <strong>B.</strong> Distribution of the difference between males and females for each of 100 pairs drawn
+</p>
+</div>
+
+<p>By using simple counting from 100 random paired samples, males are taller in 85 cases, or 85%. By using probability, that is equal to 0.85. In other words, if I blindfoldedly, randomly select a male and a female from the two groups and if I bet that the male is taller, I would be correct 85% of the time.</p>
+<p><code>CLES</code> can be estimated using <em>brute-force</em> computational method, or <em>algebraic</em> method. Brute-force method involves generating all possible pair-wise combinations from two groups, and in our example that is equal to <span class="math inline">\(50 \times 50 = 2500\)</span> cases, and then simply counting in how many cases males are taller than females. This method can become very computationally intensive for groups with large sample number. Algebraic method, on the other hand, assumes normal distribution of the observations in the groups, and estimates <em>standard deviation of the difference</em> (<code>SDdiff</code>) (Equation <a href="description.html#eq:sd-diff">(2.13)</a>). Note that standard deviation of the all pairwise differences estimated with brute-force method would be very similar to algebraically derived <code>SDdiff</code>.</p>
+<p><span class="math display" id="eq:sd-diff">\[
+\begin{equation}
+  SD_{difference} = \sqrt{SD_{males}^{2} + SD_{females}^{2}}
+  \tag{2.13}
+\end{equation}
+\]</span></p>
+<p>Algebraically, <code>CLES</code> is then derived assuming normal distribution (where mean of the distribution is equal to <code>mean diff</code> between the groups, and standard deviation of the distribution is equal to <code>SDdiff</code>) by calculating probability of the difference scores higher than zero (see Figure <a href="description.html#fig:drawing-random-hundred-pairs">2.3</a>B for a visual representation). Table <a href="description.html#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">2.2</a> contains algebraically computed CLES estimate.</p>
+<p><code>CLES</code> equivalent is utilized as a performance metric in class prediction tasks, termed <em>area under curve</em> (<code>AUC</code>), where 0.5 is a predictive performance equal to a random guess, and 1 is perfect predictive separation between the two classes <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>; Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p><em>Overlap</em> (<code>OVL</code>) estimator represents the overlap between the two sample distributions. Providing that samples are identical, the <code>OVL</code> is equal to 1. Providing there is complete separation between the two samples, then <code>OVL</code> is equal to 0 (Figure <a href="description.html#fig:Cohen-CLES-OVL">2.4</a>A). <code>OVL</code> can be estimated with brute-force computational methods (which doesn’t make assumptions regarding sample distribution) and with algebraic methods that make normality assumptions.</p>
+<p>Since <code>Cohen's d</code>, <code>CLES</code> and <code>OVL</code> are mathematically related, it is possible to convert one to another (assuming normal distribution of the samples and equal <code>SD</code> between the two groups for the <code>OVL</code> estimation). Figure <a href="description.html#fig:Cohen-CLES-OVL">2.4</a>B depicts relationship between the <code>Cohen's d</code>, <code>CLES</code>, and <code>OVL</code>. Figure <a href="description.html#fig:Cohen-CLES-OVL">2.4</a>C depicts relationship between the <code>CLES</code> and <code>OVL</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:Cohen-CLES-OVL"></span>
+<img src="02-Description_files/figure-html/Cohen-CLES-OVL-1.png" alt="Relationship between the Cohen's d, CLES, and OVL. A. Visual display of the samples of varying degrees of separations, and calculated Cohen's d, CLES, and OVL. B. Relationship between the CLES and OVL to the Cohen's d. C. Relationship between the CLES and OVL" width="90%" />
+<p class="caption">
+Figure 2.4: <strong>Relationship between the <code>Cohen's d</code>, <code>CLES</code>, and <code>OVL</code>.</strong> <strong>A.</strong> Visual display of the samples of varying degrees of separations, and calculated <code>Cohen's d</code>, <code>CLES</code>, and <code>OVL</code>. <strong>B.</strong> Relationship between the <code>CLES</code> and <code>OVL</code> to the <code>Cohen's d</code>. <strong>C.</strong> Relationship between the <code>CLES</code> and <code>OVL</code>
+</p>
+</div>
+
+<p>Table <a href="description.html#tab:magnitudes-of-effect-CLES-OVL">2.5</a> contains <code>Cohen's d</code> magnitudes of effect with accompanying estimated <code>CLES</code> and <code>OVL</code> thresholds.</p>
+<table>
+<caption><span id="tab:magnitudes-of-effect-CLES-OVL">Table 2.5: </span> <strong>Magnitudes of effect for <code>CLES</code> and <code>OVL</code> estimated using <code>Cohen's d</code></strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Magnitude of effect</th>
+<th align="center">Trivial</th>
+<th align="center">Small</th>
+<th align="center">Moderate</th>
+<th align="center">Large</th>
+<th align="center">Very Large</th>
+<th align="center">Nearly Perfect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Cohen’s d</td>
+<td align="center">0.0 - 0.2</td>
+<td align="center">0.2 - 0.6</td>
+<td align="center">0.6 - 1.2</td>
+<td align="center">1.2 - 2.0</td>
+<td align="center">2.0 - 4.0</td>
+<td align="center">&gt; 4.0</td>
+</tr>
+<tr class="even">
+<td align="left">CLES</td>
+<td align="center">0.50 - 0.56</td>
+<td align="center">0.56 - 0.66</td>
+<td align="center">0.66 - 0.80</td>
+<td align="center">0.80 - 0.92</td>
+<td align="center">0.92 - 1.00</td>
+<td align="center">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">OVL</td>
+<td align="center">1.00 - 0.92</td>
+<td align="center">0.92 - 0.76</td>
+<td align="center">0.76 - 0.55</td>
+<td align="center">0.55 - 0.32</td>
+<td align="center">0.32 - 0.05</td>
+<td align="center">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="the-smallest-effect-size-of-interest" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> The Smallest Effect Size Of Interest</h3>
+<p>According to <span class="citation">Cohen (<a href="#ref-cohenStatisticalPowerAnalysis1988" role="doc-biblioref">1988</a>)</span>, the qualitative magnitude thresholds from Table <a href="description.html#tab:magnitudes-of-effect-CLES-OVL">2.5</a> are “arbitrary conventions, recommended for use only when no better basis for estimating the effect size is available” (p. 12). But what if practitioners <em>a priori</em> know what is the <em>minimal important</em> effect size and are interested in judging the <em>practical</em> or <em>clinical significance</em> <span class="citation">(Sainani <a href="#ref-sainaniClinicalStatisticalSignificance2012" role="doc-biblioref">2012</a>)</span> of the results (in this case difference between the groups)? In other words, the <em>smallest effect size of interest</em> (SESOI)<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
+<p>There is no single way to approach definition and estimation of SESOI, but it usually tends to be based on either the known <em>measurement error</em> (ME) (e.g. the minimum <em>detectable</em> effect size), or the effect size that is large enough to be practically meaningful (e.g. the minimal <em>important</em> difference, or the smallest worthwhile change) <span class="citation">(Anvari and Lakens <a href="#ref-anvariUsingAnchorBasedMethods2019" role="doc-biblioref">2019</a>; Hopkins <a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">2004</a>, <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; King <a href="#ref-kingPointMinimalImportant2011" role="doc-biblioref">2011</a>; Lakens, Scheel, and Isager <a href="#ref-lakensEquivalenceTestingPsychological2018" role="doc-biblioref">2018</a>; Turner et al. <a href="#ref-turnerDataAnalysisStrength2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>; Caldwell and Cheuvront <a href="#ref-caldwellBasicStatisticalConsiderations2019" role="doc-biblioref">2019</a>)</span>. In this book, statistical models and estimators that utilize SESOI are referred to as <em>magnitude-based</em>.</p>
+<p>To introduce magnitude-based estimators, consider ±2.5cm to be body height SESOI<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, or the difference that would be practically significant. In other words, individuals with height difference within ±2.5cm would be considered practically equivalent (from the minimal important effect perspective), or it might be hard to detect this difference with a quick glance (from minimum detectable effect perspective).</p>
+<p>The simplest magnitude-based statistics would be <code>mean diff</code> divided by SESOI (<code>Difference to SESOI</code>) (Equation <a href="description.html#eq:diff-to-SESOI">(2.14)</a>). This estimator, similar to other standardized estimators (e.g. <code>Cohen's d</code>) allows comparison of variables at different scales, but it would also give more insight into differences from practical significance perspective.</p>
+<p><span class="math display" id="eq:diff-to-SESOI">\[
+\begin{equation}
+  Difference\;to\;SESOI = \frac{mean_{difference}}{SESOI_{upper} - SESOI_{lower}}
+  \tag{2.14}
+\end{equation}
+\]</span></p>
+<p>Second magnitude-based statistic is <code>SDdiff</code> divided by SESOI (<code>SDdiff to SESOI</code>) (Equation <a href="description.html#eq:SD-diff-to-SESOI">(2.15)</a>). This estimator, similar to <code>% CVdiff</code>, would answer how variable are the differences compared to SESOI.<br />
+<span class="math display" id="eq:SD-diff-to-SESOI">\[
+\begin{equation}
+  SDdiff\;to\;SESOI = \frac{SD_{difference}}{SESOI_{upper} - SESOI_{lower}}
+  \tag{2.15}
+\end{equation}
+\]</span></p>
+<p>Similarly, <code>CLES</code> estimator can become magnitude-based by utilizing SESOI. Rather than being interested in probability of a random male being taller than a random female (out of the two sample groups), we might be interested in estimating how probable are <em>lower</em>, <em>equivalent</em>, and <em>higher</em> (or usually defined as <em>harmful</em>, <em>trivial</em>, and <em>beneficial</em>) differences defined by SESOI. Practically equivalent (trivial) differences are differences ranging from <span class="math inline">\(SESOI_{lower}\)</span> to <span class="math inline">\(SESOI_{upper}\)</span>, while everything over <span class="math inline">\(SESOI_{upper}\)</span> is higher (or beneficial) difference and everything lower than <span class="math inline">\(SESOI_{lower}\)</span> is lower (or harmful) difference.</p>
+<p>Using brute-force computational method and drawing all pair-wise combinations from the two groups (50x50 = 2500 cases), and using ±2.5cm SESOI as a <em>practically equivalent</em> difference<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, we can estimate probabilities of lower (<code>pLower</code>), equivalent (<code>pEquivalent</code>) and higher difference (<code>pHigher</code>) by calculating <em>proportion</em> of cases within each magnitude band (Figure <a href="description.html#fig:pairwise-comparison">2.5</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:pairwise-comparison"></span>
+<img src="02-Description_files/figure-html/pairwise-comparison-1.png" alt="Pairwise comparison of males and females to estimate probability of lower, equivalent, and higher magnitude of difference. A. Scatterplot of all pair-wise combinations (50x50 = 2500), drawn at random out of two samples. Since we are comparing paired males and females, lines can be drawn between each of 2500 draws. Blue line indicates males taller than females higher than SESOI, equivalent lines indicates pairs with a height difference less or equal to SESOI, while orange line indicates females taller than males higher than SESOI. B. Distribution of the differences between males and females for all 2500 pair-wise combinations. Grey band indicates SESOI. Surface of the distribution over SESOI (blue color) indicates probability of randomly selected male being taller than a randomly selected female (pHigher), with a height difference of at least SESOI magnitude. Surface of the distribution under SESOI (orange color) indicates probability of randomly selected female being taller than a randomly selected female (pLower), with a height difference of at least SESOI magnitude. Grey surface area indicates probability of randomly selecting male and female with a height difference within SESOI band (pEquivalent)" width="90%" />
+<p class="caption">
+Figure 2.5: <strong>Pairwise comparison of males and females to estimate probability of lower, equivalent, and higher magnitude of difference. A.</strong> Scatterplot of all pair-wise combinations (50x50 = 2500), drawn at random out of two samples. Since we are comparing paired males and females, lines can be drawn between each of 2500 draws. Blue line indicates males taller than females higher than SESOI, equivalent lines indicates pairs with a height difference less or equal to SESOI, while orange line indicates females taller than males higher than SESOI. <strong>B.</strong> Distribution of the differences between males and females for all 2500 pair-wise combinations. Grey band indicates SESOI. Surface of the distribution over SESOI (blue color) indicates probability of randomly selected male being taller than a randomly selected female (<code>pHigher</code>), with a height difference of at least SESOI magnitude. Surface of the distribution under SESOI (orange color) indicates probability of randomly selected female being taller than a randomly selected female (<code>pLower</code>), with a height difference of at least SESOI magnitude. Grey surface area indicates probability of randomly selecting male and female with a height difference within SESOI band (<code>pEquivalent</code>)
+</p>
+</div>
+
+<p>Table <a href="description.html#tab:table-magnitude-based-diff">2.6</a> contains estimated probabilities of observing lower, equivalent, and higher differences in height between the randomly selected male and female using brute-force computational method and algebraic method. These estimates answer the following question “If I compare random male and random female from my sample, how probable are lower/equivalent/higher magnitudes of difference in height?”. Asking such a magnitude-based question regarding the random individual difference represents a form of prediction question and predictive task. In this book, such questions are answered with <em>magnitude-based prediction</em> approaches.</p>
+
+<table>
+<caption><span id="tab:table-magnitude-based-diff">Table 2.6: </span><strong>Estimated probabilities of observing lower, equivalent, and higher differences in height</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Method</th>
+<th align="right">pLower</th>
+<th align="right">pEquivalent</th>
+<th align="right">pHigher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">brute-force</td>
+<td align="right">0.11</td>
+<td align="right">0.096</td>
+<td align="right">0.794</td>
+</tr>
+<tr class="even">
+<td align="left">algebraic</td>
+<td align="right">0.11</td>
+<td align="right">0.095</td>
+<td align="right">0.795</td>
+</tr>
+</tbody>
+</table>
+<p>It is common to represent means as <em>systematic component</em> or <em>fixed effect</em> (e.g. <code>mean difference</code>), and variability around the mean (i.e. <code>SDdiff</code>) as <em>stochastic component</em> or <em>random effect</em>. It is unfortunate that the common statistical modeling and analysis, particularly in sport science, takes the stance of approaching and treating between-individual variation as <em>random error</em>. The approach suggested in this book complements <em>group-based</em> or <em>average-based</em> statistics with magnitude-based predictions that aim to help in answering individual-based questions, common to sport practitioners. Table <a href="description.html#tab:magnitude-based-estimators-diff">2.7</a> contains discussed magnitude-based estimators that can complement common effect size statistics (Table <a href="description.html#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">2.2</a>) when comparing two independent groups.</p>
+
+<table>
+<caption><span id="tab:magnitude-based-estimators-diff">Table 2.7: </span><strong>Magnitude-based effect size statistics for estimating difference between two independent groups</strong></caption>
+<thead>
+<tr class="header">
+<th align="right">SESOI lower (cm)</th>
+<th align="right">SESOI upper (cm)</th>
+<th align="right">Difference to SESOI</th>
+<th align="right">SDdiff to SESOI</th>
+<th align="right">pLower</th>
+<th align="right">pEquivalent</th>
+<th align="right">pHigher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-2.5</td>
+<td align="right">2.5</td>
+<td align="right">2.55</td>
+<td align="right">2.48</td>
+<td align="right">0.11</td>
+<td align="right">0.1</td>
+<td align="right">0.79</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="comparing-dependent-groups" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Comparing dependent groups</h2>
+<p>As an example of dependent or paired groups descriptive analysis, let’s consider the simple <em>Pre-test</em> and <em>Post-test</em> design. We have given training intervention to a group of N=20 males involving bench-press training. Training intervention involved performing bench pressing two times a week for 16 weeks. One-repetition-maximum (1RM) in the bench press was performed before (Pre-test) and after (Post-test) training intervention. Table <a href="description.html#tab:bench-press-1RM-pre-post">2.8</a> contains individual Pre-test and Post-test scores, as well as the Change in the bench press 1RM.</p>
+
+<table>
+<caption><span id="tab:bench-press-1RM-pre-post">Table 2.8: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">Pre-test (kg)</th>
+<th align="right">Post-test (kg)</th>
+<th align="right">Change (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">111.89</td>
+<td align="right">116.55</td>
+<td align="right">4.66</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">96.04</td>
+<td align="right">100.67</td>
+<td align="right">4.64</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">106.29</td>
+<td align="right">109.60</td>
+<td align="right">3.31</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">99.74</td>
+<td align="right">100.97</td>
+<td align="right">1.23</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">92.44</td>
+<td align="right">110.93</td>
+<td align="right">18.48</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">96.39</td>
+<td align="right">96.93</td>
+<td align="right">0.54</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">93.82</td>
+<td align="right">114.54</td>
+<td align="right">20.72</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">105.87</td>
+<td align="right">113.40</td>
+<td align="right">7.53</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">82.61</td>
+<td align="right">79.65</td>
+<td align="right">-2.96</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">103.66</td>
+<td align="right">95.64</td>
+<td align="right">-8.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">86.23</td>
+<td align="right">77.18</td>
+<td align="right">-9.05</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">100.60</td>
+<td align="right">114.75</td>
+<td align="right">14.14</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">93.16</td>
+<td align="right">90.87</td>
+<td align="right">-2.29</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">111.42</td>
+<td align="right">115.27</td>
+<td align="right">3.85</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">98.59</td>
+<td align="right">89.73</td>
+<td align="right">-8.86</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">108.85</td>
+<td align="right">114.92</td>
+<td align="right">6.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">93.81</td>
+<td align="right">91.05</td>
+<td align="right">-2.76</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">93.83</td>
+<td align="right">92.14</td>
+<td align="right">-1.69</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">107.94</td>
+<td align="right">116.72</td>
+<td align="right">8.78</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">101.65</td>
+<td align="right">91.81</td>
+<td align="right">-9.84</td>
+</tr>
+</tbody>
+</table>
+<p>The results of this simple Pre-test and Post-test design can be described in multiple ways. Here, I will present the three most common approaches.</p>
+<div id="describing-groups-as-independent" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Describing groups as independent</h3>
+<p>The simplest analysis involve descriptive statistics assuming groups as independent. Table <a href="description.html#tab:bench-press-data-independent-summary">2.9</a> contains descriptive statistics applied to Pre-test, Post-test and Change scores as independent. Figure <a href="description.html#fig:bench-press-pre-post-raincloud">2.6</a> visualizes the scores using three raincloud plots.</p>
+
+<table>
+<caption><span id="tab:bench-press-data-independent-summary">Table 2.9: </span><strong>Descriptive analysis of the Pre-test, Post-test, and Change as independent samples</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Estimator</th>
+<th align="right">Pre-test</th>
+<th align="right">Post-test</th>
+<th align="right">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">n</td>
+<td align="right">20.00</td>
+<td align="right">20.00</td>
+<td align="right">20.00</td>
+</tr>
+<tr class="even">
+<td align="left">mean (kg)</td>
+<td align="right">99.24</td>
+<td align="right">101.67</td>
+<td align="right">2.42</td>
+</tr>
+<tr class="odd">
+<td align="left">SD (kg)</td>
+<td align="right">8.06</td>
+<td align="right">12.85</td>
+<td align="right">8.71</td>
+</tr>
+<tr class="even">
+<td align="left">% CV</td>
+<td align="right">8.12</td>
+<td align="right">12.64</td>
+<td align="right">359.18</td>
+</tr>
+<tr class="odd">
+<td align="left">median (kg)</td>
+<td align="right">99.16</td>
+<td align="right">100.82</td>
+<td align="right">2.27</td>
+</tr>
+<tr class="even">
+<td align="left">MAD (kg)</td>
+<td align="right">8.42</td>
+<td align="right">15.71</td>
+<td align="right">7.60</td>
+</tr>
+<tr class="odd">
+<td align="left">IQR (kg)</td>
+<td align="right">12.16</td>
+<td align="right">22.97</td>
+<td align="right">9.25</td>
+</tr>
+<tr class="even">
+<td align="left">mode (kg)</td>
+<td align="right">96.36</td>
+<td align="right">113.59</td>
+<td align="right">2.89</td>
+</tr>
+<tr class="odd">
+<td align="left">min (kg)</td>
+<td align="right">82.61</td>
+<td align="right">77.18</td>
+<td align="right">-9.84</td>
+</tr>
+<tr class="even">
+<td align="left">max (kg)</td>
+<td align="right">111.89</td>
+<td align="right">116.72</td>
+<td align="right">20.72</td>
+</tr>
+<tr class="odd">
+<td align="left">range (kg)</td>
+<td align="right">29.28</td>
+<td align="right">39.54</td>
+<td align="right">30.57</td>
+</tr>
+<tr class="even">
+<td align="left">skew</td>
+<td align="right">-0.17</td>
+<td align="right">-0.30</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-0.89</td>
+<td align="right">-1.32</td>
+<td align="right">-0.65</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:bench-press-pre-post-raincloud"></span>
+<img src="02-Description_files/figure-html/bench-press-pre-post-raincloud-1.png" alt="Raincloud plots of the Pre-test, Post-test and Change scores in the bench press 1RM. A. Distribution of the Pre-test and Post-test scores. B. Distribution of the Change score" width="90%" />
+<p class="caption">
+Figure 2.6: <strong>Raincloud plots of the Pre-test, Post-test and Change scores in the bench press 1RM. A. </strong>Distribution of the Pre-test and Post-test scores. <strong>B.</strong> Distribution of the Change score
+</p>
+</div>
+
+</div>
+<div id="effect-sizes-1" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Effect Sizes</h3>
+<p>Table <a href="description.html#tab:change-effect-size">2.10</a> contains the most common effect size estimators utilized when describing change in the Pre-Post paired design. The terminology utilized in this book differentiates between the <em>difference</em> which is used in independent groups and the <em>change</em> which is used in paired or dependent groups</p>
+
+<table>
+<caption><span id="tab:change-effect-size">Table 2.10: </span><strong>Effect size statistics for estimating change in two dependent groups</strong></caption>
+<thead>
+<tr class="header">
+<th align="right">Change (kg)</th>
+<th align="right">SDchange (kg)</th>
+<th align="right">% CVchange</th>
+<th align="right">% Change</th>
+<th align="right">Ratio</th>
+<th align="right">Cohen’s d</th>
+<th align="right">CLES</th>
+<th align="right">OVL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.42</td>
+<td align="right">8.71</td>
+<td align="right">359.18</td>
+<td align="right">2.33</td>
+<td align="right">1.02</td>
+<td align="right">0.3</td>
+<td align="right">0.56</td>
+<td align="right">0.88</td>
+</tr>
+</tbody>
+</table>
+<p><code>Change</code>, or <code>mean change</code> is calculated by taking average of the change score (Equation <a href="description.html#eq:mean-change-equation">(2.16)</a>). Change score is simple difference between Pre-test and Post-test.</p>
+<p><span class="math display" id="eq:mean-change-equation">\[
+\begin{equation}
+  \begin{split}
+    mean_{change} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}(post_{i}-pre_{i}) \\
+    mean_{change} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}change_{i} \\
+    change_{i} &amp;= post_{i}-pre_{i}
+  \end{split}
+  \tag{2.16}
+\end{equation}
+\]</span></p>
+<p><code>SDchange</code>, or standard deviation of the change is a simple standard deviation of the change (Equation <a href="description.html#eq:SD-change-equation">(2.17)</a>). It represents a measure of dispersion of the change scores.</p>
+<p><span class="math display" id="eq:SD-change-equation">\[
+\begin{equation}
+  SD_{change} = \sqrt{\frac{1}{n-1}\Sigma_{i=1}^{n}(change_i -mean_{change})^2}
+  \tag{2.17}
+\end{equation}
+\]</span></p>
+<p><code>% CVchange</code>, or percent coefficient of variation of the change is the <code>SDchange</code> divided by <code>mean change</code> (Equation <a href="description.html#eq:CV-change-coeff">(2.18)</a>).</p>
+<p><span class="math display" id="eq:CV-change-coeff">\[
+\begin{equation}
+  \%\;CV_{change} = 100\times\frac{SD_{change}}{mean_{change}}
+  \tag{2.18}
+\end{equation}
+\]</span></p>
+<p><code>% Change</code>, or <code>Mean percent change</code> is calculated by taking a mean of the ratio between the change and the Pre-test, multiplied by 100 (Equation <a href="description.html#eq:percent-change-equation">(2.19)</a>).</p>
+<p><span class="math display" id="eq:percent-change-equation">\[
+\begin{equation}
+  mean_{\% change} = 100\times\frac{1}{n}\Sigma_{i}^{n}\frac{change_{i}}{pre_{i}}
+ \tag{2.19}
+\end{equation}
+\]</span></p>
+<p><code>Mean ratio</code> represents mean of the Post-test to Pre-test scores ratios (Equation <a href="description.html#eq:mean-ratio-paired-equation">(2.20)</a>).</p>
+<p><span class="math display" id="eq:mean-ratio-paired-equation">\[
+\begin{equation}
+  mean_{ratio} = \frac{1}{n}\Sigma_{i}^{n}\frac{post_{i}}{pre_{i}}
+  \tag{2.20}
+\end{equation}
+\]</span></p>
+<p><code>Cohen's d</code> represents standardized effect size of the change. In the paired design, <code>Cohen's d</code> is calculated by dividing <code>mean change</code> with standard deviation of the Pre-test scores (<code>SDpre</code>) (Equation <a href="description.html#eq:cohens-d-paired">(2.21)</a>).</p>
+<p><span class="math display" id="eq:cohens-d-paired">\[
+\begin{equation}
+  Cohen&#39;s\;d = \frac{mean_{change}}{SD_{pre}}
+  \tag{2.21}
+\end{equation}
+\]</span></p>
+<p><code>CLES</code> for the paired groups represents probability of observing positive change. <code>OVL</code>, equally to the independent groups, represents overlap between the Pre-test and Post-test scores.</p>
+<p>Magnitude-based effect size estimators involve the use of SESOI and can be found on Table <a href="description.html#tab:change-MB-stats">2.11</a>. Similarly to magnitude-based effect size estimators with the independent groups, magnitude-based effect size estimators with the paired group involve <code>Change to SESOI</code>, <code>SDchange to SESOI</code> as well as proportions of lower (<code>pLower</code>), equivalent (<code>pEquivalent</code>) and higher (<code>pHigher</code>) change scores.</p>
+
+<table>
+<caption><span id="tab:change-MB-stats">Table 2.11: </span><strong>Magnitude-based effect size statistics for estimating change between two dependent groups</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">SESOI (kg)</th>
+<th align="right">Change to SESOI</th>
+<th align="right">SDchange to SESOI</th>
+<th align="right">pLower</th>
+<th align="right">pEquivalent</th>
+<th align="right">pHigher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">±5</td>
+<td align="right">0.24</td>
+<td align="right">0.87</td>
+<td align="right">0.2</td>
+<td align="right">0.42</td>
+<td align="right">0.38</td>
+</tr>
+</tbody>
+</table>
+<p>Figure <a href="description.html#fig:bench-press-pair-change">2.7</a> depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where <code>SDchange</code> is utilized and assumption of the normally distributed change scores is made.</p>
+<div class="figure" style="text-align: center"><span id="fig:bench-press-pair-change"></span>
+<img src="02-Description_files/figure-html/bench-press-pair-change-1.png" alt="Visual analysis of the dependent groups scores using SESOI. A. Scatter plot of Pre-test and Post-test scores. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. B. Distribution of the change scores. Green area represents proportion of change scores higher than SESOI upper, red area represents proportion of negative change scores lower than SESOI lower, and grey area indicates equivalent change, which is within SESOI band" width="90%" />
+<p class="caption">
+Figure 2.7: <strong>Visual analysis of the dependent groups scores using SESOI. A. </strong>Scatter plot of Pre-test and Post-test scores. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. <strong>B.</strong> Distribution of the change scores. Green area represents proportion of change scores higher than SESOI upper, red area represents proportion of negative change scores lower than SESOI lower, and grey area indicates equivalent change, which is within SESOI band
+</p>
+</div>
+
+<p>It might be tempting to claim that this intervention is <em>causing</em> changes in the bench press 1RM, but we should be vary of doing that. It is important to keep in mind that the effect size estimators are used only descriptively without any causal connotation. To make causal claims, further criteria needs to be taken into account. This is discussed in more details in the [Causal inference] section of this book.</p>
+</div>
+</div>
+<div id="describing-relationship-between-two-variables" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Describing relationship between two variables</h2>
+<p>So far, we have dealt with single variable descriptive statistics. However, we are often interested in relationship or <em>association</em> between two variables. One of these variables takes the role of the <em>dependent variable</em> (<em>outcome</em> or <em>target variable</em>) and the other of the <em>independent variable</em> (or <em>predictor variable</em>).</p>
+<p>Let’s assume we tested N=30 female soccer athletes by using two tests: (1) YoYoIR1 test (expressed in meters), and (2) <em>maximum aerobic speed</em> (MAS) test (expressed in km/h)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. Variables in this example represent observations in each test (Table <a href="description.html#tab:yoyo-mas-results">2.12</a>).</p>
+
+<table>
+<caption><span id="tab:yoyo-mas-results">Table 2.12: </span><strong>Results of YoYoIR1 and MAS tests for N=30 female soccer athletes</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">YoYoIR1 (m)</th>
+<th align="right">MAS (km/h)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">1640</td>
+<td align="right">15.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">1080</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">1440</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">1200</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">960</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">1120</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">1000</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">1440</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">640</td>
+<td align="right">14.0</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">1360</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">760</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">1240</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">1000</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">1600</td>
+<td align="right">15.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">1160</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">1520</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">1000</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">1000</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">1480</td>
+<td align="right">15.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">1280</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 21</td>
+<td align="right">1200</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 22</td>
+<td align="right">1200</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 23</td>
+<td align="right">1200</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 24</td>
+<td align="right">1120</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 25</td>
+<td align="right">1560</td>
+<td align="right">15.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 26</td>
+<td align="right">1120</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 27</td>
+<td align="right">1640</td>
+<td align="right">15.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 28</td>
+<td align="right">1280</td>
+<td align="right">15.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 29</td>
+<td align="right">1040</td>
+<td align="right">14.5</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 30</td>
+<td align="right">880</td>
+<td align="right">14.0</td>
+</tr>
+</tbody>
+</table>
+<p>Descriptive statistics for YoYoIR1 and MAS test results can be found in the Table <a href="description.html#tab:yoyo-mas-descriptive-stats">2.13</a>.</p>
+
+<table>
+<caption><span id="tab:yoyo-mas-descriptive-stats">Table 2.13: </span><strong>Descriptive statistics for YoYoIR1 and MAS test results</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Estimator</th>
+<th align="right">YoYoIR1</th>
+<th align="right">MAS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">n</td>
+<td align="right">30.00</td>
+<td align="right">30.00</td>
+</tr>
+<tr class="even">
+<td align="left">mean</td>
+<td align="right">1205.33</td>
+<td align="right">14.85</td>
+</tr>
+<tr class="odd">
+<td align="left">SD</td>
+<td align="right">255.96</td>
+<td align="right">0.42</td>
+</tr>
+<tr class="even">
+<td align="left">% CV</td>
+<td align="right">21.24</td>
+<td align="right">2.82</td>
+</tr>
+<tr class="odd">
+<td align="left">median</td>
+<td align="right">1200.00</td>
+<td align="right">15.00</td>
+</tr>
+<tr class="even">
+<td align="left">MAD</td>
+<td align="right">296.52</td>
+<td align="right">0.74</td>
+</tr>
+<tr class="odd">
+<td align="left">IQR</td>
+<td align="right">410.00</td>
+<td align="right">0.50</td>
+</tr>
+<tr class="even">
+<td align="left">mode</td>
+<td align="right">1131.68</td>
+<td align="right">15.00</td>
+</tr>
+<tr class="odd">
+<td align="left">min</td>
+<td align="right">640.00</td>
+<td align="right">14.00</td>
+</tr>
+<tr class="even">
+<td align="left">max</td>
+<td align="right">1640.00</td>
+<td align="right">15.50</td>
+</tr>
+<tr class="odd">
+<td align="left">range</td>
+<td align="right">1000.00</td>
+<td align="right">1.50</td>
+</tr>
+<tr class="even">
+<td align="left">skew</td>
+<td align="right">-0.02</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-0.68</td>
+<td align="right">-0.72</td>
+</tr>
+</tbody>
+</table>
+Visual analysis in Figure <a href="description.html#fig:yoyo-mas-simple-scatterplot">2.8</a> depicts the association between these two tests using scatter plot.
+<div class="figure" style="text-align: center"><span id="fig:yoyo-mas-simple-scatterplot"></span>
+<img src="02-Description_files/figure-html/yoyo-mas-simple-scatterplot-1.png" alt="Scatter plot between two variables. Dashed line represents linear regression line" width="90%" />
+<p class="caption">
+Figure 2.8: <strong>Scatter plot between two variables. </strong>Dashed line represents linear regression line
+</p>
+</div>
+
+<p>Table <a href="description.html#tab:common-estimators-association">2.14</a> contains common estimators of the association between two variables. All estimators except <em>maximum information coefficient</em> (<code>MIC</code>) <span class="citation">(Albanese et al. <a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">2012</a><a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">b</a>; Reshef et al. <a href="#ref-reshefDetectingNovelAssociations2011" role="doc-biblioref">2011</a>)</span> assumes linear relationship between two variables. It is thus important to visually analyze the association (see Figure <a href="description.html#fig:yoyo-mas-simple-scatterplot">2.8</a>) before trusting numerical estimators.</p>
+
+<table>
+<caption><span id="tab:common-estimators-association">Table 2.14: </span><strong>Common estimators of the association between two variables</strong></caption>
+<thead>
+<tr class="header">
+<th align="right">Pearson r</th>
+<th align="right">R-squared</th>
+<th align="right">MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.86</td>
+<td align="right">0.74</td>
+<td align="right">0.55</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>Pearson product-moment correlation coefficient</em> (<code>Pearson's r</code>) is a measure of the strength of the linear relationship between two variables (Equation <a href="description.html#eq:pearson-r">(2.22)</a>).</p>
+<p><span class="math display" id="eq:pearson-r">\[
+\begin{equation}
+  r = \frac{{}\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
+  {\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2}}
+  \tag{2.22}
+\end{equation}
+\]</span></p>
+<p><code>Pearson's r</code> is standardized measure that can take values ranging from -1 to +1, where 0 indicates no relationship, and -1 and +1 indicates perfect relationship. Negative <code>Pearson's r</code> value represents negative association (i.e. as one variable increases the other decreases), while positive <code>Pearson's r</code> value represents positive association (i.e., as one variable increases so does the other).</p>
+<p><code>R-squared</code> (<span class="math inline">\(R^2\)</span>) represents <em>variance explained</em>, i.e. how much the <em>model</em> explains variance in the target variable. In this example the model is <em>linear regression</em>. <code>R-squared</code> is standardized measure of association that can take values ranging from zero (no association, or no variance explained) to 1 (perfect association, or all variance explained). <code>R-squared</code>, as its name suggests, represents Pearson’s r squared, but for more complex models it can be calculated using variances or <em>mean squares</em> (<code>MS</code>) (Equation <a href="description.html#eq:pearson-r">(2.22)</a>):</p>
+<p><span class="math display" id="eq:r-squared">\[
+\begin{equation}
+  \begin{split}
+    R^2 &amp;= \frac{MS_{model}}{MS_{total}} \\
+    MS_{model} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}(\hat y_i - \overline y)^2 \\
+    MS_{total} &amp;= \frac{1}{n}\Sigma_{i=1}^{n}(y_i - \overline y)^2
+  \end{split}
+  \tag{2.23}
+\end{equation}
+\]</span></p>
+<p><em>Maximal information coefficient</em> (<code>MIC</code>) is a novel measure of the strength of the linear or non-linear association between two variables and belongs to the <em>maximal information-based non-parametric exploration</em> (MINE) class of statistics <span class="citation">(Albanese et al. <a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">2012</a><a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">b</a>; Reshef et al. <a href="#ref-reshefDetectingNovelAssociations2011" role="doc-biblioref">2011</a>)</span>. <code>MIC</code> is standardized measure of association that can take values ranging from zero (no association) to 1 (perfect association). As opposed to <code>Pearson r</code>, <code>MIC</code> can <em>pick up</em> non-linear association between two variables.</p>
+<p>Statistical model, or <em>machinery</em> underlying <code>Pearson r</code> and <code>R-squared</code> is linear regression. Similar to a sample <code>mean</code> (see section <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a>), linear regression can be seen as <em>optimization algorithm</em> that tries to find a line that passes through the data with the minimal error.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> A solution to this problem can be found computationally or analytically<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>. Either way, the <em>coefficients</em> (or <em>parameters</em>) that need to be estimated in this example with two variables are <code>intercept</code> (<span class="math inline">\(\hat{\beta}_0\)</span>), <code>slope  coefficient</code> (<span class="math inline">\(\hat{\beta}_1\)</span>), and <em>residual error</em> (<span class="math inline">\(\hat{\epsilon}\)</span>) (Equation <a href="description.html#eq:linear-equation">(2.24)</a>).</p>
+<p><span class="math display" id="eq:linear-equation">\[
+\begin{equation}
+  \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i + \hat{\epsilon}
+  \tag{2.24}
+\end{equation}
+\]</span></p>
+<p>Table <a href="description.html#tab:linear-reg-estimates">2.15</a> contains estimates for <code>intercept</code>, <code>slope</code>, and residual error. Residual error (<span class="math inline">\(\epsilon\)</span>) is estimated by using <em>residual standard error</em> (<code>RSE</code>), which is similar to already discussed <code>RMSE</code>, but rather than dividing sum of square errors by <span class="math inline">\(n\)</span> observations, it is divided by <span class="math inline">\(n-p\)</span> (Equation <a href="description.html#eq:rse-equation">(2.25)</a>). The <span class="math inline">\(p\)</span> is the number of model parameters, in this case 2 (<code>intercept</code> and one <code>slope coefficient</code>).</p>
+<p><span class="math display" id="eq:rse-equation">\[
+\begin{equation}
+  RSE = \sqrt{\frac{1}{n-p}\Sigma_{i=1}^{n}(y_i -\hat{y_i})^2}
+  \tag{2.25}
+\end{equation}
+\]</span></p>
+
+<table>
+<caption><span id="tab:linear-reg-estimates">Table 2.15: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when MAS is the target variable an YoYoIR1 is the predictor</caption>
+<thead>
+<tr class="header">
+<th align="right">Intercept (km/h)</th>
+<th align="right">Slope</th>
+<th align="right">RSE (km/h)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">13.16</td>
+<td align="right">0.0014</td>
+<td align="right">0.22</td>
+</tr>
+</tbody>
+</table>
+<p>Estimated parameters in the Table <a href="description.html#tab:linear-reg-estimates">2.15</a> can be written using the linear equation format (Equation <a href="description.html#eq:mas-equation">(2.26)</a>).</p>
+<p><span class="math display" id="eq:mas-equation">\[
+\begin{equation}
+  MAS = 13.16 + 0.0014 \times YoYoIR1 \pm 0.22 \: km/h
+  \tag{2.26}
+\end{equation}
+\]</span></p>
+<p>Slope coefficient of 0.0014 can be interpreted the following way: if YoYoIR1 increases by 500m, then MAS would increase by 500 x 0.0014 or 0.7km/h.</p>
+<p>Although measures of association between two variables, such as <code>Pearson's r</code> and <code>R-squared</code>, are symmetrical (meaning it doesn’t matter which variable is predictor or target), one cannot reverse the linear regression equation to get YoYoIR1 from MAS as done in the Equation <a href="description.html#eq:rse-equation">(2.25)</a>.</p>
+<p><span class="math display" id="eq:reverse-linear-equation">\[
+\begin{equation}
+  \begin{split}
+    MAS &amp;= \hat{\beta}_0 + \hat{\beta}_1 \times YoYoIR1 \\
+    YoYoIR1 &amp;= \frac{-\hat{\beta}_0 + MAS}{\hat{\beta}_1} \\
+    YoYoIR1 &amp;= -\frac{\hat{\beta}_0}{\hat{\beta}_1} + \frac{1}{\hat{\beta}_1}\times MAS \\
+    YoYoIR1 &amp;= -9385.59 + 713.19 \times MAS
+  \end{split}
+  \tag{2.27}
+\end{equation}
+\]</span></p>
+<p>It can be seen that the reverse parameters from <a href="description.html#eq:rse-equation">(2.25)</a> differ from the parameters in the Table <a href="description.html#tab:reverse-estimates-table">2.16</a> which are estimated using YoYoIR1 as the target variable an MAS as the predictor variable.</p>
+
+<table>
+<caption><span id="tab:reverse-estimates-table">Table 2.16: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when YoYoIR1 is the target variable an MAS is the predictor</caption>
+<thead>
+<tr class="header">
+<th align="right">Intercept (m)</th>
+<th align="right">Slope</th>
+<th align="right">RSE (m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-6589.82</td>
+<td align="right">524.93</td>
+<td align="right">133.84</td>
+</tr>
+</tbody>
+</table>
+<p>This diference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure <a href="description.html#fig:reverse-linear">2.9</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:reverse-linear"></span>
+<img src="02-Description_files/figure-html/reverse-linear-1.png" alt="Regression line differs depending which variable is target or the outcome variable. Dashed grey line represents regression line when MAS is the target variable. Grey line represents regression line when YoYoIR1 is the target variable. Since they are not identical, one cannot reverse the equation to predict YoYoIR1 from MAS score, when such equation is estimated by predicting MAS from YoYoIR1" width="90%" />
+<p class="caption">
+Figure 2.9: <strong>Regression line differs depending which variable is target or the outcome variable. </strong>Dashed grey line represents regression line when MAS is the target variable. Grey line represents regression line when YoYoIR1 is the target variable. Since they are not identical, one cannot reverse the equation to predict YoYoIR1 from MAS score, when such equation is estimated by predicting MAS from YoYoIR1
+</p>
+</div>
+
+<p>Unfortunately, this is common practice in sport science. Rather than reversing parameters, one needs to fit, in this case, linear regression model again with the properly defined target and predictor variables. In certain scenarios, such as [Reliability] analysis, we do not know which variable represents predictor and which represents target or outcome. For this reason, different approaches to regression, such as <em>ordinary least products</em> (OLP) are utilized <span class="citation">(Ludbrook <a href="#ref-ludbrookLinearRegressionAnalysis2010" role="doc-biblioref">2010</a>, <a href="#ref-ludbrookPrimerBiomedicalScientists2012" role="doc-biblioref">2012</a>, <a href="#ref-ludbrookSPECIALARTICLECOMPARING1997" role="doc-biblioref">1997</a>, <a href="#ref-ludbrookStatisticalTechniquesComparing2002" role="doc-biblioref">2002</a>; Mullineaux, Barnes, and Batterham <a href="#ref-mullineauxAssessmentBiasComparing1999" role="doc-biblioref">1999</a>)</span>. These topics will be covered in the second part of this book.</p>
+<div id="magnitude-based-estimators" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Magnitude-based estimators</h3>
+<p>Similarly to independent and dependent group analysis, with association we might be interested in the practical significance of the results. In order to judge results from practical significance perspective, we need to define SESOI of both variables (i.e. YoYoIR1 and MAS). Using minimal test increment, SESOI for the YoYoIR1 test is defined as ±40m, and SESOI for the MAS test is defined as ±0.5km/h.</p>
+<p>One question we might ask is whether the YoYoIR1 SESOI is associated with MAS SESOI. This can be answered with the <code>sensitivity</code> estimator (Equation <a href="description.html#eq:practical-sensitivity">(2.28)</a>).</p>
+<p><span class="math display" id="eq:practical-sensitivity">\[
+\begin{equation}
+  \begin{split}
+    Sensitivity &amp;= \frac{(SESOI_{YoYoIR1_{upper}} - SESOI_{YoYoIR1_{lower}})\times\hat{\beta}_1}{SESOI_{MAS_{upper}}-SESOI_{MAS_{lower}}} \\
+    Sensitivity &amp;= \frac{(40 - -40)\times 0.0014}{0.5--0.5} \\
+    Sensitivity &amp;= \frac{(80)\times 0.0014}{1} \\
+    Sensitivity &amp;= \frac{0.11}{1} \\
+    Sensitivity &amp;= 0.11
+  \end{split}
+  \tag{2.28}
+\end{equation}
+\]</span></p>
+<p>This means that the change in the YoYoIR1 test equal to SESOI will yield only a small proportion of SESOI in the MAS test.</p>
+<p>In the case where SESOI of the MAS test is unknown, using known SESOI of the YoYoIR1 test can be used to estimate it. This is done by using estimated <span class="math inline">\(\hat{\beta}_1\)</span> (<code>slope coefficient</code>), as demonstrated in the Equation <a href="description.html#eq:mas-sesoi-equation">(2.29)</a>.</p>
+<p><span class="math display" id="eq:mas-sesoi-equation">\[
+\begin{equation}
+  \begin{split}
+    SESOI_{MAS_{upper}} &amp;= \hat{\beta}_1\times SESOI_{YoYoIR1_{upper}} \\
+    SESOI_{MAS_{upper}} &amp;= 0.0014\times 40 \\
+    SESOI_{MAS_{upper}} &amp;= 0.06 \: km/h \\
+    \\
+    SESOI_{MAS_{lower}} &amp;= \hat{\beta}_1\times SESOI_{YoYoIR1_{lower}} \\
+    SESOI_{MAS_{lower}} &amp;= 0.0014\times -40 \\
+    SESOI_{MAS_{lower}} &amp;= -0.06 \: km/h
+    \end{split}  
+    \tag{2.29}
+\end{equation}
+\]</span></p>
+<p>Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±0.5km/h). Figure <a href="description.html#fig:sesoiscatterplot-mas-yoyo">2.10</a> depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area.</p>
+<div class="figure" style="text-align: center"><span id="fig:sesoiscatterplot-mas-yoyo"></span>
+<img src="02-Description_files/figure-html/sesoiscatterplot-mas-yoyo-1.png" alt="Scatter plot between two variables using SESOI to indicate practically significant difference A. Scatterplot with SESOI depicted as grey band around linear regression line. B. Residual plot, where the difference between MAS and linear regression line (model estimate) is plotted against linear regression line (fitted or predicted MAS). SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Dashed lines represent upper and lower levels of agreement using RSE and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines)." width="90%" />
+<p class="caption">
+Figure 2.10: <strong>Scatter plot between two variables using SESOI to indicate practically significant difference A.</strong> Scatterplot with SESOI depicted as grey band around linear regression line. <strong>B.</strong> Residual plot, where the difference between MAS and linear regression line (model estimate) is plotted against linear regression line (fitted or predicted MAS). SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Dashed lines represent upper and lower <em>levels of agreement</em> using <code>RSE</code> and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines).
+</p>
+</div>
+
+<p>Magnitude-based estimators of the practically significant strength of the two variable association involve ratio between the SESOI (<span class="math inline">\(SESOI_{upper} - SESOI_{lower}\)</span>) and <code>RSE</code> (<code>SESOI to RSE</code>), and <code>PPER</code>. <code>SESOI to RSE</code> indicates how big are the residuals compared to the SESOI, and thus a metric of the practical strength of the association. Assuming that residuals are being normally distributed, SESOI to RSE over 4 (or <span class="math inline">\(2\times 1.96\)</span>) would indicate excellent practical strength of the association. If you look at the Table 15, estimated SESOI to RSE in this example is not great, indicating poor practical strength of association.</p>
+<p><em>Proportion of practically equivalent residuals</em> (<code>PPER</code>) as a measure of the practical strength of the association revolves around estimating proportions of residuals in the <em>equivalent</em> range, defined as SESOI in the target variable (which is exactly the same as already introduced <code>pEquivalent</code> estimator). <code>PPER</code> can be estimated with the brute-force method by simply counting residuals in the equivalent zone, or using algebraic method and assuming normally distributed residuals (i.e. using <code>RSE</code> of the residuals<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>).</p>
+<p>Figure <a href="description.html#fig:p-equivalent">2.11</a> graphically depicts how <code>PPER</code> is calculated. Practically significant association between two variables would have <code>PPER</code> equal to 1, which indicates that all residuals are within confines of the SESOI. If you look at the Table <a href="description.html#tab:association-magnitude-table">2.17</a>, estimated <code>PPER</code> in this example is almost perfect, indicating great practical strength of the association between YoYoIR1 and MAS tests.</p>
+<div class="figure" style="text-align: center"><span id="fig:p-equivalent"></span>
+<img src="02-Description_files/figure-html/p-equivalent-1.png" alt="Residuals of the linear regression model predicting MAS from YoYoIR1 test. Proportion of residuals within SESOI band represent PPER" width="90%" />
+<p class="caption">
+Figure 2.11: <strong>Residuals of the linear regression model predicting MAS from YoYoIR1 test. </strong>Proportion of residuals within SESOI band represent <code>PPER</code>
+</p>
+</div>
+
+
+<table>
+<caption><span id="tab:association-magnitude-table">Table 2.17: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. MAS is the target variable, and YoYoIR1 is the predictor</caption>
+<thead>
+<tr class="header">
+<th align="left">SESOI YoYoIR1 (m)</th>
+<th align="left">SESOI MAS (km/h)</th>
+<th align="right">Sensitivity</th>
+<th align="right">RSE</th>
+<th align="right">SESOI MAS to RSE</th>
+<th align="right">PPER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">±40</td>
+<td align="left">±0.5</td>
+<td align="right">0.11</td>
+<td align="right">0.22</td>
+<td align="right">4.57</td>
+<td align="right">0.98</td>
+</tr>
+</tbody>
+</table>
+<p>Visual inspection from the Figure <a href="description.html#fig:p-equivalent">2.11</a> and magnitude-based estimates from the Table <a href="description.html#tab:association-magnitude-table">2.17</a> indicate that using YoYoIR1 test scores, we are able to <em>predict</em><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> MAS test scores with the error within SESOI. But would that be the case if the we want to predict YoYoIR1 from MAS test scores? Predictive performance of such model is depicted on the Figure <a href="description.html#fig:p-equivalent-for-yoyo">2.12</a> and magnitude-based estimator are enlisted in the Table <a href="description.html#tab:association-magnitude-yoyo-table">2.18</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:p-equivalent-for-yoyo"></span>
+<img src="02-Description_files/figure-html/p-equivalent-for-yoyo-1.png" alt="Linear regression model estimating association between YoYoIR1 and MAS tests where YoYoIR1 is now the target variable. A. Scatterplot with SESOI depicted as grey band around linear regression line. B. Residual plot, where the difference between YoYoIR1 and linear regression line (model estimate) is plotted against MAS variable. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent PPER" width="90%" />
+<p class="caption">
+Figure 2.12: <strong>Linear regression model estimating association between YoYoIR1 and MAS tests where YoYoIR1 is now the target variable. A.</strong> Scatterplot with SESOI depicted as grey band around linear regression line. <strong>B.</strong> Residual plot, where the difference between YoYoIR1 and linear regression line (model estimate) is plotted against MAS variable. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent <code>PPER</code>
+</p>
+</div>
+
+
+<table>
+<caption><span id="tab:association-magnitude-yoyo-table">Table 2.18: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. YoYoIR1 is the target variable, and MAS is the predictor</caption>
+<thead>
+<tr class="header">
+<th align="left">SESOI YoYoIR1 (m)</th>
+<th align="left">SESOI MAS (km/h)</th>
+<th align="right">Sensitivity</th>
+<th align="right">RSE</th>
+<th align="right">SESOI YoYoIR1 to RSE</th>
+<th align="right">PPER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">±40</td>
+<td align="left">±0.5</td>
+<td align="right">6.56</td>
+<td align="right">133.84</td>
+<td align="right">0.6</td>
+<td align="right">0.23</td>
+</tr>
+</tbody>
+</table>
+<p>As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to <code>Pearson's r</code>, <code>R-Squared</code> and <code>MIC</code>, this is not the case and results are same regardless of which variable is predictor and which is target.</p>
+<p>From the analysis performed, it seems that predicting MAS from YoYoIR1 is practically useful and the association is practically significant. Unfortunately, the same is not the case when we try to predict YoYoIR1 from MAS. This might be due different <em>physical traits</em> that determine the test scores. For example, results in the YoYoIR1 test might depend on the traits that include, but are not limited to, same traits important for the MAS test.</p>
+<p>The purpose of descriptive analysis is only to describe - further analysis involving answering the <em>why</em> questions is in the domain of <em>explanatory modeling</em> and <em>causal inference</em> (which are covered in the [Causal inference] section), as well as <a href="description.html#advanced-uses">Advanced uses</a> of descriptive modeling, such as <em>latent variable modeling</em>. What is important to remember is that to describe magnitude-based association, it is important to clearly state which variable is the target and which is the predictor.</p>
+</div>
+</div>
+<div id="advanced-uses" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Advanced uses</h2>
+<p>Advanced techniques in the descriptive statistics involve dimension reduction, such as <em>principal component analysis</em> (PCA), latent variable modeling, such as <em>factor analysis</em> (FA), or cluster analysis <span class="citation">(Beaujean <a href="#ref-beaujeanLatentVariableModeling2014" role="doc-biblioref">2014</a>; Borsboom <a href="#ref-borsboomLatentVariableTheory2008" role="doc-biblioref">2008</a>; Borsboom, Mellenbergh, and van Heerden <a href="#ref-borsboomTheoreticalStatusLatent2003" role="doc-biblioref">2003</a>; Everitt and Hothorn <a href="#ref-everittIntroductionAppliedMultivariate2011" role="doc-biblioref">2011</a>; Finch and French <a href="#ref-finchLatentVariableModeling2015" role="doc-biblioref">2015</a>; Kabacoff <a href="#ref-kabacoffActionDataAnalysis2015" role="doc-biblioref">2015</a>)</span>. These techniques are beyond the scope of this book and the interested readers are directed to references provided.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-albaneseMinervaMinepyEngine2012">
+<p>Albanese, Davide, Michele Filosi, Roberto Visintainer, Samantha Riccadonna, Giuseppe Jurman, and Cesare Furlanello. 2012b. “Minerva and Minepy: A C Engine for the MINE Suite and Its R, Python and MATLAB Wrappers.” <em>Bioinformatics</em>, bts707.</p>
+</div>
+<div id="ref-allenRaincloudplotsTutorialsCodebase2018">
+<p>Allen, Micah, Davide Poggiali, Kirstie Whitaker, Tom Rhys Marshall, and Rogier Kievit. 2018. “Raincloudplots Tutorials and Codebase.” Zenodo. <a href="https://doi.org/10.5281/zenodo.1402959">https://doi.org/10.5281/zenodo.1402959</a>.</p>
+</div>
+<div id="ref-allenRaincloudPlotsMultiplatform2019">
+<p>Allen, Micah, Davide Poggiali, Kirstie Whitaker, Tom Rhys Marshall, and Rogier A. Kievit. 2019. “Raincloud Plots: A Multi-Platform Tool for Robust Data Visualization.” <em>Wellcome Open Research</em> 4 (April): 63. <a href="https://doi.org/10.12688/wellcomeopenres.15191.1">https://doi.org/10.12688/wellcomeopenres.15191.1</a>.</p>
+</div>
+<div id="ref-anvariUsingAnchorBasedMethods2019">
+<p>Anvari, Farid, and Daniel Lakens. 2019. “Using Anchor-Based Methods to Determine the Smallest Effect Size of Interest,” March. <a href="https://doi.org/10.31234/osf.io/syp5a">https://doi.org/10.31234/osf.io/syp5a</a>.</p>
+</div>
+<div id="ref-barronGeneralAdaptiveRobust2019">
+<p>Barron, Jonathan T. 2019. “A General and Adaptive Robust Loss Function.” <em>arXiv:1701.03077 [Cs, Stat]</em>, April. <a href="http://arxiv.org/abs/1701.03077">http://arxiv.org/abs/1701.03077</a>.</p>
+</div>
+<div id="ref-beaujeanLatentVariableModeling2014">
+<p>Beaujean, A. Alexander. 2014. <em>Latent Variable Modeling Using R: A Step by Step Guide</em>. New York: Routledge/Taylor &amp; Francis Group.</p>
+</div>
+<div id="ref-borsboomLatentVariableTheory2008">
+<p>Borsboom, Denny. 2008. “Latent Variable Theory.” <em>Measurement: Interdisciplinary Research &amp; Perspective</em> 6 (1-2): 25–53. <a href="https://doi.org/10.1080/15366360802035497">https://doi.org/10.1080/15366360802035497</a>.</p>
+</div>
+<div id="ref-borsboomTheoreticalStatusLatent2003">
+<p>Borsboom, Denny, Gideon J. Mellenbergh, and Jaap van Heerden. 2003. “The Theoretical Status of Latent Variables.” <em>Psychological Review</em> 110 (2): 203–19. <a href="https://doi.org/10.1037/0033-295X.110.2.203">https://doi.org/10.1037/0033-295X.110.2.203</a>.</p>
+</div>
+<div id="ref-botchkarevNewTypologyDesign2019">
+<p>Botchkarev, Alexei. 2019. “A New Typology Design of Performance Metrics to Measure Errors in Machine Learning Regression Algorithms.” <em>Interdisciplinary Journal of Information, Knowledge, and Management</em> 14: 045–076. <a href="https://doi.org/10.28945/4184">https://doi.org/10.28945/4184</a>.</p>
+</div>
+<div id="ref-buchheit3015Intermittent2014">
+<p>Buchheit, Martin, and Alireza Rabbani. 2014. “The 3015 Intermittent Fitness Test Versus the Yo-Yo Intermittent Recovery Test Level 1: Relationship and Sensitivity to Training.” <em>International Journal of Sports Physiology and Performance</em> 9 (3): 522–24. <a href="https://doi.org/10.1123/ijspp.2012-0335">https://doi.org/10.1123/ijspp.2012-0335</a>.</p>
+</div>
+<div id="ref-caldwellBasicStatisticalConsiderations2019">
+<p>Caldwell, Aaron R., and Samuel N. Cheuvront. 2019. “Basic Statistical Considerations for Physiology: The Journal <em>Temperature</em> Toolbox.” <em>Temperature</em>, June, 1–30. <a href="https://doi.org/10.1080/23328940.2019.1624131">https://doi.org/10.1080/23328940.2019.1624131</a>.</p>
+</div>
+<div id="ref-chaiRootMeanSquare2014">
+<p>Chai, T., and R. R. Draxler. 2014. “Root Mean Square Error (RMSE) or Mean Absolute Error (MAE)? Arguments Against Avoiding RMSE in the Literature.” <em>Geoscientific Model Development</em> 7 (3): 1247–50. <a href="https://doi.org/10.5194/gmd-7-1247-2014">https://doi.org/10.5194/gmd-7-1247-2014</a>.</p>
+</div>
+<div id="ref-cohenStatisticalPowerAnalysis1988">
+<p>Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Hillsdale, N.J: L. Erlbaum Associates.</p>
+</div>
+<div id="ref-everittIntroductionAppliedMultivariate2011">
+<p>Everitt, Brian, and Torsten Hothorn. 2011. <em>An Introduction to Applied Multivariate Analysis with R</em>. Use R! New York: Springer.</p>
+</div>
+<div id="ref-finchLatentVariableModeling2015">
+<p>Finch, W. Holmes, and Brian F. French. 2015. <em>Latent Variable Modeling with R</em>. New York: Routledge, Taylor &amp; Francis Group.</p>
+</div>
+<div id="ref-foremanDataSmartUsing2014">
+<p>Foreman, John W. 2014. <em>Data Smart: Using Data Science to Transform Information into Insight</em>. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-R-Metrics">
+<p>Hamner, Ben, and Michael Frasco. 2018. <em>Metrics: Evaluation Metrics for Machine Learning</em>. <a href="https://CRAN.R-project.org/package=Metrics">https://CRAN.R-project.org/package=Metrics</a>.</p>
+</div>
+<div id="ref-hopkinsHowInterpretChanges2004">
+<p>Hopkins, Will G. 2004. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
+</div>
+<div id="ref-hopkinsNewViewStatistics2006">
+<p>Hopkins, Will G. 2006. “New View of Statistics: Effect Magnitudes.” https://www.sportsci.org/resource/stats/effectmag.html.</p>
+</div>
+<div id="ref-hopkinsIndividualResponsesMade2015">
+<p>Hopkins, Will G. 2015. “Individual Responses Made Easy.” <em>Journal of Applied Physiology</em> 118 (12): 1444–6. <a href="https://doi.org/10.1152/japplphysiol.00098.2015">https://doi.org/10.1152/japplphysiol.00098.2015</a>.</p>
+</div>
+<div id="ref-hopkinsProgressiveStatisticsStudies2009">
+<p>Hopkins, William G., Stephen W. Marshall, Alan M. Batterham, and Juri Hanin. 2009. “Progressive Statistics for Studies in Sports Medicine and Exercise Science:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 41 (1): 3–13. <a href="https://doi.org/10.1249/MSS.0b013e31818cb278">https://doi.org/10.1249/MSS.0b013e31818cb278</a>.</p>
+</div>
+<div id="ref-jamesIntroductionStatisticalLearning2017">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2017. <em>An Introduction to Statistical Learning: With Applications in R</em>. 1st ed. 2013, Corr. 7th printing 2017 edition. New York: Springer.</p>
+</div>
+<div id="ref-kabacoffActionDataAnalysis2015">
+<p>Kabacoff, Robert. 2015. <em>R in Action: Data Analysis and Graphics with R</em>. Second edition. Shelter Island: Manning.</p>
+</div>
+<div id="ref-kingPointMinimalImportant2011">
+<p>King, Madeleine T. 2011. “A Point of Minimal Important Difference (MID): A Critique of Terminology and Methods.” <em>Expert Review of Pharmacoeconomics &amp; Outcomes Research</em> 11 (2): 171–84. <a href="https://doi.org/10.1586/erp.11.9">https://doi.org/10.1586/erp.11.9</a>.</p>
+</div>
+<div id="ref-kuhnAppliedPredictiveModeling2018">
+<p>Kuhn, Max, and Kjell Johnson. 2018. <em>Applied Predictive Modeling</em>. 1st ed. 2013, Corr. 2nd printing 2016 edition. New York: Springer.</p>
+</div>
+<div id="ref-lakensEquivalenceTestingPsychological2018">
+<p>Lakens, Daniël, Anne M. Scheel, and Peder M. Isager. 2018. “Equivalence Testing for Psychological Research: A Tutorial.” <em>Advances in Methods and Practices in Psychological Science</em> 1 (2): 259–69. <a href="https://doi.org/10.1177/2515245918770963">https://doi.org/10.1177/2515245918770963</a>.</p>
+</div>
+<div id="ref-ludbrookSPECIALARTICLECOMPARING1997">
+<p>Ludbrook, John. 1997. “SPECIAL ARTICLE COMPARING METHODS OF MEASUREMENT.” <em>Clinical and Experimental Pharmacology and Physiology</em> 24 (2): 193–203. <a href="https://doi.org/10.1111/j.1440-1681.1997.tb01807.x">https://doi.org/10.1111/j.1440-1681.1997.tb01807.x</a>.</p>
+</div>
+<div id="ref-ludbrookStatisticalTechniquesComparing2002">
+<p>Ludbrook, John. 2002. “Statistical Techniques for Comparing Measurers and Methods of Measurement: A Critical Review.” <em>Clinical and Experimental Pharmacology and Physiology</em> 29 (7): 527–36. <a href="https://doi.org/10.1046/j.1440-1681.2002.03686.x">https://doi.org/10.1046/j.1440-1681.2002.03686.x</a>.</p>
+</div>
+<div id="ref-ludbrookLinearRegressionAnalysis2010">
+<p>Ludbrook, John. 2010. “Linear Regression Analysis for Comparing Two Measurers or Methods of Measurement: But Which Regression?: Linear Regression for Comparing Methods.” <em>Clinical and Experimental Pharmacology and Physiology</em> 37 (7): 692–99. <a href="https://doi.org/10.1111/j.1440-1681.2010.05376.x">https://doi.org/10.1111/j.1440-1681.2010.05376.x</a>.</p>
+</div>
+<div id="ref-ludbrookPrimerBiomedicalScientists2012">
+<p>Ludbrook, John. 2012. “A Primer for Biomedical Scientists on How to Execute Model II Linear Regression Analysis: Model II Linear Regression Analysis.” <em>Clinical and Experimental Pharmacology and Physiology</em> 39 (4): 329–35. <a href="https://doi.org/10.1111/j.1440-1681.2011.05643.x">https://doi.org/10.1111/j.1440-1681.2011.05643.x</a>.</p>
+</div>
+<div id="ref-mcgrawCommonLanguageEffect1992">
+<p>McGraw, Kenneth O., and S. P. Wong. 1992. “A Common Language Effect Size Statistic.” <em>Psychological Bulletin</em> 111 (2): 361–65. <a href="https://doi.org/10.1037/0033-2909.111.2.361">https://doi.org/10.1037/0033-2909.111.2.361</a>.</p>
+</div>
+<div id="ref-mullineauxAssessmentBiasComparing1999">
+<p>Mullineaux, David R., Christopher A. Barnes, and Alan M. Batterham. 1999. “Assessment of Bias in Comparing Measurements: A Reliability Example.” <em>Measurement in Physical Education and Exercise Science</em> 3 (4): 195–205. <a href="https://doi.org/10.1207/s15327841mpee0304_1">https://doi.org/10.1207/s15327841mpee0304_1</a>.</p>
+</div>
+<div id="ref-reshefDetectingNovelAssociations2011">
+<p>Reshef, D. N., Y. A. Reshef, H. K. Finucane, S. R. Grossman, G. McVean, P. J. Turnbaugh, E. S. Lander, M. Mitzenmacher, and P. C. Sabeti. 2011. “Detecting Novel Associations in Large Data Sets.” <em>Science</em> 334 (6062): 1518–24. <a href="https://doi.org/10.1126/science.1205438">https://doi.org/10.1126/science.1205438</a>.</p>
+</div>
+<div id="ref-rousseletDifferencesMeansRobust2017">
+<p>Rousselet, Guillaume A., Cyril R. Pernet, and Rand R. Wilcox. 2017. “Beyond Differences in Means: Robust Graphical Methods to Compare Two Groups in Neuroscience.” <em>European Journal of Neuroscience</em> 46 (2): 1738–48. <a href="https://doi.org/10.1111/ejn.13610">https://doi.org/10.1111/ejn.13610</a>.</p>
+</div>
+<div id="ref-sainaniClinicalStatisticalSignificance2012">
+<p>Sainani, Kristin L. 2012. “Clinical Versus Statistical Significance.” <em>PM&amp;R</em> 4 (6): 442–45. <a href="https://doi.org/10.1016/j.pmrj.2012.04.014">https://doi.org/10.1016/j.pmrj.2012.04.014</a>.</p>
+</div>
+<div id="ref-swintonStatisticalFrameworkInterpret2018">
+<p>Swinton, Paul A., Ben Stephens Hemingway, Bryan Saunders, Bruno Gualano, and Eimear Dolan. 2018. “A Statistical Framework to Interpret Individual Response to Intervention: Paving the Way for Personalized Nutrition and Exercise Prescription.” <em>Frontiers in Nutrition</em> 5 (May). <a href="https://doi.org/10.3389/fnut.2018.00041">https://doi.org/10.3389/fnut.2018.00041</a>.</p>
+</div>
+<div id="ref-turnerDataAnalysisStrength2015">
+<p>Turner, Anthony, Jon Brazier, Chris Bishop, Shyam Chavda, Jon Cree, and Paul Read. 2015. “Data Analysis for Strength and Conditioning Coaches: Using Excel to Analyze Reliability, Differences, and Relationships.” <em>Strength and Conditioning Journal</em> 37 (1): 76–83. <a href="https://doi.org/10.1519/SSC.0000000000000113">https://doi.org/10.1519/SSC.0000000000000113</a>.</p>
+</div>
+<div id="ref-wilcoxDataAnalysesWhen2018">
+<p>Wilcox, Rand, Travis J. Peterson, and Jill L. McNitt-Gray. 2018. “Data Analyses When Sample Sizes Are Small: Modern Advances for Dealing with Outliers, Skewed Distributions, and Heteroscedasticity.” <em>Journal of Applied Biomechanics</em> 34 (4): 258–61. <a href="https://doi.org/10.1123/jab.2017-0269">https://doi.org/10.1123/jab.2017-0269</a>.</p>
+</div>
+<div id="ref-wilcoxIntroductionRobustEstimation2016">
+<p>Wilcox, Rand R. 2016. <em>Introduction to Robust Estimation and Hypothesis Testing</em>. 4th edition. Waltham, MA: Elsevier.</p>
+</div>
+<div id="ref-wilcoxGuideRobustStatistical2017">
+<p>Wilcox, Rand R., and Guillaume A. Rousselet. 2017. “A Guide to Robust Statistical Methods in Neuroscience.” <em>bioRxiv</em>, June. <a href="https://doi.org/10.1101/151811">https://doi.org/10.1101/151811</a>.</p>
+</div>
+<div id="ref-willmottAdvantagesMeanAbsolute2005">
+<p>Willmott, Cj, and K Matsuura. 2005. “Advantages of the Mean Absolute Error (MAE) over the Root Mean Square Error (RMSE) in Assessing Average Model Performance.” <em>Climate Research</em> 30: 79–82. <a href="https://doi.org/10.3354/cr030079">https://doi.org/10.3354/cr030079</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><em>Standardization</em> is the process of putting different variables on the same scale. This allows for easier comparison, as well as graphing using a common axis. For example, variables are usually standardized by using Z-Score (<span class="math inline">\(z_{i} = \frac{x_{i} - \overline{x}}{SD_{x}}\)</span>) which has a mean of zero and a standard deviation of 1.<a href="description.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>As can be noticed, <code>RMSE</code> and <code>SD</code> are not exactly the same. This is because a sample <code>SD</code> equation uses <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span>: <span class="math inline">\(SD = \sqrt{\frac{1}{n-1}\Sigma_{i=1}^{n}(y_i -\bar{y})^2}\)</span>, where <span class="math inline">\(\bar{y}\)</span> represents the <code>mean</code>. Remember that <span class="math inline">\(\hat{y_i}\)</span> represents the model estimate. In this case model estimate <span class="math inline">\(\hat{y_i}\)</span> and sample <code>mean</code> <span class="math inline">\(\bar{y}\)</span> are the same. Sample <code>SD</code> uses <span class="math inline">\(n-1\)</span> since this represents <em>unbiased</em> estimator of the <em>population</em> <code>SD</code>. More about this topic will be covered in [Statistical inference] section.<a href="description.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>The analytic solution for the central tendency estimate that minimizes <code>SD</code> is, of course, the sample <code>mean</code> (<span class="math inline">\(\frac{1}{n}\Sigma_{i=1}^{n}y_i\)</span>).<a href="description.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><code>Percent change</code> is the same estimator as <code>percent difference</code>, but applied to difference between the two dependent groups (see section <a href="description.html#comparing-dependent-groups">Comparing dependent groups</a>).<a href="description.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>However, let’s admit that we would rather report estimators of higher value, particularly if we are biased toward a specific test. “Athletes improved on average for 35%” sounds much more appealing than 7%, even if the effects estimated using <code>Cohen's d</code> are the same.<a href="description.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent.<a href="description.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Other term for SESOI that is commonly used is <em>region of practical equivalence</em> (ROPE) <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>.<a href="description.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>SESOI has two thresholds: <em>lower</em> and <em>upper</em>, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as <span class="math inline">\(SESOI_{upper} - SESOI_{lower}\)</span>. This range can also be refered to as <em>equivalence range</em>.<a href="description.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>It is assumed here that SESOI is <em>symmetrical</em> in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn’t necessary needs to be symmetrical in both positive and negative directions.<a href="description.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Since YoYoIR1 test is performed in 2x20m shuttles, the minimal increment is equal to 40m. For the MAS test the minimal increment is 0.5km/h.<a href="description.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>This approach, as already explained, belongs to the OLS approach. On the other hand, MLE tries to find a line that maximizes likelihood of the data.<a href="description.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>The benefit of using <em>squared errors</em> in OLS approaches, is that this <em>optimization</em> (or the search for parameters that minimize <code>RMSE</code> as a cost function in this case) can be done analytically. One of the drawbacks of using squared errors (or squared residuals) is sensitivity to <em>outliers</em>. Other regression approaches, such as <em>quantiles regression</em> or <em>ordinary least products</em> (OLP) for example, use different loss and cost functions. OLP regression will be utilized in the [Reliability] section of the book.<a href="description.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>To estimate <code>PPER</code> algebraically, one can use residual <code>SD</code>, <code>RSE</code>, or <code>RMSE</code> since these are all measures of dispersion. In predictive models (see <a href="prediction.html#prediction">Prediction</a> section) <code>RMSE</code> is utilized to estimate <code>PPER</code>.<a href="description.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>This is not ideal estimate of the predictive performance of this model as will be explained in the next section on <a href="prediction.html#prediction">Prediction</a>.<a href="description.html#fnref14" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/02-Description.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

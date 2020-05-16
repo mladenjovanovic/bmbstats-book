@@ -1,0 +1,80 @@
+--- 
+title: "bmbstats: bootstrap magnitude-based statistics for sports scientists"
+author: "Mladen Jovanovic"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook
+documentclass: book
+bibliography: ["citations/references.bib", "citations/r-references.bib"]
+biblio-style: apalike
+link-citations: yes
+github-repo: mladenjovanovic/bmbstats-book
+url: www.complementarytraining.net
+twitter-handle: physical_prep
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Load bmbp localy
+require(bmbstats)
+
+# Load  packages
+require(markdown)
+require(knitr)
+require(bookdown)
+require(tidyverse)
+require(cowplot)
+require(ggridges)
+require(bayestestR)
+require(psych)
+require(minerva)
+require(directlabels)
+require(kableExtra)
+require(caret)
+require(pdp)
+require(vip)
+require(visreg)
+require(effects)
+require(rpart)
+require(Metrics)
+require(ggstance)
+require(boot)
+
+# Save r-packages
+require(papaja)
+r_refs(file = "./citations/r-references.bib", append = FALSE)
+r_citations <- cite_r("./citations/r-references.bib", footnote = FALSE, pkgs = c("papaja"))
+```
+
+# Welcome {-}
+
+<img src="figures/bmbstats-book-mockup-small.jpg" align="right" alt="Cover image" /></a>
+
+The aim of this book is to provide an overview of the three classes of tasks in the statistical modeling: description, prediction and causal inference [@hernanSecondChanceGet2019]. Statistical inference is often required for all three tasks. Short introduction to frequentist null-hypothesis testing, Bayesian estimation and bootstrap are provided. Special attention is given to the practical significance with the introduction of magnitude-based estimators and statistical inference by using the concept of smallest effect size of interest (SESOI). Measurement error is discussed with the particular aim of interpreting individual change scores. In the second part of this book, common sport science problems are introduced and analyzed with the `bmbstats` package.
+
+This book, as well as the `bmbstats` package are currently in development phase. Please be free to contribute pull request at GitHub
+
+#### bmbstats package {-}
+
+https://github.com/mladenjovanovic/bmbstats
+
+#### bmbstats book {-}
+
+https://github.com/mladenjovanovic/bmbstats-book
+
+## R and R packages {-}
+
+This book is fully reproducible and was written in `r r_citations`.
+
+## License {-}
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+
+This work, as a whole, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+The code contained in this book is simultaneously available under the [MIT license](https://opensource.org/licenses/MIT); this means that you are free to use it in your own packages, as long as you cite the source.

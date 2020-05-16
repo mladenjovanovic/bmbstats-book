@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="introduction.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">bmbstats: bootstrap magnitude-based statistics for sports scientists</h1>
+<p class="author"><em>Mladen Jovanovic</em></p>
+<p class="date"><em>2020-05-16</em></p>
+</div>
+<div id="welcome" class="section level1 unnumbered" number="">
+<h1>Welcome</h1>
+<p><img src="figures/bmbstats-book-mockup-small.jpg" align="right" alt="Cover image" /></a></p>
+<p>The aim of this book is to provide an overview of the three classes of tasks in the statistical modeling: description, prediction and causal inference <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>. Statistical inference is often required for all three tasks. Short introduction to frequentist null-hypothesis testing, Bayesian estimation and bootstrap are provided. Special attention is given to the practical significance with the introduction of magnitude-based estimators and statistical inference by using the concept of smallest effect size of interest (SESOI). Measurement error is discussed with the particular aim of interpreting individual change scores. In the second part of this book, common sport science problems are introduced and analyzed with the <code>bmbstats</code> package.</p>
+<p>This book, as well as the <code>bmbstats</code> package are currently in development phase. Please be free to contribute pull request at GitHub</p>
+<div id="bmbstats-package" class="section level4 unnumbered" number="">
+<h4>bmbstats package</h4>
+<p><a href="https://github.com/mladenjovanovic/bmbstats" class="uri">https://github.com/mladenjovanovic/bmbstats</a></p>
+</div>
+<div id="bmbstats-book" class="section level4 unnumbered" number="">
+<h4>bmbstats book</h4>
+<p><a href="https://github.com/mladenjovanovic/bmbstats-book" class="uri">https://github.com/mladenjovanovic/bmbstats-book</a></p>
+</div>
+<div id="r-and-r-packages" class="section level2 unnumbered" number="">
+<h2>R and R packages</h2>
+<p>This book is fully reproducible and was written in R <span class="citation">(Version 4.0.0; R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> and the R-packages <em>bayestestR</em> <span class="citation">(Version 0.6.0; Makowski, Ben-Shachar, and Lüdecke <a href="#ref-R-bayestestR" role="doc-biblioref">2019</a>)</span>, <em>bmbstats</em> <span class="citation">(Version 0.0.0.9000; Jovanović <a href="#ref-R-bmbstats" role="doc-biblioref">2020</a>)</span>, <em>bookdown</em> <span class="citation">(Version 0.18; Xie <a href="#ref-R-bookdown" role="doc-biblioref">2016</a>)</span>, <em>boot</em> <span class="citation">(Version 1.3.25; Davison and Hinkley <a href="#ref-R-boot" role="doc-biblioref">1997</a>)</span>, <em>carData</em> <span class="citation">(Version 3.0.3; Fox, Weisberg, and Price <a href="#ref-R-carData" role="doc-biblioref">2019</a>)</span>, <em>caret</em> <span class="citation">(Version 6.0.86; Kuhn <a href="#ref-R-caret" role="doc-biblioref">2020</a>)</span>, <em>cowplot</em> <span class="citation">(Version 1.0.0; Wilke <a href="#ref-R-cowplot" role="doc-biblioref">2019</a>)</span>, <em>directlabels</em> <span class="citation">(Version 2020.1.31; Hocking <a href="#ref-R-directlabels" role="doc-biblioref">2020</a>)</span>, <em>dplyr</em> <span class="citation">(Version 0.8.5; Wickham, François, et al. <a href="#ref-R-dplyr" role="doc-biblioref">2020</a>)</span>, <em>effects</em> <span class="citation">(Version 4.1.4; Fox and Weisberg <a href="#ref-R-effects_a" role="doc-biblioref">2018</a>; Fox <a href="#ref-R-effects_b" role="doc-biblioref">2003</a>; Fox and Hong <a href="#ref-R-effects_c" role="doc-biblioref">2009</a>)</span>, <em>forcats</em> <span class="citation">(Version 0.5.0; Wickham <a href="#ref-R-forcats" role="doc-biblioref">2020</a>)</span>, <em>ggplot2</em> <span class="citation">(Version 3.3.0; Wickham <a href="#ref-R-ggplot2" role="doc-biblioref">2016</a>)</span>, <em>ggridges</em> <span class="citation">(Version 0.5.2; Wilke <a href="#ref-R-ggridges" role="doc-biblioref">2020</a>)</span>, <em>ggstance</em> <span class="citation">(Version 0.3.4; Henry, Wickham, and Chang <a href="#ref-R-ggstance" role="doc-biblioref">2020</a>)</span>, <em>kableExtra</em> <span class="citation">(Version 1.1.0; Zhu <a href="#ref-R-kableExtra" role="doc-biblioref">2019</a>)</span>, <em>knitr</em> <span class="citation">(Version 1.28; Xie <a href="#ref-R-knitr" role="doc-biblioref">2015</a>)</span>, <em>lattice</em> <span class="citation">(Version 0.20.41; Sarkar <a href="#ref-R-lattice" role="doc-biblioref">2008</a>)</span>, <em>markdown</em> <span class="citation">(Version 1.1; Allaire et al. <a href="#ref-R-markdown" role="doc-biblioref">2019</a>)</span>, <em>Metrics</em> <span class="citation">(Version 0.1.4; Hamner and Frasco <a href="#ref-R-Metrics" role="doc-biblioref">2018</a>)</span>, <em>minerva</em> <span class="citation">(Version 1.5.8; Albanese et al. <a href="#ref-R-minerva" role="doc-biblioref">2012</a><a href="#ref-R-minerva" role="doc-biblioref">a</a>)</span>, <em>pdp</em> <span class="citation">(Version 0.7.0; B. M. Greenwell <a href="#ref-R-pdp" role="doc-biblioref">2017</a><a href="#ref-R-pdp" role="doc-biblioref">a</a>)</span>, <em>psych</em> <span class="citation">(Version 1.9.12.31; Revelle <a href="#ref-R-psych" role="doc-biblioref">2019</a>)</span>, <em>purrr</em> <span class="citation">(Version 0.3.4; Henry and Wickham <a href="#ref-R-purrr" role="doc-biblioref">2020</a>)</span>, <em>readr</em> <span class="citation">(Version 1.3.1; Wickham, Hester, and Francois <a href="#ref-R-readr" role="doc-biblioref">2018</a>)</span>, <em>rpart</em> <span class="citation">(Version 4.1.15; Therneau and Atkinson <a href="#ref-R-rpart" role="doc-biblioref">2019</a>)</span>, <em>stringr</em> <span class="citation">(Version 1.4.0; Wickham <a href="#ref-R-stringr" role="doc-biblioref">2019</a>)</span>, <em>tibble</em> <span class="citation">(Version 3.0.1; Müller and Wickham <a href="#ref-R-tibble" role="doc-biblioref">2020</a>)</span>, <em>tidyr</em> <span class="citation">(Version 1.0.3; Wickham and Henry <a href="#ref-R-tidyr" role="doc-biblioref">2020</a>)</span>, <em>tidyverse</em> <span class="citation">(Version 1.3.0; Wickham, Averick, et al. <a href="#ref-R-tidyverse" role="doc-biblioref">2019</a>)</span>, <em>vip</em> <span class="citation">(Version 0.2.2; Greenwell, Boehmke, and Gray <a href="#ref-R-vip" role="doc-biblioref">2020</a>)</span>, and <em>visreg</em> <span class="citation">(Version 2.6.1; Breheny and Burchett <a href="#ref-R-visreg" role="doc-biblioref">2017</a>)</span>.</p>
+</div>
+<div id="license" class="section level2 unnumbered" number="">
+<h2>License</h2>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
+<p>This work, as a whole, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+<p>The code contained in this book is simultaneously available under the <a href="https://opensource.org/licenses/MIT">MIT license</a>; this means that you are free to use it in your own packages, as long as you cite the source.</p>
+
+</div>
+</div>
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-minerva">
+<p>Albanese, Davide, Michele Filosi, Roberto Visintainer, Samantha Riccadonna, Giuseppe Jurman, and Cesare Furlanello. 2012a. “Minerva and Minepy: A c Engine for the Mine Suite and Its R, Python and Matlab Wrappers.” <em>Bioinformatics</em>, bts707.</p>
+</div>
+<div id="ref-R-markdown">
+<p>Allaire, JJ, Jeffrey Horner, Yihui Xie, Vicent Marti, and Natacha Porte. 2019. <em>Markdown: Render Markdown with the c Library ’Sundown’</em>. <a href="https://CRAN.R-project.org/package=markdown">https://CRAN.R-project.org/package=markdown</a>.</p>
+</div>
+<div id="ref-R-visreg">
+<p>Breheny, Patrick, and Woodrow Burchett. 2017. “Visualization of Regression Models Using Visreg.” <em>The R Journal</em> 9 (2): 56–71.</p>
+</div>
+<div id="ref-R-boot">
+<p>Davison, A. C., and D. V. Hinkley. 1997. <em>Bootstrap Methods and Their Applications</em>. Cambridge: Cambridge University Press. <a href="http://statwww.epfl.ch/davison/BMA/">http://statwww.epfl.ch/davison/BMA/</a>.</p>
+</div>
+<div id="ref-R-effects_b">
+<p>Fox, John. 2003. “Effect Displays in R for Generalised Linear Models.” <em>Journal of Statistical Software</em> 8 (15): 1–27. <a href="http://www.jstatsoft.org/v08/i15/">http://www.jstatsoft.org/v08/i15/</a>.</p>
+</div>
+<div id="ref-R-effects_c">
+<p>Fox, John, and Jangman Hong. 2009. “Effect Displays in R for Multinomial and Proportional-Odds Logit Models: Extensions to the effects Package.” <em>Journal of Statistical Software</em> 32 (1): 1–24. <a href="http://www.jstatsoft.org/v32/i01/">http://www.jstatsoft.org/v32/i01/</a>.</p>
+</div>
+<div id="ref-R-effects_a">
+<p>Fox, John, and Sanford Weisberg. 2018. “Visualizing Fit and Lack of Fit in Complex Regression Models with Predictor Effect Plots and Partial Residuals.” <em>Journal of Statistical Software</em> 87 (9): 1–27. <a href="https://doi.org/10.18637/jss.v087.i09">https://doi.org/10.18637/jss.v087.i09</a>.</p>
+</div>
+<div id="ref-R-carData">
+<p>Fox, John, Sanford Weisberg, and Brad Price. 2019. <em>CarData: Companion to Applied Regression Data Sets</em>. <a href="https://CRAN.R-project.org/package=carData">https://CRAN.R-project.org/package=carData</a>.</p>
+</div>
+<div id="ref-R-vip">
+<p>Greenwell, Brandon, Brad Boehmke, and Bernie Gray. 2020. <em>Vip: Variable Importance Plots</em>. <a href="https://CRAN.R-project.org/package=vip">https://CRAN.R-project.org/package=vip</a>.</p>
+</div>
+<div id="ref-R-pdp">
+<p>Greenwell, Brandon M. 2017a. “Pdp: An R Package for Constructing Partial Dependence Plots.” <em>The R Journal</em> 9 (1): 421–36. <a href="https://journal.r-project.org/archive/2017/RJ-2017-016/index.html">https://journal.r-project.org/archive/2017/RJ-2017-016/index.html</a>.</p>
+</div>
+<div id="ref-R-Metrics">
+<p>Hamner, Ben, and Michael Frasco. 2018. <em>Metrics: Evaluation Metrics for Machine Learning</em>. <a href="https://CRAN.R-project.org/package=Metrics">https://CRAN.R-project.org/package=Metrics</a>.</p>
+</div>
+<div id="ref-R-purrr">
+<p>Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.</p>
+</div>
+<div id="ref-R-ggstance">
+<p>Henry, Lionel, Hadley Wickham, and Winston Chang. 2020. <em>Ggstance: Horizontal ’Ggplot2’ Components</em>. <a href="https://CRAN.R-project.org/package=ggstance">https://CRAN.R-project.org/package=ggstance</a>.</p>
+</div>
+<div id="ref-hernanSecondChanceGet2019">
+<p>Hernán, Miguel A., John Hsu, and Brian Healy. 2019. “A Second Chance to Get Causal Inference Right: A Classification of Data Science Tasks.” <em>CHANCE</em> 32 (1): 42–49. <a href="https://doi.org/10.1080/09332480.2019.1579578">https://doi.org/10.1080/09332480.2019.1579578</a>.</p>
+</div>
+<div id="ref-R-directlabels">
+<p>Hocking, Toby Dylan. 2020. <em>Directlabels: Direct Labels for Multicolor Plots</em>. <a href="https://CRAN.R-project.org/package=directlabels">https://CRAN.R-project.org/package=directlabels</a>.</p>
+</div>
+<div id="ref-R-bmbstats">
+<p>Jovanović, Mladen. 2020. <em>bmbstats: Bootstrap Magnitude-Based Statistics</em>. Belgrade, Serbia. <a href="https://github.com/mladenjovanovic/bmbstats">https://github.com/mladenjovanovic/bmbstats</a>.</p>
+</div>
+<div id="ref-R-caret">
+<p>Kuhn, Max. 2020. <em>Caret: Classification and Regression Training</em>. <a href="https://CRAN.R-project.org/package=caret">https://CRAN.R-project.org/package=caret</a>.</p>
+</div>
+<div id="ref-R-bayestestR">
+<p>Makowski, Dominique, Mattan S. Ben-Shachar, and Daniel Lüdecke. 2019. “BayestestR: Describing Effects and Their Uncertainty, Existence and Significance Within the Bayesian Framework.” <em>Journal of Open Source Software</em> 4 (40): 1541. <a href="https://doi.org/10.21105/joss.01541">https://doi.org/10.21105/joss.01541</a>.</p>
+</div>
+<div id="ref-R-tibble">
+<p>Müller, Kirill, and Hadley Wickham. 2020. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.</p>
+</div>
+<div id="ref-R-base">
+<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-R-psych">
+<p>Revelle, William. 2019. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.</p>
+</div>
+<div id="ref-R-lattice">
+<p>Sarkar, Deepayan. 2008. <em>Lattice: Multivariate Data Visualization with R</em>. New York: Springer. <a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.r-forge.r-project.org</a>.</p>
+</div>
+<div id="ref-R-rpart">
+<p>Therneau, Terry, and Beth Atkinson. 2019. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
+</div>
+<div id="ref-R-ggplot2">
+<p>Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.</p>
+</div>
+<div id="ref-R-stringr">
+<p>Wickham, Hadley. 2019. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.</p>
+</div>
+<div id="ref-R-forcats">
+<p>Wickham, Hadley. 2020. <em>Forcats: Tools for Working with Categorical Variables (Factors)</em>. <a href="https://CRAN.R-project.org/package=forcats">https://CRAN.R-project.org/package=forcats</a>.</p>
+</div>
+<div id="ref-R-tidyverse">
+<p>Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.</p>
+</div>
+<div id="ref-R-dplyr">
+<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
+</div>
+<div id="ref-R-tidyr">
+<p>Wickham, Hadley, and Lionel Henry. 2020. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.</p>
+</div>
+<div id="ref-R-readr">
+<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2018. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.</p>
+</div>
+<div id="ref-R-cowplot">
+<p>Wilke, Claus O. 2019. <em>Cowplot: Streamlined Plot Theme and Plot Annotations for ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=cowplot">https://CRAN.R-project.org/package=cowplot</a>.</p>
+</div>
+<div id="ref-R-ggridges">
+<p>Wilke, Claus O. 2020. <em>Ggridges: Ridgeline Plots in ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=ggridges">https://CRAN.R-project.org/package=ggridges</a>.</p>
+</div>
+<div id="ref-R-knitr">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.</p>
+</div>
+<div id="ref-R-bookdown">
+<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+</div>
+<div id="ref-R-kableExtra">
+<p>Zhu, Hao. 2019. <em>KableExtra: Construct Complex Table with ’Kable’ and Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

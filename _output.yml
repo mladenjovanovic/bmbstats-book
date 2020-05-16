@@ -1,0 +1,11 @@
+bookdown::gitbook:
+  css: adv-r.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">bmbstats book</a></li>
+    edit:
+      link: https://github.com/mladenjovanovic/bmbstats-book/%s
+      text: "Edit"
+    sharing: no
+
