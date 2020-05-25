@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-05-16" />
+<meta name="date" content="2020-05-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -112,6 +112,18 @@
 <li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
 <li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -919,7 +931,7 @@ Figure 2.7: <strong>Visual analysis of the dependent groups scores using SESOI. 
 </p>
 </div>
 
-<p>It might be tempting to claim that this intervention is <em>causing</em> changes in the bench press 1RM, but we should be vary of doing that. It is important to keep in mind that the effect size estimators are used only descriptively without any causal connotation. To make causal claims, further criteria needs to be taken into account. This is discussed in more details in the [Causal inference] section of this book.</p>
+<p>It might be tempting to claim that this intervention is <em>causing</em> changes in the bench press 1RM, but we should be vary of doing that. It is important to keep in mind that the effect size estimators are used only descriptively without any causal connotation. To make causal claims, further criteria needs to be taken into account. This is discussed in more details in the <a href="causal-inference.html#causal-inference">Causal inference</a> section of this book.</p>
 </div>
 </div>
 <div id="describing-relationship-between-two-variables" class="section level2" number="2.3">
@@ -1404,7 +1416,7 @@ Figure 2.12: <strong>Linear regression model estimating association between YoYo
 </table>
 <p>As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to <code>Pearson's r</code>, <code>R-Squared</code> and <code>MIC</code>, this is not the case and results are same regardless of which variable is predictor and which is target.</p>
 <p>From the analysis performed, it seems that predicting MAS from YoYoIR1 is practically useful and the association is practically significant. Unfortunately, the same is not the case when we try to predict YoYoIR1 from MAS. This might be due different <em>physical traits</em> that determine the test scores. For example, results in the YoYoIR1 test might depend on the traits that include, but are not limited to, same traits important for the MAS test.</p>
-<p>The purpose of descriptive analysis is only to describe - further analysis involving answering the <em>why</em> questions is in the domain of <em>explanatory modeling</em> and <em>causal inference</em> (which are covered in the [Causal inference] section), as well as <a href="description.html#advanced-uses">Advanced uses</a> of descriptive modeling, such as <em>latent variable modeling</em>. What is important to remember is that to describe magnitude-based association, it is important to clearly state which variable is the target and which is the predictor.</p>
+<p>The purpose of descriptive analysis is only to describe - further analysis involving answering the <em>why</em> questions is in the domain of <em>explanatory modeling</em> and <em>causal inference</em> (which are covered in the <a href="causal-inference.html#causal-inference">Causal inference</a> section), as well as <a href="description.html#advanced-uses">Advanced uses</a> of descriptive modeling, such as <em>latent variable modeling</em>. What is important to remember is that to describe magnitude-based association, it is important to clearly state which variable is the target and which is the predictor.</p>
 </div>
 </div>
 <div id="advanced-uses" class="section level2" number="2.4">

@@ -1,0 +1,688 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Load bmbstats locally
+require(bmbstats)
+
+# Run common script
+source("_common.R")
+
+require(tidyverse)
+require(cowplot)
+require(directlabels)
+require(kableExtra)
+```
+# Causal inference
+
+Does playing basketball makes one taller? This is a an example of a causal question. Wrestling with the concept of causality, as a philosophical construct is outside the scope of this book (and the author too), but I will define it using the *counterfactual theory* or *potential outcomes* perspective [@hernanSecondChanceGet2019; @kleinbergWhyGuideFinding2015; @pearlBookWhyNew2018; @angristMasteringMetricsPath2015; @gelmanCausalityStatisticalLearning2011] that define causes in terms of how things would have been different had the cause not occurred, as well as from *causality-as-intervention* perspective [@gelmanCausalityStatisticalLearning2011], which necessitates clearly defined interventions [@hernanCWordScientificEuphemisms2018; @hernanDoesObesityShorten2008; @hernanDoesWaterKill2016]. In other words, would someone be shorter if basketball was never trained?
+
+There are two broad classes of inferential questions that focus on *what if* and *why*: *forward causal inference* ("What might happen if we do *X*?") and *reverse causal inference* ("What causes *Y*? Why?") [@gelmanCausalityStatisticalLearning2011]. Forward causation is more clearly defined problem, where the goal is to quantify the causal effect of treatment. Questions of forward causation are most directly studied using *randomization* [@gelmanCausalityStatisticalLearning2011] and are answered from the above mentioned causality-as-intervention and counterfactual perspectives. Reverse causation is more complex and it is more related to *explaining* the causal chains using the *system-variable* approach.  Article by @gelmanCausalityStatisticalLearning2011 provides great overview of the most common causal perspectives, out of which I will mostly focus on forward causation.    
+
+## Necessary versus sufficient causality
+
+Furthermore, we also need to distinguish between four kinds of causation [@pearlBookWhyNew2018; @kleinbergWhyGuideFinding2015]: *necessary causation*, *sufficient causation* and neither or both. For example, if someone says that A causes B, then:
+
+- If A is *necessary* for B, it means that if A never happened (counterfactual reasoning), then B will never happen. Or, in other words, B can never happen without A. But sufficient causality also means that A can happen without B happening. 
+- If A is *sufficient* for B, it means that if you have A, you will *always* have B. In other words, B always follows A. However, sometimes B can happen without A
+- If A is *neither sufficient nor necessary* for B, then sometimes when A happens B will happen. B can also happen without A.
+- If A is both necessary and sufficient for B, then B will always happen after A, and B will never happen without A. 
+
+Table \@ref(tab:four-causes-table) contains summary of the above necessary and sufficient causality. In all four types of causation, the concept of counterfactual reasoning is invoked. 
+
+(ref:four-causes-table-caption) **Four kinds of causation**
+
+```{r four-causes-table}
+table_four_kinds_of_causation <- tribble(
+  ~Cause, ~Necessary, ~Sufficient, ~Neither, ~Both,
+  "A happens", "B might happen", "B always happen", "B might happen", "B always happen",
+  "A doesn't happen", "B never happens", "B might happen", "B might happen", "B never happens"
+)
+
+knitr::kable(
+  table_four_kinds_of_causation,
+  booktabs = TRUE,
+  caption = "(ref:four-causes-table-caption)"
+)
+```
+
+Although the causal inference is a broad area of research, philosophical discussion and conflicts, there are a few key concepts that need to be introduced to get the big picture and understand the basics behind the aims of causal inference. Let’s start with an example involving the aforementioned question whether playing basketball makes one taller.
+
+## Observational data
+
+In order to answer this question, we have collected height data (expressed in cm) for the total of N=30 athletes, of which N=15 play basketball, and N=15 don’t play basketball (Table \@ref(tab:basketball-data)). Playing basketball can be considered *intervention* or *treatment*, in which causal effect we are interested in. Basketball players are considered *intervention group* or *treatment group* and those without the treatment are considered *comparison group* or *control group*
+
+(ref:basketball-data-caption) **Height in the treatment and control groups**
+
+```{r basketball-data}
+data("basketball_data")
+
+table_basketball_height <- select(
+  basketball_data,
+  Athlete,
+  Treatment,
+  Height
+) %>%
+  rename(`Height (cm)` = Height)
+
+
+knitr::kable(
+  table_basketball_height,
+  booktabs = TRUE,
+  digits = 0,
+  caption = "(ref:basketball-data-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Using descriptive estimators introduced in the [Description] section, one can quickly calculate the group `mean` and `SD` as well as their difference (Table \@ref(tab:descriptive-group-analysis)). But does mean difference between basketball and control represent *average causal effect* (ACE)[^ACE_ATE]? No, unfortunately not!
+
+[^ACE_ATE]: Another term used is *average treatment effect* (ATE)
+
+(ref:descriptive-group-analysis-caption) **Descriptive analysis of the groups**
+
+```{r descriptive-group-analysis}
+table_basketball_descriptive <- basketball_data %>%
+  group_by(Treatment) %>%
+  summarize(
+    `Mean (cm)` = mean(Height),
+    `SD (cm)` = sd(Height)
+  )
+
+table_basketball_descriptive <- rbind(
+  table_basketball_descriptive,
+  tibble(
+    Treatment = "Difference",
+    `Mean (cm)` = table_basketball_descriptive$`Mean (cm)`[1] - table_basketball_descriptive$`Mean (cm)`[2],
+    `SD (cm)` = sqrt(table_basketball_descriptive$`SD (cm)`[1]^2 + table_basketball_descriptive$`SD (cm)`[2]^2)
+  )
+)
+names(table_basketball_descriptive)[1] <- ""
+
+knitr::kable(
+  table_basketball_descriptive,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:descriptive-group-analysis-caption)"
+)
+```
+
+## Potential outcomes or counterfactuals
+
+To explain why this is the case, we need to imagine *alternate counterfactual reality*. What is needed are two potential outcomes: $Height_{0}$, which represents height of the person if one doesn't train basketball, and $Height_{1}$ which represents height of the person if basketball is being played (Table \@ref(tab:basketball-counterfactuals)). As can be guessed, the Basketball group has known $Height_{1}$, but unknown $Height_{0}$ and *vice versa* for the Control group.
+
+(ref:basketball-counterfactuals-caption) **Counterfactuals of potential outcomes that are unknown**
+
+```{r basketball-counterfactuals}
+table_counterfactuals <- basketball_data %>%
+  mutate(
+    `Height_0 (cm)` = ifelse(Treatment == "Basketball", NA, `Height_0`),
+    `Height_1 (cm)` = ifelse(Treatment == "Basketball", `Height_1`, NA),
+    `Height (cm)` = Height
+  ) %>%
+  select(
+    Athlete,
+    Treatment,
+    `Height_0 (cm)`,
+    `Height_1 (cm)`,
+    `Height (cm)`
+  )
+table_counterfactuals$`Causal Effect (cm)` <- NA
+
+options(knitr.kable.NA = "???")
+
+knitr::kable(
+  table_counterfactuals,
+  booktabs = TRUE,
+  digits = 0,
+  caption = "(ref:basketball-counterfactuals-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a *proxy* to reveal what might have happened *on average* to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the *true* systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table \@ref(tab:table-counterfactuals-simulated)). Individual causal effect in this case is the difference between two potential outcomes: $Height_{1}$ and $Height_{0}$. 
+
+(ref:table-counterfactuals-simulated-caption) **Simulated causal effects and known counterfactuals**
+
+```{r table-counterfactuals-simulated}
+table_counterfactuals_simulated <- basketball_data
+
+table_counterfactuals_simulated <- table_counterfactuals_simulated %>%
+  rename(
+    `Height_0 (cm)` = Height_0,
+    `Height_1 (cm)` = Height_1,
+    `Height (cm)` = Height,
+    `Causal Effect (cm)` = `Causal Effect`
+  )
+
+knitr::kable(
+  table_counterfactuals_simulated,
+  booktabs = TRUE,
+  digits = c(0, 0, 0, 0, 0, 2),
+  caption = "(ref:table-counterfactuals-simulated-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+From Table \@ref(tab:table-counterfactuals-simulated), we can state that the mean difference between the groups consists of two components: *average causal effect* and the *selection bias* [@angristMasteringMetricsPath2015] (Equation \@ref(eq:mean-causal-effect)).
+
+$$
+\begin{equation}
+  \begin{split}
+    mean_{difference} &= Average \; causal\; effect + Selection\; bias \\
+    Average \; causal\; effect &= \frac{1}{N_{Basketball}}\Sigma_{i=1}^{n}(Height_{1i} - Height_{0i}) \\
+    Selection\; bias &= \frac{1}{N_{Basketball}}\Sigma_{i=1}^{n}Height_{0i} - \frac{1}{N_{Control}}\Sigma_{i=1}^{n}Height_{0i}
+  \end{split}
+  (\#eq:mean-causal-effect)
+\end{equation}
+$$
+
+```{r}
+selection_bias <- mean(
+  ifelse(
+    basketball_data$Treatment == "Basketball",
+    basketball_data$`Height_0`,
+    NA
+  ),
+  na.rm = TRUE
+) -
+  mean(
+    ifelse(
+      basketball_data$Treatment == "Control",
+      basketball_data$`Height_0`,
+      NA
+    ),
+    na.rm = TRUE
+  )
+
+average_causal_effect <- mean(
+  ifelse(
+    basketball_data$Treatment == "Basketball",
+    basketball_data$`Causal Effect`,
+    NA
+  ),
+  na.rm = TRUE
+)
+
+mean_difference <- selection_bias + average_causal_effect
+```
+
+The mean group difference we have observed (`r round(mean_difference, 2)`cm) is due to average causal effect (`r round(average_causal_effect,2 )`cm) and selection bias (`r round(selection_bias, 2)`cm). In other words, observed mean group difference can be explained solely by selection bias. Since we know the DGP behind the basketball data, we know that there is no systematic causal effect of playing basketball on height.  
+
+On top of the selection bias involved in the example above, other *confounders* might be involved, such as age, sex, race, experience and others, some of which can be measured and some might be unknown. These are also referred to as the *third variable* which confounds the causal relationship between treatment and the outcome. In this example, all subjects from the Basketball group might be older males, whereas all the subjects from the Control group might be be younger females, and this can explain the group differences, rather than causal effect of playing basketball. 
+
+## *Ceteris paribus* and the biases
+
+It is important to understand that, in order to have causal interpretation, comparisons need to be made under *ceteris paribus* conditions [@angristMasteringMetricsPath2015], which is Latin for *other things equal*. In the basketball example above, we cannot make causal claim that playing basketball makes one taller, since comparison between the groups is not done in the *ceteris paribus* conditions due to the selection bias involved. We also know this since we know the DGP behind the observed data. 
+
+Causal inference thus aims to achieve *ceteris paribus* conditions needed to make causal interpretations by careful considerations of the known and unknown biases involved [@angristMasteringMetricsPath2015; @hernanCausalDiagramsDraw2017; @hernanCausalInference2019; @hernanDoesWaterKill2016; @hernanSecondChanceGet2019; @ledererControlConfoundingReporting2019; @rohrerThinkingClearlyCorrelations2018; @shrierReducingBiasDirected2008].
+
+According to Hernan *et al.* [@hernanCausalDiagramsDraw2017; @hernanCausalInference2019], there are three types of biases involved in causal inference: *confounding*, *selection bias* and *measurement bias*. 
+
+Confounding is the bias that arises when treatment and outcome share causes. This is because treatment was not randomly assigned [@hernanCausalDiagramsDraw2017; @hernanCausalInference2019]. For example, athletes that are naturally taller might be choosing to play basketball due to success and enjoyment over their shorter peers. On the other hand, it might be some hidden confounder that motivates *to-be-tall* athletes to choose basketball. Known and measured confounders from the observational studies can be taken into account to create *ceteris paribus* conditions when estimating causal effects [@angristMasteringMetricsPath2015; @hernanCausalDiagramsDraw2017; @hernanCausalInference2019; @ledererControlConfoundingReporting2019; @rohrerThinkingClearlyCorrelations2018; @shrierReducingBiasDirected2008]. 
+
+### Randomization
+
+The first line of defence against confounding and selection bias is to randomly assign athletes to treatment, otherwise known as *randomized trial* or *randomized experiment*. Random assignment makes comparison between groups *ceteris paribus* providing the sample is large enough to ensure that differences in the individual characteristics such as age, sex, experience and other potential confounders are *washed out* [@angristMasteringMetricsPath2015]. In other words, random assignment works not by eliminating individual differences but rather by ensuring that the mix of the individuals being compared is the same, including the ways we cannot easily measure or observe [@angristMasteringMetricsPath2015]. 
+
+In case the individuals from the basketball example were randomly assigned, given the known causal DGP, then the mean difference between the groups would be more indicative of the causal effect of playing basketball on height (Table \@ref(tab:randomized-basketball-data)). 
+
+(ref:randomized-basketball-data-caption) **Randomized participants**
+
+```{r randomized-basketball-data}
+table_randomized_participants <- basketball_data
+
+set.seed(1)
+
+# Shuffle treatment
+table_randomized_participants <- table_randomized_participants %>%
+  mutate(
+    Treatment = sample(Treatment),
+    `Height (cm)` = ifelse(
+      Treatment == "Basketball",
+      `Height_1`,
+      `Height_0`
+    )
+  ) %>%
+  arrange(Treatment, desc(`Height (cm)`)) %>%
+  select(Athlete, Treatment, `Height (cm)`)
+
+knitr::kable(
+  table_randomized_participants,
+  booktabs = TRUE,
+  digits = 0,
+  caption = "(ref:randomized-basketball-data-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+If we calculate the mean differences in this randomly assigned basketball treatment (Table \@ref(tab:basketball-randomized-summary)), we can quickly notice that random assignment washed out selection bias involved with the observational study, and that the mean difference is closer to the known systematic (or average or *expected*) causal effect. The difference between estimated systematic causal effect using mean group difference from the randomized trial and the true causal effect is due to the *sampling error* which will be explained in the [Statistical inference] section. 
+
+(ref:basketball-randomized-summary-caption) **Descriptive summary of randomized participants**
+
+```{r basketball-randomized-summary}
+table_randomize_summary <- table_randomized_participants %>%
+  group_by(Treatment) %>%
+  summarize(
+    `Mean (cm)` = mean(`Height (cm)`),
+    `SD (cm)` = sd(`Height (cm)`)
+  )
+
+table_randomize_summary <- rbind(
+  table_randomize_summary,
+  tibble(
+    Treatment = "Difference",
+    `Mean (cm)` = table_randomize_summary$`Mean (cm)`[1] - table_randomize_summary$`Mean (cm)`[2],
+    `SD (cm)` = sqrt(table_randomize_summary$`SD (cm)`[1]^2 + table_randomize_summary$`SD (cm)`[2]^2)
+  )
+)
+names(table_randomize_summary)[1] <- ""
+
+knitr::kable(
+  table_randomize_summary,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:basketball-randomized-summary-caption)"
+)
+```
+
+Apart from creating *ceteris paribus* conditions, randomization generates a good control group that serves as a *proxy* to reveal what might have happened to the treated group in the counterfactual world where they are not treated, since $Height_0$ is not known for the basketball group. Creating those conditions with randomized trial demands careful considerations and *balance checking* since biases can *crawl* inside the causal interpretation. The logic of randomized trial is simple, yet the logistics can be quite complex. For example, a sample of sufficient size might not be practically feasible, and imbalances in the known confounders can be still found in the groups, thus demanding further control and adjustment in the analysis (e.g. using ANCOVA instead of ANOVA, adjusting for confounders in the linear regression by introducing them as interactions) in order to create *ceteris paribus* conditions needed to evaluate causal claims. Belief effect can sneak in, for example, if the treatment group *knows* they are being treated, or if researchers motivate treatment groups harder, since they expect and hope for better outcomes.  For this reason, *blinding* both the subjects and researches can be considered, as well as providing *placebo* treatment to the Control group. In sport science research blinding and providing placebo can be problematic. For example, if our intervention is a novel training method or a technology, both researchers and subjects will expect better outcomes which can bias causal interpretations. 
+
+## Subject matter knowledge
+
+One of the main problems with randomized trials is that it cannot be done in most real life settings, either due to the ethical or practical reasons. For example, if studying effects of smoking on baby mortality and birth defects, which parent would accept being in the treatment group. Or if studying effects of resistance training on injury risk in football players, which professional organization would allow random assignment to the treatment that is lesser than the known best practices and can predispose athletes to the injuries or sub-par preparation?
+
+For this reason, reliance on observation studies is the best we can do. However, in order to create *ceteris paribus* conditions necessary to minimize bias in the causal interpretations, expert subject-matter knowledge is needed, not only to describe the causal structure of the system under study, but also to specify the causal questions and identify relevant data sources [@hernanSecondChanceGet2019]. Imagine asking the following causal question: "Does training load lead to overuse injuries in professional sports". It takes expert subject matter knowledge to specify the treatment construct (i.e. "training load"), to figure out how should be measured, as well as to quantify the measurement error which can induce *measurement bias*, to state over which time period the treatment is done, as well as to specify the outcome construct (i.e. "overuse-injuries"), and to define the variables and constructs that confound and define the causal network underlying such a question. This subject matter is fallible of course, and the constructs, variables and the causal network can be represented with pluralistic models that represents "Small World" maps of the complex "Large World", in which we are hoping to deploy the findings (please refer to the [Introduction] for more information about this concept). Drawing assumptions that underly causal structure using *direct acyclical graphs* (DAGs) [@hernanCausalDiagramsDraw2017; @hernanCausalInference2019; @pearlBookWhyNew2018; @rohrerThinkingClearlyCorrelations2018; @saddikiPrimerCausalityData2018; @shrierReducingBiasDirected2008; @textorRobustCausalInference2017] represents a step forward in acknowledging the issues above, by providing transparency of the assumptions involved and bridging the subjective - objective dichotomy.
+
+## Example of randomized control trial
+
+Let's consider the following example. We are interested in estimating causal effect of the plyometric training on the vertical jump height. To estimate causal effect, *randomized control trial* (RCT) is utilized. RCT utilizes two groups: Treatment (N=15) and Control (N=15), measured two times: Pre-test and Post-test. Treatment group received plyometric training over the course of three months, while Control group continued with *normal* training. The results of RCT study can be found in the Table \@ref(tab:rct-vj-data). To estimate practical significance of the treatment effect, SESOI of ±2.5cm is selected to indicate minimal change of the practical value. It is important to have "well defined interventions" [@hernanCWordScientificEuphemisms2018; @hernanDoesObesityShorten2008; @hernanDoesWaterKill2016], thus the question that should be answered is as follows: "Does plyometric training added to normal training improves vertical jump height over period of three months?"
+
+(ref:rct-vj-data-caption) **Randomized control trial data**
+
+```{r rct-vj-data}
+SESOI_upper <- 2.5 # cm
+SESOI_lower <- -2.5 # cm
+
+data("vertical_jump_data")
+
+vj_data <- vertical_jump_data %>%
+  rename(
+    `Pre-test (cm)` = `Pre-test`,
+    `Post-test (cm)` = `Post-test`,
+    `Change (cm)` = `Change`
+  )
+
+table_RCT_data <- vj_data %>%
+  select(-Magnitude, -`Squat 1RM`) %>%
+  group_by(Group) %>%
+  arrange(desc(`Change (cm)`))
+
+# -----------------------
+# Model
+rct_model <- RCT_analysis(
+  vertical_jump_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Pre-test",
+  post_test = "Post-test"
+)
+# -----------------------
+knitr::kable(
+  table_RCT_data,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-vj-data-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Descriptive summary statistics for Treatment and Control groups are enlisted in the Table \@ref(tab:rct-summary), and visually depicted in the Figure \@ref(fig:rct-groups). 
+
+(ref:rct-summary-caption) **RCT summary using mean ± SD**
+
+```{r rct-summary}
+vj_data_long <- vj_data %>%
+  gather(key = "variable", value = "value", -Athlete, -Group, -Magnitude, -`Squat 1RM`) %>%
+  mutate(
+    variable = factor(variable, levels = c("Pre-test (cm)", "Post-test (cm)", "Change (cm)")),
+    Group = factor(Group, levels = c("Treatment", "Control")),
+    Magnitude = factor(Magnitude, levels = c("Lower", "Equivalent", "Higher"))
+  )
+
+vj_basic_summary <- vj_data_long %>%
+  group_by(Group, variable) %>%
+  summarize(Summary = paste(round(mean(value), 2), "±", round(sd(value), 2))) %>%
+  ungroup() %>%
+  spread(key = "variable", value = "Summary")
+
+table_RCT_summary <- vj_basic_summary
+
+knitr::kable(
+  table_RCT_summary,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-summary-caption)"
+)
+```
+
+```{r rct-groups, fig.height=5, fig.width=6, fig.cap="(ref:rct-groups-caption)"}
+# Combine panels
+control_pre_post_plot <- plot(
+  rct_model,
+  type = "control-pre-post",
+  control = plot_control(group_colors = c(user_blue, user_blue))
+) +
+  xlab("Vertical jump height (cm)") +
+  ggtitle("Control group")
+
+control_change_plot <- plot(
+  rct_model,
+  type = "control-change"
+) +
+  xlab("Change in vertical jump height (cm)") +
+  ggtitle(" ")
+
+treatment_pre_post_plot <- plot(
+  rct_model,
+  type = "treatment-pre-post",
+  control = plot_control(group_colors = c(user_orange, user_orange))
+) +
+  xlab("Vertical jump height (cm)") +
+  ggtitle("Treatment group") +
+  theme(
+    axis.ticks.x = element_blank(),
+    axis.line.x = element_blank(),
+    axis.text.x = element_blank()
+  )
+
+treatment_change_plot <- plot(
+  rct_model,
+  type = "treatment-change"
+) +
+  xlab("Change in vertical jump height (cm)") +
+  ggtitle(" ")
+
+
+plot_grid(
+  treatment_pre_post_plot,
+  treatment_change_plot,
+  control_pre_post_plot,
+  control_change_plot,
+  labels = c("A", "C", "B", "D"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 2,
+  nrow = 2
+)
+```
+
+(ref:rct-groups-caption) **Visual analysis of RCT using Treatment and Control groups. A and B. **Raincloud plot of the Pre-test and Post-test scores for Treatment and Control groups. Blue color indicates Control group and orange color indicates Treatment group.  **C and D.** Raincloud plot of the change scores for the Treatment and Control groups. SESOI is indicated with a grey band
+
+Further analysis might involve separate dependent groups analysis for both Treatment and Control (Table \@ref(tab:rct-change)), or in other words, the analysis of the change scores. To estimate `Cohen's d`, `pooled SD` of the Pre-test scores in both Treatment and Control is utilized. (see Equation \@ref(eq:cohen-diff-equation)). 
+
+(ref:rct-change-caption) **Descriptive analysis of the change scores for Treatment and Control groups independently**
+
+```{r rct-change}
+treatment_pre <- vj_data$`Pre-test (cm)`[vj_data$Group == "Treatment"]
+control_pre <- vj_data$`Pre-test (cm)`[vj_data$Group == "Control"]
+SD_pre_pooled <- sqrt(((length(treatment_pre) - 1) * var(treatment_pre) + (length(control_pre) - 1) * var(control_pre)) / (length(treatment_pre) + length(control_pre) - 2))
+
+vj_change_summary <- vj_data %>%
+  group_by(Group) %>%
+  summarize(
+    `Mean change (cm)` = mean(`Change (cm)`),
+    `SDchange (cm)` = sd(`Change (cm)`),
+    `SDpre-test pooled (cm)` = SD_pre_pooled,
+    `Cohen's d` = mean(`Change (cm)`) / SD_pre_pooled,
+    `SESOI lower (cm)` = SESOI_lower,
+    `SESOI upper (cm)` = SESOI_upper,
+    `Change to SESOI` = `Mean change (cm)` / (SESOI_upper - SESOI_lower),
+    `SDchange to SESOI` = `SDchange (cm)` / (SESOI_upper - SESOI_lower),
+    `pLower` = mb_proportions(`Pre-test (cm)`, `Post-test (cm)`, paired = TRUE, SESOI_lower = SESOI_lower, SESOI_upper = SESOI_upper)$lower,
+    `pEquivalent` = mb_proportions(`Pre-test (cm)`, `Post-test (cm)`, paired = TRUE, SESOI_lower = SESOI_lower, SESOI_upper = SESOI_upper)$equivalent,
+    `pHigher` = mb_proportions(`Pre-test (cm)`, `Post-test (cm)`, paired = TRUE, SESOI_lower = SESOI_lower, SESOI_upper = SESOI_upper)$higher
+  )
+
+# Treatment effects
+treatment_SD <- sqrt(vj_change_summary$`SDchange (cm)`[1]^2 - vj_change_summary$`SDchange (cm)`[2]^2)
+treatment_mean <- vj_change_summary$`Mean change (cm)`[1] - vj_change_summary$`Mean change (cm)`[2]
+
+treatment_effect <- tibble(
+  effect = perfect_rnorm(n = 100, mean = treatment_mean, sd = treatment_SD),
+  Magnitude = bmbstats::get_magnitude(effect, SESOI_lower, SESOI_upper)
+)
+
+table_RCT_change <- gather(
+  vj_change_summary,
+  "Estimator",
+  "value",
+  -Group
+)
+
+table_RCT_change$Estimator <- factor(
+  table_RCT_change$Estimator,
+  levels = c(
+    "Mean change (cm)", "SDchange (cm)", "SDpre-test pooled (cm)",
+    "Cohen's d", "SESOI lower (cm)", "SESOI upper (cm)", "Change to SESOI",
+    "SDchange to SESOI", "pLower", "pEquivalent", "pHigher"
+  )
+)
+
+table_RCT_change <- spread(
+  table_RCT_change,
+  "Group",
+  "value"
+)
+
+knitr::kable(
+  table_RCT_change,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-change-caption)"
+)
+```
+
+Figure \@ref(fig:rct-paired-change) depicts same information as Figure \@ref(fig:rct-groups) but organized differently and conveying different comparison.  
+
+```{r rct-paired-change, fig.height=6,  fig.width=6, fig.cap="(ref:rct-paired-change-caption)"}
+treatment_paired_plot <- plot(
+  rct_model,
+  type = "treatment-paired-change"
+) +
+  ylim(c(35, 65)) +
+  ylab("Vertical jump height (cm)")
+
+control_paired_plot <- plot(
+  rct_model,
+  type = "control-paired-change"
+) +
+  theme(legend.position = c(0.7, 0.9)) +
+  ylim(c(35, 65)) +
+  theme(
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank()
+  )
+
+change_distribution_plot <- plot(
+  rct_model,
+  type = "change-distribution",
+  control = plot_control(group_colors = c(user_blue, user_orange))
+) +
+  xlab("Change in vertical jump height (cm)")
+
+# Combine panels
+top_panel <- plot_grid(
+  treatment_paired_plot,
+  control_paired_plot,
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 2,
+  nrow = 1
+)
+
+plot_grid(
+  top_panel,
+  change_distribution_plot,
+  labels = c("", "C"),
+  rel_heights = c(1.5, 1),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 1,
+  nrow = 2
+)
+```
+(ref:rct-paired-change-caption) **Visual analysis of RCT using Treatment and Control groups. A and B. **Scatter plot of Pre-test and Post-test scores for Treatment and Control groups. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. **C. ** Distribution of the change scores for Treatment (orange) and Control (blue) groups. Grey rectangle indicates SESOI band.  
+
+But we are not that interested in independent analysis of Treatment and Control groups, but rather on their differences and understanding of the causal effect of the treatment (i.e. understanding and estimating parameters of the underlying DGP). As stated, treatment effect consists of two components: systematic component or main effect (i.e. expected or average causal effect), and stochastic component or random effect (i.e. that varies between individuals) (see Figure \@ref(fig:te-and-nte-diagram)). As already explained, Control group serves as a proxy to what might have happened to the Treatment group in the counterfactual world, and thus allows for casual interpretation of the treatment effect. There are two effects at play with this RCT design: *treatment effect* and *non-treatment effect*. The latter captures all effects not directly controlled by a treatment, but assumes it affects both groups equally (Figure \@ref(fig:te-and-nte-diagram)). For example, if we are treating kids for longer period of time, non-treatment effect might be related to the growth and associated effects. Another non-treatment effect is *measurement error* (discussed in more details in [Measurement Error] section). 
+
+```{r te-and-nte-diagram, out.width="100%", fig.cap="(ref:te-and-nte-diagram-caption)"}
+knitr::include_graphics(path = "figures/treatment-and-non-treatment-effects.png")
+```
+(ref:te-and-nte-diagram-caption) **Treatment and Non-treatment effects of intervention.** Both treatment and non-treatment effects consists of two components: systematic and random. Treatment group experiences both treatment and non-treatment effects, while Control group experiences only non-treatment effects. 
+
+The following equation captures the essence of estimating Treatment effects from Pre-test and Post-test scores in the Treatment and Control groups (Equation \@ref(eq:te-and-nte-equation)):
+
+$$
+\begin{equation}
+  \begin{split}
+    Treatment_{post} &= Treatment_{pre} + Treatment \; Effect + NonTreatment \; Effect \\
+    Control_{post} &= Control_{pre} + NonTreatment \; Effect \\
+\\
+    NonTreatment \; Effect &= Control_{post} - Control_{pre} \\
+    Treatment \; Effect &= Treatment_{post} - Treatment_{pre} - NonTreatment \; Effect \\
+\\
+    Treatment \; Effect &= (Treatment_{post} - Treatment_{pre}) - (Control_{post} - Control_{pre}) \\
+    Treatment \; Effect &= Treatment_{change} - Control_{change}
+  \end{split}
+  (\#eq:te-and-nte-equation)
+\end{equation}
+$$
+
+From the Equation \@ref(eq:te-and-nte-equation), the differences between the changes in Treatment and Control groups can be interpreted as the estimate of the causal effect of the treatment. More precisely, average causal effect or expected causal effect represent systematic treatment effect. This is estimated using difference between `mean` Treatment change and `mean` Control change.
+
+Table \@ref(tab:rct-te-estimates) contains descriptive statistics of the change score differences. Panel C in the Figure \@ref(fig:rct-paired-change) depicts distribution of the change scores and reflect the calculus in the Table \@ref(tab:rct-te-estimates) graphically. 
+
+(ref:rct-te-estimates-caption) **Descriptive statistics of the change score differences**
+
+```{r rct-te-estimates}
+vj_group_difference <- tibble(
+  `Mean difference (cm)` = vj_change_summary$`Mean change (cm)`[1] - vj_change_summary$`Mean change (cm)`[2],
+  `Cohen's d` = `Mean difference (cm)` / vj_change_summary$`SDchange (cm)`[2],
+  `Difference to SESOI` = `Mean difference (cm)` / (SESOI_upper - SESOI_lower),
+  `pLower diff` = vj_change_summary$pLower[1] - vj_change_summary$pLower[2],
+  `pEquivalent diff` = vj_change_summary$pEquivalent[1] - vj_change_summary$pEquivalent[2],
+  `pHigher diff` = vj_change_summary$pHigher[1] - vj_change_summary$pHigher[2]
+)
+
+table_change_score_diff <- vj_group_difference
+
+knitr::kable(
+  table_change_score_diff,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-te-estimates-caption)"
+)
+```
+
+`Cohen's d` in the Table \@ref(tab:rct-te-estimates) is calculated by using the Equation \@ref(eq:te-nte-cohen) and it estimates standardized difference between change scores in Treatment and the Control groups.
+
+$$
+\begin{equation}
+Cohen's\;d = \frac{mean_{treatment\; group \; change} - mean_{control\; group \;change}}{SD_{control\; group \; change}}
+(\#eq:te-nte-cohen)
+\end{equation}
+$$
+
+Besides estimating systematic component of the treatment (i.e. the difference between the mean change in Treatment and Control groups), we might be interested in estimating random component and proportions of lower, equivalent and higher effects compared to SESOI (`pLower`, `pEquivalent`, and `pHigher`). Unfortunately, differences in `pLower`, `pEquivalent`, and `pHigher` from Table \@ref(tab:rct-te-estimates) don't answer this question, but rather the expected difference in proportions compared to Control (e.g. the expected improvement of `r round(vj_group_difference[6],2)` in observing proportion of higher change outcomes compared to Control).
+
+Since the changes in Treatment group are due both to the treatment and non-treatment effects (equation 29), the average treatment effect (systematic component) represents the difference between the `mean` changes in Treatment and Control groups (Table \@ref(tab:rct-te-estimates)). In the same manner, the `variance` of the change scores in the Treatment group are due to the random component of the treatment and non-treatment effects. Assuming normal (Gaussian) distribution of the random components, the *SD of the treatment effects* ($SD_{TE}$)[^SD_IR_comment] is estimated using the following Equation \@ref(eq:sd-te-equation).   
+
+$$
+\begin{equation}
+  \begin{split}
+    \epsilon_{treatment \;group \;change} &= \epsilon_{treatment \; effect} + \epsilon_{nontreatment \; effect} \\
+    \epsilon_{control \;group \;change} &= \epsilon_{nontreatment \; effect} \\
+    \epsilon_{treatment \; effect} &= \epsilon_{treatment \;group \;change} - \epsilon_{control \;group \;change} \\
+    \\
+    \epsilon_{treatment \; effect}  &\sim \mathcal{N}(0,\,SD_{TE}) \\
+    \epsilon_{nontreatment \; effect}  &\sim \mathcal{N}(0,\,SD_{NTE}) \\
+    \epsilon_{treatment \;group \;change} &\sim \mathcal{N}(0,\,SD_{treatment \;group \;change}) \\
+    \epsilon_{control \;group \;change} &\sim \mathcal{N}(0,\,SD_{control \;group \;change}) \\
+    \\
+    SD_{TE} &= \sqrt{SD_{treatment \;group \;change}^2 - SD_{control \;group \;change}^2}
+  \end{split}
+  (\#eq:sd-te-equation)
+\end{equation}
+$$
+
+[^SD_IR_comment]: Also referred to as $SD_{IR}$ or standard deviation of the intervention responses [@hopkinsIndividualResponsesMade2015; @swintonStatisticalFrameworkInterpret2018]. $SD_{IR}$ or $SD_{TE}$ represent estimate of treatment effect heterogeneity, also referred to as *variable treatment effect* (VTE)
+
+This neat mathematical solution is due to assumption of Gaussian error, assumption that random treatment and non-treatment effects are equal across subjects (see [Ergodicity] section for more details about this assumption), and the use of squared errors. This is one beneficial property of using squared errors that I alluded to in the section [Cross-Validation] section. 
+
+Thus, the estimated parameters of the causal treatment effects in the underlying DGP are are summarized with the following Equation \@ref(eq:treatment-effects-estimates). This treatment effect is graphically depicted in the Figure \@ref(fig:te-effects). 
+
+$$
+\begin{equation}
+  \begin{split}
+    Treatment \; effect &\sim \mathcal{N}(Mean_{TE},\,SD_{TE}) \\
+    \\
+    Mean_{TE} &= Mean_{treatment \;group \;change} - Mean_{control \;group \;change} \\ 
+    \\
+    SD_{TE} &= \sqrt{SD_{treatment \;group \;change}^2 - SD_{control \; group \; change}^2}
+  \end{split}
+  (\#eq:treatment-effects-estimates)
+\end{equation}
+$$
+
+
+```{r te-effects, fig.cap="(ref:te-effects-caption)"}
+plot(
+  rct_model,
+  type = "effect-distribution",
+  control = plot_control(summary_bar_nudge = 0, cloud_quantile_lines = FALSE)
+) +
+  xlab("Treatment effect (vertical jump height change in cm)")
+```
+
+(ref:te-effects-caption) **Graphical representation of the causal Treatment effect.** Green area indicates proportion of higher than SESOI treatment effects, red indicates proportion of negative and lower than SESOI treatment effects, and grey indicates treatment effects that are within SESOI. `Mean` of treatment effect distribution represents average (or expected) causal effect or systematic treatment effect. `SD` of treatment effect distribution represents random systematic effect or $SD_{TE}$
+
+Using SESOI, one can also estimate the proportion of lower, equivalent and higher changes (responses) caused by treatment. The estimates of the causal treatment effects, with accompanying proportions of responses are enlisted in the Table \@ref(tab:te-effects-estimates).
+
+(ref:te-effects-estimates-caption) **Estimates of the causal treatment effects**
+
+```{r te-effects-estimates}
+treatment_effects <- tibble(
+  `Average causal effect (cm)` = treatment_mean,
+  `Random effect (cm)` = treatment_SD,
+  `SESOI (cm)` = paste("±", round(SESOI_upper, 2), sep = ""),
+  `Average causal effect to SESOI` = treatment_mean / (SESOI_upper - SESOI_lower),
+  `SESOI to random effect` = (SESOI_upper - SESOI_lower) / treatment_SD,
+  pLower = pnorm(SESOI_lower, mean = treatment_mean, sd = treatment_SD),
+  pEquivalent = 1 - (pnorm(SESOI_lower, mean = treatment_mean, sd = treatment_SD) + (1 - pnorm(SESOI_upper, mean = treatment_mean, sd = treatment_SD))),
+  pHigher = 1 - pnorm(SESOI_upper, mean = treatment_mean, sd = treatment_SD)
+)
+
+table_treatment_effects <- treatment_effects
+
+knitr::kable(
+  table_treatment_effects,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:te-effects-estimates-caption)"
+)
+```
+
+Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; *generalizations* beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to `r round(treatment_effects[1],2)`cm, with `r round(treatment_effects[6]*100,0)`, `r round(treatment_effects[7]*100,0)`, and `r round(treatment_effects[8]*100,0)`% of athletes having lower, trivial and higher improvements. 

@@ -1,0 +1,3392 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Causal inference | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 4 Causal inference | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Causal inference | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Causal inference | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-05-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prediction.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="causal-inference" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Causal inference</h1>
+<p>Does playing basketball makes one taller? This is a an example of a causal question. Wrestling with the concept of causality, as a philosophical construct is outside the scope of this book (and the author too), but I will define it using the <em>counterfactual theory</em> or <em>potential outcomes</em> perspective <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>; Kleinberg <a href="#ref-kleinbergWhyGuideFinding2015" role="doc-biblioref">2015</a>; Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>; Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span> that define causes in terms of how things would have been different had the cause not occurred, as well as from <em>causality-as-intervention</em> perspective <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span>, which necessitates clearly defined interventions <span class="citation">(Hernán <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>; Hernán and Taubman <a href="#ref-hernanDoesObesityShorten2008" role="doc-biblioref">2008</a>)</span>. In other words, would someone be shorter if basketball was never trained?</p>
+<p>There are two broad classes of inferential questions that focus on <em>what if</em> and <em>why</em>: <em>forward causal inference</em> (“What might happen if we do <em>X</em>?”) and <em>reverse causal inference</em> (“What causes <em>Y</em>? Why?”) <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span>. Forward causation is more clearly defined problem, where the goal is to quantify the causal effect of treatment. Questions of forward causation are most directly studied using <em>randomization</em> <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span> and are answered from the above mentioned causality-as-intervention and counterfactual perspectives. Reverse causation is more complex and it is more related to <em>explaining</em> the causal chains using the <em>system-variable</em> approach. Article by <span class="citation">Gelman (<a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span> provides great overview of the most common causal perspectives, out of which I will mostly focus on forward causation.</p>
+<div id="necessary-versus-sufficient-causality" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Necessary versus sufficient causality</h2>
+<p>Furthermore, we also need to distinguish between four kinds of causation <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Kleinberg <a href="#ref-kleinbergWhyGuideFinding2015" role="doc-biblioref">2015</a>)</span>: <em>necessary causation</em>, <em>sufficient causation</em> and neither or both. For example, if someone says that A causes B, then:</p>
+<ul>
+<li>If A is <em>necessary</em> for B, it means that if A never happened (counterfactual reasoning), then B will never happen. Or, in other words, B can never happen without A. But sufficient causality also means that A can happen without B happening.</li>
+<li>If A is <em>sufficient</em> for B, it means that if you have A, you will <em>always</em> have B. In other words, B always follows A. However, sometimes B can happen without A</li>
+<li>If A is <em>neither sufficient nor necessary</em> for B, then sometimes when A happens B will happen. B can also happen without A.</li>
+<li>If A is both necessary and sufficient for B, then B will always happen after A, and B will never happen without A.</li>
+</ul>
+<p>Table <a href="causal-inference.html#tab:four-causes-table">4.1</a> contains summary of the above necessary and sufficient causality. In all four types of causation, the concept of counterfactual reasoning is invoked.</p>
+
+<table>
+<caption>
+<span id="tab:four-causes-table">Table 4.1: </span><strong>Four kinds of causation</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Cause
+</th>
+<th style="text-align:left;">
+Necessary
+</th>
+<th style="text-align:left;">
+Sufficient
+</th>
+<th style="text-align:left;">
+Neither
+</th>
+<th style="text-align:left;">
+Both
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A happens
+</td>
+<td style="text-align:left;">
+B might happen
+</td>
+<td style="text-align:left;">
+B always happen
+</td>
+<td style="text-align:left;">
+B might happen
+</td>
+<td style="text-align:left;">
+B always happen
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A doesn’t happen
+</td>
+<td style="text-align:left;">
+B never happens
+</td>
+<td style="text-align:left;">
+B might happen
+</td>
+<td style="text-align:left;">
+B might happen
+</td>
+<td style="text-align:left;">
+B never happens
+</td>
+</tr>
+</tbody>
+</table>
+<p>Although the causal inference is a broad area of research, philosophical discussion and conflicts, there are a few key concepts that need to be introduced to get the big picture and understand the basics behind the aims of causal inference. Let’s start with an example involving the aforementioned question whether playing basketball makes one taller.</p>
+</div>
+<div id="observational-data" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Observational data</h2>
+<p>In order to answer this question, we have collected height data (expressed in cm) for the total of N=30 athletes, of which N=15 play basketball, and N=15 don’t play basketball (Table <a href="causal-inference.html#tab:basketball-data">4.2</a>). Playing basketball can be considered <em>intervention</em> or <em>treatment</em>, in which causal effect we are interested in. Basketball players are considered <em>intervention group</em> or <em>treatment group</em> and those without the treatment are considered <em>comparison group</em> or <em>control group</em></p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:basketball-data">Table 4.2: </span><strong>Height in the treatment and control groups</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Height (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+211
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+210
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+207
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+199
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+193
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+192
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+192
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+184
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+189
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+183
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+170
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+163
+</td>
+</tr>
+</tbody>
+</table>
+<p>Using descriptive estimators introduced in the <a href="description.html#description">Description</a> section, one can quickly calculate the group <code>mean</code> and <code>SD</code> as well as their difference (Table <a href="causal-inference.html#tab:descriptive-group-analysis">4.3</a>). But does mean difference between basketball and control represent <em>average causal effect</em> (ACE)<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>? No, unfortunately not!</p>
+
+<table>
+<caption>
+<span id="tab:descriptive-group-analysis">Table 4.3: </span><strong>Descriptive analysis of the groups</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Mean (cm)
+</th>
+<th style="text-align:right;">
+SD (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+198.59
+</td>
+<td style="text-align:right;">
+10.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+174.04
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Difference
+</td>
+<td style="text-align:right;">
+24.55
+</td>
+<td style="text-align:right;">
+13.22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="potential-outcomes-or-counterfactuals" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Potential outcomes or counterfactuals</h2>
+<p>To explain why this is the case, we need to imagine <em>alternate counterfactual reality</em>. What is needed are two potential outcomes: <span class="math inline">\(Height_{0}\)</span>, which represents height of the person if one doesn’t train basketball, and <span class="math inline">\(Height_{1}\)</span> which represents height of the person if basketball is being played (Table <a href="causal-inference.html#tab:basketball-counterfactuals">4.4</a>). As can be guessed, the Basketball group has known <span class="math inline">\(Height_{1}\)</span>, but unknown <span class="math inline">\(Height_{0}\)</span> and <em>vice versa</em> for the Control group.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:basketball-counterfactuals">Table 4.4: </span><strong>Counterfactuals of potential outcomes that are unknown</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Height_0 (cm)
+</th>
+<th style="text-align:right;">
+Height_1 (cm)
+</th>
+<th style="text-align:right;">
+Height (cm)
+</th>
+<th style="text-align:left;">
+Causal Effect (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+184
+</td>
+<td style="text-align:right;">
+184
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+189
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+189
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+???
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:left;">
+???
+</td>
+</tr>
+</tbody>
+</table>
+<p>Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a <em>proxy</em> to reveal what might have happened <em>on average</em> to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the <em>true</em> systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table <a href="causal-inference.html#tab:table-counterfactuals-simulated">4.5</a>). Individual causal effect in this case is the difference between two potential outcomes: <span class="math inline">\(Height_{1}\)</span> and <span class="math inline">\(Height_{0}\)</span>.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:table-counterfactuals-simulated">Table 4.5: </span><strong>Simulated causal effects and known counterfactuals</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Height_0 (cm)
+</th>
+<th style="text-align:right;">
+Height_1 (cm)
+</th>
+<th style="text-align:right;">
+Height (cm)
+</th>
+<th style="text-align:right;">
+Causal Effect (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+212
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:right;">
+-1.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+208
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+-0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+191
+</td>
+<td style="text-align:right;">
+-0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+184
+</td>
+<td style="text-align:right;">
+184
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+189
+</td>
+<td style="text-align:right;">
+189
+</td>
+<td style="text-align:right;">
+189
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+184
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+-0.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+-0.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+-0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+0.77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+-0.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>From Table <a href="causal-inference.html#tab:table-counterfactuals-simulated">4.5</a>, we can state that the mean difference between the groups consists of two components: <em>average causal effect</em> and the <em>selection bias</em> <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>)</span> (Equation <a href="causal-inference.html#eq:mean-causal-effect">(4.1)</a>).</p>
+<p><span class="math display" id="eq:mean-causal-effect">\[
+\begin{equation}
+  \begin{split}
+    mean_{difference} &amp;= Average \; causal\; effect + Selection\; bias \\
+    Average \; causal\; effect &amp;= \frac{1}{N_{Basketball}}\Sigma_{i=1}^{n}(Height_{1i} - Height_{0i}) \\
+    Selection\; bias &amp;= \frac{1}{N_{Basketball}}\Sigma_{i=1}^{n}Height_{0i} - \frac{1}{N_{Control}}\Sigma_{i=1}^{n}Height_{0i}
+  \end{split}
+  \tag{4.1}
+\end{equation}
+\]</span></p>
+<p>The mean group difference we have observed (24.55cm) is due to average causal effect (0.1cm) and selection bias (24.46cm). In other words, observed mean group difference can be explained solely by selection bias. Since we know the DGP behind the basketball data, we know that there is no systematic causal effect of playing basketball on height.</p>
+<p>On top of the selection bias involved in the example above, other <em>confounders</em> might be involved, such as age, sex, race, experience and others, some of which can be measured and some might be unknown. These are also referred to as the <em>third variable</em> which confounds the causal relationship between treatment and the outcome. In this example, all subjects from the Basketball group might be older males, whereas all the subjects from the Control group might be be younger females, and this can explain the group differences, rather than causal effect of playing basketball.</p>
+</div>
+<div id="ceteris-paribus-and-the-biases" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> <em>Ceteris paribus</em> and the biases</h2>
+<p>It is important to understand that, in order to have causal interpretation, comparisons need to be made under <em>ceteris paribus</em> conditions <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>)</span>, which is Latin for <em>other things equal</em>. In the basketball example above, we cannot make causal claim that playing basketball makes one taller, since comparison between the groups is not done in the <em>ceteris paribus</em> conditions due to the selection bias involved. We also know this since we know the DGP behind the observed data.</p>
+<p>Causal inference thus aims to achieve <em>ceteris paribus</em> conditions needed to make causal interpretations by careful considerations of the known and unknown biases involved <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>; Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>; Lederer et al. <a href="#ref-ledererControlConfoundingReporting2019" role="doc-biblioref">2019</a>; Rohrer <a href="#ref-rohrerThinkingClearlyCorrelations2018" role="doc-biblioref">2018</a>; Shrier and Platt <a href="#ref-shrierReducingBiasDirected2008" role="doc-biblioref">2008</a>)</span>.</p>
+<p>According to Hernan <em>et al.</em> <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>)</span>, there are three types of biases involved in causal inference: <em>confounding</em>, <em>selection bias</em> and <em>measurement bias</em>.</p>
+<p>Confounding is the bias that arises when treatment and outcome share causes. This is because treatment was not randomly assigned <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>)</span>. For example, athletes that are naturally taller might be choosing to play basketball due to success and enjoyment over their shorter peers. On the other hand, it might be some hidden confounder that motivates <em>to-be-tall</em> athletes to choose basketball. Known and measured confounders from the observational studies can be taken into account to create <em>ceteris paribus</em> conditions when estimating causal effects <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>; Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Lederer et al. <a href="#ref-ledererControlConfoundingReporting2019" role="doc-biblioref">2019</a>; Rohrer <a href="#ref-rohrerThinkingClearlyCorrelations2018" role="doc-biblioref">2018</a>; Shrier and Platt <a href="#ref-shrierReducingBiasDirected2008" role="doc-biblioref">2008</a>)</span>.</p>
+<div id="randomization" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Randomization</h3>
+<p>The first line of defence against confounding and selection bias is to randomly assign athletes to treatment, otherwise known as <em>randomized trial</em> or <em>randomized experiment</em>. Random assignment makes comparison between groups <em>ceteris paribus</em> providing the sample is large enough to ensure that differences in the individual characteristics such as age, sex, experience and other potential confounders are <em>washed out</em> <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>)</span>. In other words, random assignment works not by eliminating individual differences but rather by ensuring that the mix of the individuals being compared is the same, including the ways we cannot easily measure or observe <span class="citation">(Angrist and Pischke <a href="#ref-angristMasteringMetricsPath2015" role="doc-biblioref">2015</a>)</span>.</p>
+<p>In case the individuals from the basketball example were randomly assigned, given the known causal DGP, then the mean difference between the groups would be more indicative of the causal effect of playing basketball on height (Table <a href="causal-inference.html#tab:randomized-basketball-data">4.6</a>).</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:randomized-basketball-data">Table 4.6: </span><strong>Randomized participants</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Height (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+211
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+210
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+207
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+199
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+189
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+184
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+170
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+193
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+193
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+193
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+183
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+173
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+165
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+163
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we calculate the mean differences in this randomly assigned basketball treatment (Table <a href="causal-inference.html#tab:basketball-randomized-summary">4.7</a>), we can quickly notice that random assignment washed out selection bias involved with the observational study, and that the mean difference is closer to the known systematic (or average or <em>expected</em>) causal effect. The difference between estimated systematic causal effect using mean group difference from the randomized trial and the true causal effect is due to the <em>sampling error</em> which will be explained in the [Statistical inference] section.</p>
+
+<table>
+<caption>
+<span id="tab:basketball-randomized-summary">Table 4.7: </span><strong>Descriptive summary of randomized participants</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Mean (cm)
+</th>
+<th style="text-align:right;">
+SD (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+189.91
+</td>
+<td style="text-align:right;">
+16.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+182.65
+</td>
+<td style="text-align:right;">
+14.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Difference
+</td>
+<td style="text-align:right;">
+7.25
+</td>
+<td style="text-align:right;">
+21.66
+</td>
+</tr>
+</tbody>
+</table>
+<p>Apart from creating <em>ceteris paribus</em> conditions, randomization generates a good control group that serves as a <em>proxy</em> to reveal what might have happened to the treated group in the counterfactual world where they are not treated, since <span class="math inline">\(Height_0\)</span> is not known for the basketball group. Creating those conditions with randomized trial demands careful considerations and <em>balance checking</em> since biases can <em>crawl</em> inside the causal interpretation. The logic of randomized trial is simple, yet the logistics can be quite complex. For example, a sample of sufficient size might not be practically feasible, and imbalances in the known confounders can be still found in the groups, thus demanding further control and adjustment in the analysis (e.g. using ANCOVA instead of ANOVA, adjusting for confounders in the linear regression by introducing them as interactions) in order to create <em>ceteris paribus</em> conditions needed to evaluate causal claims. Belief effect can sneak in, for example, if the treatment group <em>knows</em> they are being treated, or if researchers motivate treatment groups harder, since they expect and hope for better outcomes. For this reason, <em>blinding</em> both the subjects and researches can be considered, as well as providing <em>placebo</em> treatment to the Control group. In sport science research blinding and providing placebo can be problematic. For example, if our intervention is a novel training method or a technology, both researchers and subjects will expect better outcomes which can bias causal interpretations.</p>
+</div>
+</div>
+<div id="subject-matter-knowledge" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Subject matter knowledge</h2>
+<p>One of the main problems with randomized trials is that it cannot be done in most real life settings, either due to the ethical or practical reasons. For example, if studying effects of smoking on baby mortality and birth defects, which parent would accept being in the treatment group. Or if studying effects of resistance training on injury risk in football players, which professional organization would allow random assignment to the treatment that is lesser than the known best practices and can predispose athletes to the injuries or sub-par preparation?</p>
+<p>For this reason, reliance on observation studies is the best we can do. However, in order to create <em>ceteris paribus</em> conditions necessary to minimize bias in the causal interpretations, expert subject-matter knowledge is needed, not only to describe the causal structure of the system under study, but also to specify the causal questions and identify relevant data sources <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>. Imagine asking the following causal question: “Does training load lead to overuse injuries in professional sports”. It takes expert subject matter knowledge to specify the treatment construct (i.e. “training load”), to figure out how should be measured, as well as to quantify the measurement error which can induce <em>measurement bias</em>, to state over which time period the treatment is done, as well as to specify the outcome construct (i.e. “overuse-injuries”), and to define the variables and constructs that confound and define the causal network underlying such a question. This subject matter is fallible of course, and the constructs, variables and the causal network can be represented with pluralistic models that represents “Small World” maps of the complex “Large World”, in which we are hoping to deploy the findings (please refer to the <a href="introduction.html#introduction">Introduction</a> for more information about this concept). Drawing assumptions that underly causal structure using <em>direct acyclical graphs</em> (DAGs) <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Rohrer <a href="#ref-rohrerThinkingClearlyCorrelations2018" role="doc-biblioref">2018</a>; Saddiki and Balzer <a href="#ref-saddikiPrimerCausalityData2018" role="doc-biblioref">2018</a>; Shrier and Platt <a href="#ref-shrierReducingBiasDirected2008" role="doc-biblioref">2008</a>; Textor et al. <a href="#ref-textorRobustCausalInference2017" role="doc-biblioref">2017</a>)</span> represents a step forward in acknowledging the issues above, by providing transparency of the assumptions involved and bridging the subjective - objective dichotomy.</p>
+</div>
+<div id="example-of-randomized-control-trial" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Example of randomized control trial</h2>
+<p>Let’s consider the following example. We are interested in estimating causal effect of the plyometric training on the vertical jump height. To estimate causal effect, <em>randomized control trial</em> (RCT) is utilized. RCT utilizes two groups: Treatment (N=15) and Control (N=15), measured two times: Pre-test and Post-test. Treatment group received plyometric training over the course of three months, while Control group continued with <em>normal</em> training. The results of RCT study can be found in the Table <a href="causal-inference.html#tab:rct-vj-data">4.8</a>. To estimate practical significance of the treatment effect, SESOI of ±2.5cm is selected to indicate minimal change of the practical value. It is important to have “well defined interventions” <span class="citation">(Hernán <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>; Hernán and Taubman <a href="#ref-hernanDoesObesityShorten2008" role="doc-biblioref">2008</a>)</span>, thus the question that should be answered is as follows: “Does plyometric training added to normal training improves vertical jump height over period of three months?”</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:rct-vj-data">Table 4.8: </span><strong>Randomized control trial data</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:left;">
+Group
+</th>
+<th style="text-align:right;">
+Pre-test (cm)
+</th>
+<th style="text-align:right;">
+Post-test (cm)
+</th>
+<th style="text-align:right;">
+Change (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+45.86
+</td>
+<td style="text-align:right;">
+60.74
+</td>
+<td style="text-align:right;">
+14.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.67
+</td>
+<td style="text-align:right;">
+59.04
+</td>
+<td style="text-align:right;">
+14.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+37.98
+</td>
+<td style="text-align:right;">
+52.27
+</td>
+<td style="text-align:right;">
+14.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.36
+</td>
+<td style="text-align:right;">
+52.70
+</td>
+<td style="text-align:right;">
+11.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+39.99
+</td>
+<td style="text-align:right;">
+50.09
+</td>
+<td style="text-align:right;">
+10.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+47.84
+</td>
+<td style="text-align:right;">
+57.35
+</td>
+<td style="text-align:right;">
+9.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+36.94
+</td>
+<td style="text-align:right;">
+46.20
+</td>
+<td style="text-align:right;">
+9.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+46.51
+</td>
+<td style="text-align:right;">
+54.85
+</td>
+<td style="text-align:right;">
+8.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.37
+</td>
+<td style="text-align:right;">
+51.33
+</td>
+<td style="text-align:right;">
+6.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.12
+</td>
+<td style="text-align:right;">
+46.59
+</td>
+<td style="text-align:right;">
+5.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+38.07
+</td>
+<td style="text-align:right;">
+42.84
+</td>
+<td style="text-align:right;">
+4.77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+43.17
+</td>
+<td style="text-align:right;">
+47.74
+</td>
+<td style="text-align:right;">
+4.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+50.02
+</td>
+<td style="text-align:right;">
+54.07
+</td>
+<td style="text-align:right;">
+4.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.80
+</td>
+<td style="text-align:right;">
+48.27
+</td>
+<td style="text-align:right;">
+3.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+46.89
+</td>
+<td style="text-align:right;">
+49.38
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.88
+</td>
+<td style="text-align:right;">
+43.55
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+49.57
+</td>
+<td style="text-align:right;">
+50.11
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.95
+</td>
+<td style="text-align:right;">
+43.47
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+46.65
+</td>
+<td style="text-align:right;">
+46.90
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+41.66
+</td>
+<td style="text-align:right;">
+41.64
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+36.52
+</td>
+<td style="text-align:right;">
+36.20
+</td>
+<td style="text-align:right;">
+-0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.42
+</td>
+<td style="text-align:right;">
+43.33
+</td>
+<td style="text-align:right;">
+-1.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+37.64
+</td>
+<td style="text-align:right;">
+36.44
+</td>
+<td style="text-align:right;">
+-1.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+37.58
+</td>
+<td style="text-align:right;">
+36.35
+</td>
+<td style="text-align:right;">
+-1.23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+38.98
+</td>
+<td style="text-align:right;">
+37.31
+</td>
+<td style="text-align:right;">
+-1.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+39.07
+</td>
+<td style="text-align:right;">
+37.31
+</td>
+<td style="text-align:right;">
+-1.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.18
+</td>
+<td style="text-align:right;">
+43.35
+</td>
+<td style="text-align:right;">
+-1.83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.54
+</td>
+<td style="text-align:right;">
+42.84
+</td>
+<td style="text-align:right;">
+-2.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+41.54
+</td>
+<td style="text-align:right;">
+38.69
+</td>
+<td style="text-align:right;">
+-2.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+40.13
+</td>
+<td style="text-align:right;">
+36.82
+</td>
+<td style="text-align:right;">
+-3.31
+</td>
+</tr>
+</tbody>
+</table>
+<p>Descriptive summary statistics for Treatment and Control groups are enlisted in the Table <a href="causal-inference.html#tab:rct-summary">4.9</a>, and visually depicted in the Figure <a href="causal-inference.html#fig:rct-groups">4.1</a>.</p>
+
+<table>
+<caption>
+<span id="tab:rct-summary">Table 4.9: </span><strong>RCT summary using mean ± SD</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Group
+</th>
+<th style="text-align:left;">
+Pre-test (cm)
+</th>
+<th style="text-align:left;">
+Post-test (cm)
+</th>
+<th style="text-align:left;">
+Change (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:left;">
+43.31 ± 3.93
+</td>
+<td style="text-align:left;">
+51.56 ± 5.03
+</td>
+<td style="text-align:left;">
+8.26 ± 4.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:left;">
+42.02 ± 3.77
+</td>
+<td style="text-align:left;">
+40.95 ± 4.31
+</td>
+<td style="text-align:left;">
+-1.07 ± 1.31
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:rct-groups"></span>
+<img src="04-Causal-inference_files/figure-html/rct-groups-1.png" alt="Visual analysis of RCT using Treatment and Control groups. A and B. Raincloud plot of the Pre-test and Post-test scores for Treatment and Control groups. Blue color indicates Control group and orange color indicates Treatment group. C and D. Raincloud plot of the change scores for the Treatment and Control groups. SESOI is indicated with a grey band" width="90%" />
+<p class="caption">
+Figure 4.1: <strong>Visual analysis of RCT using Treatment and Control groups. A and B. </strong>Raincloud plot of the Pre-test and Post-test scores for Treatment and Control groups. Blue color indicates Control group and orange color indicates Treatment group. <strong>C and D.</strong> Raincloud plot of the change scores for the Treatment and Control groups. SESOI is indicated with a grey band
+</p>
+</div>
+
+<p>Further analysis might involve separate dependent groups analysis for both Treatment and Control (Table <a href="causal-inference.html#tab:rct-change">4.10</a>), or in other words, the analysis of the change scores. To estimate <code>Cohen's d</code>, <code>pooled SD</code> of the Pre-test scores in both Treatment and Control is utilized. (see Equation <a href="description.html#eq:cohen-diff-equation">(2.11)</a>).</p>
+
+<table>
+<caption>
+<span id="tab:rct-change">Table 4.10: </span><strong>Descriptive analysis of the change scores for Treatment and Control groups independently</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Estimator
+</th>
+<th style="text-align:right;">
+Treatment
+</th>
+<th style="text-align:right;">
+Control
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Mean change (cm)
+</td>
+<td style="text-align:right;">
+8.26
+</td>
+<td style="text-align:right;">
+-1.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SDchange (cm)
+</td>
+<td style="text-align:right;">
+4.16
+</td>
+<td style="text-align:right;">
+1.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SDpre-test pooled (cm)
+</td>
+<td style="text-align:right;">
+3.85
+</td>
+<td style="text-align:right;">
+3.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cohen’s d
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI lower (cm)
+</td>
+<td style="text-align:right;">
+-2.50
+</td>
+<td style="text-align:right;">
+-2.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI upper (cm)
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Change to SESOI
+</td>
+<td style="text-align:right;">
+1.65
+</td>
+<td style="text-align:right;">
+-0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SDchange to SESOI
+</td>
+<td style="text-align:right;">
+0.83
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pLower
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pEquivalent
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pHigher
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>Figure <a href="causal-inference.html#fig:rct-paired-change">4.2</a> depicts same information as Figure <a href="causal-inference.html#fig:rct-groups">4.1</a> but organized differently and conveying different comparison.</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-paired-change"></span>
+<img src="04-Causal-inference_files/figure-html/rct-paired-change-1.png" alt="Visual analysis of RCT using Treatment and Control groups. A and B. Scatter plot of Pre-test and Post-test scores for Treatment and Control groups. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. C. Distribution of the change scores for Treatment (orange) and Control (blue) groups. Grey rectangle indicates SESOI band." width="90%" />
+<p class="caption">
+Figure 4.2: <strong>Visual analysis of RCT using Treatment and Control groups. A and B. </strong>Scatter plot of Pre-test and Post-test scores for Treatment and Control groups. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. <strong>C. </strong> Distribution of the change scores for Treatment (orange) and Control (blue) groups. Grey rectangle indicates SESOI band.
+</p>
+</div>
+
+<p>But we are not that interested in independent analysis of Treatment and Control groups, but rather on their differences and understanding of the causal effect of the treatment (i.e. understanding and estimating parameters of the underlying DGP). As stated, treatment effect consists of two components: systematic component or main effect (i.e. expected or average causal effect), and stochastic component or random effect (i.e. that varies between individuals) (see Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). As already explained, Control group serves as a proxy to what might have happened to the Treatment group in the counterfactual world, and thus allows for casual interpretation of the treatment effect. There are two effects at play with this RCT design: <em>treatment effect</em> and <em>non-treatment effect</em>. The latter captures all effects not directly controlled by a treatment, but assumes it affects both groups equally (Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). For example, if we are treating kids for longer period of time, non-treatment effect might be related to the growth and associated effects. Another non-treatment effect is <em>measurement error</em> (discussed in more details in [Measurement Error] section).</p>
+<div class="figure" style="text-align: center"><span id="fig:te-and-nte-diagram"></span>
+<img src="figures/treatment-and-non-treatment-effects.png" alt="Treatment and Non-treatment effects of intervention. Both treatment and non-treatment effects consists of two components: systematic and random. Treatment group experiences both treatment and non-treatment effects, while Control group experiences only non-treatment effects." width="100%" />
+<p class="caption">
+Figure 4.3: <strong>Treatment and Non-treatment effects of intervention.</strong> Both treatment and non-treatment effects consists of two components: systematic and random. Treatment group experiences both treatment and non-treatment effects, while Control group experiences only non-treatment effects.
+</p>
+</div>
+
+<p>The following equation captures the essence of estimating Treatment effects from Pre-test and Post-test scores in the Treatment and Control groups (Equation <a href="causal-inference.html#eq:te-and-nte-equation">(4.2)</a>):</p>
+<p><span class="math display" id="eq:te-and-nte-equation">\[
+\begin{equation}
+  \begin{split}
+    Treatment_{post} &amp;= Treatment_{pre} + Treatment \; Effect + NonTreatment \; Effect \\
+    Control_{post} &amp;= Control_{pre} + NonTreatment \; Effect \\
+\\
+    NonTreatment \; Effect &amp;= Control_{post} - Control_{pre} \\
+    Treatment \; Effect &amp;= Treatment_{post} - Treatment_{pre} - NonTreatment \; Effect \\
+\\
+    Treatment \; Effect &amp;= (Treatment_{post} - Treatment_{pre}) - (Control_{post} - Control_{pre}) \\
+    Treatment \; Effect &amp;= Treatment_{change} - Control_{change}
+  \end{split}
+  \tag{4.2}
+\end{equation}
+\]</span></p>
+<p>From the Equation <a href="causal-inference.html#eq:te-and-nte-equation">(4.2)</a>, the differences between the changes in Treatment and Control groups can be interpreted as the estimate of the causal effect of the treatment. More precisely, average causal effect or expected causal effect represent systematic treatment effect. This is estimated using difference between <code>mean</code> Treatment change and <code>mean</code> Control change.</p>
+<p>Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> contains descriptive statistics of the change score differences. Panel C in the Figure <a href="causal-inference.html#fig:rct-paired-change">4.2</a> depicts distribution of the change scores and reflect the calculus in the Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> graphically.</p>
+
+<table>
+<caption>
+<span id="tab:rct-te-estimates">Table 4.11: </span><strong>Descriptive statistics of the change score differences</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Mean difference (cm)
+</th>
+<th style="text-align:right;">
+Cohen’s d
+</th>
+<th style="text-align:right;">
+Difference to SESOI
+</th>
+<th style="text-align:right;">
+pLower diff
+</th>
+<th style="text-align:right;">
+pEquivalent diff
+</th>
+<th style="text-align:right;">
+pHigher diff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+9.32
+</td>
+<td style="text-align:right;">
+7.14
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+</tr>
+</tbody>
+</table>
+<p><code>Cohen's d</code> in the Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> is calculated by using the Equation <a href="causal-inference.html#eq:te-nte-cohen">(4.3)</a> and it estimates standardized difference between change scores in Treatment and the Control groups.</p>
+<p><span class="math display" id="eq:te-nte-cohen">\[
+\begin{equation}
+Cohen&#39;s\;d = \frac{mean_{treatment\; group \; change} - mean_{control\; group \;change}}{SD_{control\; group \; change}}
+\tag{4.3}
+\end{equation}
+\]</span></p>
+<p>Besides estimating systematic component of the treatment (i.e. the difference between the mean change in Treatment and Control groups), we might be interested in estimating random component and proportions of lower, equivalent and higher effects compared to SESOI (<code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code>). Unfortunately, differences in <code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code> from Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> don’t answer this question, but rather the expected difference in proportions compared to Control (e.g. the expected improvement of 0.91 in observing proportion of higher change outcomes compared to Control).</p>
+<p>Since the changes in Treatment group are due both to the treatment and non-treatment effects (equation 29), the average treatment effect (systematic component) represents the difference between the <code>mean</code> changes in Treatment and Control groups (Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a>). In the same manner, the <code>variance</code> of the change scores in the Treatment group are due to the random component of the treatment and non-treatment effects. Assuming normal (Gaussian) distribution of the random components, the <em>SD of the treatment effects</em> (<span class="math inline">\(SD_{TE}\)</span>)<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> is estimated using the following Equation <a href="causal-inference.html#eq:sd-te-equation">(4.4)</a>.</p>
+<p><span class="math display" id="eq:sd-te-equation">\[
+\begin{equation}
+  \begin{split}
+    \epsilon_{treatment \;group \;change} &amp;= \epsilon_{treatment \; effect} + \epsilon_{nontreatment \; effect} \\
+    \epsilon_{control \;group \;change} &amp;= \epsilon_{nontreatment \; effect} \\
+    \epsilon_{treatment \; effect} &amp;= \epsilon_{treatment \;group \;change} - \epsilon_{control \;group \;change} \\
+    \\
+    \epsilon_{treatment \; effect}  &amp;\sim \mathcal{N}(0,\,SD_{TE}) \\
+    \epsilon_{nontreatment \; effect}  &amp;\sim \mathcal{N}(0,\,SD_{NTE}) \\
+    \epsilon_{treatment \;group \;change} &amp;\sim \mathcal{N}(0,\,SD_{treatment \;group \;change}) \\
+    \epsilon_{control \;group \;change} &amp;\sim \mathcal{N}(0,\,SD_{control \;group \;change}) \\
+    \\
+    SD_{TE} &amp;= \sqrt{SD_{treatment \;group \;change}^2 - SD_{control \;group \;change}^2}
+  \end{split}
+  \tag{4.4}
+\end{equation}
+\]</span></p>
+<p>This neat mathematical solution is due to assumption of Gaussian error, assumption that random treatment and non-treatment effects are equal across subjects (see [Ergodicity] section for more details about this assumption), and the use of squared errors. This is one beneficial property of using squared errors that I alluded to in the section <a href="prediction.html#cross-validation">Cross-Validation</a> section.</p>
+<p>Thus, the estimated parameters of the causal treatment effects in the underlying DGP are are summarized with the following Equation <a href="causal-inference.html#eq:treatment-effects-estimates">(4.5)</a>. This treatment effect is graphically depicted in the Figure <a href="causal-inference.html#fig:te-effects">4.4</a>.</p>
+<p><span class="math display" id="eq:treatment-effects-estimates">\[
+\begin{equation}
+  \begin{split}
+    Treatment \; effect &amp;\sim \mathcal{N}(Mean_{TE},\,SD_{TE}) \\
+    \\
+    Mean_{TE} &amp;= Mean_{treatment \;group \;change} - Mean_{control \;group \;change} \\ 
+    \\
+    SD_{TE} &amp;= \sqrt{SD_{treatment \;group \;change}^2 - SD_{control \; group \; change}^2}
+  \end{split}
+  \tag{4.5}
+\end{equation}
+\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:te-effects"></span>
+<img src="04-Causal-inference_files/figure-html/te-effects-1.png" alt="Graphical representation of the causal Treatment effect. Green area indicates proportion of higher than SESOI treatment effects, red indicates proportion of negative and lower than SESOI treatment effects, and grey indicates treatment effects that are within SESOI. Mean of treatment effect distribution represents average (or expected) causal effect or systematic treatment effect. SD of treatment effect distribution represents random systematic effect or \(SD_{TE}\)" width="90%" />
+<p class="caption">
+Figure 4.4: <strong>Graphical representation of the causal Treatment effect.</strong> Green area indicates proportion of higher than SESOI treatment effects, red indicates proportion of negative and lower than SESOI treatment effects, and grey indicates treatment effects that are within SESOI. <code>Mean</code> of treatment effect distribution represents average (or expected) causal effect or systematic treatment effect. <code>SD</code> of treatment effect distribution represents random systematic effect or <span class="math inline">\(SD_{TE}\)</span>
+</p>
+</div>
+
+<p>Using SESOI, one can also estimate the proportion of lower, equivalent and higher changes (responses) caused by treatment. The estimates of the causal treatment effects, with accompanying proportions of responses are enlisted in the Table <a href="causal-inference.html#tab:te-effects-estimates">4.12</a>.</p>
+
+<table>
+<caption>
+<span id="tab:te-effects-estimates">Table 4.12: </span><strong>Estimates of the causal treatment effects</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Average causal effect (cm)
+</th>
+<th style="text-align:right;">
+Random effect (cm)
+</th>
+<th style="text-align:left;">
+SESOI (cm)
+</th>
+<th style="text-align:right;">
+Average causal effect to SESOI
+</th>
+<th style="text-align:right;">
+SESOI to random effect
+</th>
+<th style="text-align:right;">
+pLower
+</th>
+<th style="text-align:right;">
+pEquivalent
+</th>
+<th style="text-align:right;">
+pHigher
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+9.32
+</td>
+<td style="text-align:right;">
+3.95
+</td>
+<td style="text-align:left;">
+±2.5
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+<td style="text-align:right;">
+1.27
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; <em>generalizations</em> beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to 9.32cm, with 0, 4, and 96% of athletes having lower, trivial and higher improvements.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-angristMasteringMetricsPath2015">
+<p>Angrist, Joshua David, and Jörn-Steffen Pischke. 2015. <em>Mastering ’Metrics: The Path from Cause to Effect</em>. Princeton ; Oxford: Princeton University Press.</p>
+</div>
+<div id="ref-gelmanCausalityStatisticalLearning2011">
+<p>Gelman, Andrew. 2011. “Causality and Statistical Learning.” <em>American Journal of Sociology</em> 117 (3): 955–66. <a href="https://doi.org/10.1086/662659">https://doi.org/10.1086/662659</a>.</p>
+</div>
+<div id="ref-hernanDoesObesityShorten2008">
+<p>Hernán, M A, and S L Taubman. 2008. “Does Obesity Shorten Life? The Importance of Well-Defined Interventions to Answer Causal Questions.” <em>International Journal of Obesity</em> 32 (S3): S8–S14. <a href="https://doi.org/10.1038/ijo.2008.82">https://doi.org/10.1038/ijo.2008.82</a>.</p>
+</div>
+<div id="ref-hernanDoesWaterKill2016">
+<p>Hernán, Miguel A. 2016. “Does Water Kill? A Call for Less Casual Causal Inferences.” <em>Annals of Epidemiology</em> 26 (10): 674–80. <a href="https://doi.org/10.1016/j.annepidem.2016.08.016">https://doi.org/10.1016/j.annepidem.2016.08.016</a>.</p>
+</div>
+<div id="ref-hernanCausalDiagramsDraw2017">
+<p>Hernán, Miguel A. 2017. “Causal Diagrams: Draw Your Assumptions Before Your Conclusions Course | PH559x | edX.” <em>edX</em>. https://courses.edx.org/courses/course-v1:HarvardX+PH559x+3T2017/course/.</p>
+</div>
+<div id="ref-hernanCWordScientificEuphemisms2018">
+<p>Hernán, Miguel A. 2018. “The C-Word: Scientific Euphemisms Do Not Improve Causal Inference from Observational Data.” <em>American Journal of Public Health</em> 108 (5): 616–19. <a href="https://doi.org/10.2105/AJPH.2018.304337">https://doi.org/10.2105/AJPH.2018.304337</a>.</p>
+</div>
+<div id="ref-hernanSecondChanceGet2019">
+<p>Hernán, Miguel A., John Hsu, and Brian Healy. 2019. “A Second Chance to Get Causal Inference Right: A Classification of Data Science Tasks.” <em>CHANCE</em> 32 (1): 42–49. <a href="https://doi.org/10.1080/09332480.2019.1579578">https://doi.org/10.1080/09332480.2019.1579578</a>.</p>
+</div>
+<div id="ref-hernanCausalInference2019">
+<p>Hernán, Miguel A., and JM Robins. n.d. <em>Causal Inference</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
+</div>
+<div id="ref-kleinbergWhyGuideFinding2015">
+<p>Kleinberg, Samantha. 2015. <em>Why: A Guide to Finding and Using Causes</em>. 1 edition. Beijing ; Boston: O’Reilly Media.</p>
+</div>
+<div id="ref-ledererControlConfoundingReporting2019">
+<p>Lederer, David J., Scott C. Bell, Richard D. Branson, James D. Chalmers, Rachel Marshall, David M. Maslove, David E. Ost, et al. 2019. “Control of Confounding and Reporting of Results in Causal Inference Studies. Guidance for Authors from Editors of Respiratory, Sleep, and Critical Care Journals.” <em>Annals of the American Thoracic Society</em> 16 (1): 22–28. <a href="https://doi.org/10.1513/AnnalsATS.201808-564PS">https://doi.org/10.1513/AnnalsATS.201808-564PS</a>.</p>
+</div>
+<div id="ref-pearlBookWhyNew2018">
+<p>Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. 1 edition. New York: Basic Books.</p>
+</div>
+<div id="ref-rohrerThinkingClearlyCorrelations2018">
+<p>Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” <em>Advances in Methods and Practices in Psychological Science</em> 1 (1): 27–42. <a href="https://doi.org/10.1177/2515245917745629">https://doi.org/10.1177/2515245917745629</a>.</p>
+</div>
+<div id="ref-saddikiPrimerCausalityData2018">
+<p>Saddiki, Hachem, and Laura B. Balzer. 2018. “A Primer on Causality in Data Science.” <em>arXiv:1809.02408 [Stat]</em>, September. <a href="http://arxiv.org/abs/1809.02408">http://arxiv.org/abs/1809.02408</a>.</p>
+</div>
+<div id="ref-shrierReducingBiasDirected2008">
+<p>Shrier, Ian, and Robert W Platt. 2008. “Reducing Bias Through Directed Acyclic Graphs.” <em>BMC Medical Research Methodology</em> 8 (1). <a href="https://doi.org/10.1186/1471-2288-8-70">https://doi.org/10.1186/1471-2288-8-70</a>.</p>
+</div>
+<div id="ref-textorRobustCausalInference2017">
+<p>Textor, Johannes, Benito van der Zander, Mark S. Gilthorpe, Maciej Li’skiewicz, and George T. H. Ellison. 2017. “Robust Causal Inference Using Directed Acyclic Graphs: The R Package ‘Dagitty’.” <em>International Journal of Epidemiology</em>, January, dyw341. <a href="https://doi.org/10.1093/ije/dyw341">https://doi.org/10.1093/ije/dyw341</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="26">
+<li id="fn26"><p>Another term used is <em>average treatment effect</em> (ATE)<a href="causal-inference.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Also referred to as <span class="math inline">\(SD_{IR}\)</span> or standard deviation of the intervention responses <span class="citation">(Hopkins <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. <span class="math inline">\(SD_{IR}\)</span> or <span class="math inline">\(SD_{TE}\)</span> represent estimate of treatment effect heterogeneity, also referred to as <em>variable treatment effect</em> (VTE)<a href="causal-inference.html#fnref27" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/04-Causal-inference.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

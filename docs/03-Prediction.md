@@ -828,8 +828,8 @@ Predictive performance for the full training data set is enlisted in the Table \
 
 (ref:mas-yoyo-training-performance-caption) **Predictive performance using the full training data set**
 
-<table>
-<caption>(\#tab:mas-yoyo-training-performance)(ref:mas-yoyo-training-performance-caption)</caption>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:mas-yoyo-training-performance)(ref:mas-yoyo-training-performance-caption)</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> MBE </th>
