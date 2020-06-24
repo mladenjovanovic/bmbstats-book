@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 15 Validity and Reliability | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
-  <meta name="description" content="Chapter 15 Validity and Reliability | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <title>Appendix C: Recommended material | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Appendix C: Recommended material | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 15 Validity and Reliability | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:title" content="Appendix C: Recommended material | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="www.complementarytraining.net" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Validity and Reliability | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:title" content="Appendix C: Recommended material | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
   <meta name="twitter:site" content="@physical_prep" />
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="predictive-tasks-using-bmbstats.html"/>
-<link rel="next" href="rct-analysis-and-prediction-in-bmbstats.html"/>
+<link rel="prev" href="appendix-b-shorts-package.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -306,128 +306,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="validity-and-reliability" class="section level1" number="15">
-<h1><span class="header-section-number">Chapter 15</span> Validity and Reliability</h1>
-<div id="data-generation" class="section level2" number="15.1">
-<h2><span class="header-section-number">15.1</span> Data generation</h2>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="validity-and-reliability.html#cb114-1"></a><span class="kw">require</span>(tidyverse)</span>
-<span id="cb114-2"><a href="validity-and-reliability.html#cb114-2"></a><span class="kw">require</span>(bmbstats)</span>
-<span id="cb114-3"><a href="validity-and-reliability.html#cb114-3"></a></span>
-<span id="cb114-4"><a href="validity-and-reliability.html#cb114-4"></a>n_subjects &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb114-5"><a href="validity-and-reliability.html#cb114-5"></a></span>
-<span id="cb114-6"><a href="validity-and-reliability.html#cb114-6"></a>criterion_random &lt;-<span class="st"> </span><span class="fl">0.3</span></span>
-<span id="cb114-7"><a href="validity-and-reliability.html#cb114-7"></a>practical_fixed &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb114-8"><a href="validity-and-reliability.html#cb114-8"></a>practical_proportional &lt;-<span class="st"> </span><span class="fl">1.1</span></span>
-<span id="cb114-9"><a href="validity-and-reliability.html#cb114-9"></a>practical_random &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb114-10"><a href="validity-and-reliability.html#cb114-10"></a></span>
-<span id="cb114-11"><a href="validity-and-reliability.html#cb114-11"></a><span class="kw">set.seed</span>(<span class="dv">1667</span>)</span>
-<span id="cb114-12"><a href="validity-and-reliability.html#cb114-12"></a></span>
-<span id="cb114-13"><a href="validity-and-reliability.html#cb114-13"></a>agreement_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb114-14"><a href="validity-and-reliability.html#cb114-14"></a>  <span class="dt">Athlete =</span> <span class="kw">paste</span>(</span>
-<span id="cb114-15"><a href="validity-and-reliability.html#cb114-15"></a>    <span class="st">&quot;Athlete&quot;</span>,</span>
-<span id="cb114-16"><a href="validity-and-reliability.html#cb114-16"></a>    <span class="kw">str_pad</span>(</span>
-<span id="cb114-17"><a href="validity-and-reliability.html#cb114-17"></a>      <span class="dt">string =</span> <span class="kw">seq</span>(<span class="dv">1</span>, n_subjects),</span>
-<span id="cb114-18"><a href="validity-and-reliability.html#cb114-18"></a>      <span class="dt">width =</span> <span class="dv">2</span>,</span>
-<span id="cb114-19"><a href="validity-and-reliability.html#cb114-19"></a>      <span class="dt">pad =</span> <span class="st">&quot;0&quot;</span></span>
-<span id="cb114-20"><a href="validity-and-reliability.html#cb114-20"></a>    )</span>
-<span id="cb114-21"><a href="validity-and-reliability.html#cb114-21"></a>  ),</span>
-<span id="cb114-22"><a href="validity-and-reliability.html#cb114-22"></a>  <span class="dt">True_score =</span> <span class="kw">rnorm</span>(n_subjects, <span class="dv">45</span>, <span class="dv">5</span>),</span>
-<span id="cb114-23"><a href="validity-and-reliability.html#cb114-23"></a>  <span class="dt">Criterion_score.trial1 =</span> <span class="dv">0</span> <span class="op">+</span><span class="st"> </span>True_score <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n_subjects, <span class="dv">0</span>, criterion_random),</span>
-<span id="cb114-24"><a href="validity-and-reliability.html#cb114-24"></a>  <span class="dt">Criterion_score.trial2 =</span> <span class="dv">0</span> <span class="op">+</span><span class="st"> </span>True_score <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n_subjects, <span class="dv">0</span>, criterion_random),</span>
-<span id="cb114-25"><a href="validity-and-reliability.html#cb114-25"></a>  <span class="dt">Practical_score.trial1 =</span> practical_fixed <span class="op">+</span><span class="st"> </span>True_score <span class="op">*</span><span class="st"> </span>practical_proportional <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n_subjects, <span class="dv">0</span>, practical_random),</span>
-<span id="cb114-26"><a href="validity-and-reliability.html#cb114-26"></a>  <span class="dt">Practical_score.trial2 =</span> practical_fixed <span class="op">+</span><span class="st"> </span>True_score <span class="op">*</span><span class="st"> </span>practical_proportional <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n_subjects, <span class="dv">0</span>, practical_random)</span>
-<span id="cb114-27"><a href="validity-and-reliability.html#cb114-27"></a>)</span>
-<span id="cb114-28"><a href="validity-and-reliability.html#cb114-28"></a></span>
-<span id="cb114-29"><a href="validity-and-reliability.html#cb114-29"></a><span class="kw">head</span>(agreement_data)</span>
-<span id="cb114-30"><a href="validity-and-reliability.html#cb114-30"></a><span class="co">#&gt; # A tibble: 6 x 6</span></span>
-<span id="cb114-31"><a href="validity-and-reliability.html#cb114-31"></a><span class="co">#&gt;   Athlete True_score Criterion_score… Criterion_score… Practical_score…</span></span>
-<span id="cb114-32"><a href="validity-and-reliability.html#cb114-32"></a><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb114-33"><a href="validity-and-reliability.html#cb114-33"></a><span class="co">#&gt; 1 Athlet…       52.9             52.9             52.9             59.2</span></span>
-<span id="cb114-34"><a href="validity-and-reliability.html#cb114-34"></a><span class="co">#&gt; 2 Athlet…       42.4             42.3             42.2             47.7</span></span>
-<span id="cb114-35"><a href="validity-and-reliability.html#cb114-35"></a><span class="co">#&gt; 3 Athlet…       49.2             49.1             49.5             55.0</span></span>
-<span id="cb114-36"><a href="validity-and-reliability.html#cb114-36"></a><span class="co">#&gt; 4 Athlet…       44.8             44.7             44.8             50.5</span></span>
-<span id="cb114-37"><a href="validity-and-reliability.html#cb114-37"></a><span class="co">#&gt; 5 Athlet…       40.0             40.4             40.1             44.7</span></span>
-<span id="cb114-38"><a href="validity-and-reliability.html#cb114-38"></a><span class="co">#&gt; 6 Athlet…       42.6             42.5             42.2             48.7</span></span>
-<span id="cb114-39"><a href="validity-and-reliability.html#cb114-39"></a><span class="co">#&gt; # … with 1 more variable: Practical_score.trial2 &lt;dbl&gt;</span></span></code></pre></div>
-</div>
-<div id="validity" class="section level2" number="15.2">
-<h2><span class="header-section-number">15.2</span> Validity</h2>
-<div id="true-vs-criterion" class="section level3" number="15.2.1">
-<h3><span class="header-section-number">15.2.1</span> True vs Criterion</h3>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="validity-and-reliability.html#cb115-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_lm</span>(</span>
-<span id="cb115-2"><a href="validity-and-reliability.html#cb115-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>True_score,</span>
-<span id="cb115-3"><a href="validity-and-reliability.html#cb115-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Criterion_score.trial1,</span>
-<span id="cb115-4"><a href="validity-and-reliability.html#cb115-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;True Score&quot;</span>,</span>
-<span id="cb115-5"><a href="validity-and-reliability.html#cb115-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Criterion Score&quot;</span>,</span>
-<span id="cb115-6"><a href="validity-and-reliability.html#cb115-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb115-7"><a href="validity-and-reliability.html#cb115-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb115-8"><a href="validity-and-reliability.html#cb115-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="validity-and-reliability.html#cb116-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_BA</span>(</span>
-<span id="cb116-2"><a href="validity-and-reliability.html#cb116-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>True_score,</span>
-<span id="cb116-3"><a href="validity-and-reliability.html#cb116-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Criterion_score.trial1,</span>
-<span id="cb116-4"><a href="validity-and-reliability.html#cb116-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;True Score&quot;</span>,</span>
-<span id="cb116-5"><a href="validity-and-reliability.html#cb116-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Criterion Score&quot;</span>,</span>
-<span id="cb116-6"><a href="validity-and-reliability.html#cb116-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb116-7"><a href="validity-and-reliability.html#cb116-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb116-8"><a href="validity-and-reliability.html#cb116-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="true-vs-practical" class="section level3" number="15.2.2">
-<h3><span class="header-section-number">15.2.2</span> True vs Practical</h3>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="validity-and-reliability.html#cb117-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_lm</span>(</span>
-<span id="cb117-2"><a href="validity-and-reliability.html#cb117-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>True_score,</span>
-<span id="cb117-3"><a href="validity-and-reliability.html#cb117-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Practical_score.trial1,</span>
-<span id="cb117-4"><a href="validity-and-reliability.html#cb117-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;True Score&quot;</span>,</span>
-<span id="cb117-5"><a href="validity-and-reliability.html#cb117-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Practical Score&quot;</span>,</span>
-<span id="cb117-6"><a href="validity-and-reliability.html#cb117-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb117-7"><a href="validity-and-reliability.html#cb117-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb117-8"><a href="validity-and-reliability.html#cb117-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="validity-and-reliability.html#cb118-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_BA</span>(</span>
-<span id="cb118-2"><a href="validity-and-reliability.html#cb118-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>True_score,</span>
-<span id="cb118-3"><a href="validity-and-reliability.html#cb118-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Practical_score.trial1,</span>
-<span id="cb118-4"><a href="validity-and-reliability.html#cb118-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;True Score&quot;</span>,</span>
-<span id="cb118-5"><a href="validity-and-reliability.html#cb118-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Practical Score&quot;</span>,</span>
-<span id="cb118-6"><a href="validity-and-reliability.html#cb118-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb118-7"><a href="validity-and-reliability.html#cb118-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb118-8"><a href="validity-and-reliability.html#cb118-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="criterion-vs-practical" class="section level3" number="15.2.3">
-<h3><span class="header-section-number">15.2.3</span> Criterion vs Practical</h3>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="validity-and-reliability.html#cb119-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_lm</span>(</span>
-<span id="cb119-2"><a href="validity-and-reliability.html#cb119-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>Criterion_score.trial1,</span>
-<span id="cb119-3"><a href="validity-and-reliability.html#cb119-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Practical_score.trial1,</span>
-<span id="cb119-4"><a href="validity-and-reliability.html#cb119-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;Criterion Score&quot;</span>,</span>
-<span id="cb119-5"><a href="validity-and-reliability.html#cb119-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Practical Score&quot;</span>,</span>
-<span id="cb119-6"><a href="validity-and-reliability.html#cb119-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb119-7"><a href="validity-and-reliability.html#cb119-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb119-8"><a href="validity-and-reliability.html#cb119-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="validity-and-reliability.html#cb120-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_BA</span>(</span>
-<span id="cb120-2"><a href="validity-and-reliability.html#cb120-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>Criterion_score.trial1,</span>
-<span id="cb120-3"><a href="validity-and-reliability.html#cb120-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Practical_score.trial1,</span>
-<span id="cb120-4"><a href="validity-and-reliability.html#cb120-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;Criterion Score&quot;</span>,</span>
-<span id="cb120-5"><a href="validity-and-reliability.html#cb120-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Practical Score&quot;</span>,</span>
-<span id="cb120-6"><a href="validity-and-reliability.html#cb120-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb120-7"><a href="validity-and-reliability.html#cb120-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb120-8"><a href="validity-and-reliability.html#cb120-8"></a>)</span></code></pre></div>
-<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="reliability" class="section level2" number="15.3">
-<h2><span class="header-section-number">15.3</span> Reliability</h2>
+<div id="appendix-c-recommended-material" class="section level1 unnumbered" number="">
+<h1>Appendix C: Recommended material</h1>
+<p><strong>General</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Spiegelhalter D. 2019. The art of statistics: how to learn from data. New York: Basic Books, an imprint of Perseus Books, a subsidiary of Hachette Book Group.</p></li>
+<li><p>Foreman JW. 2014. Data smart: using data science to transform information into insight. Hoboken, New Jersey: John Wiley &amp; Sons.</p></li>
+<li><p>Dienes Z. 2008. Understanding Psychology as a Science: An Introduction to Scientific and Statistical Inference. New York: Red Globe Press.</p></li>
+</ol>
+<p><strong>Bayesian analysis</strong></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Kruschke JK. 2015. Doing Bayesian data analysis: a tutorial with R, JAGS, and Stan. Boston: Academic Press.</p></li>
+<li><p>McElreath R. 2015. Statistical Rethinking: A Bayesian Course with Examples in R and Stan. Boca Raton: Chapman and Hall/CRC.</p></li>
+<li><p>Lambert B. 2018. A student’s guide to Bayesian statistics. Los Angeles: SAGE.</p></li>
+<li><p>Stanton JM. 2017. Reasoning with data: an introduction to traditional and Bayesian statistics using R. New York: The Guilford Press.</p></li>
+</ol>
+<p><strong>Predictive analysis and Machine Learning</strong></p>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Kuhn M, Johnson K. 2018. Applied Predictive Modeling. New York: Springer.</p></li>
+<li><p>Kuhn M, Johnson K. 2019. Feature Engineering and Selection: a Practical Approach for Predictive Models. Milton: CRC Press LLC.</p></li>
+<li><p>Lantz B. 2019. Machine learning with R: expert techniques for predictive modeling.</p></li>
+<li><p>James G, Witten D, Hastie T, Tibshirani R. 2017. An Introduction to Statistical Learning: with Applications in R. New York: Springer.</p></li>
+</ol>
+<p><strong>Causal inference</strong></p>
+<ol start="12" style="list-style-type: decimal">
+<li><p>Kleinberg S. 2015. Why: A Guide to Finding and Using Causes. Beijing; Boston: O’Reilly Media.</p></li>
+<li><p>Pearl J, Mackenzie D. 2018. The Book of Why: The New Science of Cause and Effect. New York: Basic Books.</p></li>
+<li><p>Hernán MA, Robins J. 2019. Causal Inference. Boca Raton: Chapman &amp; Hall/CRC.</p></li>
+</ol>
+<p><strong>R Language and Visualization</strong></p>
+<ol start="15" style="list-style-type: decimal">
+<li><p>Kabacoff R. 2015. R in action: data analysis and graphics with R. Shelter Island: Manning.</p></li>
+<li><p>Matloff NS. 2011. The art of R programming: tour of statistical software design. San Francisco: No Starch Press.</p></li>
+<li><p>Wickham H, Grolemund G. 2016. R for data science: import, tidy, transform, visualize, and model data. Sebastopol, CA: O’Reilly.</p></li>
+<li><p>Wilke C. 2019. Fundamentals of data visualization: a primer on making informative and compelling figures. Sebastopol, CA: O’Reilly Media.</p></li>
+<li><p>Healy K. 2018. Data visualization: a practical introduction. Princeton, NJ: Princeton University Press.</p></li>
+</ol>
+<p><strong>Simulation and statistical inference</strong></p>
+<ol start="20" style="list-style-type: decimal">
+<li><p>Carsey T, Harden J. 2013. Monte Carlo Simulation and Resampling Methods for Social Science. Los Angeles: Sage Publications, Inc.</p></li>
+<li><p>Efron B, Hastie T. 2016. Computer Age Statistical Inference: Algorithms, Evidence, and Data Science. New York, NY: Cambridge University Press.</p></li>
+</ol>
+<p><strong>Online Courses</strong></p>
+<ol start="22" style="list-style-type: decimal">
+<li><p>Hastie T, Tibshirani R. 2016.Statistical Learning. Available at <a href="https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about" class="uri">https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about</a> (accessed October 16, 2019).</p></li>
+<li><p>Lakens D. 2017.Improving your statistical inferences. Available at <a href="https://www.coursera.org/learn/statistical-inferences" class="uri">https://www.coursera.org/learn/statistical-inferences</a> (accessed October 16, 2019).</p></li>
+<li><p>Lakens D. 2019.Improving your statistical questions. Available at <a href="https://www.coursera.org/learn/improving-statistical-questions" class="uri">https://www.coursera.org/learn/improving-statistical-questions</a> (accessed October 16, 2019).</p></li>
+</ol>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="predictive-tasks-using-bmbstats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rct-analysis-and-prediction-in-bmbstats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="appendix-b-shorts-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -449,7 +383,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mladenjovanovic/bmbstats-book/15-Validity-and-reliability.Rmd",
+"link": "https://github.com/mladenjovanovic/bmbstats-book/98-Recommended-material.Rmd",
 "text": "Edit"
 },
 "history": {

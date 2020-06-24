@@ -1,4 +1,4 @@
-# Recommended material
+# Appendix C: Recommended material {-}
 
 **General**
 

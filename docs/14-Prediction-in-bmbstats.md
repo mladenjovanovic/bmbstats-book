@@ -737,3 +737,74 @@ plot(resid_NHST)
 According to Cross-Validation residuals analysis, the two models didn't perform statistically different that can be attributed to chance. 
 
 It bears repeating that I am not sure either of these are valid model comparison methods, so use this only as an example. Model comparison also involves deciding about model complexity and selecting the simpler model. 
+
+## Bootstrapping model
+
+
+```r
+model4.boot.coef <- bmbstats::bmbstats(
+  data = sinus_data, 
+  estimator_function = function(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {
+    model <- lm(observed_y ~ poly(x, 3), data)
+    coef(model)
+  }
+)
+
+model4.boot.coef
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>    estimator      value     lower     upper
+#>  (Intercept)  51.094279  48.87153  52.96739
+#>  poly(x, 3)1  28.497988  19.59403  36.45944
+#>  poly(x, 3)2 -18.194924 -23.94497 -13.14120
+#>  poly(x, 3)3  -8.027118 -13.13937  -4.52746
+```
+
+
+```r
+plot(model4.boot.coef)
+```
+
+<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+Performance metrics
+
+
+```r
+model4.boot.perf <- bmbstats::bmbstats(
+  data = sinus_data, 
+  estimator_function = function(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {
+    model <- lm(observed_y ~ poly(x, 3), data)
+    
+    # Return model performance metrics
+    bmbstats::performance_metrics(
+      observed = data$observed_y,
+      predicted = predict(model),
+      SESOI_lower = SESOI_lower,
+      SESOI_upper = SESOI_upper,
+      na.rm = na.rm
+    )
+  }
+)
+
+model4.boot.perf
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>      estimator         value         lower         upper
+#>            MBE -1.299275e-14 -4.125793e-14  1.055661e-14
+#>            MAE  1.534398e+00  1.290075e+00  2.119985e+00
+#>           RMSE  1.837539e+00  1.620042e+00  2.370531e+00
+#>           PPER  0.000000e+00            NA            NA
+#>  SESOI to RMSE  0.000000e+00            NA            NA
+#>      R-squared  9.108623e-01  8.286065e-01  9.396944e-01
+#>         MinErr -3.676547e+00 -5.001168e+00 -3.035433e+00
+#>         MaxErr  3.819068e+00  2.958894e+00  5.388544e+00
+#>      MaxAbsErr  3.819068e+00  3.001014e+00  5.097689e+00
+```
+
+
+```r
+plot(model4.boot.perf)
+```
+
+<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-38-1.png" width="90%" style="display: block; margin: auto;" />

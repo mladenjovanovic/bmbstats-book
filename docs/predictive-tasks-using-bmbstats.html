@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-06-18" />
+<meta name="date" content="2020-06-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -271,16 +271,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
 <li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
 <li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+<li class="chapter" data-level="14.6" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#bootstrapping-model"><i class="fa fa-check"></i><b>14.6</b> Bootstrapping model</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
-<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#data-generation"><i class="fa fa-check"></i><b>15.1</b> Data generation</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.2</b> Validity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#true-vs-criterion"><i class="fa fa-check"></i><b>15.2.1</b> True vs Criterion</a></li>
+<li class="chapter" data-level="15.2.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#true-vs-practical"><i class="fa fa-check"></i><b>15.2.2</b> True vs Practical</a></li>
+<li class="chapter" data-level="15.2.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#criterion-vs-practical"><i class="fa fa-check"></i><b>15.2.3</b> Criterion vs Practical</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
 <li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
 <li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
-<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
+<li class="chapter" data-level="" data-path="appendix-c-recommended-material.html"><a href="appendix-c-recommended-material.html"><i class="fa fa-check"></i>Appendix C: Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -858,6 +865,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>According to Cross-Validation residuals analysis, the two models didn’t perform statistically different that can be attributed to chance.</p>
 <p>It bears repeating that I am not sure either of these are valid model comparison methods, so use this only as an example. Model comparison also involves deciding about model complexity and selecting the simpler model.</p>
+</div>
+<div id="bootstrapping-model" class="section level2" number="14.6">
+<h2><span class="header-section-number">14.6</span> Bootstrapping model</h2>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="predictive-tasks-using-bmbstats.html#cb110-1"></a>model4.boot.coef &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bmbstats</span>(</span>
+<span id="cb110-2"><a href="predictive-tasks-using-bmbstats.html#cb110-2"></a>  <span class="dt">data =</span> sinus_data, </span>
+<span id="cb110-3"><a href="predictive-tasks-using-bmbstats.html#cb110-3"></a>  <span class="dt">estimator_function =</span> <span class="cf">function</span>(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {</span>
+<span id="cb110-4"><a href="predictive-tasks-using-bmbstats.html#cb110-4"></a>    model &lt;-<span class="st"> </span><span class="kw">lm</span>(observed_y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dv">3</span>), data)</span>
+<span id="cb110-5"><a href="predictive-tasks-using-bmbstats.html#cb110-5"></a>    <span class="kw">coef</span>(model)</span>
+<span id="cb110-6"><a href="predictive-tasks-using-bmbstats.html#cb110-6"></a>  }</span>
+<span id="cb110-7"><a href="predictive-tasks-using-bmbstats.html#cb110-7"></a>)</span>
+<span id="cb110-8"><a href="predictive-tasks-using-bmbstats.html#cb110-8"></a></span>
+<span id="cb110-9"><a href="predictive-tasks-using-bmbstats.html#cb110-9"></a>model4.boot.coef</span>
+<span id="cb110-10"><a href="predictive-tasks-using-bmbstats.html#cb110-10"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb110-11"><a href="predictive-tasks-using-bmbstats.html#cb110-11"></a><span class="co">#&gt; </span></span>
+<span id="cb110-12"><a href="predictive-tasks-using-bmbstats.html#cb110-12"></a><span class="co">#&gt;    estimator      value     lower     upper</span></span>
+<span id="cb110-13"><a href="predictive-tasks-using-bmbstats.html#cb110-13"></a><span class="co">#&gt;  (Intercept)  51.094279  48.87153  52.96739</span></span>
+<span id="cb110-14"><a href="predictive-tasks-using-bmbstats.html#cb110-14"></a><span class="co">#&gt;  poly(x, 3)1  28.497988  19.59403  36.45944</span></span>
+<span id="cb110-15"><a href="predictive-tasks-using-bmbstats.html#cb110-15"></a><span class="co">#&gt;  poly(x, 3)2 -18.194924 -23.94497 -13.14120</span></span>
+<span id="cb110-16"><a href="predictive-tasks-using-bmbstats.html#cb110-16"></a><span class="co">#&gt;  poly(x, 3)3  -8.027118 -13.13937  -4.52746</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="predictive-tasks-using-bmbstats.html#cb111-1"></a><span class="kw">plot</span>(model4.boot.coef)</span></code></pre></div>
+<p><img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Performance metrics</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="predictive-tasks-using-bmbstats.html#cb112-1"></a>model4.boot.perf &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bmbstats</span>(</span>
+<span id="cb112-2"><a href="predictive-tasks-using-bmbstats.html#cb112-2"></a>  <span class="dt">data =</span> sinus_data, </span>
+<span id="cb112-3"><a href="predictive-tasks-using-bmbstats.html#cb112-3"></a>  <span class="dt">estimator_function =</span> <span class="cf">function</span>(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {</span>
+<span id="cb112-4"><a href="predictive-tasks-using-bmbstats.html#cb112-4"></a>    model &lt;-<span class="st"> </span><span class="kw">lm</span>(observed_y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dv">3</span>), data)</span>
+<span id="cb112-5"><a href="predictive-tasks-using-bmbstats.html#cb112-5"></a>    </span>
+<span id="cb112-6"><a href="predictive-tasks-using-bmbstats.html#cb112-6"></a>    <span class="co"># Return model performance metrics</span></span>
+<span id="cb112-7"><a href="predictive-tasks-using-bmbstats.html#cb112-7"></a>    bmbstats<span class="op">::</span><span class="kw">performance_metrics</span>(</span>
+<span id="cb112-8"><a href="predictive-tasks-using-bmbstats.html#cb112-8"></a>      <span class="dt">observed =</span> data<span class="op">$</span>observed_y,</span>
+<span id="cb112-9"><a href="predictive-tasks-using-bmbstats.html#cb112-9"></a>      <span class="dt">predicted =</span> <span class="kw">predict</span>(model),</span>
+<span id="cb112-10"><a href="predictive-tasks-using-bmbstats.html#cb112-10"></a>      <span class="dt">SESOI_lower =</span> SESOI_lower,</span>
+<span id="cb112-11"><a href="predictive-tasks-using-bmbstats.html#cb112-11"></a>      <span class="dt">SESOI_upper =</span> SESOI_upper,</span>
+<span id="cb112-12"><a href="predictive-tasks-using-bmbstats.html#cb112-12"></a>      <span class="dt">na.rm =</span> na.rm</span>
+<span id="cb112-13"><a href="predictive-tasks-using-bmbstats.html#cb112-13"></a>    )</span>
+<span id="cb112-14"><a href="predictive-tasks-using-bmbstats.html#cb112-14"></a>  }</span>
+<span id="cb112-15"><a href="predictive-tasks-using-bmbstats.html#cb112-15"></a>)</span>
+<span id="cb112-16"><a href="predictive-tasks-using-bmbstats.html#cb112-16"></a></span>
+<span id="cb112-17"><a href="predictive-tasks-using-bmbstats.html#cb112-17"></a>model4.boot.perf</span>
+<span id="cb112-18"><a href="predictive-tasks-using-bmbstats.html#cb112-18"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb112-19"><a href="predictive-tasks-using-bmbstats.html#cb112-19"></a><span class="co">#&gt; </span></span>
+<span id="cb112-20"><a href="predictive-tasks-using-bmbstats.html#cb112-20"></a><span class="co">#&gt;      estimator         value         lower         upper</span></span>
+<span id="cb112-21"><a href="predictive-tasks-using-bmbstats.html#cb112-21"></a><span class="co">#&gt;            MBE -1.299275e-14 -4.125793e-14  1.055661e-14</span></span>
+<span id="cb112-22"><a href="predictive-tasks-using-bmbstats.html#cb112-22"></a><span class="co">#&gt;            MAE  1.534398e+00  1.290075e+00  2.119985e+00</span></span>
+<span id="cb112-23"><a href="predictive-tasks-using-bmbstats.html#cb112-23"></a><span class="co">#&gt;           RMSE  1.837539e+00  1.620042e+00  2.370531e+00</span></span>
+<span id="cb112-24"><a href="predictive-tasks-using-bmbstats.html#cb112-24"></a><span class="co">#&gt;           PPER  0.000000e+00            NA            NA</span></span>
+<span id="cb112-25"><a href="predictive-tasks-using-bmbstats.html#cb112-25"></a><span class="co">#&gt;  SESOI to RMSE  0.000000e+00            NA            NA</span></span>
+<span id="cb112-26"><a href="predictive-tasks-using-bmbstats.html#cb112-26"></a><span class="co">#&gt;      R-squared  9.108623e-01  8.286065e-01  9.396944e-01</span></span>
+<span id="cb112-27"><a href="predictive-tasks-using-bmbstats.html#cb112-27"></a><span class="co">#&gt;         MinErr -3.676547e+00 -5.001168e+00 -3.035433e+00</span></span>
+<span id="cb112-28"><a href="predictive-tasks-using-bmbstats.html#cb112-28"></a><span class="co">#&gt;         MaxErr  3.819068e+00  2.958894e+00  5.388544e+00</span></span>
+<span id="cb112-29"><a href="predictive-tasks-using-bmbstats.html#cb112-29"></a><span class="co">#&gt;      MaxAbsErr  3.819068e+00  3.001014e+00  5.097689e+00</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="predictive-tasks-using-bmbstats.html#cb113-1"></a><span class="kw">plot</span>(model4.boot.perf)</span></code></pre></div>
+<p><img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-38-1.png" width="90%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
