@@ -1,0 +1,512 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Run common script
+source("_common.R")
+```
+
+# Predictive tasks using `bmbstats`
+
+Simple implementation of the prediction tasks in `bmbstats` is done with `bmbstats::cv_model` function, which is short of "cross-validate model". This function is more of a teaching tool, than something more thorough like the `caret` [@R-caret] or `mlr` and `mlr3` packages [@R-mlr; @R-mlr3]. But `bmbstats::cv_model` is still powerful and versatile for the sports science prediction tasks (e.g. `bmbstats::rct_predict` is a function that we will introduce later and it was built using `bmbstats::cv_model` results). `bmbstats::cv_model` is built using the outstanding `hardhat` package [@R-hardhat]. 
+
+`bmbstats::cv_model` has three components: (1) fitting or modeling function (set using the `model_func` parameter with the `bmbstats::lm_model`(default) and `bmbstats::baseline_model` being implemented using `stats::lm` linear regression function), (2) prediction function; which is used for predicting on the new and training data (set using the `predict_func` parameter with `bmbstats::generic_predict` being the default that calls the default predict method, or `stats::predict.lm` for the `lm` classes), and (3) performance function; which is used to return performance estimators (set using the `perf_func` parameter with `bmbstats::performance_metrics` being the default). This will be much clearer once we start implementing the `bmbstats::cv_model`.
+
+To demonstrate `bmbstats::cv_model` function, let's generate simple data for prediction:
+
+```{r echo=TRUE}
+require(tidyverse)
+require(bmbstats)
+require(cowplot)
+
+set.seed(1667)
+
+# Model (DGP)
+random_error <- 2
+
+sinus_data <- tibble(
+  x = seq(0.8, 2.5, 0.05),
+  observed_y = 30 + 15 * (x * sin(x)) + rnorm(n = length(x), mean = 0, sd = random_error),
+  true_y = 30 + 15 * (x * sin(x))
+)
+
+head(sinus_data)
+```
+
+```{r echo=TRUE}
+ggplot(sinus_data, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_point(aes(y = observed_y)) +
+  geom_line(aes(y = true_y))
+```
+
+This data has *irreducible error* with `SD` equal to 2 (a.u.). Let's use simple linear regression to predict observed $y$, but evaluate model performance using 10 repeats of 5-folds cross-validations:
+
+```{r echo=TRUE}
+model1 <- bmbstats::cv_model(
+  observed_y ~ x,
+  sinus_data,
+
+  # These are default options, but I will list them here
+  model_func = lm_model,
+  predict_func = generic_predict,
+  perf_func = performance_metrics,
+
+  # CV parameters
+  control = model_control(
+    cv_folds = 5,
+    cv_repeats = 10,
+    seed = 1667
+  )
+)
+
+model1
+```
+
+SESOI in the above example is calculated using 0.2 x `SD` of the outcome variable (i.e. `observed_y`) which represents Cohen's trivial effect. SESOI constants of estimation function (that uses training data set to estimate SESOI) can be set up using the `SESOI_lower` and `SESOI_upper` parameters (to which the default are `bmbstats::SESOI_lower_func` and `bmbstats::SESOI_upper_func` respectively). 
+
+The above output represents performance summary using the estimators returned by the `bmbstats::performance_metrics`. `bmbstats` has numerous *cost* functions implemented that could be called using the `bmbstats::cost_` prefix. 
+
+The above output can be plotted using the `plot` command and `type = "estimators"` parameter:
+ 
+```{r echo=TRUE}
+plot(model1, "estimators")
+```
+
+Error bars represent range of estimator values across cross-validation folds, while the dashed line indicate training performance. There estimates can be accessed in the returned object, i.e. `model1$performance` for training, and `model1$cross_validation$performance` for cross-validation. 
+
+## How to implement different performance metrics?
+
+To implement different performance metrics you need to write your own function that return named vector using the following template:
+
+```{r echo=TRUE}
+# My performance metrics
+my_perf_metrics <- function(observed,
+                            predicted,
+                            SESOI_lower = 0,
+                            SESOI_upper = 0,
+                            na.rm = FALSE) {
+  c(
+    RMSE = cost_RMSE(
+      observed = observed,
+      predicted = predicted,
+      SESOI_lower = SESOI_lower,
+      SESOI_upper = SESOI_upper,
+      na.rm = na.rm
+    ),
+
+    PPER = cost_PPER(
+      observed = observed,
+      predicted = predicted,
+      SESOI_lower = SESOI_lower,
+      SESOI_upper = SESOI_upper,
+      na.rm = na.rm
+    ),
+
+    `R-squared` = cost_R_squared(
+      observed = observed,
+      predicted = predicted,
+      SESOI_lower = SESOI_lower,
+      SESOI_upper = SESOI_upper,
+      na.rm = na.rm
+    )
+  )
+}
+
+
+# Re-run the cv_model with my perf metrics
+model2 <- bmbstats::cv_model(
+  observed_y ~ x,
+  sinus_data,
+
+  # Use our performance metrics
+  perf_func = my_perf_metrics,
+
+  # CV parameters
+  control = model_control(
+    cv_folds = 5,
+    cv_repeats = 10,
+    seed = 1667
+  )
+)
+
+model2
+```
+```{r echo=TRUE}
+plot(model2, "estimators")
+```
+
+## How to use different prediction model?
+
+To use different prediction model instead of `stats::lm`, you will need to modify the model function using the following template. Let's use Regression Tree using the `rpart` package [@R-rpart]:
+
+```{r echo=TRUE}
+require(rpart)
+
+# My prediction model
+my_model_func <- function(predictors,
+                          outcome,
+                          SESOI_lower = 0,
+                          SESOI_upper = 0,
+                          na.rm = FALSE,
+                          ...) {
+  data <- cbind(.outcome = outcome, predictors)
+  rpart(.outcome ~ ., data = data, ...)
+}
+
+# Call the cv_model
+model3 <- bmbstats::cv_model(
+  observed_y ~ x,
+  sinus_data,
+
+  # Use our model function
+  model_func = my_model_func,
+
+  # CV parameters
+  control = model_control(
+    cv_folds = 5,
+    cv_repeats = 10,
+    seed = 1667
+  ),
+
+  # Do not create intercept column
+  intercept = TRUE
+)
+
+model3
+```
+```{r echo=TRUE}
+plot(model3, "estimators")
+```
+
+## Example of using tuning parameter
+
+Let's use the same example from the [Overfitting] section of the [Prediction] chapter - polynomial fit. The objective is to select the polynomial degree that gives the best cross-validation performance. 
+
+```{r echo=TRUE}
+poly_tuning <- seq(1, 12)
+
+my_model_func <- function(predictors,
+                          outcome,
+                          SESOI_lower = 0,
+                          SESOI_upper = 0,
+                          na.rm = FALSE,
+                          poly_n = 1) {
+  data <- cbind(.outcome = outcome, predictors)
+  lm(.outcome ~ poly(x, poly_n), data = data)
+}
+
+
+# Model performance across different tuning parameters
+poly_perf <- map_df(poly_tuning, function(poly_n) {
+  model <- bmbstats::cv_model(
+    observed_y ~ x,
+    sinus_data,
+    # CV parameters
+    control = model_control(
+      cv_folds = 5,
+      cv_repeats = 10,
+      seed = 1667
+    ),
+    model_func = my_model_func,
+    poly_n = poly_n
+  )
+
+  data.frame(
+    poly_n = poly_n,
+    model$cross_validation$performance$summary$overall
+  )
+})
+
+head(poly_perf)
+```
+
+In the figure below the results of this analysis is depicted. Dashed red line represents cross-validated performance (using performance on the pooled testing data). 
+
+```{r echo=TRUE}
+ggplot(poly_perf, aes(x = poly_n)) +
+  theme_cowplot(8) +
+  geom_line(aes(y = training), color = "blue", alpha = 0.8) +
+  geom_line(aes(y = testing.pooled), color = "red", linetype = "dashed", alpha = 0.8) +
+  facet_wrap(~metric, scales = "free_y")
+```
+
+As can be seen, the best predictive performance is with 3rd polynomial degrees. The figure below depicts `RMSE` estimator for higher resolution image. 
+
+```{r echo=TRUE}
+ggplot(
+  filter(
+    poly_perf,
+    metric == "RMSE"
+  ),
+  aes(x = poly_n)
+) +
+  theme_cowplot(8) +
+  geom_line(aes(y = training), color = "blue", alpha = 0.8) +
+  geom_line(aes(y = testing.pooled), color = "red", linetype = "dashed", alpha = 0.8) +
+  ylab("RMSE")
+```
+
+## Plotting
+
+Various diagnostic graphs can be easily generated using a generic `plot` function. Let's fit a 3rd degree polynomial model first:
+
+```{r echo=TRUE}
+model4 <- bmbstats::cv_model(
+  observed_y ~ poly(x, 3),
+  sinus_data,
+
+  # CV parameters
+  control = model_control(
+    cv_folds = 5,
+    cv_repeats = 10,
+    seed = 1667
+  )
+)
+
+model4
+```
+
+To plot the residuals, use `type="residuals"` in the `plot` function:
+
+```{r echo=TRUE}
+plot(model4, "residuals")
+```
+
+The following code will plot the training and testing residuals across cross-validation folds:
+
+```{r echo=TRUE}
+plot(model4, "training-residuals")
+```
+
+```{r echo=TRUE}
+plot(model4, "testing-residuals")
+```
+
+To plot bias-variance error decomposition across cross-validation folds use:
+
+```{r echo=TRUE}
+plot(model4, "bias-variance-index")
+```
+
+The above figure depicts bias-variance for each observation index. To plot against the outcome variable value use:
+
+```{r echo=TRUE}
+plot(model4, "bias-variance-observed")
+```
+
+Prediction error (i.e. residuals) can also be plotted as boxes, demonstrating the mean (i.e. bias) and spread (i.e. variance). To plot prediction error again outcome index use:
+
+```{r echo=TRUE}
+plot(model4, "prediction-index")
+```
+
+Similar to plotting bias-variance, prediction error distribution (actually, a spread or range) can be plotted against outcome variable value:
+
+```{r echo=TRUE}
+plot(model4, "prediction-observed")
+```
+
+And finally, to plot the performance estimator use:
+
+```{r echo=TRUE}
+plot(model4, "estimators")
+```
+
+Each of these plots can be customized using the `control=bmbstats::plot_control` argument and function.
+
+## Comparing models
+
+Comparing models is beyond the scope of this book, but I will provide a short introduction using `bmbstats`. Let's use our `model3` that used `rpart` Regression Tree, and `model4` that used 3rd degree polynomial fit, to plot the estimators range across cross-validation folds. 
+
+```{r echo=TRUE}
+plot_data <- rbind(
+  data.frame(model = "rpart", model3$cross_validation$performance$summary$overall),
+  data.frame(model = "poly", model4$cross_validation$performance$summary$overall)
+)
+
+plot_data
+```
+
+```{r echo=TRUE}
+ggplot(
+  plot_data,
+  aes(y = model, x = mean)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = max, xmin = min),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  geom_point(aes(x = training), color = "red", shape = "|", size = 3) +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~metric, scales = "free_x")
+```
+
+As can be seen from the figure, polynomial fit represents a more predictive model. But we can also perform statistical significance test using the cross-validation performance, for let's say `RMSE` estimator. Since the CV folds are the same (which we achieved by using the same `seed` number), we can do dependent groups analysis. But before, let's plot the CV estimates of the `RMSE`:
+
+```{r echo=TRUE}
+rmse_rpart <- filter(
+  model3$cross_validation$performance$folds$testing,
+  metric == "RMSE"
+)
+head(rmse_rpart)
+```
+
+```{r echo=TRUE}
+rmse_poly <- filter(
+  model4$cross_validation$performance$folds$testing,
+  metric == "RMSE"
+)
+head(rmse_poly)
+```
+
+```{r echo=TRUE}
+rmse_data <- rbind(
+  data.frame(model = "rpart", value = rmse_rpart$value),
+  data.frame(model = "poly", value = rmse_poly$value)
+)
+
+bmbstats::plot_raincloud(
+  rmse_data,
+  value = "value",
+  value_label = "RMSE",
+  groups = "model"
+)
+```
+
+And we can finally perform the dependent groups analysis:
+
+```{r echo=TRUE}
+rmse_perf <- bmbstats::compare_dependent_groups(
+  pre = rmse_rpart$value,
+  post = rmse_poly$value
+)
+
+rmse_perf
+```
+```{r echo=TRUE}
+# Do the statistical significance test
+rmse_NHST <- bmbstats::bootstrap_NHST(
+  rmse_perf,
+  estimator = "Mean change",
+  test = "two.sided",
+  null_hypothesis = 0
+)
+
+rmse_NHST
+```
+
+```{r echo=TRUE}
+plot(rmse_NHST)
+```
+
+So we can conclude that polynomial model has significantly better performance, using `RMSE` estimator, than Regression Tree model that cannot be explained as a pure (sampling) chance. 
+
+But to be honest, model comparison is beyond my current knowledge and I am not sure that comparing the estimators is the right approach. We could instead compare model residuals. Since CV folds are identical, we can perform dependent groups analysis as well. But before doing that, let's plot the CV residuals:
+
+```{r echo=TRUE}
+resid_data <- rbind(
+  data.frame(model = "rpart", value = model3$cross_validation$data$testing$residual),
+  data.frame(model = "poly", value = model4$cross_validation$data$testing$residual)
+)
+
+bmbstats::plot_raincloud(
+  resid_data,
+  value = "value",
+  value_label = "CV residuals",
+  groups = "model"
+)
+```
+
+Or their difference:
+
+```{r echo=TRUE}
+bmbstats::plot_raincloud(
+  data.frame(diff = model4$cross_validation$data$testing$residual -
+    model3$cross_validation$data$testing$residual),
+  value = "diff",
+  value_label = "CV residuals difference"
+)
+```
+
+And we can finally perform the dependent groups analysis:
+
+```{r echo=TRUE}
+resid_perf <- bmbstats::compare_dependent_groups(
+  pre = model3$cross_validation$data$testing$residual,
+  post = model4$cross_validation$data$testing$residual
+)
+
+resid_perf
+```
+```{r echo=TRUE}
+# Do the statistical significance test
+resid_NHST <- bmbstats::bootstrap_NHST(
+  resid_perf,
+  estimator = "Mean change",
+  test = "two.sided",
+  null_hypothesis = 0
+)
+
+resid_NHST
+```
+```{r echo=TRUE}
+plot(resid_NHST)
+```
+
+According to Cross-Validation residuals analysis, the two models didn't perform statistically different that can be attributed to chance. 
+
+It bears repeating that I am not sure either of these are valid model comparison methods, so use this only as an example. Model comparison also involves deciding about model complexity and selecting the simpler model. 
+
+## Bootstrapping model
+
+```{r echo=TRUE}
+model4.boot.coef <- bmbstats::bmbstats(
+  data = sinus_data, 
+  estimator_function = function(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {
+    model <- lm(observed_y ~ poly(x, 3), data)
+    coef(model)
+  }
+)
+
+model4.boot.coef
+```
+
+```{r echo=TRUE}
+plot(model4.boot.coef)
+```
+
+Performance metrics
+
+```{r echo=TRUE}
+model4.boot.perf <- bmbstats::bmbstats(
+  data = sinus_data, 
+  estimator_function = function(data, SESOI_lower, SESOI_upper, na.rm, init_boot) {
+    model <- lm(observed_y ~ poly(x, 3), data)
+    
+    # Return model performance metrics
+    bmbstats::performance_metrics(
+      observed = data$observed_y,
+      predicted = predict(model),
+      SESOI_lower = SESOI_lower,
+      SESOI_upper = SESOI_upper,
+      na.rm = na.rm
+    )
+  }
+)
+
+model4.boot.perf
+```
+
+```{r echo=TRUE}
+plot(model4.boot.perf)
+```

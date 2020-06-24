@@ -1,0 +1,125 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Run common script
+source("_common.R")
+```
+
+# Validity and Reliability
+
+## Data generation
+
+```{r echo=TRUE}
+require(tidyverse)
+require(bmbstats)
+
+n_subjects <- 20
+
+criterion_random <- 0.3
+practical_fixed <- 1
+practical_proportional <- 1.1
+practical_random <- 1
+
+set.seed(1667)
+
+agreement_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  True_score = rnorm(n_subjects, 45, 5),
+  Criterion_score.trial1 = 0 + True_score * 1 + rnorm(n_subjects, 0, criterion_random),
+  Criterion_score.trial2 = 0 + True_score * 1 + rnorm(n_subjects, 0, criterion_random),
+  Practical_score.trial1 = practical_fixed + True_score * practical_proportional + rnorm(n_subjects, 0, practical_random),
+  Practical_score.trial2 = practical_fixed + True_score * practical_proportional + rnorm(n_subjects, 0, practical_random)
+)
+
+head(agreement_data)
+```
+
+## Validity
+
+### True vs Criterion
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Criterion Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+bmbstats::plot_pair_BA(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Criterion Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+### True vs Practical
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Practical Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+bmbstats::plot_pair_BA(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Practical Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+### Criterion vs Practical
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$Criterion_score.trial1,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "Criterion Score",
+  outcome_label = "Practical Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+bmbstats::plot_pair_BA(
+  predictor = agreement_data$Criterion_score.trial1,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "Criterion Score",
+  outcome_label = "Practical Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+## Reliability

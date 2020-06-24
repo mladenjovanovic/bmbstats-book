@@ -415,7 +415,7 @@ table_effect_size_stats_independent_groups <- height_data_wide %>%
     `% CVdiff` = 100 * `SDdiff (cm)` / `Difference (cm)`,
     `% Difference` = (mean(Male) - mean(Female)) / mean(Female) * 100,
     Ratio = mean(Male) / mean(Female),
-    `Cohen's d` = bmbstats::cohens_d(Male, Female, paired = FALSE),
+    `Cohen's d` = bmbstats::cohens_d(Female, Male, paired = FALSE),
     CLES = bmbstats::CLES(Female, Male),
     OVL = 2 * pnorm(-abs(`Cohen's d`) / 2),
   )
@@ -752,7 +752,7 @@ There is no single way to approach definition and estimation of SESOI, but it us
 
 To introduce magnitude-based estimators, consider ±2.5cm to be body height SESOI[^SESOI_Range], or the difference that would be practically significant. In other words, individuals with height difference within ±2.5cm would be considered practically equivalent (from the minimal important effect perspective), or it might be hard to detect this difference with a quick glance (from minimum detectable effect perspective). 
 
-[^SESOI_Range]: SESOI has two thresholds: *lower* and *upper*, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as $SESOI_{upper} - SESOI_{lower}$. This range can also be refered to as *equivalence range*.
+[^SESOI_Range]: SESOI has two thresholds: *lower* and *upper*, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as $SESOI_{upper} - SESOI_{lower}$. This range can also be referred to as *equivalence range*.
 
 The simplest magnitude-based statistics would be `mean diff` divided by SESOI (`Difference to SESOI`) (Equation \@ref(eq:diff-to-SESOI)). This estimator, similar to other standardized estimators (e.g. `Cohen's d`) allows comparison of variables at different scales, but it would also give more insight into differences from practical significance perspective. 
 
@@ -1564,7 +1564,7 @@ knitr::kable(
 )
 ```
 
-This diference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
+This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
 ```{r reverse-linear, fig.cap="(ref:reverse-linear-caption)"}
 ggplot(relationship, aes(x = `YoYoIR1 (m)`, y = `MAS (km/h)`)) +
@@ -1626,12 +1626,12 @@ Next magnitude-based question might be related to the practically significant st
 
 ```{r sesoiscatterplot-mas-yoyo,  fig.cap="(ref:sesoiscatterplot-mas-yoyo-caption)"}
 bmbstats::plot_pair_lm(
-  group_a = relationship$`YoYoIR1 (m)`,
-  group_b = relationship$`MAS (km/h)`,
+  predictor = relationship$`YoYoIR1 (m)`,
+  outcome = relationship$`MAS (km/h)`,
   SESOI_lower = SESOI_MAS_lower,
   SESOI_upper = SESOI_MAS_upper,
-  group_a_label = "YoYoIR1 (m)",
-  group_b_label = "MAS (km/h)",
+  predictor_label = "YoYoIR1 (m)",
+  outcome_label = "MAS (km/h)",
   control = plot_control(points_fill = female_color, points_color = female_color)
 )
 ```
@@ -1703,12 +1703,12 @@ relationship$residual <- resid(linear_model)
 relationship$model <- predict(linear_model)
 
 bmbstats::plot_pair_lm(
-  group_b = relationship$`YoYoIR1 (m)`,
-  group_a = relationship$`MAS (km/h)`,
+  outcome = relationship$`YoYoIR1 (m)`,
+  predictor = relationship$`MAS (km/h)`,
   SESOI_lower = SESOI_yoyo_lower,
   SESOI_upper = SESOI_yoyo_upper,
-  group_b_label = "YoYoIR1 (m)",
-  group_a_label = "MAS (km/h)",
+  outcome_label = "YoYoIR1 (m)",
+  predictor_label = "MAS (km/h)",
   control = plot_control(points_fill = female_color, points_color = female_color)
 )
 ```
@@ -1717,8 +1717,11 @@ bmbstats::plot_pair_lm(
 (ref:association-magnitude-yoyo-table-caption) **Magnitude-based estimators of the association between two variables.** Association is estimated using linear regression model. YoYoIR1 is the target variable, and MAS is the predictor
 
 ```{r association-magnitude-yoyo-table}
-PPER <- pnorm(SESOI_yoyo_upper, 0, summary(linear_model)$sigma) - 
-    pnorm(SESOI_yoyo_lower, 0, summary(linear_model)$sigma)
+PPER <- bmbstats::PPER(
+  sigma = summary(linear_model)$sigma,
+  SESOI_lower = SESOI_yoyo_lower,
+  SESOI_upper = SESOI_yoyo_upper,
+  df = nrow(relationship) - 1)
 
 table_association_magnitude <- relationship %>%
   summarize(

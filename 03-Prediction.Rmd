@@ -934,10 +934,10 @@ mas_yoyo_linear <- bmbstats::cv_model(
 )
 
 bmbstats::plot_pair_lm(
-  group_a = yoyo_mas_data$YoYoIR1,
-  group_b = yoyo_mas_data$MAS,
-  group_a_label = "YoYoIR1 (m)",
-  group_b_label = "MAS (km/h)",
+  predictor = yoyo_mas_data$YoYoIR1,
+  outcome = yoyo_mas_data$MAS,
+  predictor_label = "YoYoIR1 (m)",
+  outcome_label = "MAS (km/h)",
   SESOI_lower = SESOI_MAS_lower,
   SESOI_upper = SESOI_MAS_upper,
   fitted_label = "Predicted MAS (km/h)",
@@ -1072,10 +1072,10 @@ yoyo_mas_linear <- bmbstats::cv_model(
 )
 
 bmbstats::plot_pair_lm(
-  group_b = yoyo_mas_data$YoYoIR1,
-  group_a = yoyo_mas_data$MAS,
-  group_b_label = "YoYoIR1 (m)",
-  group_a_label = "MAS (km/h)",
+  outcome = yoyo_mas_data$YoYoIR1,
+  predictor = yoyo_mas_data$MAS,
+  outcome_label = "YoYoIR1 (m)",
+  predictor_label = "MAS (km/h)",
   SESOI_lower = SESOI_yoyo_lower,
   SESOI_upper = SESOI_yoyo_upper,
   fitted_label = "Predicted YoYoIR1 (m)",

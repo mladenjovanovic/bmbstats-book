@@ -18,6 +18,7 @@ require(tidyverse)
 require(cowplot)
 require(directlabels)
 require(kableExtra)
+require(pdp)
 ```
 # Causal inference
 
@@ -306,7 +307,7 @@ Let's consider the following example. We are interested in estimating causal eff
 
 (ref:rct-vj-data-caption) **Randomized control trial data**
 
-```{r rct-vj-data}
+```{r results="hide"}
 SESOI_upper <- 2.5 # cm
 SESOI_lower <- -2.5 # cm
 
@@ -332,8 +333,12 @@ rct_model <- RCT_analysis(
   treatment_label = "Treatment",
   control_label = "Control",
   pre_test = "Pre-test",
-  post_test = "Post-test"
+  post_test = "Post-test",
+  SESOI_lower = SESOI_lower,
+  SESOI_upper = SESOI_upper
 )
+```
+```{r rct-vj-data}
 # -----------------------
 knitr::kable(
   table_RCT_data,
@@ -453,8 +458,8 @@ vj_change_summary <- vj_data %>%
   )
 
 # Treatment effects
-treatment_SD <- sqrt(vj_change_summary$`SDchange (cm)`[1]^2 - vj_change_summary$`SDchange (cm)`[2]^2)
-treatment_mean <- vj_change_summary$`Mean change (cm)`[1] - vj_change_summary$`Mean change (cm)`[2]
+treatment_SD <- sqrt(vj_change_summary$`SDchange (cm)`[2]^2 - vj_change_summary$`SDchange (cm)`[1]^2)
+treatment_mean <- vj_change_summary$`Mean change (cm)`[2] - vj_change_summary$`Mean change (cm)`[1]
 
 treatment_effect <- tibble(
   effect = perfect_rnorm(n = 100, mean = treatment_mean, sd = treatment_SD),
@@ -496,34 +501,30 @@ Figure \@ref(fig:rct-paired-change) depicts same information as Figure \@ref(fig
 ```{r rct-paired-change, fig.height=6,  fig.width=6, fig.cap="(ref:rct-paired-change-caption)"}
 treatment_paired_plot <- plot(
   rct_model,
-  type = "treatment-paired-change"
-) +
-  ylim(c(35, 65)) +
-  ylab("Vertical jump height (cm)")
-
-control_paired_plot <- plot(
-  rct_model,
-  type = "control-paired-change"
-) +
-  theme(legend.position = c(0.7, 0.9)) +
-  ylim(c(35, 65)) +
+  type = "treatment-paired-change") +
+  theme(legend.position = c(0.2, 0.9)) +
+  ylim(c(33, 65)) +
   theme(
     axis.line.y = element_blank(),
     axis.ticks.y = element_blank(),
-    axis.text.y = element_blank()
-  )
+    axis.text.y = element_blank())
+
+control_paired_plot <- plot(
+  rct_model,
+  type = "control-paired-change") + 
+  ylim(c(33, 65)) +
+  ylab("Vertical jump height (cm)")
 
 change_distribution_plot <- plot(
   rct_model,
   type = "change-distribution",
-  control = plot_control(group_colors = c(user_blue, user_orange))
-) +
+  control = plot_control(group_colors = c(user_blue, user_orange))) +
   xlab("Change in vertical jump height (cm)")
 
 # Combine panels
 top_panel <- plot_grid(
-  treatment_paired_plot,
   control_paired_plot,
+  treatment_paired_plot,
   labels = c("A", "B"),
   label_size = 10,
   align = "hv",
@@ -579,12 +580,12 @@ Table \@ref(tab:rct-te-estimates) contains descriptive statistics of the change 
 
 ```{r rct-te-estimates}
 vj_group_difference <- tibble(
-  `Mean difference (cm)` = vj_change_summary$`Mean change (cm)`[1] - vj_change_summary$`Mean change (cm)`[2],
-  `Cohen's d` = `Mean difference (cm)` / vj_change_summary$`SDchange (cm)`[2],
+  `Mean difference (cm)` = vj_change_summary$`Mean change (cm)`[2] - vj_change_summary$`Mean change (cm)`[1],
+  `Cohen's d` = `Mean difference (cm)` / vj_change_summary$`SDchange (cm)`[1],
   `Difference to SESOI` = `Mean difference (cm)` / (SESOI_upper - SESOI_lower),
-  `pLower diff` = vj_change_summary$pLower[1] - vj_change_summary$pLower[2],
-  `pEquivalent diff` = vj_change_summary$pEquivalent[1] - vj_change_summary$pEquivalent[2],
-  `pHigher diff` = vj_change_summary$pHigher[1] - vj_change_summary$pHigher[2]
+  `pLower diff` = vj_change_summary$pLower[2] - vj_change_summary$pLower[1],
+  `pEquivalent diff` = vj_change_summary$pEquivalent[2] - vj_change_summary$pEquivalent[1],
+  `pHigher diff` = vj_change_summary$pHigher[2] - vj_change_summary$pHigher[1]
 )
 
 table_change_score_diff <- vj_group_difference
@@ -686,3 +687,748 @@ knitr::kable(
 ```
 
 Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; *generalizations* beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to `r round(treatment_effects[1],2)`cm, with `r round(treatment_effects[6]*100,0)`, `r round(treatment_effects[7]*100,0)`, and `r round(treatment_effects[8]*100,0)`% of athletes having lower, trivial and higher improvements. 
+
+## Prediction as a complement to causal inference
+
+In the previous section, RCT is analyzed using *analysis of changes*. In this section, I will utilize linear regression model to analyze RCT data. There are multiple ways this could be done [@jDifferentWaysEstimate2018] and deeper analysis is beyond the scope of this book (see also [Frank Harrell](https://www.fharrell.com/post/errmed/#change) post on the use of change scores). The aim of this section is to provide an introduction to *model-based* and *prediction-based* RCT analysis, as well as to demonstrate potential uses of PDP+ICE plots as tools for counterfactual analysis. 
+
+Analysis in the previous section can be represented using simple linear regression model (Equation \@ref(eq:simple-rct-change-regression)). 
+
+$$
+\begin{equation}
+  \widehat{Change} = \hat{\beta_0} + \hat{\beta_1}Group
+  (\#eq:simple-rct-change-regression)
+\end{equation}
+$$
+
+According to [Frank Harrell](https://www.fharrell.com/post/errmed/#change), the use of change scores in the RCT analysis is problematic. Although this model definition (Equation \@ref(eq:simple-rct-change-regression)) will give us exactly the same results as obtained in the previous section, the use of change scores should be avoided. Thus, look at this example as *training vehicle*. After this initial discussion, valid model representation will be used. 
+
+Since Group column is a string, how is Group column represented in the model? Group column needs to be  *dummy-coded*, using 0 for Control and 1 for Treatment (see Table \@ref(tab:dummy-coded)). 
+
+(ref:dummy-coded-caption) **Dummy coding of the Group column to be used in linear regression model**
+
+```{r dummy-coded}
+vj_data_dummy <- vj_data %>%
+  mutate(groupTreatment = ifelse(Group == "Treatment", 1, 0)) %>%
+  select(Athlete, groupTreatment, `Pre-test (cm)`, `Post-test (cm)`, `Change (cm)`)
+
+knitr::kable(
+  vj_data_dummy,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:dummy-coded-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Estimated parameters for this linear model are enlisted in the Table \@ref(tab:simple-rct-model-coef)
+
+(ref:simple-rct-model-coef-caption) **Estimated linear regression parameters for the simple RCT model**
+
+```{r simple-rct-model-coef}
+model1 <- lm(Change ~ Group, vertical_jump_data)
+
+model1cv <- cv_model(
+  Change ~ Group, 
+  vertical_jump_data,
+  SESOI_lower = SESOI_lower,
+  SESOI_upper = SESOI_upper,
+  control = model_control(cv_folds = 3, cv_repeats = 10, cv_strata = vertical_jump_data$Group)
+)
+
+model1cv_rct <- RCT_predict(
+  model1cv, 
+  new_data = vertical_jump_data,
+  outcome = "Change",
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  subject_label = vertical_jump_data$Athlete
+)
+
+# Cross validated model
+model1_coef <- data.frame(
+  Intercept = coef(model1)[[1]],
+  groupTreatment = coef(model1)[[2]]
+)
+
+knitr::kable(
+  model1_coef,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:simple-rct-model-coef-caption)"
+)
+```
+
+Intercept in the Table \@ref(tab:simple-rct-model-coef) represents the `mean` Change in the Control group, while $\hat{\beta_1}$ (or slope, or `GroupTreatment` parameter) represents estimated average treatment effect (ATE) or average causal effect, since it represents the difference in the Change means between groups. For a reference please refer to Tables \@ref(tab:rct-change) and \@ref(tab:te-effects-estimates). 
+
+Figure \@ref(fig:simple-rct-model) depicts this model graphically. 
+
+```{r simple-rct-model, fig.cap="(ref:simple-rct-model-caption)"}
+ggplot(vj_data_dummy, aes(x = groupTreatment, y = `Change (cm)`)) +
+  theme_cowplot(8) +
+  stat_smooth(method = "lm", se = FALSE, color = user_blue) +
+  geom_point(alpha = 0.5) +
+  scale_x_continuous(
+    breaks = c(0, 1),
+    labels = c("Control", "Treatment")
+  ) +
+  xlab(NULL)
+```
+
+(ref:simple-rct-model-caption) **Graphical representation of the simple linear regression model for the vertical jump RCT data**
+
+Model residuals are depicted on Figure \@ref(fig:simple-rct-model-ba). Please note the *clusters* of the data-points which indicate groups (they are color-coded). 
+
+```{r simple-rct-model-ba, fig.cap="(ref:simple-rct-model-ba-caption)"}
+plot(
+  model1cv_rct,
+  type = "residuals",
+  control = plot_control(
+    legend_position = c(0.5, 0.9),
+    smooth_color = "black",
+    group_colors = c(user_blue, user_orange)))
+```
+
+(ref:simple-rct-model-ba-caption) **Model residuals using simple linear regression RCT model. **Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group. 
+
+`SD` of the residuals for the Control group is equal to `r round(model1cv_rct$extra$residual_summary$SD[[1]], 2)`cm and for Treatment group is equal to `r round(model1cv_rct$extra$residual_summary$SD[[2]], 2)`cm. Please compare these estimates and estimated parameters from the Table \@ref(tab:simple-rct-model-coef) with Table \@ref(tab:rct-change) and Table \@ref(tab:te-effects-estimates). These estimates are identical since the model utilized (Equation \@ref(eq:simple-rct-change-regression)) is mathematically equivalent to the analysis done in the [Example of randomized control trial] section.
+
+As alluded in the introduction of this section, RCT analysis using change scores should be avoided. Valid way to analyze the RCT in this case is to use Post-test as the outcome, and Pre-test and Group as predictors. This can be easily understood graphically (Figure \@ref(fig:ancova-rct-model)). On Figure \@ref(fig:ancova-rct-model) each group (i.e. Control and Treatment) is modeled separately. 
+
+```{r ancova-rct-model, fig.cap="(ref:ancova-rct-model-caption)"}
+ggplot(vertical_jump_data, aes(x = `Pre-test`, y = `Post-test`, color = Group)) +
+  theme_cowplot(8) +
+  geom_abline(slope = 1, linetype = "dashed", color = "grey") +
+  geom_point(alpha = 0.8) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c(Treatment = user_orange, Control = user_blue)) +
+  scale_fill_manual(values = c(Treatment =  user_orange, Control = user_blue)) 
+```
+(ref:ancova-rct-model-caption) **Graphical representation of the valid way to analyze RCT data.** Dashed line represent *identity line*, where Post-test is equal to Pre-test (i.e., *the no effect* line). The effect of treatment represents vertical distance between the Control and Treatment lines. This is easily grasped since the lines are almost perfectly parallel. If the lines are not parallel, that would imply there is *interaction* between Group and Pre-test (i.e. individuals with higher Pre-test scores shows higher or lower change). 
+
+Figure \@ref(fig:ancova-rct-model) also represents *ANCOVA* (analysis of co-variance) design. Equation \@ref(eq:ancova-rct-change-regression) represent model definition where effects of Group (i.e., Treatment) are estimated by controlling the effects of the Pre-test. 
+
+$$
+\begin{equation}
+  \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre
+  (\#eq:ancova-rct-change-regression)
+\end{equation}
+$$
+
+Estimated parameters for this linear model are enlisted in the Table \@ref(tab:ancova-rct-model-coef). Please note the similarity with the Table \@ref(tab:simple-rct-model-coef). 
+
+(ref:ancova-rct-model-coef-caption) **Estimated linear regression parameters for the ANCOVA RCT model (see Equation \@ref(eq:ancova-rct-change-regression))**
+
+```{r ancova-rct-model-coef}
+model2 <- lm(`Post-test`~Group + `Pre-test`, vertical_jump_data)
+
+model2cv <- cv_model(
+  `Post-test` ~ Group + `Pre-test`, 
+  vertical_jump_data,
+  SESOI_lower = SESOI_lower,
+  SESOI_upper = SESOI_upper,
+  control = model_control(cv_folds = 3, cv_repeats = 10, cv_strata = vertical_jump_data$Group)
+)
+
+model2cv_rct <- RCT_predict(
+  model2cv, 
+  new_data = vertical_jump_data,
+  outcome = "Post-test",
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  subject_label = vertical_jump_data$Athlete
+)
+
+# Cross validated model
+model2_coef <- tibble(
+  Intercept = coef(model2)[[1]],
+  groupTreatment = coef(model2)[[2]],
+  `Pre-test` = coef(model2)[[3]]
+)
+
+knitr::kable(
+  model2_coef,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:ancova-rct-model-coef-caption)"
+)
+```
+
+Model residuals are depicted on Figure \@ref(fig:ancova-rct-model-ba). Please note the *clusters* of the data-points which indicate groups. 
+
+```{r ancova-rct-model-ba, fig.cap="(ref:ancova-rct-model-ba-caption)"}
+plot(
+  model2cv_rct,
+  type = "residuals",
+  control = plot_control(
+    legend_position = c(0.1, 0.9),
+    smooth_color = "black",
+    group_colors = c(user_blue, user_orange)))
+```
+
+(ref:ancova-rct-model-ba-caption) **Model residuals using ANCOVA RCT model. **Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group. 
+
+`SD` of the residuals for the Control group is equal to `r round(model2cv_rct$extra$residual_summary$SD[[1]], 2)`cm and for Treatment group is equal to `r round(model2cv_rct$extra$residual_summary$SD[[2]], 2)`cm. Please note the similarities with simple RCT model (i.e. using Change score as outcome and Group as predictor). 
+
+As explained in the [Prediction] section, this model can be cross-validated. Predictive performance metrics using 10 repeats of 3 folds cross-validation are enlisted in the Table \@ref(tab:ancova-rct-model-perf-metrics). Since our RCT data has two groups (i.e. Control and Treatment), cross-validation needs to be *stratified*. This makes sure that each group has their own cross-validation folds, and that testing data size for each group is proportional to the group size. This avoids scenarios where most training or testing data comes from a single group (which is more probable if one group is larger).   
+
+(ref:ancova-rct-model-perf-metrics-caption) **Cross-validated predictive performance metrics for the ANCOVA RCT model**
+
+```{r ancova-rct-model-perf-metrics}
+knitr::kable(
+  model2cv$cross_validation$performance$summary$overall,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:ancova-rct-model-perf-metrics-caption)"
+)
+```
+
+From the Table \@ref(tab:ancova-rct-model-perf-metrics) we can conclude, that although we have *explained* the causal (or treatment) effects, predicting individual Post-test is not practically meaningful since the prediction error is too large (compared to SESOI). The take-home message is that high *explanatory power* of the model doesn't doesn't automatically yield high predictive power [@shmueliExplainPredict2010]. The selection of statistical analysis is thus related to the question asked. In my opinion, it would be insightful to complement causal estimates with prediction estimates. With the example above, we can predict the direction of the effect (using expected systematic change of `r round(treatment_effects[1],2)`cm and proportions of `r round(treatment_effects[6]*100,0)`, `r round(treatment_effects[7]*100,0)`, and `r round(treatment_effects[8]*100,0)`% for lower, trivial and higher change magnitudes), but we are unable to predict individual Post-test (or changes scores) within acceptable practical precision (using SESOI as an anchor). In other words, we know that the effect will be `r round(treatment_effects[8]*100,0)`% beneficial (i.e. higher than SESOI), but we are not able to predict individual responses.
+
+For the sake of completeness, Table \@ref(tab:simple-rct-model-perf-metrics) contains performance metrics for the simple RCT model. 
+
+(ref:simple-rct-model-perf-metrics-caption) **Cross-validated predictive performance metrics for the simple RCT model**
+
+```{r simple-rct-model-perf-metrics}
+knitr::kable(
+  model1cv$cross_validation$performance$summary$overall,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:simple-rct-model-perf-metrics-caption)"
+)
+```
+
+### Analysis of the individual residuals: responders vs non-responders
+
+One particular use of the predictive analysis is in the identification of responders and non-responders to the treatment [@heckstedenIndividualResponseExercise2015; @heckstedenRepeatedTestingAssessment2018; @hopkinsIndividualResponsesMade2015; @swintonStatisticalFrameworkInterpret2018]. Common approach used in sport science [@hopkinsHowInterpretChanges2004], that I will name *observed outcome approach* (further discussed in [Measurement error] chapter and second part of this book), uses known SESOI and *measurement error* to estimate probability of lower, equivalent, and higher changes. In RCT, random non-treatment effect can be assumed to be due to measurement error. Figure \@ref(fig:rct-responders) depicts individual *adjusted change* (by deducting mean Control group change from observed change) with error bars representing *smallest detectable change* (`SDC`). `SDC` is calculated by multiplying Control group change `SD` by 1.96 (to get upper and lower change levels containing 95% of change distribution). This thus represent our *uncertainty* in true treatment effect (using Control group as source of information about random effects). 
+
+```{r rct-responders, fig.cap="(ref:rct-responders-cation)"}
+rct_model$extra$treatment_responses$id <- vertical_jump_data$Athlete[as.numeric(rownames(rct_model$extra$treatment_responses))]
+
+plot(
+  rct_model,
+  type = "treatment-responses",
+  control = plot_control(
+    points_shape = 19,
+    points_alpha = 1,
+    points_size = 2.5))
+```
+
+(ref:rct-responders-cation) **Responses analysis for the Treatment group.** Change scores are adjusted by deducting Control group mean change. Error bars represent *smallest detectable change* (SDC) that is calculated using `SD` of the Control group change scores multiplied by 1.96 (to get 95% levels containing 95% of the change distribution). 
+
+Using this approach, we can classify athletes with high probability of higher change score as responders, those with high probability of equivalent change score as non-responders, and finally those with high probability of lower change score as negative-responders. This approach is useful in figuring out who responded positively or negatively to a particular treatment, but it doesn't take into account information that might help explain the response (for example someone missing treatment session or having lower or higher treatment dose; see [Direct and indirect effect, covariates and then some] section). The topic is further discussed in [Measurement error] chapter and second part of this book. 
+
+Another approach, that I have termed *residuals approach* or *model-based approach* can be used to help identifying *outliers* to intervention. To explain this approach, let's plot athletes' residuals ($\hat{y_i} - y_i$) against observed Post-test ($y_i$) (Figure \@ref(fig:ancova-rct-subj-resid)) using ANCOVA RCT model.
+
+```{r ancova-rct-subj-resid, fig.cap="(ref:ancova-rct-subj-resid-cation)"}
+plot(
+  model2cv_rct,
+  type = "prediction",
+  control = plot_control(
+    summary_bar_alpha = 0.5,
+    points_shape = 19,
+    points_alpha = 0.8,
+    points_size = 2.5)
+) +
+  xlab("Post-test vertical jump height (cm)")
+```
+
+(ref:ancova-rct-subj-resid-cation) **Observed Post-test in vertical jump for each athlete in the study.** Black dot indicate observed Post-test value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated `RMSE` (see Table \@ref(tab:ancova-rct-model-perf-metrics), `RMSE` metric, column *testing.pooled*) and is used to indicate model predictive performance and uncertainty around model prediction graphically 
+
+If we visualize simple model of RCT, using Change score as outcome and Group as predictor (see Figure \@ref(fig:simple-rct-model)), the predictions for athletes in each group are identical (i.e. the average change). This is depicted in Figure (Figure \@ref(fig:simple-rct-subj-resid)).
+
+```{r simple-rct-subj-resid, fig.cap="(ref:simple-rct-subj-resid-cation)"}
+plot(
+  model1cv_rct,
+  type = "prediction",
+  control = plot_control(
+    summary_bar_alpha = 0.5,
+    points_shape = 19,
+    points_alpha = 0.8,
+    points_size = 3)
+) +
+  xlab(" Change in vertical jump height (cm)")
+```
+
+(ref:simple-rct-subj-resid-cation) **Observed Change in vertical jump for each athlete in the study.** Black dot indicate observed Change value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated `RMSE` (see Table \@ref(tab:simple-rct-model-perf-metrics), `RMSE` metric, column *testing.pooled*) and is used to indicate model predictive performance and uncertainty around model prediction graphically 
+
+More complex models (e.g. ANCOVA RCT model in Figure \@ref(fig:ancova-rct-subj-resid)), like the one utilized in [Direct and indirect effect, covariates and then some] section will have different predictions for each athlete. 
+
+Residuals approach uses observed scores and model predictions to indicate individuals who differ more or less than predicted by the model. If this difference between observed and predicted scores (or residual) is bigger than SESOI, this individual is *flagged*. But before jumping to conclusions, I need to remind you that the predictive performance of this simple model is pretty bad (see Table \@ref(tab:simple-rct-model-perf-metrics)). Thus, this type of analysis and visualization should be interpreted *given* the model performance (which is indicated by horizontal line on the Figures \@ref(fig:ancova-rct-subj-resid) and \@ref(fig:simple-rct-subj-resid) which indicates cross-validated pooled testing `RMSE`; see  Table \@ref(tab:ancova-rct-model-perf-metrics)). I will utilize this method with a better model in the [Direct and indirect effect, covariates and then some] section that has much lower cross-validated `RMSE`. What is important to remember with this analysis is that athletes who showed lower or higher observation compared to what was predicted by the model are flagged with red or green color. As opposed to the observed outcome approach, a model-based prediction approach uses *ceteris paribus* in estimating responders vs. non-responders, or at least providing residuals for such a decision. For example, everything else being equal, based on predictor variables, the expected observation is higher or lower than the model prediction. This indicates that there might be something not-identified by predictive algorithm and thus needs to be flagged for a further analysis. But more about this in the [Direct and indirect effect, covariates and then some]. 
+
+Besides analyzing residuals in the training data-set, we can also check how model predicts for each individual within cross-validation using Bias-Variance decomposition (see [Bias-Variance decomposition and trade-off] section). Figure \@ref(fig:ancova-rct-subj-bias-var) depicts prediction error (decomposed to Bias and Variance) for each athlete using ANCOVA RCT model. 
+
+```{r ancova-rct-subj-bias-var, fig.cap="(ref:ancova-rct-subj-bias-var-caption)"}
+plot(
+  model2cv_rct,
+  type = "bias-variance",
+  control = plot_control(
+    group_colors = c(user_blue, user_orange),
+    legend_position = c(0.8, 0.5)
+    )
+)
+```
+
+(ref:ancova-rct-subj-bias-var-caption) **Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. ** This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model
+
+These graphs will make much more sense when more predictive model is applied in the [Direct and indirect effect, covariates and then some] section. 
+
+### Counterfactual analysis and Individual Treatment Effects
+
+As explained, causal inference and explanatory modeling aim to understand, or at least to quantify the causal (or treatment) effects. This is done by elaborate and transparent control of the confounders and study designs. Predictive modelling on the other hand is interested in providing valid predictions on new or unseen data without assuming underlying DGP by treating it as a black-box. In certain scenarios, when confounders are controlled, predictive modelling can be interpreted causally [@zhaoCausalInterpretationsBlackBox2019]. With observational studies, there is always a risk of not controlling all important confounders, but transparency of the causal model is there to be falsified and discussed openly [@gelmanSubjectiveObjectiveStatistics2017; @hernanCausalKnowledgePrerequisite2002; @hernanCWordScientificEuphemisms2018; @hernanDoesObesityShorten2008; @hernanDoesWaterKill2016; @hernanSecondChanceGet2019]. Even with the RCTs, there might be uncertainties in applying the findings from the experiments to  realistic settings [@gelmanCausalityStatisticalLearning2011; @heckmanRejoinderResponseSobel2005]. 
+
+PDP and ICE plots are *model-agnostic* tools for interpreting black-box models that can be used in causal interpretations only after the effort to define the causal structure with domain-specific expertise is taken into account. This approach can be used to estimate, based on the predictive model, counterfactual change and Post-test scores when athletes do not receive treatment (for the Treatment group), or when athletes receive treatment (for the Control group). This way potential outcomes are predicted. 
+
+To explain how this is done, let's again consider the Table \@ref(tab:dummy-coded). Changing the Group column (in this case `groupTreatment`) for every observation (athletes in this case) while keeping all other variables (i.e. columns) the same, we can get a glimpse into causal effects of the treatment (assuming the model and the data are valid for such an inference). The prediction model utilized is ANCOVA RCT model. 
+
+In the Table \@ref(tab:ancova-rct-counterfactual-group), columns `Post-test_0 (cm)` and `Post-test_1 (cm)` indicate these counterfactual changes for which we are interested how the model predicts. These predictions are in the columns `Post-test_0 (cm)` and `Post-test_1 (cm)`. 
+
+(ref:ancova-rct-counterfactual-group-caption) **Counterfactual table used to check how the model predicts when Group changes**
+
+```{r ancova-rct-counterfactual-group}
+vertical_jump_data_counterfactual_control <- vertical_jump_data
+vertical_jump_data_counterfactual_treatment <- vertical_jump_data
+
+vertical_jump_data_counterfactual_control$Group <- "Control"
+vertical_jump_data_counterfactual_treatment$Group <- "Treatment"
+
+vj_data_counterfactual <- vj_data_dummy %>%
+  mutate(
+    `groupTreatment_0` = 0,
+    `Post-test_0 (cm)` = predict(model2, newdata = vertical_jump_data_counterfactual_control),
+    `groupTreatment_1` = 1,
+    `Post-test_1 (cm)` = predict(model2, newdata = vertical_jump_data_counterfactual_treatment),
+    )
+
+knitr::kable(
+  vj_data_counterfactual,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:ancova-rct-counterfactual-group-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
+
+```{r ancova-rct-pdp-ice, fig.cap="(ref:simple-rct-pdp-ice-caption)"}
+plot(model2cv_rct, "pdp+ice", predictor = "Group")
+```
+
+(ref:ancova-rct-pdp-ice-caption) **PDP and ICE plot for Group variable using ANCOVA RCT model**
+
+Besides PDP and ICE plot, we can also create a counterfactual plot for each athlete. For example, for the athletes in the Treatment group, we are interested how would the predicted Post-test *change* (given model used) if they are in the Control group and *vice versa* for the athletes from the Control group. This is done by *flipping* "Treatment" and "Control" in the Group column and predicting Post-test using the trained model. Figure \@ref(fig:ancova-rct-counterfactual-effects) depicts this visually for each athlete. Arrows represents predicted Change when *flipping* the Group variable. 
+
+```{r ancova-rct-counterfactual-effects, fig.cap="(ref:ancova-rct-counterfactual-effects-caption)"}
+plot(
+  model2cv_rct,
+  "counterfactual",
+  control = plot_control(
+    points_size = 3,
+    points_color = "black",
+    points_alpha = 1,
+    line_alpha = 1))
+```
+
+(ref:ancova-rct-counterfactual-effects-caption) **Individual counterfactual prediction when the Group changes.** This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn't receive treatment). Arrows thus represent model predicted *Individual Treatment Effects* (pITE). Arrows are color coded based on the magnitude of the effect using defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude. Vertical line indicates observed Post-test scores. 
+
+This analysis allows us to estimate counterfactual *individual causal (treatment) effects* (ITE) predicted by the model. These are indicated with the arrows on the Figure \@ref(fig:ancova-rct-counterfactual-effects). Mathematically, arrow width is calculates using the Equation \@ref(eq:ite-equation).
+
+$$
+\widehat{ITE_i} = \widehat{y_{i}^{Group=Treatment}} - \widehat{y_{i}^{Group=Control}} 
+ (\#eq:ite-equation)
+$$
+
+Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to `r round(model2cv_rct$extra$counterfactual_summary$pATE[1], 2)`cm. Table \@ref(tab:ancova-rct-pITE) contains all individual model predictions using ANCOVA RCT model. 
+
+(ref:ancova-rct-pITE-caption) **Individual model predictions using ANCOVA RCT model**
+
+```{r ancova-rct-pITE}
+knitr::kable(
+  model2cv_rct$extra$results,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:ancova-rct-pITE-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+PDP and  ICE plots, as well as individual treatment effects plots (and estimates) can be very valuable tool in visualizing the causal effects, which are appropriate in this case since we are analyzing RCT data. But we need to be very wary when using them with the observational data and giving them causal interpretation. 
+
+### Direct and indirect effect, covariates and then some
+
+In the previous RCT example, we have assumed *binary* treatment (either plyometric training is done or not), whereas in real life there can be nuances in the treatment, particularly in volume of jumps performed, making the treatment continuous rather than binary variable. This way, we are interested in the effects of number of jumps on the changes in vertical jump height. 
+
+There could also be *hidden variables* involved that *moderate* and *mediate* the effects of the treatment[^hidden_variables]. For example, the higher someone jumps in the Pre-test, the lower the change in the Post-test (i.e. it is harder to improve vertical jump height). Or, the stronger someone is in the Pre-test (measured using relative back squat 1RM) the more potentiated the effects of the plyometrics are. All these are needed expert subject-matter knowledge, required to understand the underlying DGP (and thus to avoid introducing bias in causal analyses; see @lubkeWhyWeShould2020). With such causal structure, we do not have *direct treatment effect* (plyometric --> change in vertical jump) only anymore, but moderated and mediated, or *indirect effects* estimated using the *interactions* in the regression models.
+
+[^hidden_variables]: Using the randomization in the RCT it is assumed that these hidden variables are equally distributed, and that there is no *selection bias* involved. 
+
+To explain these concepts, let's assume that that besides Pre-test and Post-test scores in our RCT study, we have also measured Back squat relative 1RMs since we believed that strength of the individual will moderate the effects of the plyometric treatment. This data is enlisted in the Table \@ref(tab:rct-data-with-squat). Squat 1RM in this case represent characteristic of the subject, or a *covariate*. Additional covariates (not considered here) might include gender, experience, height, weight and so forth. 
+
+```{r rct-data-with-squat}
+knitr::kable(
+  select(vj_data, -Magnitude),
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:simple-rct-counterfactual-group-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Since the individual are randomized into Treatment and Control groups, we expect that there is no difference between Squat 1RM betweem them. Figure \@ref(fig:rct-squat) demonstrates that there is no difference between groups.
+
+```{r rct-squat, fig.cap="(ref:rct-squat-caption)"}
+vj_data$Squat.1RM = vj_data$`Squat 1RM`
+plot_raincloud(
+  vj_data,
+  value = "Squat.1RM",
+  value_label = "Squat 1RM",
+  groups =  "Group",
+  control = plot_control(group_colors = c(user_blue, user_orange)))
+```
+
+(ref:rct-squat-caption) **Squat 1RM scores for Control and Treatment groups. ** Since athletes are randomized, we expect them to be similar (i.e. no selection bias involved)
+
+Before modeling this RCT data, let's check visually the relationship between Pre-test and Change (panel A), Squat 1RM and Change (panel B), and Pre-test and Squat 1RM (panel C) (Figure \@ref(fig:rct-change-relationships)).
+
+```{r rct-change-relationships, fig.cap="(ref:rct-change-relationships-caption)"}
+panel_a <- ggplot(
+  vj_data,
+  aes(x = `Pre-test (cm)`, y = `Change (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = "none")
+
+panel_b <- ggplot(
+  vj_data,
+  aes(x = `Squat 1RM`, y = `Change (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = c(0.1,.95)) +
+  ylab(NULL)
+
+panel_c <- ggplot(
+  vj_data,
+  aes(x = `Squat 1RM`, y = `Pre-test (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = "none") 
+
+plot_grid(
+  panel_a,
+  panel_b,
+  panel_c,
+  labels = c("A", "B", "C"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 3,
+  nrow = 1
+)
+```
+
+(ref:rct-change-relationships-caption) **Relationship between predictors. A. ** Relationship between Pre-test and Change scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent *95% confidence intervals* (see [Statistical inference] section for more information). If there is no interaction between Pre-test and Change score, the lines would be parallel. As can be seen with the Treatment group, it seems that individuals with higher Pre-test demonstrates lower Change, and *vice versa* for the Control group. But if we check the confidence interval area, these are due to random chance. **B.** Relationship between Squat 1RM and Change scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher changes after the training intervention. **C.** Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance. 
+
+As can be seen from the Figure \@ref(fig:rct-change-relationships), there seems to be some *interaction* between Squat 1RM and Change. Other panels indicate that there might be some relationship (i.e. *interaction*), but *95% confidence intervals* around the regression lines indicate that these are due to *random chance* (see [Statistical inference] chapter for more info; for now you do not need to understand this concept).
+
+What does interaction mean? If we check the panel C in the Figure \@ref(fig:rct-change-relationships), interaction refers to change in regression line slopes. If the Group regression lines are parallel, then the distance between them is due to effect of treatment (i.e. direct or *main* effect of treatment). Since they are not parallel, it means that Squat 1RM and treatment interact: the higher the Squat 1RM for the Treatment group, the higher the Change, while that is not the case for the Control group. Mathematically, interaction is a simple multiplication between two predictors, as cab be seen in the Table \@ref(tab:rct-interaction).
+
+(ref:rct-interaction-caption) **RCT data with interaction between Group and Squat 1RM**
+
+```{r rct-interaction}
+vj_data_interaction_dummy <- vj_data %>%
+  mutate(groupTreatment = ifelse(Group == "Treatment", 1, 0),
+         `groupTreatment:Squat 1RM` = groupTreatment * `Squat 1RM`) %>%
+  select(Athlete, groupTreatment, `Squat 1RM`, `groupTreatment:Squat 1RM`, `Pre-test (cm)`, `Change (cm)`)
+
+knitr::kable(
+  vj_data_interaction_dummy,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-interaction-caption)"
+) %>%
+  kable_styling(font_size = 10)
+```
+
+Bu as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
+
+
+```{r rct-post-test-relationships, fig.cap="(ref:rct-post-test-relationships-caption)"}
+panel_a <- ggplot(
+  vj_data,
+  aes(x = `Pre-test (cm)`, y = `Post-test (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = "none")
+
+panel_b <- ggplot(
+  vj_data,
+  aes(x = `Squat 1RM`, y = `Post-test (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = c(0.1,.95)) +
+  ylab(NULL)
+
+panel_c <- ggplot(
+  vj_data,
+  aes(x = `Squat 1RM`, y = `Pre-test (cm)`, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = "none") 
+
+plot_grid(
+  panel_a,
+  panel_b,
+  panel_c,
+  labels = c("A", "B", "C"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 3,
+  nrow = 1
+)
+```
+
+(ref:rct-post-test-relationships-caption) **Relationship between predictors. A. ** Relationship between Pre-test and Post-test scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent *95% confidence intervals* (see [Statistical inference] section for more information). If there is no interaction between Pre-test and Post-test score, the lines would be parallel. As can be seen on the figure, there doesn't seem to be interaction involved. **B.** Relationship between Squat 1RM and Post-test scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher Post-test scores after the training intervention. **C.** Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance. 
+
+Let's apply linear regression model to these predictors. The parameters we are going to estimate are enlisted in the linear Equation \@ref(eq:rct-interaction-equation).
+
+$$
+\begin{equation}
+  \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group +  \hat{\beta_2}Pre + \hat{\beta_3}Squat\:1RM + \hat{\beta_4}Group:Squat\:1RM 
+  (\#eq:rct-interaction-equation)
+\end{equation}
+$$
+
+Estimated parameters for this linear model with interaction are enlisted in the Table \@ref(tab:rct-interaction-model-coef).
+
+(ref:rct-interaction-model-coef-caption) **Estimated linear regression parameters for the RCT model with interaction between Group and Squat 1RM**
+
+```{r rct-interaction-model-coef}
+model3 <- lm(`Post-test`~Group + `Pre-test` + `Squat 1RM` + Group:`Squat 1RM`, vertical_jump_data)
+
+model3cv <- cv_model(
+  `Post-test`~Group + `Pre-test` + `Squat 1RM` + Group:`Squat 1RM`, 
+  vertical_jump_data,
+  SESOI_lower = SESOI_lower,
+  SESOI_upper = SESOI_upper,
+  control = model_control(cv_folds = 3, cv_repeats = 10, cv_strata = vertical_jump_data$Group)
+)
+
+model3cv_rct <- RCT_predict(
+  model3cv, 
+  new_data = vertical_jump_data,
+  outcome = "Post-test",
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  subject_label = vertical_jump_data$Athlete
+)
+
+# Cross validated model
+model3_coef <- tibble(
+  Intercept = coef(model3)[[1]],
+  groupTreatment = coef(model3)[[2]],
+  `Pre-test` = coef(model3)[[3]],
+  `Squat 1RM` = coef(model3)[[4]],
+  `Group:Squat 1RM` = coef(model3)[[5]],
+)
+
+knitr::kable(
+  model3_coef,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-interaction-model-coef-caption)"
+)
+```
+
+If we check the estimated coefficient for the group Treatment in the Table \@ref(tab:rct-interaction-model-coef), which is equal to `r round(coef(model3)[[2]],2)`, can we conclude that this is the whole effect of treatment (i.e. plyometric treatment)? Luckily no! This coefficient represents *direct treatment effect*, but there are *indirect treatment effects* due to Squat 1RM and interaction between Squat 1RM and Group. This also assumes that we have not introduced bias in treatment effect estimation by *adjusting* (or by *not adjusting*) for covariates that we should not adjust for (or *vice versa*; for great applied paper please refer to @lubkeWhyWeShould2020). 
+
+Figure \@ref(fig:rct-interaction-resid) depicts residuals of the RCT model with interactions. 
+
+```{r rct-interaction-resid, fig.cap="(ref:rct-interaction-resid-caption)"}
+plot(
+  model3cv_rct,
+  type = "residuals",
+  control = plot_control(
+    legend_position = c(0.8, 0.75),
+    smooth_color = "black",
+    group_colors = c(user_blue, user_orange)))
+```
+
+(ref:rct-interaction-resid-caption) **Residuals of the linear regression RCT model with interaction. **Grey band on both panels represents SESOI of ±2.5cm
+
+As opposed to the Figures \@ref(fig:simple-rct-model-ba) and \@ref(fig:ancova-rct-model-ba), we can quickly see that this model have almost all residuals in the SESOI band. Table \@ref(tab:interaction-rct-model-perf-metrics) contains cross-validated model performance (using the same 10 repeats of 3 folds cross-validation splits as used in the simple and ANCOVA RCT models). 
+
+(ref:interaction-rct-model-perf-metrics-caption) **Cross-validated predictive performance metrics for the RCT model with interaction**
+
+```{r interaction-rct-model-perf-metrics}
+knitr::kable(
+  model3cv$cross_validation$performance$summary$overall,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:interaction-rct-model-perf-metrics-caption)"
+) 
+```
+
+As expected, predictive performance metrics are now much better. Let's inspect the athlete's residuals (Figure \@ref(fig:interaction-rct-subj-resid)).
+
+```{r interaction-rct-subj-resid, fig.cap="(ref:interaction-rct-subj-resid-cation)"}
+plot(
+  model3cv_rct,
+  type = "prediction",
+  control = plot_control(
+    summary_bar_alpha = 0.5,
+    points_shape = 19,
+    points_alpha = 0.8,
+    points_size = 2.5)
+) +
+  xlab("Post-test vertical jump height (cm)")
+```
+
+(ref:interaction-rct-subj-resid-cation) **Observed Post-test in vertical jump for each athlete in the study.** Black dot indicate observed Post-test; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated `RMSE` (see Table \@ref(tab:interaction-rct-model-perf-metrics), `RMSE` metric, column *testing.pooled*) and is used to indicate visually model predictive performance and uncertainty around model prediction
+
+If we compare residuals from the simple model (Figure \@ref(fig:simple-rct-subj-resid)) and ANCOVA RCT model (Figure \@ref(fig:ancova-rct-subj-resid)), in RCT model with interactions the residuals are much smaller, indicating better prediction. You can also see that model predictions differ, as opposed to simple model that predicted same Change values for all athletes in the Control and Treatment groups. Athletes who are *flagged* (have residual bigger than SESOI) might need further inspection, since given training data and model, these demonstrate Post-test that is larger/smaller than expected taking their covariates into account (in this case Strength 1RM). 
+
+Figure \@ref(fig:interaction-rct-subj-bias-var) depicts prediction errors during cross-validation for each athlete. This analysis, together with the Figure \@ref(fig:interaction-rct-subj-resid), can be used to detect athletes that are *troublesome* for the predictive model, and thus bear some further inspection. 
+
+```{r interaction-rct-subj-bias-var, fig.cap="(ref:interaction-rct-subj-bias-var-caption)"}
+plot(
+  model3cv_rct,
+  type = "bias-variance",
+  control = plot_control(
+    group_colors = c(user_blue, user_orange),
+    legend_position = c(0.8, 0.5)
+    )
+)
+```
+
+(ref:interaction-rct-subj-bias-var-caption) **Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. ** This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model
+
+Interpreting and understanding *direct* and *indirect* effects can be quite difficult, especially when causal structure becomes complex. Visualization techniques such as already mentioned PDP and ICE graphs can be utilized to understand the causal mechanism [@zhaoCausalInterpretationsBlackBox2019; @goldsteinPeekingBlackBox2013]. These techniques can also be implemented in observational studies, but with considerable domain knowledge and assumptions needed [@zhaoCausalInterpretationsBlackBox2019]. Although predictive analysis, particularly those using *black box* machine learning models, has been criticized to lack causal interpretation [@hernanSecondChanceGet2019; @pearlBookWhyNew2018; @pearlSevenToolsCausal2019], they can complement causal (or explanatory) analysis [@breimanStatisticalModelingTwo2001; @shmueliExplainPredict2010; @yarkoniChoosingPredictionExplanation2017]. Figure \@ref(fig:pdp-ice-interaction-rct) depicts PDP and ICE plots for Group and Strength 1RM predictors. 
+
+```{r pdp-ice-interaction-rct, fig.cap="(ref:pdp-ice-interaction-rct-caption)"}
+panel_a <- plot(model3cv_rct, "pdp+ice", predictor = "Group")
+panel_b <- plot(model3cv_rct, "pdp+ice", predictor = "Squat 1RM")
+
+plot_grid(
+  panel_a,
+  panel_b + ylab(NULL),
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 2,
+  nrow = 1
+)
+```
+
+(ref:pdp-ice-interaction-rct-caption) **PDP and ICE plots for Group and Strength 1RM predictors using RCT model with interaction**
+
+Since this is RCT, we can give causal interpretation to PDP and ICE plot, particularly panel B in the Figure \@ref(fig:pdp-ice-interaction-rct). According to this analysis (given the data and the model), if one increase Squat 1RM, the effect of treatment (i.e. plyometric training) will be higher. This can be further analyzed using each athlete. The question we would like to answer (given the data collected and the model) is "How would particular athlete respond to the treatment if his strength was higher or lower?". Figure \@ref(fig:individual-ice) shows ICE plots in separate facets. This gives us the ability to analyze (given the data and the model) how would each athlete respond if his or her Squat 1RM changed. 
+
+```{r individual-ice, fig.cap="(ref:individual-ice-caption)"}
+plot(model3cv_rct, "ice", predictor = "Squat 1RM")
+```
+
+(ref:individual-ice-caption) **ICE plots for each athlete**
+
+Figure \@ref(fig:interaction-rct-counterfactual-effects) depicts predicted ITE (i.e. what would happen if Groups *flipped* and everything else being equal). If we compare Figure \@ref(fig:interaction-rct-counterfactual-effects) with Figure \@ref(fig:ancova-rct-counterfactual-effects), we can quickly see that the ITEs differ and are not equal for every individual. If we calculate the `mean` of the ITEs (i.e. arrow lengths), we will get an estimate of `ATE`. `SD` of ITEs will give us estimate how variable the treatment effects are, or estimate of `VTE`. Since these are predicted with the model, I've used the terms `pATE` and `pVTE` indicating that they are estimated with the predictive model.   
+
+```{r interaction-rct-counterfactual-effects, fig.cap="(ref:interaction-rct-counterfactual-effects-caption)"}
+plot(
+  model3cv_rct,
+  "counterfactual",
+  control = plot_control(
+    points_size = 3,
+    points_color = "black",
+    points_alpha = 1,
+    line_alpha = 1))
+```
+
+(ref:interaction-rct-counterfactual-effects-caption) **Individual counterfactual prediction when the Group changes.** This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn't receive treatment). Arrows thus represent model predicted *Individual Treatment Effects* (ITE). Vertical line indicates observed Change
+
+Table \@ref(tab:rct-models-performance-comparison) contains comparison between the ANCOVA RCT model ($\widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre$) and model with Squat 1RM and interaction term ($\widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group +  \hat{\beta_2}Pre + \hat{\beta_3}Squat\:1RM + \hat{\beta_4}Group:Squat\:1RM$) for few estimators that are insightful for the comparison. 
+
+(ref:rct-models-performance-comparison-caption) **Comparison between two models using few estimators and performance metrics**
+
+```{r rct-models-performance-comparison}
+rct_model_summary <- data.frame(
+  estimator = c("Training RMSE", "Training PPER", "Training SESOI to RMSE", "Training R-squared",
+                "CV RMSE", "CV PPER", "CV SESOI to RMSE", "CV R-squared",
+                "SD Residual (Treatment)", "SD Residual (Control)",
+                "pATE (Treatment)", "pATE (Control)", 
+                "pVTE (Treatment)",  "pVTE (Control)"
+                ),
+  `ANCOVA model` = c(model2cv_rct$cross_validation$performance$summary$overall$training[c(3, 4, 5, 6)],
+                     model2cv_rct$cross_validation$performance$summary$overall$testing.pooled[c(3, 4, 5, 6)],
+                     model2cv_rct$extra$residual_summary$SD,
+                     model2cv_rct$extra$counterfactual_summary$pATE[1:2],
+                     model2cv_rct$extra$counterfactual_summary$pVTE[1:2]),
+  `Interaction model` = c(model3cv_rct$cross_validation$performance$summary$overall$training[c(3, 4, 5, 6)],
+                     model3cv_rct$cross_validation$performance$summary$overall$testing.pooled[c(3, 4, 5, 6)],
+                     model3cv_rct$extra$residual_summary$SD,
+                     model3cv_rct$extra$counterfactual_summary$pATE[1:2],
+                     model3cv_rct$extra$counterfactual_summary$pVTE[1:2]))
+  
+knitr::kable(
+  rct_model_summary,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:rct-models-performance-comparison-caption)"
+) 
+```
+
+As can be seen in the Table \@ref(tab:rct-models-performance-comparison), linear model with interactions predicts Post-test in the vertical jump height better than the ANCOVA model. This means that the variance in the treatment effect (`SD Residual` in the Table \@ref(tab:rct-models-performance-comparison)) is now explained with additional variables and their interactions[^aleatory_uncertainty]. 
+
+[^aleatory_uncertainty]: If you remember the footnote discussion on aleatory and epistemic uncertainty, this is example where what we believed to be aleatory uncertainty (inter-individual residual error or variation that we could not predict: `SD Residual` in the Table \@ref(tab:rct-models-performance-comparison)) was actually epistemic uncertainty that we reduced with introducing new variables (Squat 1RM and interaction term) to the model. Although the inter-individual variation in the treatment effect remains ($SD_{TE}$ or $SD_{IR}$), we are now able to predict individual responses more accurately.  
+
+We are not only interested in prediction, but rather in the underlying causal structure and explaining this model performance when we *intervene* on variables (i.e. what happens to the target variable when I change X from *a* to *b*, while keeping other variables fixed - which is *ceteris paribus* condition). For this reason, PDP and ICE plots can be used to give causal interpretation of the model (see Figure \@ref(fig:pdp-ice-interaction-rct)). 
+The main critique of Judea Pearl regarding the use of predictive models and techniques is the lack of counterfactual causal interpretation [@pearlBookWhyNew2018; @pearlSevenToolsCausal2019], particularly with observational studies. I agree that "the role of expert knowledge is the key difference between prediction and causal inference tasks" [@hernanSecondChanceGet2019, pp.44]  and that "both prediction and causal inference require expert knowledge to formulate the scientific question, but only causal inference requires causal expert knowledge to answer the question" [@hernanSecondChanceGet2019, pp.45], but this doesn't negate the need for providing predictive performance, as well as helping in interpreting the model when such data is available [@zhaoCausalInterpretationsBlackBox2019]. 
+
+According to Zhao and Hastie [@zhaoCausalInterpretationsBlackBox2019, pp.1]: "There are three requirements to make causal interpretations: a model with good predictive performance, some domain knowledge in the form of a causal diagram and suitable visualization tools.". The common denominator among multiple experts is that for causal inference and causal interpretation there is a need for domain knowledge, particularly when RCTs are not available. This domain knowledge can be made more transparent by using DAGs and other structural diagrams, and thus help in falsifying assumptions [@gelmanSubjectiveObjectiveStatistics2017; @hernanCausalDiagramsDraw2017; @hernanCausalKnowledgePrerequisite2002; @hernanSecondChanceGet2019]. Adding prediction to explanatory models can be seen as complement, particularly since statistical analysis has been neglecting predictive analysis over explanatory analysis [@breimanStatisticalModelingTwo2001; @shmueliExplainPredict2010; @yarkoniChoosingPredictionExplanation2017].   
+
+### Model selection
+
+Besides applying model with a single interaction term, we can also apply models with more interactions, or quadratic or polynomial terms, or what have you. As we have seen in the [Prediction] chapter, these models can overfit quite easily. That is why we utilized cross-validation to check for model performance on the unseen data. But what if two or more models of different complexity perform similarly on the unseen data (i.e. when cross-validated)? This is the problem of *model selection and comparison*.  Generally, we want to select the simplest model that gives us reliable predictions. Discussions regarding the model comparison and model selection are beyond the scope of this book, although I will provide few examples in the second part of the book. 
+
+The model definition should rely on pre-existing beliefs (i.e. subject-matter expert knowledge) around causal structure underlying intervention. If the statistical analysis is done to *confirm* the structural causal model, then this represents *confirmatory analysis*. Usually, these studies need to be *pre-registered* with the exact analysis workflow and assumption defined *before* data is collected. This is required because in the *exploratory analysis* one can *play* with the data, different models can be tried and the model that fits the data best can be selected. Exploratory analysis is useful for generating models and hypothesis for future studies, but also introduces *hindsight bias* since the model is selected *after* seeing the data or the results of multiple analyses. Very related is so called *p-harking* (Hypothesizing After Results are Known) which involves modifying the hypothesis or in this case causal model, after seeing the results, most often with the aim to reach *statistical significance* (discussed later in the [Statistical inference] section). In predictive analysis this hindsight bias is reduced by using hold-out sample, cross-validation, and evaluating the final model performance on the data that has not been seen by the model. 
+
+## Ergodicity
+
+*Ergodic* process is underlying DGP that is equivalent at *between-individual* (or inter-individual; or group-based analysis) and *within-individual* (or intra-individual or simply individual-based analysis) levels. Thus the causal effects identified using between-individual analysis can be applied to understand within-individual causation as well. *Non-Ergodic* process on the other hand differs between these two levels and effects identified at between-individual level cannot be inferred to within individual level. 
+
+Few authors have already brought into question the generalizability of group-based research to individual-based prediction and causal inferences [@fisherLackGrouptoindividualGeneralizability2018; @glazierChallengingConventionalParadigms2018; @molenaarManifestoPsychologyIdiographic2004; @molenaarNewPersonSpecificParadigm2009]. Here is an interesting quote from Molenaar [@molenaarNewPersonSpecificParadigm2009, pp.112]: 
+
+>"Most research methodology in the behavioral sciences employs inter-individual analyses, which provide information about the state of affairs of the population. However, as shown by classical mathematical-statistical theorems (the ergodic theorems), such analyses do not provide information for, and cannot be applied at, the level of the individual, except on rare occasions when the processes of interest meet certain stringent conditions. When psychological processes violate these conditions, the inter-individual analyses that are now standardly applied have to be replaced by analysis of intra-individual variation in order to obtain valid results."
+
+The individual counterfactual predictions (ITEs) and ICE plots thus rely on ergodicity, which represents big assumption. This means that we should be cautious when generalizing model predictions and causal explanations from group-based level to individual-level. 
+
+Data analysis at the individual level (i.e. collecting multiple data point for individuals) and identifying individual causal effects and predictions might be the step forward, but even with such an approach we are *retrodicting* under *ceteris paribus* conditions and we might not be able to predict future responses. For example, if we have collected responses to various interventions for a particular individual, we might not be able to estimate with certainty how he or she is going to respond to a familiar treatment in the future, since such a prediction relies on *stationarity* of the parameters or the underlying DGP [@molenaarNewPersonSpecificParadigm2009]. 
+
+But this doesn't imply that all our efforts are useless. We just need to accept the uncertainty and the assumptions involved. For example, for completely novel subject, the best response estimate or prediction estimate is the expected response calculated by using the group-based analysis (i.e. average treatment effect). This represents the most likely response or prediction. But on top of providing these distribution-based or group-based estimates, one can provide expected uncertainties showing individual-based or response proportions as anchor-based (magnitude-based) estimates [@estradaStatisticsEvaluatingPrepost2019; @normanRelationDistributionAnchorBased2001]. It is important to note that these usually estimate the same information [@estradaStatisticsEvaluatingPrepost2019; @normanRelationDistributionAnchorBased2001]; e.g. the higher the `Cohen's d` the higher the proportion of higher responses. Thus reporting magnitude-based proportions as uncertainties together with expected responses using average-based approach at least help in communicating uncertainties much better than reporting solely average-based estimates. When warranted with the research question, researchers should also report predictive performances on unseen data, as well as underlying assumption using graphical models such as DAGs. 
+
+It might be the best to conclude the section on causal inference with the quote from Andrew Gelman's paper [@gelmanCausalityStatisticalLearning2011, pp.965]:
+
+>"Casual inference will always be a challenge, partly because our psychological intuitions do not always match how the world works. We like to think of simple causal stories, but in the social world, causes and effects are complex. We—in the scientific community—still have not come to any agreement on how best to form consensus on causal questions: there is a general acceptance that experimentation is a gold standard, but it is not at clear how much experimentation should be done, to what extent we can trust inference from observational data, and to what extent experimentation should be more fully incorporated into daily practice (as suggested by some in the “evidence-based medicine” movement)."
+

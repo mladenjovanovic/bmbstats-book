@@ -1,0 +1,1143 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Load bmbstats locally
+require(bmbstats)
+
+# Run common script
+source("_common.R")
+
+require(tidyverse)
+require(cowplot)
+require(directlabels)
+require(kableExtra)
+require(ggstance)
+require(ggridges)
+
+equivalent_color <- user_grey
+
+population_mean <- 177.8
+population_sd <- 10.16
+```
+# Frequentist perspective
+
+As already stated, using simulations is outstanding teaching tool [@carseyMonteCarloSimulation2013; @hopkinsUnderstandingStatisticsUsing2007], and also very useful for understanding the frequentist inference as well. Figure \@ref(fig:sampling-distribution-of-the-mean) (Panels A and B) depicts hypothetical male population where mean height $\mu$ is `r round(population_mean, 2)`cm and SD ($\sigma$) is `r round(population_sd, 2)`cm. From this population we are randomly *drawing* N=5 (left side panels on Figure \@ref(fig:sampling-distribution-of-the-mean)) and N=20 (right side panels on Figure \@ref(fig:sampling-distribution-of-the-mean)) individuals for which we estimate the `mean` height. Individuals are represented as blue dots (Panels C and D on Figure \@ref(fig:sampling-distribution-of-the-mean)), whereas estimated `mean` height is depicted as orange dot. Now imagine we repeat this sampling 50 times, calculate the mean for every sample, and then draw the distribution of the sampled means (Panels E an F on Figure \@ref(fig:sampling-distribution-of-the-mean)). This distribution is called *sampling distribution of the `sample mean`* and the `SD` of this distribution is referred to as *standard error* or *sampling error*. Since our estimate of interest is the `mean`, standard deviation of the sampling distribution of the mean is called *standard error of the mean* (`SEM`). On Panels E and F in the Figure \@ref(fig:sampling-distribution-of-the-mean), mean of the sampling `means` is indicated by a black dot, and error bars represent `SEM`.     
+
+```{r sampling-distribution-of-the-mean, fig.cap="(ref:sampling-distribution-of-the-mean-caption)", fig.height=8}
+# Population
+population_distribution <- data.frame(x = perfect_rnorm(
+  n = 100,
+  mean = population_mean,
+  sd = population_sd
+))
+
+population_graph <- ggplot(population_distribution, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_density(alpha = 0.5, fill = user_blue, color = NA) +
+  stat_summaryh(
+    fun.data = mean_sd_h, aes(y = 0.001),
+    geom = "pointrangeh", size = 0.5
+  ) +
+  xlab(NULL) + xlim(
+    population_mean - 3 * population_sd,
+    population_mean + 3 * population_sd
+  ) +
+  ylab("Probability Density")
+
+# Sample from the population
+n_samples <- 50
+sample_size <- 5
+
+simulation_samples <- data.frame(
+  sample = numeric(0),
+  x = numeric(0)
+)
+
+for (i in seq(1, n_samples)) {
+  simulation_samples <- rbind(
+    simulation_samples,
+    data.frame(sample = i, x = rnorm(sample_size, population_mean, population_sd))
+  )
+}
+
+samples_graph <- ggplot(
+  simulation_samples,
+  aes(y = factor(sample), x = x, group = factor(sample))
+) +
+  theme_cowplot(8) + background_grid(major = "y", minor = "none", color.major = "grey95") +
+  geom_point(alpha = 0.3, color = user_blue, size = 0.75) +
+  stat_summaryh(geom = "point", fun.data = mean_sd_h, color = user_orange, size = 1) +
+  xlab(NULL) + ylab("Sample") +
+  xlim(
+    population_mean - 3 * population_sd,
+    population_mean + 3 * population_sd
+  ) +
+  theme(axis.text.y = element_text(size = 5))
+
+# Sample distribution of the mean
+simulation_sample_means <- simulation_samples %>%
+  group_by(sample) %>%
+  summarize(mean = mean(x))
+
+sample_mean_graph <- ggplot(simulation_sample_means, aes(x = mean)) +
+  theme_cowplot(8) +
+  geom_density_ridges(
+    point_color = user_orange, fill = user_orange, aes(y = 0),
+    jittered_points = TRUE, quantile_lines = FALSE, scale = 1, alpha = 0.5, color = NA,
+    point_size = 1, point_alpha = 0.5,
+    position = position_raincloud(adjust_vlines = FALSE, height = 0.01, ygap = 0.01)
+  ) +
+  geom_line(
+    data = tibble(
+      x = seq(population_mean - 4 * population_sd / sqrt(sample_size),
+        population_mean + 4 * population_sd / sqrt(sample_size),
+        length.out = 100
+      ),
+      y = dt(x = (x - population_mean) / (population_sd / sqrt(sample_size)), df = sample_size - 1) / (population_sd / sqrt(sample_size))
+    ),
+    aes(x = x, y = y), color = user_orange
+  ) +
+  stat_summaryh(
+    fun.data = mean_sd_h, aes(y = 0.005),
+    geom = "pointrangeh", size = 0.5
+  ) +
+  xlab("Height (cm)") + ylab("Sample mean density") +
+  ylim(c(-0.02, 0.3)) +
+  xlim(
+    population_mean - 3 * population_sd,
+    population_mean + 3 * population_sd
+  )
+
+### Panel 2
+n_samples <- 50
+sample_size <- 20
+
+simulation_samples <- data.frame(
+  sample = numeric(0),
+  x = numeric(0)
+)
+
+for (i in seq(1, n_samples)) {
+  simulation_samples <- rbind(
+    simulation_samples,
+    data.frame(sample = i, x = rnorm(sample_size, population_mean, population_sd))
+  )
+}
+
+samples_graph2 <- ggplot(
+  simulation_samples,
+  aes(y = factor(sample), x = x, group = factor(sample))
+) +
+  theme_cowplot(8) + background_grid(major = "y", minor = "none", color.major = "grey95") +
+  geom_point(alpha = 0.3, color = user_blue, size = 0.75) +
+  stat_summaryh(geom = "point", fun.data = mean_sd_h, color = user_orange, size = 1) +
+  xlab(NULL) + ylab(NULL) +
+  xlim(
+    population_mean - 3 * population_sd,
+    population_mean + 3 * population_sd
+  ) +
+  theme(axis.text.y = element_text(size = 5))
+
+# Sample distribution of the mean
+simulation_sample_means <- simulation_samples %>%
+  group_by(sample) %>%
+  summarize(mean = mean(x))
+
+sample_mean_graph2 <- ggplot(simulation_sample_means, aes(x = mean)) +
+  theme_cowplot(8) +
+  geom_density_ridges(
+    point_color = user_orange, fill = user_orange, aes(y = 0),
+    jittered_points = TRUE, quantile_lines = FALSE, scale = 1, alpha = 0.5, color = NA,
+    point_size = 1, point_alpha = 0.5,
+    position = position_raincloud(adjust_vlines = FALSE, height = 0.01, ygap = 0.01)
+  ) +
+  geom_line(
+    data = tibble(
+      x = seq(population_mean - 4 * population_sd / sqrt(sample_size),
+        population_mean + 4 * population_sd / sqrt(sample_size),
+        length.out = 100
+      ),
+      y = dt(x = (x - population_mean) / (population_sd / sqrt(sample_size)), df = sample_size - 1) / (population_sd / sqrt(sample_size))
+    ),
+    aes(x = x, y = y), color = user_orange
+  ) +
+  stat_summaryh(
+    fun.data = mean_sd_h, aes(y = 0.005),
+    geom = "pointrangeh", size = 0.5
+  ) +
+  xlab("Height (cm)") + ylab(NULL) +
+  ylim(c(-0.02, 0.3)) +
+  xlim(
+    population_mean - 3 * population_sd,
+    population_mean + 3 * population_sd
+  )
+
+figure_sampling_dsitribution_of_the_mean <- plot_grid(population_graph,
+  population_graph + ylab(NULL),
+  samples_graph,
+  samples_graph2,
+  sample_mean_graph,
+  sample_mean_graph2,
+  labels = c("A", "B", "C", "D", "E", "F"),
+  label_size = 10,
+  hjust = c(0, 0, 0, 0, 0, 0),
+  rel_heights = c(1, 1.5, 1),
+  align = "hv",
+  axis = "l",
+  ncol = 2,
+  nrow = 3
+)
+figure_sampling_dsitribution_of_the_mean
+```
+
+(ref:sampling-distribution-of-the-mean-caption) **Sampling distribution of the `mean`. A and B. **Distribution of the height in the population. From this population we draw samples. **C and D.** 50 sample are taken with N=5 (panel C) and N=20 (panel D) observations. Each observation is indicated by a blue dot. Calculated `mean`, as a parameter of interest, is indicated by an orange dot. **E and F.** Distribution of collected sample `means` from panels C and D. This distribution of the sample `means` is narrower, indicating higher precision when higher N is used. Black dot indicates the mean of the sample `means`, with error bars indicating `SD` of sample means. Orange line represents hypothetical distribution of the sample `means` when number of samples is infinitely large
+
+
+As can be seen from the Figure \@ref(fig:sampling-distribution-of-the-mean), the sampling distribution of the `mean` looks like normal distribution. If the number of samples reach very large number or *infinity*, the sampling distribution of the `mean` will eventually be distributed with the `SEM` equal to (Equation \@ref(eq:sem-equation)):
+
+$$
+\begin{equation}
+  SEM = \frac{\sigma}{\sqrt{N}}
+  (\#eq:sem-equation)
+\end{equation}
+$$
+
+This *theoretical* distribution is overlaid on the acquired sampling distribution from 50 samples in the Figure \@ref(fig:sampling-distribution-of-the-mean) (Panels E and F). Since the true $\sigma$ is not known, sample `SD` is utilized instead, in order to estimate the true `SEM` (Equation \@ref(eq:estimated-sem-equation)):
+
+$$
+\begin{equation}
+  \hat{SEM} = \frac{SD}{\sqrt{N}}
+  (\#eq:estimated-sem-equation)
+\end{equation}
+$$
+
+The take-home point is that the larger the sample, the smaller the standard error, which is visually seen as narrower sampling distribution (compare N=5 and N=20 sampling distributions on Figure \@ref(fig:sampling-distribution-of-the-mean)). Another conclusion regarding frequentist inference, is that calculated probabilities revolve around sampling distribution of the sample `mean` and other long-frequency sampling distributions. Everything else are details. But as the saying goes, the devil is in the details.
+
+Sampling distributions and equations for standard errors are derived algebraically for most estimators (e.g. `mean`, `SD`, `Cohen's d`), but for some estimators it might be hard to derive them, so other solutions do exist (like *bootstrapping* which will be covered in [Bootstrap] section). For example, sampling distribution of the change score proportions can be very difficult to be derived algebraically [@swintonStatisticalFrameworkInterpret2018]. For some estimators, mean of the long-frequency samples is different than the true population value, thus these estimators are termed *biased estimators*. One example of the biased estimator would be `SD` of the sample where we divide with $N$, instead of $N-1$. Estimators that have the mean of the long-frequency sample estimate equal to the true population parameter are called *unbiased estimators*. 
+
+Although the sampling distribution of the `mean` looks like a normal distribution, it actually belongs to the *Student's t* distribution, which has fatter tails for smaller samples (Figure \@ref(fig:student-distribution)). Besides `mean` and `SD`, Student's t distribution also has *degrees of freedom* (DF) parameters, which is equal to N-1 for the sample `mean`. Normal distribution is equal to Student's t distribution when DF is infinitely large. 
+
+```{r student-distribution, fig.cap="(ref:student-distribution-caption)"}
+student_distribution <- expand.grid(
+  DF = c(3, 10, Inf),
+  x = seq(-4, 4, length.out = 100)
+)
+
+student_distribution <- student_distribution %>%
+  mutate(
+    y = dt(x, df = DF),
+    DF = factor(DF, levels = rev(c(3, 10, Inf)), labels = c("Normal", "DF=10", "DF=3"))
+  )
+
+figure_student_distribution <- ggplot(student_distribution, aes(x = x, y = y, color = DF)) +
+  theme_cowplot(8) +
+  geom_line(alpha = 0.8, size = 0.7) +
+  scale_color_manual(values = c(user_red, "grey80", "grey50")) +
+  xlab(NULL) + ylab("Probability Density") +
+  theme(legend.title = element_blank())
+
+figure_student_distribution
+```
+
+(ref:student-distribution-caption) **Student's t-distribution**
+
+Since Student's t distribution is fatter on the tails, critical values that cover 90, 95, and 99% of distribution mass are different than the commonly used ones for the normal distribution. Table \@ref(tab:student-critical-values) contains critical values for different DF. For example, 90% of the sampling distribution will be inside the $\bar{x} \pm 1.64 \times SEM$  interval for the normal distribution, but for Student t with DF=5, 90% of the sampling distribution will be inside the $\bar{x} \pm 2.02 \times SEM$ interval.  
+
+(ref:student-critical-values-caption) **Critical values for Student's t distribution with different degrees of freedom**
+
+```{r student-critical-values} 
+student_thresholds <- expand.grid(
+  DF = c(5, 10, 20, 30, 50, Inf),
+  Confidence = c(0.5, 0.90, 0.95, 0.99, 0.999)
+) %>%
+  mutate(
+    Multiply = qt(Confidence + (1 - Confidence) / 2, DF),
+    DF = factor(DF, labels = c("DF=5", "DF=10", "DF=20", "DF=30", "DF=50", "(Normal)")),
+    Confidence = factor(Confidence, labels = c("50%", "90%", "95%", "99%", "99.9%"))
+  ) %>%
+  spread(key = Confidence, value = Multiply)
+colnames(student_thresholds)[1] <- ""
+table_student_thresholds <- student_thresholds
+
+knitr::kable(
+  table_student_thresholds,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:student-critical-values-caption)" 
+)
+```
+
+## Null-Hypothesis Significance Testing
+
+There are two approaches to statistical inference, be it frequentist or Bayesian: *hypothesis testing* and *estimation* [@cummingNewStatisticsWhy2014; @kruschkeBayesianNewStatistics2018]. I will focus on the former, although latter will be covered as well. For the frequentist inference, mathematics behind both of these are the same and both involve standard errors. 
+
+*Null-hypothesis significance testing* (NHST) is still one of the most dominant approaches to statistical inference, although heavily criticized (for example see [@cummingNewStatisticsWhy2014; @kruschkeBayesianNewStatistics2018]). In Figure \@ref(fig:sampling-distribution-of-the-mean), we have sampled from the known population, but in practice we don't know the true parameter values in the population, nor we are able to collect data from the whole population (unless it is a small one, but there is no need for statistical inference then, since the whole population is represented in our sample). Thus, we need to use sampled data to make inferences about the population. With NHST we want to *test* sample parameter or estimator (i.e. `mean` in this case) against the null-hypothesis ($H_{0}$). Null-hypothesis usually takes the *no effect* value, but it can take any value of interest for the researcher. 
+
+Although this sounds mouthful, a simple example will make it clearer. Imagine that we do know the true population `mean` height, but in one particular region the `mean` height of the sample differs from the known population `mean`. If we assume that this region belongs to the same population, then we want to test to see how likely are we to sample `mean` we have acquired or more extreme. 
+
+Figure \@ref(fig:null-hypothesis) contains known population `mean` height as the null-hypothesis and estimated probabilities of observing sample `mean` of 180, 182.5, and 185cm (or +2.2, +4.7, +7.2cm difference) *or larger* for sample sizes N=5, N=10 and N=20. Panel A on Figure \@ref(fig:null-hypothesis) depicts *one-sided* approach for estimating probability of observing these sample `mean` heights. One-sided approach is used when we are certain about the direction of the effect. *Two-sided* approach, on the other hand, calculates probability for the effect of the unknown direction. In this example that would be sample `mean` height difference of ±2.2, ±4.7, ±7.2cm or larger. Two-sided approach is depicted on the Panel B (Figure \@ref(fig:null-hypothesis)).   
+
+
+```{r null-hypothesis, fig.cap="(ref:null-hypothesis-caption)", fig.height=7}
+null_hypothesis_test <- expand.grid(
+  x = seq(population_mean - 6 * population_sd / sqrt(sample_size),
+    population_mean + 6 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  N = c(5, 10, 20),
+  side = c("One-Sided", "Two-Sided"),
+  data = c(180, 182.5, 185)
+) %>%
+  mutate(
+    y = dt(x = (x - population_mean) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    p = ifelse(side == "Two-Sided",
+      (1 - pt((data - population_mean) / (population_sd / sqrt(N)), df = N - 1)) * 2,
+      (1 - pt((data - population_mean) / (population_sd / sqrt(N)), df = N - 1))
+    ),
+    zone = ifelse(side == "One-Sided",
+      ifelse(x > data, "Higher", "Equivalent"),
+      ifelse(x > data, "Higher", ifelse(x < (population_mean - (data - population_mean)), "Lower", "Equivalent"))
+    ),
+    N = factor(N, labels = c("N=5", "N=10", "N=20")),
+    data_label = factor(data, labels = c("Sample mean 180cm", "Sample mean 182.5cm", "Sample mean 185cm"))
+  )
+
+gg_onesided <- ggplot(filter(null_hypothesis_test, side == "One-Sided"), aes(x = x, y = y, fill = zone)) +
+  theme_cowplot(8) +
+  geom_area(alpha = 0.8) +
+  facet_grid(N ~ data_label) +
+  scale_fill_manual(values = c(user_orange, user_red)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+
+  geom_text(
+    y = 0.01, size = 3, hjust = 0, check_overlap = TRUE,
+    aes(x = data, label = paste("p=", round(p, 3), sep = ""))
+  ) +
+  xlab(NULL) + ylab(NULL) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+
+
+gg_twosided <- ggplot(filter(
+  null_hypothesis_test, side == "Two-Sided"),
+  aes(x = x, y = y, fill = zone)
+  ) +
+  theme_cowplot(8) +
+  geom_area(alpha = 0.8) +
+  facet_grid(N ~ data_label) +
+  scale_fill_manual(values = c(user_orange, user_red, user_red)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+  geom_text(
+    y = 0.01, size = 3, hjust = 0, check_overlap = TRUE,
+    aes(x = data, label = paste("p=", round(p, 3), sep = ""))
+  ) +
+  ylab(NULL) + xlab("Height (cm)") +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank(),
+    strip.text.x = element_blank()
+  )
+
+figure_NHST <- plot_grid(gg_onesided,
+  vjust = c(4, 1.5),
+  gg_twosided,
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 1,
+  nrow = 2
+)
+figure_NHST
+```
+
+(ref:null-hypothesis-caption) **Null-hypothesis significance testing. **Assuming null-hypothesis (true parameter value, or parameter value in the population, in this case `mean` or $\mu$) is true, probability of observing sample parameter of a given magnitude or larger, is estimated by calculating proportion of sampling distribution that is over sample parameter value. The larger the sample size, the smaller the width of the sampling distribution. **A.** One-sided approach is used when we are certain about the direction of the effect. **B.** Two-sided approach is used when expected direction of the effect is unknown
+
+The calculated probability of observing sample mean or larger, given null-hypothesis, is called *p-value*. In other words, p-value is the probability of observing data (in this case sample `mean`) given the null hypothesis (Equation \@ref(eq:p-value-equation))
+
+$$
+\begin{equation}
+  p \; value = p(Data | H{0}) 
+  (\#eq:p-value-equation)
+\end{equation}
+$$
+
+It is easy to interpret p-values as "probability of the null hypothesis (given data)" ($p(H{0}|Data)$), but that is erroneous. This is Bayesian interpretation (also called *inverse probability*) which is quite common, even for the experienced researchers. Unfortunately, p-values cannot be interpreted in such way, but rather as a "probability of data given null hypothesis".  
+
+As you can see from the Figure \@ref(fig:null-hypothesis)), for the same difference in sample `mean` height, different sample sizes will produce different p-values. This is because sampling distribution of the `mean` will be narrower (i.e. smaller `SEM`) as the sample size increase. In other words, for the same effect (in this case sample `mean`), p-value will be smaller as the sample size gets bigger. It is thus important to realize that p-values don't tell us anything about the magnitude of the effect (in this case the difference between the sample `mean` and the known population `mean`).
+
+The procedures of acquiring p-values are called *statistical tests*. With the example above, we are using one variation of the *Student t test*, where we are calculating the test value *t* using the following Equation \@ref(eq:t-test). 
+
+$$
+\begin{equation}
+  \begin{split}
+  t &= \frac{\bar{x} -\mu}{SEM} \\
+  \\
+  t &= \frac{\bar{x} -\mu}{\frac{SD}{\sqrt{N}}}
+  \end{split}
+  (\#eq:t-test)
+\end{equation}
+$$
+
+P-value is then estimated by using the calculated t value and appropriate Student's t distribution (see Figure \@ref(fig:student-distribution)) to calculate the surface area over a particular value of t. This is usually done in the statistical program, or by using tables similar to Table \@ref(tab:student-critical-values) .  
+
+Once the p-value is estimated, we need to decide whether to reject the null-hypothesis or not.  In order to do that, we need to define the error we are willing to accept. This error is called *alpha* (Greek $\alpha$) or *Type I* error and refers to making an error of rejecting the null-hypothesis when null-hypothesis is true. Out of sheer convenience, alpha is set to 0.1 (10% error), 0.05 (5% error) or 0.01 (1% error). 
+
+If p-value is smaller than alpha, we will reject the null-hypothesis and state that the effect has *statistical significance*. The statistical significance has bad wording since it does not imply magnitude of the effect, only that the sample data come from a different population assumed by null-hypothesis.
+
+Take the following example. Let's assume we have sample size of N=20 where sample `mean` is equal to 185cm. Using the known population `mean` (177.8cm) and `SD` (10.16cm), we get that $t=3.17$. Using two-sided test and alpha=0.05, can we reject the null-hypothesis? In order to do this we can refer to Table \@ref(tab:student-critical-values) and check that for DF=20 (which is not exact, but it will serve the purpose), 95% of sampling distribution (which leaves 2.5% on each tail which is equal to 5% alpha) will be within ±2.08. Since calculated $t=3.17$ is over ±2.08, we can reject the null-hypothesis with alpha=0.05. Figure \@ref(fig:null-hypothesis) (Panel B) depicts the exact p-value for this example, which is equal to p=0.005. Statistical software can calculate exact p-values, but before these were available, tables and procedure just describes were used instead. 
+
+## Statistical Power
+
+There is other type of error that we can commit: *Type II* error or *beta* (Greek $\beta$). In order to understand Type II error, we need to assume alternate hypothesis or $H{a}$. Type II error refers to the error we make when we reject the alternate-hypothesis when alternate-hypothesis is true. Type I and Type II error are inversely related - the more we are willing to make Type I errors, the less likely we are going to make Type II errors, and *vice versa* (Table \@ref(tab:error-types)). 
+
+Table: (\#tab:error-types) **Type I and Type II errors**
+
+|                  | True $H_{0}$ | True $H_{a}$ |
+|------------------|--------------|--------------|
+| Rejected $H_{0}$ |    Type I    |              |
+| Rejected $H_{a}$ |              |   Type II    |
+
+It is important to keep in mind that with NHST, we never *accept* any hypothesis, we either reject it or not. For example, we never say "null-hypothesis is accepted (p=0.23)", but rather "null-hypothesis is not rejected (p=0.23)". 
+
+Assuming that alternate-hypothesis is true, probability of rejecting the null-hypothesis is equal to $1-\beta$. This is called *statistical power* and depends on the magnitude of the effect we are aiming to detect (or not-to-reject to correct myself). Figure \@ref(fig:statistical-power) depicts multiple examples of one-sided and two-sided statistical power calculations given the known alpha of 0.05 and null-hypothesis for difference in sample mean height of ±2.5, ±5, and ±7.5cm (+2.5, +5, and +7.5cm for one sided test) for N=5, N=10 and N=20. 
+
+```{r statistical-power, fig.cap="(ref:statistical-power-caption)", fig.height=6}
+power_test <- expand.grid(
+  x = seq(population_mean - 10 * population_sd / sqrt(sample_size),
+    population_mean + 10 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  N = c(5, 10, 20),
+  side = c("One-Sided", "Two-Sided"),
+  alpha = 0.05,
+  effect = c(2.5, 5, 7.5)
+) %>%
+  mutate(
+    h0 = dt(x = (x - population_mean) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    SEM = (population_sd / sqrt(N)),
+    z_critical = ifelse(side == "One-Sided",
+      qt((1 - alpha), df = N - 1),
+      qt((1 - alpha) + (1 - (1 - alpha)) / 2, df = N - 1)
+    ),
+    x_critical = z_critical * SEM,
+    h0_zone = ifelse(side == "One-Sided",
+      ifelse(x > (population_mean + x_critical), "Higher", "Equivalent"),
+      ifelse(x > (population_mean + x_critical), "Higher", ifelse(x < (population_mean - x_critical), "Lower", "Equivalent"))
+    ),
+    h1_positive = dt(x = (x - (population_mean + effect)) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h1_positive_zone = ifelse(x > (population_mean + x_critical), "Power", "Beta"),
+    h1_negative = dt(x = (x - (population_mean - effect)) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h1_negative_zone = ifelse(x < (population_mean - x_critical), "Power", "Beta"),
+    effect_label = paste("Effect ", ifelse(side == "One-Sided", "+", "±"), effect, "cm", sep = ""),
+    power = (pt(((population_mean + effect) - (population_mean + x_critical)) / (population_sd / sqrt(N)), df = N - 1)),
+    N = factor(N, labels = c("N=5", "N=10", "N=20"))
+  )
+
+
+gg_onesided <- ggplot(filter(power_test, side == "One-Sided"), aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(aes(y = h1_positive, fill = h1_positive_zone)) +
+  geom_area(aes(y = h0, fill = h0_zone), color = "black") +
+  facet_grid(N ~ effect_label) +
+  scale_fill_manual(values = c(user_blue_transparent, "transparent", user_red, user_blue)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+  # geom_vline(aes(xintercept = population_mean + effect), linetype = "dotted", color = "white") +
+  geom_text(
+    y = 0.03, size = 3, hjust = -0.1, check_overlap = TRUE,
+    aes(x = population_mean + x_critical, label = paste("pwr=", round(power, 2), sep = ""))
+  ) +
+
+  xlab(NULL) + ylab(NULL) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+
+gg_twosided <- ggplot(filter(power_test, side == "Two-Sided"), aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(aes(y = h1_positive, fill = h1_positive_zone)) +
+  geom_area(aes(y = h1_negative, fill = h1_negative_zone)) +
+  geom_area(aes(y = h0, fill = h0_zone), color = "black") +
+  facet_grid(N ~ effect_label) +
+  scale_fill_manual(values = c(user_blue_transparent, "transparent", user_red, user_red,  user_blue)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+  # geom_vline(aes(xintercept = population_mean + effect), linetype = "dotted", color = "white") +
+  # geom_vline(aes(xintercept = population_mean - effect), linetype = "dotted", color = "white") +
+  geom_text(
+    y = 0.03, size = 3, hjust = -0.1, check_overlap = TRUE,
+    aes(x = population_mean + x_critical, label = paste("pwr=", round(power, 2), sep = ""))
+  ) +
+
+  xlab("Height (cm)") + ylab(NULL) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank(),
+    strip.text.x = element_blank()
+  )
+
+figure_statistical_power <- plot_grid(
+  gg_onesided,
+  gg_twosided,
+  vjust = c(4, 1.5),
+
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 1,
+  nrow = 2
+)
+figure_statistical_power
+```
+
+(ref:statistical-power-caption) **Statistical power. ** Statistical power is probability of detecting an effect of particular magnitude or larger. Visually, statistical power is dark blue surface and represents probability of rejecting the null-hypothesis given that the alternative hypothesis is true. **A.** One-sided approach. **B.** Two-sided approach
+
+As can be seen from the Figure \@ref(fig:statistical-power), the higher the magnitude of the effect (in this case difference in height `means`), the more likely we are to detect it (by rejecting null-hypothesis). Statistical power is mostly used when planning the studies to estimate sample size needed to detect effects of magnitude of interest (usually using known or observed effect from previous studies, or even SESOI). For example, question such as "How big of a sample do I need to detect 2.5cm difference with 80% power, alpha 0.05 and expected sample SD of 10cm?" is answered by using statistical power analysis. Statistical power, or sample size for needed statistical power can be easily calculated for simple analysis, but for some more elaborate analyses simulations are needed.  
+
+The frequentist approach to statistical inference is all about maintaining accepted error rates, particularly Type I, for both tests and estimates. This can be particularly difficult when *family-wise error rates* need to be controlled, and these can emerge when multiple NHST are done. Some techniques, called p-harking, can also introduce bias in the error rates by *fishing* for p-values (e.g. collecting samples until significant results are found). These topics are beyond the scope of this paper, but one of the reasons why some researchers prefer [Bayesian perspective]. 
+
+## New Statistics: Confidence Intervals and Estimation
+
+Rather than performing NHST, uncertainty of the estimated parameter can be represented with the *confidence interval* (CI). CIs are usually pretty hard to explain and non-intuitive since they do not carry any distributional information [^distribution_information]. It is thus better to refer to CIs as *compatibility intervals* [@gelmanAreConfidenceIntervals2019], since, let's say 95% confidence interval contains all the hypotheses parameter values that would not be rejected by p<0.05 NHST [@kruschkeBayesianNewStatistics2018]. This implies that, in the long-run (when sampling is repeated infinite number of times), 95% confidence interval will capture true parameter value 95% of the time. 
+
+[^distribution_information]: It is quite common to erroneously interpret CIs as Bayesian *credible intervals* [@kruschkeBayesianNewStatistics2018; @mcelreathStatisticalRethinkingBayesian2015].
+
+Assuming N=20 samples come from the population where the true `mean` height is equal to 177.8cm and `SD` is equal to 10.16cm, calculated 95% CIs around sample parameter estimate (in this case sample `mean`), in the long run, will capture true population parameter 95% of the time. Figure \@ref(fig:confidence-intervals) depicts first 100 samples out of total of 1,000 taken from the population with calculated 95% CIs. CIs that missed the true population parameter value are depicted in red. Table \@ref(tab:confidence-intervals-summary) contain the summary for this simulation. If this simulation is repeated for many more times, CIs will capture true population parameter 95% of the time, or in other words, have Type I error of 5%.  
+
+
+```{r confidence-intervals, fig.cap="(ref:confidence-intervals-caption)"}
+n_samples <- 1000
+sample_size <- 20
+
+tdist_freq_est <- function(x, confidence = 0.95) {
+  sample_size <- length(x)
+  sample_sd <- sd(x)
+  sample_mean <- mean(x)
+
+  sem <- sample_sd / sqrt(sample_size)
+
+  return(data.frame(
+    value = sample_mean,
+    lower = sample_mean - qt((1 - confidence) / 2 + confidence, sample_size - 1) * sem,
+    upper = sample_mean + qt((1 - confidence) / 2 + confidence, sample_size - 1) * sem
+  ))
+}
+
+simulation_summaries <- data.frame(
+  sample = numeric(0),
+  method = character(0),
+  value = numeric(0),
+  lower = numeric(0),
+  upper = numeric(0)
+)
+
+for (i in seq(1, n_samples)) {
+  # Take the sample
+  sample_data <- rnorm(sample_size, population_mean, population_sd)
+
+  # T distr freq est
+  tdist_freq_ci <- tdist_freq_est(sample_data)
+
+  simulation_summaries <- rbind(
+    simulation_summaries,
+    data.frame(
+      sample = i,
+      method = "Student t",
+      value = tdist_freq_ci$value,
+      lower = tdist_freq_ci$lower,
+      upper = tdist_freq_ci$upper
+    )
+  )
+}
+
+# Color missed
+simulation_summaries <- simulation_summaries %>%
+  mutate(correct = ifelse(lower > population_mean | upper < population_mean,
+    "Missed", "Correct"
+  ))
+
+# Plot
+figure_confidence_intervals <- ggplot(filter(simulation_summaries, sample <= 100), aes(
+  y = factor(sample),
+  x = value,
+  xmin = lower,
+  xmax = upper,
+  color = correct
+)) +
+  theme_cowplot(8) +
+  geom_vline(xintercept = population_mean, color = "black", linetype = "dashed") +
+  geom_linerangeh() +
+  scale_color_manual(values = c("grey70", user_red)) +
+  theme(
+    axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+    legend.position = "none"
+  ) +
+  xlab("Height (cm)") + ylab("Samples")
+figure_confidence_intervals
+```
+
+(ref:confidence-intervals-caption) **$95\%$ confidence intervals for the sample `mean`, estimated for 100 samples (N=20 observations) drawn from population of known parameters (population `mean` is indicated by vertical line). **In the long-run, $95\%$ confidence intervals will span the true population value $95\%$ of the time. Confidence intervals that didn't span the true population parameter value are colored in red
+
+```{r confidence-intervals-summary}
+summary_table <- simulation_summaries %>%
+  summarize(
+    Sample = n_samples,
+    `Correct %` = 100 * sum(correct == "Correct") / n_samples,
+    `Type I Errors %` = 100 * sum(correct == "Missed") / n_samples,
+  )
+
+knitr::kable(
+  summary_table,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:confidence-intervals-summary)" 
+)
+
+```
+
+(ref:confidence-intervals-summary) **Type I errors in 1000 samples**
+
+Similarly to different alphas, CIs can use different levels of confidence, usually 90%, 95%, 99%. As already mentioned, mathematics behind the confidence intervals is equal to mathematics behind NHST. In order to calculate two-sided CIs for the sample mean, the Equation \@ref(eq:ci-equation) is used:
+
+$$
+\begin{equation}
+  CI = \bar{x} \pm t_{crit} \times \widehat{SEM} 
+  (\#eq:ci-equation)
+\end{equation}
+$$
+
+
+$T_{crit}$ can be found in the Table \@ref(tab:student-critical-values), where for 95% two-sided confidence and DF=20, is equal to 2.086. Using the example of observed sample mean of 185cm, known sample `SD` (10.16cm) and N=20 (which is equal to DF=19, but for the sake of example DF=20 will be used), calculated 95% confidence interval is equal to 180.26 to 189.74cm. From the compatibility interpretation standpoint, this CI means that the hypotheses with values ranging from 180.26 to 189.74cm, will not be rejected with alpha=0.05. 
+
+Confidence intervals are great solution for visualizing uncertainties around estimates. Figure \@ref(fig:sample-mean-cis) depicts already used example in Figure \@ref(fig:null-hypothesis) (two-sided and one-sided p-values), but this time 95% CIs around the sample `means` are depicted. Please note that in scenarios where 95% CIs cross the null-hypothesis, NHST will yield p>0.05. This means that null-hypothesis is not rejected and results are not statistically significant. CIs can be thus used to visually inspect and conclude whether or not the null-hypothesis would be rejected or not if NHST is performed. 
+
+```{r sample-mean-cis, fig.cap="(ref:sample-mean-cis-caption)", fig.height=6}
+CI_test <- expand.grid(
+  N = c(5, 10, 20),
+  Confidence = 0.95,
+  side = c("One-Sided", "Two-Sided"),
+  data = c(180, 182.5, 185)
+) %>%
+  mutate(
+    t_crit = ifelse(side == "One-Sided",
+      qt(Confidence, N - 1),
+      qt(Confidence + (1 - Confidence) / 2, N - 1)
+    ),
+    CI_lower = data - t_crit * (population_sd / sqrt(N)),
+    CI_upper = data + t_crit * (population_sd / sqrt(N)),
+
+    N = factor(N, labels = rev(c("N=5", "N=10", "N=20"))),
+    data_label = factor(data, labels = c("Sample mean 180cm", "Sample mean 182.5cm", "Sample mean 185cm"))
+  )
+
+gg_onesided <- ggplot(filter(CI_test, side == "One-Sided"), aes(x = data, y = rev(N))) +
+  theme_cowplot(8) +
+  facet_grid(~data_label) +
+  scale_fill_manual(values = c(user_red, user_orange)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+  geom_point(aes(x = data), size = 3) +
+  geom_errorbarh(aes(xmin = CI_lower, xmax = data), width = 0.05, size = 0.5) +
+  xlab(NULL) + ylab(NULL) +
+  xlim(160, 200) +
+  theme(legend.position = "none")
+
+gg_twosided <- ggplot(filter(CI_test, side == "Two-Sided"), aes(x = data, y = rev(N))) +
+  theme_cowplot(8) +
+  facet_grid(~data_label) +
+  scale_fill_manual(values = c(user_red, user_orange)) +
+  geom_vline(xintercept = population_mean, linetype = "dotted") +
+  geom_point(aes(x = data), size = 3) +
+  geom_errorbarh(aes(xmin = CI_lower, xmax = CI_upper), width = 0.05, size = 0.5) +
+  xlab(NULL) + ylab(NULL) +
+  xlim(160, 200) +
+  theme(legend.position = "none")
+
+figure_confidence_intervals_one_two_sided <- plot_grid(
+  gg_onesided,
+  gg_twosided,
+  vjust = c(4, 1.5),
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 1,
+  nrow = 2
+)
+figure_confidence_intervals_one_two_sided
+```
+
+(ref:sample-mean-cis-caption) **$95\%$ Confidence intervals for sample mean.** Null-hypothesis of the population parameter value is indicated by vertical dashed line. If the $95\%$ confidence interval doesn't touch or cross the null-hypothesis parameter value, p-value is less than 0.05 and effect is statistically significant (given alpha of 0.05). **A.** One-sided confidence intervals. **B.** Two-sided confidence intervals
+
+## Minimum Effect Tests
+
+NHST doesn't tell us anything about the magnitudes of the effect. Just because the test is statistically significant (p<0.05), it's doesn't imply practically meaningful effect. Rather than using null-hypothesis of *no effect*, we can perform numerous one-sided NHSTs by using SESOI thresholds to infer practical significance. These are called *minimum effect tests* (METs) and can distinguish between 6 different conclusions: *lower*, *not-higher*, *equivalent*, *not-lower*, *higher*, and *equivocal* effect. Figure \@ref(fig:effect-magnitudes) depicts how SESOI and CIs can be used to distinguish between these 6 magnitude-based conclusions [@barkerInferenceMagnitudesEffects2008; @sainaniMagnitudeBasedInference2019]. 
+
+```{r effect-magnitudes, fig.cap="(ref:effect-magnitudes-caption)", fig.width=4}
+# ROPE / SESOI
+upper_bound <- 5
+lower_bound <- -5
+
+magnitude_interpretation <- tribble(
+  ~example, ~m, ~CI, ~Inference,
+  "01", 195, 10, "Higher",
+  "02", 190, 15, "Not-Lower",
+  "03", 182, 8, "Not-Lower",
+  "04", 180, 2, "Equivalent",
+  "05", 177.5, 4, "Equivalent",
+  "06", 174, 7, "Not-Higher",
+  "07", 170, 10, "Not-Higher",
+  "08", 160, 10, "Lower",
+  "09", 180, 15, "Equivocal",
+  "10", 185, 20, "Equivocal"
+)
+magnitude_interpretation$example <- factor(magnitude_interpretation$example,
+  levels = rev(magnitude_interpretation$example)
+)
+gg_ci_interpretation <- ggplot(magnitude_interpretation, aes(y = example, x = m)) +
+  theme_cowplot(8) +
+  annotate("rect",
+    xmin = population_mean - lower_bound,
+    xmax = population_mean + lower_bound,
+    ymin = -Inf, ymax = Inf,
+    alpha = 0.2,
+    fill = equivalent_color
+  ) +
+  geom_vline(xintercept = population_mean, color = "dark grey") +
+  geom_point() +
+  geom_errorbarh(aes(xmin = m - CI, xmax = m + CI), width = 0.1) +
+  geom_text(aes(label = Inference), x = 205, hjust = -0.1, size = 3) +
+  xlim(c(150, 220)) +
+  xlab("Height (cm)") + ylab(NULL) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+
+
+figure_magnitude_inferences <- gg_ci_interpretation
+figure_magnitude_inferences 
+```
+
+(ref:effect-magnitudes-caption) **Inference about magnitudes of effects.** Error bars represent confidence intervals around estimate of interest. Adapted and modified from @barkerInferenceMagnitudesEffects2008; @sainaniMagnitudeBasedInference2019
+
+### Individual vs. Parameter SESOI
+
+So far we have used SESOI to infer practically significant differences or changes at the *individual* level. For example, answering what is the practically meaningful difference in height, SESOI was used to calculate proportions and chances of observing individuals with lower, equivalent and higher magnitudes of effects. 
+
+In prediction tasks, SESOI was used to infer practically meaningful prediction error. This helped answering the question regarding whether the individual predictions are within practically equivalent region.
+
+However, apart from using SESOI to infer individual change, difference, and prediction magnitudes, SESOI can also be used to evaluate statistics or parameters against practically significant anchor. For example, in Equation \@ref(eq:diff-to-SESOI), we have divided `mean` group difference with SESOI to create magnitude-based estimator. But here, we assumed that the same magnitude used at the individual level is of equal practical importance at the group level (i.e. aggregate level using the `mean` estimator). For example, individual change of ±5kg might be practically important at the level of the individual, but not at the level of the group (i.e. parameter), and *vice versa*. Usually, they are assumed to be the same (see also [Ergodicity] section). 
+
+Since sample `mean` difference is the estimator of the parameter in the population we are interested in estimating, we tend to use SESOI to give practical anchors for parameters as well. It could be argued that different terms should be used for the parameter SESOI (particularly for standardized estimators such as `Cohen's d`) *versus* individual SESOI. For example, we can use ROPE term for parameters [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018], and SESOI for individual-level magnitude inferences. For practical purposes they are considered equal, although I believe further discussion about this distinction is warranted, but outside the scope of this book. 
+
+### Two one-sided tests of equivalence
+
+Besides testing again null-hypothesis of no-effect, we can use the two one-sided tests (TOST) procedure to test for *equivalence* and reject the presence of the smallest effect size of interest (SESOI) [@lakensEquivalenceTestingPsychological2018; @lakensEquivalenceTestsPractical2017]. TOST involves using two one-sided NHSTs assuming parameter values at SESOI thresholds (Figure \@ref(fig:tost)). Since the TOST produces two p-values, the larger of the two is reported. A conclusion of statistical equivalence is warranted when the larger of the two p-values is smaller than alpha [@lakensEquivalenceTestsPractical2017]. 
+
+From estimation perspective, statistical equivalence at the level of alpha=0.05 can be inferred if the 90% (90% not 95%; it is not a typo) CI falls completely within SESOI band.
+
+```{r tost, fig.cap="(ref:tost-caption)"}
+TOST_test <- expand.grid(
+  x = seq(population_mean - 10* population_sd / sqrt(sample_size),
+    population_mean + 10 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  m = c(170, 177.5, 185),
+  N = c(5, 20, 40),
+  alpha = 0.05,
+  lower = population_mean + lower_bound,
+  upper = population_mean + upper_bound
+) %>%
+  mutate(
+    h0l = dt(x = (x - lower) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h0u = dt(x = (x - upper) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h0l_zone = ifelse(x > m, "Higher", "Equivalent"),
+    h0u_zone = ifelse(x < m, "Lower", "Equivalent"),
+    p = pmax(
+      pt((m - upper) / (population_sd / sqrt(N)), df = N - 1),
+      1 - pt((m - lower) / (population_sd / sqrt(N)), df = N - 1)
+    ),
+    sem = population_sd / sqrt(N),
+    confidence = 0.9,
+    CI_lower = m - qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    CI_upper = m + qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    N = factor(N, labels = c("N=5", "N=20", "N=40")),
+    m_label = factor(m, labels = unique(paste("Sample mean ", m, "cm", sep = "")))
+  )
+
+gg_TOST <- ggplot(TOST_test, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(aes(y = h0l, fill = h0l_zone), color = "black", outline.type = "full") +
+  geom_area(aes(y = h0u, fill = h0u_zone), color = "black", outline.type = "full") +
+  geom_vline(xintercept = population_mean + upper_bound, color = "black", linetype = "dotted") +
+  geom_vline(xintercept = population_mean + lower_bound, color = "black", linetype = "dotted") +
+  geom_point(aes(x = m, y = -0.01)) +
+  geom_errorbarh(aes(y = -0.01, xmin = CI_lower, xmax = CI_upper), width = 0.01) +
+  geom_text(
+    x = 190, y = 0.05, size = 3, hjust = 0, check_overlap = TRUE,
+    aes(label = paste("p=", round(p, 2), sep = ""))
+  ) +
+  scale_fill_manual(values = c("transparent", user_red_transparent, user_red_transparent)) +
+  xlab(NULL) + ylab(NULL) +
+  facet_grid(N ~ m_label) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+
+figure_TOST <- gg_TOST
+figure_TOST
+```
+
+(ref:tost-caption) **Equivalence test using two one-sided tests (TOST). **Equivalence test involves two NHSTs at SESOI thresholds and calculates two one-sided p-values, out of which a larger one is reported as result. Error bars represent 90% confidence intervals.
+
+### Superiority and Non-Inferiority
+
+Two same NHSTs at SESOI thresholds are utilized to test superiority and non-inferiority of the effects. In other words, we want to conclude whether the effect is higher and/or not-lower than SESOI. To achieve this, two one-sided NHSTs are performed to estimate the probability of observing effect in the positive direction (Figure \@ref(fig:superiority-non-inferiority)). 
+
+```{r superiority-non-inferiority, fig.cap="(ref:superiority-non-inferiority-caption)"}
+sup_non_inf_test <- expand.grid(
+  x = seq(population_mean - 10 * population_sd / sqrt(sample_size),
+    population_mean + 10 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  m = c(170, 177.5, 185),
+  N = c(5, 20, 40),
+  alpha = 0.05,
+  lower = population_mean + lower_bound,
+  upper = population_mean + upper_bound
+) %>%
+  mutate(
+    h_non_inf = dt(x = (x - lower) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h_sup = dt(x = (x - upper) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h_non_inf_zone = ifelse(x > m, "Higher", "Equivalent"),
+    h_sup_zone = ifelse(x > m, "Higher", "Equivalent"),
+    p_sup = 1 - pt((m - upper) / (population_sd / sqrt(N)), df = N - 1),
+    p_non_inf = 1 - pt((m - lower) / (population_sd / sqrt(N)), df = N - 1),
+    sem = population_sd / sqrt(N),
+    confidence = 0.9,
+    CI_lower = m - qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    CI_upper = m + qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    N = factor(N, labels = c("N=5", "N=20", "N=40")),
+    m_label = factor(m, labels = unique(paste("Sample mean ", m, "cm", sep = "")))
+  )
+
+gg_sup_non_inf <- ggplot(sup_non_inf_test, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(aes(y = h_non_inf, fill = h_non_inf_zone), color = "black", outline.type = "full") +
+  geom_area(aes(y = h_sup, fill = h_sup_zone), color = "black", outline.type = "full") +
+  geom_vline(xintercept = population_mean + upper_bound, color = "black", linetype = "dotted") +
+  geom_vline(xintercept = population_mean + lower_bound, color = "black", linetype = "dotted") +
+  geom_point(aes(x = m, y = -0.01)) +
+  geom_errorbarh(aes(y = -0.01, xmin = CI_lower, xmax = CI_upper), width = 0.01) +
+  geom_text(
+    x = 190, y = 0.05, size = 1.8, hjust = 0, check_overlap = TRUE,
+    aes(label = paste("Sup p=", round(p_sup, 2), "\n",
+      "Non-Inf p=", round(p_non_inf, 2),
+      sep = ""
+    ))
+  ) +
+  scale_fill_manual(values = c("transparent", user_red_transparent)) +
+  xlab(NULL) + ylab(NULL) +
+  facet_grid(N ~ m_label) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+figure_superior_non_inferior <- gg_sup_non_inf
+figure_superior_non_inferior 
+```
+
+(ref:superiority-non-inferiority-caption) **Superiority and Non-Inferiority tests. **Similar to equivalence test using TOST procedure, superiority and non-inferiority tests involve two one-sided NHSTs at SESOI thresholds in the positive direction. Error bars represent 90% confidence intervals.
+
+### Inferiority and Non-Superiority
+
+To test the inferiority and non-superiority of the effects, two one-sided NHSTs are performed to estimate the probability of observing effect in the negative direction (Figure \@ref(fig:inferiority-non-superiority)). 
+
+```{r inferiority-non-superiority, fig.cap="(ref:inferiority-non-superiority-caption)"}
+inf_non_sup_test <- expand.grid(
+  x = seq(population_mean - 10 * population_sd / sqrt(sample_size),
+    population_mean + 10 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  m = c(170, 177.5, 185),
+  N = c(5, 20, 40),
+  alpha = 0.05,
+  lower = population_mean + lower_bound,
+  upper = population_mean + upper_bound
+) %>%
+  mutate(
+    h_inf = dt(x = (x - lower) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h_non_sup = dt(x = (x - upper) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h_inf_zone = ifelse(x < m, "Lower", "Equivalent"),
+    h_non_sup_zone = ifelse(x < m, "Lower", "Equivalent"),
+    p_inf = pt((m - lower) / (population_sd / sqrt(N)), df = N - 1),
+    p_non_sup = pt((m - upper) / (population_sd / sqrt(N)), df = N - 1),
+    sem = population_sd / sqrt(N),
+    confidence = 0.9,
+    CI_lower = m - qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    CI_upper = m + qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    N = factor(N, labels = c("N=5", "N=20", "N=40")),
+    m_label = factor(m, labels = unique(paste("Sample mean ", m, "cm", sep = "")))
+  )
+
+gg_inf_non_sup <- ggplot(inf_non_sup_test, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(aes(y = h_inf, fill = h_inf_zone), color = "black", outline.type = "full") +
+  geom_area(aes(y = h_non_sup, fill = h_non_sup_zone), color = "black", outline.type = "full") +
+  geom_vline(xintercept = population_mean + upper_bound, color = "black", linetype = "dotted") +
+  geom_vline(xintercept = population_mean + lower_bound, color = "black", linetype = "dotted") +
+  geom_point(aes(x = m, y = -0.01)) +
+  geom_errorbarh(aes(y = -0.01, xmin = CI_lower, xmax = CI_upper), width = 0.01) +
+  geom_text(
+    x = 190, y = 0.05, size = 1.8, hjust = 0, check_overlap = TRUE,
+    aes(label = paste("Inf p=", round(p_inf, 2), "\n",
+      "Non-Sup p=", round(p_non_sup, 2),
+      sep = ""
+    ))
+  ) +
+  scale_fill_manual(values = c("transparent", user_red_transparent)) +
+  xlab(NULL) + ylab(NULL) +
+  facet_grid(N ~ m_label) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+
+figure_inferiority_non_superiority <- gg_inf_non_sup
+figure_inferiority_non_superiority
+```
+
+(ref:inferiority-non-superiority-caption) **Inferiority and Non-Superiority tests. **Similar to equivalence test using TOST procedure, inferiority and non-superiority tests involve two one-sided NHSTs at SESOI thresholds in the negative direction. Error bars represent 90% confidence intervals.
+
+### Inference from METs
+
+The aforementioned METs provide five p-values: for lower (inferiority), not-higher (non-superiority), equivalent (equivalence), not-lower (non-inferiority), and higher (superiority) effect magnitude. These p-values can be used to make magnitude-based inferences about the effects. Figure \@ref(fig:met-results) depicts already used examples to calculate p-values from METs and the final inference on the magnitude of the effect (see Figure \@ref(fig:effect-magnitudes)).
+
+```{r met-results, fig.cap="(ref:met-results-caption)"}
+MET_raw <- function(m, mu, sd, N = Inf, lower = mu, upper = mu, alpha = 0.05) {
+  # adjust alpha?
+  # alpha <- alpha / 5
+
+  ### Minimum Effects Tests
+  # NHST
+  p_value <- (1 - pt(abs((m - mu) / (sd / sqrt(N))), df = N - 1)) * 2
+
+  # TOST / Equivalence
+  tost_upper <- pt((m - upper) / (sd / sqrt(N)), df = N - 1)
+  tost_lower <- 1 - pt((m - lower) / (sd / sqrt(N)), df = N - 1)
+  equivalence <- max(tost_upper, tost_lower)
+
+  # Minimal-Effects Tests
+  superior <- 1 - pt((m - upper) / (sd / sqrt(N)), df = N - 1)
+  non_inferior <- 1 - pt((m - lower) / (sd / sqrt(N)), df = N - 1)
+  inferior <- pt((m - lower) / (sd / sqrt(N)), df = N - 1)
+  non_superior <- pt((m - upper) / (sd / sqrt(N)), df = N - 1)
+
+  # Results
+  MET <- data.frame(
+    test = c("NHST", "Inferiority", "Non-Superiority", "Equivalence", "Non-Inferiority", "Superiority"),
+    p_value = c(p_value, inferior, non_superior, max(tost_upper, tost_lower), non_inferior, superior)
+  )
+  MET <- MET %>%
+    mutate(significance = ifelse(p_value < alpha, "Significant", "Non-Significant"))
+
+  # Final Inference
+  if (equivalence < alpha) {
+    final_inference <- "Equivalent"
+  } else {
+    if (superior < alpha) {
+      final_inference <- "Higher"
+    } else {
+      if (inferior < alpha) {
+        final_inference <- "Lower"
+      } else {
+        if (non_superior < alpha) {
+          final_inference <- "Not-Higher"
+        } else {
+          if (non_inferior < alpha) {
+            final_inference <- "Not-Lower"
+          } else {
+            final_inference <- "Equivocal"
+          }
+        }
+      }
+    }
+  }
+
+  ### Hopkins MBI
+  positive <- 1 - pt((upper - m) / (sd / sqrt(N)), df = N - 1)
+  negative <- pt((lower - m) / (sd / sqrt(N)), df = N - 1)
+  equivalent <- 1 - (positive + negative)
+
+  MBI <- data.frame(
+    negative = negative,
+    equivalent = equivalent,
+    positive = positive
+  )
+
+  # Confidence intervals
+  confidence <- 1 - alpha
+  sem <- sd / sqrt(N)
+  ci_lower <- m - qt((1 - confidence) / 2 + confidence, N - 1) * sem
+  ci_upper <- m + qt((1 - confidence) / 2 + confidence, N - 1) * sem
+
+  CIs <- data.frame(
+    Value = m,
+    Lower = ci_lower,
+    Upper = ci_upper,
+    Confidence = confidence
+  )
+
+  return(list(
+    MET = MET,
+    Inference = final_inference,
+    MBI = MBI,
+    CIs = CIs
+  ))
+}
+
+MET_test <- expand.grid(
+  data = c(170, 177.5, 185),
+  N = c(5, 20, 40),
+  Confidence = 0.90
+) %>%
+  rowwise() %>%
+  mutate(
+    t_crit = qt(Confidence + (1 - Confidence) / 2, N - 1),
+    CI_lower = data - t_crit * (population_sd / sqrt(N)),
+    CI_upper = data + t_crit * (population_sd / sqrt(N)),
+
+    lower = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$MET$p_value[2],
+    not_higher = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$MET$p_value[3],
+    equivalence = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$MET$p_value[4],
+    not_lower = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$MET$p_value[5],
+    higher = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$MET$p_value[6],
+    inference = MET_raw(data, population_mean, population_sd, N, population_mean + lower_bound, population_mean + upper_bound, 0.05)$Inference,
+    inference_label = paste("Inference: ", inference,
+      "\n",
+      "Lower=", round(lower, 2), "\n",
+      "Not-Higher=", round(not_higher, 2), "\n",
+      "Equivalent=", round(equivalence, 2), "\n",
+      "Not-Lower=", round(not_lower, 2), "\n",
+      "Higher=", round(higher, 2),
+      sep = ""
+    )
+  ) %>%
+  ungroup() %>%
+  mutate(
+    N = factor(N, labels = rev(c("N=5", "N=10", "N=20"))),
+    data_label = factor(data, labels = c("Sample mean 180cm", "Sample mean 182.5cm", "Sample mean 185cm"))
+  )
+
+gg_MET <- ggplot(MET_test, aes(x = data, y = rev(N))) +
+  theme_cowplot(8) +
+  facet_grid(~data_label) +
+  geom_vline(xintercept = population_mean + upper_bound, color = "black", linetype = "dotted") +
+  geom_vline(xintercept = population_mean + lower_bound, color = "black", linetype = "dotted") +
+  geom_point(aes(x = data), size = 3) +
+  geom_errorbarh(aes(xmin = CI_lower, xmax = CI_upper), width = 0.05, size = 0.5) +
+  geom_text(aes(x = 185, label = inference_label), size = 1.6, hjust = 0, vjust = 1.1, check_overlap = TRUE) +
+  xlab(NULL) + ylab(NULL) + # xlim(c(160, 200)) +
+  theme(legend.position = "none")
+
+figure_MET <- gg_MET
+figure_MET
+```
+
+(ref:met-results-caption) **Minimum Effect Test results. **Error bars represent 90% confidence intervals.
+
+## Magnitude Based Inference
+
+Batterham and Hopkins [@batterhamMakingMeaningfulInferences2006; @hopkinsProgressiveStatisticsStudies2009] proposed novel approach in making meaningful inference about magnitudes, called *magnitude based inference* (MBI). MBI has been recently criticized [@barkerInferenceMagnitudesEffects2008; @borgBayesianMethodsMight2018; @curran-everettMagnitudebasedInferenceGood2018; @hopkinsVindicationMagnitudeBasedInference2018; @nevillCanWeTrust2018; @sainaniMagnitudeBasedInference2019; @sainaniProblemMagnitudebasedInference2018; @welshMagnitudebasedInferenceStatistical2015] for interpreting CIs as Bayesian credible intervals and for not controlling Type I and Type II errors. 
+
+As explained, CIs doesn't contain any probability distribution information about the true parameter. Although CIs, Bayesian *credible intervals* (with flat or non-informative *prior*), and *bootstrap CIs* tend to converge to the approximately same values for very simple tests (such as t-test for the sample `mean`), interpreting CIs established using frequentist approach as Bayesian credible intervals is not valid approach to statistical inference [@sainaniMagnitudeBasedInference2019]. Figure \@ref(fig:mbi) depicts Bayesian interpretation of the confidence intervals used in MBI. 
+
+Using MBI as a simple descriptive approach to interpret CIs can be rationalized, but making inferences from estimated probabilities is not recommended [@caldwellBasicStatisticalConsiderations2019]. If frequentist approaches are used for magnitude-based statistical inference, METs should be used instead.
+
+```{r mbi, fig.cap="(ref:mbi-caption)"}
+mbi_test <- expand.grid(
+  x = seq(population_mean - 10 * population_sd / sqrt(sample_size),
+    population_mean + 10 * population_sd / sqrt(sample_size),
+    length.out = 100
+  ),
+  m = c(170, 177.5, 185),
+  N = c(5, 20, 40),
+  lower = population_mean + lower_bound,
+  upper = population_mean + upper_bound
+) %>%
+  mutate(
+    h_data = dt(x = (x - m) / (population_sd / sqrt(N)), df = N - 1) / (population_sd / sqrt(N)),
+    h_data_zone = ifelse(x < lower, "Lower",
+      ifelse(x > upper, "Higher", "Equivalent")
+    ),
+    p_lower = pt((lower - m) / (population_sd / sqrt(N)), df = N - 1),
+    p_higher = 1 - pt((upper - m) / (population_sd / sqrt(N)), df = N - 1),
+    p_equivalent = 1 - (p_lower + p_higher),
+    sem = population_sd / sqrt(N),
+    confidence = 0.9,
+    CI_lower = m - qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    CI_upper = m + qt((1 - confidence) / 2 + confidence, N - 1) * sem,
+    N = factor(N, labels = c("N=5", "N=20", "N=40")),
+    m_label = factor(m, labels = unique(paste("Sample mean ", m, "cm", sep = "")))
+  )
+
+gg_mbi_test <- ggplot(mbi_test, aes(x = x)) +
+  theme_cowplot(8) +
+  geom_area(alpha = 0.8, aes(y = h_data, fill = h_data_zone)) +
+  geom_vline(xintercept = population_mean + upper_bound, color = "black", linetype = "dotted") +
+  geom_vline(xintercept = population_mean + lower_bound, color = "black", linetype = "dotted") +
+  geom_point(aes(x = m, y = -0.01)) +
+  geom_errorbarh(aes(y = -0.01, xmin = CI_lower, xmax = CI_upper), width = 0.01) +
+  geom_text(
+    x = 190, y = 0.05, size = 2, hjust = 0, check_overlap = TRUE,
+    aes(label = paste("Lower=", round(p_lower, 2), "\n",
+      "Equivalent=", round(p_equivalent, 2), "\n",
+      "Higher=", round(p_higher, 2),
+      sep = ""
+    ))
+  ) +
+  scale_fill_manual(values = c(user_grey, user_green, user_red)) +
+  xlab(NULL) + ylab(NULL) +
+  facet_grid(N ~ m_label) +
+  theme(
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.line.y = element_blank()
+  )
+figure_mbi_test <- gg_mbi_test
+figure_mbi_test 
+```
+
+(ref:mbi-caption) **Magnitude-based inference use inappropriate Bayesian interpretation of the confidence intervals to calculate lower, equivalent, and higher probabilities of the effect. **Vertical dashed lines represent SESOI.  thresholds. Error bars represent 90% confidence intervals.
+
+There are numerous problems with frequentist inference [@kruschkeBayesianNewStatistics2018; @kruschkeBayesianDataAnalysis2018]. The results are not intuitive and are usually erroneously interpreted from the Bayesian perspective. Error rates need to be controlled for and adjusted when multiple comparisons are made, or when different *stopping* techniques are used, sampling distributions are unknown for some estimators and cannot be derived algebraically. Various assumptions such as assumptions of normality, non-colinearity and others, need to be made and tested for, and for more complex models, such as *hierarchical models*, p-values and CIs are only approximated [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018]. It is beyond this short chapter to delve into more details, regarding the frequentist approach to statistical inference, and readers are directed to references provided in this section. 
+
+

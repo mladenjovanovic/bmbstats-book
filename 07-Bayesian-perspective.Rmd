@@ -1,0 +1,824 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Load bmbstats locally
+require(bmbstats)
+
+# Run common script
+source("_common.R")
+
+require(tidyverse)
+require(cowplot)
+require(directlabels)
+require(kableExtra)
+require(bayestestR)
+require(ggridges)
+
+#equivalent_color <- user_grey
+
+population_mean <- 177.8
+population_sd <- 10.16
+
+tdist_freq_est <- function(x, confidence = 0.95) {
+  sample_size <- length(x)
+  sample_sd <- sd(x)
+  sample_mean <- mean(x)
+
+  sem <- sample_sd / sqrt(sample_size)
+
+  return(data.frame(
+    value = sample_mean,
+    lower = sample_mean - qt((1 - confidence) / 2 + confidence, sample_size - 1) * sem,
+    upper = sample_mean + qt((1 - confidence) / 2 + confidence, sample_size - 1) * sem
+  ))
+}
+
+
+# Function for mode
+get_mode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+  
+  # bayestestR map_estimate can be used instead, but sometimes produce error when compiling the doc
+  # map_estimate(v)
+}
+```
+# Bayesian perspective
+
+Bayesian inference is reallocation of plausibility (credibility) across possibilities [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018; @mcelreathStatisticalRethinkingBayesian2015]. Kruschke and Liddell [@kruschkeBayesianDataAnalysis2018, pp. 156] wrote in their paper as follows: 
+
+>"The main idea of Bayesian analysis is simple and intuitive. There are some data to be explained, and we have a set of candidate explanations. Before knowing the new data, the candidate explanations have some prior credibility of being the best explanation. Then, when given the new data, we shift credibility toward the candidate explanations that better account for the data, and we shift credibility away from the candidate explanations that do not account well for the data. A mathematically compelling way to reallocate credibility is called Bayes’ rule. The rest is just details."
+
+The aim of this section is to provide the gross overview of the Bayesian inference using *grid approximation* method [@mcelreathStatisticalRethinkingBayesian2015], which is excellent teaching tool, but very limited for Bayesian analysis beyond simple mean and simple linear regression inference. More elaborate discussion on the Bayesian methods, such as Bayes factor, priors selection, model comparison, and *Markov Chain Monte Carlo* sampling is beyond the scope of this book. Interested readers are directed to the references provided and suggested readings at the end of this book.
+
+
+## Grid approximation
+
+To showcase the rationale behind Bayesian inference let's consider the same example used in [Frequentist perspective] chapter - the male height. The question we are asking is, given our data, what is the true average male height (`mean`; mu or Greek letter $\mu$) and `SD` (sigma or Greek letter $\sigma$). You can immediately notice the difference in the question asked. In the frequentist approach we are asking "What is the probability of observing the data[^data-estimator] (estimator, like `mean` or `Cohen's d`), given the null hypothesis?" 
+
+[^data-estimator]: Personally, I found this confusing when I started my journey into inferential statistics. I prefer to state "What is the probability of observing value (i.e. estimate) of the selected **estimator** given the null hypothesis (null being estimator value)?", rather than using the term *data*. We are making inferences using the data estimator, not the data *per se*. For example, we are not inferring whether the groups differ (i.e. data), but whether the group `means` differ (estimator).
+
+True average male height and true `SD` represents parameters, and with Bayesian inference we want to relocate credibility across possibilities of those parameters (given the data collected). For the sake of this simplistic example, let's consider the following possibilities for the `mean` height: 170, 175, 180cm, and for SD: 9, 10, 11cm. This gives us the following *grid* (Table \@ref(tab:bayes-height-grid)), which combines all possibilities in the parameters, hence the name grid approximation. Since we have three possibilities for each parameter, the grid consists of 9 total possibilities. 
+
+(ref:bayes-height-grid-caption) **Parameter possibilities**
+
+```{r bayes-height-grid}
+parameter_space <- expand.grid(
+  mu = c(170, 175, 180),
+  sigma = c(9, 10, 11)
+)
+
+knitr::kable(
+  parameter_space,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-caption)"
+)
+```
+
+
+## Priors
+
+Before analyzing the collected data sample, with Bayesian inference we want to state the *prior* beliefs in parameter possibilities. For example, I might state that from previous data collected, I believe that the `mean` height is around 170 and 180cm, with a peak at 175cm (e.g. approximating normal curve). We will come back to topic of prior later on, but for now lets use *uniform* or *vague* prior, which assigns equal plausibility to all `mean` height and `SD` possibilities. Since each parameter has three possibilities, and since probabilities needs to sum up to 1, each possibility has probability of 1/3 or 0.333. This is assigned to our grid in the Table \@ref(tab:bayes-height-grid-priors). 
+
+(ref:bayes-height-grid-priors-caption) **Parameter possibilities with priors**
+
+```{r bayes-height-grid-priors}
+# Priors
+parameter_space <- parameter_space %>%
+  mutate(
+    `mu prior` = 1,
+    `sigma prior` = 1,
+    # Make sum to one
+    `mu prior` = `mu prior` / length(unique(mu)),
+    `sigma prior` = `sigma prior` / length(unique(sigma))
+  )
+
+knitr::kable(
+  parameter_space,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-priors-caption)"
+)
+```
+
+## Likelihood function
+
+The sample height data we have collected for N=5 individuals is 167, 192, 183, 175, 177cm. From this sample we are interested in making inference to the true parameter values (i.e. `mean` and `SD`, or $\mu$ and $\sigma$). Without going into the *Bayes theorem* for *inverse probability*, the next major step is the *likelihood function*. Likelihood function gives us a likelihood of observing data, given parameters. Since we have 9 parameter possibilities, we are interested in calculating the likelihood of observing the data for each possibility. This is represented with a following Equation \@ref(eq:likelihood-function):
+
+$$
+\begin{equation}
+  L(x|\mu, \sigma) = \prod_{i=1}^{n}f(x_{i}, \mu, \sigma) 
+  (\#eq:likelihood-function)
+\end{equation}
+$$
+
+The likelihood of observing the data is calculated by taking the *product* (indicated by $\prod_{i=1}^{n}$ sign in the Equation \@ref(eq:likelihood-function) of likelihood of observing individual scores. The likelihood function is normal *probability density function* (PDF)[^other-likelihood]:, whose parameters are $\mu$ and $\sigma$ (see Figure \@ref(fig:data-likelihood)). This function has the following Equation \@ref(eq:likelihood-equation):
+
+[^other-likelihood]: There are other likelihood functions that one can use of course, similar to the various *loss functions* used in [Prediction] section. 
+
+$$
+\begin{equation}
+  f(x_{i}, \mu, \sigma) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2}) }} {\sigma\sqrt{2\pi}}
+  (\#eq:likelihood-equation)
+\end{equation}
+$$
+
+Let's take a particular possibility of $\mu$ and $\sigma$, e.g. 175cm and 9cm, and calculate likelihoods for each observed score (Table \@ref(tab:bayes-height-grid-likelihood)).
+
+(ref:bayes-height-grid-likelihood-caption) **Likelihoods of observing scores given $\mu$ and $\sigma$ equal to 175cm and 9cm**
+
+```{r bayes-height-grid-likelihood}
+sample_data <- c(167, 192, 183, 175, 177)
+
+score_likelihoods <- expand.grid(
+  mu = 175,
+  sigma = 9,
+  x = sample_data
+)
+
+score_likelihoods <- score_likelihoods %>%
+  mutate(likelihood = dnorm(x, mu, sigma))
+
+knitr::kable(
+  score_likelihoods,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-likelihood-caption)"
+)
+```
+
+Now, to estimate likelihood of the sample, we need to take the product of each individual score likelihoods. However, now we have a problem, since the result will be very, very small number (`r prod(score_likelihoods$likelihood)`). To solve this issue, we take the log of the likelihood function. This is called *log likelihood* (LL) and it is easier to compute without the fear of losing digits. Table \@ref(tab:bayes-height-grid-log-likelihood) contains calculated log from the score likelihood. 
+
+(ref:bayes-height-grid-log-likelihood-caption) **Likelihoods and log likelihoods of observing scores given $\mu$ and $\sigma$ equal to 175cm and 9cm**
+
+```{r bayes-height-grid-log-likelihood}
+score_likelihoods <- score_likelihoods %>%
+  mutate(LL = dnorm(x, mu, sigma, TRUE))
+
+knitr::kable(
+  score_likelihoods,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-log-likelihood-caption)"
+)
+```
+
+Rather than taking a product of the LL to calculate the overall likelihood of the sample, we take the sum. This is due the properties of the logarithmic algebra, where $\log{x_1\times x_2} = log{x_1} + log{x_2}$, which means that if we take the exponent of the sum of the log likelihoods, we will get the same result as taking the exponent of the product of likelihoods. Thus the overall log likelihood of observing the sample is equal to `r round(sum(score_likelihoods$LL), 2)`. If we take the exponent of this, we will get the same results as the product of individual likelihoods, which is equal to `r exp(sum(score_likelihoods$LL))`. This *mathematical trick* is needed to prevent very small numbers and thus loosing precision. 
+
+If we repeat the same procedure for every parameter possibility in our grid, we get the following log likelihoods (Table \@ref(tab:bayes-height-grid-log-likelihood-product)). This procedure is also visually represented in the Figure \@ref(fig:data-likelihood) for easier comprehension.
+
+(ref:bayes-height-grid-log-likelihood-product-caption) **Sum of data log likelihoods for parameter possibilities**
+
+```{r bayes-height-grid-log-likelihood-product}
+# Likelihood of the data given parameters
+parameter_space$LL <- sapply(seq(1, nrow(parameter_space)), function(i) {
+  sum(dnorm(sample_data,
+    mean = parameter_space$mu[i],
+    sd = parameter_space$sigma[i],
+    log = TRUE
+  ))
+})
+
+knitr::kable(
+  parameter_space,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-log-likelihood-product-caption)"
+)
+```
+
+```{r data-likelihood, fig.cap="(ref:data-likelihood-caption)"}
+#### Plot likelihoods
+ll_data <- expand.grid(
+  mu = unique(parameter_space$mu),
+  sigma = unique(parameter_space$sigma),
+  x = seq(min(unique(parameter_space$mu)) - 3 * max(unique(parameter_space$sigma)),
+    max(unique(parameter_space$mu)) + 3 * max(unique(parameter_space$sigma)),
+    length.out = 100
+  )
+)
+
+ll_data <- ll_data %>%
+  rowwise() %>%
+  mutate(
+    ll_function = dnorm(x, mu, sigma),
+    LL = sum(dnorm(sample_data, mu, sigma, TRUE)),
+    mu_label = paste("mu=", mu, "cm", sep = ""),
+    sigma_label = paste("sigma=", sigma, "cm", sep = ""),
+    LL_label = paste("LL=", round(LL, 2), sep = "")
+  )
+
+ll_data$sigma_label <- factor(ll_data$sigma_label,
+  levels = paste("sigma=", unique(parameter_space$sigma), "cm", sep = "")
+)
+
+ll_data_sample <- expand.grid(
+  mu = unique(parameter_space$mu),
+  sigma = unique(parameter_space$sigma),
+  x = sample_data
+)
+
+ll_data_sample <- ll_data_sample %>%
+  rowwise() %>%
+  mutate(
+    ll = dnorm(x, mu, sigma),
+    xend = x,
+    ystart = 0,
+    mu_label = paste("mu=", mu, "cm", sep = ""),
+    sigma_label = paste("sigma=", sigma, "cm", sep = "")
+  )
+
+ll_data_sample$sigma_label <- factor(ll_data_sample$sigma_label,
+  levels = paste("sigma=", unique(parameter_space$sigma), "cm", sep = "")
+)
+
+
+gg_ll <- ggplot(ll_data, aes(x = x, y = ll_function)) +
+  theme_cowplot(8) +
+  geom_line(size = 1) +
+  geom_segment(data = ll_data_sample, aes(x = x, xend = xend, yend = ll, y = ystart), color = user_blue) +
+  geom_point(data = ll_data_sample, aes(x = x, y = ll), shape = 21, fill = "white") +
+  geom_text(
+    x = 190, y = 0.03, size = 2, hjust = 0, check_overlap = TRUE,
+    aes(label = LL_label)
+  ) +
+  facet_grid(sigma_label ~ mu_label) +
+  ylab("Likelihood") +
+  xlab("Height (cm)") + xlab(c(140, 210))
+
+gg_ll
+```
+
+(ref:data-likelihood-caption) **Likelihood of data given parameters. **$\mu$ and $\sigma$ represent parameters for which we want to estimate likelihood of observing data collected
+
+## Posterior probability
+
+To get the *posterior* probabilities of parameter possibilities, likelihoods need to be multiplied with priors ($posterior = prior \times likelihood$). This is called *Bayesian updating*. Since we have log likelihoods, we need to sum the log likelihoods with log of priors instead ($\log{posterior} = \log{prior} + \log{likelihood}$). To get the posterior probability, after converting log posterior to posterior using exponent ($posterior = e^{\log{posterior}}$)[^mathematical_trick], we need to make sure that probabilities of parameter possibility sum to one. This is done by simply dividing probabilities for each parameter possibility by the sum of probabilities.   
+
+[^mathematical_trick]: There is one more *mathematical trick* done to avoid very small numbers explained in @mcelreathStatisticalRethinkingBayesian2015 and it involves doing the following calculation to get the posterior probabilities: $posterior = e^{\log{posterior} - max(\log{posterior}))}$.
+
+Table \@ref(tab:bayes-height-grid-posterior) contains the results of Bayesian inference. The posterior probabilities are called *joint probabilities* since they represent probability of a combination of particular $\mu$ and $\sigma$ possibility.  
+
+(ref:bayes-height-grid-posterior-caption) **Estimated posterior probabilities for parameter possibilities given the data**
+
+```{r bayes-height-grid-posterior}
+# Multiply likelihood with the prior (since on the log scale use sum)
+parameter_space$posterior <- parameter_space$LL + log(parameter_space$`mu prior`) + log(parameter_space$`sigma prior`)
+
+# Mathematical trick to avoid rounding to zero due very small numbers
+parameter_space$posterior <- exp(parameter_space$posterior - max(parameter_space$posterior))
+
+# Make posterior probabilities sum to one
+parameter_space$posterior <- parameter_space$posterior / sum(parameter_space$posterior)
+
+knitr::kable(
+  parameter_space,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-posterior-caption)"
+)
+```
+
+Table \@ref(tab:bayes-height-grid-posterior) can be be converted into 3x3 matrix, with possibilities of $\mu$ in the columns, and possibilities of the $\sigma$ in the rows and posterior joint probabilities in the cells (Table \@ref(tab:bayes-height-grid-posterior-matrix)). The *sums* of the joint probabilities in the Table \@ref(tab:bayes-height-grid-posterior-matrix) margins represent *marginal probabilities* for parameters. 
+
+(ref:bayes-height-grid-posterior-matrix-caption) **Joint distribution of the parameter possibilities. **Sums at the table margins represent marginal probabilities
+
+```{r bayes-height-grid-posterior-matrix}
+# Create matrix for joint distribution
+joint_distribution <- spread(select(parameter_space, mu, sigma, posterior), mu, posterior)
+rownames(joint_distribution) <- joint_distribution$sigma
+joint_distribution[1] <- NULL
+joint_distribution <- addmargins(as.matrix(joint_distribution))
+
+knitr::kable(
+  joint_distribution,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-height-grid-posterior-matrix-caption)"
+)
+```
+
+Since we have only two parameters, the joint probabilities can be represented with the *heat map*. Figure \@ref(fig:heat-map) is a visual representation of the Table \@ref(tab:bayes-height-grid-posterior-matrix).
+
+```{r heat-map, fig.cap="(ref:heat-map-caption)"}
+# Contour plot of the joint distribution
+gg_joint <- ggplot(parameter_space, aes(x = mu, y = sigma, z = posterior)) +
+  theme_cowplot(8) +
+  # stat_contour(geom = "polygon", aes(fill = ..level..)) +
+  geom_tile(aes(fill = posterior)) +
+  scale_fill_gradient2()
+
+gg_joint
+```
+
+(ref:heat-map-caption) **Heat map of $\mu$ and $\sigma$ joint probabilities**
+
+When we have more than 2 parameters, visualization of joint probabilities get's tricky and we rely on visualizing marginal posterior probabilities of each parameter instead. As explained, marginal probabilities are calculated by summing all joint probabilities for a particular parameter possibility (see Table \@ref(tab:bayes-height-grid-posterior-matrix)). Figure \@ref(fig:(marginal-prior-posterior) depicts marginal probabilities (including prior probabilities) for $\mu$ and $\sigma$.
+
+```{r marginal-prior-posterior, fig.cap="(ref:marginal-prior-posterior-caption)"}
+# Get marginal distributions
+mu_marginal <- parameter_space %>%
+  group_by(mu) %>%
+  summarize(
+    Prior = mean(`mu prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -mu) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+sigma_marginal <- parameter_space %>%
+  group_by(sigma) %>%
+  summarize(
+    Prior = mean(`sigma prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -sigma) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+# Merge them together
+marginal_distribution <- rbind(mu_marginal, sigma_marginal)
+
+# Plot marginal distributions
+gg_distr <- ggplot(marginal_distribution, aes(x = value, y = probability)) +
+  theme_cowplot(8) +
+  facet_grid(distribution ~ parameter, scales = "free_x") +
+  geom_area(color = NA, fill = user_blue) +
+  xlab("Parameter value (cm)") + ylab("Probability")
+
+figure_distributions <- gg_distr
+figure_distributions
+```
+
+(ref:marginal-prior-posterior-caption) **Prior and posterior distributions resulting from simplified grid-approximation example**
+
+As can be seen from the Figures \@ref(fig:heat-map) and \@ref(fig:marginal-prior-posterior), the most likely parameter possibilities, given the data, are $\mu$ of 180cm and $\sigma$ of 9cm. 
+
+## Adding more possibilities
+
+So far, we have made this very granular in order to be understood. However, since we are dealing with continuous parameters, performing grid approximation for more than 9 total parameter possibilities seems warranted. The calculus is exactly the same, as well as the sample collected, but now we will use the larger range for both $\mu$ (160-200cm) and $\sigma$ (1-30cm), each with 100 possibilities. We are estimating credibility for total of $100 \times 100 = 10,000$ parameter possibilities. Figure \@ref(fig:heat-map-100-100) depicts heat map for the joint probabilities, and Figure \@ref(fig:marginal-100-100) depicts prior and posterior marginal distributions for each parameter. 
+
+```{r heat-map-100-100, fig.cap="(ref:heat-map-100-100-caption)"}
+# Parameter values
+parameter_space <- expand.grid(
+  mu = seq(160, 200, length.out = 100),
+  sigma = seq(1, 30, length.out = 100)
+)
+# Priors
+parameter_space <- parameter_space %>%
+  mutate(
+    `mu prior` = dunif(mu, 0, 200),
+    `sigma prior` = dunif(sigma, 0, 50),
+    # Make sum to one
+    `mu prior` = `mu prior` / sum(`mu prior`),
+    `sigma prior` = `sigma prior` / sum(`sigma prior`)
+  )
+
+# Likelihood of the data given parameters
+parameter_space$LL <- sapply(seq(1, nrow(parameter_space)), function(i) {
+  sum(dnorm(sample_data,
+    mean = parameter_space$mu[i],
+    sd = parameter_space$sigma[i],
+    log = TRUE
+  ))
+})
+
+# Multiply likelihood with the prior (since on the log scale use sum)
+parameter_space$posterior <- parameter_space$LL + log(parameter_space$`mu prior`) + log(parameter_space$`sigma prior`)
+
+# Mathematical trick to avoid rounding to zero due very small numbers
+parameter_space$posterior <- exp(parameter_space$posterior - max(parameter_space$posterior))
+
+# Make posterior probabilities sum to one
+parameter_space$posterior <- parameter_space$posterior / sum(parameter_space$posterior)
+
+# Contour plot of the joint distribution
+gg_joint <- ggplot(parameter_space, aes(x = mu, y = sigma, z = posterior)) +
+  theme_cowplot(8) +
+  # stat_contour(geom = "polygon", aes(fill = ..level..)) +
+  geom_tile(aes(fill = posterior)) +
+  scale_fill_gradient2() +
+  xlab("mu (cm)") + ylab("sigma (cm)")
+
+gg_joint
+```
+
+(ref:heat-map-100-100-caption) **Heat map of $\mu$ and $\sigma$ joint probabilities when $100\times 100$ grid-approximation is used**
+
+```{r marginal-100-100, fig.cap="(ref:marginal-100-100-caption)"}
+# Get marginal distributions
+mu_marginal <- parameter_space %>%
+  group_by(mu) %>%
+  summarize(
+    Prior = sum(`mu prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -mu) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+sigma_marginal <- parameter_space %>%
+  group_by(sigma) %>%
+  summarize(
+    Prior = sum(`sigma prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -sigma) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+# Merge them together
+marginal_distribution <- rbind(mu_marginal, sigma_marginal)
+
+# Plot marginal distributions
+gg_distr <- ggplot(marginal_distribution, aes(x = value, y = probability)) +
+  theme_cowplot(8) +
+  facet_grid(distribution ~ parameter, scales = "free_x") +
+  geom_area(color = NA, fill = user_blue) +
+  xlab("Height (cm)") + ylab("Probability")
+
+figure_distributions_100x100 <- gg_distr
+figure_distributions_100x100
+```
+
+(ref:marginal-100-100-caption) **Prior and posterior distributions resulting from $100\times 100$ grid-approximation example**
+
+Grid approximation utilized here is great for educational purposes and very simple models, but as number of parameters increases, the number of total parameter possibility grow so large, that it might take millions of years for a single computer to compute the posterior distributions. For example, if we have linear regression model with two predictors, we will have 4 parameters to estimate (intercept $\beta_{0}$, predictor one $\beta_{1}$, predictor two $\beta_{2}$, and residual standard error $\sigma$), and if we use 100 possibilities for each parameter, we will get 10^8 total number of possibilities. 
+
+This was the reason why Bayesian inference was not very practical. Until algorithms such as *Markov Chain Monte Carlo* (MCMC) emerged making Bayesian inference a walk in the park. Statistical Rethinking book by Richard McElreath is outstanding introduction into these topics. 
+
+## Different prior
+
+In this example we have used vague priors for both $\mu$ and $\sigma$. But let's see what happens when I strongly believe (before seeing the data), that $\mu$ is around 190cm (using normal distribution with mean 190 and SD of 2 to represent this prior), but I do not have a clue about $\sigma$ prior distribution and I choose to continue using uniform prior for this parameter. 
+
+This prior belief is, of course, wrong, but maybe I am biased since I originate, let's say from Montenegro, country with one of the tallest men. Figure \@ref(fig:strong-prior) contains plotted prior and posterior distributions. As can be seen, using very strong prior for $\mu$ shifted the posterior distribution to the higher heights. In other words, the data collected were not enough to *overcome* my prior belief about average height.
+
+```{r strong-prior, fig.cap="(ref:strong-prior-caption)"}
+parameter_space <- expand.grid(
+  mu = seq(160, 200, length.out = 100),
+  sigma = seq(1, 30, length.out = 100)
+)
+# Priors
+parameter_space <- parameter_space %>%
+  mutate(
+    `mu prior` = dnorm(mu, 190, 2),
+    `sigma prior` = dunif(sigma, 0, 50),
+    # Make sum to one
+    `mu prior` = `mu prior` / sum(`mu prior`),
+    `sigma prior` = `sigma prior` / sum(`sigma prior`)
+  )
+
+# Likelihood of the data given parameters
+parameter_space$LL <- sapply(seq(1, nrow(parameter_space)), function(i) {
+  sum(dnorm(sample_data,
+    mean = parameter_space$mu[i],
+    sd = parameter_space$sigma[i],
+    log = TRUE
+  ))
+})
+
+# Multiply likelihood with the prior (since on the log scale use sum)
+parameter_space$posterior <- parameter_space$LL + log(parameter_space$`mu prior`) + log(parameter_space$`sigma prior`)
+
+# Mathematical trick to avoid rounding to zero due very small numbers
+parameter_space$posterior <- exp(parameter_space$posterior - max(parameter_space$posterior))
+
+# Make posterior probabilities sum to one
+parameter_space$posterior <- parameter_space$posterior / sum(parameter_space$posterior)
+
+# Get marginal distributions
+mu_marginal <- parameter_space %>%
+  group_by(mu) %>%
+  summarize(
+    Prior = sum(`mu prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -mu) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+sigma_marginal <- parameter_space %>%
+  group_by(sigma) %>%
+  summarize(
+    Prior = sum(`sigma prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -sigma) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+# Merge them together
+marginal_distribution <- rbind(mu_marginal, sigma_marginal)
+
+# Plot marginal distributions
+gg_distr <- ggplot(marginal_distribution, aes(x = value, y = probability)) +
+  theme_cowplot(8) +
+  facet_grid(distribution ~ parameter, scales = "free_x") +
+  geom_area(color = NA, fill = user_blue) +
+  xlab("Height (cm)") + ylab("Probability")
+
+figure_strong_prior <- gg_distr
+figure_strong_prior
+```
+
+(ref:strong-prior-caption) **Effects of very strong prior on posterior**
+
+## More data
+
+The sample height data we have collected for N=5 individuals (167, 192, 183, 175, 177cm) was not strong to overcome prior belief. However, what if we sampled N=100 males from known population of known mean height of 177.8 and SD of 10.16? Figure \@ref(fig:more-data) depicts prior and posterior distributions in this example. As can be seen, besides having narrower posterior distributions for $\mu$ and $\sigma$, more data was able to overcome my strong prior bias towards mean height of 190cm. 
+
+```{r more-data, fig.cap="(ref:more-data-caption)"}
+sample_data <- rnorm(100, population_mean, population_sd)
+
+parameter_space <- expand.grid(
+  mu = seq(160, 200, length.out = 100),
+  sigma = seq(1, 30, length.out = 100)
+)
+# Priors
+parameter_space <- parameter_space %>%
+  mutate(
+    `mu prior` = dnorm(mu, 190, 2),
+    `sigma prior` = dunif(sigma, 0, 50),
+    # Make sum to one
+    `mu prior` = `mu prior` / sum(`mu prior`),
+    `sigma prior` = `sigma prior` / sum(`sigma prior`)
+  )
+
+# Likelihood of the data given parameters
+parameter_space$LL <- sapply(seq(1, nrow(parameter_space)), function(i) {
+  sum(dnorm(sample_data,
+    mean = parameter_space$mu[i],
+    sd = parameter_space$sigma[i],
+    log = TRUE
+  ))
+})
+
+# Multiply likelihood with the prior (since on the log scale use sum)
+parameter_space$posterior <- parameter_space$LL + log(parameter_space$`mu prior`) + log(parameter_space$`sigma prior`)
+
+# Mathematical trick to avoid rounding to zero due very small numbers
+parameter_space$posterior <- exp(parameter_space$posterior - max(parameter_space$posterior))
+
+# Make posterior probabilities sum to one
+parameter_space$posterior <- parameter_space$posterior / sum(parameter_space$posterior)
+
+# Get marginal distributions
+mu_marginal <- parameter_space %>%
+  group_by(mu) %>%
+  summarize(
+    Prior = sum(`mu prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -mu) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+sigma_marginal <- parameter_space %>%
+  group_by(sigma) %>%
+  summarize(
+    Prior = sum(`sigma prior`),
+    Posterior = sum(posterior)
+  ) %>%
+  gather(key = "distribution", value = "probability", -sigma) %>%
+  mutate(distribution = factor(distribution, levels = c("Prior", "Posterior"))) %>%
+  gather(key = "parameter", value = "value", -distribution, -probability)
+
+# Merge them together
+marginal_distribution <- rbind(mu_marginal, sigma_marginal)
+
+# Plot marginal distributions
+gg_distr <- ggplot(marginal_distribution, aes(x = value, y = probability)) +
+  theme_cowplot(8) +
+  facet_grid(distribution~parameter, scales = "free_x") +
+  geom_area(color = NA, fill = user_blue) +
+  xlab("Height (cm)") + ylab("Probability")
+
+gg_distr
+```
+
+(ref:more-data-caption) **When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution**
+
+## Summarizing prior and posterior distributions with MAP and HDI
+
+In Bayesian statistics, the prior and posterior distributions are usually summarized using *highest maximum a posteriori* (MAP) and 90% or 95% *highest density interval* (HDI) [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018; @mcelreathStatisticalRethinkingBayesian2015]. MAP is simply a `mode`, or the most probable point estimate. In other words, a point in the distribution with the highest probability. With normal distribution, MAP, `mean` and `median` are identical. The problems arise with distributions that are not symmetrical. 
+
+HDI is similar to frequentist CI, but represents an interval which contains all points within the interval that have higher probability density than points outside the interval [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. HDI is more computationally expensive to estimate, but compared to *equal-tailed interval* (ETI) or *percentile interval*, that typically excludes 2.5% or 5% from each tail of the distribution (for 95% or 90% confidence respectively), HDI is not equal-tailed and therefore always includes the mode(s) of posterior distributions [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. 
+
+Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $±1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
+
+```{r map-hdi, fig.cap="(ref:map-hdi-caption)"}
+posterior <- data.frame(x = c(
+  distribution_normal(5000, 160, 15),
+  distribution_normal(5000, 180, 7)
+))
+
+### MAP + HDI
+MAP_summary <- map_estimate(posterior$x)
+HDI_summary <- bayestestR::hdi(posterior$x, 0.9)
+
+summary_data <- data.frame(x = MAP_summary, xmax = HDI_summary$CI_high, xmin = HDI_summary$CI_low, y = -0.0004)
+
+gg_HDI <- ggplot(posterior, aes(x = x, y = 0)) +
+  theme_cowplot(8) +
+  geom_density_ridges_gradient(
+    aes(fill = ifelse(..x.. > HDI_summary$CI_high, "Out", ifelse(..x.. < HDI_summary$CI_low, "Out", "In"))),
+    group = 1,
+    color = NA, scale = 0.5
+  ) +
+  geom_vline(xintercept = MAP_summary, color = "white") +
+  # geom_crossbarh(data = summary_data, aes(x = x, y = y, xmax = xmax, xmin = xmin), width = 0.001, fill = "black", color = "white") +
+  geom_text(x = HDI_summary$CI_low, label = round(HDI_summary$CI_low, 2), y = -0.0004, size = 4, hjust = "right", check_overlap = TRUE) +
+  geom_text(x = HDI_summary$CI_high, label = round(HDI_summary$CI_high, 2), y = -0.0004, size = 4, hjust = "left", check_overlap = TRUE) +
+  geom_text(x = MAP_summary + 5, label = round(MAP_summary, 2), y = 0.016, size = 4, hjust = "left", check_overlap = TRUE) +
+  geom_text(x = 170, label = "MAP and 90% HDI", y = 0.001, size = 2, hjust = "middle", check_overlap = TRUE) +
+
+  scale_fill_manual(values = c(user_blue, user_orange)) +
+  xlab("mu (cm)") + ylab("Probability Density") +
+  theme(legend.position = "none")
+
+### MEDIAN + Percentiles
+MAP_summary <- median(posterior$x)
+HDI_summary <- eti(posterior$x, 0.9)
+summary_data <- data.frame(x = MAP_summary, xmax = HDI_summary$CI_high, xmin = HDI_summary$CI_low, y = -0.0004)
+
+gg_median <- ggplot(posterior, aes(x = x, y = 0)) +
+  theme_cowplot(8) +
+  geom_density_ridges_gradient(
+    aes(fill = ifelse(..x.. > HDI_summary$CI_high, "Out", ifelse(..x.. < HDI_summary$CI_low, "Out", "In"))),
+    group = 1,
+    color = NA, scale = 0.5
+  ) +
+  geom_vline(xintercept = MAP_summary, color = "white") +
+  # geom_crossbarh(data = summary_data, aes(x = x, y = y, xmax = xmax, xmin = xmin), width = 0.001, fill = "black", color = "white") +
+  geom_text(x = HDI_summary$CI_low, label = round(HDI_summary$CI_low, 2), y = -0.0004, size = 4, hjust = "right", check_overlap = TRUE) +
+  geom_text(x = HDI_summary$CI_high, label = round(HDI_summary$CI_high, 2), y = -0.0004, size = 4, hjust = "left", check_overlap = TRUE) +
+  geom_text(x = MAP_summary - 1, label = round(MAP_summary, 2), y = 0.014, size = 4, hjust = "right", check_overlap = TRUE) +
+  geom_text(x = 170, label = "Median and 90% ETI", y = 0.001, size = 2, hjust = "middle", check_overlap = TRUE) +
+
+  scale_fill_manual(values = c(user_blue, user_orange)) +
+  xlab("mu (cm)") + ylab(NULL) +
+  theme(legend.position = "none")
+
+### Mean + 1.64 x SD
+MAP_summary <- mean(posterior$x)
+HDI_summary <- data.frame(
+  CI_low = MAP_summary - 1.64 * sd(posterior$x),
+  CI_high = MAP_summary + 1.64 * sd(posterior$x)
+)
+summary_data <- data.frame(x = MAP_summary, xmax = HDI_summary$CI_high, xmin = HDI_summary$CI_low, y = -0.0004)
+
+gg_mean <- ggplot(posterior, aes(x = x, y = 0)) +
+  theme_cowplot(8) +
+  geom_density_ridges_gradient(
+    aes(fill = ifelse(..x.. > HDI_summary$CI_high, "Out", ifelse(..x.. < HDI_summary$CI_low, "Out", "In"))),
+    group = 1,
+    color = NA, scale = 0.5
+  ) +
+  geom_vline(xintercept = MAP_summary, color = "white") +
+  # geom_crossbarh(data = summary_data, aes(x = x, y = y, xmax = xmax, xmin = xmin), width = 0.001, fill = "black", color = "white") +
+  geom_text(x = HDI_summary$CI_low, label = round(HDI_summary$CI_low, 2), y = -0.0004, size = 4, hjust = "right", check_overlap = TRUE) +
+  geom_text(x = HDI_summary$CI_high, label = round(HDI_summary$CI_high, 2), y = -0.0004, size = 4, hjust = "left", check_overlap = TRUE) +
+  geom_text(x = MAP_summary - 1, label = round(MAP_summary, 2), y = 0.011, size = 4, hjust = "right", check_overlap = TRUE) +
+  geom_text(x = 170, label = "Mean ± 1.64 SD", y = 0.001, size = 2, hjust = "middle", check_overlap = TRUE) +
+
+  scale_fill_manual(values = c(user_blue, user_orange)) +
+  xlab("mu (cm)") + ylab(NULL) +
+  theme(legend.position = "none")
+
+figure_distribution_summaries <- plot_grid(gg_HDI,
+  gg_median,
+  gg_mean,
+  labels = c("A", "B", "C"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 3,
+  nrow = 1
+)
+figure_distribution_summaries
+```
+(ref:map-hdi-caption) **Summarizing prior and posterior distribution. A. **MAP and $90\%$ HDI. **B.** Median and $90\%$ ETI. **C.** Mean and $\pm1.64\times SD$
+
+Using SESOI as a trivial range, or as a ROPE [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018], Bayesian equivalence test can be performed by quantifying proportion of posterior distribution inside the SESOI band [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018; @makowskiBayestestRDescribingEffects2019; @makowskiIndicesEffectExistence]. [Magnitude Based Inference] discussed in the the previous chapter, would also be valid way of describing the posterior distribution. 
+
+Besides estimating using MAP and HDI, Bayesian analysis also allows hypothesis testing using *Bayes factor* or *MAP based p-value* [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018; @makowskiBayestestRDescribingEffects2019; @makowskiIndicesEffectExistence]. Discussing these concepts is out of the range of this book and interested readers can refer to references provided for more information.
+
+## Comparison to NHST Type I errors
+
+How do the Bayesian HDIs compare to frequentist CIs? What are the Type I error rates when the data is sampled from the null-hypothesis? To explore this question, I will repeat the simulation from [New Statistics: Confidence Intervals and Estimation] section, where 1,000 samples of N=20 observations are sampled from a population where the true mean height is equal to 177.8cm and SD is equal to 10.16cm. Type I error is committed when the the 95% CIs or 95% HDI intervals of the sample mean don't cross the true value in the population. Table \@ref(tab:bayes-type-i-error) contains Type I errors for frequentist and Bayesian estimation. 
+
+(ref:bayes-type-i-error-caption) **Frequentist vs. Bayesian Type I errors**
+
+```{r bayes-type-i-error}
+n_samples <- 1000 # Simulation: Very slow - increase to 1000 for the final compile
+sample_size <- 20
+
+bayes_est <- function(x, confidence = 0.95, precis.length = 300, mu_start = -6, mu_stop = 6, sigma_start = 0.1, sigma_stop = 5) {
+  post <- expand.grid(
+    mu = seq(mu_start, mu_stop, length.out = precis.length),
+    sigma = seq(sigma_start, sigma_stop, length.out = precis.length)
+  )
+
+  post$likelihood <- sapply(seq(1, nrow(post)), function(i) {
+    sum(dnorm(x,
+      mean = post$mu[i],
+      sd = post$sigma[i],
+      log = TRUE
+    ))
+  })
+
+  post$prob <- exp(post$likelihood - max(post$likelihood))
+
+  # Sample from posterior distribution of mu (marginal)
+  sample.rows <- sample(1:nrow(post), size = 1e6, replace = TRUE, prob = post$prob)
+  sample.mu <- post$mu[sample.rows]
+
+  mu.map <- get_mode(sample.mu)
+  mu.HDI <- bayestestR::eti(sample.mu, confidence)
+
+  return(data.frame(
+    value = mu.map,
+    lower = mu.HDI$CI_low,
+    upper = mu.HDI$CI_high
+  ))
+}
+
+
+simulation_summaries <- data.frame(
+  sample = numeric(0),
+  method = character(0),
+  value = numeric(0),
+  lower = numeric(0),
+  upper = numeric(0)
+)
+
+for (i in seq(1, n_samples)) {
+  message(i)
+  # Take the sample
+  sample_data <- rnorm(sample_size, population_mean, population_sd)
+
+  # T distr freq est
+  tdist_freq_ci <- tdist_freq_est(sample_data)
+
+  simulation_summaries <- rbind(
+    simulation_summaries,
+    data.frame(
+      sample = i,
+      method = "Frequentist",
+      value = tdist_freq_ci$value,
+      lower = tdist_freq_ci$lower,
+      upper = tdist_freq_ci$upper
+    )
+  )
+
+  # Bayesian HDI
+  bayesian_HDI <- bayes_est(sample_data, precis.length = 100, mu_start = 160, mu_stop = 200, sigma_start = 1, sigma_stop = 30)
+
+  simulation_summaries <- rbind(
+    simulation_summaries,
+    data.frame(
+      sample = i,
+      method = "Bayesian",
+      value = bayesian_HDI$value,
+      lower = bayesian_HDI$lower,
+      upper = bayesian_HDI$upper
+    )
+  )
+}
+
+# Color missed
+simulation_summaries <- simulation_summaries %>%
+  mutate(correct = ifelse(lower > population_mean | upper < population_mean,
+    "Missed", "Correct"
+  ))
+
+# Create summary table
+summary_table <- simulation_summaries %>%
+  group_by(method) %>%
+  summarize(
+    Sample = n_samples,
+    `Correct %` = 100 * sum(correct == "Correct") / n_samples,
+    `Type I Errors %` = 100 * sum(correct == "Missed") / n_samples,
+  )
+
+
+
+knitr::kable(
+  summary_table,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:bayes-type-i-error-caption)"
+)
+```
+
+As can be seen from the Table \@ref(tab:bayes-type-i-error), frequentist CI and Bayesian HDI Type I error rate are not identical (which could be due to the grid approximation method as well as due to only 1000 samples used). This is often a concern, since Bayesian methods do not control error rates [@kruschkeBayesianDataAnalysis2018]. Although frequentist methods revolve around limiting the probability of Type I errors, error rates are extremely difficult to pin down, particularly for complex models, and because they are based on sampling and testing intentions [@kruschkeBayesianDataAnalysis2018]. For more detailed discussion and comparison of Bayesian and frequentist methods regarding the error control see @kruschkeBayesianEstimationSupersedes2013; @wagenmakersPracticalSolutionPervasive2007; @moreyFallacyPlacingConfidence2016. Papers by Kristin Sainani [@sainaniMagnitudeBasedInference2019; @sainaniProblemMagnitudebasedInference2018] are also worth pondering about which will help in understanding estimation and comparison of Type I and Type II error rates between different inferential methods, particularly when magnitude-based inference using SESOI is considered.  
+

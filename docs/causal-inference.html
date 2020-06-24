@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-05-25" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="prediction.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="statistical-inference.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +54,69 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="adv-r.css" type="text/css" />
 </head>
@@ -124,7 +187,100 @@
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
 <li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -2268,7 +2424,7 @@ Control
 </tr>
 </tbody>
 </table>
-<p>If we calculate the mean differences in this randomly assigned basketball treatment (Table <a href="causal-inference.html#tab:basketball-randomized-summary">4.7</a>), we can quickly notice that random assignment washed out selection bias involved with the observational study, and that the mean difference is closer to the known systematic (or average or <em>expected</em>) causal effect. The difference between estimated systematic causal effect using mean group difference from the randomized trial and the true causal effect is due to the <em>sampling error</em> which will be explained in the [Statistical inference] section.</p>
+<p>If we calculate the mean differences in this randomly assigned basketball treatment (Table <a href="causal-inference.html#tab:basketball-randomized-summary">4.7</a>), we can quickly notice that random assignment washed out selection bias involved with the observational study, and that the mean difference is closer to the known systematic (or average or <em>expected</em>) causal effect. The difference between estimated systematic causal effect using mean group difference from the randomized trial and the true causal effect is due to the <em>sampling error</em> which will be explained in the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section.</p>
 
 <table>
 <caption>
@@ -2360,19 +2516,19 @@ Change (cm)
 <tbody>
 <tr>
 <td style="text-align:left;">
-Athlete 19
+Athlete 01
 </td>
 <td style="text-align:left;">
 Treatment
 </td>
 <td style="text-align:right;">
-45.86
+37.98
 </td>
 <td style="text-align:right;">
-60.74
+52.86
 </td>
 <td style="text-align:right;">
-14.88
+14.93
 </td>
 </tr>
 <tr>
@@ -2383,47 +2539,30 @@ Athlete 27
 Treatment
 </td>
 <td style="text-align:right;">
-44.67
+44.79
 </td>
 <td style="text-align:right;">
-59.04
+58.50
 </td>
 <td style="text-align:right;">
-14.37
+13.43
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Athlete 01
+Athlete 19
 </td>
 <td style="text-align:left;">
 Treatment
 </td>
 <td style="text-align:right;">
-37.98
+46.77
 </td>
 <td style="text-align:right;">
-52.27
+59.76
 </td>
 <td style="text-align:right;">
-14.29
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 03
-</td>
-<td style="text-align:left;">
-Treatment
-</td>
-<td style="text-align:right;">
-41.36
-</td>
-<td style="text-align:right;">
-52.70
-</td>
-<td style="text-align:right;">
-11.35
+12.99
 </td>
 </tr>
 <tr>
@@ -2434,13 +2573,30 @@ Athlete 25
 Treatment
 </td>
 <td style="text-align:right;">
-39.99
+38.90
 </td>
 <td style="text-align:right;">
-50.09
+49.58
 </td>
 <td style="text-align:right;">
-10.09
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.29
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+10.34
 </td>
 </tr>
 <tr>
@@ -2451,47 +2607,13 @@ Athlete 23
 Treatment
 </td>
 <td style="text-align:right;">
-47.84
+48.41
 </td>
 <td style="text-align:right;">
-57.35
+57.57
 </td>
 <td style="text-align:right;">
-9.51
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 21
-</td>
-<td style="text-align:left;">
-Treatment
-</td>
-<td style="text-align:right;">
-36.94
-</td>
-<td style="text-align:right;">
-46.20
-</td>
-<td style="text-align:right;">
-9.26
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 15
-</td>
-<td style="text-align:left;">
-Treatment
-</td>
-<td style="text-align:right;">
-46.51
-</td>
-<td style="text-align:right;">
-54.85
-</td>
-<td style="text-align:right;">
-8.33
+8.58
 </td>
 </tr>
 <tr>
@@ -2502,47 +2624,47 @@ Athlete 17
 Treatment
 </td>
 <td style="text-align:right;">
-44.37
+44.81
 </td>
 <td style="text-align:right;">
-51.33
+51.41
 </td>
 <td style="text-align:right;">
-6.96
+7.85
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Athlete 07
+Athlete 21
 </td>
 <td style="text-align:left;">
 Treatment
 </td>
 <td style="text-align:right;">
-41.12
+37.14
 </td>
 <td style="text-align:right;">
-46.59
+44.95
 </td>
 <td style="text-align:right;">
-5.47
+7.37
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Athlete 05
+Athlete 15
 </td>
 <td style="text-align:left;">
 Treatment
 </td>
 <td style="text-align:right;">
-38.07
+46.69
 </td>
 <td style="text-align:right;">
-42.84
+52.73
 </td>
 <td style="text-align:right;">
-4.77
+6.14
 </td>
 </tr>
 <tr>
@@ -2553,13 +2675,13 @@ Athlete 29
 Treatment
 </td>
 <td style="text-align:right;">
-43.17
+42.77
 </td>
 <td style="text-align:right;">
-47.74
+47.38
 </td>
 <td style="text-align:right;">
-4.58
+5.02
 </td>
 </tr>
 <tr>
@@ -2570,13 +2692,47 @@ Athlete 13
 Treatment
 </td>
 <td style="text-align:right;">
-50.02
+49.66
 </td>
 <td style="text-align:right;">
-54.07
+54.11
 </td>
 <td style="text-align:right;">
-4.05
+4.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+37.92
+</td>
+<td style="text-align:right;">
+41.63
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.03
+</td>
+<td style="text-align:right;">
+45.41
+</td>
+<td style="text-align:right;">
+3.42
 </td>
 </tr>
 <tr>
@@ -2587,64 +2743,13 @@ Athlete 11
 Treatment
 </td>
 <td style="text-align:right;">
-44.80
+45.27
 </td>
 <td style="text-align:right;">
-48.27
+46.72
 </td>
 <td style="text-align:right;">
-3.47
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 09
-</td>
-<td style="text-align:left;">
-Treatment
-</td>
-<td style="text-align:right;">
-46.89
-</td>
-<td style="text-align:right;">
-49.38
-</td>
-<td style="text-align:right;">
-2.49
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 18
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-42.88
-</td>
-<td style="text-align:right;">
-43.55
-</td>
-<td style="text-align:right;">
-0.67
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 02
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-49.57
-</td>
-<td style="text-align:right;">
-50.11
-</td>
-<td style="text-align:right;">
-0.54
+1.82
 </td>
 </tr>
 <tr>
@@ -2655,13 +2760,13 @@ Athlete 12
 Control
 </td>
 <td style="text-align:right;">
-42.95
+42.56
 </td>
 <td style="text-align:right;">
-43.47
+44.29
 </td>
 <td style="text-align:right;">
-0.52
+1.01
 </td>
 </tr>
 <tr>
@@ -2672,13 +2777,47 @@ Athlete 28
 Control
 </td>
 <td style="text-align:right;">
-46.65
+47.06
 </td>
 <td style="text-align:right;">
-46.90
+47.98
 </td>
 <td style="text-align:right;">
-0.25
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.53
+</td>
+<td style="text-align:right;">
+45.13
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+49.63
+</td>
+<td style="text-align:right;">
+48.86
+</td>
+<td style="text-align:right;">
+-0.01
 </td>
 </tr>
 <tr>
@@ -2689,13 +2828,98 @@ Athlete 08
 Control
 </td>
 <td style="text-align:right;">
-41.66
+41.11
 </td>
 <td style="text-align:right;">
-41.64
+42.13
 </td>
 <td style="text-align:right;">
--0.01
+-0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.31
+</td>
+<td style="text-align:right;">
+41.61
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.96
+</td>
+<td style="text-align:right;">
+45.70
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.51
+</td>
+<td style="text-align:right;">
+42.89
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.57
+</td>
+<td style="text-align:right;">
+42.15
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+37.83
+</td>
+<td style="text-align:right;">
+-0.75
 </td>
 </tr>
 <tr>
@@ -2709,146 +2933,10 @@ Control
 36.52
 </td>
 <td style="text-align:right;">
-36.20
+34.83
 </td>
 <td style="text-align:right;">
--0.32
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 04
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-44.42
-</td>
-<td style="text-align:right;">
-43.33
-</td>
-<td style="text-align:right;">
--1.09
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 16
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-37.64
-</td>
-<td style="text-align:right;">
-36.44
-</td>
-<td style="text-align:right;">
--1.20
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 10
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-37.58
-</td>
-<td style="text-align:right;">
-36.35
-</td>
-<td style="text-align:right;">
--1.23
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 20
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-38.98
-</td>
-<td style="text-align:right;">
-37.31
-</td>
-<td style="text-align:right;">
--1.67
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 30
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-39.07
-</td>
-<td style="text-align:right;">
-37.31
-</td>
-<td style="text-align:right;">
--1.76
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 14
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-45.18
-</td>
-<td style="text-align:right;">
-43.35
-</td>
-<td style="text-align:right;">
--1.83
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 06
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-45.54
-</td>
-<td style="text-align:right;">
-42.84
-</td>
-<td style="text-align:right;">
--2.70
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Athlete 26
-</td>
-<td style="text-align:left;">
-Control
-</td>
-<td style="text-align:right;">
-41.54
-</td>
-<td style="text-align:right;">
-38.69
-</td>
-<td style="text-align:right;">
--2.85
+-0.97
 </td>
 </tr>
 <tr>
@@ -2859,13 +2947,81 @@ Athlete 24
 Control
 </td>
 <td style="text-align:right;">
-40.13
+40.15
 </td>
 <td style="text-align:right;">
-36.82
+39.88
 </td>
 <td style="text-align:right;">
--3.31
+-1.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+39.34
+</td>
+<td style="text-align:right;">
+38.34
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+47.61
+</td>
+<td style="text-align:right;">
+45.62
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+38.94
+</td>
+<td style="text-align:right;">
+36.97
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+36.77
+</td>
+<td style="text-align:right;">
+34.15
+</td>
+<td style="text-align:right;">
+-2.26
 </td>
 </tr>
 </tbody>
@@ -2898,13 +3054,13 @@ Change (cm)
 Treatment
 </td>
 <td style="text-align:left;">
-43.31 ± 3.93
+43.4 ± 4.15
 </td>
 <td style="text-align:left;">
-51.56 ± 5.03
+50.64 ± 5.4
 </td>
 <td style="text-align:left;">
-8.26 ± 4.16
+7.29 ± 4.65
 </td>
 </tr>
 <tr>
@@ -2912,13 +3068,13 @@ Treatment
 Control
 </td>
 <td style="text-align:left;">
-42.02 ± 3.77
+41.97 ± 3.87
 </td>
 <td style="text-align:left;">
-40.95 ± 4.31
+41.52 ± 4.49
 </td>
 <td style="text-align:left;">
--1.07 ± 1.31
+-0.61 ± 0.83
 </td>
 </tr>
 </tbody>
@@ -2942,10 +3098,10 @@ Figure 4.1: <strong>Visual analysis of RCT using Treatment and Control groups. A
 Estimator
 </th>
 <th style="text-align:right;">
-Treatment
+Control
 </th>
 <th style="text-align:right;">
-Control
+Treatment
 </th>
 </tr>
 </thead>
@@ -2955,10 +3111,10 @@ Control
 Mean change (cm)
 </td>
 <td style="text-align:right;">
-8.26
+-0.61
 </td>
 <td style="text-align:right;">
--1.07
+7.29
 </td>
 </tr>
 <tr>
@@ -2966,10 +3122,10 @@ Mean change (cm)
 SDchange (cm)
 </td>
 <td style="text-align:right;">
-4.16
+0.83
 </td>
 <td style="text-align:right;">
-1.31
+4.65
 </td>
 </tr>
 <tr>
@@ -2977,10 +3133,10 @@ SDchange (cm)
 SDpre-test pooled (cm)
 </td>
 <td style="text-align:right;">
-3.85
+4.01
 </td>
 <td style="text-align:right;">
-3.85
+4.01
 </td>
 </tr>
 <tr>
@@ -2988,10 +3144,10 @@ SDpre-test pooled (cm)
 Cohen’s d
 </td>
 <td style="text-align:right;">
-2.14
+-0.15
 </td>
 <td style="text-align:right;">
--0.28
+1.82
 </td>
 </tr>
 <tr>
@@ -3021,10 +3177,10 @@ SESOI upper (cm)
 Change to SESOI
 </td>
 <td style="text-align:right;">
-1.65
+-0.12
 </td>
 <td style="text-align:right;">
--0.21
+1.46
 </td>
 </tr>
 <tr>
@@ -3032,10 +3188,10 @@ Change to SESOI
 SDchange to SESOI
 </td>
 <td style="text-align:right;">
-0.83
+0.17
 </td>
 <td style="text-align:right;">
-0.26
+0.93
 </td>
 </tr>
 <tr>
@@ -3043,10 +3199,10 @@ SDchange to SESOI
 pLower
 </td>
 <td style="text-align:right;">
-0.00
+0.06
 </td>
 <td style="text-align:right;">
-0.14
+0.03
 </td>
 </tr>
 <tr>
@@ -3054,10 +3210,10 @@ pLower
 pEquivalent
 </td>
 <td style="text-align:right;">
-0.08
+0.93
 </td>
 <td style="text-align:right;">
-0.86
+0.14
 </td>
 </tr>
 <tr>
@@ -3065,10 +3221,10 @@ pEquivalent
 pHigher
 </td>
 <td style="text-align:right;">
-0.92
+0.01
 </td>
 <td style="text-align:right;">
-0.00
+0.83
 </td>
 </tr>
 </tbody>
@@ -3081,7 +3237,7 @@ Figure 4.2: <strong>Visual analysis of RCT using Treatment and Control groups. A
 </p>
 </div>
 
-<p>But we are not that interested in independent analysis of Treatment and Control groups, but rather on their differences and understanding of the causal effect of the treatment (i.e. understanding and estimating parameters of the underlying DGP). As stated, treatment effect consists of two components: systematic component or main effect (i.e. expected or average causal effect), and stochastic component or random effect (i.e. that varies between individuals) (see Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). As already explained, Control group serves as a proxy to what might have happened to the Treatment group in the counterfactual world, and thus allows for casual interpretation of the treatment effect. There are two effects at play with this RCT design: <em>treatment effect</em> and <em>non-treatment effect</em>. The latter captures all effects not directly controlled by a treatment, but assumes it affects both groups equally (Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). For example, if we are treating kids for longer period of time, non-treatment effect might be related to the growth and associated effects. Another non-treatment effect is <em>measurement error</em> (discussed in more details in [Measurement Error] section).</p>
+<p>But we are not that interested in independent analysis of Treatment and Control groups, but rather on their differences and understanding of the causal effect of the treatment (i.e. understanding and estimating parameters of the underlying DGP). As stated, treatment effect consists of two components: systematic component or main effect (i.e. expected or average causal effect), and stochastic component or random effect (i.e. that varies between individuals) (see Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). As already explained, Control group serves as a proxy to what might have happened to the Treatment group in the counterfactual world, and thus allows for casual interpretation of the treatment effect. There are two effects at play with this RCT design: <em>treatment effect</em> and <em>non-treatment effect</em>. The latter captures all effects not directly controlled by a treatment, but assumes it affects both groups equally (Figure <a href="causal-inference.html#fig:te-and-nte-diagram">4.3</a>). For example, if we are treating kids for longer period of time, non-treatment effect might be related to the growth and associated effects. Another non-treatment effect is <em>measurement error</em> (discussed in more details in <a href="measurement-error.html#measurement-error">Measurement Error</a> section).</p>
 <div class="figure" style="text-align: center"><span id="fig:te-and-nte-diagram"></span>
 <img src="figures/treatment-and-non-treatment-effects.png" alt="Treatment and Non-treatment effects of intervention. Both treatment and non-treatment effects consists of two components: systematic and random. Treatment group experiences both treatment and non-treatment effects, while Control group experiences only non-treatment effects." width="100%" />
 <p class="caption">
@@ -3137,22 +3293,22 @@ pHigher diff
 <tbody>
 <tr>
 <td style="text-align:right;">
-9.32
+7.9
 </td>
 <td style="text-align:right;">
-7.14
+9.56
 </td>
 <td style="text-align:right;">
-1.86
+1.58
 </td>
 <td style="text-align:right;">
--0.13
+-0.03
 </td>
 <td style="text-align:right;">
--0.78
+-0.79
 </td>
 <td style="text-align:right;">
-0.91
+0.82
 </td>
 </tr>
 </tbody>
@@ -3164,7 +3320,7 @@ Cohen&#39;s\;d = \frac{mean_{treatment\; group \; change} - mean_{control\; grou
 \tag{4.3}
 \end{equation}
 \]</span></p>
-<p>Besides estimating systematic component of the treatment (i.e. the difference between the mean change in Treatment and Control groups), we might be interested in estimating random component and proportions of lower, equivalent and higher effects compared to SESOI (<code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code>). Unfortunately, differences in <code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code> from Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> don’t answer this question, but rather the expected difference in proportions compared to Control (e.g. the expected improvement of 0.91 in observing proportion of higher change outcomes compared to Control).</p>
+<p>Besides estimating systematic component of the treatment (i.e. the difference between the mean change in Treatment and Control groups), we might be interested in estimating random component and proportions of lower, equivalent and higher effects compared to SESOI (<code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code>). Unfortunately, differences in <code>pLower</code>, <code>pEquivalent</code>, and <code>pHigher</code> from Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> don’t answer this question, but rather the expected difference in proportions compared to Control (e.g. the expected improvement of 0.82 in observing proportion of higher change outcomes compared to Control).</p>
 <p>Since the changes in Treatment group are due both to the treatment and non-treatment effects (equation 29), the average treatment effect (systematic component) represents the difference between the <code>mean</code> changes in Treatment and Control groups (Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a>). In the same manner, the <code>variance</code> of the change scores in the Treatment group are due to the random component of the treatment and non-treatment effects. Assuming normal (Gaussian) distribution of the random components, the <em>SD of the treatment effects</em> (<span class="math inline">\(SD_{TE}\)</span>)<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> is estimated using the following Equation <a href="causal-inference.html#eq:sd-te-equation">(4.4)</a>.</p>
 <p><span class="math display" id="eq:sd-te-equation">\[
 \begin{equation}
@@ -3183,7 +3339,7 @@ Cohen&#39;s\;d = \frac{mean_{treatment\; group \; change} - mean_{control\; grou
   \tag{4.4}
 \end{equation}
 \]</span></p>
-<p>This neat mathematical solution is due to assumption of Gaussian error, assumption that random treatment and non-treatment effects are equal across subjects (see [Ergodicity] section for more details about this assumption), and the use of squared errors. This is one beneficial property of using squared errors that I alluded to in the section <a href="prediction.html#cross-validation">Cross-Validation</a> section.</p>
+<p>This neat mathematical solution is due to assumption of Gaussian error, assumption that random treatment and non-treatment effects are equal across subjects (see <a href="causal-inference.html#ergodicity">Ergodicity</a> section for more details about this assumption), and the use of squared errors. This is one beneficial property of using squared errors that I alluded to in the section <a href="prediction.html#cross-validation">Cross-Validation</a> section.</p>
 <p>Thus, the estimated parameters of the causal treatment effects in the underlying DGP are are summarized with the following Equation <a href="causal-inference.html#eq:treatment-effects-estimates">(4.5)</a>. This treatment effect is graphically depicted in the Figure <a href="causal-inference.html#fig:te-effects">4.4</a>.</p>
 <p><span class="math display" id="eq:treatment-effects-estimates">\[
 \begin{equation}
@@ -3241,33 +3397,4979 @@ pHigher
 <tbody>
 <tr>
 <td style="text-align:right;">
-9.32
+7.9
 </td>
 <td style="text-align:right;">
-3.95
+4.57
 </td>
 <td style="text-align:left;">
 ±2.5
 </td>
 <td style="text-align:right;">
-1.86
+1.58
 </td>
 <td style="text-align:right;">
-1.27
+1.09
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; <em>generalizations</em> beyond sample are discussed in the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section). The expected improvement (i.e. average causal effect or systematic effect) is equal to 7.9cm, with 1, 11, and 88% of athletes having lower, trivial and higher improvements.</p>
+</div>
+<div id="prediction-as-a-complement-to-causal-inference" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Prediction as a complement to causal inference</h2>
+<p>In the previous section, RCT is analyzed using <em>analysis of changes</em>. In this section, I will utilize linear regression model to analyze RCT data. There are multiple ways this could be done <span class="citation">(J et al. <a href="#ref-jDifferentWaysEstimate2018" role="doc-biblioref">2018</a>)</span> and deeper analysis is beyond the scope of this book (see also <a href="https://www.fharrell.com/post/errmed/#change">Frank Harrell</a> post on the use of change scores). The aim of this section is to provide an introduction to <em>model-based</em> and <em>prediction-based</em> RCT analysis, as well as to demonstrate potential uses of PDP+ICE plots as tools for counterfactual analysis.</p>
+<p>Analysis in the previous section can be represented using simple linear regression model (Equation <a href="causal-inference.html#eq:simple-rct-change-regression">(4.6)</a>).</p>
+<p><span class="math display" id="eq:simple-rct-change-regression">\[
+\begin{equation}
+  \widehat{Change} = \hat{\beta_0} + \hat{\beta_1}Group
+  \tag{4.6}
+\end{equation}
+\]</span></p>
+<p>According to <a href="https://www.fharrell.com/post/errmed/#change">Frank Harrell</a>, the use of change scores in the RCT analysis is problematic. Although this model definition (Equation <a href="causal-inference.html#eq:simple-rct-change-regression">(4.6)</a>) will give us exactly the same results as obtained in the previous section, the use of change scores should be avoided. Thus, look at this example as <em>training vehicle</em>. After this initial discussion, valid model representation will be used.</p>
+<p>Since Group column is a string, how is Group column represented in the model? Group column needs to be <em>dummy-coded</em>, using 0 for Control and 1 for Treatment (see Table <a href="causal-inference.html#tab:dummy-coded">4.13</a>).</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dummy-coded">Table 4.13: </span><strong>Dummy coding of the Group column to be used in linear regression model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+<th style="text-align:right;">
+Pre-test (cm)
+</th>
+<th style="text-align:right;">
+Post-test (cm)
+</th>
+<th style="text-align:right;">
+Change (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 12
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-0.04
+42.56
 </td>
 <td style="text-align:right;">
-0.96
+44.29
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47.06
+</td>
+<td style="text-align:right;">
+47.98
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.53
+</td>
+<td style="text-align:right;">
+45.13
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+49.63
+</td>
+<td style="text-align:right;">
+48.86
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+41.11
+</td>
+<td style="text-align:right;">
+42.13
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.31
+</td>
+<td style="text-align:right;">
+41.61
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+45.96
+</td>
+<td style="text-align:right;">
+45.70
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.51
+</td>
+<td style="text-align:right;">
+42.89
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.57
+</td>
+<td style="text-align:right;">
+42.15
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+37.83
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.52
+</td>
+<td style="text-align:right;">
+34.83
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40.15
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+-1.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+39.34
+</td>
+<td style="text-align:right;">
+38.34
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+38.94
+</td>
+<td style="text-align:right;">
+36.97
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.77
+</td>
+<td style="text-align:right;">
+34.15
+</td>
+<td style="text-align:right;">
+-2.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.98
+</td>
+<td style="text-align:right;">
+52.86
+</td>
+<td style="text-align:right;">
+14.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.79
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.77
+</td>
+<td style="text-align:right;">
+59.76
+</td>
+<td style="text-align:right;">
+12.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+38.90
+</td>
+<td style="text-align:right;">
+49.58
+</td>
+<td style="text-align:right;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.29
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+10.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+<td style="text-align:right;">
+57.57
+</td>
+<td style="text-align:right;">
+8.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.81
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.14
+</td>
+<td style="text-align:right;">
+44.95
+</td>
+<td style="text-align:right;">
+7.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.69
+</td>
+<td style="text-align:right;">
+52.73
+</td>
+<td style="text-align:right;">
+6.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+42.77
+</td>
+<td style="text-align:right;">
+47.38
+</td>
+<td style="text-align:right;">
+5.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49.66
+</td>
+<td style="text-align:right;">
+54.11
+</td>
+<td style="text-align:right;">
+4.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.92
+</td>
+<td style="text-align:right;">
+41.63
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.03
+</td>
+<td style="text-align:right;">
+45.41
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.27
+</td>
+<td style="text-align:right;">
+46.72
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+47.61
+</td>
+<td style="text-align:right;">
+45.62
+</td>
+<td style="text-align:right;">
+-1.57
 </td>
 </tr>
 </tbody>
 </table>
-<p>Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; <em>generalizations</em> beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to 9.32cm, with 0, 4, and 96% of athletes having lower, trivial and higher improvements.</p>
+<p>Estimated parameters for this linear model are enlisted in the Table <a href="causal-inference.html#tab:simple-rct-model-coef">4.14</a></p>
+
+<table>
+<caption>
+<span id="tab:simple-rct-model-coef">Table 4.14: </span><strong>Estimated linear regression parameters for the simple RCT model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Intercept
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.61
+</td>
+<td style="text-align:right;">
+7.9
+</td>
+</tr>
+</tbody>
+</table>
+<p>Intercept in the Table <a href="causal-inference.html#tab:simple-rct-model-coef">4.14</a> represents the <code>mean</code> Change in the Control group, while <span class="math inline">\(\hat{\beta_1}\)</span> (or slope, or <code>GroupTreatment</code> parameter) represents estimated average treatment effect (ATE) or average causal effect, since it represents the difference in the Change means between groups. For a reference please refer to Tables <a href="causal-inference.html#tab:rct-change">4.10</a> and <a href="causal-inference.html#tab:te-effects-estimates">4.12</a>.</p>
+<p>Figure <a href="causal-inference.html#fig:simple-rct-model">4.5</a> depicts this model graphically.</p>
+<div class="figure" style="text-align: center"><span id="fig:simple-rct-model"></span>
+<img src="04-Causal-inference_files/figure-html/simple-rct-model-1.png" alt="Graphical representation of the simple linear regression model for the vertical jump RCT data" width="90%" />
+<p class="caption">
+Figure 4.5: <strong>Graphical representation of the simple linear regression model for the vertical jump RCT data</strong>
+</p>
+</div>
+
+<p>Model residuals are depicted on Figure <a href="causal-inference.html#fig:simple-rct-model-ba">4.6</a>. Please note the <em>clusters</em> of the data-points which indicate groups (they are color-coded).</p>
+<div class="figure" style="text-align: center"><span id="fig:simple-rct-model-ba"></span>
+<img src="04-Causal-inference_files/figure-html/simple-rct-model-ba-1.png" alt="Model residuals using simple linear regression RCT model. Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group." width="90%" />
+<p class="caption">
+Figure 4.6: <strong>Model residuals using simple linear regression RCT model. </strong>Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group.
+</p>
+</div>
+
+<p><code>SD</code> of the residuals for the Control group is equal to 0.83cm and for Treatment group is equal to 4.65cm. Please compare these estimates and estimated parameters from the Table <a href="causal-inference.html#tab:simple-rct-model-coef">4.14</a> with Table <a href="causal-inference.html#tab:rct-change">4.10</a> and Table <a href="causal-inference.html#tab:te-effects-estimates">4.12</a>. These estimates are identical since the model utilized (Equation <a href="causal-inference.html#eq:simple-rct-change-regression">(4.6)</a>) is mathematically equivalent to the analysis done in the <a href="causal-inference.html#example-of-randomized-control-trial">Example of randomized control trial</a> section.</p>
+<p>As alluded in the introduction of this section, RCT analysis using change scores should be avoided. Valid way to analyze the RCT in this case is to use Post-test as the outcome, and Pre-test and Group as predictors. This can be easily understood graphically (Figure <a href="causal-inference.html#fig:ancova-rct-model">4.7</a>). On Figure <a href="causal-inference.html#fig:ancova-rct-model">4.7</a> each group (i.e. Control and Treatment) is modeled separately.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-model"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-model-1.png" alt="Graphical representation of the valid way to analyze RCT data. Dashed line represent identity line, where Post-test is equal to Pre-test (i.e., the no effect line). The effect of treatment represents vertical distance between the Control and Treatment lines. This is easily grasped since the lines are almost perfectly parallel. If the lines are not parallel, that would imply there is interaction between Group and Pre-test (i.e. individuals with higher Pre-test scores shows higher or lower change)." width="90%" />
+<p class="caption">
+Figure 4.7: <strong>Graphical representation of the valid way to analyze RCT data.</strong> Dashed line represent <em>identity line</em>, where Post-test is equal to Pre-test (i.e., <em>the no effect</em> line). The effect of treatment represents vertical distance between the Control and Treatment lines. This is easily grasped since the lines are almost perfectly parallel. If the lines are not parallel, that would imply there is <em>interaction</em> between Group and Pre-test (i.e. individuals with higher Pre-test scores shows higher or lower change).
+</p>
+</div>
+
+<p>Figure <a href="causal-inference.html#fig:ancova-rct-model">4.7</a> also represents <em>ANCOVA</em> (analysis of co-variance) design. Equation <a href="causal-inference.html#eq:ancova-rct-change-regression">(4.7)</a> represent model definition where effects of Group (i.e., Treatment) are estimated by controlling the effects of the Pre-test.</p>
+<p><span class="math display" id="eq:ancova-rct-change-regression">\[
+\begin{equation}
+  \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre
+  \tag{4.7}
+\end{equation}
+\]</span></p>
+<p>Estimated parameters for this linear model are enlisted in the Table <a href="causal-inference.html#tab:ancova-rct-model-coef">4.15</a>. Please note the similarity with the Table <a href="causal-inference.html#tab:simple-rct-model-coef">4.14</a>.</p>
+
+<table>
+<caption>
+<span id="tab:ancova-rct-model-coef">Table 4.15: </span><strong>Estimated linear regression parameters for the ANCOVA RCT model (see Equation <a href="causal-inference.html#eq:ancova-rct-change-regression">(4.7)</a>)</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Intercept
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+<th style="text-align:right;">
+Pre-test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3.92
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:right;">
+0.9
+</td>
+</tr>
+</tbody>
+</table>
+<p>Model residuals are depicted on Figure <a href="causal-inference.html#fig:ancova-rct-model-ba">4.8</a>. Please note the <em>clusters</em> of the data-points which indicate groups.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-model-ba"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-model-ba-1.png" alt="Model residuals using ANCOVA RCT model. Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group." width="90%" />
+<p class="caption">
+Figure 4.8: <strong>Model residuals using ANCOVA RCT model. </strong>Grey band represents SESOI of ±2.5cm. Residuals are color coded; blue are Control group and orange are Treatment group.
+</p>
+</div>
+
+<p><code>SD</code> of the residuals for the Control group is equal to 1.43cm and for Treatment group is equal to 4.64cm. Please note the similarities with simple RCT model (i.e. using Change score as outcome and Group as predictor).</p>
+<p>As explained in the <a href="prediction.html#prediction">Prediction</a> section, this model can be cross-validated. Predictive performance metrics using 10 repeats of 3 folds cross-validation are enlisted in the Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a>. Since our RCT data has two groups (i.e. Control and Treatment), cross-validation needs to be <em>stratified</em>. This makes sure that each group has their own cross-validation folds, and that testing data size for each group is proportional to the group size. This avoids scenarios where most training or testing data comes from a single group (which is more probable if one group is larger).</p>
+
+<table>
+<caption>
+<span id="tab:ancova-rct-model-perf-metrics">Table 4.16: </span><strong>Cross-validated predictive performance metrics for the ANCOVA RCT model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+metric
+</th>
+<th style="text-align:right;">
+training
+</th>
+<th style="text-align:right;">
+training.pooled
+</th>
+<th style="text-align:right;">
+testing.pooled
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MBE
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:right;">
+-3.22
+</td>
+<td style="text-align:right;">
+3.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:right;">
+2.41
+</td>
+<td style="text-align:right;">
+2.36
+</td>
+<td style="text-align:right;">
+2.76
+</td>
+<td style="text-align:right;">
+2.76
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+1.38
+</td>
+<td style="text-align:right;">
+3.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:right;">
+3.31
+</td>
+<td style="text-align:right;">
+3.22
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+<td style="text-align:right;">
+3.66
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+1.72
+</td>
+<td style="text-align:right;">
+5.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPER
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI to RMSE
+</td>
+<td style="text-align:right;">
+1.51
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:right;">
+1.32
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R-squared
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+-0.53
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MinErr
+</td>
+<td style="text-align:right;">
+-7.08
+</td>
+<td style="text-align:right;">
+-8.66
+</td>
+<td style="text-align:right;">
+-9.42
+</td>
+<td style="text-align:right;">
+-6.08
+</td>
+<td style="text-align:right;">
+2.47
+</td>
+<td style="text-align:right;">
+-9.42
+</td>
+<td style="text-align:right;">
+-1.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxErr
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:right;">
+8.96
+</td>
+<td style="text-align:right;">
+10.99
+</td>
+<td style="text-align:right;">
+5.68
+</td>
+<td style="text-align:right;">
+3.23
+</td>
+<td style="text-align:right;">
+1.34
+</td>
+<td style="text-align:right;">
+10.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxAbsErr
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:right;">
+8.96
+</td>
+<td style="text-align:right;">
+10.99
+</td>
+<td style="text-align:right;">
+7.74
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+2.96
+</td>
+<td style="text-align:right;">
+10.99
+</td>
+</tr>
+</tbody>
+</table>
+<p>From the Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a> we can conclude, that although we have <em>explained</em> the causal (or treatment) effects, predicting individual Post-test is not practically meaningful since the prediction error is too large (compared to SESOI). The take-home message is that high <em>explanatory power</em> of the model doesn’t doesn’t automatically yield high predictive power <span class="citation">(Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>)</span>. The selection of statistical analysis is thus related to the question asked. In my opinion, it would be insightful to complement causal estimates with prediction estimates. With the example above, we can predict the direction of the effect (using expected systematic change of 7.9cm and proportions of 1, 11, and 88% for lower, trivial and higher change magnitudes), but we are unable to predict individual Post-test (or changes scores) within acceptable practical precision (using SESOI as an anchor). In other words, we know that the effect will be 88% beneficial (i.e. higher than SESOI), but we are not able to predict individual responses.</p>
+<p>For the sake of completeness, Table <a href="causal-inference.html#tab:simple-rct-model-perf-metrics">4.17</a> contains performance metrics for the simple RCT model.</p>
+
+<table>
+<caption>
+<span id="tab:simple-rct-model-perf-metrics">Table 4.17: </span><strong>Cross-validated predictive performance metrics for the simple RCT model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+metric
+</th>
+<th style="text-align:right;">
+training
+</th>
+<th style="text-align:right;">
+training.pooled
+</th>
+<th style="text-align:right;">
+testing.pooled
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MBE
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.24
+</td>
+<td style="text-align:right;">
+-2.81
+</td>
+<td style="text-align:right;">
+1.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:right;">
+2.16
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:right;">
+2.33
+</td>
+<td style="text-align:right;">
+2.33
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+3.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:right;">
+3.22
+</td>
+<td style="text-align:right;">
+3.18
+</td>
+<td style="text-align:right;">
+3.46
+</td>
+<td style="text-align:right;">
+3.36
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+4.69
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPER
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI to RMSE
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:right;">
+1.57
+</td>
+<td style="text-align:right;">
+1.45
+</td>
+<td style="text-align:right;">
+1.61
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+1.07
+</td>
+<td style="text-align:right;">
+3.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R-squared
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MinErr
+</td>
+<td style="text-align:right;">
+-7.64
+</td>
+<td style="text-align:right;">
+-8.63
+</td>
+<td style="text-align:right;">
+-9.27
+</td>
+<td style="text-align:right;">
+-5.67
+</td>
+<td style="text-align:right;">
+2.52
+</td>
+<td style="text-align:right;">
+-9.27
+</td>
+<td style="text-align:right;">
+-0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxErr
+</td>
+<td style="text-align:right;">
+8.86
+</td>
+<td style="text-align:right;">
+9.74
+</td>
+<td style="text-align:right;">
+9.89
+</td>
+<td style="text-align:right;">
+5.79
+</td>
+<td style="text-align:right;">
+2.84
+</td>
+<td style="text-align:right;">
+1.88
+</td>
+<td style="text-align:right;">
+9.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxAbsErr
+</td>
+<td style="text-align:right;">
+8.86
+</td>
+<td style="text-align:right;">
+9.74
+</td>
+<td style="text-align:right;">
+9.89
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+<td style="text-align:right;">
+1.94
+</td>
+<td style="text-align:right;">
+3.85
+</td>
+<td style="text-align:right;">
+9.89
+</td>
+</tr>
+</tbody>
+</table>
+<div id="analysis-of-the-individual-residuals-responders-vs-non-responders" class="section level3" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Analysis of the individual residuals: responders vs non-responders</h3>
+<p>One particular use of the predictive analysis is in the identification of responders and non-responders to the treatment <span class="citation">(Hecksteden et al. <a href="#ref-heckstedenIndividualResponseExercise2015" role="doc-biblioref">2015</a>, <a href="#ref-heckstedenRepeatedTestingAssessment2018" role="doc-biblioref">2018</a>; Hopkins <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. Common approach used in sport science <span class="citation">(Will G Hopkins <a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">2004</a><a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">a</a>)</span>, that I will name <em>observed outcome approach</em> (further discussed in <a href="measurement-error.html#measurement-error">Measurement error</a> chapter and second part of this book), uses known SESOI and <em>measurement error</em> to estimate probability of lower, equivalent, and higher changes. In RCT, random non-treatment effect can be assumed to be due to measurement error. Figure <a href="causal-inference.html#fig:rct-responders">4.9</a> depicts individual <em>adjusted change</em> (by deducting mean Control group change from observed change) with error bars representing <em>smallest detectable change</em> (<code>SDC</code>). <code>SDC</code> is calculated by multiplying Control group change <code>SD</code> by 1.96 (to get upper and lower change levels containing 95% of change distribution). This thus represent our <em>uncertainty</em> in true treatment effect (using Control group as source of information about random effects).</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-responders"></span>
+<img src="04-Causal-inference_files/figure-html/rct-responders-1.png" alt="Responses analysis for the Treatment group. Change scores are adjusted by deducting Control group mean change. Error bars represent smallest detectable change (SDC) that is calculated using SD of the Control group change scores multiplied by 1.96 (to get 95% levels containing 95% of the change distribution)." width="90%" />
+<p class="caption">
+Figure 4.9: <strong>Responses analysis for the Treatment group.</strong> Change scores are adjusted by deducting Control group mean change. Error bars represent <em>smallest detectable change</em> (SDC) that is calculated using <code>SD</code> of the Control group change scores multiplied by 1.96 (to get 95% levels containing 95% of the change distribution).
+</p>
+</div>
+
+<p>Using this approach, we can classify athletes with high probability of higher change score as responders, those with high probability of equivalent change score as non-responders, and finally those with high probability of lower change score as negative-responders. This approach is useful in figuring out who responded positively or negatively to a particular treatment, but it doesn’t take into account information that might help explain the response (for example someone missing treatment session or having lower or higher treatment dose; see <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a> section). The topic is further discussed in <a href="measurement-error.html#measurement-error">Measurement error</a> chapter and second part of this book.</p>
+<p>Another approach, that I have termed <em>residuals approach</em> or <em>model-based approach</em> can be used to help identifying <em>outliers</em> to intervention. To explain this approach, let’s plot athletes’ residuals (<span class="math inline">\(\hat{y_i} - y_i\)</span>) against observed Post-test (<span class="math inline">\(y_i\)</span>) (Figure <a href="causal-inference.html#fig:ancova-rct-subj-resid">4.10</a>) using ANCOVA RCT model.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-subj-resid"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-subj-resid-1.png" alt="Observed Post-test in vertical jump for each athlete in the study. Black dot indicate observed Post-test value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated RMSE (see Table 4.16, RMSE metric, column testing.pooled) and is used to indicate model predictive performance and uncertainty around model prediction graphically" width="90%" />
+<p class="caption">
+Figure 4.10: <strong>Observed Post-test in vertical jump for each athlete in the study.</strong> Black dot indicate observed Post-test value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated <code>RMSE</code> (see Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a>, <code>RMSE</code> metric, column <em>testing.pooled</em>) and is used to indicate model predictive performance and uncertainty around model prediction graphically
+</p>
+</div>
+
+<p>If we visualize simple model of RCT, using Change score as outcome and Group as predictor (see Figure <a href="causal-inference.html#fig:simple-rct-model">4.5</a>), the predictions for athletes in each group are identical (i.e. the average change). This is depicted in Figure (Figure <a href="causal-inference.html#fig:simple-rct-subj-resid">4.11</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:simple-rct-subj-resid"></span>
+<img src="04-Causal-inference_files/figure-html/simple-rct-subj-resid-1.png" alt="Observed Change in vertical jump for each athlete in the study. Black dot indicate observed Change value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated RMSE (see Table 4.17, RMSE metric, column testing.pooled) and is used to indicate model predictive performance and uncertainty around model prediction graphically" width="90%" />
+<p class="caption">
+Figure 4.11: <strong>Observed Change in vertical jump for each athlete in the study.</strong> Black dot indicate observed Change value; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated <code>RMSE</code> (see Table <a href="causal-inference.html#tab:simple-rct-model-perf-metrics">4.17</a>, <code>RMSE</code> metric, column <em>testing.pooled</em>) and is used to indicate model predictive performance and uncertainty around model prediction graphically
+</p>
+</div>
+
+<p>More complex models (e.g. ANCOVA RCT model in Figure <a href="causal-inference.html#fig:ancova-rct-subj-resid">4.10</a>), like the one utilized in <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a> section will have different predictions for each athlete.</p>
+<p>Residuals approach uses observed scores and model predictions to indicate individuals who differ more or less than predicted by the model. If this difference between observed and predicted scores (or residual) is bigger than SESOI, this individual is <em>flagged</em>. But before jumping to conclusions, I need to remind you that the predictive performance of this simple model is pretty bad (see Table <a href="causal-inference.html#tab:simple-rct-model-perf-metrics">4.17</a>). Thus, this type of analysis and visualization should be interpreted <em>given</em> the model performance (which is indicated by horizontal line on the Figures <a href="causal-inference.html#fig:ancova-rct-subj-resid">4.10</a> and <a href="causal-inference.html#fig:simple-rct-subj-resid">4.11</a> which indicates cross-validated pooled testing <code>RMSE</code>; see Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a>). I will utilize this method with a better model in the <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a> section that has much lower cross-validated <code>RMSE</code>. What is important to remember with this analysis is that athletes who showed lower or higher observation compared to what was predicted by the model are flagged with red or green color. As opposed to the observed outcome approach, a model-based prediction approach uses <em>ceteris paribus</em> in estimating responders vs. non-responders, or at least providing residuals for such a decision. For example, everything else being equal, based on predictor variables, the expected observation is higher or lower than the model prediction. This indicates that there might be something not-identified by predictive algorithm and thus needs to be flagged for a further analysis. But more about this in the <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a>.</p>
+<p>Besides analyzing residuals in the training data-set, we can also check how model predicts for each individual within cross-validation using Bias-Variance decomposition (see <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section). Figure <a href="causal-inference.html#fig:ancova-rct-subj-bias-var">4.12</a> depicts prediction error (decomposed to Bias and Variance) for each athlete using ANCOVA RCT model.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-subj-bias-var"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-subj-bias-var-1.png" alt="Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model" width="90%" />
+<p class="caption">
+Figure 4.12: <strong>Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. </strong> This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model
+</p>
+</div>
+
+<p>These graphs will make much more sense when more predictive model is applied in the <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a> section.</p>
+</div>
+<div id="counterfactual-analysis-and-individual-treatment-effects" class="section level3" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> Counterfactual analysis and Individual Treatment Effects</h3>
+<p>As explained, causal inference and explanatory modeling aim to understand, or at least to quantify the causal (or treatment) effects. This is done by elaborate and transparent control of the confounders and study designs. Predictive modelling on the other hand is interested in providing valid predictions on new or unseen data without assuming underlying DGP by treating it as a black-box. In certain scenarios, when confounders are controlled, predictive modelling can be interpreted causally <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>)</span>. With observational studies, there is always a risk of not controlling all important confounders, but transparency of the causal model is there to be falsified and discussed openly <span class="citation">(Gelman and Hennig <a href="#ref-gelmanSubjectiveObjectiveStatistics2017" role="doc-biblioref">2017</a>; Hernan <a href="#ref-hernanCausalKnowledgePrerequisite2002" role="doc-biblioref">2002</a>; Hernán <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>; Hernán and Taubman <a href="#ref-hernanDoesObesityShorten2008" role="doc-biblioref">2008</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>. Even with the RCTs, there might be uncertainties in applying the findings from the experiments to realistic settings <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>; Heckman <a href="#ref-heckmanRejoinderResponseSobel2005" role="doc-biblioref">2005</a>)</span>.</p>
+<p>PDP and ICE plots are <em>model-agnostic</em> tools for interpreting black-box models that can be used in causal interpretations only after the effort to define the causal structure with domain-specific expertise is taken into account. This approach can be used to estimate, based on the predictive model, counterfactual change and Post-test scores when athletes do not receive treatment (for the Treatment group), or when athletes receive treatment (for the Control group). This way potential outcomes are predicted.</p>
+<p>To explain how this is done, let’s again consider the Table <a href="causal-inference.html#tab:dummy-coded">4.13</a>. Changing the Group column (in this case <code>groupTreatment</code>) for every observation (athletes in this case) while keeping all other variables (i.e. columns) the same, we can get a glimpse into causal effects of the treatment (assuming the model and the data are valid for such an inference). The prediction model utilized is ANCOVA RCT model.</p>
+<p>In the Table <a href="causal-inference.html#tab:ancova-rct-counterfactual-group">4.18</a>, columns <code>Post-test_0 (cm)</code> and <code>Post-test_1 (cm)</code> indicate these counterfactual changes for which we are interested how the model predicts. These predictions are in the columns <code>Post-test_0 (cm)</code> and <code>Post-test_1 (cm)</code>.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:ancova-rct-counterfactual-group">Table 4.18: </span><strong>Counterfactual table used to check how the model predicts when Group changes</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+<th style="text-align:right;">
+Pre-test (cm)
+</th>
+<th style="text-align:right;">
+Post-test (cm)
+</th>
+<th style="text-align:right;">
+Change (cm)
+</th>
+<th style="text-align:right;">
+groupTreatment_0
+</th>
+<th style="text-align:right;">
+Post-test_0 (cm)
+</th>
+<th style="text-align:right;">
+groupTreatment_1
+</th>
+<th style="text-align:right;">
+Post-test_1 (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.56
+</td>
+<td style="text-align:right;">
+44.29
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.04
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47.06
+</td>
+<td style="text-align:right;">
+47.98
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+46.07
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+53.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.53
+</td>
+<td style="text-align:right;">
+45.13
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+43.80
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+51.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+49.63
+</td>
+<td style="text-align:right;">
+48.86
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48.37
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+41.11
+</td>
+<td style="text-align:right;">
+42.13
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40.74
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+48.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.31
+</td>
+<td style="text-align:right;">
+41.61
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+41.82
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+45.96
+</td>
+<td style="text-align:right;">
+45.70
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+45.09
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+52.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.51
+</td>
+<td style="text-align:right;">
+42.89
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+43.79
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+51.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.57
+</td>
+<td style="text-align:right;">
+42.15
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49.90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+37.83
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.52
+</td>
+<td style="text-align:right;">
+34.83
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.63
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40.15
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+-1.03
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+47.73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+39.34
+</td>
+<td style="text-align:right;">
+38.34
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+39.16
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+47.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+38.94
+</td>
+<td style="text-align:right;">
+36.97
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+38.80
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.77
+</td>
+<td style="text-align:right;">
+34.15
+</td>
+<td style="text-align:right;">
+-2.26
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+36.85
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.98
+</td>
+<td style="text-align:right;">
+52.86
+</td>
+<td style="text-align:right;">
+14.93
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.94
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.79
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.04
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+51.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.77
+</td>
+<td style="text-align:right;">
+59.76
+</td>
+<td style="text-align:right;">
+12.99
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+45.81
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+53.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+38.90
+</td>
+<td style="text-align:right;">
+49.58
+</td>
+<td style="text-align:right;">
+10.81
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+38.76
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.29
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+10.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40.90
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+48.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+<td style="text-align:right;">
+57.57
+</td>
+<td style="text-align:right;">
+8.58
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47.28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+55.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.81
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+51.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.14
+</td>
+<td style="text-align:right;">
+44.95
+</td>
+<td style="text-align:right;">
+7.37
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.19
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.69
+</td>
+<td style="text-align:right;">
+52.73
+</td>
+<td style="text-align:right;">
+6.14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+45.75
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+53.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+42.77
+</td>
+<td style="text-align:right;">
+47.38
+</td>
+<td style="text-align:right;">
+5.02
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.23
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49.66
+</td>
+<td style="text-align:right;">
+54.11
+</td>
+<td style="text-align:right;">
+4.46
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48.40
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+37.92
+</td>
+<td style="text-align:right;">
+41.63
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.89
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.03
+</td>
+<td style="text-align:right;">
+45.41
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40.67
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+48.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.27
+</td>
+<td style="text-align:right;">
+46.72
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+44.47
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+52.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+47.61
+</td>
+<td style="text-align:right;">
+45.62
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+46.57
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+54.42
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure <a href="causal-inference.html#fig:ancova-rct-pdp-ice">4.13</a> depicts PDP and ICE for the Group variable. We will get back to this graph in the <a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some">Direct and indirect effect, covariates and then some</a> section.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-pdp-ice"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-pdp-ice-1.png" alt="(ref:simple-rct-pdp-ice-caption)" width="90%" />
+<p class="caption">
+Figure 4.13: (ref:simple-rct-pdp-ice-caption)
+</p>
+</div>
+
+<p>Besides PDP and ICE plot, we can also create a counterfactual plot for each athlete. For example, for the athletes in the Treatment group, we are interested how would the predicted Post-test <em>change</em> (given model used) if they are in the Control group and <em>vice versa</em> for the athletes from the Control group. This is done by <em>flipping</em> “Treatment” and “Control” in the Group column and predicting Post-test using the trained model. Figure <a href="causal-inference.html#fig:ancova-rct-counterfactual-effects">4.14</a> depicts this visually for each athlete. Arrows represents predicted Change when <em>flipping</em> the Group variable.</p>
+<div class="figure" style="text-align: center"><span id="fig:ancova-rct-counterfactual-effects"></span>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-counterfactual-effects-1.png" alt="Individual counterfactual prediction when the Group changes. This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn’t receive treatment). Arrows thus represent model predicted Individual Treatment Effects (pITE). Arrows are color coded based on the magnitude of the effect using defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude. Vertical line indicates observed Post-test scores." width="90%" />
+<p class="caption">
+Figure 4.14: <strong>Individual counterfactual prediction when the Group changes.</strong> This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn’t receive treatment). Arrows thus represent model predicted <em>Individual Treatment Effects</em> (pITE). Arrows are color coded based on the magnitude of the effect using defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude. Vertical line indicates observed Post-test scores.
+</p>
+</div>
+
+<p>This analysis allows us to estimate counterfactual <em>individual causal (treatment) effects</em> (ITE) predicted by the model. These are indicated with the arrows on the Figure <a href="causal-inference.html#fig:ancova-rct-counterfactual-effects">4.14</a>. Mathematically, arrow width is calculates using the Equation <a href="causal-inference.html#eq:ite-equation">(4.8)</a>.</p>
+<p><span class="math display" id="eq:ite-equation">\[
+\widehat{ITE_i} = \widehat{y_{i}^{Group=Treatment}} - \widehat{y_{i}^{Group=Control}} 
+ \tag{4.8}
+\]</span></p>
+<p>Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to 7.85cm. Table <a href="causal-inference.html#tab:ancova-rct-pITE">4.19</a> contains all individual model predictions using ANCOVA RCT model.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:ancova-rct-pITE">Table 4.19: </span><strong>Individual model predictions using ANCOVA RCT model</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+subject
+</th>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:right;">
+observed
+</th>
+<th style="text-align:right;">
+predicted
+</th>
+<th style="text-align:right;">
+residual
+</th>
+<th style="text-align:left;">
+magnitude
+</th>
+<th style="text-align:right;">
+counterfactual
+</th>
+<th style="text-align:right;">
+pITE
+</th>
+<th style="text-align:left;">
+pITE_magnitude
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.29
+</td>
+<td style="text-align:right;">
+42.04
+</td>
+<td style="text-align:right;">
+-2.25
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+49.89
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+47.98
+</td>
+<td style="text-align:right;">
+46.07
+</td>
+<td style="text-align:right;">
+-1.91
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+53.92
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.13
+</td>
+<td style="text-align:right;">
+43.80
+</td>
+<td style="text-align:right;">
+-1.33
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+51.65
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+48.86
+</td>
+<td style="text-align:right;">
+48.37
+</td>
+<td style="text-align:right;">
+-0.48
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+56.22
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.13
+</td>
+<td style="text-align:right;">
+40.74
+</td>
+<td style="text-align:right;">
+-1.39
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+48.59
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+41.61
+</td>
+<td style="text-align:right;">
+41.82
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+49.67
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.70
+</td>
+<td style="text-align:right;">
+45.09
+</td>
+<td style="text-align:right;">
+-0.61
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+52.93
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.89
+</td>
+<td style="text-align:right;">
+43.79
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+51.64
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.15
+</td>
+<td style="text-align:right;">
+42.06
+</td>
+<td style="text-align:right;">
+-0.10
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+49.90
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+37.83
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+-0.21
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+45.47
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+34.83
+</td>
+<td style="text-align:right;">
+36.63
+</td>
+<td style="text-align:right;">
+1.80
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+44.48
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+47.73
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+38.34
+</td>
+<td style="text-align:right;">
+39.16
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+47.01
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+36.97
+</td>
+<td style="text-align:right;">
+38.80
+</td>
+<td style="text-align:right;">
+1.84
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+46.65
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+34.15
+</td>
+<td style="text-align:right;">
+36.85
+</td>
+<td style="text-align:right;">
+2.70
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+44.70
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+52.86
+</td>
+<td style="text-align:right;">
+45.79
+</td>
+<td style="text-align:right;">
+-7.08
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+<td style="text-align:right;">
+37.94
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+51.88
+</td>
+<td style="text-align:right;">
+-6.62
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+<td style="text-align:right;">
+44.04
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+59.76
+</td>
+<td style="text-align:right;">
+53.66
+</td>
+<td style="text-align:right;">
+-6.10
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+<td style="text-align:right;">
+45.81
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+49.58
+</td>
+<td style="text-align:right;">
+46.61
+</td>
+<td style="text-align:right;">
+-2.98
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+<td style="text-align:right;">
+38.76
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+48.75
+</td>
+<td style="text-align:right;">
+-2.66
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+<td style="text-align:right;">
+40.90
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+57.57
+</td>
+<td style="text-align:right;">
+55.13
+</td>
+<td style="text-align:right;">
+-2.44
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+47.28
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+51.91
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+44.06
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.95
+</td>
+<td style="text-align:right;">
+45.04
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+37.19
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+52.73
+</td>
+<td style="text-align:right;">
+53.59
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+45.75
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+47.38
+</td>
+<td style="text-align:right;">
+50.08
+</td>
+<td style="text-align:right;">
+2.69
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+42.23
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+54.11
+</td>
+<td style="text-align:right;">
+56.25
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:left;">
+Equivalent
+</td>
+<td style="text-align:right;">
+48.40
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.63
+</td>
+<td style="text-align:right;">
+45.74
+</td>
+<td style="text-align:right;">
+4.11
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+37.89
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+45.41
+</td>
+<td style="text-align:right;">
+48.52
+</td>
+<td style="text-align:right;">
+3.11
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+40.67
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+46.72
+</td>
+<td style="text-align:right;">
+52.31
+</td>
+<td style="text-align:right;">
+5.59
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+44.47
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+45.62
+</td>
+<td style="text-align:right;">
+54.42
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:left;">
+Higher
+</td>
+<td style="text-align:right;">
+46.57
+</td>
+<td style="text-align:right;">
+-7.85
+</td>
+<td style="text-align:left;">
+Lower
+</td>
+</tr>
+</tbody>
+</table>
+<p>PDP and ICE plots, as well as individual treatment effects plots (and estimates) can be very valuable tool in visualizing the causal effects, which are appropriate in this case since we are analyzing RCT data. But we need to be very wary when using them with the observational data and giving them causal interpretation.</p>
+</div>
+<div id="direct-and-indirect-effect-covariates-and-then-some" class="section level3" number="4.7.3">
+<h3><span class="header-section-number">4.7.3</span> Direct and indirect effect, covariates and then some</h3>
+<p>In the previous RCT example, we have assumed <em>binary</em> treatment (either plyometric training is done or not), whereas in real life there can be nuances in the treatment, particularly in volume of jumps performed, making the treatment continuous rather than binary variable. This way, we are interested in the effects of number of jumps on the changes in vertical jump height.</p>
+<p>There could also be <em>hidden variables</em> involved that <em>moderate</em> and <em>mediate</em> the effects of the treatment<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>. For example, the higher someone jumps in the Pre-test, the lower the change in the Post-test (i.e. it is harder to improve vertical jump height). Or, the stronger someone is in the Pre-test (measured using relative back squat 1RM) the more potentiated the effects of the plyometrics are. All these are needed expert subject-matter knowledge, required to understand the underlying DGP (and thus to avoid introducing bias in causal analyses; see <span class="citation">Lübke et al. (<a href="#ref-lubkeWhyWeShould2020" role="doc-biblioref">2020</a>)</span>). With such causal structure, we do not have <em>direct treatment effect</em> (plyometric –&gt; change in vertical jump) only anymore, but moderated and mediated, or <em>indirect effects</em> estimated using the <em>interactions</em> in the regression models.</p>
+<p>To explain these concepts, let’s assume that that besides Pre-test and Post-test scores in our RCT study, we have also measured Back squat relative 1RMs since we believed that strength of the individual will moderate the effects of the plyometric treatment. This data is enlisted in the Table <a href="causal-inference.html#tab:rct-data-with-squat">4.20</a>. Squat 1RM in this case represent characteristic of the subject, or a <em>covariate</em>. Additional covariates (not considered here) might include gender, experience, height, weight and so forth.</p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:rct-data-with-squat">Table 4.20: </span>(ref:simple-rct-counterfactual-group-caption)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+Squat 1RM
+</th>
+<th style="text-align:left;">
+Group
+</th>
+<th style="text-align:right;">
+Pre-test (cm)
+</th>
+<th style="text-align:right;">
+Post-test (cm)
+</th>
+<th style="text-align:right;">
+Change (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.56
+</td>
+<td style="text-align:right;">
+44.29
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:right;">
+1.59
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+47.06
+</td>
+<td style="text-align:right;">
+47.98
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.53
+</td>
+<td style="text-align:right;">
+45.13
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+1.31
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+49.63
+</td>
+<td style="text-align:right;">
+48.86
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+1.77
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+41.11
+</td>
+<td style="text-align:right;">
+42.13
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:right;">
+1.34
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.31
+</td>
+<td style="text-align:right;">
+41.61
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+45.96
+</td>
+<td style="text-align:right;">
+45.70
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+2.03
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+44.51
+</td>
+<td style="text-align:right;">
+42.89
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+42.57
+</td>
+<td style="text-align:right;">
+42.15
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+1.91
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+37.83
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+36.52
+</td>
+<td style="text-align:right;">
+34.83
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:right;">
+1.37
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+40.15
+</td>
+<td style="text-align:right;">
+39.88
+</td>
+<td style="text-align:right;">
+-1.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+39.34
+</td>
+<td style="text-align:right;">
+38.34
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+1.58
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+38.94
+</td>
+<td style="text-align:right;">
+36.97
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+1.67
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+36.77
+</td>
+<td style="text-align:right;">
+34.15
+</td>
+<td style="text-align:right;">
+-2.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+37.98
+</td>
+<td style="text-align:right;">
+52.86
+</td>
+<td style="text-align:right;">
+14.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.79
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+46.77
+</td>
+<td style="text-align:right;">
+59.76
+</td>
+<td style="text-align:right;">
+12.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+38.90
+</td>
+<td style="text-align:right;">
+49.58
+</td>
+<td style="text-align:right;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+1.79
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.29
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+10.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:right;">
+1.44
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+<td style="text-align:right;">
+57.57
+</td>
+<td style="text-align:right;">
+8.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+44.81
+</td>
+<td style="text-align:right;">
+51.41
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+37.14
+</td>
+<td style="text-align:right;">
+44.95
+</td>
+<td style="text-align:right;">
+7.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+46.69
+</td>
+<td style="text-align:right;">
+52.73
+</td>
+<td style="text-align:right;">
+6.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:right;">
+1.22
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+42.77
+</td>
+<td style="text-align:right;">
+47.38
+</td>
+<td style="text-align:right;">
+5.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+49.66
+</td>
+<td style="text-align:right;">
+54.11
+</td>
+<td style="text-align:right;">
+4.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+37.92
+</td>
+<td style="text-align:right;">
+41.63
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+41.03
+</td>
+<td style="text-align:right;">
+45.41
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+45.27
+</td>
+<td style="text-align:right;">
+46.72
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+47.61
+</td>
+<td style="text-align:right;">
+45.62
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+</tr>
+</tbody>
+</table>
+<p>Since the individual are randomized into Treatment and Control groups, we expect that there is no difference between Squat 1RM betweem them. Figure <a href="causal-inference.html#fig:rct-squat">4.15</a> demonstrates that there is no difference between groups.</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-squat"></span>
+<img src="04-Causal-inference_files/figure-html/rct-squat-1.png" alt="Squat 1RM scores for Control and Treatment groups. Since athletes are randomized, we expect them to be similar (i.e. no selection bias involved)" width="90%" />
+<p class="caption">
+Figure 4.15: <strong>Squat 1RM scores for Control and Treatment groups. </strong> Since athletes are randomized, we expect them to be similar (i.e. no selection bias involved)
+</p>
+</div>
+
+<p>Before modeling this RCT data, let’s check visually the relationship between Pre-test and Change (panel A), Squat 1RM and Change (panel B), and Pre-test and Squat 1RM (panel C) (Figure <a href="causal-inference.html#fig:rct-change-relationships">4.16</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-change-relationships"></span>
+<img src="04-Causal-inference_files/figure-html/rct-change-relationships-1.png" alt="Relationship between predictors. A. Relationship between Pre-test and Change scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent 95% confidence intervals (see Statistical inference section for more information). If there is no interaction between Pre-test and Change score, the lines would be parallel. As can be seen with the Treatment group, it seems that individuals with higher Pre-test demonstrates lower Change, and vice versa for the Control group. But if we check the confidence interval area, these are due to random chance. B. Relationship between Squat 1RM and Change scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher changes after the training intervention. C. Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance." width="90%" />
+<p class="caption">
+Figure 4.16: <strong>Relationship between predictors. A. </strong> Relationship between Pre-test and Change scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent <em>95% confidence intervals</em> (see <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section for more information). If there is no interaction between Pre-test and Change score, the lines would be parallel. As can be seen with the Treatment group, it seems that individuals with higher Pre-test demonstrates lower Change, and <em>vice versa</em> for the Control group. But if we check the confidence interval area, these are due to random chance. <strong>B.</strong> Relationship between Squat 1RM and Change scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher changes after the training intervention. <strong>C.</strong> Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance.
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="causal-inference.html#fig:rct-change-relationships">4.16</a>, there seems to be some <em>interaction</em> between Squat 1RM and Change. Other panels indicate that there might be some relationship (i.e. <em>interaction</em>), but <em>95% confidence intervals</em> around the regression lines indicate that these are due to <em>random chance</em> (see <a href="statistical-inference.html#statistical-inference">Statistical inference</a> chapter for more info; for now you do not need to understand this concept).</p>
+<p>What does interaction mean? If we check the panel C in the Figure <a href="causal-inference.html#fig:rct-change-relationships">4.16</a>, interaction refers to change in regression line slopes. If the Group regression lines are parallel, then the distance between them is due to effect of treatment (i.e. direct or <em>main</em> effect of treatment). Since they are not parallel, it means that Squat 1RM and treatment interact: the higher the Squat 1RM for the Treatment group, the higher the Change, while that is not the case for the Control group. Mathematically, interaction is a simple multiplication between two predictors, as cab be seen in the Table <a href="causal-inference.html#tab:rct-interaction">4.21</a>.</p>
+
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:rct-interaction">Table 4.21: </span><strong>RCT data with interaction between Group and Squat 1RM</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+<th style="text-align:right;">
+Squat 1RM
+</th>
+<th style="text-align:right;">
+groupTreatment:Squat 1RM
+</th>
+<th style="text-align:right;">
+Pre-test (cm)
+</th>
+<th style="text-align:right;">
+Change (cm)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+42.56
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.59
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+47.06
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+44.53
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.31
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+49.63
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.77
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+41.11
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.34
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+42.31
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+45.96
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2.03
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+44.51
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+42.57
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.91
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+37.63
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+36.52
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.37
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+40.15
+</td>
+<td style="text-align:right;">
+-1.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+39.34
+</td>
+<td style="text-align:right;">
+-1.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.58
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+38.94
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.67
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+36.77
+</td>
+<td style="text-align:right;">
+-2.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:right;">
+37.98
+</td>
+<td style="text-align:right;">
+14.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:right;">
+44.79
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:right;">
+46.77
+</td>
+<td style="text-align:right;">
+12.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:right;">
+38.90
+</td>
+<td style="text-align:right;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.79
+</td>
+<td style="text-align:right;">
+1.79
+</td>
+<td style="text-align:right;">
+41.29
+</td>
+<td style="text-align:right;">
+10.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.44
+</td>
+<td style="text-align:right;">
+1.44
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+<td style="text-align:right;">
+8.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+44.81
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:right;">
+1.49
+</td>
+<td style="text-align:right;">
+37.14
+</td>
+<td style="text-align:right;">
+7.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+46.69
+</td>
+<td style="text-align:right;">
+6.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.22
+</td>
+<td style="text-align:right;">
+1.22
+</td>
+<td style="text-align:right;">
+42.77
+</td>
+<td style="text-align:right;">
+5.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+49.66
+</td>
+<td style="text-align:right;">
+4.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:right;">
+37.92
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+41.03
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+45.27
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+47.61
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+</tr>
+</tbody>
+</table>
+<p>Bu as already alluded, the use of Change scores should be avoided. Let’s see this exact graphs, but using Post-test (Figure <a href="causal-inference.html#fig:rct-post-test-relationships">4.17</a>) as our variable of interest (i.e. outcome variable).</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-post-test-relationships"></span>
+<img src="04-Causal-inference_files/figure-html/rct-post-test-relationships-1.png" alt="Relationship between predictors. A. Relationship between Pre-test and Post-test scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent 95% confidence intervals (see Statistical inference section for more information). If there is no interaction between Pre-test and Post-test score, the lines would be parallel. As can be seen on the figure, there doesn’t seem to be interaction involved. B. Relationship between Squat 1RM and Post-test scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher Post-test scores after the training intervention. C. Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance." width="90%" />
+<p class="caption">
+Figure 4.17: <strong>Relationship between predictors. A. </strong> Relationship between Pre-test and Post-test scores. Lines indicate linear regression model and are used to indicate relationship and interaction. Colored area represent <em>95% confidence intervals</em> (see <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section for more information). If there is no interaction between Pre-test and Post-test score, the lines would be parallel. As can be seen on the figure, there doesn’t seem to be interaction involved. <strong>B.</strong> Relationship between Squat 1RM and Post-test scores. Visual analysis indicates that individuals in the Treatment group with the higher Squat 1RM demonstrates higher Post-test scores after the training intervention. <strong>C.</strong> Relationship between Squat 1RM and Pre-test predictors. It seems that, in both groups, athletes with higher Squat 1RM scores have lower Pre-test values. Checking confidence interval areas, this relationship is due to random chance.
+</p>
+</div>
+
+<p>Let’s apply linear regression model to these predictors. The parameters we are going to estimate are enlisted in the linear Equation <a href="causal-inference.html#eq:rct-interaction-equation">(4.9)</a>.</p>
+<p><span class="math display" id="eq:rct-interaction-equation">\[
+\begin{equation}
+  \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group +  \hat{\beta_2}Pre + \hat{\beta_3}Squat\:1RM + \hat{\beta_4}Group:Squat\:1RM 
+  \tag{4.9}
+\end{equation}
+\]</span></p>
+<p>Estimated parameters for this linear model with interaction are enlisted in the Table <a href="causal-inference.html#tab:rct-interaction-model-coef">4.22</a>.</p>
+
+<table>
+<caption>
+<span id="tab:rct-interaction-model-coef">Table 4.22: </span><strong>Estimated linear regression parameters for the RCT model with interaction between Group and Squat 1RM</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Intercept
+</th>
+<th style="text-align:right;">
+groupTreatment
+</th>
+<th style="text-align:right;">
+Pre-test
+</th>
+<th style="text-align:right;">
+Squat 1RM
+</th>
+<th style="text-align:right;">
+Group:Squat 1RM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-5.21
+</td>
+<td style="text-align:right;">
+-8.03
+</td>
+<td style="text-align:right;">
+1.1
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+10.82
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we check the estimated coefficient for the group Treatment in the Table <a href="causal-inference.html#tab:rct-interaction-model-coef">4.22</a>, which is equal to -8.03, can we conclude that this is the whole effect of treatment (i.e. plyometric treatment)? Luckily no! This coefficient represents <em>direct treatment effect</em>, but there are <em>indirect treatment effects</em> due to Squat 1RM and interaction between Squat 1RM and Group. This also assumes that we have not introduced bias in treatment effect estimation by <em>adjusting</em> (or by <em>not adjusting</em>) for covariates that we should not adjust for (or <em>vice versa</em>; for great applied paper please refer to <span class="citation">Lübke et al. (<a href="#ref-lubkeWhyWeShould2020" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Figure <a href="causal-inference.html#fig:rct-interaction-resid">4.18</a> depicts residuals of the RCT model with interactions.</p>
+<div class="figure" style="text-align: center"><span id="fig:rct-interaction-resid"></span>
+<img src="04-Causal-inference_files/figure-html/rct-interaction-resid-1.png" alt="Residuals of the linear regression RCT model with interaction. Grey band on both panels represents SESOI of ±2.5cm" width="90%" />
+<p class="caption">
+Figure 4.18: <strong>Residuals of the linear regression RCT model with interaction. </strong>Grey band on both panels represents SESOI of ±2.5cm
+</p>
+</div>
+
+<p>As opposed to the Figures <a href="causal-inference.html#fig:simple-rct-model-ba">4.6</a> and <a href="causal-inference.html#fig:ancova-rct-model-ba">4.8</a>, we can quickly see that this model have almost all residuals in the SESOI band. Table <a href="causal-inference.html#tab:interaction-rct-model-perf-metrics">4.23</a> contains cross-validated model performance (using the same 10 repeats of 3 folds cross-validation splits as used in the simple and ANCOVA RCT models).</p>
+
+<table>
+<caption>
+<span id="tab:interaction-rct-model-perf-metrics">Table 4.23: </span><strong>Cross-validated predictive performance metrics for the RCT model with interaction</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+metric
+</th>
+<th style="text-align:right;">
+training
+</th>
+<th style="text-align:right;">
+training.pooled
+</th>
+<th style="text-align:right;">
+testing.pooled
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MBE
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+1.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+<td style="text-align:right;">
+1.40
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPER
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SESOI to RMSE
+</td>
+<td style="text-align:right;">
+4.64
+</td>
+<td style="text-align:right;">
+4.95
+</td>
+<td style="text-align:right;">
+3.51
+</td>
+<td style="text-align:right;">
+3.74
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+2.68
+</td>
+<td style="text-align:right;">
+7.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R-squared
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.85
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MinErr
+</td>
+<td style="text-align:right;">
+-2.12
+</td>
+<td style="text-align:right;">
+-2.57
+</td>
+<td style="text-align:right;">
+-3.00
+</td>
+<td style="text-align:right;">
+-1.91
+</td>
+<td style="text-align:right;">
+0.64
+</td>
+<td style="text-align:right;">
+-3.00
+</td>
+<td style="text-align:right;">
+-0.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxErr
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:right;">
+2.20
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+<td style="text-align:right;">
+2.23
+</td>
+<td style="text-align:right;">
+0.64
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaxAbsErr
+</td>
+<td style="text-align:right;">
+2.12
+</td>
+<td style="text-align:right;">
+2.57
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+<td style="text-align:right;">
+2.48
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+1.57
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+</tr>
+</tbody>
+</table>
+<p>As expected, predictive performance metrics are now much better. Let’s inspect the athlete’s residuals (Figure <a href="causal-inference.html#fig:interaction-rct-subj-resid">4.19</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:interaction-rct-subj-resid"></span>
+<img src="04-Causal-inference_files/figure-html/interaction-rct-subj-resid-1.png" alt="Observed Post-test in vertical jump for each athlete in the study. Black dot indicate observed Post-test; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated RMSE (see Table 4.23, RMSE metric, column testing.pooled) and is used to indicate visually model predictive performance and uncertainty around model prediction" width="90%" />
+<p class="caption">
+Figure 4.19: <strong>Observed Post-test in vertical jump for each athlete in the study.</strong> Black dot indicate observed Post-test; vertical line indicate model prediction; colored bar indicated the residual magnitude compared to defined SESOI (±2.5cm in this example): grey for equivalent magnitude, green for lower magnitude, and red for higher magnitude; horizontal error bar represents cross-validated <code>RMSE</code> (see Table <a href="causal-inference.html#tab:interaction-rct-model-perf-metrics">4.23</a>, <code>RMSE</code> metric, column <em>testing.pooled</em>) and is used to indicate visually model predictive performance and uncertainty around model prediction
+</p>
+</div>
+
+<p>If we compare residuals from the simple model (Figure <a href="causal-inference.html#fig:simple-rct-subj-resid">4.11</a>) and ANCOVA RCT model (Figure <a href="causal-inference.html#fig:ancova-rct-subj-resid">4.10</a>), in RCT model with interactions the residuals are much smaller, indicating better prediction. You can also see that model predictions differ, as opposed to simple model that predicted same Change values for all athletes in the Control and Treatment groups. Athletes who are <em>flagged</em> (have residual bigger than SESOI) might need further inspection, since given training data and model, these demonstrate Post-test that is larger/smaller than expected taking their covariates into account (in this case Strength 1RM).</p>
+<p>Figure <a href="causal-inference.html#fig:interaction-rct-subj-bias-var">4.20</a> depicts prediction errors during cross-validation for each athlete. This analysis, together with the Figure <a href="causal-inference.html#fig:interaction-rct-subj-resid">4.19</a>, can be used to detect athletes that are <em>troublesome</em> for the predictive model, and thus bear some further inspection.</p>
+<div class="figure" style="text-align: center"><span id="fig:interaction-rct-subj-bias-var"></span>
+<img src="04-Causal-inference_files/figure-html/interaction-rct-subj-bias-var-1.png" alt="Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model" width="90%" />
+<p class="caption">
+Figure 4.20: <strong>Bias-variance across 10 times repeated 3-fold cross-validation for each athlete. </strong> This analysis can also be utilize to flag certain observations (i.e. athlete in this case) that are troublesome for the predictive model
+</p>
+</div>
+
+<p>Interpreting and understanding <em>direct</em> and <em>indirect</em> effects can be quite difficult, especially when causal structure becomes complex. Visualization techniques such as already mentioned PDP and ICE graphs can be utilized to understand the causal mechanism <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>; Goldstein et al. <a href="#ref-goldsteinPeekingBlackBox2013" role="doc-biblioref">2013</a>)</span>. These techniques can also be implemented in observational studies, but with considerable domain knowledge and assumptions needed <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>)</span>. Although predictive analysis, particularly those using <em>black box</em> machine learning models, has been criticized to lack causal interpretation <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>; Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, they can complement causal (or explanatory) analysis <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>. Figure <a href="causal-inference.html#fig:pdp-ice-interaction-rct">4.21</a> depicts PDP and ICE plots for Group and Strength 1RM predictors.</p>
+<div class="figure" style="text-align: center"><span id="fig:pdp-ice-interaction-rct"></span>
+<img src="04-Causal-inference_files/figure-html/pdp-ice-interaction-rct-1.png" alt="PDP and ICE plots for Group and Strength 1RM predictors using RCT model with interaction" width="90%" />
+<p class="caption">
+Figure 4.21: <strong>PDP and ICE plots for Group and Strength 1RM predictors using RCT model with interaction</strong>
+</p>
+</div>
+
+<p>Since this is RCT, we can give causal interpretation to PDP and ICE plot, particularly panel B in the Figure <a href="causal-inference.html#fig:pdp-ice-interaction-rct">4.21</a>. According to this analysis (given the data and the model), if one increase Squat 1RM, the effect of treatment (i.e. plyometric training) will be higher. This can be further analyzed using each athlete. The question we would like to answer (given the data collected and the model) is “How would particular athlete respond to the treatment if his strength was higher or lower?”. Figure <a href="causal-inference.html#fig:individual-ice">4.22</a> shows ICE plots in separate facets. This gives us the ability to analyze (given the data and the model) how would each athlete respond if his or her Squat 1RM changed.</p>
+<div class="figure" style="text-align: center"><span id="fig:individual-ice"></span>
+<img src="04-Causal-inference_files/figure-html/individual-ice-1.png" alt="ICE plots for each athlete" width="90%" />
+<p class="caption">
+Figure 4.22: <strong>ICE plots for each athlete</strong>
+</p>
+</div>
+
+<p>Figure <a href="causal-inference.html#fig:interaction-rct-counterfactual-effects">4.23</a> depicts predicted ITE (i.e. what would happen if Groups <em>flipped</em> and everything else being equal). If we compare Figure <a href="causal-inference.html#fig:interaction-rct-counterfactual-effects">4.23</a> with Figure <a href="causal-inference.html#fig:ancova-rct-counterfactual-effects">4.14</a>, we can quickly see that the ITEs differ and are not equal for every individual. If we calculate the <code>mean</code> of the ITEs (i.e. arrow lengths), we will get an estimate of <code>ATE</code>. <code>SD</code> of ITEs will give us estimate how variable the treatment effects are, or estimate of <code>VTE</code>. Since these are predicted with the model, I’ve used the terms <code>pATE</code> and <code>pVTE</code> indicating that they are estimated with the predictive model.</p>
+<div class="figure" style="text-align: center"><span id="fig:interaction-rct-counterfactual-effects"></span>
+<img src="04-Causal-inference_files/figure-html/interaction-rct-counterfactual-effects-1.png" alt="Individual counterfactual prediction when the Group changes. This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn’t receive treatment). Arrows thus represent model predicted Individual Treatment Effects (ITE). Vertical line indicates observed Change" width="90%" />
+<p class="caption">
+Figure 4.23: <strong>Individual counterfactual prediction when the Group changes.</strong> This way we can estimate model counterfactual predictions when the treatment changes (i.e. Controls receive treatment, and Treatment doesn’t receive treatment). Arrows thus represent model predicted <em>Individual Treatment Effects</em> (ITE). Vertical line indicates observed Change
+</p>
+</div>
+
+<p>Table <a href="causal-inference.html#tab:rct-models-performance-comparison">4.24</a> contains comparison between the ANCOVA RCT model (<span class="math inline">\(\widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre\)</span>) and model with Squat 1RM and interaction term (<span class="math inline">\(\widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre + \hat{\beta_3}Squat\:1RM + \hat{\beta_4}Group:Squat\:1RM\)</span>) for few estimators that are insightful for the comparison.</p>
+
+<table>
+<caption>
+<span id="tab:rct-models-performance-comparison">Table 4.24: </span><strong>Comparison between two models using few estimators and performance metrics</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+estimator
+</th>
+<th style="text-align:right;">
+ANCOVA.model
+</th>
+<th style="text-align:right;">
+Interaction.model
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Training RMSE
+</td>
+<td style="text-align:right;">
+3.31
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Training PPER
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Training SESOI to RMSE
+</td>
+<td style="text-align:right;">
+1.51
+</td>
+<td style="text-align:right;">
+4.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Training R-squared
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV RMSE
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV PPER
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV SESOI to RMSE
+</td>
+<td style="text-align:right;">
+1.32
+</td>
+<td style="text-align:right;">
+3.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV R-squared
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SD Residual (Treatment)
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SD Residual (Control)
+</td>
+<td style="text-align:right;">
+4.64
+</td>
+<td style="text-align:right;">
+1.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pATE (Treatment)
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:right;">
+7.57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pATE (Control)
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:right;">
+8.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pVTE (Treatment)
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+4.62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pVTE (Control)
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2.84
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen in the Table <a href="causal-inference.html#tab:rct-models-performance-comparison">4.24</a>, linear model with interactions predicts Post-test in the vertical jump height better than the ANCOVA model. This means that the variance in the treatment effect (<code>SD Residual</code> in the Table <a href="causal-inference.html#tab:rct-models-performance-comparison">4.24</a>) is now explained with additional variables and their interactions<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>.</p>
+<p>We are not only interested in prediction, but rather in the underlying causal structure and explaining this model performance when we <em>intervene</em> on variables (i.e. what happens to the target variable when I change X from <em>a</em> to <em>b</em>, while keeping other variables fixed - which is <em>ceteris paribus</em> condition). For this reason, PDP and ICE plots can be used to give causal interpretation of the model (see Figure <a href="causal-inference.html#fig:pdp-ice-interaction-rct">4.21</a>).
+The main critique of Judea Pearl regarding the use of predictive models and techniques is the lack of counterfactual causal interpretation <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, particularly with observational studies. I agree that “the role of expert knowledge is the key difference between prediction and causal inference tasks” <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>, 44)</span> and that “both prediction and causal inference require expert knowledge to formulate the scientific question, but only causal inference requires causal expert knowledge to answer the question” <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>, 45)</span>, but this doesn’t negate the need for providing predictive performance, as well as helping in interpreting the model when such data is available <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>According to Zhao and Hastie <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>, 1)</span>: “There are three requirements to make causal interpretations: a model with good predictive performance, some domain knowledge in the form of a causal diagram and suitable visualization tools.”. The common denominator among multiple experts is that for causal inference and causal interpretation there is a need for domain knowledge, particularly when RCTs are not available. This domain knowledge can be made more transparent by using DAGs and other structural diagrams, and thus help in falsifying assumptions <span class="citation">(Gelman and Hennig <a href="#ref-gelmanSubjectiveObjectiveStatistics2017" role="doc-biblioref">2017</a>; Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernan <a href="#ref-hernanCausalKnowledgePrerequisite2002" role="doc-biblioref">2002</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>. Adding prediction to explanatory models can be seen as complement, particularly since statistical analysis has been neglecting predictive analysis over explanatory analysis <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>.</p>
+</div>
+<div id="model-selection" class="section level3" number="4.7.4">
+<h3><span class="header-section-number">4.7.4</span> Model selection</h3>
+<p>Besides applying model with a single interaction term, we can also apply models with more interactions, or quadratic or polynomial terms, or what have you. As we have seen in the <a href="prediction.html#prediction">Prediction</a> chapter, these models can overfit quite easily. That is why we utilized cross-validation to check for model performance on the unseen data. But what if two or more models of different complexity perform similarly on the unseen data (i.e. when cross-validated)? This is the problem of <em>model selection and comparison</em>. Generally, we want to select the simplest model that gives us reliable predictions. Discussions regarding the model comparison and model selection are beyond the scope of this book, although I will provide few examples in the second part of the book.</p>
+<p>The model definition should rely on pre-existing beliefs (i.e. subject-matter expert knowledge) around causal structure underlying intervention. If the statistical analysis is done to <em>confirm</em> the structural causal model, then this represents <em>confirmatory analysis</em>. Usually, these studies need to be <em>pre-registered</em> with the exact analysis workflow and assumption defined <em>before</em> data is collected. This is required because in the <em>exploratory analysis</em> one can <em>play</em> with the data, different models can be tried and the model that fits the data best can be selected. Exploratory analysis is useful for generating models and hypothesis for future studies, but also introduces <em>hindsight bias</em> since the model is selected <em>after</em> seeing the data or the results of multiple analyses. Very related is so called <em>p-harking</em> (Hypothesizing After Results are Known) which involves modifying the hypothesis or in this case causal model, after seeing the results, most often with the aim to reach <em>statistical significance</em> (discussed later in the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section). In predictive analysis this hindsight bias is reduced by using hold-out sample, cross-validation, and evaluating the final model performance on the data that has not been seen by the model.</p>
+</div>
+</div>
+<div id="ergodicity" class="section level2" number="4.8">
+<h2><span class="header-section-number">4.8</span> Ergodicity</h2>
+<p><em>Ergodic</em> process is underlying DGP that is equivalent at <em>between-individual</em> (or inter-individual; or group-based analysis) and <em>within-individual</em> (or intra-individual or simply individual-based analysis) levels. Thus the causal effects identified using between-individual analysis can be applied to understand within-individual causation as well. <em>Non-Ergodic</em> process on the other hand differs between these two levels and effects identified at between-individual level cannot be inferred to within individual level.</p>
+<p>Few authors have already brought into question the generalizability of group-based research to individual-based prediction and causal inferences <span class="citation">(Fisher, Medaglia, and Jeronimus <a href="#ref-fisherLackGrouptoindividualGeneralizability2018" role="doc-biblioref">2018</a>; Glazier and Mehdizadeh <a href="#ref-glazierChallengingConventionalParadigms2018" role="doc-biblioref">2018</a>; Molenaar <a href="#ref-molenaarManifestoPsychologyIdiographic2004" role="doc-biblioref">2004</a>; Molenaar and Campbell <a href="#ref-molenaarNewPersonSpecificParadigm2009" role="doc-biblioref">2009</a>)</span>. Here is an interesting quote from Molenaar <span class="citation">(Molenaar and Campbell <a href="#ref-molenaarNewPersonSpecificParadigm2009" role="doc-biblioref">2009</a>, 112)</span>:</p>
+<blockquote>
+<p>“Most research methodology in the behavioral sciences employs inter-individual analyses, which provide information about the state of affairs of the population. However, as shown by classical mathematical-statistical theorems (the ergodic theorems), such analyses do not provide information for, and cannot be applied at, the level of the individual, except on rare occasions when the processes of interest meet certain stringent conditions. When psychological processes violate these conditions, the inter-individual analyses that are now standardly applied have to be replaced by analysis of intra-individual variation in order to obtain valid results.”</p>
+</blockquote>
+<p>The individual counterfactual predictions (ITEs) and ICE plots thus rely on ergodicity, which represents big assumption. This means that we should be cautious when generalizing model predictions and causal explanations from group-based level to individual-level.</p>
+<p>Data analysis at the individual level (i.e. collecting multiple data point for individuals) and identifying individual causal effects and predictions might be the step forward, but even with such an approach we are <em>retrodicting</em> under <em>ceteris paribus</em> conditions and we might not be able to predict future responses. For example, if we have collected responses to various interventions for a particular individual, we might not be able to estimate with certainty how he or she is going to respond to a familiar treatment in the future, since such a prediction relies on <em>stationarity</em> of the parameters or the underlying DGP <span class="citation">(Molenaar and Campbell <a href="#ref-molenaarNewPersonSpecificParadigm2009" role="doc-biblioref">2009</a>)</span>.</p>
+<p>But this doesn’t imply that all our efforts are useless. We just need to accept the uncertainty and the assumptions involved. For example, for completely novel subject, the best response estimate or prediction estimate is the expected response calculated by using the group-based analysis (i.e. average treatment effect). This represents the most likely response or prediction. But on top of providing these distribution-based or group-based estimates, one can provide expected uncertainties showing individual-based or response proportions as anchor-based (magnitude-based) estimates <span class="citation">(Estrada, Ferrer, and Pardo <a href="#ref-estradaStatisticsEvaluatingPrepost2019" role="doc-biblioref">2019</a>; Norman et al. <a href="#ref-normanRelationDistributionAnchorBased2001" role="doc-biblioref">2001</a>)</span>. It is important to note that these usually estimate the same information <span class="citation">(Estrada, Ferrer, and Pardo <a href="#ref-estradaStatisticsEvaluatingPrepost2019" role="doc-biblioref">2019</a>; Norman et al. <a href="#ref-normanRelationDistributionAnchorBased2001" role="doc-biblioref">2001</a>)</span>; e.g. the higher the <code>Cohen's d</code> the higher the proportion of higher responses. Thus reporting magnitude-based proportions as uncertainties together with expected responses using average-based approach at least help in communicating uncertainties much better than reporting solely average-based estimates. When warranted with the research question, researchers should also report predictive performances on unseen data, as well as underlying assumption using graphical models such as DAGs.</p>
+<p>It might be the best to conclude the section on causal inference with the quote from Andrew Gelman’s paper <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>, 965)</span>:</p>
+<blockquote>
+<p>“Casual inference will always be a challenge, partly because our psychological intuitions do not always match how the world works. We like to think of simple causal stories, but in the social world, causes and effects are complex. We—in the scientific community—still have not come to any agreement on how best to form consensus on causal questions: there is a general acceptance that experimentation is a gold standard, but it is not at clear how much experimentation should be done, to what extent we can trust inference from observational data, and to what extent experimentation should be more fully incorporated into daily practice (as suggested by some in the “evidence-based medicine” movement)."</p>
+</blockquote>
 
 </div>
 </div>
@@ -3276,8 +8378,38 @@ pHigher
 <div id="ref-angristMasteringMetricsPath2015">
 <p>Angrist, Joshua David, and Jörn-Steffen Pischke. 2015. <em>Mastering ’Metrics: The Path from Cause to Effect</em>. Princeton ; Oxford: Princeton University Press.</p>
 </div>
+<div id="ref-breimanStatisticalModelingTwo2001">
+<p>Breiman, Leo. 2001. “Statistical Modeling: The Two Cultures.” <em>Statistical Science</em> 16 (3): 199–215.</p>
+</div>
+<div id="ref-estradaStatisticsEvaluatingPrepost2019">
+<p>Estrada, Eduardo, Emilio Ferrer, and Antonio Pardo. 2019. “Statistics for Evaluating Pre-Post Change: Relation Between Change in the Distribution Center and Change in the Individual Scores.” <em>Frontiers in Psychology</em> 9 (January). <a href="https://doi.org/10.3389/fpsyg.2018.02696">https://doi.org/10.3389/fpsyg.2018.02696</a>.</p>
+</div>
+<div id="ref-fisherLackGrouptoindividualGeneralizability2018">
+<p>Fisher, Aaron J., John D. Medaglia, and Bertus F. Jeronimus. 2018. “Lack of Group-to-Individual Generalizability Is a Threat to Human Subjects Research.” <em>Proceedings of the National Academy of Sciences</em> 115 (27): E6106–E6115. <a href="https://doi.org/10.1073/pnas.1711978115">https://doi.org/10.1073/pnas.1711978115</a>.</p>
+</div>
 <div id="ref-gelmanCausalityStatisticalLearning2011">
 <p>Gelman, Andrew. 2011. “Causality and Statistical Learning.” <em>American Journal of Sociology</em> 117 (3): 955–66. <a href="https://doi.org/10.1086/662659">https://doi.org/10.1086/662659</a>.</p>
+</div>
+<div id="ref-gelmanSubjectiveObjectiveStatistics2017">
+<p>Gelman, Andrew, and Christian Hennig. 2017. “Beyond Subjective and Objective in Statistics.” <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em> 180 (4): 967–1033. <a href="https://doi.org/10.1111/rssa.12276">https://doi.org/10.1111/rssa.12276</a>.</p>
+</div>
+<div id="ref-glazierChallengingConventionalParadigms2018">
+<p>Glazier, Paul S., and Sina Mehdizadeh. 2018. “Challenging Conventional Paradigms in Applied Sports Biomechanics Research.” <em>Sports Medicine</em>, December. <a href="https://doi.org/10.1007/s40279-018-1030-1">https://doi.org/10.1007/s40279-018-1030-1</a>.</p>
+</div>
+<div id="ref-goldsteinPeekingBlackBox2013">
+<p>Goldstein, Alex, Adam Kapelner, Justin Bleich, and Emil Pitkin. 2013. “Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation.” <em>arXiv:1309.6392 [Stat]</em>, September. <a href="http://arxiv.org/abs/1309.6392">http://arxiv.org/abs/1309.6392</a>.</p>
+</div>
+<div id="ref-heckmanRejoinderResponseSobel2005">
+<p>Heckman, James J. 2005. “Rejoinder: Response to Sobel.” <em>Sociological Methodology</em> 35 (1): 135–50. <a href="https://doi.org/10.1111/j.0081-1750.2006.00166.x">https://doi.org/10.1111/j.0081-1750.2006.00166.x</a>.</p>
+</div>
+<div id="ref-heckstedenIndividualResponseExercise2015">
+<p>Hecksteden, Anne, Jochen Kraushaar, Friederike Scharhag-Rosenberger, Daniel Theisen, Stephen Senn, and Tim Meyer. 2015. “Individual Response to Exercise Training - a Statistical Perspective.” <em>Journal of Applied Physiology</em> 118 (12): 1450–9. <a href="https://doi.org/10.1152/japplphysiol.00714.2014">https://doi.org/10.1152/japplphysiol.00714.2014</a>.</p>
+</div>
+<div id="ref-heckstedenRepeatedTestingAssessment2018">
+<p>Hecksteden, Anne, Werner Pitsch, Friederike Rosenberger, and Tim Meyer. 2018. “Repeated Testing for the Assessment of Individual Response to Exercise Training.” <em>Journal of Applied Physiology</em> 124 (6): 1567–79. <a href="https://doi.org/10.1152/japplphysiol.00896.2017">https://doi.org/10.1152/japplphysiol.00896.2017</a>.</p>
+</div>
+<div id="ref-hernanCausalKnowledgePrerequisite2002">
+<p>Hernan, M. A. 2002. “Causal Knowledge as a Prerequisite for Confounding Evaluation: An Application to Birth Defects Epidemiology.” <em>American Journal of Epidemiology</em> 155 (2): 176–84. <a href="https://doi.org/10.1093/aje/155.2.176">https://doi.org/10.1093/aje/155.2.176</a>.</p>
 </div>
 <div id="ref-hernanDoesObesityShorten2008">
 <p>Hernán, M A, and S L Taubman. 2008. “Does Obesity Shorten Life? The Importance of Well-Defined Interventions to Answer Causal Questions.” <em>International Journal of Obesity</em> 32 (S3): S8–S14. <a href="https://doi.org/10.1038/ijo.2008.82">https://doi.org/10.1038/ijo.2008.82</a>.</p>
@@ -3297,11 +8429,35 @@ pHigher
 <div id="ref-hernanCausalInference2019">
 <p>Hernán, Miguel A., and JM Robins. n.d. <em>Causal Inference</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
 </div>
+<div id="ref-hopkinsHowInterpretChanges2004">
+<p>Hopkins, Will G. 2004a. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
+</div>
+<div id="ref-hopkinsIndividualResponsesMade2015">
+<p>Hopkins, Will G. 2015. “Individual Responses Made Easy.” <em>Journal of Applied Physiology</em> 118 (12): 1444–6. <a href="https://doi.org/10.1152/japplphysiol.00098.2015">https://doi.org/10.1152/japplphysiol.00098.2015</a>.</p>
+</div>
+<div id="ref-jDifferentWaysEstimate2018">
+<p>J, Twisk, Bosman L, Hoekstra T, Rijnhart J, Welten M, and Heymans M. 2018. “Different Ways to Estimate Treatment Effects in Randomised Controlled Trials.” <em>Contemporary Clinical Trials Communications</em> 10 (June): 80–85. <a href="https://doi.org/10.1016/j.conctc.2018.03.008">https://doi.org/10.1016/j.conctc.2018.03.008</a>.</p>
+</div>
 <div id="ref-kleinbergWhyGuideFinding2015">
 <p>Kleinberg, Samantha. 2015. <em>Why: A Guide to Finding and Using Causes</em>. 1 edition. Beijing ; Boston: O’Reilly Media.</p>
 </div>
 <div id="ref-ledererControlConfoundingReporting2019">
 <p>Lederer, David J., Scott C. Bell, Richard D. Branson, James D. Chalmers, Rachel Marshall, David M. Maslove, David E. Ost, et al. 2019. “Control of Confounding and Reporting of Results in Causal Inference Studies. Guidance for Authors from Editors of Respiratory, Sleep, and Critical Care Journals.” <em>Annals of the American Thoracic Society</em> 16 (1): 22–28. <a href="https://doi.org/10.1513/AnnalsATS.201808-564PS">https://doi.org/10.1513/AnnalsATS.201808-564PS</a>.</p>
+</div>
+<div id="ref-lubkeWhyWeShould2020">
+<p>Lübke, Karsten, Matthias Gehrke, Jörg Horst, and Gero Szepannek. 2020. “Why We Should Teach Causal Inference: Examples in Linear Regression with Simulated Data.” <em>Journal of Statistics Education</em>, May, 1–7. <a href="https://doi.org/10.1080/10691898.2020.1752859">https://doi.org/10.1080/10691898.2020.1752859</a>.</p>
+</div>
+<div id="ref-molenaarManifestoPsychologyIdiographic2004">
+<p>Molenaar, Peter C. M. 2004. “A Manifesto on Psychology as Idiographic Science: Bringing the Person Back into Scientific Psychology, This Time Forever.” <em>Measurement: Interdisciplinary Research &amp; Perspective</em> 2 (4): 201–18. <a href="https://doi.org/10.1207/s15366359mea0204_1">https://doi.org/10.1207/s15366359mea0204_1</a>.</p>
+</div>
+<div id="ref-molenaarNewPersonSpecificParadigm2009">
+<p>Molenaar, Peter C. M., and Cynthia G. Campbell. 2009. “The New Person-Specific Paradigm in Psychology.” <em>Current Directions in Psychological Science</em> 18 (2): 112–17. <a href="https://doi.org/10.1111/j.1467-8721.2009.01619.x">https://doi.org/10.1111/j.1467-8721.2009.01619.x</a>.</p>
+</div>
+<div id="ref-normanRelationDistributionAnchorBased2001">
+<p>Norman, Geoffrey R., Femida Gwadry Sridhar, Gordon H. Guyatt, and Stephen D. Walter. 2001. “Relation of Distribution- and Anchor-Based Approaches in Interpretation of Changes in Health-Related Quality of Life:” <em>Medical Care</em> 39 (10): 1039–47. <a href="https://doi.org/10.1097/00005650-200110000-00002">https://doi.org/10.1097/00005650-200110000-00002</a>.</p>
+</div>
+<div id="ref-pearlSevenToolsCausal2019">
+<p>Pearl, Judea. 2019. “The Seven Tools of Causal Inference, with Reflections on Machine Learning.” <em>Communications of the ACM</em> 62 (3): 54–60. <a href="https://doi.org/10.1145/3241036">https://doi.org/10.1145/3241036</a>.</p>
 </div>
 <div id="ref-pearlBookWhyNew2018">
 <p>Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. 1 edition. New York: Basic Books.</p>
@@ -3312,11 +8468,23 @@ pHigher
 <div id="ref-saddikiPrimerCausalityData2018">
 <p>Saddiki, Hachem, and Laura B. Balzer. 2018. “A Primer on Causality in Data Science.” <em>arXiv:1809.02408 [Stat]</em>, September. <a href="http://arxiv.org/abs/1809.02408">http://arxiv.org/abs/1809.02408</a>.</p>
 </div>
+<div id="ref-shmueliExplainPredict2010">
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3): 289–310. <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.</p>
+</div>
 <div id="ref-shrierReducingBiasDirected2008">
 <p>Shrier, Ian, and Robert W Platt. 2008. “Reducing Bias Through Directed Acyclic Graphs.” <em>BMC Medical Research Methodology</em> 8 (1). <a href="https://doi.org/10.1186/1471-2288-8-70">https://doi.org/10.1186/1471-2288-8-70</a>.</p>
 </div>
+<div id="ref-swintonStatisticalFrameworkInterpret2018">
+<p>Swinton, Paul A., Ben Stephens Hemingway, Bryan Saunders, Bruno Gualano, and Eimear Dolan. 2018. “A Statistical Framework to Interpret Individual Response to Intervention: Paving the Way for Personalized Nutrition and Exercise Prescription.” <em>Frontiers in Nutrition</em> 5 (May). <a href="https://doi.org/10.3389/fnut.2018.00041">https://doi.org/10.3389/fnut.2018.00041</a>.</p>
+</div>
 <div id="ref-textorRobustCausalInference2017">
 <p>Textor, Johannes, Benito van der Zander, Mark S. Gilthorpe, Maciej Li’skiewicz, and George T. H. Ellison. 2017. “Robust Causal Inference Using Directed Acyclic Graphs: The R Package ‘Dagitty’.” <em>International Journal of Epidemiology</em>, January, dyw341. <a href="https://doi.org/10.1093/ije/dyw341">https://doi.org/10.1093/ije/dyw341</a>.</p>
+</div>
+<div id="ref-yarkoniChoosingPredictionExplanation2017">
+<p>Yarkoni, Tal, and Jacob Westfall. 2017. “Choosing Prediction over Explanation in Psychology: Lessons from Machine Learning.” <em>Perspectives on Psychological Science</em> 12 (6): 1100–1122. <a href="https://doi.org/10.1177/1745691617693393">https://doi.org/10.1177/1745691617693393</a>.</p>
+</div>
+<div id="ref-zhaoCausalInterpretationsBlackBox2019">
+<p>Zhao, Qingyuan, and Trevor Hastie. 2019. “Causal Interpretations of Black-Box Models.” <em>Journal of Business &amp; Economic Statistics</em>, July, 1–10. <a href="https://doi.org/10.1080/07350015.2019.1624293">https://doi.org/10.1080/07350015.2019.1624293</a>.</p>
 </div>
 </div>
 <div class="footnotes">
@@ -3324,6 +8492,8 @@ pHigher
 <ol start="26">
 <li id="fn26"><p>Another term used is <em>average treatment effect</em> (ATE)<a href="causal-inference.html#fnref26" class="footnote-back">↩︎</a></p></li>
 <li id="fn27"><p>Also referred to as <span class="math inline">\(SD_{IR}\)</span> or standard deviation of the intervention responses <span class="citation">(Hopkins <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. <span class="math inline">\(SD_{IR}\)</span> or <span class="math inline">\(SD_{TE}\)</span> represent estimate of treatment effect heterogeneity, also referred to as <em>variable treatment effect</em> (VTE)<a href="causal-inference.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p>Using the randomization in the RCT it is assumed that these hidden variables are equally distributed, and that there is no <em>selection bias</em> involved.<a href="causal-inference.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>If you remember the footnote discussion on aleatory and epistemic uncertainty, this is example where what we believed to be aleatory uncertainty (inter-individual residual error or variation that we could not predict: <code>SD Residual</code> in the Table <a href="causal-inference.html#tab:rct-models-performance-comparison">4.24</a>) was actually epistemic uncertainty that we reduced with introducing new variables (Squat 1RM and interaction term) to the model. Although the inter-individual variation in the treatment effect remains (<span class="math inline">\(SD_{TE}\)</span> or <span class="math inline">\(SD_{IR}\)</span>), we are now able to predict individual responses more accurately.<a href="causal-inference.html#fnref29" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -3332,7 +8502,7 @@ pHigher
         </div>
       </div>
 <a href="prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="statistical-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

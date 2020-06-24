@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-05-25" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,69 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="adv-r.css" type="text/css" />
 </head>
@@ -124,7 +187,100 @@
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
 <li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -151,7 +307,7 @@
 <div id="overfitting" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Overfitting</h2>
 <p>To explain a few caveats with predictive modeling, let’s take slightly more complex example (although we will come back to YoYoIR1 and MAS relationship later). Imagine we know the <em>true</em> relationship between back squat <em>relative 1RM</em> (BS)<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> and vertical jump height during a bodyweight squat jump (SJ; measured in cm). This true relationship is usually referred to as <em>data generating process</em> (DGP) <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>)</span> and one of the aims of causal inference tasks is to uncover parameters and mechanism of DGP from the acquired sample<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. With predictive tasks this aim is of no direct interest, but rather reliable prediction regarding new or unseen observations.</p>
-<p>DGP is usually unknown, but with simulations, such as this one, DGP is known and it is used to generate the sample data. Simulation is thus excellent teaching tool, since one can <em>play</em> with the problem and understand how the statistical analysis works, since the true DGP is known and can be compared with estimates <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>; Hopkins <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>; Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>DGP is usually unknown, but with simulations, such as this one, DGP is known and it is used to generate the sample data. Simulation is thus excellent teaching tool, since one can <em>play</em> with the problem and understand how the statistical analysis works, since the true DGP is known and can be compared with estimates <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>; Hopkins <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>.</p>
 <p>DGP is assumed to consist of <em>systematic component</em> <span class="math inline">\(f(x)\)</span> and <em>stochastic component</em> <span class="math inline">\(\epsilon\)</span> (Equation <a href="prediction.html#eq:systematic-stochastic">(3.1)</a>).</p>
 <p><span class="math display" id="eq:systematic-stochastic">\[
 \begin{equation}
@@ -425,7 +581,7 @@ Squared Error
 </tbody>
 </table>
 <p>Besides simple difference, Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a> provides errors (or losses) using two common <em>loss functions</em> (see <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a> section in <a href="description.html#description">Description</a> chapter): <em>absolute loss</em> (column <code>Absolute Error</code>) and <em>quadratic loss</em> (column <code>Squared Error</code>).</p>
-<p>We need to <em>aggregate</em> these errors or losses into a single metric using the <em>cost function</em>. If we calculate the mean of the prediction errors (column <code>Error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>), we are going to get 0. This is because the positive and negative errors cancel each other out for the sample <code>mean</code> estimator. This error estimator is often referred to as <em>mean bias error</em> (<code>MBE</code>) or simply <em>bias</em> and is often used in <em>validity</em> and <em>reliability</em> analysis (see [Validity] and [Reliability] sections).</p>
+<p>We need to <em>aggregate</em> these errors or losses into a single metric using the <em>cost function</em>. If we calculate the mean of the prediction errors (column <code>Error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>), we are going to get 0. This is because the positive and negative errors cancel each other out for the sample <code>mean</code> estimator. This error estimator is often referred to as <em>mean bias error</em> (<code>MBE</code>) or simply <em>bias</em> and is often used in <em>validity</em> and <em>reliability</em> analysis (see <a href="validity-and-reliability.html#validity">Validity</a> and <a href="validity-and-reliability.html#reliability">Reliability</a> sections).</p>
 <p>If we take the mean of the absolute prediction errors (column <code>Absolute error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>) we are going to get <em>mean absolute error</em> (<code>MAE</code>) estimator, which is in this example equal to 28.8.</p>
 <p>If we take the mean of the squared prediction errors (column <code>Squared error</code> in the Table <a href="prediction.html#tab:mean-as-prediction-differences">3.1</a>) we are going to get <em>mean square error</em> (<code>MSE</code>) estimator, often called <em>variance</em> in the case of describing sample dispersion. In this example <code>MSE</code> is equal to 964.36. To <em>bring</em> back <code>MSE</code> to the same scale with the observation scale, square root of the <code>MSE</code> is taken. This represents <em>root mean square error</em> (<code>RMSE</code>), which is equal to 31.05. As explained in <a href="description.html#sample-mean-as-the-simplest-statistical-model">Sample <code>mean</code> as the simplest statistical model</a> section, sample <code>mean</code> represents statistical model of the central tendency with the lowest <code>RMSE</code>.</p>
 <p>Aforementioned error estimators, <code>MBE</code>, <code>MAE</code>, <code>MSE</code>, and <code>RMSE</code> can be considered different <em>cost functions</em>. Which one should be used<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>? As always, it depends <span class="citation">(Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>. Assuming Gaussian normal distribution of the errors, <code>MSE</code> and <code>RMSE</code> have very useful mathematical properties that can be utilized in modeling stochastic or random components (i.e. <em>random error propagation</em> and prediction error decomposition in <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section). This property will be utilized thorough this book and particularly in the <a href="causal-inference.html#example-of-randomized-control-trial">Example of randomized control trial</a> section when estimating random or stochastic component of the treatment effect. I personally prefer to report multiple estimators, including error estimators, which is also a strategy suggested by <span class="citation">Chai and Draxler (<a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>.</p>
@@ -1426,7 +1582,7 @@ y_predicted
   \tag{3.8}
 \end{equation}
 \]</span></p>
-<p>Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because <code>MSE</code> is mean squared error, and <code>RMSE</code>, which is equivalent to <code>SD</code>, is calculated by doing square root of <code>MSE</code>). This might not be exactly 4cm due <em>sampling error</em> which is the topic of [Statistical inference] section.</p>
+<p>Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because <code>MSE</code> is mean squared error, and <code>RMSE</code>, which is equivalent to <code>SD</code>, is calculated by doing square root of <code>MSE</code>). This might not be exactly 4cm due <em>sampling error</em> which is the topic of <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section.</p>
 <p>As explained in Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>, <span class="math inline">\(Prediction \: error\)</span> is equal to sum of <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span> and <span class="math inline">\(Irreducible \: error\)</span>. Table contains estimated aforementioned errors using all 200 simulations for 2nd degree polynomial linear regression.</p>
 
 <table>
@@ -1500,7 +1656,7 @@ Figure 3.7: <strong>Bias and Variance error decomposition. </strong><span class=
 <h2><span class="header-section-number">3.4</span> Interpretability</h2>
 <p>As explained, predictive models put predictive performance over explanation of the underlying DGP mechanism (which is treated as a black box). However, sometimes we might be interested in which predictor is the most important, how do predictions change when particular predictor changes, or why<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> model made a particular prediction for a case of interest <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Ribeiro, Singh, and Guestrin <a href="#ref-ribeiroWhyShouldTrust2016" role="doc-biblioref">2016</a>)</span>. Model interpretability can be defined as the degree to which a human can understand the cause of a decision <span class="citation">(Miller <a href="#ref-millerExplanationArtificialIntelligence2017" role="doc-biblioref">2017</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Biecek and Burzykowski <a href="#ref-biecekPredictiveModelsExplore2019" role="doc-biblioref">2019</a>)</span>. Some models are more inherently interpretable (e.g. linear regression) and some are indeed very complex and hard to interpret (e.g. random forest or neural networks). For this reason, there are <em>model-agnostic</em> techniques that can help increase model interpretability.</p>
 <p>Excellent book and R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> package by Christoph Molnar <span class="citation">(Molnar, Bischl, and Casalicchio <a href="#ref-molnarImlPackageInterpretable2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>)</span> demonstrates a few model-agnostic interpretation techniques. One such technique is estimating which predictor is the most important (<em>variable importance</em>). One method for estimating variable importance involves <em>perturbing</em> one predictor and estimating the change in model performance. The predictor whose perturbing causes the biggest change in model performance can be considered the most important <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>)</span>. There are others approaches for estimating variable importance <span class="citation">(B. M. Greenwell <a href="#ref-RJ-2017-016" role="doc-biblioref">2017</a><a href="#ref-RJ-2017-016" role="doc-biblioref">b</a>)</span>. Those interested in further details can also check <em>vip</em> <span class="citation">(Greenwell, Boehmke, and Gray <a href="#ref-R-vip" role="doc-biblioref">2020</a>)</span> R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> package.</p>
-<p>One might be interested in how the predicted outcome changes when particular predictor changes. Techniques such as <em>partial dependence plot</em> (PDP), <em>individual conditional expectation</em> (ICE) and <em>accumulated local effects</em> (ALE) can be helpful in interpreting the effect of particular predictor on predicted outcome <span class="citation">(Molnar, Bischl, and Casalicchio <a href="#ref-molnarImlPackageInterpretable2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Goldstein et al. <a href="#ref-goldsteinPeekingBlackBox2013" role="doc-biblioref">2013</a>; Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>; B. M. Greenwell <a href="#ref-R-pdp" role="doc-biblioref">2017</a><a href="#ref-R-pdp" role="doc-biblioref">a</a>)</span>. Similar techniques are utilized in [Prediction as a complement to causal inference] section. Interested readers are also directed toward <em>visreg</em> <span class="citation">(Breheny and Burchett <a href="#ref-R-visreg" role="doc-biblioref">2017</a>)</span> and <em>effects</em> <span class="citation">(Fox and Weisberg <a href="#ref-R-effects_a" role="doc-biblioref">2018</a>; Fox <a href="#ref-R-effects_b" role="doc-biblioref">2003</a>; Fox and Hong <a href="#ref-R-effects_c" role="doc-biblioref">2009</a>)</span> R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> packages for more information about visualizing models.</p>
+<p>One might be interested in how the predicted outcome changes when particular predictor changes. Techniques such as <em>partial dependence plot</em> (PDP), <em>individual conditional expectation</em> (ICE) and <em>accumulated local effects</em> (ALE) can be helpful in interpreting the effect of particular predictor on predicted outcome <span class="citation">(Molnar, Bischl, and Casalicchio <a href="#ref-molnarImlPackageInterpretable2018" role="doc-biblioref">2018</a>; Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>; Goldstein et al. <a href="#ref-goldsteinPeekingBlackBox2013" role="doc-biblioref">2013</a>; Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>; B. M. Greenwell <a href="#ref-R-pdp" role="doc-biblioref">2017</a><a href="#ref-R-pdp" role="doc-biblioref">a</a>)</span>. Similar techniques are utilized in <a href="causal-inference.html#prediction-as-a-complement-to-causal-inference">Prediction as a complement to causal inference</a> section. Interested readers are also directed toward <em>visreg</em> <span class="citation">(Breheny and Burchett <a href="#ref-R-visreg" role="doc-biblioref">2017</a>)</span> and <em>effects</em> <span class="citation">(Fox and Weisberg <a href="#ref-R-effects_a" role="doc-biblioref">2018</a>; Fox <a href="#ref-R-effects_b" role="doc-biblioref">2003</a>; Fox and Hong <a href="#ref-R-effects_c" role="doc-biblioref">2009</a>)</span> R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2020</a>)</span> packages for more information about visualizing models.</p>
 <p>It is important to keep in mind that these model-agnostic explanations should not be automatically treated as causal explanations <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, but as mere association and descriptive analysis that can still be useful in understanding and interpreting the underlying predictive <em>black-box</em>. They are not without problems, such as correlated variables, interactions and other issues <span class="citation">(Altmann et al. <a href="#ref-altmannLimitationsInterpretableMachine2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>According to Judea Pearl <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>)</span>, prediction models should belong to the first level of <em>ladder of causation</em><a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a>, which represents simple “curve fitting”. Although in under special conditions these techniques can have causal interpretation <span class="citation">(Zhao and Hastie <a href="#ref-zhaoCausalInterpretationsBlackBox2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>The distinctions, similarities and issues between predictive modeling, machine learning and causal inference is currently hot topic in debates between machine learning specialists, statisticians and philosophers of science and it is beyond the scope of this book to delve into the debate. Interested readers are directed towards work by Miguel Hernan <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>, <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>)</span>, Judea Pearl <span class="citation">(Pearl and Mackenzie <a href="#ref-pearlBookWhyNew2018" role="doc-biblioref">2018</a>; Pearl, Glymour, and Jewell <a href="#ref-pearlCausalInferenceStatistics2016" role="doc-biblioref">2016</a>; Pearl <a href="#ref-pearlSevenToolsCausal2019" role="doc-biblioref">2019</a>, <a href="#ref-pearlCausalInferenceStatistics2009" role="doc-biblioref">2009</a>)</span>, Samantha Kleinberg <span class="citation">(Kleinberg <a href="#ref-kleinbergWhyGuideFinding2015" role="doc-biblioref">2015</a>, <a href="#ref-kleinbergCausalityProbabilityTime2018" role="doc-biblioref">2018</a>)</span> and others <span class="citation">(Watts et al. <a href="#ref-wattsExplanationPredictionCausality2018" role="doc-biblioref">2018</a>; Saddiki and Balzer <a href="#ref-saddikiPrimerCausalityData2018" role="doc-biblioref">2018</a>; Kleinberg, Liang, and Mullainathan <a href="#ref-kleinbergTheoryPredictiveIt2017" role="doc-biblioref">2017</a>; Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>. The next <a href="causal-inference.html#causal-inference">Causal Inference</a> section introduces the causal inference as a specific task of statistical modeling.</p>
@@ -1552,7 +1708,7 @@ PPER
 0.91
 </td>
 <td style="text-align:right;">
-0.34
+0.33
 </td>
 <td style="text-align:right;">
 1.99
@@ -1566,7 +1722,7 @@ PPER
 </tr>
 </tbody>
 </table>
-<p>Utilizing <em>apriori</em> known SESOI gives us practical <em>anchor</em> to evaluate predictive model performance. Reported <code>SESOI to cvRMSE</code> (0.91) as well as <code>cvPPER</code> (0.34) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn’t produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized.</p>
+<p>Utilizing <em>apriori</em> known SESOI gives us practical <em>anchor</em> to evaluate predictive model performance. Reported <code>SESOI to cvRMSE</code> (0.91) as well as <code>cvPPER</code> (0.33) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn’t produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized.</p>
 <p>Model performance can be visualized using the training data set (Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a>). <code>PPER</code> estimator, for both cross-validate estimate and training data performance estimate, utilized <code>SD</code> of the residuals and provided SESOI. Grey band on panels A and B on Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a> represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance.</p>
 <div class="figure" style="text-align: center"><span id="fig:elastic-net-prediction"></span>
 <img src="03-Prediction_files/figure-html/elastic-net-prediction-1.png" alt="Model performance on the training data set. A. Model with the lowest cvRMSE is selected. SESOI is depicted as grey band around the model prediction (blue line). B. Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. PPER represents proportion of residuals inside the SESOI band" width="90%" />
@@ -1575,7 +1731,7 @@ Figure 3.8: <strong>Model performance on the training data set. A. </strong>Mode
 </p>
 </div>
 
-<p>Predictive tasks are focusing on providing the best predictions on the novel or unseen data without much concern about the underlying DGP. Predictive model performance can be evaluated by using magnitude-based approach to give insights into practical significance of the predictions. These magnitude-based prediction estimators, can be used to complement explanatory or causal inference tasks, rather than relying solely on the group-based and average-based estimators. This topic is further discussed in the [Prediction as a complement to causal inference] section.</p>
+<p>Predictive tasks are focusing on providing the best predictions on the novel or unseen data without much concern about the underlying DGP. Predictive model performance can be evaluated by using magnitude-based approach to give insights into practical significance of the predictions. These magnitude-based prediction estimators, can be used to complement explanatory or causal inference tasks, rather than relying solely on the group-based and average-based estimators. This topic is further discussed in the <a href="causal-inference.html#prediction-as-a-complement-to-causal-inference">Prediction as a complement to causal inference</a> section.</p>
 </div>
 <div id="practical-example-mas-and-yoyoir1-prediction" class="section level2" number="3.6">
 <h2><span class="header-section-number">3.6</span> Practical example: MAS and YoYoIR1 prediction</h2>
@@ -1640,7 +1796,7 @@ MaxAbsErr
 0.21
 </td>
 <td style="text-align:right;">
-0.98
+0.97
 </td>
 <td style="text-align:right;">
 4.73
@@ -1720,7 +1876,7 @@ Fold1.Rep1
 0.29
 </td>
 <td style="text-align:right;">
-0.90
+0.87
 </td>
 <td style="text-align:right;">
 3.42
@@ -1755,7 +1911,7 @@ Fold1.Rep2
 0.14
 </td>
 <td style="text-align:right;">
-1.00
+0.99
 </td>
 <td style="text-align:right;">
 7.15
@@ -1790,7 +1946,7 @@ Fold1.Rep3
 0.27
 </td>
 <td style="text-align:right;">
-0.93
+0.90
 </td>
 <td style="text-align:right;">
 3.74
@@ -1825,7 +1981,7 @@ Fold1.Rep4
 0.28
 </td>
 <td style="text-align:right;">
-0.91
+0.89
 </td>
 <td style="text-align:right;">
 3.52
@@ -1860,7 +2016,7 @@ Fold1.Rep5
 0.24
 </td>
 <td style="text-align:right;">
-0.95
+0.92
 </td>
 <td style="text-align:right;">
 4.20
@@ -1895,7 +2051,7 @@ Fold2.Rep1
 0.19
 </td>
 <td style="text-align:right;">
-0.99
+0.97
 </td>
 <td style="text-align:right;">
 5.18
@@ -1930,7 +2086,7 @@ Fold2.Rep2
 0.24
 </td>
 <td style="text-align:right;">
-0.95
+0.93
 </td>
 <td style="text-align:right;">
 4.16
@@ -1965,7 +2121,7 @@ Fold2.Rep3
 0.22
 </td>
 <td style="text-align:right;">
-0.98
+0.96
 </td>
 <td style="text-align:right;">
 4.65
@@ -2000,7 +2156,7 @@ Fold2.Rep4
 0.17
 </td>
 <td style="text-align:right;">
-1.00
+0.98
 </td>
 <td style="text-align:right;">
 5.92
@@ -2035,7 +2191,7 @@ Fold2.Rep5
 0.27
 </td>
 <td style="text-align:right;">
-0.93
+0.89
 </td>
 <td style="text-align:right;">
 3.76
@@ -2070,7 +2226,7 @@ Fold3.Rep1
 0.16
 </td>
 <td style="text-align:right;">
-1.00
+0.99
 </td>
 <td style="text-align:right;">
 6.27
@@ -2105,7 +2261,7 @@ Fold3.Rep2
 0.24
 </td>
 <td style="text-align:right;">
-0.95
+0.92
 </td>
 <td style="text-align:right;">
 4.21
@@ -2140,7 +2296,7 @@ Fold3.Rep3
 0.21
 </td>
 <td style="text-align:right;">
-0.98
+0.95
 </td>
 <td style="text-align:right;">
 4.74
@@ -2175,7 +2331,7 @@ Fold3.Rep4
 0.28
 </td>
 <td style="text-align:right;">
-0.93
+0.91
 </td>
 <td style="text-align:right;">
 3.57
@@ -2210,7 +2366,7 @@ Fold3.Rep5
 0.19
 </td>
 <td style="text-align:right;">
-0.99
+0.97
 </td>
 <td style="text-align:right;">
 5.29
@@ -2387,7 +2543,7 @@ RMSE
 PPER
 </td>
 <td style="text-align:right;">
-0.98
+0.97
 </td>
 <td style="text-align:right;">
 0.98
@@ -2396,16 +2552,16 @@ PPER
 0.97
 </td>
 <td style="text-align:right;">
-0.96
+0.94
 </td>
 <td style="text-align:right;">
-0.03
+0.04
 </td>
 <td style="text-align:right;">
-0.90
+0.87
 </td>
 <td style="text-align:right;">
-1.00
+0.99
 </td>
 </tr>
 <tr>
@@ -2549,7 +2705,7 @@ Figure 3.15: <strong>Cross-validated model performance. </strong>Dot and line ba
 </div>
 
 <p>As can be seen from the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>, cross-validated prediction performance metrics do not differ much<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a> from the metrics estimated using the full training sample (calculated in <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> section and in the Table <a href="prediction.html#tab:mas-yoyo-training-performance">3.8</a>, and indicated by the dotted horizontal line in the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>). For some more complex models, these differences can be much larger and are clear indication of the model over-fitting.</p>
-<p>Overall, predicting MAS from the YoYoIR1 score, <em>given</em> the data collected, SESOI of ±0.5km/h, and linear regression as a model, is practically excellent. Please note that prediction can be practically useful (given SESOI) (<code>PPER</code>; CV from 0.9 to 1) even when <code>R-squared</code> is relatively low (CV from 0.27 to 0.87). And the <em>vice versa</em> in some cases. That’s the reason why we need to utilize magnitude-based estimators as a complement of contemporary estimators such as <code>R-squared</code>, <code>RSE</code>, and <code>RMSE</code>.</p>
+<p>Overall, predicting MAS from the YoYoIR1 score, <em>given</em> the data collected, SESOI of ±0.5km/h, and linear regression as a model, is practically excellent. Please note that prediction can be practically useful (given SESOI) (<code>PPER</code>; CV from 0.87 to 0.99) even when <code>R-squared</code> is relatively low (CV from 0.27 to 0.87). And the <em>vice versa</em> in some cases. That’s the reason why we need to utilize magnitude-based estimators as a complement of contemporary estimators such as <code>R-squared</code>, <code>RSE</code>, and <code>RMSE</code>.</p>
 </div>
 <div id="predicting-yoyoir1-from-mas" class="section level3" number="3.6.2">
 <h3><span class="header-section-number">3.6.2</span> Predicting YoYoIR1 from MAS</h3>
@@ -2689,7 +2845,7 @@ PPER
 0.23
 </td>
 <td style="text-align:right;">
-0.23
+0.22
 </td>
 <td style="text-align:right;">
 0.05
@@ -2698,7 +2854,7 @@ PPER
 0.17
 </td>
 <td style="text-align:right;">
-0.35
+0.34
 </td>
 </tr>
 <tr>
@@ -2958,7 +3114,7 @@ MaxAbsErr
 <p>Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. “"Why Should I Trust You?": Explaining the Predictions of Any Classifier.” <em>arXiv:1602.04938 [Cs, Stat]</em>, February. <a href="http://arxiv.org/abs/1602.04938">http://arxiv.org/abs/1602.04938</a>.</p>
 </div>
 <div id="ref-rousseletPracticalIntroductionBootstrap2019">
-<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
+<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019a. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
 </div>
 <div id="ref-saddikiPrimerCausalityData2018">
 <p>Saddiki, Hachem, and Laura B. Balzer. 2018. “A Primer on Causality in Data Science.” <em>arXiv:1809.02408 [Stat]</em>, September. <a href="http://arxiv.org/abs/1809.02408">http://arxiv.org/abs/1809.02408</a>.</p>
@@ -2984,15 +3140,15 @@ MaxAbsErr
 <ol start="15">
 <li id="fn15"><p>Some authors refer to causal inference as “explanatory” modeling <span class="citation">(Breiman <a href="#ref-breimanStatisticalModelingTwo2001" role="doc-biblioref">2001</a>; Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>; Yarkoni and Westfall <a href="#ref-yarkoniChoosingPredictionExplanation2017" role="doc-biblioref">2017</a>)</span>, although Miguel Hernan warns against using such a somewhat-misleading term “because causal effects may be quantified while remaining unexplained (randomized trials identify causal effects even if the causal mechanisms that explain them are unknown)” <span class="citation">(Hernán, Hsu, and Healy <a href="#ref-hernanSecondChanceGet2019" role="doc-biblioref">2019</a>, 43)</span>. Andrew Gelman also makes distinctions between <em>forward causal inference</em> and <em>reverse causal inference</em> that might be useful in distinguishing between identifying causal effects and explaining them <span class="citation">(Gelman <a href="#ref-gelmanCausalityStatisticalLearning2011" role="doc-biblioref">2011</a>)</span>. This is elaborated in the <a href="causal-inference.html#causal-inference">Causal inference</a> section of this book.<a href="prediction.html#fnref15" class="footnote-back">↩︎</a></p></li>
 <li id="fn16"><p>For example, if an athlete lifted 175kg for a single rep in the back squat, and was unable to lift more, this represents his back squat 1RM, or one repetition maximum. Relative 1RM is calculated by dividing 1RM with athlete’s bodyweight. For example, an athlete with 175kg 1RM weights 85kg. His relative 1RM is equal to 2.05.<a href="prediction.html#fnref16" class="footnote-back">↩︎</a></p></li>
-<li id="fn17"><p>Uncovering DGP parameters is not solely the goal of the causal inference (although causal inference task is to uncover or quantify causal mechanism), but also the main goal in the statistical inference where the aim is to quantify uncertainty about the <em>true</em> population parameters from the acquired sample. More about this topic in the [Statistical Inference] section.<a href="prediction.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>Uncovering DGP parameters is not solely the goal of the causal inference (although causal inference task is to uncover or quantify causal mechanism), but also the main goal in the statistical inference where the aim is to quantify uncertainty about the <em>true</em> population parameters from the acquired sample. More about this topic in the <a href="statistical-inference.html#statistical-inference">Statistical Inference</a> section.<a href="prediction.html#fnref17" class="footnote-back">↩︎</a></p></li>
 <li id="fn18"><p>As explained in <a href="introduction.html#introduction">Introduction</a> section, I will mostly focus at variables on continuous ratio scale. Prediction error metrics differ for target variable that is on nominal scale (i.e. <em>classification</em> task) and involve estimators such as <code>accuracy</code>, <code>specificity</code>, <code>sensitivity</code>, <em>area under curve</em> (<code>AUC</code>) <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Lantz <a href="#ref-lantzMachineLearningExpert2019" role="doc-biblioref">2019</a>)</span>.<a href="prediction.html#fnref18" class="footnote-back">↩︎</a></p></li>
 <li id="fn19"><p>Although I’ve used the term <em>loss</em> here, these loss functions are also aggregated using <code>sum</code> or <code>mean</code> to create <code>Huber cost</code> or <code>Ridge cost</code>. <code>Huber loss</code> is a combination of absolute and quadratic losses and it’s property is better <em>robustness</em> to outliers.<a href="prediction.html#fnref19" class="footnote-back">↩︎</a></p></li>
 <li id="fn20"><p><code>MSE</code> will be removed from the further analysis and tables since it is equivalent to RMSE, just squared.<a href="prediction.html#fnref20" class="footnote-back">↩︎</a></p></li>
-<li id="fn21"><p>As it will be explained in [Statistical inference] section, there are two kinds of uncertainty: <em>aleatory</em> and <em>epistemic</em>. Aleatory uncertainty is inherent randomness and it is usually represented as irreducible error. Epistemic uncertainty is due to the lack of knowledge or information, which can be considered reducible error. In other words, better models or models with more information will be able to reduce prediction error by reducing the reducible or epistemic uncertainty. The upper ceiling of the predictive performance is determined by irreducible error (which is unknown). Please refer to the [Statistical inference] section for more information.<a href="prediction.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>As it will be explained in <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section, there are two kinds of uncertainty: <em>aleatory</em> and <em>epistemic</em>. Aleatory uncertainty is inherent randomness and it is usually represented as irreducible error. Epistemic uncertainty is due to the lack of knowledge or information, which can be considered reducible error. In other words, better models or models with more information will be able to reduce prediction error by reducing the reducible or epistemic uncertainty. The upper ceiling of the predictive performance is determined by irreducible error (which is unknown). Please refer to the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section for more information.<a href="prediction.html#fnref21" class="footnote-back">↩︎</a></p></li>
 <li id="fn22"><p>Or to utilize subject matter knowledge needed to select the model. More about this topic can be found in the <a href="causal-inference.html#subject-matter-knowledge">Subject matter knowledge</a> section.<a href="prediction.html#fnref22" class="footnote-back">↩︎</a></p></li>
 <li id="fn23"><p>With the recent laws such as European’s DGPR, predictive models needs to be able to explain or provide explanation why particular decision or prediction has been made. Christoph Molnar explains the need for model interpretability with one interesting example: “By default, machine learning models pick up biases from the training data. This can turn your machine learning models into racists that discriminate against protected groups. Interpretability is a useful debugging tool for detecting bias in machine learning models. It might happen that the machine learning model’s, you have trained for, automatic approval or rejection of credit applications discriminates against a minority. Your main goal is to grant loans only to people who will eventually repay them. The incompleteness of the problem formulation in this case lies in the fact that you not only want to minimize loan defaults, but are also obliged not to discriminate on the basis of certain demographics. This is an additional constraint that is part of your problem formulation (granting loans in a low-risk and compliant way) that is not covered by the loss function the machine learning model was optimized for.” <span class="citation">(Molnar <a href="#ref-molnarInterpretableMachineLearning2018" role="doc-biblioref">2018</a>, 11)</span><a href="prediction.html#fnref23" class="footnote-back">↩︎</a></p></li>
 <li id="fn24"><p>“Pearl’s causal meta-model involves a three-level abstraction he calls the ladder of causation. The lowest level, <em>Association</em> (seeing/observing), entails the sensing of regularities or patterns in the input data, expressed as correlations. The middle level, <em>Intervention</em> (doing), predicts the effects of deliberate actions, expressed as causal relationships. The highest level, <em>Counterfactuals</em> (imagining), involves constructing a theory of (part of) the world that explains why specific actions have specific effects and what happens in the absence of such actions” <span class="citation">(Wikipedia contributors <a href="#ref-wiki:xxx" role="doc-biblioref">2019</a>)</span><a href="prediction.html#fnref24" class="footnote-back">↩︎</a></p></li>
-<li id="fn25"><p>As you will learn in [Statistical inference] section, we can perform statistical tests (in this case <em>t-test</em>) to check whether the average of the cross-validated performance metric differ from metric estimated on the full training sample.<a href="prediction.html#fnref25" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>As you will learn in <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section, we can perform statistical tests (in this case <em>t-test</em>) to check whether the average of the cross-validated performance metric differ from metric estimated on the full training sample.<a href="prediction.html#fnref25" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

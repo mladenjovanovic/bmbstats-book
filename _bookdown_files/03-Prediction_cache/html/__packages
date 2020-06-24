@@ -12,3 +12,5 @@ forcats
 cowplot
 directlabels
 kableExtra
+lattice
+caret

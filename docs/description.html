@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-05-25" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,69 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="adv-r.css" type="text/css" />
 </head>
@@ -124,7 +187,100 @@
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
 <li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -282,7 +438,7 @@ Figure 2.2: <strong>Sample mean as the simplest statistical model.</strong> <str
 </div>
 
 <p>As the result of this search, the body height estimate that minimizes the error is 163.18cm, and accompanying RMSE is equal to 8.12cm. As it can be read from the Table <a href="description.html#tab:common-descriptive-statistics-or-estimators">2.1</a>, this optimal body height estimate is equal to calculated sample <code>mean</code>. Standard deviation of the sample is equal to <code>RMSE</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. From statistical modeling perspective, sample mean can be considered sample estimate that minimizes the sample <code>SD</code>, and sample <code>SD</code> can be seen as the measure of the model fit.</p>
-<p>This search for the optimal estimate that minimizes the cost function can be expanded to other statistical models. For example, linear regression can be seen as a search for the line that minimizes <code>RMSE</code>. This approach of estimating model parameters or estimators belongs to the family of <em>ordinary least squares</em> (OLS) methods, although there are other approaches such as <em>maximum likelihood estimation</em> (MLE) which will be discussed in [Statistical inference] section <span class="citation">(Foreman <a href="#ref-foremanDataSmartUsing2014" role="doc-biblioref">2014</a>)</span>. The solutions to some of these models can be found <em>analytically</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, but for some there is no analytic solution and <em>computational</em> approaches must be utilized. These computation approaches are referred to as <em>optimization algorithms</em>. The example given here involves only one parameter that needs to be optimized, in this case body height estimate, but real-life problems involve numerous parameters. The simple search through parameters <em>state-space</em> would take forever when it comes to problems involving more than only a few parameters. Algorithms that solve this computational problems are numerous, out of which the most popular ones are <em>gradient descent</em>, and <em>Markov Chain Monte-Carlo</em> (MCMC), which is utilized in <em>Bayesian inference</em> (will be discussed in [Bayesian perspective] section).</p>
+<p>This search for the optimal estimate that minimizes the cost function can be expanded to other statistical models. For example, linear regression can be seen as a search for the line that minimizes <code>RMSE</code>. This approach of estimating model parameters or estimators belongs to the family of <em>ordinary least squares</em> (OLS) methods, although there are other approaches such as <em>maximum likelihood estimation</em> (MLE) which will be discussed in <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section <span class="citation">(Foreman <a href="#ref-foremanDataSmartUsing2014" role="doc-biblioref">2014</a>)</span>. The solutions to some of these models can be found <em>analytically</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, but for some there is no analytic solution and <em>computational</em> approaches must be utilized. These computation approaches are referred to as <em>optimization algorithms</em>. The example given here involves only one parameter that needs to be optimized, in this case body height estimate, but real-life problems involve numerous parameters. The simple search through parameters <em>state-space</em> would take forever when it comes to problems involving more than only a few parameters. Algorithms that solve this computational problems are numerous, out of which the most popular ones are <em>gradient descent</em>, and <em>Markov Chain Monte-Carlo</em> (MCMC), which is utilized in <em>Bayesian inference</em> (will be discussed in <a href="bayesian-perspective.html#bayesian-perspective">Bayesian perspective</a> section).</p>
 <p>The take-home message from this short interlude is that even the simple descriptive statistics can be seen as statistical models.</p>
 <p>If we take another cost function, for example <em>mean absolute error</em> (<code>MAE</code>) (Equation <a href="description.html#eq:mae-equation">(2.6)</a>) and if we <em>optimize</em> so that the sample central tendency estimate minimizes MAE, we will get <code>median</code> estimator.</p>
 <p><span class="math display" id="eq:mae-equation">\[
@@ -318,7 +474,7 @@ Figure 2.2: <strong>Sample mean as the simplest statistical model.</strong> <str
 <td align="right">97.55</td>
 <td align="right">7.8</td>
 <td align="right">1.08</td>
-<td align="right">-1.45</td>
+<td align="right">1.45</td>
 <td align="right">0.85</td>
 <td align="right">0.47</td>
 </tr>
@@ -498,7 +654,7 @@ Figure 2.4: <strong>Relationship between the <code>Cohen's d</code>, <code>CLES<
 <div id="the-smallest-effect-size-of-interest" class="section level3" number="2.1.3">
 <h3><span class="header-section-number">2.1.3</span> The Smallest Effect Size Of Interest</h3>
 <p>According to <span class="citation">Cohen (<a href="#ref-cohenStatisticalPowerAnalysis1988" role="doc-biblioref">1988</a>)</span>, the qualitative magnitude thresholds from Table <a href="description.html#tab:magnitudes-of-effect-CLES-OVL">2.5</a> are “arbitrary conventions, recommended for use only when no better basis for estimating the effect size is available” (p. 12). But what if practitioners <em>a priori</em> know what is the <em>minimal important</em> effect size and are interested in judging the <em>practical</em> or <em>clinical significance</em> <span class="citation">(Sainani <a href="#ref-sainaniClinicalStatisticalSignificance2012" role="doc-biblioref">2012</a>)</span> of the results (in this case difference between the groups)? In other words, the <em>smallest effect size of interest</em> (SESOI)<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
-<p>There is no single way to approach definition and estimation of SESOI, but it usually tends to be based on either the known <em>measurement error</em> (ME) (e.g. the minimum <em>detectable</em> effect size), or the effect size that is large enough to be practically meaningful (e.g. the minimal <em>important</em> difference, or the smallest worthwhile change) <span class="citation">(Anvari and Lakens <a href="#ref-anvariUsingAnchorBasedMethods2019" role="doc-biblioref">2019</a>; Hopkins <a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">2004</a>, <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; King <a href="#ref-kingPointMinimalImportant2011" role="doc-biblioref">2011</a>; Lakens, Scheel, and Isager <a href="#ref-lakensEquivalenceTestingPsychological2018" role="doc-biblioref">2018</a>; Turner et al. <a href="#ref-turnerDataAnalysisStrength2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>; Caldwell and Cheuvront <a href="#ref-caldwellBasicStatisticalConsiderations2019" role="doc-biblioref">2019</a>)</span>. In this book, statistical models and estimators that utilize SESOI are referred to as <em>magnitude-based</em>.</p>
+<p>There is no single way to approach definition and estimation of SESOI, but it usually tends to be based on either the known <em>measurement error</em> (ME) (e.g. the minimum <em>detectable</em> effect size), or the effect size that is large enough to be practically meaningful (e.g. the minimal <em>important</em> difference, or the smallest worthwhile change) <span class="citation">(Anvari and Lakens <a href="#ref-anvariUsingAnchorBasedMethods2019" role="doc-biblioref">2019</a>; Will G Hopkins <a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">2004</a><a href="#ref-hopkinsHowInterpretChanges2004" role="doc-biblioref">a</a>; Hopkins <a href="#ref-hopkinsIndividualResponsesMade2015" role="doc-biblioref">2015</a>; King <a href="#ref-kingPointMinimalImportant2011" role="doc-biblioref">2011</a>; Lakens, Scheel, and Isager <a href="#ref-lakensEquivalenceTestingPsychological2018" role="doc-biblioref">2018</a>; Turner et al. <a href="#ref-turnerDataAnalysisStrength2015" role="doc-biblioref">2015</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>; Caldwell and Cheuvront <a href="#ref-caldwellBasicStatisticalConsiderations2019" role="doc-biblioref">2019</a>)</span>. In this book, statistical models and estimators that utilize SESOI are referred to as <em>magnitude-based</em>.</p>
 <p>To introduce magnitude-based estimators, consider ±2.5cm to be body height SESOI<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, or the difference that would be practically significant. In other words, individuals with height difference within ±2.5cm would be considered practically equivalent (from the minimal important effect perspective), or it might be hard to detect this difference with a quick glance (from minimum detectable effect perspective).</p>
 <p>The simplest magnitude-based statistics would be <code>mean diff</code> divided by SESOI (<code>Difference to SESOI</code>) (Equation <a href="description.html#eq:diff-to-SESOI">(2.14)</a>). This estimator, similar to other standardized estimators (e.g. <code>Cohen's d</code>) allows comparison of variables at different scales, but it would also give more insight into differences from practical significance perspective.</p>
 <p><span class="math display" id="eq:diff-to-SESOI">\[
@@ -538,15 +694,15 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <tbody>
 <tr class="odd">
 <td align="left">brute-force</td>
-<td align="right">0.11</td>
+<td align="right">0.110</td>
 <td align="right">0.096</td>
 <td align="right">0.794</td>
 </tr>
 <tr class="even">
 <td align="left">algebraic</td>
-<td align="right">0.11</td>
+<td align="right">0.111</td>
 <td align="right">0.095</td>
-<td align="right">0.795</td>
+<td align="right">0.794</td>
 </tr>
 </tbody>
 </table>
@@ -572,7 +728,7 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <td align="right">2.55</td>
 <td align="right">2.48</td>
 <td align="right">0.11</td>
-<td align="right">0.1</td>
+<td align="right">0.09</td>
 <td align="right">0.79</td>
 </tr>
 </tbody>
@@ -596,123 +752,123 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <tbody>
 <tr class="odd">
 <td align="left">Athlete 01</td>
-<td align="right">111.89</td>
-<td align="right">116.55</td>
-<td align="right">4.66</td>
+<td align="right">111.80</td>
+<td align="right">121.42</td>
+<td align="right">9.62</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 02</td>
-<td align="right">96.04</td>
-<td align="right">100.67</td>
-<td align="right">4.64</td>
+<td align="right">95.95</td>
+<td align="right">102.13</td>
+<td align="right">6.18</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 03</td>
-<td align="right">106.29</td>
-<td align="right">109.60</td>
-<td align="right">3.31</td>
+<td align="right">105.87</td>
+<td align="right">125.56</td>
+<td align="right">19.69</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 04</td>
-<td align="right">99.74</td>
-<td align="right">100.97</td>
-<td align="right">1.23</td>
+<td align="right">98.79</td>
+<td align="right">109.67</td>
+<td align="right">10.87</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 05</td>
-<td align="right">92.44</td>
-<td align="right">110.93</td>
-<td align="right">18.48</td>
+<td align="right">95.81</td>
+<td align="right">108.11</td>
+<td align="right">12.30</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 06</td>
-<td align="right">96.39</td>
-<td align="right">96.93</td>
-<td align="right">0.54</td>
+<td align="right">95.27</td>
+<td align="right">92.67</td>
+<td align="right">-2.60</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 07</td>
-<td align="right">93.82</td>
-<td align="right">114.54</td>
-<td align="right">20.72</td>
+<td align="right">97.75</td>
+<td align="right">106.03</td>
+<td align="right">8.28</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 08</td>
-<td align="right">105.87</td>
-<td align="right">113.40</td>
-<td align="right">7.53</td>
+<td align="right">106.50</td>
+<td align="right">109.51</td>
+<td align="right">3.01</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 09</td>
-<td align="right">82.61</td>
-<td align="right">79.65</td>
-<td align="right">-2.96</td>
+<td align="right">80.62</td>
+<td align="right">95.96</td>
+<td align="right">15.34</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 10</td>
-<td align="right">103.66</td>
-<td align="right">95.64</td>
-<td align="right">-8.01</td>
+<td align="right">100.40</td>
+<td align="right">94.30</td>
+<td align="right">-6.11</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 11</td>
-<td align="right">86.23</td>
-<td align="right">77.18</td>
-<td align="right">-9.05</td>
+<td align="right">82.71</td>
+<td align="right">78.91</td>
+<td align="right">-3.80</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 12</td>
-<td align="right">100.60</td>
-<td align="right">114.75</td>
-<td align="right">14.14</td>
+<td align="right">102.89</td>
+<td align="right">93.98</td>
+<td align="right">-8.91</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 13</td>
-<td align="right">93.16</td>
-<td align="right">90.87</td>
-<td align="right">-2.29</td>
+<td align="right">91.34</td>
+<td align="right">105.21</td>
+<td align="right">13.87</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 14</td>
-<td align="right">111.42</td>
-<td align="right">115.27</td>
-<td align="right">3.85</td>
+<td align="right">111.14</td>
+<td align="right">108.07</td>
+<td align="right">-3.07</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 15</td>
-<td align="right">98.59</td>
-<td align="right">89.73</td>
-<td align="right">-8.86</td>
+<td align="right">95.13</td>
+<td align="right">96.01</td>
+<td align="right">0.88</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 16</td>
-<td align="right">108.85</td>
-<td align="right">114.92</td>
-<td align="right">6.07</td>
+<td align="right">109.12</td>
+<td align="right">112.12</td>
+<td align="right">3.00</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 17</td>
-<td align="right">93.81</td>
-<td align="right">91.05</td>
-<td align="right">-2.76</td>
+<td align="right">91.87</td>
+<td align="right">103.41</td>
+<td align="right">11.54</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 18</td>
-<td align="right">93.83</td>
-<td align="right">92.14</td>
-<td align="right">-1.69</td>
+<td align="right">92.16</td>
+<td align="right">103.93</td>
+<td align="right">11.77</td>
 </tr>
 <tr class="odd">
 <td align="left">Athlete 19</td>
-<td align="right">107.94</td>
-<td align="right">116.72</td>
-<td align="right">8.78</td>
+<td align="right">108.88</td>
+<td align="right">119.72</td>
+<td align="right">10.84</td>
 </tr>
 <tr class="even">
 <td align="left">Athlete 20</td>
-<td align="right">101.65</td>
-<td align="right">91.81</td>
-<td align="right">-9.84</td>
+<td align="right">97.94</td>
+<td align="right">95.91</td>
+<td align="right">-2.03</td>
 </tr>
 </tbody>
 </table>
@@ -740,75 +896,75 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 </tr>
 <tr class="even">
 <td align="left">mean (kg)</td>
-<td align="right">99.24</td>
-<td align="right">101.67</td>
-<td align="right">2.42</td>
+<td align="right">98.60</td>
+<td align="right">104.13</td>
+<td align="right">5.53</td>
 </tr>
 <tr class="odd">
 <td align="left">SD (kg)</td>
-<td align="right">8.06</td>
-<td align="right">12.85</td>
-<td align="right">8.71</td>
+<td align="right">8.70</td>
+<td align="right">11.08</td>
+<td align="right">8.05</td>
 </tr>
 <tr class="even">
 <td align="left">% CV</td>
-<td align="right">8.12</td>
-<td align="right">12.64</td>
-<td align="right">359.18</td>
+<td align="right">8.83</td>
+<td align="right">10.64</td>
+<td align="right">145.46</td>
 </tr>
 <tr class="odd">
 <td align="left">median (kg)</td>
-<td align="right">99.16</td>
-<td align="right">100.82</td>
-<td align="right">2.27</td>
+<td align="right">97.84</td>
+<td align="right">104.57</td>
+<td align="right">7.23</td>
 </tr>
 <tr class="even">
 <td align="left">MAD (kg)</td>
-<td align="right">8.42</td>
-<td align="right">15.71</td>
-<td align="right">7.60</td>
+<td align="right">8.64</td>
+<td align="right">11.94</td>
+<td align="right">8.46</td>
 </tr>
 <tr class="odd">
 <td align="left">IQR (kg)</td>
-<td align="right">12.16</td>
-<td align="right">22.97</td>
-<td align="right">9.25</td>
+<td align="right">11.64</td>
+<td align="right">13.60</td>
+<td align="right">13.77</td>
 </tr>
 <tr class="even">
 <td align="left">mode (kg)</td>
-<td align="right">96.36</td>
-<td align="right">113.59</td>
-<td align="right">2.89</td>
+<td align="right">96.49</td>
+<td align="right">105.76</td>
+<td align="right">10.78</td>
 </tr>
 <tr class="odd">
 <td align="left">min (kg)</td>
-<td align="right">82.61</td>
-<td align="right">77.18</td>
-<td align="right">-9.84</td>
+<td align="right">80.62</td>
+<td align="right">78.91</td>
+<td align="right">-8.91</td>
 </tr>
 <tr class="even">
 <td align="left">max (kg)</td>
-<td align="right">111.89</td>
-<td align="right">116.72</td>
-<td align="right">20.72</td>
+<td align="right">111.80</td>
+<td align="right">125.56</td>
+<td align="right">19.69</td>
 </tr>
 <tr class="odd">
 <td align="left">range (kg)</td>
-<td align="right">29.28</td>
-<td align="right">39.54</td>
-<td align="right">30.57</td>
+<td align="right">31.18</td>
+<td align="right">46.64</td>
+<td align="right">28.60</td>
 </tr>
 <tr class="even">
 <td align="left">skew</td>
-<td align="right">-0.17</td>
-<td align="right">-0.30</td>
-<td align="right">0.45</td>
+<td align="right">-0.26</td>
+<td align="right">-0.05</td>
+<td align="right">-0.16</td>
 </tr>
 <tr class="odd">
 <td align="left">kurtosis</td>
-<td align="right">-0.89</td>
-<td align="right">-1.32</td>
-<td align="right">-0.65</td>
+<td align="right">-0.73</td>
+<td align="right">-0.28</td>
+<td align="right">-1.28</td>
 </tr>
 </tbody>
 </table>
@@ -840,14 +996,14 @@ Figure 2.6: <strong>Raincloud plots of the Pre-test, Post-test and Change scores
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">2.42</td>
-<td align="right">8.71</td>
-<td align="right">359.18</td>
-<td align="right">2.33</td>
-<td align="right">1.02</td>
-<td align="right">0.3</td>
-<td align="right">0.56</td>
-<td align="right">0.88</td>
+<td align="right">5.53</td>
+<td align="right">8.05</td>
+<td align="right">145.46</td>
+<td align="right">5.75</td>
+<td align="right">1.06</td>
+<td align="right">0.64</td>
+<td align="right">0.65</td>
+<td align="right">0.75</td>
 </tr>
 </tbody>
 </table>
@@ -915,11 +1071,11 @@ Figure 2.6: <strong>Raincloud plots of the Pre-test, Post-test and Change scores
 <tbody>
 <tr class="odd">
 <td align="left">±5</td>
-<td align="right">0.24</td>
-<td align="right">0.87</td>
-<td align="right">0.2</td>
-<td align="right">0.42</td>
-<td align="right">0.38</td>
+<td align="right">0.55</td>
+<td align="right">0.81</td>
+<td align="right">0.1</td>
+<td align="right">0.37</td>
+<td align="right">0.53</td>
 </tr>
 </tbody>
 </table>
@@ -1299,7 +1455,7 @@ Figure 2.8: <strong>Scatter plot between two variables. </strong>Dashed line rep
 </tr>
 </tbody>
 </table>
-<p>This diference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure <a href="description.html#fig:reverse-linear">2.9</a>.</p>
+<p>This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure <a href="description.html#fig:reverse-linear">2.9</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:reverse-linear"></span>
 <img src="02-Description_files/figure-html/reverse-linear-1.png" alt="Regression line differs depending which variable is target or the outcome variable. Dashed grey line represents regression line when MAS is the target variable. Grey line represents regression line when YoYoIR1 is the target variable. Since they are not identical, one cannot reverse the equation to predict YoYoIR1 from MAS score, when such equation is estimated by predicting MAS from YoYoIR1" width="90%" />
 <p class="caption">
@@ -1307,7 +1463,7 @@ Figure 2.9: <strong>Regression line differs depending which variable is target o
 </p>
 </div>
 
-<p>Unfortunately, this is common practice in sport science. Rather than reversing parameters, one needs to fit, in this case, linear regression model again with the properly defined target and predictor variables. In certain scenarios, such as [Reliability] analysis, we do not know which variable represents predictor and which represents target or outcome. For this reason, different approaches to regression, such as <em>ordinary least products</em> (OLP) are utilized <span class="citation">(Ludbrook <a href="#ref-ludbrookLinearRegressionAnalysis2010" role="doc-biblioref">2010</a>, <a href="#ref-ludbrookPrimerBiomedicalScientists2012" role="doc-biblioref">2012</a>, <a href="#ref-ludbrookSPECIALARTICLECOMPARING1997" role="doc-biblioref">1997</a>, <a href="#ref-ludbrookStatisticalTechniquesComparing2002" role="doc-biblioref">2002</a>; Mullineaux, Barnes, and Batterham <a href="#ref-mullineauxAssessmentBiasComparing1999" role="doc-biblioref">1999</a>)</span>. These topics will be covered in the second part of this book.</p>
+<p>Unfortunately, this is common practice in sport science. Rather than reversing parameters, one needs to fit, in this case, linear regression model again with the properly defined target and predictor variables. In certain scenarios, such as <a href="validity-and-reliability.html#reliability">Reliability</a> analysis, we do not know which variable represents predictor and which represents target or outcome. For this reason, different approaches to regression, such as <em>ordinary least products</em> (OLP) are utilized <span class="citation">(Ludbrook <a href="#ref-ludbrookLinearRegressionAnalysis2010" role="doc-biblioref">2010</a>, <a href="#ref-ludbrookPrimerBiomedicalScientists2012" role="doc-biblioref">2012</a>, <a href="#ref-ludbrookSPECIALARTICLECOMPARING1997" role="doc-biblioref">1997</a>, <a href="#ref-ludbrookStatisticalTechniquesComparing2002" role="doc-biblioref">2002</a>; Mullineaux, Barnes, and Batterham <a href="#ref-mullineauxAssessmentBiasComparing1999" role="doc-biblioref">1999</a>)</span>. These topics will be covered in the second part of this book.</p>
 <div id="magnitude-based-estimators" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Magnitude-based estimators</h3>
 <p>Similarly to independent and dependent group analysis, with association we might be interested in the practical significance of the results. In order to judge results from practical significance perspective, we need to define SESOI of both variables (i.e. YoYoIR1 and MAS). Using minimal test increment, SESOI for the YoYoIR1 test is defined as ±40m, and SESOI for the MAS test is defined as ±0.5km/h.</p>
@@ -1479,7 +1635,7 @@ Figure 2.12: <strong>Linear regression model estimating association between YoYo
 <p>Hamner, Ben, and Michael Frasco. 2018. <em>Metrics: Evaluation Metrics for Machine Learning</em>. <a href="https://CRAN.R-project.org/package=Metrics">https://CRAN.R-project.org/package=Metrics</a>.</p>
 </div>
 <div id="ref-hopkinsHowInterpretChanges2004">
-<p>Hopkins, Will G. 2004. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
+<p>Hopkins, Will G. 2004a. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
 </div>
 <div id="ref-hopkinsNewViewStatistics2006">
 <p>Hopkins, Will G. 2006. “New View of Statistics: Effect Magnitudes.” https://www.sportsci.org/resource/stats/effectmag.html.</p>
@@ -1555,17 +1711,17 @@ Figure 2.12: <strong>Linear regression model estimating association between YoYo
 <hr />
 <ol start="1">
 <li id="fn1"><p><em>Standardization</em> is the process of putting different variables on the same scale. This allows for easier comparison, as well as graphing using a common axis. For example, variables are usually standardized by using Z-Score (<span class="math inline">\(z_{i} = \frac{x_{i} - \overline{x}}{SD_{x}}\)</span>) which has a mean of zero and a standard deviation of 1.<a href="description.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>As can be noticed, <code>RMSE</code> and <code>SD</code> are not exactly the same. This is because a sample <code>SD</code> equation uses <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span>: <span class="math inline">\(SD = \sqrt{\frac{1}{n-1}\Sigma_{i=1}^{n}(y_i -\bar{y})^2}\)</span>, where <span class="math inline">\(\bar{y}\)</span> represents the <code>mean</code>. Remember that <span class="math inline">\(\hat{y_i}\)</span> represents the model estimate. In this case model estimate <span class="math inline">\(\hat{y_i}\)</span> and sample <code>mean</code> <span class="math inline">\(\bar{y}\)</span> are the same. Sample <code>SD</code> uses <span class="math inline">\(n-1\)</span> since this represents <em>unbiased</em> estimator of the <em>population</em> <code>SD</code>. More about this topic will be covered in [Statistical inference] section.<a href="description.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>As can be noticed, <code>RMSE</code> and <code>SD</code> are not exactly the same. This is because a sample <code>SD</code> equation uses <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span>: <span class="math inline">\(SD = \sqrt{\frac{1}{n-1}\Sigma_{i=1}^{n}(y_i -\bar{y})^2}\)</span>, where <span class="math inline">\(\bar{y}\)</span> represents the <code>mean</code>. Remember that <span class="math inline">\(\hat{y_i}\)</span> represents the model estimate. In this case model estimate <span class="math inline">\(\hat{y_i}\)</span> and sample <code>mean</code> <span class="math inline">\(\bar{y}\)</span> are the same. Sample <code>SD</code> uses <span class="math inline">\(n-1\)</span> since this represents <em>unbiased</em> estimator of the <em>population</em> <code>SD</code>. More about this topic will be covered in <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section.<a href="description.html#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>The analytic solution for the central tendency estimate that minimizes <code>SD</code> is, of course, the sample <code>mean</code> (<span class="math inline">\(\frac{1}{n}\Sigma_{i=1}^{n}y_i\)</span>).<a href="description.html#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><code>Percent change</code> is the same estimator as <code>percent difference</code>, but applied to difference between the two dependent groups (see section <a href="description.html#comparing-dependent-groups">Comparing dependent groups</a>).<a href="description.html#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>However, let’s admit that we would rather report estimators of higher value, particularly if we are biased toward a specific test. “Athletes improved on average for 35%” sounds much more appealing than 7%, even if the effects estimated using <code>Cohen's d</code> are the same.<a href="description.html#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent.<a href="description.html#fnref6" class="footnote-back">↩︎</a></p></li>
 <li id="fn7"><p>Other term for SESOI that is commonly used is <em>region of practical equivalence</em> (ROPE) <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>.<a href="description.html#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>SESOI has two thresholds: <em>lower</em> and <em>upper</em>, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as <span class="math inline">\(SESOI_{upper} - SESOI_{lower}\)</span>. This range can also be refered to as <em>equivalence range</em>.<a href="description.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>SESOI has two thresholds: <em>lower</em> and <em>upper</em>, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as <span class="math inline">\(SESOI_{upper} - SESOI_{lower}\)</span>. This range can also be referred to as <em>equivalence range</em>.<a href="description.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>It is assumed here that SESOI is <em>symmetrical</em> in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn’t necessary needs to be symmetrical in both positive and negative directions.<a href="description.html#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>Since YoYoIR1 test is performed in 2x20m shuttles, the minimal increment is equal to 40m. For the MAS test the minimal increment is 0.5km/h.<a href="description.html#fnref10" class="footnote-back">↩︎</a></p></li>
 <li id="fn11"><p>This approach, as already explained, belongs to the OLS approach. On the other hand, MLE tries to find a line that maximizes likelihood of the data.<a href="description.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>The benefit of using <em>squared errors</em> in OLS approaches, is that this <em>optimization</em> (or the search for parameters that minimize <code>RMSE</code> as a cost function in this case) can be done analytically. One of the drawbacks of using squared errors (or squared residuals) is sensitivity to <em>outliers</em>. Other regression approaches, such as <em>quantiles regression</em> or <em>ordinary least products</em> (OLP) for example, use different loss and cost functions. OLP regression will be utilized in the [Reliability] section of the book.<a href="description.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>The benefit of using <em>squared errors</em> in OLS approaches, is that this <em>optimization</em> (or the search for parameters that minimize <code>RMSE</code> as a cost function in this case) can be done analytically. One of the drawbacks of using squared errors (or squared residuals) is sensitivity to <em>outliers</em>. Other regression approaches, such as <em>quantiles regression</em> or <em>ordinary least products</em> (OLP) for example, use different loss and cost functions. OLP regression will be utilized in the <a href="validity-and-reliability.html#reliability">Reliability</a> section of the book.<a href="description.html#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p>To estimate <code>PPER</code> algebraically, one can use residual <code>SD</code>, <code>RSE</code>, or <code>RMSE</code> since these are all measures of dispersion. In predictive models (see <a href="prediction.html#prediction">Prediction</a> section) <code>RMSE</code> is utilized to estimate <code>PPER</code>.<a href="description.html#fnref13" class="footnote-back">↩︎</a></p></li>
 <li id="fn14"><p>This is not ideal estimate of the predictive performance of this model as will be explained in the next section on <a href="prediction.html#prediction">Prediction</a>.<a href="description.html#fnref14" class="footnote-back">↩︎</a></p></li>
 </ol>

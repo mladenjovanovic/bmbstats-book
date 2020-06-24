@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Frequentist perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 6 Frequentist perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Frequentist perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Frequentist perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-06-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistical-inference.html"/>
+<link rel="next" href="bayesian-perspective.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="frequentist-perspective" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Frequentist perspective</h1>
+<p>As already stated, using simulations is outstanding teaching tool <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>; Hopkins <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>)</span>, and also very useful for understanding the frequentist inference as well. Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a> (Panels A and B) depicts hypothetical male population where mean height <span class="math inline">\(\mu\)</span> is 177.8cm and SD (<span class="math inline">\(\sigma\)</span>) is 10.16cm. From this population we are randomly <em>drawing</em> N=5 (left side panels on Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>) and N=20 (right side panels on Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>) individuals for which we estimate the <code>mean</code> height. Individuals are represented as blue dots (Panels C and D on Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>), whereas estimated <code>mean</code> height is depicted as orange dot. Now imagine we repeat this sampling 50 times, calculate the mean for every sample, and then draw the distribution of the sampled means (Panels E an F on Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>). This distribution is called <em>sampling distribution of the <code>sample mean</code></em> and the <code>SD</code> of this distribution is referred to as <em>standard error</em> or <em>sampling error</em>. Since our estimate of interest is the <code>mean</code>, standard deviation of the sampling distribution of the mean is called <em>standard error of the mean</em> (<code>SEM</code>). On Panels E and F in the Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>, mean of the sampling <code>means</code> is indicated by a black dot, and error bars represent <code>SEM</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:sampling-distribution-of-the-mean"></span>
+<img src="06-Frequentist-perspective_files/figure-html/sampling-distribution-of-the-mean-1.png" alt="Sampling distribution of the mean. A and B. Distribution of the height in the population. From this population we draw samples. C and D. 50 sample are taken with N=5 (panel C) and N=20 (panel D) observations. Each observation is indicated by a blue dot. Calculated mean, as a parameter of interest, is indicated by an orange dot. E and F. Distribution of collected sample means from panels C and D. This distribution of the sample means is narrower, indicating higher precision when higher N is used. Black dot indicates the mean of the sample means, with error bars indicating SD of sample means. Orange line represents hypothetical distribution of the sample means when number of samples is infinitely large" width="90%" />
+<p class="caption">
+Figure 6.1: <strong>Sampling distribution of the <code>mean</code>. A and B. </strong>Distribution of the height in the population. From this population we draw samples. <strong>C and D.</strong> 50 sample are taken with N=5 (panel C) and N=20 (panel D) observations. Each observation is indicated by a blue dot. Calculated <code>mean</code>, as a parameter of interest, is indicated by an orange dot. <strong>E and F.</strong> Distribution of collected sample <code>means</code> from panels C and D. This distribution of the sample <code>means</code> is narrower, indicating higher precision when higher N is used. Black dot indicates the mean of the sample <code>means</code>, with error bars indicating <code>SD</code> of sample means. Orange line represents hypothetical distribution of the sample <code>means</code> when number of samples is infinitely large
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>, the sampling distribution of the <code>mean</code> looks like normal distribution. If the number of samples reach very large number or <em>infinity</em>, the sampling distribution of the <code>mean</code> will eventually be distributed with the <code>SEM</code> equal to (Equation <a href="frequentist-perspective.html#eq:sem-equation">(6.1)</a>):</p>
+<p><span class="math display" id="eq:sem-equation">\[
+\begin{equation}
+  SEM = \frac{\sigma}{\sqrt{N}}
+  \tag{6.1}
+\end{equation}
+\]</span></p>
+<p>This <em>theoretical</em> distribution is overlaid on the acquired sampling distribution from 50 samples in the Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a> (Panels E and F). Since the true <span class="math inline">\(\sigma\)</span> is not known, sample <code>SD</code> is utilized instead, in order to estimate the true <code>SEM</code> (Equation <a href="frequentist-perspective.html#eq:estimated-sem-equation">(6.2)</a>):</p>
+<p><span class="math display" id="eq:estimated-sem-equation">\[
+\begin{equation}
+  \hat{SEM} = \frac{SD}{\sqrt{N}}
+  \tag{6.2}
+\end{equation}
+\]</span></p>
+<p>The take-home point is that the larger the sample, the smaller the standard error, which is visually seen as narrower sampling distribution (compare N=5 and N=20 sampling distributions on Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>). Another conclusion regarding frequentist inference, is that calculated probabilities revolve around sampling distribution of the sample <code>mean</code> and other long-frequency sampling distributions. Everything else are details. But as the saying goes, the devil is in the details.</p>
+<p>Sampling distributions and equations for standard errors are derived algebraically for most estimators (e.g. <code>mean</code>, <code>SD</code>, <code>Cohen's d</code>), but for some estimators it might be hard to derive them, so other solutions do exist (like <em>bootstrapping</em> which will be covered in <a href="bootstrap.html#bootstrap">Bootstrap</a> section). For example, sampling distribution of the change score proportions can be very difficult to be derived algebraically <span class="citation">(Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. For some estimators, mean of the long-frequency samples is different than the true population value, thus these estimators are termed <em>biased estimators</em>. One example of the biased estimator would be <code>SD</code> of the sample where we divide with <span class="math inline">\(N\)</span>, instead of <span class="math inline">\(N-1\)</span>. Estimators that have the mean of the long-frequency sample estimate equal to the true population parameter are called <em>unbiased estimators</em>.</p>
+<p>Although the sampling distribution of the <code>mean</code> looks like a normal distribution, it actually belongs to the <em>Student’s t</em> distribution, which has fatter tails for smaller samples (Figure <a href="frequentist-perspective.html#fig:student-distribution">6.2</a>). Besides <code>mean</code> and <code>SD</code>, Student’s t distribution also has <em>degrees of freedom</em> (DF) parameters, which is equal to N-1 for the sample <code>mean</code>. Normal distribution is equal to Student’s t distribution when DF is infinitely large.</p>
+<div class="figure" style="text-align: center"><span id="fig:student-distribution"></span>
+<img src="06-Frequentist-perspective_files/figure-html/student-distribution-1.png" alt="Student’s t-distribution" width="90%" />
+<p class="caption">
+Figure 6.2: <strong>Student’s t-distribution</strong>
+</p>
+</div>
+
+<p>Since Student’s t distribution is fatter on the tails, critical values that cover 90, 95, and 99% of distribution mass are different than the commonly used ones for the normal distribution. Table <a href="frequentist-perspective.html#tab:student-critical-values">6.1</a> contains critical values for different DF. For example, 90% of the sampling distribution will be inside the <span class="math inline">\(\bar{x} \pm 1.64 \times SEM\)</span> interval for the normal distribution, but for Student t with DF=5, 90% of the sampling distribution will be inside the <span class="math inline">\(\bar{x} \pm 2.02 \times SEM\)</span> interval.</p>
+
+<table>
+<caption>
+<span id="tab:student-critical-values">Table 6.1: </span><strong>Critical values for Student’s t distribution with different degrees of freedom</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+50%
+</th>
+<th style="text-align:right;">
+90%
+</th>
+<th style="text-align:right;">
+95%
+</th>
+<th style="text-align:right;">
+99%
+</th>
+<th style="text-align:right;">
+99.9%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DF=5
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+2.02
+</td>
+<td style="text-align:right;">
+2.57
+</td>
+<td style="text-align:right;">
+4.03
+</td>
+<td style="text-align:right;">
+6.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DF=10
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+1.81
+</td>
+<td style="text-align:right;">
+2.23
+</td>
+<td style="text-align:right;">
+3.17
+</td>
+<td style="text-align:right;">
+4.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DF=20
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+1.72
+</td>
+<td style="text-align:right;">
+2.09
+</td>
+<td style="text-align:right;">
+2.85
+</td>
+<td style="text-align:right;">
+3.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DF=30
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+1.70
+</td>
+<td style="text-align:right;">
+2.04
+</td>
+<td style="text-align:right;">
+2.75
+</td>
+<td style="text-align:right;">
+3.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DF=50
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+1.68
+</td>
+<td style="text-align:right;">
+2.01
+</td>
+<td style="text-align:right;">
+2.68
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Normal)
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+1.64
+</td>
+<td style="text-align:right;">
+1.96
+</td>
+<td style="text-align:right;">
+2.58
+</td>
+<td style="text-align:right;">
+3.29
+</td>
+</tr>
+</tbody>
+</table>
+<div id="null-hypothesis-significance-testing" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Null-Hypothesis Significance Testing</h2>
+<p>There are two approaches to statistical inference, be it frequentist or Bayesian: <em>hypothesis testing</em> and <em>estimation</em> <span class="citation">(Cumming <a href="#ref-cummingNewStatisticsWhy2014" role="doc-biblioref">2014</a>; Kruschke and Liddell <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>. I will focus on the former, although latter will be covered as well. For the frequentist inference, mathematics behind both of these are the same and both involve standard errors.</p>
+<p><em>Null-hypothesis significance testing</em> (NHST) is still one of the most dominant approaches to statistical inference, although heavily criticized (for example see <span class="citation">(Cumming <a href="#ref-cummingNewStatisticsWhy2014" role="doc-biblioref">2014</a>; Kruschke and Liddell <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>). In Figure <a href="frequentist-perspective.html#fig:sampling-distribution-of-the-mean">6.1</a>, we have sampled from the known population, but in practice we don’t know the true parameter values in the population, nor we are able to collect data from the whole population (unless it is a small one, but there is no need for statistical inference then, since the whole population is represented in our sample). Thus, we need to use sampled data to make inferences about the population. With NHST we want to <em>test</em> sample parameter or estimator (i.e. <code>mean</code> in this case) against the null-hypothesis (<span class="math inline">\(H_{0}\)</span>). Null-hypothesis usually takes the <em>no effect</em> value, but it can take any value of interest for the researcher.</p>
+<p>Although this sounds mouthful, a simple example will make it clearer. Imagine that we do know the true population <code>mean</code> height, but in one particular region the <code>mean</code> height of the sample differs from the known population <code>mean</code>. If we assume that this region belongs to the same population, then we want to test to see how likely are we to sample <code>mean</code> we have acquired or more extreme.</p>
+<p>Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a> contains known population <code>mean</code> height as the null-hypothesis and estimated probabilities of observing sample <code>mean</code> of 180, 182.5, and 185cm (or +2.2, +4.7, +7.2cm difference) <em>or larger</em> for sample sizes N=5, N=10 and N=20. Panel A on Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a> depicts <em>one-sided</em> approach for estimating probability of observing these sample <code>mean</code> heights. One-sided approach is used when we are certain about the direction of the effect. <em>Two-sided</em> approach, on the other hand, calculates probability for the effect of the unknown direction. In this example that would be sample <code>mean</code> height difference of ±2.2, ±4.7, ±7.2cm or larger. Two-sided approach is depicted on the Panel B (Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:null-hypothesis"></span>
+<img src="06-Frequentist-perspective_files/figure-html/null-hypothesis-1.png" alt="Null-hypothesis significance testing. Assuming null-hypothesis (true parameter value, or parameter value in the population, in this case mean or \(\mu\)) is true, probability of observing sample parameter of a given magnitude or larger, is estimated by calculating proportion of sampling distribution that is over sample parameter value. The larger the sample size, the smaller the width of the sampling distribution. A. One-sided approach is used when we are certain about the direction of the effect. B. Two-sided approach is used when expected direction of the effect is unknown" width="90%" />
+<p class="caption">
+Figure 6.3: <strong>Null-hypothesis significance testing. </strong>Assuming null-hypothesis (true parameter value, or parameter value in the population, in this case <code>mean</code> or <span class="math inline">\(\mu\)</span>) is true, probability of observing sample parameter of a given magnitude or larger, is estimated by calculating proportion of sampling distribution that is over sample parameter value. The larger the sample size, the smaller the width of the sampling distribution. <strong>A.</strong> One-sided approach is used when we are certain about the direction of the effect. <strong>B.</strong> Two-sided approach is used when expected direction of the effect is unknown
+</p>
+</div>
+
+<p>The calculated probability of observing sample mean or larger, given null-hypothesis, is called <em>p-value</em>. In other words, p-value is the probability of observing data (in this case sample <code>mean</code>) given the null hypothesis (Equation <a href="frequentist-perspective.html#eq:p-value-equation">(6.3)</a>)</p>
+<p><span class="math display" id="eq:p-value-equation">\[
+\begin{equation}
+  p \; value = p(Data | H{0}) 
+  \tag{6.3}
+\end{equation}
+\]</span></p>
+<p>It is easy to interpret p-values as “probability of the null hypothesis (given data)” (<span class="math inline">\(p(H{0}|Data)\)</span>), but that is erroneous. This is Bayesian interpretation (also called <em>inverse probability</em>) which is quite common, even for the experienced researchers. Unfortunately, p-values cannot be interpreted in such way, but rather as a “probability of data given null hypothesis”.</p>
+<p>As you can see from the Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a>), for the same difference in sample <code>mean</code> height, different sample sizes will produce different p-values. This is because sampling distribution of the <code>mean</code> will be narrower (i.e. smaller <code>SEM</code>) as the sample size increase. In other words, for the same effect (in this case sample <code>mean</code>), p-value will be smaller as the sample size gets bigger. It is thus important to realize that p-values don’t tell us anything about the magnitude of the effect (in this case the difference between the sample <code>mean</code> and the known population <code>mean</code>).</p>
+<p>The procedures of acquiring p-values are called <em>statistical tests</em>. With the example above, we are using one variation of the <em>Student t test</em>, where we are calculating the test value <em>t</em> using the following Equation <a href="frequentist-perspective.html#eq:t-test">(6.4)</a>.</p>
+<p><span class="math display" id="eq:t-test">\[
+\begin{equation}
+  \begin{split}
+  t &amp;= \frac{\bar{x} -\mu}{SEM} \\
+  \\
+  t &amp;= \frac{\bar{x} -\mu}{\frac{SD}{\sqrt{N}}}
+  \end{split}
+  \tag{6.4}
+\end{equation}
+\]</span></p>
+<p>P-value is then estimated by using the calculated t value and appropriate Student’s t distribution (see Figure <a href="frequentist-perspective.html#fig:student-distribution">6.2</a>) to calculate the surface area over a particular value of t. This is usually done in the statistical program, or by using tables similar to Table <a href="frequentist-perspective.html#tab:student-critical-values">6.1</a> .</p>
+<p>Once the p-value is estimated, we need to decide whether to reject the null-hypothesis or not. In order to do that, we need to define the error we are willing to accept. This error is called <em>alpha</em> (Greek <span class="math inline">\(\alpha\)</span>) or <em>Type I</em> error and refers to making an error of rejecting the null-hypothesis when null-hypothesis is true. Out of sheer convenience, alpha is set to 0.1 (10% error), 0.05 (5% error) or 0.01 (1% error).</p>
+<p>If p-value is smaller than alpha, we will reject the null-hypothesis and state that the effect has <em>statistical significance</em>. The statistical significance has bad wording since it does not imply magnitude of the effect, only that the sample data come from a different population assumed by null-hypothesis.</p>
+<p>Take the following example. Let’s assume we have sample size of N=20 where sample <code>mean</code> is equal to 185cm. Using the known population <code>mean</code> (177.8cm) and <code>SD</code> (10.16cm), we get that <span class="math inline">\(t=3.17\)</span>. Using two-sided test and alpha=0.05, can we reject the null-hypothesis? In order to do this we can refer to Table <a href="frequentist-perspective.html#tab:student-critical-values">6.1</a> and check that for DF=20 (which is not exact, but it will serve the purpose), 95% of sampling distribution (which leaves 2.5% on each tail which is equal to 5% alpha) will be within ±2.08. Since calculated <span class="math inline">\(t=3.17\)</span> is over ±2.08, we can reject the null-hypothesis with alpha=0.05. Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a> (Panel B) depicts the exact p-value for this example, which is equal to p=0.005. Statistical software can calculate exact p-values, but before these were available, tables and procedure just describes were used instead.</p>
+</div>
+<div id="statistical-power" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Statistical Power</h2>
+<p>There is other type of error that we can commit: <em>Type II</em> error or <em>beta</em> (Greek <span class="math inline">\(\beta\)</span>). In order to understand Type II error, we need to assume alternate hypothesis or <span class="math inline">\(H{a}\)</span>. Type II error refers to the error we make when we reject the alternate-hypothesis when alternate-hypothesis is true. Type I and Type II error are inversely related - the more we are willing to make Type I errors, the less likely we are going to make Type II errors, and <em>vice versa</em> (Table <a href="frequentist-perspective.html#tab:error-types">6.2</a>).</p>
+<table>
+<caption><span id="tab:error-types">Table 6.2: </span> <strong>Type I and Type II errors</strong></caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>True <span class="math inline">\(H_{0}\)</span></th>
+<th>True <span class="math inline">\(H_{a}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rejected <span class="math inline">\(H_{0}\)</span></td>
+<td>Type I</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Rejected <span class="math inline">\(H_{a}\)</span></td>
+<td></td>
+<td>Type II</td>
+</tr>
+</tbody>
+</table>
+<p>It is important to keep in mind that with NHST, we never <em>accept</em> any hypothesis, we either reject it or not. For example, we never say “null-hypothesis is accepted (p=0.23)”, but rather “null-hypothesis is not rejected (p=0.23)”.</p>
+<p>Assuming that alternate-hypothesis is true, probability of rejecting the null-hypothesis is equal to <span class="math inline">\(1-\beta\)</span>. This is called <em>statistical power</em> and depends on the magnitude of the effect we are aiming to detect (or not-to-reject to correct myself). Figure <a href="frequentist-perspective.html#fig:statistical-power">6.4</a> depicts multiple examples of one-sided and two-sided statistical power calculations given the known alpha of 0.05 and null-hypothesis for difference in sample mean height of ±2.5, ±5, and ±7.5cm (+2.5, +5, and +7.5cm for one sided test) for N=5, N=10 and N=20.</p>
+<div class="figure" style="text-align: center"><span id="fig:statistical-power"></span>
+<img src="06-Frequentist-perspective_files/figure-html/statistical-power-1.png" alt="Statistical power. Statistical power is probability of detecting an effect of particular magnitude or larger. Visually, statistical power is dark blue surface and represents probability of rejecting the null-hypothesis given that the alternative hypothesis is true. A. One-sided approach. B. Two-sided approach" width="90%" />
+<p class="caption">
+Figure 6.4: <strong>Statistical power. </strong> Statistical power is probability of detecting an effect of particular magnitude or larger. Visually, statistical power is dark blue surface and represents probability of rejecting the null-hypothesis given that the alternative hypothesis is true. <strong>A.</strong> One-sided approach. <strong>B.</strong> Two-sided approach
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="frequentist-perspective.html#fig:statistical-power">6.4</a>, the higher the magnitude of the effect (in this case difference in height <code>means</code>), the more likely we are to detect it (by rejecting null-hypothesis). Statistical power is mostly used when planning the studies to estimate sample size needed to detect effects of magnitude of interest (usually using known or observed effect from previous studies, or even SESOI). For example, question such as “How big of a sample do I need to detect 2.5cm difference with 80% power, alpha 0.05 and expected sample SD of 10cm?” is answered by using statistical power analysis. Statistical power, or sample size for needed statistical power can be easily calculated for simple analysis, but for some more elaborate analyses simulations are needed.</p>
+<p>The frequentist approach to statistical inference is all about maintaining accepted error rates, particularly Type I, for both tests and estimates. This can be particularly difficult when <em>family-wise error rates</em> need to be controlled, and these can emerge when multiple NHST are done. Some techniques, called p-harking, can also introduce bias in the error rates by <em>fishing</em> for p-values (e.g. collecting samples until significant results are found). These topics are beyond the scope of this paper, but one of the reasons why some researchers prefer <a href="bayesian-perspective.html#bayesian-perspective">Bayesian perspective</a>.</p>
+</div>
+<div id="new-statistics-confidence-intervals-and-estimation" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> New Statistics: Confidence Intervals and Estimation</h2>
+<p>Rather than performing NHST, uncertainty of the estimated parameter can be represented with the <em>confidence interval</em> (CI). CIs are usually pretty hard to explain and non-intuitive since they do not carry any distributional information.<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a> It is thus better to refer to CIs as <em>compatibility intervals</em> <span class="citation">(Gelman and Greenland <a href="#ref-gelmanAreConfidenceIntervals2019" role="doc-biblioref">2019</a>)</span>, since, let’s say 95% confidence interval contains all the hypotheses parameter values that would not be rejected by p&lt;0.05 NHST <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>. This implies that, in the long-run (when sampling is repeated infinite number of times), 95% confidence interval will capture true parameter value 95% of the time.</p>
+<p>Assuming N=20 samples come from the population where the true <code>mean</code> height is equal to 177.8cm and <code>SD</code> is equal to 10.16cm, calculated 95% CIs around sample parameter estimate (in this case sample <code>mean</code>), in the long run, will capture true population parameter 95% of the time. Figure <a href="frequentist-perspective.html#fig:confidence-intervals">6.5</a> depicts first 100 samples out of total of 1,000 taken from the population with calculated 95% CIs. CIs that missed the true population parameter value are depicted in red. Table <a href="frequentist-perspective.html#tab:confidence-intervals-summary">6.3</a> contain the summary for this simulation. If this simulation is repeated for many more times, CIs will capture true population parameter 95% of the time, or in other words, have Type I error of 5%.</p>
+<div class="figure" style="text-align: center"><span id="fig:confidence-intervals"></span>
+<img src="06-Frequentist-perspective_files/figure-html/confidence-intervals-1.png" alt="\(95\%\) confidence intervals for the sample mean, estimated for 100 samples (N=20 observations) drawn from population of known parameters (population mean is indicated by vertical line). In the long-run, \(95\%\) confidence intervals will span the true population value \(95\%\) of the time. Confidence intervals that didn’t span the true population parameter value are colored in red" width="90%" />
+<p class="caption">
+Figure 6.5: <strong><span class="math inline">\(95\%\)</span> confidence intervals for the sample <code>mean</code>, estimated for 100 samples (N=20 observations) drawn from population of known parameters (population <code>mean</code> is indicated by vertical line). </strong>In the long-run, <span class="math inline">\(95\%\)</span> confidence intervals will span the true population value <span class="math inline">\(95\%\)</span> of the time. Confidence intervals that didn’t span the true population parameter value are colored in red
+</p>
+</div>
+
+<table>
+<caption>
+<span id="tab:confidence-intervals-summary">Table 6.3: </span><strong>Type I errors in 1000 samples</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Sample
+</th>
+<th style="text-align:right;">
+Correct %
+</th>
+<th style="text-align:right;">
+Type I Errors %
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+95.9
+</td>
+<td style="text-align:right;">
+4.1
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Similarly to different alphas, CIs can use different levels of confidence, usually 90%, 95%, 99%. As already mentioned, mathematics behind the confidence intervals is equal to mathematics behind NHST. In order to calculate two-sided CIs for the sample mean, the Equation <a href="frequentist-perspective.html#eq:ci-equation">(6.5)</a> is used:</p>
+<p><span class="math display" id="eq:ci-equation">\[
+\begin{equation}
+  CI = \bar{x} \pm t_{crit} \times \widehat{SEM} 
+  \tag{6.5}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(T_{crit}\)</span> can be found in the Table <a href="frequentist-perspective.html#tab:student-critical-values">6.1</a>, where for 95% two-sided confidence and DF=20, is equal to 2.086. Using the example of observed sample mean of 185cm, known sample <code>SD</code> (10.16cm) and N=20 (which is equal to DF=19, but for the sake of example DF=20 will be used), calculated 95% confidence interval is equal to 180.26 to 189.74cm. From the compatibility interpretation standpoint, this CI means that the hypotheses with values ranging from 180.26 to 189.74cm, will not be rejected with alpha=0.05.</p>
+<p>Confidence intervals are great solution for visualizing uncertainties around estimates. Figure <a href="frequentist-perspective.html#fig:sample-mean-cis">6.6</a> depicts already used example in Figure <a href="frequentist-perspective.html#fig:null-hypothesis">6.3</a> (two-sided and one-sided p-values), but this time 95% CIs around the sample <code>means</code> are depicted. Please note that in scenarios where 95% CIs cross the null-hypothesis, NHST will yield p&gt;0.05. This means that null-hypothesis is not rejected and results are not statistically significant. CIs can be thus used to visually inspect and conclude whether or not the null-hypothesis would be rejected or not if NHST is performed.</p>
+<div class="figure" style="text-align: center"><span id="fig:sample-mean-cis"></span>
+<img src="06-Frequentist-perspective_files/figure-html/sample-mean-cis-1.png" alt="\(95\%\) Confidence intervals for sample mean. Null-hypothesis of the population parameter value is indicated by vertical dashed line. If the \(95\%\) confidence interval doesn’t touch or cross the null-hypothesis parameter value, p-value is less than 0.05 and effect is statistically significant (given alpha of 0.05). A. One-sided confidence intervals. B. Two-sided confidence intervals" width="90%" />
+<p class="caption">
+Figure 6.6: <strong><span class="math inline">\(95\%\)</span> Confidence intervals for sample mean.</strong> Null-hypothesis of the population parameter value is indicated by vertical dashed line. If the <span class="math inline">\(95\%\)</span> confidence interval doesn’t touch or cross the null-hypothesis parameter value, p-value is less than 0.05 and effect is statistically significant (given alpha of 0.05). <strong>A.</strong> One-sided confidence intervals. <strong>B.</strong> Two-sided confidence intervals
+</p>
+</div>
+
+</div>
+<div id="minimum-effect-tests" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Minimum Effect Tests</h2>
+<p>NHST doesn’t tell us anything about the magnitudes of the effect. Just because the test is statistically significant (p&lt;0.05), it’s doesn’t imply practically meaningful effect. Rather than using null-hypothesis of <em>no effect</em>, we can perform numerous one-sided NHSTs by using SESOI thresholds to infer practical significance. These are called <em>minimum effect tests</em> (METs) and can distinguish between 6 different conclusions: <em>lower</em>, <em>not-higher</em>, <em>equivalent</em>, <em>not-lower</em>, <em>higher</em>, and <em>equivocal</em> effect. Figure <a href="frequentist-perspective.html#fig:effect-magnitudes">6.7</a> depicts how SESOI and CIs can be used to distinguish between these 6 magnitude-based conclusions <span class="citation">(Barker and R. Schofield <a href="#ref-barkerInferenceMagnitudesEffects2008" role="doc-biblioref">2008</a>; Sainani et al. <a href="#ref-sainaniMagnitudeBasedInference2019" role="doc-biblioref">2019</a>)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:effect-magnitudes"></span>
+<img src="06-Frequentist-perspective_files/figure-html/effect-magnitudes-1.png" alt="Inference about magnitudes of effects. Error bars represent confidence intervals around estimate of interest. Adapted and modified from Barker and R. Schofield (2008); Sainani et al. (2019)" width="90%" />
+<p class="caption">
+Figure 6.7: <strong>Inference about magnitudes of effects.</strong> Error bars represent confidence intervals around estimate of interest. Adapted and modified from <span class="citation">Barker and R. Schofield (<a href="#ref-barkerInferenceMagnitudesEffects2008" role="doc-biblioref">2008</a>)</span>; <span class="citation">Sainani et al. (<a href="#ref-sainaniMagnitudeBasedInference2019" role="doc-biblioref">2019</a>)</span>
+</p>
+</div>
+
+<div id="individual-vs.-parameter-sesoi" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Individual vs. Parameter SESOI</h3>
+<p>So far we have used SESOI to infer practically significant differences or changes at the <em>individual</em> level. For example, answering what is the practically meaningful difference in height, SESOI was used to calculate proportions and chances of observing individuals with lower, equivalent and higher magnitudes of effects.</p>
+<p>In prediction tasks, SESOI was used to infer practically meaningful prediction error. This helped answering the question regarding whether the individual predictions are within practically equivalent region.</p>
+<p>However, apart from using SESOI to infer individual change, difference, and prediction magnitudes, SESOI can also be used to evaluate statistics or parameters against practically significant anchor. For example, in Equation <a href="description.html#eq:diff-to-SESOI">(2.14)</a>, we have divided <code>mean</code> group difference with SESOI to create magnitude-based estimator. But here, we assumed that the same magnitude used at the individual level is of equal practical importance at the group level (i.e. aggregate level using the <code>mean</code> estimator). For example, individual change of ±5kg might be practically important at the level of the individual, but not at the level of the group (i.e. parameter), and <em>vice versa</em>. Usually, they are assumed to be the same (see also <a href="causal-inference.html#ergodicity">Ergodicity</a> section).</p>
+<p>Since sample <code>mean</code> difference is the estimator of the parameter in the population we are interested in estimating, we tend to use SESOI to give practical anchors for parameters as well. It could be argued that different terms should be used for the parameter SESOI (particularly for standardized estimators such as <code>Cohen's d</code>) <em>versus</em> individual SESOI. For example, we can use ROPE term for parameters <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>, and SESOI for individual-level magnitude inferences. For practical purposes they are considered equal, although I believe further discussion about this distinction is warranted, but outside the scope of this book.</p>
+</div>
+<div id="two-one-sided-tests-of-equivalence" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Two one-sided tests of equivalence</h3>
+<p>Besides testing again null-hypothesis of no-effect, we can use the two one-sided tests (TOST) procedure to test for <em>equivalence</em> and reject the presence of the smallest effect size of interest (SESOI) <span class="citation">(Lakens, Scheel, and Isager <a href="#ref-lakensEquivalenceTestingPsychological2018" role="doc-biblioref">2018</a>; Lakens <a href="#ref-lakensEquivalenceTestsPractical2017" role="doc-biblioref">2017</a>)</span>. TOST involves using two one-sided NHSTs assuming parameter values at SESOI thresholds (Figure <a href="frequentist-perspective.html#fig:tost">6.8</a>). Since the TOST produces two p-values, the larger of the two is reported. A conclusion of statistical equivalence is warranted when the larger of the two p-values is smaller than alpha <span class="citation">(Lakens <a href="#ref-lakensEquivalenceTestsPractical2017" role="doc-biblioref">2017</a>)</span>.</p>
+<p>From estimation perspective, statistical equivalence at the level of alpha=0.05 can be inferred if the 90% (90% not 95%; it is not a typo) CI falls completely within SESOI band.</p>
+<div class="figure" style="text-align: center"><span id="fig:tost"></span>
+<img src="06-Frequentist-perspective_files/figure-html/tost-1.png" alt="Equivalence test using two one-sided tests (TOST). Equivalence test involves two NHSTs at SESOI thresholds and calculates two one-sided p-values, out of which a larger one is reported as result. Error bars represent 90% confidence intervals." width="90%" />
+<p class="caption">
+Figure 6.8: <strong>Equivalence test using two one-sided tests (TOST). </strong>Equivalence test involves two NHSTs at SESOI thresholds and calculates two one-sided p-values, out of which a larger one is reported as result. Error bars represent 90% confidence intervals.
+</p>
+</div>
+
+</div>
+<div id="superiority-and-non-inferiority" class="section level3" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> Superiority and Non-Inferiority</h3>
+<p>Two same NHSTs at SESOI thresholds are utilized to test superiority and non-inferiority of the effects. In other words, we want to conclude whether the effect is higher and/or not-lower than SESOI. To achieve this, two one-sided NHSTs are performed to estimate the probability of observing effect in the positive direction (Figure <a href="frequentist-perspective.html#fig:superiority-non-inferiority">6.9</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:superiority-non-inferiority"></span>
+<img src="06-Frequentist-perspective_files/figure-html/superiority-non-inferiority-1.png" alt="Superiority and Non-Inferiority tests. Similar to equivalence test using TOST procedure, superiority and non-inferiority tests involve two one-sided NHSTs at SESOI thresholds in the positive direction. Error bars represent 90% confidence intervals." width="90%" />
+<p class="caption">
+Figure 6.9: <strong>Superiority and Non-Inferiority tests. </strong>Similar to equivalence test using TOST procedure, superiority and non-inferiority tests involve two one-sided NHSTs at SESOI thresholds in the positive direction. Error bars represent 90% confidence intervals.
+</p>
+</div>
+
+</div>
+<div id="inferiority-and-non-superiority" class="section level3" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> Inferiority and Non-Superiority</h3>
+<p>To test the inferiority and non-superiority of the effects, two one-sided NHSTs are performed to estimate the probability of observing effect in the negative direction (Figure <a href="frequentist-perspective.html#fig:inferiority-non-superiority">6.10</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:inferiority-non-superiority"></span>
+<img src="06-Frequentist-perspective_files/figure-html/inferiority-non-superiority-1.png" alt="Inferiority and Non-Superiority tests. Similar to equivalence test using TOST procedure, inferiority and non-superiority tests involve two one-sided NHSTs at SESOI thresholds in the negative direction. Error bars represent 90% confidence intervals." width="90%" />
+<p class="caption">
+Figure 6.10: <strong>Inferiority and Non-Superiority tests. </strong>Similar to equivalence test using TOST procedure, inferiority and non-superiority tests involve two one-sided NHSTs at SESOI thresholds in the negative direction. Error bars represent 90% confidence intervals.
+</p>
+</div>
+
+</div>
+<div id="inference-from-mets" class="section level3" number="6.4.5">
+<h3><span class="header-section-number">6.4.5</span> Inference from METs</h3>
+<p>The aforementioned METs provide five p-values: for lower (inferiority), not-higher (non-superiority), equivalent (equivalence), not-lower (non-inferiority), and higher (superiority) effect magnitude. These p-values can be used to make magnitude-based inferences about the effects. Figure <a href="frequentist-perspective.html#fig:met-results">6.11</a> depicts already used examples to calculate p-values from METs and the final inference on the magnitude of the effect (see Figure <a href="frequentist-perspective.html#fig:effect-magnitudes">6.7</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:met-results"></span>
+<img src="06-Frequentist-perspective_files/figure-html/met-results-1.png" alt="Minimum Effect Test results. Error bars represent 90% confidence intervals." width="90%" />
+<p class="caption">
+Figure 6.11: <strong>Minimum Effect Test results. </strong>Error bars represent 90% confidence intervals.
+</p>
+</div>
+
+</div>
+</div>
+<div id="magnitude-based-inference" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Magnitude Based Inference</h2>
+<p>Batterham and Hopkins <span class="citation">(Batterham and Hopkins <a href="#ref-batterhamMakingMeaningfulInferences2006" role="doc-biblioref">2006</a>; Hopkins et al. <a href="#ref-hopkinsProgressiveStatisticsStudies2009" role="doc-biblioref">2009</a>)</span> proposed novel approach in making meaningful inference about magnitudes, called <em>magnitude based inference</em> (MBI). MBI has been recently criticized <span class="citation">(Barker and R. Schofield <a href="#ref-barkerInferenceMagnitudesEffects2008" role="doc-biblioref">2008</a>; Borg et al. <a href="#ref-borgBayesianMethodsMight2018" role="doc-biblioref">2018</a>; Curran-Everett <a href="#ref-curran-everettMagnitudebasedInferenceGood2018" role="doc-biblioref">2018</a>; Hopkins and Batterham <a href="#ref-hopkinsVindicationMagnitudeBasedInference2018" role="doc-biblioref">2018</a>; Nevill et al. <a href="#ref-nevillCanWeTrust2018" role="doc-biblioref">2018</a>; Sainani et al. <a href="#ref-sainaniMagnitudeBasedInference2019" role="doc-biblioref">2019</a>; Sainani <a href="#ref-sainaniProblemMagnitudebasedInference2018" role="doc-biblioref">2018</a>; Welsh and Knight <a href="#ref-welshMagnitudebasedInferenceStatistical2015" role="doc-biblioref">2015</a>)</span> for interpreting CIs as Bayesian credible intervals and for not controlling Type I and Type II errors.</p>
+<p>As explained, CIs doesn’t contain any probability distribution information about the true parameter. Although CIs, Bayesian <em>credible intervals</em> (with flat or non-informative <em>prior</em>), and <em>bootstrap CIs</em> tend to converge to the approximately same values for very simple tests (such as t-test for the sample <code>mean</code>), interpreting CIs established using frequentist approach as Bayesian credible intervals is not valid approach to statistical inference <span class="citation">(Sainani et al. <a href="#ref-sainaniMagnitudeBasedInference2019" role="doc-biblioref">2019</a>)</span>. Figure <a href="frequentist-perspective.html#fig:mbi">6.12</a> depicts Bayesian interpretation of the confidence intervals used in MBI.</p>
+<p>Using MBI as a simple descriptive approach to interpret CIs can be rationalized, but making inferences from estimated probabilities is not recommended <span class="citation">(Caldwell and Cheuvront <a href="#ref-caldwellBasicStatisticalConsiderations2019" role="doc-biblioref">2019</a>)</span>. If frequentist approaches are used for magnitude-based statistical inference, METs should be used instead.</p>
+<div class="figure" style="text-align: center"><span id="fig:mbi"></span>
+<img src="06-Frequentist-perspective_files/figure-html/mbi-1.png" alt="Magnitude-based inference use inappropriate Bayesian interpretation of the confidence intervals to calculate lower, equivalent, and higher probabilities of the effect. Vertical dashed lines represent SESOI. thresholds. Error bars represent 90% confidence intervals." width="90%" />
+<p class="caption">
+Figure 6.12: <strong>Magnitude-based inference use inappropriate Bayesian interpretation of the confidence intervals to calculate lower, equivalent, and higher probabilities of the effect. </strong>Vertical dashed lines represent SESOI. thresholds. Error bars represent 90% confidence intervals.
+</p>
+</div>
+
+<p>There are numerous problems with frequentist inference <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>, <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>)</span>. The results are not intuitive and are usually erroneously interpreted from the Bayesian perspective. Error rates need to be controlled for and adjusted when multiple comparisons are made, or when different <em>stopping</em> techniques are used, sampling distributions are unknown for some estimators and cannot be derived algebraically. Various assumptions such as assumptions of normality, non-colinearity and others, need to be made and tested for, and for more complex models, such as <em>hierarchical models</em>, p-values and CIs are only approximated <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>. It is beyond this short chapter to delve into more details, regarding the frequentist approach to statistical inference, and readers are directed to references provided in this section.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-barkerInferenceMagnitudesEffects2008">
+<p>Barker, Richard J., and Matthew R. Schofield. 2008. “Inference About Magnitudes of Effects.” <em>International Journal of Sports Physiology and Performance</em> 3 (4): 547–57. <a href="https://doi.org/10.1123/ijspp.3.4.547">https://doi.org/10.1123/ijspp.3.4.547</a>.</p>
+</div>
+<div id="ref-batterhamMakingMeaningfulInferences2006">
+<p>Batterham, Alan M., and William G. Hopkins. 2006. “Making Meaningful Inferences About Magnitudes.” <em>International Journal of Sports Physiology and Performance</em> 1 (1): 50–57. <a href="https://doi.org/10.1123/ijspp.1.1.50">https://doi.org/10.1123/ijspp.1.1.50</a>.</p>
+</div>
+<div id="ref-borgBayesianMethodsMight2018">
+<p>Borg, David N., Geoffrey M. Minett, Ian B. Stewart, and Christopher C. Drovandi. 2018. “Bayesian Methods Might Solve the Problems with Magnitude-Based Inference:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 50 (12): 2609–10. <a href="https://doi.org/10.1249/MSS.0000000000001736">https://doi.org/10.1249/MSS.0000000000001736</a>.</p>
+</div>
+<div id="ref-caldwellBasicStatisticalConsiderations2019">
+<p>Caldwell, Aaron R., and Samuel N. Cheuvront. 2019. “Basic Statistical Considerations for Physiology: The Journal <em>Temperature</em> Toolbox.” <em>Temperature</em>, June, 1–30. <a href="https://doi.org/10.1080/23328940.2019.1624131">https://doi.org/10.1080/23328940.2019.1624131</a>.</p>
+</div>
+<div id="ref-carseyMonteCarloSimulation2013">
+<p>Carsey, Thomas, and Jeffrey Harden. 2013. <em>Monte Carlo Simulation and Resampling Methods for Social Science</em>. 1 edition. Los Angeles: Sage Publications, Inc.</p>
+</div>
+<div id="ref-cummingNewStatisticsWhy2014">
+<p>Cumming, Geoff. 2014. “The New Statistics: Why and How.” <em>Psychological Science</em> 25 (1): 7–29. <a href="https://doi.org/10.1177/0956797613504966">https://doi.org/10.1177/0956797613504966</a>.</p>
+</div>
+<div id="ref-curran-everettMagnitudebasedInferenceGood2018">
+<p>Curran-Everett, Douglas. 2018. “Magnitude-Based Inference: Good Idea but Flawed Approach.” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 50 (10): 2164–5. <a href="https://doi.org/10.1249/MSS.0000000000001646">https://doi.org/10.1249/MSS.0000000000001646</a>.</p>
+</div>
+<div id="ref-gelmanAreConfidenceIntervals2019">
+<p>Gelman, Andrew, and Sander Greenland. 2019. “Are Confidence Intervals Better Termed ‘Uncertainty Intervals’?” <em>BMJ</em>, September, l5381. <a href="https://doi.org/10.1136/bmj.l5381">https://doi.org/10.1136/bmj.l5381</a>.</p>
+</div>
+<div id="ref-hopkinsVindicationMagnitudeBasedInference2018">
+<p>Hopkins, Will, and Alan Batterham. 2018. “The Vindication of Magnitude-Based Inference,” 12.</p>
+</div>
+<div id="ref-hopkinsUnderstandingStatisticsUsing2007">
+<p>Hopkins, Will G. 2007. “Understanding Statistics by Using Spreadsheets to Generate and Analyze Samples.” <em>Sportscience.org</em>. https://www.sportsci.org/2007/wghstats.htm.</p>
+</div>
+<div id="ref-hopkinsProgressiveStatisticsStudies2009">
+<p>Hopkins, William G., Stephen W. Marshall, Alan M. Batterham, and Juri Hanin. 2009. “Progressive Statistics for Studies in Sports Medicine and Exercise Science:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 41 (1): 3–13. <a href="https://doi.org/10.1249/MSS.0b013e31818cb278">https://doi.org/10.1249/MSS.0b013e31818cb278</a>.</p>
+</div>
+<div id="ref-kruschkeBayesianDataAnalysis2018">
+<p>Kruschke, John K., and Torrin M. Liddell. 2018a. “Bayesian Data Analysis for Newcomers.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 155–77. <a href="https://doi.org/10.3758/s13423-017-1272-1">https://doi.org/10.3758/s13423-017-1272-1</a>.</p>
+</div>
+<div id="ref-kruschkeBayesianNewStatistics2018">
+<p>Kruschke, John K., and Torrin M. Liddell. 2018a. “Bayesian Data Analysis for Newcomers.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 155–77. <a href="https://doi.org/10.3758/s13423-017-1272-1">https://doi.org/10.3758/s13423-017-1272-1</a>.</p> 2018b. “The Bayesian New Statistics: Hypothesis Testing, Estimation, Meta-Analysis, and Power Analysis from a Bayesian Perspective.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 178–206. <a href="https://doi.org/10.3758/s13423-016-1221-4">https://doi.org/10.3758/s13423-016-1221-4</a>.</p>
+</div>
+<div id="ref-lakensEquivalenceTestsPractical2017">
+<p>Lakens, Daniël. 2017. “Equivalence Tests: A Practical Primer for <em>T</em> Tests, Correlations, and Meta-Analyses.” <em>Social Psychological and Personality Science</em> 8 (4): 355–62. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.</p>
+</div>
+<div id="ref-lakensEquivalenceTestingPsychological2018">
+<p>Lakens, Daniël, Anne M. Scheel, and Peder M. Isager. 2018. “Equivalence Testing for Psychological Research: A Tutorial.” <em>Advances in Methods and Practices in Psychological Science</em> 1 (2): 259–69. <a href="https://doi.org/10.1177/2515245918770963">https://doi.org/10.1177/2515245918770963</a>.</p>
+</div>
+<div id="ref-nevillCanWeTrust2018">
+<p>Nevill, Alan M., A. Mark Williams, Colin Boreham, Eric S. Wallace, Gareth W. Davison, Grant Abt, Andrew M. Lane, and Edward M. Winter EDITORIAL BOARD. 2018. “Can We Trust ‘Magnitude-Based Inference’?” <em>Journal of Sports Sciences</em> 36 (24): 2769–70. <a href="https://doi.org/10.1080/02640414.2018.1516004">https://doi.org/10.1080/02640414.2018.1516004</a>.</p>
+</div>
+<div id="ref-sainaniProblemMagnitudebasedInference2018">
+<p>Sainani, Kristin L. 2018. “The Problem with "Magnitude-Based Inference".” <em>Medicine and Science in Sports and Exercise</em> 50 (10): 2166–76. <a href="https://doi.org/10.1249/MSS.0000000000001645">https://doi.org/10.1249/MSS.0000000000001645</a>.</p>
+</div>
+<div id="ref-sainaniMagnitudeBasedInference2019">
+<p>Sainani, Kristin L., Keith R. Lohse, Paul Remy Jones, and Andrew Vickers. 2019. “Magnitude-Based Inference Is Not Bayesian and Is Not a Valid Method of Inference.” <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, May. <a href="https://doi.org/10.1111/sms.13491">https://doi.org/10.1111/sms.13491</a>.</p>
+</div>
+<div id="ref-swintonStatisticalFrameworkInterpret2018">
+<p>Swinton, Paul A., Ben Stephens Hemingway, Bryan Saunders, Bruno Gualano, and Eimear Dolan. 2018. “A Statistical Framework to Interpret Individual Response to Intervention: Paving the Way for Personalized Nutrition and Exercise Prescription.” <em>Frontiers in Nutrition</em> 5 (May). <a href="https://doi.org/10.3389/fnut.2018.00041">https://doi.org/10.3389/fnut.2018.00041</a>.</p>
+</div>
+<div id="ref-welshMagnitudebasedInferenceStatistical2015">
+<p>Welsh, Alan H., and Emma J. Knight. 2015. “‘Magnitude-Based Inference’: A Statistical Review.” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 47 (4): 874–84. <a href="https://doi.org/10.1249/MSS.0000000000000451">https://doi.org/10.1249/MSS.0000000000000451</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="30">
+<li id="fn30"><p>It is quite common to erroneously interpret CIs as Bayesian <em>credible intervals</em> <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; McElreath <a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span>.<a href="frequentist-perspective.html#fnref30" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistical-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-perspective.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/06-Frequentist-perspective.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

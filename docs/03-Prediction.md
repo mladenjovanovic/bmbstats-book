@@ -786,7 +786,7 @@ Elastic-net model represents regression method that linearly combines the *L1* a
    <td style="text-align:left;"> ±1 </td>
    <td style="text-align:right;"> 2.19 </td>
    <td style="text-align:right;"> 0.91 </td>
-   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 1.99 </td>
    <td style="text-align:right;"> 1.01 </td>
    <td style="text-align:right;"> 0.38 </td>
@@ -794,7 +794,7 @@ Elastic-net model represents regression method that linearly combines the *L1* a
 </tbody>
 </table>
 
-Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predictive model performance. Reported `SESOI to cvRMSE` (0.91) as well as `cvPPER` (0.34) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn't produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized. 
+Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predictive model performance. Reported `SESOI to cvRMSE` (0.91) as well as `cvPPER` (0.33) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn't produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized. 
 
 Model performance can be visualized using the training data set (Figure \@ref(fig:elastic-net-prediction)). `PPER` estimator, for both cross-validate estimate and training data performance estimate, utilized `SD` of the residuals and provided SESOI. Grey band on panels A and B on Figure \@ref(fig:elastic-net-prediction) represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance. 
 
@@ -848,7 +848,7 @@ Predictive performance for the full training data set is enlisted in the Table \
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.21 </td>
-   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.97 </td>
    <td style="text-align:right;"> 4.73 </td>
    <td style="text-align:right;"> 0.74 </td>
    <td style="text-align:right;"> -0.44 </td>
@@ -886,7 +886,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.13 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0.29 </td>
-   <td style="text-align:right;"> 0.90 </td>
+   <td style="text-align:right;"> 0.87 </td>
    <td style="text-align:right;"> 3.42 </td>
    <td style="text-align:right;"> 0.62 </td>
    <td style="text-align:right;"> -0.46 </td>
@@ -899,7 +899,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.04 </td>
    <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.14 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.99 </td>
    <td style="text-align:right;"> 7.15 </td>
    <td style="text-align:right;"> 0.87 </td>
    <td style="text-align:right;"> -0.22 </td>
@@ -912,7 +912,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.24 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.90 </td>
    <td style="text-align:right;"> 3.74 </td>
    <td style="text-align:right;"> 0.79 </td>
    <td style="text-align:right;"> -0.27 </td>
@@ -925,7 +925,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.17 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0.28 </td>
-   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 3.52 </td>
    <td style="text-align:right;"> 0.41 </td>
    <td style="text-align:right;"> -0.51 </td>
@@ -938,7 +938,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.08 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.24 </td>
-   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 0.92 </td>
    <td style="text-align:right;"> 4.20 </td>
    <td style="text-align:right;"> 0.77 </td>
    <td style="text-align:right;"> -0.28 </td>
@@ -951,7 +951,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.09 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.19 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.97 </td>
    <td style="text-align:right;"> 5.18 </td>
    <td style="text-align:right;"> 0.87 </td>
    <td style="text-align:right;"> -0.27 </td>
@@ -964,7 +964,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.05 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.24 </td>
-   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 0.93 </td>
    <td style="text-align:right;"> 4.16 </td>
    <td style="text-align:right;"> 0.71 </td>
    <td style="text-align:right;"> -0.31 </td>
@@ -977,7 +977,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.14 </td>
    <td style="text-align:right;"> 0.18 </td>
    <td style="text-align:right;"> 0.22 </td>
-   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 4.65 </td>
    <td style="text-align:right;"> 0.81 </td>
    <td style="text-align:right;"> -0.38 </td>
@@ -990,7 +990,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.02 </td>
    <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.17 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.98 </td>
    <td style="text-align:right;"> 5.92 </td>
    <td style="text-align:right;"> 0.75 </td>
    <td style="text-align:right;"> -0.30 </td>
@@ -1003,7 +1003,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.07 </td>
    <td style="text-align:right;"> 0.21 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 3.76 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> -0.50 </td>
@@ -1016,7 +1016,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.04 </td>
    <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.16 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.99 </td>
    <td style="text-align:right;"> 6.27 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> -0.20 </td>
@@ -1029,7 +1029,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.01 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.24 </td>
-   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 0.92 </td>
    <td style="text-align:right;"> 4.21 </td>
    <td style="text-align:right;"> 0.54 </td>
    <td style="text-align:right;"> -0.45 </td>
@@ -1042,7 +1042,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.02 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.21 </td>
-   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.95 </td>
    <td style="text-align:right;"> 4.74 </td>
    <td style="text-align:right;"> 0.51 </td>
    <td style="text-align:right;"> -0.44 </td>
@@ -1055,7 +1055,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> 0.21 </td>
    <td style="text-align:right;"> 0.23 </td>
    <td style="text-align:right;"> 0.28 </td>
-   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.91 </td>
    <td style="text-align:right;"> 3.57 </td>
    <td style="text-align:right;"> 0.83 </td>
    <td style="text-align:right;"> -0.06 </td>
@@ -1068,7 +1068,7 @@ But as already explained, these are not predictive performance estimators for th
    <td style="text-align:right;"> -0.01 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.19 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.97 </td>
    <td style="text-align:right;"> 5.29 </td>
    <td style="text-align:right;"> 0.82 </td>
    <td style="text-align:right;"> -0.32 </td>
@@ -1170,13 +1170,13 @@ Cross-validated, *pooled*, and full training data set predictive performance met
   </tr>
   <tr>
    <td style="text-align:left;"> PPER </td>
-   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.97 </td>
    <td style="text-align:right;"> 0.98 </td>
    <td style="text-align:right;"> 0.97 </td>
-   <td style="text-align:right;"> 0.96 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.90 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.99 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SESOI to RMSE </td>
@@ -1241,7 +1241,7 @@ Summary from the Table \@ref(tab:mas-yoyo-cv-performance-summary) as well as the
 
 As can be seen from the Figure \@ref(fig:mas-yoyo-cv-graphical), cross-validated prediction performance metrics do not differ much[^PREDICTION_T_TEST] from the metrics estimated using the full training sample (calculated in [Describing relationship between two variables] section and in the Table \@ref(tab:mas-yoyo-training-performance), and indicated by the dotted horizontal line in the Figure \@ref(fig:mas-yoyo-cv-graphical)). For some more complex models, these differences can be much larger and are clear indication of the model over-fitting. 
 
-Overall, predicting MAS from the YoYoIR1 score, *given* the data collected, SESOI of ±0.5km/h, and linear regression as a model, is practically excellent. Please note that prediction can be practically useful (given SESOI) (`PPER`; CV from 0.9 to 1) even when `R-squared` is relatively low (CV from 0.27 to 0.87). And the *vice versa* in some cases. That's the reason why we need to utilize magnitude-based estimators as a complement of contemporary estimators such as `R-squared`, `RSE`, and `RMSE`. 
+Overall, predicting MAS from the YoYoIR1 score, *given* the data collected, SESOI of ±0.5km/h, and linear regression as a model, is practically excellent. Please note that prediction can be practically useful (given SESOI) (`PPER`; CV from 0.87 to 0.99) even when `R-squared` is relatively low (CV from 0.27 to 0.87). And the *vice versa* in some cases. That's the reason why we need to utilize magnitude-based estimators as a complement of contemporary estimators such as `R-squared`, `RSE`, and `RMSE`. 
 
 [^PREDICTION_T_TEST]: As you will learn in [Statistical inference] section, we can perform statistical tests (in this case *t-test*) to check whether the average of the cross-validated performance metric differ from metric estimated on the full training sample.
 
@@ -1311,10 +1311,10 @@ Predictive performance metrics can be found in the Table \@ref(tab:mas-yoyo-cv-p
    <td style="text-align:right;"> 0.24 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0.23 </td>
-   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.22 </td>
    <td style="text-align:right;"> 0.05 </td>
    <td style="text-align:right;"> 0.17 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.34 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SESOI to RMSE </td>

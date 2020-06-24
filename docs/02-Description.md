@@ -132,7 +132,7 @@ Table: (\#tab:effect-size-statistics-for-estimating-differences-between-two-inde
 
  Difference (cm)   SDdiff (cm)   % CVdiff   % Difference   Ratio   Cohen's d   CLES    OVL
 ----------------  ------------  ---------  -------------  ------  ----------  -----  -----
-           12.73         12.41      97.55            7.8    1.08       -1.45   0.85   0.47
+           12.73         12.41      97.55            7.8    1.08        1.45   0.85   0.47
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
 
@@ -272,7 +272,7 @@ There is no single way to approach definition and estimation of SESOI, but it us
 
 To introduce magnitude-based estimators, consider ±2.5cm to be body height SESOI[^SESOI_Range], or the difference that would be practically significant. In other words, individuals with height difference within ±2.5cm would be considered practically equivalent (from the minimal important effect perspective), or it might be hard to detect this difference with a quick glance (from minimum detectable effect perspective). 
 
-[^SESOI_Range]: SESOI has two thresholds: *lower* and *upper*, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as $SESOI_{upper} - SESOI_{lower}$. This range can also be refered to as *equivalence range*.
+[^SESOI_Range]: SESOI has two thresholds: *lower* and *upper*, or negative and positive. In this example these thresholds are -2.5cm and +2.5cm. This makes SESOI range equal to 5cm, which is calculated as $SESOI_{upper} - SESOI_{lower}$. This range can also be referred to as *equivalence range*.
 
 The simplest magnitude-based statistics would be `mean diff` divided by SESOI (`Difference to SESOI`) (Equation \@ref(eq:diff-to-SESOI)). This estimator, similar to other standardized estimators (e.g. `Cohen's d`) allows comparison of variables at different scales, but it would also give more insight into differences from practical significance perspective. 
 
@@ -312,8 +312,8 @@ Table: (\#tab:table-magnitude-based-diff)(ref:table-magnitude-based-diff-caption
 
 Method         pLower   pEquivalent   pHigher
 ------------  -------  ------------  --------
-brute-force      0.11         0.096     0.794
-algebraic        0.11         0.095     0.795
+brute-force     0.110         0.096     0.794
+algebraic       0.111         0.095     0.794
 
 It is common to represent means as *systematic component* or *fixed effect* (e.g. `mean difference`), and variability around the mean (i.e. `SDdiff`) as *stochastic component* or *random effect*. It is unfortunate that the common statistical modeling and analysis, particularly in sport science, takes the stance of approaching and treating between-individual variation as *random error*. The approach suggested in this book complements *group-based* or *average-based* statistics with magnitude-based predictions that aim to help in answering individual-based questions, common to sport practitioners. Table \@ref(tab:magnitude-based-estimators-diff) contains discussed magnitude-based estimators that can complement common effect size statistics (Table \@ref(tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)) when comparing two independent groups. 
 
@@ -324,7 +324,7 @@ Table: (\#tab:magnitude-based-estimators-diff)(ref:magnitude-based-estimators-di
 
  SESOI lower (cm)   SESOI upper (cm)   Difference to SESOI   SDdiff to SESOI   pLower   pEquivalent   pHigher
 -----------------  -----------------  --------------------  ----------------  -------  ------------  --------
-             -2.5                2.5                  2.55              2.48     0.11           0.1      0.79
+             -2.5                2.5                  2.55              2.48     0.11          0.09      0.79
 
 ## Comparing dependent groups
 
@@ -337,26 +337,26 @@ Table: (\#tab:bench-press-1RM-pre-post)(ref:bench-press-1RM-pre-post-caption)
 
 Athlete       Pre-test (kg)   Post-test (kg)   Change (kg)
 -----------  --------------  ---------------  ------------
-Athlete 01           111.89           116.55          4.66
-Athlete 02            96.04           100.67          4.64
-Athlete 03           106.29           109.60          3.31
-Athlete 04            99.74           100.97          1.23
-Athlete 05            92.44           110.93         18.48
-Athlete 06            96.39            96.93          0.54
-Athlete 07            93.82           114.54         20.72
-Athlete 08           105.87           113.40          7.53
-Athlete 09            82.61            79.65         -2.96
-Athlete 10           103.66            95.64         -8.01
-Athlete 11            86.23            77.18         -9.05
-Athlete 12           100.60           114.75         14.14
-Athlete 13            93.16            90.87         -2.29
-Athlete 14           111.42           115.27          3.85
-Athlete 15            98.59            89.73         -8.86
-Athlete 16           108.85           114.92          6.07
-Athlete 17            93.81            91.05         -2.76
-Athlete 18            93.83            92.14         -1.69
-Athlete 19           107.94           116.72          8.78
-Athlete 20           101.65            91.81         -9.84
+Athlete 01           111.80           121.42          9.62
+Athlete 02            95.95           102.13          6.18
+Athlete 03           105.87           125.56         19.69
+Athlete 04            98.79           109.67         10.87
+Athlete 05            95.81           108.11         12.30
+Athlete 06            95.27            92.67         -2.60
+Athlete 07            97.75           106.03          8.28
+Athlete 08           106.50           109.51          3.01
+Athlete 09            80.62            95.96         15.34
+Athlete 10           100.40            94.30         -6.11
+Athlete 11            82.71            78.91         -3.80
+Athlete 12           102.89            93.98         -8.91
+Athlete 13            91.34           105.21         13.87
+Athlete 14           111.14           108.07         -3.07
+Athlete 15            95.13            96.01          0.88
+Athlete 16           109.12           112.12          3.00
+Athlete 17            91.87           103.41         11.54
+Athlete 18            92.16           103.93         11.77
+Athlete 19           108.88           119.72         10.84
+Athlete 20            97.94            95.91         -2.03
 
 The results of this simple Pre-test and Post-test design can be described in multiple ways. Here, I will present the three most common approaches. 
 
@@ -372,18 +372,18 @@ Table: (\#tab:bench-press-data-independent-summary)(ref:bench-press-data-indepen
 Estimator      Pre-test   Post-test   Change
 ------------  ---------  ----------  -------
 n                 20.00       20.00    20.00
-mean (kg)         99.24      101.67     2.42
-SD (kg)            8.06       12.85     8.71
-% CV               8.12       12.64   359.18
-median (kg)       99.16      100.82     2.27
-MAD (kg)           8.42       15.71     7.60
-IQR (kg)          12.16       22.97     9.25
-mode (kg)         96.36      113.59     2.89
-min (kg)          82.61       77.18    -9.84
-max (kg)         111.89      116.72    20.72
-range (kg)        29.28       39.54    30.57
-skew              -0.17       -0.30     0.45
-kurtosis          -0.89       -1.32    -0.65
+mean (kg)         98.60      104.13     5.53
+SD (kg)            8.70       11.08     8.05
+% CV               8.83       10.64   145.46
+median (kg)       97.84      104.57     7.23
+MAD (kg)           8.64       11.94     8.46
+IQR (kg)          11.64       13.60    13.77
+mode (kg)         96.49      105.76    10.78
+min (kg)          80.62       78.91    -8.91
+max (kg)         111.80      125.56    19.69
+range (kg)        31.18       46.64    28.60
+skew              -0.26       -0.05    -0.16
+kurtosis          -0.73       -0.28    -1.28
 
 <div class="figure" style="text-align: center">
 <img src="02-Description_files/figure-html/bench-press-pre-post-raincloud-1.png" alt="(ref:bench-press-pre-post-raincloud-caption)" width="90%" />
@@ -403,7 +403,7 @@ Table: (\#tab:change-effect-size)(ref:change-effect-size-caption)
 
  Change (kg)   SDchange (kg)   % CVchange   % Change   Ratio   Cohen's d   CLES    OVL
 ------------  --------------  -----------  ---------  ------  ----------  -----  -----
-        2.42            8.71       359.18       2.33    1.02         0.3   0.56   0.88
+        5.53            8.05       145.46       5.75    1.06        0.64   0.65   0.75
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
 
@@ -474,7 +474,7 @@ Table: (\#tab:change-MB-stats)(ref:change-MB-stats-caption)
 
 SESOI (kg)    Change to SESOI   SDchange to SESOI   pLower   pEquivalent   pHigher
 -----------  ----------------  ------------------  -------  ------------  --------
-±5                       0.24                0.87      0.2          0.42      0.38
+±5                       0.55                0.81      0.1          0.37      0.53
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
@@ -667,7 +667,7 @@ Table: (\#tab:reverse-estimates-table)(ref:reverse-linear-reg-estimates-caption)
 --------------  -------  --------
       -6589.82   524.93    133.84
 
-This diference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
+This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
 <div class="figure" style="text-align: center">
 <img src="02-Description_files/figure-html/reverse-linear-1.png" alt="(ref:reverse-linear-caption)" width="90%" />

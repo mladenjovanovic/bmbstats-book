@@ -1,7 +1,7 @@
 --- 
 title: "bmbstats: bootstrap magnitude-based statistics for sports scientists"
 author: "Mladen Jovanovic"
-date: "2020-05-25"
+date: "2020-06-18"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook
@@ -35,7 +35,7 @@ https://github.com/mladenjovanovic/bmbstats-book
 
 ## R and R packages {-}
 
-This book is fully reproducible and was written in R [Version 4.0.0; @R-base] and the R-packages *bayestestR* [Version 0.6.0; @R-bayestestR], *bmbstats* [Version 0.0.0.9000; @R-bmbstats], *bookdown* [Version 0.18; @R-bookdown], *boot* [Version 1.3.25; @R-boot], *carData* [Version 3.0.3; @R-carData], *caret* [Version 6.0.86; @R-caret], *cowplot* [Version 1.0.0; @R-cowplot], *directlabels* [Version 2020.1.31; @R-directlabels], *dplyr* [Version 0.8.5; @R-dplyr], *effects* [Version 4.1.4; @R-effects_a; @R-effects_b; @R-effects_c], *forcats* [Version 0.5.0; @R-forcats], *ggplot2* [Version 3.3.0; @R-ggplot2], *ggridges* [Version 0.5.2; @R-ggridges], *ggstance* [Version 0.3.4; @R-ggstance], *kableExtra* [Version 1.1.0; @R-kableExtra], *knitr* [Version 1.28; @R-knitr], *lattice* [Version 0.20.41; @R-lattice], *markdown* [Version 1.1; @R-markdown], *Metrics* [Version 0.1.4; @R-Metrics], *minerva* [Version 1.5.8; @R-minerva], *pdp* [Version 0.7.0; @R-pdp], *psych* [Version 1.9.12.31; @R-psych], *purrr* [Version 0.3.4; @R-purrr], *readr* [Version 1.3.1; @R-readr], *rpart* [Version 4.1.15; @R-rpart], *stringr* [Version 1.4.0; @R-stringr], *tibble* [Version 3.0.1; @R-tibble], *tidyr* [Version 1.1.0; @R-tidyr], *tidyverse* [Version 1.3.0; @R-tidyverse], *vip* [Version 0.2.2; @R-vip], and *visreg* [Version 2.6.1; @R-visreg].
+This book is fully reproducible and was written in R [Version 4.0.0; @R-base] and the R-packages *automatic* [@R-automatic], *bayestestR* [Version 0.6.0; @R-bayestestR], *bmbstats* [Version 0.0.0.9000; @R-bmbstats], *bookdown* [Version 0.18; @R-bookdown], *boot* [Version 1.3.25; @R-boot], *carData* [Version 3.0.3; @R-carData], *caret* [Version 6.0.86; @R-caret], *cowplot* [Version 1.0.0; @R-cowplot], *directlabels* [Version 2020.1.31; @R-directlabels], *dplyr* [Version 1.0.0; @R-dplyr], *effects* [Version 4.1.4; @R-effects_a; @R-effects_b; @R-effects_c], *forcats* [Version 0.5.0; @R-forcats], *ggplot2* [Version 3.3.1; @R-ggplot2], *ggridges* [Version 0.5.2; @R-ggridges], *ggstance* [Version 0.3.4; @R-ggstance], *hardhat* [Version 0.1.3; @R-hardhat], *kableExtra* [Version 1.1.0; @R-kableExtra], *knitr* [Version 1.28; @R-knitr], *lattice* [Version 0.20.41; @R-lattice], *markdown* [Version 1.1; @R-markdown], *Metrics* [Version 0.1.4; @R-Metrics], *minerva* [Version 1.5.8; @R-minerva], *mlr* [Version 2.17.1; @R-mlr; @R-mlr3; @R-mlrmbo], *mlr3* [Version 0.3.0; @R-mlr3], *mlrmbo* [@R-mlrmbo], *multilabel* [@R-multilabel], *openml* [@R-openml], *ParamHelpers* [Version 1.14; @R-ParamHelpers], *pdp* [Version 0.7.0; @R-pdp], *psych* [Version 1.9.12.31; @R-psych], *purrr* [Version 0.3.4; @R-purrr], *readr* [Version 1.3.1; @R-readr], *rpart* [Version 4.1.15; @R-rpart], *stringr* [Version 1.4.0; @R-stringr], *tibble* [Version 3.0.1; @R-tibble], *tidyr* [Version 1.1.0; @R-tidyr], *tidyverse* [Version 1.3.0; @R-tidyverse], *vip* [Version 0.2.2; @R-vip], and *visreg* [Version 2.6.1; @R-visreg].
 
 ## License {-}
 

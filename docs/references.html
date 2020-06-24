@@ -24,14 +24,14 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-05-25" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="causal-inference.html"/>
+<link rel="prev" href="recommended-material.html"/>
 
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -54,6 +54,69 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="adv-r.css" type="text/css" />
 </head>
@@ -124,7 +187,100 @@
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
 <li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -157,6 +313,9 @@
 <p>Allaire, JJ, Jeffrey Horner, Yihui Xie, Vicent Marti, and Natacha Porte. 2019. <em>Markdown: Render Markdown with the c Library ’Sundown’</em>. <a href="https://CRAN.R-project.org/package=markdown">https://CRAN.R-project.org/package=markdown</a>.</p>
 </div>
 <div>
+<p>Allen, Mary J., and Wendy M. Yen. 2001. <em>Introduction to Measurement Theory</em>. 1 edition. Long Grove, Ill: Waveland Pr Inc.</p>
+</div>
+<div>
 <p>Allen, Micah, Davide Poggiali, Kirstie Whitaker, Tom Rhys Marshall, and Rogier Kievit. 2018. “Raincloudplots Tutorials and Codebase.” Zenodo. <a href="https://doi.org/10.5281/zenodo.1402959">https://doi.org/10.5281/zenodo.1402959</a>.</p>
 </div>
 <div>
@@ -175,7 +334,13 @@
 <p>Anvari, Farid, and Daniel Lakens. 2019. “Using Anchor-Based Methods to Determine the Smallest Effect Size of Interest,” March. <a href="https://doi.org/10.31234/osf.io/syp5a">https://doi.org/10.31234/osf.io/syp5a</a>.</p>
 </div>
 <div>
+<p>Barker, Richard J., and Matthew R. Schofield. 2008. “Inference About Magnitudes of Effects.” <em>International Journal of Sports Physiology and Performance</em> 3 (4): 547–57. <a href="https://doi.org/10.1123/ijspp.3.4.547">https://doi.org/10.1123/ijspp.3.4.547</a>.</p>
+</div>
+<div>
 <p>Barron, Jonathan T. 2019. “A General and Adaptive Robust Loss Function.” <em>arXiv:1701.03077 [Cs, Stat]</em>, April. <a href="http://arxiv.org/abs/1701.03077">http://arxiv.org/abs/1701.03077</a>.</p>
+</div>
+<div>
+<p>Batterham, Alan M., and William G. Hopkins. 2006. “Making Meaningful Inferences About Magnitudes.” <em>International Journal of Sports Physiology and Performance</em> 1 (1): 50–57. <a href="https://doi.org/10.1123/ijspp.1.1.50">https://doi.org/10.1123/ijspp.1.1.50</a>.</p>
 </div>
 <div>
 <p>Beaujean, A. Alexander. 2014. <em>Latent Variable Modeling Using R: A Step by Step Guide</em>. New York: Routledge/Taylor &amp; Francis Group.</p>
@@ -187,7 +352,22 @@
 <p>Binmore, Ken. 2011. <em>Rational Decisions</em>. Fourth Impression edition. Princeton, NJ: Princeton University Press.</p>
 </div>
 <div>
-<p>Borsboom, Denny. 2008. “Latent Variable Theory.” <em>Measurement: Interdisciplinary Research &amp; Perspective</em> 6 (1-2): 25–53. <a href="https://doi.org/10.1080/15366360802035497">https://doi.org/10.1080/15366360802035497</a>.</p>
+<p>Bischl, Bernd, Michel Lang, Lars Kotthoff, Julia Schiffner, Jakob Richter, Erich Studerus, Giuseppe Casalicchio, and Zachary M. Jones. 2016. “mlr: Machine Learning in R.” <em>Journal of Machine Learning Research</em> 17 (170): 1–5. <a href="http://jmlr.org/papers/v17/15-066.html">http://jmlr.org/papers/v17/15-066.html</a>.</p>
+</div>
+<div>
+<p>Bischl, Bernd, Michel Lang, Jakob Richter, Jakob Bossek, Daniel Horn, and Pascal Kerschke. 2020. <em>ParamHelpers: Helpers for Parameters in Black-Box Optimization, Tuning and Machine Learning</em>. <a href="https://CRAN.R-project.org/package=ParamHelpers">https://CRAN.R-project.org/package=ParamHelpers</a>.</p>
+</div>
+<div>
+<p>Bischl, Bernd, Jakob Richter, Jakob Bossek, Daniel Horn, Janek Thomas, and Michel Lang. 2017. “MlrMBO: A Modular Framework for Model-Based Optimization of Expensive Black-Box Functions.” <em>arXiv Preprint arXiv:1703.03373</em>.</p>
+</div>
+<div>
+<p>Borg, David N., Geoffrey M. Minett, Ian B. Stewart, and Christopher C. Drovandi. 2018. “Bayesian Methods Might Solve the Problems with Magnitude-Based Inference:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 50 (12): 2609–10. <a href="https://doi.org/10.1249/MSS.0000000000001736">https://doi.org/10.1249/MSS.0000000000001736</a>.</p>
+</div>
+<div>
+<p>Borsboom, Denny. 2009. <em>Measuring the Mind: Conceptual Issues in Modern Psychometrics</em>. Cambridge: Cambridge University Press.</p>
+</div>
+<div>
+<p>———. 2008. “Latent Variable Theory.” <em>Measurement: Interdisciplinary Research &amp; Perspective</em> 6 (1-2): 25–53. <a href="https://doi.org/10.1080/15366360802035497">https://doi.org/10.1080/15366360802035497</a>.</p>
 </div>
 <div>
 <p>Borsboom, Denny, Gideon J. Mellenbergh, and Jaap van Heerden. 2003. “The Theoretical Status of Latent Variables.” <em>Psychological Review</em> 110 (2): 203–19. <a href="https://doi.org/10.1037/0033-295X.110.2.203">https://doi.org/10.1037/0033-295X.110.2.203</a>.</p>
@@ -208,7 +388,13 @@
 <p>Caldwell, Aaron R., and Samuel N. Cheuvront. 2019. “Basic Statistical Considerations for Physiology: The Journal <em>Temperature</em> Toolbox.” <em>Temperature</em>, June, 1–30. <a href="https://doi.org/10.1080/23328940.2019.1624131">https://doi.org/10.1080/23328940.2019.1624131</a>.</p>
 </div>
 <div>
+<p>Canty, Angelo, and B. D. Ripley. 2017. <em>Boot: Bootstrap R (S-Plus) Functions</em>.</p>
+</div>
+<div>
 <p>Carsey, Thomas, and Jeffrey Harden. 2013. <em>Monte Carlo Simulation and Resampling Methods for Social Science</em>. 1 edition. Los Angeles: Sage Publications, Inc.</p>
+</div>
+<div>
+<p>Casalicchio, Giuseppe, Jakob Bossek, Michel Lang, Dominik Kirchhoff, Pascal Kerschke, Benjamin Hofner, Heidi Seibold, Joaquin Vanschoren, and Bernd Bischl. 2017. “OpenML: An R Package to Connect to the Machine Learning Platform Openml.” <em>Computational Statistics</em>, 1–15.</p>
 </div>
 <div>
 <p>Chai, T., and R. R. Draxler. 2014. “Root Mean Square Error (RMSE) or Mean Absolute Error (MAE)? Arguments Against Avoiding RMSE in the Literature.” <em>Geoscientific Model Development</em> 7 (3): 1247–50. <a href="https://doi.org/10.5194/gmd-7-1247-2014">https://doi.org/10.5194/gmd-7-1247-2014</a>.</p>
@@ -217,13 +403,40 @@
 <p>Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Hillsdale, N.J: L. Erlbaum Associates.</p>
 </div>
 <div>
-<p>Davison, A. C., and D. V. Hinkley. 1997. <em>Bootstrap Methods and Their Applications</em>. Cambridge: Cambridge University Press. <a href="http://statwww.epfl.ch/davison/BMA/">http://statwww.epfl.ch/davison/BMA/</a>.</p>
+<p>Cumming, Geoff. 2014. “The New Statistics: Why and How.” <em>Psychological Science</em> 25 (1): 7–29. <a href="https://doi.org/10.1177/0956797613504966">https://doi.org/10.1177/0956797613504966</a>.</p>
+</div>
+<div>
+<p>Curran-Everett, Douglas. 2018. “Magnitude-Based Inference: Good Idea but Flawed Approach.” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 50 (10): 2164–5. <a href="https://doi.org/10.1249/MSS.0000000000001646">https://doi.org/10.1249/MSS.0000000000001646</a>.</p>
+</div>
+<div>
+<p>Dankel, Scott J., and Jeremy P. Loenneke. 2019. “A Method to Stop Analyzing Random Error and Start Analyzing Differential Responders to Exercise.” <em>Sports Medicine</em>, June. <a href="https://doi.org/10.1007/s40279-019-01147-0">https://doi.org/10.1007/s40279-019-01147-0</a>.</p>
+</div>
+<div>
+<p>Davison, A. C., and D. V. Hinkley. 1997a. <em>Bootstrap Methods and Their Applications</em>. Cambridge: Cambridge University Press. <a href="http://statwww.epfl.ch/davison/BMA/">http://statwww.epfl.ch/davison/BMA/</a>.</p>
+</div>
+<div>
+<p>———. 1997b. <em>Bootstrap Methods and Their Applications</em>. Cambridge: Cambridge University Press.</p>
+</div>
+<div>
+<p>Dienes, Zoltan. 2008. <em>Understanding Psychology as a Science: An Introduction to Scientific and Statistical Inference</em>. 2008 edition. New York: Red Globe Press.</p>
+</div>
+<div>
+<p>Efron, Bradley. 2005. “Bayesians, Frequentists, and Scientists.” <em>Journal of the American Statistical Association</em> 100 (469): 1–5. <a href="https://doi.org/10.1198/016214505000000033">https://doi.org/10.1198/016214505000000033</a>.</p>
+</div>
+<div>
+<p>Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference: Algorithms, Evidence, and Data Science</em>. 1 edition. New York, NY: Cambridge University Press.</p>
+</div>
+<div>
+<p>Estrada, Eduardo, Emilio Ferrer, and Antonio Pardo. 2019. “Statistics for Evaluating Pre-Post Change: Relation Between Change in the Distribution Center and Change in the Individual Scores.” <em>Frontiers in Psychology</em> 9 (January). <a href="https://doi.org/10.3389/fpsyg.2018.02696">https://doi.org/10.3389/fpsyg.2018.02696</a>.</p>
 </div>
 <div>
 <p>Everitt, Brian, and Torsten Hothorn. 2011. <em>An Introduction to Applied Multivariate Analysis with R</em>. Use R! New York: Springer.</p>
 </div>
 <div>
 <p>Finch, W. Holmes, and Brian F. French. 2015. <em>Latent Variable Modeling with R</em>. New York: Routledge, Taylor &amp; Francis Group.</p>
+</div>
+<div>
+<p>Fisher, Aaron J., John D. Medaglia, and Bertus F. Jeronimus. 2018. “Lack of Group-to-Individual Generalizability Is a Threat to Human Subjects Research.” <em>Proceedings of the National Academy of Sciences</em> 115 (27): E6106–E6115. <a href="https://doi.org/10.1073/pnas.1711978115">https://doi.org/10.1073/pnas.1711978115</a>.</p>
 </div>
 <div>
 <p>Foreman, John W. 2014. <em>Data Smart: Using Data Science to Transform Information into Insight</em>. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
@@ -247,10 +460,16 @@
 <p>Gelman, Andrew. 2011. “Causality and Statistical Learning.” <em>American Journal of Sociology</em> 117 (3): 955–66. <a href="https://doi.org/10.1086/662659">https://doi.org/10.1086/662659</a>.</p>
 </div>
 <div>
+<p>Gelman, Andrew, and Sander Greenland. 2019. “Are Confidence Intervals Better Termed ‘Uncertainty Intervals’?” <em>BMJ</em>, September, l5381. <a href="https://doi.org/10.1136/bmj.l5381">https://doi.org/10.1136/bmj.l5381</a>.</p>
+</div>
+<div>
 <p>Gelman, Andrew, and Christian Hennig. 2017. “Beyond Subjective and Objective in Statistics.” <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em> 180 (4): 967–1033. <a href="https://doi.org/10.1111/rssa.12276">https://doi.org/10.1111/rssa.12276</a>.</p>
 </div>
 <div>
 <p>Gigerenzer, Gerd, Ralph Hertwig, and Thorsten Pachur. 2015. <em>Heuristics: The Foundations of Adaptive Behavior</em>. Reprint edition. Oxford University Press.</p>
+</div>
+<div>
+<p>Glazier, Paul S., and Sina Mehdizadeh. 2018. “Challenging Conventional Paradigms in Applied Sports Biomechanics Research.” <em>Sports Medicine</em>, December. <a href="https://doi.org/10.1007/s40279-018-1030-1">https://doi.org/10.1007/s40279-018-1030-1</a>.</p>
 </div>
 <div>
 <p>Goldstein, Alex, Adam Kapelner, Justin Bleich, and Emil Pitkin. 2013. “Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation.” <em>arXiv:1309.6392 [Stat]</em>, September. <a href="http://arxiv.org/abs/1309.6392">http://arxiv.org/abs/1309.6392</a>.</p>
@@ -268,10 +487,28 @@
 <p>Hamner, Ben, and Michael Frasco. 2018. <em>Metrics: Evaluation Metrics for Machine Learning</em>. <a href="https://CRAN.R-project.org/package=Metrics">https://CRAN.R-project.org/package=Metrics</a>.</p>
 </div>
 <div>
+<p>Hastie, Trevor, Robert Tibshirani, and J. H. Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed. Springer Series in Statistics. New York, NY: Springer.</p>
+</div>
+<div>
+<p>Heckman, James J. 2005. “Rejoinder: Response to Sobel.” <em>Sociological Methodology</em> 35 (1): 135–50. <a href="https://doi.org/10.1111/j.0081-1750.2006.00166.x">https://doi.org/10.1111/j.0081-1750.2006.00166.x</a>.</p>
+</div>
+<div>
+<p>Hecksteden, Anne, Jochen Kraushaar, Friederike Scharhag-Rosenberger, Daniel Theisen, Stephen Senn, and Tim Meyer. 2015. “Individual Response to Exercise Training - a Statistical Perspective.” <em>Journal of Applied Physiology</em> 118 (12): 1450–9. <a href="https://doi.org/10.1152/japplphysiol.00714.2014">https://doi.org/10.1152/japplphysiol.00714.2014</a>.</p>
+</div>
+<div>
+<p>Hecksteden, Anne, Werner Pitsch, Friederike Rosenberger, and Tim Meyer. 2018. “Repeated Testing for the Assessment of Individual Response to Exercise Training.” <em>Journal of Applied Physiology</em> 124 (6): 1567–79. <a href="https://doi.org/10.1152/japplphysiol.00896.2017">https://doi.org/10.1152/japplphysiol.00896.2017</a>.</p>
+</div>
+<div>
 <p>Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.</p>
 </div>
 <div>
 <p>Henry, Lionel, Hadley Wickham, and Winston Chang. 2020. <em>Ggstance: Horizontal ’Ggplot2’ Components</em>. <a href="https://CRAN.R-project.org/package=ggstance">https://CRAN.R-project.org/package=ggstance</a>.</p>
+</div>
+<div>
+<p>Hernan, M. A. 2002. “Causal Knowledge as a Prerequisite for Confounding Evaluation: An Application to Birth Defects Epidemiology.” <em>American Journal of Epidemiology</em> 155 (2): 176–84. <a href="https://doi.org/10.1093/aje/155.2.176">https://doi.org/10.1093/aje/155.2.176</a>.</p>
+</div>
+<div>
+<p>Hernan, M. A., and S. R. Cole. 2009. “Invited Commentary: Causal Diagrams and Measurement Bias.” <em>American Journal of Epidemiology</em> 170 (8): 959–62. <a href="https://doi.org/10.1093/aje/kwp293">https://doi.org/10.1093/aje/kwp293</a>.</p>
 </div>
 <div>
 <p>Hernán, M A, and S L Taubman. 2008. “Does Obesity Shorten Life? The Importance of Well-Defined Interventions to Answer Causal Questions.” <em>International Journal of Obesity</em> 32 (S3): S8–S14. <a href="https://doi.org/10.1038/ijo.2008.82">https://doi.org/10.1038/ijo.2008.82</a>.</p>
@@ -292,10 +529,16 @@
 <p>Hernán, Miguel A., and JM Robins. n.d. <em>Causal Inference</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
 </div>
 <div>
+<p>Hesterberg, Tim C. 2015. “What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.” <em>The American Statistician</em> 69 (4): 371–86. <a href="https://doi.org/10.1080/00031305.2015.1089789">https://doi.org/10.1080/00031305.2015.1089789</a>.</p>
+</div>
+<div>
 <p>Hocking, Toby Dylan. 2020. <em>Directlabels: Direct Labels for Multicolor Plots</em>. <a href="https://CRAN.R-project.org/package=directlabels">https://CRAN.R-project.org/package=directlabels</a>.</p>
 </div>
 <div>
-<p>Hopkins, Will G. 2004. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
+<p>Hopkins, Will, and Alan Batterham. 2018. “The Vindication of Magnitude-Based Inference,” 12.</p>
+</div>
+<div>
+<p>Hopkins, Will G. 2004a. “How to Interpret Changes in an Athletic Performance Test,” November, 2.</p>
 </div>
 <div>
 <p>———. 2006. “New View of Statistics: Effect Magnitudes.” https://www.sportsci.org/resource/stats/effectmag.html.</p>
@@ -304,10 +547,22 @@
 <p>Hopkins, Will G. 2015. “Individual Responses Made Easy.” <em>Journal of Applied Physiology</em> 118 (12): 1444–6. <a href="https://doi.org/10.1152/japplphysiol.00098.2015">https://doi.org/10.1152/japplphysiol.00098.2015</a>.</p>
 </div>
 <div>
+<p>———. 2000. “Measures of Reliability in Sports Medicine and Science.” <em>Sports Med</em>, 15.</p>
+</div>
+<div>
+<p>———. 2004b. “Bias in Bland-Altman but Not Regression Validity Analyses.” <em>Sportscience.org</em>. https://sportsci.org/jour/04/wghbias.htm.</p>
+</div>
+<div>
 <p>———. 2007. “Understanding Statistics by Using Spreadsheets to Generate and Analyze Samples.” <em>Sportscience.org</em>. https://www.sportsci.org/2007/wghstats.htm.</p>
 </div>
 <div>
+<p>———. 2010. “A Socratic Dialogue on Comparison of Measures.” <em>Sportscience.org</em>. http://www.sportsci.org/2010/wghmeasures.htm.</p>
+</div>
+<div>
 <p>Hopkins, William G., Stephen W. Marshall, Alan M. Batterham, and Juri Hanin. 2009. “Progressive Statistics for Studies in Sports Medicine and Exercise Science:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 41 (1): 3–13. <a href="https://doi.org/10.1249/MSS.0b013e31818cb278">https://doi.org/10.1249/MSS.0b013e31818cb278</a>.</p>
+</div>
+<div>
+<p>J, Twisk, Bosman L, Hoekstra T, Rijnhart J, Welten M, and Heymans M. 2018. “Different Ways to Estimate Treatment Effects in Randomised Controlled Trials.” <em>Contemporary Clinical Trials Communications</em> 10 (June): 80–85. <a href="https://doi.org/10.1016/j.conctc.2018.03.008">https://doi.org/10.1016/j.conctc.2018.03.008</a>.</p>
 </div>
 <div>
 <p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2017. <em>An Introduction to Statistical Learning: With Applications in R</em>. 1st ed. 2013, Corr. 7th printing 2017 edition. New York: Springer.</p>
@@ -316,7 +571,13 @@
 <p>Jovanović, Mladen. 2020. <em>bmbstats: Bootstrap Magnitude-Based Statistics</em>. Belgrade, Serbia. <a href="https://github.com/mladenjovanovic/bmbstats">https://github.com/mladenjovanovic/bmbstats</a>.</p>
 </div>
 <div>
+<p>Jovanović, Mladen. 2020. “Extending the Classical Test Theory with Circular Performance Model.” <em>Complementary Training</em>.</p>
+</div>
+<div>
 <p>Kabacoff, Robert. 2015. <em>R in Action: Data Analysis and Graphics with R</em>. Second edition. Shelter Island: Manning.</p>
+</div>
+<div>
+<p>Keogh, Ruth H., Pamela A. Shaw, Paul Gustafson, Raymond J. Carroll, Veronika Deffner, Kevin W. Dodd, Helmut Küchenhoff, et al. 2020. “STRATOS Guidance Document on Measurement Error and Misclassification of Variables in Observational Epidemiology: Part 1-Basic Theory and Simple Methods of Adjustment.” <em>Statistics in Medicine</em>, April. <a href="https://doi.org/10.1002/sim.8532">https://doi.org/10.1002/sim.8532</a>.</p>
 </div>
 <div>
 <p>King, Madeleine T. 2011. “A Point of Minimal Important Difference (MID): A Critique of Terminology and Methods.” <em>Expert Review of Pharmacoeconomics &amp; Outcomes Research</em> 11 (2): 171–84. <a href="https://doi.org/10.1586/erp.11.9">https://doi.org/10.1586/erp.11.9</a>.</p>
@@ -329,6 +590,9 @@
 </div>
 <div>
 <p>———. 2015. <em>Why: A Guide to Finding and Using Causes</em>. 1 edition. Beijing ; Boston: O’Reilly Media.</p>
+</div>
+<div>
+<p>Kruschke, John K. 2013. “Bayesian Estimation Supersedes the T Test.” <em>Journal of Experimental Psychology: General</em> 142 (2): 573–603. <a href="https://doi.org/10.1037/a0029146">https://doi.org/10.1037/a0029146</a>.</p>
 </div>
 <div>
 <p>Kruschke, John K., and Torrin M. Liddell. 2018a. “Bayesian Data Analysis for Newcomers.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 155–77. <a href="https://doi.org/10.3758/s13423-017-1272-1">https://doi.org/10.3758/s13423-017-1272-1</a>.</p>
@@ -349,16 +613,28 @@
 <p>Kuhn, Max, Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, et al. 2018. <em>Caret: Classification and Regression Training</em>.</p>
 </div>
 <div>
+<p>Lakens, Daniël. 2017. “Equivalence Tests: A Practical Primer for <em>T</em> Tests, Correlations, and Meta-Analyses.” <em>Social Psychological and Personality Science</em> 8 (4): 355–62. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.</p>
+</div>
+<div>
 <p>Lakens, Daniël, Anne M. Scheel, and Peder M. Isager. 2018. “Equivalence Testing for Psychological Research: A Tutorial.” <em>Advances in Methods and Practices in Psychological Science</em> 1 (2): 259–69. <a href="https://doi.org/10.1177/2515245918770963">https://doi.org/10.1177/2515245918770963</a>.</p>
 </div>
 <div>
 <p>Lang, Kyle M., Shauna J. Sweet, and Elizabeth M. Grandfield. 2017. “Getting Beyond the Null: Statistical Modeling as an Alternative Framework for Inference in Developmental Science.” <em>Research in Human Development</em> 14 (4): 287–304. <a href="https://doi.org/10.1080/15427609.2017.1371567">https://doi.org/10.1080/15427609.2017.1371567</a>.</p>
 </div>
 <div>
+<p>Lang, Michel, Martin Binder, Jakob Richter, Patrick Schratz, Florian Pfisterer, Stefan Coors, Quay Au, Giuseppe Casalicchio, Lars Kotthoff, and Bernd Bischl. 2019. “mlr3: A Modern Object-Oriented Machine Learning Framework in R.” <em>Journal of Open Source Software</em>, December. <a href="https://doi.org/10.21105/joss.01903">https://doi.org/10.21105/joss.01903</a>.</p>
+</div>
+<div>
+<p>Lang, Michel, Helena Kotthaus, Peter Marwedel, Claus Weihs, Joerg Rahnenfuehrer, and Bernd Bischl. 2014. “Automatic Model Selection for High-Dimensional Survival Analysis.” <em>Journal of Statistical Computation and Simulation</em> 85 (1): 62–76.</p>
+</div>
+<div>
 <p>Lantz, Brett. 2019. <em>Machine Learning with R: Expert Techniques for Predictive Modeling</em>.</p>
 </div>
 <div>
 <p>Lederer, David J., Scott C. Bell, Richard D. Branson, James D. Chalmers, Rachel Marshall, David M. Maslove, David E. Ost, et al. 2019. “Control of Confounding and Reporting of Results in Causal Inference Studies. Guidance for Authors from Editors of Respiratory, Sleep, and Critical Care Journals.” <em>Annals of the American Thoracic Society</em> 16 (1): 22–28. <a href="https://doi.org/10.1513/AnnalsATS.201808-564PS">https://doi.org/10.1513/AnnalsATS.201808-564PS</a>.</p>
+</div>
+<div>
+<p>Lederer, Wolfgang, and Helmut Küchenhoff. 2006. “A Short Introduction to the SIMEX and MCSIMEX.” <em>R News</em> 6 (January).</p>
 </div>
 <div>
 <p>Ludbrook, John. 1997. “SPECIAL ARTICLE COMPARING METHODS OF MEASUREMENT.” <em>Clinical and Experimental Pharmacology and Physiology</em> 24 (2): 193–203. <a href="https://doi.org/10.1111/j.1440-1681.1997.tb01807.x">https://doi.org/10.1111/j.1440-1681.1997.tb01807.x</a>.</p>
@@ -373,7 +649,19 @@
 <p>———. 2012. “A Primer for Biomedical Scientists on How to Execute Model II Linear Regression Analysis: Model II Linear Regression Analysis.” <em>Clinical and Experimental Pharmacology and Physiology</em> 39 (4): 329–35. <a href="https://doi.org/10.1111/j.1440-1681.2011.05643.x">https://doi.org/10.1111/j.1440-1681.2011.05643.x</a>.</p>
 </div>
 <div>
+<p>Lübke, Karsten, Matthias Gehrke, Jörg Horst, and Gero Szepannek. 2020. “Why We Should Teach Causal Inference: Examples in Linear Regression with Simulated Data.” <em>Journal of Statistics Education</em>, May, 1–7. <a href="https://doi.org/10.1080/10691898.2020.1752859">https://doi.org/10.1080/10691898.2020.1752859</a>.</p>
+</div>
+<div>
+<p>Makowski, Dominique, Mattan Ben-Shachar, and Daniel Lüdecke. 2019a. “bayestestR: Describing Effects and Their Uncertainty, Existence and Significance Within the Bayesian Framework.” <em>Journal of Open Source Software</em> 4 (40): 1541. <a href="https://doi.org/10.21105/joss.01541">https://doi.org/10.21105/joss.01541</a>.</p>
+</div>
+<div>
+<p>Makowski, Dominique, Mattan S. Ben-Shachar, SH Annabel Chen, and Daniel Lüdecke. n.d. “Indices of Effect Existence and Significance in the Bayesian Framework.” <a href="https://doi.org/10.31234/osf.io/2zexr">https://doi.org/10.31234/osf.io/2zexr</a>.</p>
+</div>
+<div>
 <p>Makowski, Dominique, Mattan S. Ben-Shachar, and Daniel Lüdecke. 2019. “BayestestR: Describing Effects and Their Uncertainty, Existence and Significance Within the Bayesian Framework.” <em>Journal of Open Source Software</em> 4 (40): 1541. <a href="https://doi.org/10.21105/joss.01541">https://doi.org/10.21105/joss.01541</a>.</p>
+</div>
+<div>
+<p>Makowski, Dominique, Mattan S. Ben-Shachar, and Daniel Lüdecke. 2019b. “Understand and Describe Bayesian Models and Posterior Distributions Using bayestestR.” <em>CRAN</em>. <a href="https://doi.org/10.5281/zenodo.2556486">https://doi.org/10.5281/zenodo.2556486</a>.</p>
 </div>
 <div>
 <p>McElreath, Richard. 2015. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. 1 edition. Boca Raton: Chapman and Hall/CRC.</p>
@@ -391,16 +679,37 @@
 <p>Mitchell, Sandra D. 2002. “Integrative Pluralism.” <em>Biology &amp; Philosophy</em> 17 (1): 55–70. <a href="https://doi.org/10.1023/A:1012990030867">https://doi.org/10.1023/A:1012990030867</a>.</p>
 </div>
 <div>
+<p>Molenaar, Peter C. M. 2004. “A Manifesto on Psychology as Idiographic Science: Bringing the Person Back into Scientific Psychology, This Time Forever.” <em>Measurement: Interdisciplinary Research &amp; Perspective</em> 2 (4): 201–18. <a href="https://doi.org/10.1207/s15366359mea0204_1">https://doi.org/10.1207/s15366359mea0204_1</a>.</p>
+</div>
+<div>
+<p>Molenaar, Peter C. M., and Cynthia G. Campbell. 2009. “The New Person-Specific Paradigm in Psychology.” <em>Current Directions in Psychological Science</em> 18 (2): 112–17. <a href="https://doi.org/10.1111/j.1467-8721.2009.01619.x">https://doi.org/10.1111/j.1467-8721.2009.01619.x</a>.</p>
+</div>
+<div>
 <p>Molnar, Christoph. 2018. <em>Interpretable Machine Learning</em>. Leanpub.</p>
 </div>
 <div>
 <p>Molnar, Christoph, Bernd Bischl, and Giuseppe Casalicchio. 2018. “Iml: An R Package for Interpretable Machine Learning.” <em>JOSS</em> 3 (26): 786. <a href="https://doi.org/10.21105/joss.00786">https://doi.org/10.21105/joss.00786</a>.</p>
 </div>
 <div>
+<p>Morey, Richard D., Rink Hoekstra, Jeffrey N. Rouder, Michael D. Lee, and Eric-Jan Wagenmakers. 2016. “The Fallacy of Placing Confidence in Confidence Intervals.” <em>Psychonomic Bulletin &amp; Review</em> 23 (1): 103–23. <a href="https://doi.org/10.3758/s13423-015-0947-8">https://doi.org/10.3758/s13423-015-0947-8</a>.</p>
+</div>
+<div>
 <p>Mullineaux, David R., Christopher A. Barnes, and Alan M. Batterham. 1999. “Assessment of Bias in Comparing Measurements: A Reliability Example.” <em>Measurement in Physical Education and Exercise Science</em> 3 (4): 195–205. <a href="https://doi.org/10.1207/s15327841mpee0304_1">https://doi.org/10.1207/s15327841mpee0304_1</a>.</p>
 </div>
 <div>
 <p>Müller, Kirill, and Hadley Wickham. 2020. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.</p>
+</div>
+<div>
+<p>Nevill, Alan M., A. Mark Williams, Colin Boreham, Eric S. Wallace, Gareth W. Davison, Grant Abt, Andrew M. Lane, and Edward M. Winter EDITORIAL BOARD. 2018. “Can We Trust ‘Magnitude-Based Inference’?” <em>Journal of Sports Sciences</em> 36 (24): 2769–70. <a href="https://doi.org/10.1080/02640414.2018.1516004">https://doi.org/10.1080/02640414.2018.1516004</a>.</p>
+</div>
+<div>
+<p>Norman, Geoffrey R., Femida Gwadry Sridhar, Gordon H. Guyatt, and Stephen D. Walter. 2001. “Relation of Distribution- and Anchor-Based Approaches in Interpretation of Changes in Health-Related Quality of Life:” <em>Medical Care</em> 39 (10): 1039–47. <a href="https://doi.org/10.1097/00005650-200110000-00002">https://doi.org/10.1097/00005650-200110000-00002</a>.</p>
+</div>
+<div>
+<p>Novick, Melvin R. 1966. “The Axioms and Principal Results of Classical Test Theory.” <em>Journal of Mathematical Psychology</em> 3 (1): 1–18. <a href="https://doi.org/10.1016/0022-2496(66)90002-2">https://doi.org/10.1016/0022-2496(66)90002-2</a>.</p>
+</div>
+<div>
+<p>O’Hagan, Tony. 2004. “Dicing with the Unknown.” <em>Significance</em> 1 (3): 132–33. <a href="https://doi.org/10.1111/j.1740-9713.2004.00050.x">https://doi.org/10.1111/j.1740-9713.2004.00050.x</a>.</p>
 </div>
 <div>
 <p>Page, Scott E. 2018. <em>The Model Thinker: What You Need to Know to Make Data Work for You</em>. Basic Books.</p>
@@ -418,7 +727,13 @@
 <p>Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. 1 edition. New York: Basic Books.</p>
 </div>
 <div>
-<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<p>Probst, Philipp, Quay Au, Giuseppe Casalicchio, Clemens Stachl, and Bernd Bischl. 2017. “Multilabel Classification with R Package Mlr.” <em>arXiv Preprint arXiv:1703.08991</em>.</p>
+</div>
+<div>
+<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing.</p>
+</div>
+<div>
+<p>———. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
 </div>
 <div>
 <p>Reshef, D. N., Y. A. Reshef, H. K. Finucane, S. R. Grossman, G. McVean, P. J. Turnbaugh, E. S. Lander, M. Mitzenmacher, and P. C. Sabeti. 2011. “Detecting Novel Associations in Large Data Sets.” <em>Science</em> 334 (6062): 1518–24. <a href="https://doi.org/10.1126/science.1205438">https://doi.org/10.1126/science.1205438</a>.</p>
@@ -436,7 +751,13 @@
 <p>Rousselet, Guillaume A., Cyril R. Pernet, and Rand R. Wilcox. 2017. “Beyond Differences in Means: Robust Graphical Methods to Compare Two Groups in Neuroscience.” <em>European Journal of Neuroscience</em> 46 (2): 1738–48. <a href="https://doi.org/10.1111/ejn.13610">https://doi.org/10.1111/ejn.13610</a>.</p>
 </div>
 <div>
-<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
+<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019a. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
+</div>
+<div>
+<p>———. 2019b. “The Percentile Bootstrap: A Teaser with Step-by-Step Instructions in R.” <a href="https://doi.org/10.31234/osf.io/kxarf">https://doi.org/10.31234/osf.io/kxarf</a>.</p>
+</div>
+<div>
+<p>RStudio Team. 2016. <em>RStudio: Integrated Development Environment for R</em>. Boston, MA: RStudio, Inc.</p>
 </div>
 <div>
 <p>Saddiki, Hachem, and Laura B. Balzer. 2018. “A Primer on Causality in Data Science.” <em>arXiv:1809.02408 [Stat]</em>, September. <a href="http://arxiv.org/abs/1809.02408">http://arxiv.org/abs/1809.02408</a>.</p>
@@ -445,10 +766,22 @@
 <p>Sainani, Kristin L. 2012. “Clinical Versus Statistical Significance.” <em>PM&amp;R</em> 4 (6): 442–45. <a href="https://doi.org/10.1016/j.pmrj.2012.04.014">https://doi.org/10.1016/j.pmrj.2012.04.014</a>.</p>
 </div>
 <div>
+<p>———. 2018. “The Problem with "Magnitude-Based Inference".” <em>Medicine and Science in Sports and Exercise</em> 50 (10): 2166–76. <a href="https://doi.org/10.1249/MSS.0000000000001645">https://doi.org/10.1249/MSS.0000000000001645</a>.</p>
+</div>
+<div>
+<p>Sainani, Kristin L., Keith R. Lohse, Paul Remy Jones, and Andrew Vickers. 2019. “Magnitude-Based Inference Is Not Bayesian and Is Not a Valid Method of Inference.” <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, May. <a href="https://doi.org/10.1111/sms.13491">https://doi.org/10.1111/sms.13491</a>.</p>
+</div>
+<div>
 <p>Sarkar, Deepayan. 2008. <em>Lattice: Multivariate Data Visualization with R</em>. New York: Springer. <a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.r-forge.r-project.org</a>.</p>
 </div>
 <div>
 <p>Savage, Leonard J. 1972. <em>The Foundations of Statistics</em>. 2nd Revised ed. edition. New York: Dover Publications.</p>
+</div>
+<div>
+<p>Shang, Yi. 2012. “Measurement Error Adjustment Using the SIMEX Method: An Application to Student Growth Percentiles: <em>Measurement Error Adjustment Using</em> <em>the</em> <em>SIMEX Method</em>.” <em>Journal of Educational Measurement</em> 49 (4): 446–65. <a href="https://doi.org/10.1111/j.1745-3984.2012.00186.x">https://doi.org/10.1111/j.1745-3984.2012.00186.x</a>.</p>
+</div>
+<div>
+<p>Shaw, Pamela A., Paul Gustafson, Raymond J. Carroll, Veronika Deffner, Kevin W. Dodd, Ruth H. Keogh, Victor Kipnis, et al. 2020. “STRATOS Guidance Document on Measurement Error and Misclassification of Variables in Observational Epidemiology: Part 2-More Complex Methods of Adjustment and Advanced Topics.” <em>Statistics in Medicine</em>, April. <a href="https://doi.org/10.1002/sim.8531">https://doi.org/10.1002/sim.8531</a>.</p>
 </div>
 <div>
 <p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3): 289–310. <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.</p>
@@ -460,6 +793,9 @@
 <p>Swinton, Paul A., Ben Stephens Hemingway, Bryan Saunders, Bruno Gualano, and Eimear Dolan. 2018. “A Statistical Framework to Interpret Individual Response to Intervention: Paving the Way for Personalized Nutrition and Exercise Prescription.” <em>Frontiers in Nutrition</em> 5 (May). <a href="https://doi.org/10.3389/fnut.2018.00041">https://doi.org/10.3389/fnut.2018.00041</a>.</p>
 </div>
 <div>
+<p>Tenan, Matthew, Andrew David Vigotsky, and Aaron R Caldwell. n.d. “On the Statistical Properties of the Dankel-Loenneke Method.” <a href="https://doi.org/10.31236/osf.io/8ndhg">https://doi.org/10.31236/osf.io/8ndhg</a>.</p>
+</div>
+<div>
 <p>Textor, Johannes, Benito van der Zander, Mark S. Gilthorpe, Maciej Li’skiewicz, and George T. H. Ellison. 2017. “Robust Causal Inference Using Directed Acyclic Graphs: The R Package ‘Dagitty’.” <em>International Journal of Epidemiology</em>, January, dyw341. <a href="https://doi.org/10.1093/ije/dyw341">https://doi.org/10.1093/ije/dyw341</a>.</p>
 </div>
 <div>
@@ -469,10 +805,22 @@
 <p>Turner, Anthony, Jon Brazier, Chris Bishop, Shyam Chavda, Jon Cree, and Paul Read. 2015. “Data Analysis for Strength and Conditioning Coaches: Using Excel to Analyze Reliability, Differences, and Relationships.” <em>Strength and Conditioning Journal</em> 37 (1): 76–83. <a href="https://doi.org/10.1519/SSC.0000000000000113">https://doi.org/10.1519/SSC.0000000000000113</a>.</p>
 </div>
 <div>
+<p>Vaughan, Davis, and Max Kuhn. 2020. <em>Hardhat: Construct Modeling Packages</em>. <a href="https://CRAN.R-project.org/package=hardhat">https://CRAN.R-project.org/package=hardhat</a>.</p>
+</div>
+<div>
+<p>Wagenmakers, Eric-Jan. 2007. “A Practical Solution to the Pervasive Problems Ofp Values.” <em>Psychonomic Bulletin &amp; Review</em> 14 (5): 779–804. <a href="https://doi.org/10.3758/BF03194105">https://doi.org/10.3758/BF03194105</a>.</p>
+</div>
+<div>
+<p>Wallace, Michael. 2020. “Analysis in an Imperfect World.” <em>Significance</em> 17 (1): 14–19. <a href="https://doi.org/10.1111/j.1740-9713.2020.01353.x">https://doi.org/10.1111/j.1740-9713.2020.01353.x</a>.</p>
+</div>
+<div>
 <p>Watts, Duncan J, Emorie D Beck, Elisa Jayne Bienenstock, Jake Bowers, Aaron Frank, Anthony Grubesic, Jake Hofman, Julia Marie Rohrer, and Matthew Salganik. 2018. “Explanation, Prediction, and Causality: Three Sides of the Same Coin?” October. <a href="https://doi.org/10.31219/osf.io/u6vz5">https://doi.org/10.31219/osf.io/u6vz5</a>.</p>
 </div>
 <div>
 <p>Weinberg, Gabriel, and Lauren McCann. 2019. <em>Super Thinking: The Big Book of Mental Models</em>. New York: Portfolio/Penguin.</p>
+</div>
+<div>
+<p>Welsh, Alan H., and Emma J. Knight. 2015. “‘Magnitude-Based Inference’: A Statistical Review.” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 47 (4): 874–84. <a href="https://doi.org/10.1249/MSS.0000000000000451">https://doi.org/10.1249/MSS.0000000000000451</a>.</p>
 </div>
 <div>
 <p>Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.</p>
@@ -565,12 +913,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="causal-inference.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="recommended-material.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

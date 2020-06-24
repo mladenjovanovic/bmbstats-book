@@ -46,9 +46,9 @@ require(ggstance)
 require(boot)
 
 # Save r-packages
-require(papaja)
-r_refs(file = "./citations/r-references.bib", append = FALSE)
-r_citations <- cite_r("./citations/r-references.bib", footnote = FALSE, pkgs = c("papaja"))
+ require(papaja)
+# r_refs(file = "./citations/r-references.bib", append = FALSE)
+ r_citations <- cite_r("./citations/r-references.bib", footnote = FALSE, pkgs = c("papaja"))
 ```
 
 # Welcome {-}

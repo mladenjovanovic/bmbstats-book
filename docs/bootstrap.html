@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Bootstrap | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 8 Bootstrap | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Bootstrap | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Bootstrap | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-06-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bayesian-perspective.html"/>
+<link rel="next" href="statistical-inference-conclusion.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bootstrap" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Bootstrap</h1>
+<p>As already stated, some estimators have unknown sampling distribution, particularly those that might have more practical use and answer predictive questions by the practitioners (e.g. “what is the proportion of athletes I can expect to demonstrate beneficial response due to this treatment?”). Hence, the frequentist approach is very hard to use. With the Bayesian approach, some estimators might be really hard to be modeled and represented, researchers might be confused with the priors and likelihood function selections, there is knowledge needed to understand and diagnose sampling chains from MCMC algorithms and so forth.</p>
+<p><em>Bootstrap</em> comes for the rescue <span class="citation">(Canty and Ripley <a href="#ref-cantyBootBootstrapSPlus2017" role="doc-biblioref">2017</a>; A. C. Davison and Hinkley <a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">1997</a><a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">b</a>; Efron and Hastie <a href="#ref-efronComputerAgeStatistical2016" role="doc-biblioref">2016</a>; Hesterberg <a href="#ref-hesterbergWhatTeachersShould2015" role="doc-biblioref">2015</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>. Bootstrap is very simple and intuitive technique that is very easy to carry out. Let’s take an example to demonstrate simplicity of the bootstrap. Continuing with the height example, let’s assume that the following sample is collected for N=10 individuals: 167, 175, 175, 176, 177, 181, 188, 190, 197, 211cm. We are interested in estimating the true <code>mean</code> in the population, <code>SD</code> in the population, and proportion of individuals taller than 185cm (<code>prop185</code>; using algebraic method and estimated <code>SD</code>). The first step, as explained in the <a href="description.html#description">Description</a> section of this book, is to estimate those parameters using sample. But how do we estimate the uncertainty around the sample estimates?</p>
+<p>Bootstrap involves <em>resampling</em> from the sample itself and then recalculating estimates of interest. If we have N=10 observations in the collected sample, for each bootstrap resample we are going to draw 10x1 observations. Some observations might be drawn multiple times, while some might not be drawn at all. This is then repeated numerous times, e.g., 2,000-10,000 times and for each bootstrap resample the estimators of interest are estimated. Table <a href="bootstrap.html#tab:bootstrap-example">8.1</a> contains 10 bootstrap resamples with calculated estimators of interest. Bootstrap resample of number 0 represents the original sample.</p>
+
+<table>
+<caption>
+<span id="tab:bootstrap-example">Table 8.1: </span><strong>Bootstrap resamples</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Boot resample
+</th>
+<th style="text-align:left;">
+Observations
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+prop185
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+167 175 175 176 177 181 188 190 197 211
+</td>
+<td style="text-align:right;">
+183.7
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+167 167 167 177 188 188 188 188 197 197
+</td>
+<td style="text-align:right;">
+182.4
+</td>
+<td style="text-align:right;">
+11.98
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+175 175 175 181 181 181 181 190 197 197
+</td>
+<td style="text-align:right;">
+183.3
+</td>
+<td style="text-align:right;">
+8.49
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+175 175 177 177 181 181 188 188 188 190
+</td>
+<td style="text-align:right;">
+182.0
+</td>
+<td style="text-align:right;">
+5.98
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+167 181 181 181 181 188 188 197 197 197
+</td>
+<td style="text-align:right;">
+185.8
+</td>
+<td style="text-align:right;">
+9.61
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+167 176 176 177 181 188 190 190 211 211
+</td>
+<td style="text-align:right;">
+186.7
+</td>
+<td style="text-align:right;">
+14.71
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+167 167 167 175 177 177 188 188 190 211
+</td>
+<td style="text-align:right;">
+180.7
+</td>
+<td style="text-align:right;">
+13.88
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 177 181 181 188 190
+</td>
+<td style="text-align:right;">
+179.5
+</td>
+<td style="text-align:right;">
+5.50
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 181 188 190 190 190
+</td>
+<td style="text-align:right;">
+181.7
+</td>
+<td style="text-align:right;">
+6.96
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+176 176 177 181 190 190 190 190 197 211
+</td>
+<td style="text-align:right;">
+187.8
+</td>
+<td style="text-align:right;">
+10.97
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+167 167 175 175 175 176 176 177 177 188
+</td>
+<td style="text-align:right;">
+175.3
+</td>
+<td style="text-align:right;">
+5.83
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+175 177 181 181 181 188 190 197 197 211
+</td>
+<td style="text-align:right;">
+187.8
+</td>
+<td style="text-align:right;">
+11.21
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+175 175 175 176 176 177 181 188 190 211
+</td>
+<td style="text-align:right;">
+182.4
+</td>
+<td style="text-align:right;">
+11.47
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+175 175 177 181 181 188 190 190 211 211
+</td>
+<td style="text-align:right;">
+187.9
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+167 175 175 176 177 177 188 190 211 211
+</td>
+<td style="text-align:right;">
+184.7
+</td>
+<td style="text-align:right;">
+15.34
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+175 177 177 181 181 188 188 190 211 211
+</td>
+<td style="text-align:right;">
+187.9
+</td>
+<td style="text-align:right;">
+13.21
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+167 175 175 175 177 177 181 188 190 197
+</td>
+<td style="text-align:right;">
+180.2
+</td>
+<td style="text-align:right;">
+8.92
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 177 181 190 190 197
+</td>
+<td style="text-align:right;">
+181.3
+</td>
+<td style="text-align:right;">
+8.04
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+167 175 175 175 176 177 177 188 188 188
+</td>
+<td style="text-align:right;">
+178.6
+</td>
+<td style="text-align:right;">
+7.07
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+167 167 175 177 181 188 190 197 197 211
+</td>
+<td style="text-align:right;">
+185.0
+</td>
+<td style="text-align:right;">
+14.24
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+167 167 175 175 176 176 177 181 197 211
+</td>
+<td style="text-align:right;">
+180.2
+</td>
+<td style="text-align:right;">
+13.66
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we repeat this procedure 10,000 times, we can visualize bootstrap distribution of the estimators (Figure <a href="bootstrap.html#fig:bootstrap-distribution">8.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:bootstrap-distribution"></span>
+<img src="08-Bootstrap_files/figure-html/bootstrap-distribution-1.png" alt="Bootstrap distribution of the estimators using 10,000 resamples" width="90%" />
+<p class="caption">
+Figure 8.1: <strong>Bootstrap distribution of the estimators using 10,000 resamples</strong>
+</p>
+</div>
+
+<p>How should this bootstrap distribution be interpreted? In “Elements of Statistical Learning”, the following quote regarding bootstrap distribution can be found <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-hastieElementsStatisticalLearning2009" role="doc-biblioref">2009</a>, 272)</span>:</p>
+<blockquote>
+<p>“In this sense, the bootstrap distribution represents an (approximate) nonparametric, noninformative posterior distribution for our parameter. But this bootstrap distribution is obtained painlessly — without having to formally specify a prior and without having to sample from the posterior distribution. Hence we might think of the bootstrap distribution as a “poor man’s” Bayes posterior. By perturbing the data, the bootstrap approximates the Bayesian effect of perturbing the parameters, and is typically much simpler to carry out"</p>
+</blockquote>
+<p>Although the bootstrap was originally developed as a purely frequentist device <span class="citation">(Efron <a href="#ref-efronBayesiansFrequentistsScientists2005" role="doc-biblioref">2005</a>)</span>, as per the quote above, it can be treated as “poor man’s” Bayes posterior.</p>
+<div id="summarizing-bootstrap-distribution" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Summarizing bootstrap distribution</h2>
+<p>Bootstrap allows for both estimation and hypothesis testing. When it comes to estimations, point estimate of the bootstrap distribution is the sample parameter estimate. Confidence intervals around sample estimate are usually calculated using percentile approach (or ETI), or other approaches such as <em>adjusted bootstrap percentile</em> (BCa) <span class="citation">(Canty and Ripley <a href="#ref-cantyBootBootstrapSPlus2017" role="doc-biblioref">2017</a>; A. C. Davison and Hinkley <a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">1997</a><a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">b</a>; Efron and Hastie <a href="#ref-efronComputerAgeStatistical2016" role="doc-biblioref">2016</a>; Hesterberg <a href="#ref-hesterbergWhatTeachersShould2015" role="doc-biblioref">2015</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>, or even HDI as used with Bayesian posterior distributions. In this book I will utilize BCa intervals unless otherwise stated.</p>
+<p>Hypothesis testing using the bootstrap distribution is possible through calculated p-value <span class="citation">(Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>. This not only allows for bootstrap NHST, but also all other MET, as well as MBI estimates (which assumes Bayesian interpretation of the bootstrap distributions). This is simply done by counting bootstrap sample estimates that are below or above particular threshold (i.e. null-hypothesis or SESOI). The R code <span class="citation">(R Core Team <a href="#ref-rcoreteamLanguageEnvironmentStatistical2018" role="doc-biblioref">2018</a>; RStudio Team <a href="#ref-rstudioteamRStudioIntegratedDevelopment2016" role="doc-biblioref">2016</a>)</span> below demonstrates how two-way NHST can be performed as well as probability of lower, equivalent, and higher effect given the SESOI thresholds.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bootstrap.html#cb1-1"></a>null_hypothesis &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># Value for the null</span></span>
+<span id="cb1-2"><a href="bootstrap.html#cb1-2"></a></span>
+<span id="cb1-3"><a href="bootstrap.html#cb1-3"></a>SESOI_lower &lt;-<span class="st"> </span><span class="dv">-1</span> <span class="co"># threshold for the &#39;lower&#39; effect magnitude</span></span>
+<span id="cb1-4"><a href="bootstrap.html#cb1-4"></a>SESOI_upper &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># threshold for the &#39;upper&#39; effect magnitude</span></span>
+<span id="cb1-5"><a href="bootstrap.html#cb1-5"></a></span>
+<span id="cb1-6"><a href="bootstrap.html#cb1-6"></a><span class="co"># Calculation of the p-value</span></span>
+<span id="cb1-7"><a href="bootstrap.html#cb1-7"></a><span class="co"># where boot.estimator is the boostrap resample values for the estimator</span></span>
+<span id="cb1-8"><a href="bootstrap.html#cb1-8"></a><span class="co"># of interest</span></span>
+<span id="cb1-9"><a href="bootstrap.html#cb1-9"></a>p_value &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&gt;</span><span class="st"> </span>null_hypothesis)</span>
+<span id="cb1-10"><a href="bootstrap.html#cb1-10"></a>p_value &lt;-<span class="st"> </span>p_value <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">==</span><span class="st"> </span>null_hypothesis)</span>
+<span id="cb1-11"><a href="bootstrap.html#cb1-11"></a>p_value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">min</span>(<span class="kw">c</span>(p_value, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_value)) <span class="co"># Two-way p-value</span></span>
+<span id="cb1-12"><a href="bootstrap.html#cb1-12"></a></span>
+<span id="cb1-13"><a href="bootstrap.html#cb1-13"></a><span class="co"># Calculate probability of lower, equivalent and higher effect magnitude</span></span>
+<span id="cb1-14"><a href="bootstrap.html#cb1-14"></a>lower &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&lt;</span><span class="st"> </span>SESOI_lower)</span>
+<span id="cb1-15"><a href="bootstrap.html#cb1-15"></a>higher &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&gt;</span><span class="st"> </span>SESOI_upper)</span>
+<span id="cb1-16"><a href="bootstrap.html#cb1-16"></a>equivalent &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(lower <span class="op">+</span><span class="st"> </span>higher)</span></code></pre></div>
+</div>
+<div id="bootstrap-type-i-errors" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Bootstrap Type I errors</h2>
+<p>As we already did with the frequentist and Bayesian inference, let’s get estimates of Type I errors for bootstrap method (10,000 bootstrap resamples) by drawing 1,000 samples of N=20 observations from the population where the true <code>mean</code> height is equal to 177.8cm and <code>SD</code> is equal to 10.16cm. Besides estimating Type I error for the sample <code>mean</code>, we can also estimate Type I errors for sample <code>SD</code> and <code>prop185</code>, since the true population values are known. In the case of <code>prop185</code>, the true population value is equal to 0.24. Type I error is committed when the the 95% bootstrap CIs of the sample estimate don’t cross the true value in the population. Figure <a href="bootstrap.html#fig:bootstrap-type-i">8.2</a> depicts the first 100 samples out of the total of 1,000, taken from the population with calculated 95% bootstrap CIs. CIs that missed the true population parameter value are depicted in red. Table <a href="bootstrap.html#tab:bootstrap-type-i-summary">8.2</a> contains the summary for this simulation.</p>
+<div class="figure" style="text-align: center"><span id="fig:bootstrap-type-i"></span>
+<img src="08-Bootstrap_files/figure-html/bootstrap-type-i-1.png" alt="Bootstrap \(95\%\)confidence intervals. Intervals not capturing the true population parameter are colored in red" width="90%" />
+<p class="caption">
+Figure 8.2: <strong>Bootstrap <span class="math inline">\(95\%\)</span>confidence intervals.</strong> Intervals not capturing the true population parameter are colored in red
+</p>
+</div>
+
+
+<table>
+<caption>
+<span id="tab:bootstrap-type-i-summary">Table 8.2: </span><strong>Bootstrap Type I errors</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+parameter
+</th>
+<th style="text-align:right;">
+Sample
+</th>
+<th style="text-align:right;">
+Correct %
+</th>
+<th style="text-align:right;">
+Type I Errors %
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+92.7
+</td>
+<td style="text-align:right;">
+7.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sd
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+89.9
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prop185
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+93.1
+</td>
+<td style="text-align:right;">
+6.9
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen from the Table <a href="bootstrap.html#tab:bootstrap-type-i-summary">8.2</a>, Type I error for the <span class="math inline">\(\sigma\)</span> parameter is larger than expected. This could be due to the non-symmetrical bootstrap distribution that might not be perfectly represented with the BCa approach of calculating CIs.</p>
+<p>I am not hiding my preference for the bootstrap methods due to their intuitive nature and simple usage for generating inferences for any estimator.</p>
+<p>However, bootstrap is not panacea and there are caveats especially for the small samples sizes <span class="citation">(Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>; Wilcox, Peterson, and McNitt-Gray <a href="#ref-wilcoxDataAnalysesWhen2018" role="doc-biblioref">2018</a>; Wilcox and Rousselet <a href="#ref-wilcoxGuideRobustStatistical2017" role="doc-biblioref">2017</a>)</span>.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-cantyBootBootstrapSPlus2017">
+<p>Canty, Angelo, and B. D. Ripley. 2017. <em>Boot: Bootstrap R (S-Plus) Functions</em>.</p>
+</div>
+<div id="ref-davisonBootstrapMethodsTheir1997">
+<p>Davison, A. 1997b. <em>Bootstrap Methods and Their Applications</em>. Cambridge: Cambridge University Press.</p>
+</div>
+<div id="ref-efronBayesiansFrequentistsScientists2005">
+<p>Efron, Bradley. 2005. “Bayesians, Frequentists, and Scientists.” <em>Journal of the American Statistical Association</em> 100 (469): 1–5. <a href="https://doi.org/10.1198/016214505000000033">https://doi.org/10.1198/016214505000000033</a>.</p>
+</div>
+<div id="ref-efronComputerAgeStatistical2016">
+<p>Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference: Algorithms, Evidence, and Data Science</em>. 1 edition. New York, NY: Cambridge University Press.</p>
+</div>
+<div id="ref-hastieElementsStatisticalLearning2009">
+<p>Hastie, Trevor, Robert Tibshirani, and J. H. Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed. Springer Series in Statistics. New York, NY: Springer.</p>
+</div>
+<div id="ref-hesterbergWhatTeachersShould2015">
+<p>Hesterberg, Tim C. 2015. “What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.” <em>The American Statistician</em> 69 (4): 371–86. <a href="https://doi.org/10.1080/00031305.2015.1089789">https://doi.org/10.1080/00031305.2015.1089789</a>.</p>
+</div>
+<div id="ref-rcoreteamLanguageEnvironmentStatistical2018">
+<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing.</p>
+</div>
+<div id="ref-rousseletPracticalIntroductionBootstrap2019">
+<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. Wilcox. 2019a. “A Practical Introduction to the Bootstrap: A Versatile Method to Make Inferences by Using Data-Driven Simulations.” <a href="https://doi.org/10.31234/osf.io/h8ft7">https://doi.org/10.31234/osf.io/h8ft7</a>.</p>
+</div>
+<div id="ref-rousseletPercentileBootstrapTeaser2019">
+<p>Rousselet, Guillaume A, Cyril R Pernet, and Rand R. 2019b. “The Percentile Bootstrap: A Teaser with Step-by-Step Instructions in R.” <a href="https://doi.org/10.31234/osf.io/kxarf">https://doi.org/10.31234/osf.io/kxarf</a>.</p>
+</div>
+<div id="ref-rstudioteamRStudioIntegratedDevelopment2016">
+<p>RStudio Team. 2016. <em>RStudio: Integrated Development Environment for R</em>. Boston, MA: RStudio, Inc.</p>
+</div>
+<div id="ref-wilcoxDataAnalysesWhen2018">
+<p>Wilcox, Rand, Travis J. Peterson, and Jill L. McNitt-Gray. 2018. “Data Analyses When Sample Sizes Are Small: Modern Advances for Dealing with Outliers, Skewed Distributions, and Heteroscedasticity.” <em>Journal of Applied Biomechanics</em> 34 (4): 258–61. <a href="https://doi.org/10.1123/jab.2017-0269">https://doi.org/10.1123/jab.2017-0269</a>.</p>
+</div>
+<div id="ref-wilcoxGuideRobustStatistical2017">
+<p>Wilcox, Rand R., and Guillaume A. Rousselet. 2017. “A Guide to Robust Statistical Methods in Neuroscience.” <em>bioRxiv</em>, June. <a href="https://doi.org/10.1101/151811">https://doi.org/10.1101/151811</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesian-perspective.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-inference-conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/08-Bootstrap.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

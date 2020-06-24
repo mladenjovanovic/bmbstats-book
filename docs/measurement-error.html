@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Measurement Error | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 10 Measurement Error | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Measurement Error | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Measurement Error | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-06-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistical-inference-conclusion.html"/>
+<link rel="next" href="conclusion.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="measurement-error" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Measurement Error</h1>
+<p>Measurement error is involved in all measurements and causes an <em>observed score</em> to be different from the <em>true score</em> <span class="citation">(Allen and Yen <a href="#ref-allenIntroductionMeasurementTheory2001" role="doc-biblioref">2001</a>; Novick <a href="#ref-novickAxiomsPrincipalResults1966" role="doc-biblioref">1966</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>; Borsboom <a href="#ref-borsboomMeasuringMindConceptual2009" role="doc-biblioref">2009</a>)</span>. This results in <em>measurement bias</em> affecting descriptive analysis, causal inferences <span class="citation">(Hernán <a href="#ref-hernanCausalDiagramsDraw2017" role="doc-biblioref">2017</a>; Hernán and Robins, <a href="#ref-hernanCausalInference2019" role="doc-biblioref">n.d.</a>; Hernan and Cole <a href="#ref-hernanInvitedCommentaryCausal2009" role="doc-biblioref">2009</a>)</span>, and predictive performances <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>In mathematical notation, observed score (OS) comprises of the hypothetical true score (TS) and measurement error (ME) (Equation <a href="measurement-error.html#eq:measurement-error">(10.1)</a>) <span class="citation">(Allen and Yen <a href="#ref-allenIntroductionMeasurementTheory2001" role="doc-biblioref">2001</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. This conceptual model is called <em>Classical Test Theory</em> (for more information, philosophy, and issues behind it please see <span class="citation">Borsboom (<a href="#ref-borsboomMeasuringMindConceptual2009" role="doc-biblioref">2009</a>)</span>)</p>
+<p><span class="math display" id="eq:measurement-error">\[
+\begin{equation}
+  OS = TS + ME
+  \tag{10.1}
+\end{equation}
+\]</span></p>
+<p>In the sports science domain, since the measured objects are usually humans, measurement error comprises of <em>instrumentation</em> and <em>biological noise</em> <span class="citation">(Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. In this book I assume instrumentation noise to be error caused solely by the measurement apparatus <span class="citation">(Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. Biological noise, on the other hand, is defined as an error in the observed scores caused by biological processes, including, but not limited to, phenomena such as circadian rhythm, nutritional intake, sleep and motivation <span class="citation">(Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>. Thus, I prefer to use the terms <em>instrumentation error</em> and <em>biological variation</em> (these will be further discussed in the <a href="measurement-error.html#extending-the-classical-test-theory">Extending the Classical Test Theory</a> section)</p>
+<p>Both instrumentation and biological noises consist of two types of errors: <em>systematic error</em> and <em>random error</em> (Figure <a href="measurement-error.html#fig:measurement-error">10.1</a>)<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:measurement-error"></span>
+<img src="figures/measurement-error-model.png" alt="Measurement error components" width="20%" />
+<p class="caption">
+Figure 10.1: <strong>Measurement error components</strong>
+</p>
+</div>
+
+<p>Systematic error represents constant and stable error that is fixed across measurements. Systematic error is commonly refereed to as <em>bias</em>. With measurement instruments that have a linear response, systematic error can be further divided into <em>proportional bias</em> and <em>fixed bias</em> <span class="citation">(Will G Hopkins <a href="#ref-hopkinsBiasBlandAltmanNot2004" role="doc-biblioref">2004</a><a href="#ref-hopkinsBiasBlandAltmanNot2004" role="doc-biblioref">b</a>; Hopkins <a href="#ref-hopkinsSocraticDialogueComparison2010" role="doc-biblioref">2010</a>, <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>)</span>. Random error (<span class="math inline">\(\epsilon\)</span>) represents unknown and unpredictable error, which varies between measurements. Random errors are often represented and modeled using a Gaussian normal distribution (with <code>mean</code> zero and <code>SD</code> which represent a parameter of the random error). The Equation <a href="measurement-error.html#eq:measurement-error-components">(10.2)</a> represent theoretical linear relationship between TS and OS, with normally distributed random error.</p>
+<p><span class="math display" id="eq:measurement-error-components">\[
+\begin{equation}
+  OS = Fixed\; Bias + (Proportional \; Bias\times TS) + \epsilon
+  \tag{10.2}
+\end{equation}
+\]</span></p>
+<p>This can be easily explained with a simple example. Imagine N=20 athletes being measured on a novel bodyweight scale, using total of 5 trials separated by 1 minute. The assumption in this example is that there is no change in the TS across trials (e.g. athletes are not allowed to use bathroom, consume water or food, nor change the wardrobe) and that there is no biological noise involved (i.e. there are no fluctuations in bodyweight due motivation, fatigue or what have you). Since this is simulated example, we know the TS of the athletes, but also the instrumentation noise characteristic of the novel bodyweight scale (i.e. this represents the underlying DGP). This scale tends to have proportional bias equal to factor 1.01 (i.e. athlete weighting 100kg which is his TS, will have OS equal to 101kg due proportional bias, while the athlete weighting 50kg will have her OS equal to 50.5kg), fixed bias equal to 1kg (everyone will get OS higher for 1kg than TS), and random error normally distributed with <code>SD</code> equal to 0.5kg. Equation <a href="measurement-error.html#eq:measurement-error-example">(10.3)</a> captures this relationship between OS and TS.</p>
+<p><span class="math display" id="eq:measurement-error-example">\[
+\begin{equation}
+  OS = 1 + (1.01 \times TS) + \mathcal{N}(0,\, 0.5) 
+  \tag{10.3}
+\end{equation}
+\]</span></p>
+<p>Table <a href="measurement-error.html#tab:bodyweight-data">10.1</a> contains the simulated sample for N=20 athletes and 5 trials.</p>
+
+<table>
+<caption><span id="tab:bodyweight-data">Table 10.1: </span><strong>Simulated 5 trials from known true score and measurement error</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">TS (kg)</th>
+<th align="right">OS 1 (kg)</th>
+<th align="right">OS 2 (kg)</th>
+<th align="right">OS 3 (kg)</th>
+<th align="right">OS 4 (kg)</th>
+<th align="right">OS 5 (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">77.93</td>
+<td align="right">79.47</td>
+<td align="right">79.37</td>
+<td align="right">79.25</td>
+<td align="right">80.38</td>
+<td align="right">79.46</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">76.11</td>
+<td align="right">77.83</td>
+<td align="right">77.71</td>
+<td align="right">77.36</td>
+<td align="right">78.32</td>
+<td align="right">76.78</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">77.04</td>
+<td align="right">78.65</td>
+<td align="right">78.30</td>
+<td align="right">78.48</td>
+<td align="right">78.30</td>
+<td align="right">78.55</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">54.96</td>
+<td align="right">56.58</td>
+<td align="right">56.36</td>
+<td align="right">56.05</td>
+<td align="right">56.20</td>
+<td align="right">56.45</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">84.03</td>
+<td align="right">85.53</td>
+<td align="right">85.44</td>
+<td align="right">86.10</td>
+<td align="right">85.96</td>
+<td align="right">85.11</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">61.32</td>
+<td align="right">61.84</td>
+<td align="right">63.05</td>
+<td align="right">63.52</td>
+<td align="right">63.73</td>
+<td align="right">62.43</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">68.62</td>
+<td align="right">70.26</td>
+<td align="right">69.82</td>
+<td align="right">70.34</td>
+<td align="right">70.45</td>
+<td align="right">70.84</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">61.06</td>
+<td align="right">62.03</td>
+<td align="right">62.91</td>
+<td align="right">62.93</td>
+<td align="right">62.15</td>
+<td align="right">62.40</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">80.46</td>
+<td align="right">81.34</td>
+<td align="right">83.04</td>
+<td align="right">82.57</td>
+<td align="right">82.60</td>
+<td align="right">82.33</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">91.14</td>
+<td align="right">94.02</td>
+<td align="right">93.47</td>
+<td align="right">93.28</td>
+<td align="right">93.40</td>
+<td align="right">93.51</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">79.98</td>
+<td align="right">81.89</td>
+<td align="right">82.13</td>
+<td align="right">81.13</td>
+<td align="right">81.57</td>
+<td align="right">81.94</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">67.07</td>
+<td align="right">69.54</td>
+<td align="right">68.32</td>
+<td align="right">68.29</td>
+<td align="right">69.23</td>
+<td align="right">67.72</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">79.41</td>
+<td align="right">80.66</td>
+<td align="right">80.81</td>
+<td align="right">81.17</td>
+<td align="right">80.56</td>
+<td align="right">80.92</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">69.54</td>
+<td align="right">71.14</td>
+<td align="right">72.34</td>
+<td align="right">70.16</td>
+<td align="right">72.01</td>
+<td align="right">71.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">76.01</td>
+<td align="right">77.42</td>
+<td align="right">77.41</td>
+<td align="right">78.32</td>
+<td align="right">78.22</td>
+<td align="right">77.61</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">68.31</td>
+<td align="right">70.11</td>
+<td align="right">70.05</td>
+<td align="right">70.17</td>
+<td align="right">69.02</td>
+<td align="right">70.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">58.53</td>
+<td align="right">60.04</td>
+<td align="right">60.56</td>
+<td align="right">59.69</td>
+<td align="right">59.72</td>
+<td align="right">60.69</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">81.64</td>
+<td align="right">82.61</td>
+<td align="right">83.30</td>
+<td align="right">83.66</td>
+<td align="right">82.87</td>
+<td align="right">82.60</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">55.03</td>
+<td align="right">56.70</td>
+<td align="right">56.35</td>
+<td align="right">56.90</td>
+<td align="right">56.48</td>
+<td align="right">56.37</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">65.03</td>
+<td align="right">66.33</td>
+<td align="right">66.44</td>
+<td align="right">67.29</td>
+<td align="right">67.28</td>
+<td align="right">66.82</td>
+</tr>
+</tbody>
+</table>
+<p>The objective of the analysis is to estimate DGP parameters of the measurement error (the proportional bias, fixed bias, and the <code>SD</code> of the random error). Unfortunately, since TS is unknown, we are unable to estimate proportional bias and fixed bias. To overcome this problem, we usually compare OS to some <em>gold standard</em> measure which can serve as proxy to TS. These issues are covered in much more detail in the second part of this book in the <a href="validity-and-reliability.html#validity-and-reliability">Validity and Reliability</a> chapter.</p>
+<p>What is left to be estimated is the <code>SD</code> of the random error, which is often referred to as <em>typical error</em> (<code>TE</code>) of the test, or <em>standard error of the measurement</em> (<code>SEM</code>)<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>. <code>TE</code> is estimated using individual <code>SD</code> of the OS in the five trials (Table <a href="measurement-error.html#tab:individual-error">10.2</a>).</p>
+
+<table>
+<caption><span id="tab:individual-error">Table 10.2: </span><strong>Individual <code>mean</code> and <code>SD</code> from five trials</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">Mean</th>
+<th align="right">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">79.59</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">77.60</td>
+<td align="right">0.57</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">78.46</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">56.33</td>
+<td align="right">0.21</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">85.63</td>
+<td align="right">0.40</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">62.91</td>
+<td align="right">0.78</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">70.34</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">62.48</td>
+<td align="right">0.42</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">82.38</td>
+<td align="right">0.63</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">93.54</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">81.73</td>
+<td align="right">0.39</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">68.62</td>
+<td align="right">0.75</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">80.82</td>
+<td align="right">0.24</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">71.35</td>
+<td align="right">0.86</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">77.80</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">69.88</td>
+<td align="right">0.49</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">60.14</td>
+<td align="right">0.47</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">83.01</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">56.56</td>
+<td align="right">0.24</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">66.83</td>
+<td align="right">0.45</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>mean</code> of athletes’ typical errors (<code>SD</code> in Table <a href="measurement-error.html#tab:individual-error">10.2</a>) is equal to 0.45kg, which is quite close to DGP random error parameter of 0.5kg. The reason for the difference between estimated and true value of the random error <code>SD</code> is due to the <em>sampling error</em>, which is a topic covered in the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section of this book.</p>
+<p>Unfortunately, this method of estimating <code>TE</code> is not always practically feasible. <code>TE</code> is usually estimated with two trials (OS1 and OS2; see Table <a href="measurement-error.html#tab:two-observations">10.3</a>), by using <code>SD</code> of the difference scores (<span class="math inline">\(SD_{diff}\)</span>) across athletes <span class="citation">(Hopkins <a href="#ref-hopkinsMeasuresReliabilitySports2000" role="doc-biblioref">2000</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>.</p>
+
+<table>
+<caption><span id="tab:two-observations">Table 10.3: </span><strong>Estimating Typical Error using <code>SD</code> of the difference scores</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">OS 1 (kg)</th>
+<th align="right">OS 2 (kg)</th>
+<th align="right">Difference OS 2-1 (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">79.47</td>
+<td align="right">79.37</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">77.83</td>
+<td align="right">77.71</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">78.65</td>
+<td align="right">78.30</td>
+<td align="right">-0.35</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">56.58</td>
+<td align="right">56.36</td>
+<td align="right">-0.23</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">85.53</td>
+<td align="right">85.44</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">61.84</td>
+<td align="right">63.05</td>
+<td align="right">1.22</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">70.26</td>
+<td align="right">69.82</td>
+<td align="right">-0.44</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">62.03</td>
+<td align="right">62.91</td>
+<td align="right">0.88</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">81.34</td>
+<td align="right">83.04</td>
+<td align="right">1.70</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">94.02</td>
+<td align="right">93.47</td>
+<td align="right">-0.55</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">81.89</td>
+<td align="right">82.13</td>
+<td align="right">0.24</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">69.54</td>
+<td align="right">68.32</td>
+<td align="right">-1.22</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">80.66</td>
+<td align="right">80.81</td>
+<td align="right">0.15</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">71.14</td>
+<td align="right">72.34</td>
+<td align="right">1.21</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">77.42</td>
+<td align="right">77.41</td>
+<td align="right">-0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">70.11</td>
+<td align="right">70.05</td>
+<td align="right">-0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">60.04</td>
+<td align="right">60.56</td>
+<td align="right">0.52</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">82.61</td>
+<td align="right">83.30</td>
+<td align="right">0.70</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">56.70</td>
+<td align="right">56.35</td>
+<td align="right">-0.35</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">66.33</td>
+<td align="right">66.44</td>
+<td align="right">0.11</td>
+</tr>
+</tbody>
+</table>
+<p>If we calculate <code>SD</code> of the difference scores from the Table <a href="measurement-error.html#tab:two-observations">10.3</a>, we get 0.7kg. However, this is not quite right, since we know that the true <code>SD</code> of the random error is 0.5kg. This happens because random error is affecting both Trial 1 (OS1) and Trial 2 (OS2), and is <em>propagated</em> to the difference between the two (Figure measurement-error-propagation). This is exactly the same concept as described in the <a href="causal-inference.html#example-of-randomized-control-trial">Example of randomized control trial</a>. The benefit of using squared errors and assuming Gaussian error distribution, as alluded multiple times in this book, is that this propagation can be mathematically and neatly expressed and estimated.</p>
+<div class="figure" style="text-align: center"><span id="fig:measurement-error-propagation"></span>
+<img src="figures/measurement-error-two-measures.png" alt="Propagation of the random component of measurement error to two trials" width="50%" />
+<p class="caption">
+Figure 10.2: <strong>Propagation of the random component of measurement error to two trials</strong>
+</p>
+</div>
+
+<p>Error propagation, assuming normal distribution, is equal to Equation <a href="measurement-error.html#eq:measurement-error-propagation">(10.4)</a>:</p>
+<p><span class="math display" id="eq:measurement-error-propagation">\[
+\begin{equation}
+  \begin{split}
+    SD_{difference}^2 &amp;= TE_{trial\;1}^2 + TE_{trial\;2}^2 \\
+    TE_{test} &amp;= TE_{trial\;1} = TE_{trial\;2} \\
+    SD_{difference}^2 &amp;= TE_{test}^2 + TE_{test}^2 \\
+    SD_{difference}^2 &amp;= 2 \times TE_{test}^2 \\
+    SD_{difference} &amp;= \sqrt{2 \times TE_{test}^2} \\
+    SD_{difference} &amp;= \sqrt{2} \times TE_{test} \\
+    TE_{test} &amp;= \frac{SD_{difference}}{\sqrt{2}}
+  \end{split}
+  \tag{10.4}
+\end{equation}
+\]</span></p>
+<p>According to the Equation <a href="measurement-error.html#eq:measurement-error-propagation">(10.4)</a>, the <code>SD</code> of the difference score needs to be divided by <span class="math inline">\(\sqrt{2}\)</span> to estimate <code>TE</code> of the measurement. The assumption is that TE is equal in both trials (and for all athletes), which is defined in the second line in the Equation <a href="measurement-error.html#eq:measurement-error-propagation">(10.4)</a>. Estimated <code>TE</code> is now equal to 0.49kg, which is much closer to known <code>SD</code> of the random error of 0.5kg.</p>
+<div id="estimating-te-using-ordinary-least-products-regression" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Estimating <code>TE</code> using <em>ordinary least products</em> regression</h2>
+<p>The method of estimating <code>TE</code> using <code>SD</code> of the difference score can be termed <em>method of the differences</em> and it is quite commonly used in <a href="validity-and-reliability.html#validity-and-reliability">Validity and Reliability</a> analyses, particularly when using Bland-Altman plots. Another method involves the use of the linear regression, or the special kind of linear regression called <em>ordinary least products</em> (OLP) <span class="citation">(Ludbrook <a href="#ref-ludbrookLinearRegressionAnalysis2010" role="doc-biblioref">2010</a>, <a href="#ref-ludbrookPrimerBiomedicalScientists2012" role="doc-biblioref">2012</a>, <a href="#ref-ludbrookSPECIALARTICLECOMPARING1997" role="doc-biblioref">1997</a>, <a href="#ref-ludbrookStatisticalTechniquesComparing2002" role="doc-biblioref">2002</a>; Mullineaux, Barnes, and Batterham <a href="#ref-mullineauxAssessmentBiasComparing1999" role="doc-biblioref">1999</a>)</span>. The <em>ordinary least squares</em> (OLS; the one we have used thorough this book) regression find the line that minimizes squared residuals between <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{y_i}\)</span>, while OLP minimizes the product of the residuals using both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>: <span class="math inline">\((x_i - \hat{x_i}) \times (y_i - \hat{y_i})\)</span>. The benefit of using OLP over OLS is that estimated model is the same regardless of which variable is considered outcome or predictor. This is not the case with OLS, as demonstrated in the <a href="description.html#describing-relationship-between-two-variables">Describing relationship between two variables</a> section. For this reason, OLP is a preferred choice when performing Reliability analyses, since neither variable is considered outcome.</p>
+<p>Figure <a href="measurement-error.html#fig:OLP-demonstration">10.3</a> demonstrate OLP regression between Trial 1 (OS1) and Trial 2 (OS2). Estimated residual standard error (<code>RSE</code>) is equal to 0.72cm. To estimate <code>TE</code>, this <code>RSE</code> also needs to be divided by <span class="math inline">\(\sqrt{2}\)</span>, which results in 0.51cm. This estimate of <code>TE</code> is very close to <code>TE</code> estimated by the method of differences.</p>
+<div class="figure" style="text-align: center"><span id="fig:OLP-demonstration"></span>
+<img src="10-Measurement-error_files/figure-html/OLP-demonstration-1.png" alt="Ordinary least squares regression (OLP) between Trial 1 (OS1) and Trial 2 (OS2). A. Scatter-plot between OS1 and OS2. Dashed line represent identity line, and black line represent estimated OLP regression. B. Residuals plot. Dashed lines represent upper and lower levels of agreement using RSE and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines). Blue line represent additional linear regression model (using OLS) between fitted and residual, used to indicate issue with the model." width="90%" />
+<p class="caption">
+Figure 10.3: <strong>Ordinary least squares regression (OLP) between Trial 1 (OS1) and Trial 2 (OS2). A. </strong> Scatter-plot between OS1 and OS2. Dashed line represent identity line, and black line represent estimated OLP regression. <strong>B.</strong> Residuals plot. Dashed lines represent upper and lower <em>levels of agreement</em> using <code>RSE</code> and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines). Blue line represent additional linear regression model (using OLS) between fitted and residual, used to indicate issue with the model.
+</p>
+</div>
+
+<p>If we consider ±1kg to be SESOI in the observed score, we can estimate practical reliability of this scale. Magnitude-based estimators, such as <code>PPER</code> or <code>SESOI to RSE</code> can be used to quantify scale reliability from a practical significance perspective. This can be represented with the SESOI band as done in the Figure <a href="measurement-error.html#fig:OLP-demonstration-SESOI">10.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:OLP-demonstration-SESOI"></span>
+<img src="10-Measurement-error_files/figure-html/OLP-demonstration-SESOI-1.png" alt="Ordinary least squares regression (OLP) between Trial 1 (OS1) and Trial 2 (OS2). A. Scatter-plot between OS1 and OS2. Dashed line represent identity line, and black line represent estimated OLP regression. B. Residuals plot. Dashed lines represent upper and lower levels of agreement using RSE and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines). Blue line represent additional linear regression model (using OLS) between fitted and residual, used to indicate issue with the model. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent PPER estimator." width="90%" />
+<p class="caption">
+Figure 10.4: <strong>Ordinary least squares regression (OLP) between Trial 1 (OS1) and Trial 2 (OS2). A. </strong> Scatter-plot between OS1 and OS2. Dashed line represent identity line, and black line represent estimated OLP regression. <strong>B.</strong> Residuals plot. Dashed lines represent upper and lower <em>levels of agreement</em> using <code>RSE</code> and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines). Blue line represent additional linear regression model (using OLS) between fitted and residual, used to indicate issue with the model. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent <code>PPER</code> estimator.
+</p>
+</div>
+
+<p>As can be seen from the Figure <a href="measurement-error.html#fig:OLP-demonstration-SESOI">10.4</a>, this scale have less than perfect reliability to detect practically important changes in weight (given <em>a priori</em> defined SESOI of ±1kg). Estimated <code>PPER</code>, using <code>RSE</code>, is equal to 0.82.</p>
+</div>
+<div id="smallest-detectable-change" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Smallest Detectable Change</h2>
+<p>In the case of reliability and validity analysis, we are mostly interested in the ability of a measure to detect signal from a noise. In this case, the <em>signal</em> is the true or real change and <em>noise</em> is the random error of the measure. Thus, we are interested in estimating what is the smallest detectable signal the measure can detect with certain level of confidence. This is called <em>smallest detectable change</em> (<code>SDC</code>) or <em>minimal detectable change</em> (<code>MDC</code>).</p>
+<p>If you check the Panel B in the Figure <a href="measurement-error.html#fig:OLP-demonstration-SESOI">10.4</a>, <code>SDC</code> represents the spread of the residuals, visualized with the two horizontal dashed lines. If we assume that the residuals are normally distributed, we can estimate lower and upper thresholds that capture, for example 95% of the residuals distribution. This is done by multiplying <span class="math inline">\(SD_{diff}\)</span> or <code>RSE</code> with appropriate critical value from a Student’s t-distribution (i.e. or simply with ±1.96). We thus get the Equation <a href="measurement-error.html#eq:sdc-equation">(10.5)</a> that we can use to estimate <code>SDC</code> with 95% level of confidence<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>.</p>
+<p><span class="math display" id="eq:sdc-equation">\[
+\begin{equation}
+  \begin{split}
+      SDC &amp;= SD_{diff} \times \pm1.96 \\
+      SDC &amp;= RSE \times \pm1.96 \\
+      SDC &amp;= TE \times \sqrt{2} \times \pm1.96 \\
+  \end{split}
+  \tag{10.5}
+\end{equation}
+\]</span></p>
+<p>Using OLP regression estimate <code>RSE</code> (equal to 0.72), and critical value to cover 95% of the Student’s t-distribution (DF=19) equal to ±2.09, <code>SDC</code> for our scale is equal to ±1.5kg. This implies that, with the 95% confidence, we are able to detect true signal (i.e. change in weight) as low as ±1.5kg. If <code>SDC</code> is lower than SESOI, reliability of the measure is (practically) perfect. This is not the case for our scale. We cannot use it to detect changes of ±1kg with satisficing level of confidence.</p>
+<p><code>SDC</code> can also be used as SESOI in some other analysis utilizing this scale. For example, if we use nutrition intervention RCT utilizing this scale as a measure, we can use ±1.5kg as SESOI (in the absence of better defined SESOI) since that is the the minimum detectable effect size.</p>
+</div>
+<div id="interpreting-individual-changes-using-sesoi-and-sdc" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Interpreting individual changes using SESOI and SDC</h2>
+<p>In order to showcase the interpretation of the individual changes by using SESOI and <code>SDC</code> (named <em>observed outcome approach</em> in <a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders">Analysis of the individual residuals: responders vs non-responders</a> section), let’s consider bench press example from the <a href="description.html#comparing-dependent-groups">Comparing dependent groups</a> (repeated in the Table <a href="measurement-error.html#tab:bench-press-1RM-pre-post-repeated">10.4</a>).</p>
+
+<table>
+<caption><span id="tab:bench-press-1RM-pre-post-repeated">Table 10.4: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Athlete</th>
+<th align="right">Pre-test (kg)</th>
+<th align="right">Post-test (kg)</th>
+<th align="right">Change (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Athlete 01</td>
+<td align="right">111.80</td>
+<td align="right">121.42</td>
+<td align="right">9.62</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 02</td>
+<td align="right">95.95</td>
+<td align="right">102.13</td>
+<td align="right">6.18</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 03</td>
+<td align="right">105.87</td>
+<td align="right">125.56</td>
+<td align="right">19.69</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 04</td>
+<td align="right">98.79</td>
+<td align="right">109.67</td>
+<td align="right">10.87</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 05</td>
+<td align="right">95.81</td>
+<td align="right">108.11</td>
+<td align="right">12.30</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 06</td>
+<td align="right">95.27</td>
+<td align="right">92.67</td>
+<td align="right">-2.60</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 07</td>
+<td align="right">97.75</td>
+<td align="right">106.03</td>
+<td align="right">8.28</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 08</td>
+<td align="right">106.50</td>
+<td align="right">109.51</td>
+<td align="right">3.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 09</td>
+<td align="right">80.62</td>
+<td align="right">95.96</td>
+<td align="right">15.34</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 10</td>
+<td align="right">100.40</td>
+<td align="right">94.30</td>
+<td align="right">-6.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 11</td>
+<td align="right">82.71</td>
+<td align="right">78.91</td>
+<td align="right">-3.80</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 12</td>
+<td align="right">102.89</td>
+<td align="right">93.98</td>
+<td align="right">-8.91</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 13</td>
+<td align="right">91.34</td>
+<td align="right">105.21</td>
+<td align="right">13.87</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 14</td>
+<td align="right">111.14</td>
+<td align="right">108.07</td>
+<td align="right">-3.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 15</td>
+<td align="right">95.13</td>
+<td align="right">96.01</td>
+<td align="right">0.88</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 16</td>
+<td align="right">109.12</td>
+<td align="right">112.12</td>
+<td align="right">3.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 17</td>
+<td align="right">91.87</td>
+<td align="right">103.41</td>
+<td align="right">11.54</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 18</td>
+<td align="right">92.16</td>
+<td align="right">103.93</td>
+<td align="right">11.77</td>
+</tr>
+<tr class="odd">
+<td align="left">Athlete 19</td>
+<td align="right">108.88</td>
+<td align="right">119.72</td>
+<td align="right">10.84</td>
+</tr>
+<tr class="even">
+<td align="left">Athlete 20</td>
+<td align="right">97.94</td>
+<td align="right">95.91</td>
+<td align="right">-2.03</td>
+</tr>
+</tbody>
+</table>
+<p>Before commencing this simple intervention, measurement error of the bench press 1RM test is estimated (using <code>TE</code> estimator), and is equal to 2.5kg (N=19). Practically, this means that due to the biological and instrumentation error, 1RM in the bench press would tend to vary normally distributed with <code>TE</code> equal to 2.5kg, given, of course, no <em>real</em> change in the strength (i.e. no change in TS). Expected <code>SDC</code> (with 95% confidence level) is thus equal to <span class="math inline">\(\sqrt{2}\times TE \times \pm2.09\)</span> (±7.39kg). Please note that <code>TE</code> of the <em>change score</em> is equal to <span class="math inline">\(\sqrt{2}\times TE\)</span>, or (3.54kg).</p>
+<p>For the sake of example, ±5kg can be considered minimal important change, which will be used as SESOI. Since both <code>TE</code> and SESOI are known, the objective of the analysis is to estimate probability that the observed individual change score is practically significant (i.e. lower, equivalent, or higher compared to SESOI). This is because individual <em>true changes</em> are not known, but only <em>observed changes</em>. Change <code>TE</code> tells how much of observed change randomly varies around the true change score. The question trying to be answered is: “how likely individual’s <em>true change</em> is within lower, equivalent, or higher SESOI range, given the known change TE?”</p>
+<p>Panel A in the Figure <a href="measurement-error.html#fig:individual-change-mbi">10.5</a> depicts individual Change scores <em>probabilistically</em> using the known change <code>TE</code> (3.54kg). Using the SESOI as equivalent change, we can estimate individual probability of lower, equivalent, and higher change. Panel B in the Figure <a href="measurement-error.html#fig:individual-change-mbi">10.5</a> depicts individual change scores with error bars representing <code>SDC</code>. The numbers in brackets on Panel B in the Figure <a href="measurement-error.html#fig:individual-change-mbi">10.5</a> represent estimated probabilities of the true change score being lower, equivalent, and higher compared to SESOI. To be more certain of individual changes, <code>SDC</code> needs to be smaller compared to SESOI. Ratio between SESOI and change <code>TE</code> can thus represent an estimate of the <em>test sensitivity</em> to detect practically meaningful changes (i.e. <code>SESOI to RSE</code> estimator). The smallest change that has at least 95% chance of being higher or lower than SESOI is equal to <span class="math inline">\(SESOI \pm SDC\)</span>, or ±12.39kg. Graphically, bench press 1RM change of ±12.39kg is the smallest change, where 95% confidence intervals do not touch the SESOI band. Please note that inference from MET is slightly different, since METs use single-tailed tests, thus the critical value will be smaller that 2.09 (it will be 1.73 for single-tailed 95% confidence). This implies that 95% confidence intervals (i.e. <code>SDC</code>) can slightly cross SESOI threshold and still be considered “Higher” or "Lower.</p>
+<div class="figure" style="text-align: center"><span id="fig:individual-change-mbi"></span>
+<img src="10-Measurement-error_files/figure-html/individual-change-mbi-1.png" alt="Analysis of individual change scores using SESOI and SDC. A. Uncertainty around true change score can be depicted by using normal distribution whose SD is equal to change TE. Probability that the observed change is lower, equivalent or higher can be estimated using surface within lower, equivalent, and higher magnitude band. B. \(95\%\) Confidence intervals around change scores represent SDC and are calculated using \(\pm 2.09\times\sqrt{2}\times TE\). Numbers in brackets represent proportion of the surface area in the lower, equivalent and higher magnitude band. These are interpreted as probabilities of true score being in lower, equivalent and higher magnitude band. See text for discussion why such interpretation is not statistically valid" width="90%" />
+<p class="caption">
+Figure 10.5: <strong>Analysis of individual change scores using SESOI and <code>SDC</code>. A.</strong> Uncertainty around true change score can be depicted by using normal distribution whose <code>SD</code> is equal to change <code>TE</code>. Probability that the observed change is lower, equivalent or higher can be estimated using surface within lower, equivalent, and higher magnitude band. <strong>B.</strong> <span class="math inline">\(95\%\)</span> Confidence intervals around change scores represent <code>SDC</code> and are calculated using <span class="math inline">\(\pm 2.09\times\sqrt{2}\times TE\)</span>. Numbers in brackets represent proportion of the surface area in the lower, equivalent and higher magnitude band. These are interpreted as probabilities of true score being in lower, equivalent and higher magnitude band. See text for discussion why such interpretation is not statistically valid
+</p>
+</div>
+
+<p>As explained in the <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section of this book, this method of individual analysis interprets the change <code>TE</code> and associated confidence intervals from the Bayesian perspective. This is not the correct interpretation, since we do not know individual’s true change scores, only the observed change scores. Change <code>TE</code> gives us the variance of the observed change scores around the true change score, not <em>vice versa</em> (i.e. Bayesian <em>inverse probability</em>). Thus, visual representation from the Figure <a href="measurement-error.html#fig:individual-change-mbi">10.5</a> is not statistically valid.</p>
+<p>Since we do not know the true change scores, we are interested in probabilities of seeing the observed change score given the assumption of where we think the true change score is (i.e. null hypothesis). For this reason the question to be asked is “assuming individual’s true change scores are at ±SESOI, how likely are we to see the observed change score, given the known change <code>TE</code>?”. This question demands answer and interpretation of change <code>TE</code> from the frequentist perspective. Thus the correct interpretation of the individual changes involves the use of minimum effect tests (METs) discussed in the <a href="statistical-inference.html#statistical-inference">Statistical Inference</a> section. METs approach to interpreting individual changes is depicted in the Figure <a href="measurement-error.html#fig:individual-change-met">10.6</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:individual-change-met"></span>
+<img src="10-Measurement-error_files/figure-html/individual-change-met-1.png" alt="METs approach to interpreting individual change scores. A. Since true change scores are unknown, we can only test probability of seeing observed score or higher, given the known TE and assumed true score. In order to do this, minimal effect tests are performed, assuming two true score null-hypotheses: one at lower SESOI threshold (red color) and one at upper SESOI threshold (green color). Typical error can be interpreted as SD of the error distribution. Black dots indicate observed individual change. We are interested in estimating probability of observing this change, given two hypotheses. Five tests are performed as described in Minimum Effect Tests section: inferiority, non-superiority, equivalence, non-inferiority and superiority. B. \(95\%\) Confidence intervals around change scores represent SDC and are calculated using \(\pm 2.09\times\sqrt{2}\times TE\) and depicted using error-bars. Final inference using five METs is reported. METs significance (assuming alpha=0.05), indicated by ’*’, are reported in the brackets, for each of the the five tests performed" width="90%" />
+<p class="caption">
+Figure 10.6: <strong>METs approach to interpreting individual change scores. A.</strong> Since true change scores are unknown, we can only test probability of seeing observed score or higher, given the known <code>TE</code> and assumed true score. In order to do this, minimal effect tests are performed, assuming two true score null-hypotheses: one at lower SESOI threshold (red color) and one at upper SESOI threshold (green color). Typical error can be interpreted as <code>SD</code> of the error distribution. Black dots indicate observed individual change. We are interested in estimating probability of observing this change, given two hypotheses. Five tests are performed as described in <a href="frequentist-perspective.html#minimum-effect-tests">Minimum Effect Tests</a> section: inferiority, non-superiority, equivalence, non-inferiority and superiority. <strong>B.</strong> <span class="math inline">\(95\%\)</span> Confidence intervals around change scores represent <code>SDC</code> and are calculated using <span class="math inline">\(\pm 2.09\times\sqrt{2}\times TE\)</span> and depicted using error-bars. Final inference using five METs is reported. METs significance (assuming alpha=0.05), indicated by ’*’, are reported in the brackets, for each of the the five tests performed
+</p>
+</div>
+
+</div>
+<div id="what-to-do-when-we-know-the-error" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> What to do when we know the error?</h2>
+<p>Statistical analysis covered in this book treats observed scores as true scores without measurement error. But measurement error is always involved and can introduce bias in the conclusion. How certain estimators and analyses are sensitive to measurement error can be estimated via simulations. But what can we do when we do know that there is measurement error involved in our observations and we actually have an estimate about it’s size (i.e. from validity or reliability study)?</p>
+<p>There are few <em>adjustment</em> techniques that can be implemented <span class="citation">(Keogh et al. <a href="#ref-keoghSTRATOSGuidanceDocument2020" role="doc-biblioref">2020</a>; Lederer and Küchenhoff <a href="#ref-LedererSimex2006" role="doc-biblioref">2006</a>; Shang <a href="#ref-shangMeasurementErrorAdjustment2012" role="doc-biblioref">2012</a>; Shaw et al. <a href="#ref-shawSTRATOSGuidanceDocument2020" role="doc-biblioref">2020</a>; Wallace <a href="#ref-wallaceAnalysisImperfectWorld2020" role="doc-biblioref">2020</a>)</span>, but here I will introduce <em>Simulation extrapolation</em> (SIMEX) approach since it is very intuitive. Let’s take the bench press example we used above: we do know that measurement error of 2.5kg is involved in the observed Pre- and Post-tests. How can we <em>correct</em> or <em>adjust</em> our estimators using that knowledge?</p>
+<p>Since we know that error is already inside our observations, we can call that error factor or error multiplier of 1. Then we add additional error to our observations and repeat the analysis. This is done for error multipliers from 1 to usually 3 (i.e. extra 2 x measurement error). Let’s do that using bench press data and calculate <code>mean</code> and <code>SD</code> of the Pre-test, Post-test, and Change. This single simulation is in Figure <a href="measurement-error.html#fig:simex-single">10.7</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:simex-single"></span>
+<img src="10-Measurement-error_files/figure-html/simex-single-1.png" alt="Adding noise (measurement error) to observed Pre-test and Post-test scores and re-calculating estimators. Error multiplier equal to 1 is naive analysis where one magnitude of measurement error (i.e. 2.5kg) is already involved in observed data. Additional error is added using error multiplier (i.e. error multiplier 2 involves additional noise of 2.5 kg magnitude, thus 2 error magnitudes are involved in the data) from 1 to 3, using total of 20 steps" width="90%" />
+<p class="caption">
+Figure 10.7: <strong>Adding noise (measurement error) to observed Pre-test and Post-test scores and re-calculating estimators.</strong> Error multiplier equal to 1 is <em>naive</em> analysis where one magnitude of measurement error (i.e. 2.5kg) is already involved in observed data. Additional error is added using error multiplier (i.e. error multiplier 2 involves additional noise of 2.5 kg magnitude, thus 2 error magnitudes are involved in the data) from 1 to 3, using total of 20 steps
+</p>
+</div>
+
+<p>We can’t conclude much since adding error multiplier once is <em>stochastic</em>. We need to repeat this numerous times, say 100 times. This is depicted in Figure <a href="measurement-error.html#fig:simex-thousand">10.8</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:simex-thousand"></span>
+<img src="10-Measurement-error_files/figure-html/simex-thousand-1.png" alt="Result of SIMEX using 100 simulations" width="90%" />
+<p class="caption">
+Figure 10.8: <strong>Result of SIMEX using 100 simulations</strong>
+</p>
+</div>
+
+<p>What we are interested in, is calculating the average or expected estimator value for each error multiplier. This is depicted in Figure <a href="measurement-error.html#fig:simex-average">10.9</a></p>
+<div class="figure" style="text-align: center"><span id="fig:simex-average"></span>
+<img src="10-Measurement-error_files/figure-html/simex-average-1.png" alt="Result of SIMEX using 100 simulations and addition simulation average. Blue line represents simulations average for a particular error multiplier" width="90%" />
+<p class="caption">
+Figure 10.9: <strong>Result of SIMEX using 100 simulations and addition simulation average.</strong> Blue line represents simulations average for a particular error multiplier
+</p>
+</div>
+
+<p>Rather than using average across simulations, we can fit a particular model and then <em>extrapolate</em> to error multiplier of 0. This way we can get estimated estimator value when there is no measurement error involved in Pre-test and Post-test variables. Usually this is done using second order polynomial (i.e. <span class="math inline">\(\hat{y_i} = \beta_0 + \beta_1x_i + \beta_2x_i^2\)</span>), or quadratic equation (i.e. <span class="math inline">\(\hat{y_i} = \beta_0 + \beta_1x_i^2\)</span>). Extrapolating using quadratic equation is depicted in the Figure <a href="measurement-error.html#fig:simex-quadratic">10.10</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:simex-quadratic"></span>
+<img src="10-Measurement-error_files/figure-html/simex-quadratic-1.png" alt="Result of SIMEX using 100 simulations and addition quadratic extrapolation. Red line represents quadratic fit, extrapolated to error multiplier of 0 to estimate estimator value when there is no measurement error involved in the Pre-test and Post-test variables" width="90%" />
+<p class="caption">
+Figure 10.10: <strong>Result of SIMEX using 100 simulations and addition quadratic extrapolation.</strong> Red line represents quadratic fit, extrapolated to error multiplier of 0 to estimate estimator value when there is no measurement error involved in the Pre-test and Post-test variables
+</p>
+</div>
+
+<p>From <a href="measurement-error.html#fig:simex-quadratic">10.10</a> it is interesting to notice that <code>mean</code> is <em>robust</em> to measurement error, while <code>SD</code> is not, which is expected since normal error increase <em>variance</em> of the data. Using SIMEX for Change <code>SD</code>, we can estimate <em>true</em> Change <code>SD</code>, or in other words, when there is no measurement error. This can also be done using math rather than simulation and extrapolation (i.e. SIMEX) by using the same error propagation reasoning explained in the <a href="causal-inference.html#example-of-randomized-control-trial">Example of randomized control trial</a> section (Equation <a href="measurement-error.html#eq:adjusting-sigma">(10.6)</a>).</p>
+<p><span class="math display" id="eq:adjusting-sigma">\[
+\begin{equation}
+  \begin{split}
+    \sigma_{OS}^2 &amp;= \sigma_{TS}^2 + \epsilon^2 \\
+    SD_{observed \; diff}^2 &amp;= SD_{true \; diff}^2 + (\sqrt{2}TE)^2 \\
+    SD_{true \; diff} &amp;= \sqrt{SD_{observed \; diff}^2 - 2TE^2}
+  \end{split}
+    \tag{10.6}
+\end{equation}
+\]</span></p>
+<p>Observed Change <code>SD</code> is equal to 8.05kg, while the change <code>TE</code> is equal to <span class="math inline">\(\sqrt{2} \times 2.5\)</span>kg or 3.53kg. True Change <code>SD</code> is thus equal to <span class="math inline">\(\sqrt{8.05^2 - 3.53^2 }\)</span>, or 7.23kg. This is also done when estimating stochastic treatment effect in the RCT, if we assume that the Change <code>SD</code> in the Control group is mainly due to measurement error.</p>
+</div>
+<div id="extending-the-classical-test-theory" class="section level2" number="10.5">
+<h2><span class="header-section-number">10.5</span> Extending the Classical Test Theory</h2>
+<p>The theory behind true, observed scores, and measurement error introduced in this chapter is called Classical Test Theory <span class="citation">(Borsboom <a href="#ref-borsboomMeasuringMindConceptual2009" role="doc-biblioref">2009</a>)</span>. Although it sounds simple, there are numerous assumptions and issues with it <span class="citation">(Borsboom <a href="#ref-borsboomMeasuringMindConceptual2009" role="doc-biblioref">2009</a>, 44–45)</span>:</p>
+<blockquote>
+<p>"Classical test theory was either one of the best ideas in twentieth-century psychology, or one of the worst mistakes. The theory is mathematically elegant and conceptually simple, and in terms of its acceptance by psychologists, it is a psychometric success story. However, as is typical of popular statistical procedures, classical test theory is prone to misinterpretation. One reason for this is the terminology used: if a competition for the misnomer of the century existed, the term ‘true score’ would be a serious contestant. The infelicitous use of the adjective ‘true’ invites the mistaken idea that the true score on a test must somehow be identical to the ‘real’, ‘valid’, or ‘construct’ score. This chapter has hopefully proved the inadequacy of this view beyond reasonable doubt.</p>
+</blockquote>
+<blockquote>
+<p>The problems with the platonic true score interpretation were, however, seen to run deeper than a confounding of validity and unreliability. Classical test theory is, ontologically speaking, ambiguous. In principle, it allows for both realist and constructivist interpretations, but sits well with neither. The constructivist interpretation of classical test theory is vacuous: although it is possible to specify how a true score could be constructed on the basis of observations (namely by averaging), the observations that are necessary for doing this are exactly the repeated measurements with intermediate brainwashing. The constructivist account of true scores can only be interpreted metaphorically, and it is not at all clear what such a metaphorical interpretation adds to the theory. On the other hand, a realist i terpretation of true scores leads to a metaphysical explosion of reality: a new true score has to be invoked for every thinkable testing procedure."</p>
+</blockquote>
+<p>Let’s take the bench press example yet again. What is individual’s <em>true score</em>? Something that one can manifest? What if I have bench pressed 150kg, but got a flu and was off for 3 weeks. When I came back, I was able to bench press 130kg. Is my <em>true</em> bench press still 150kg, but <em>masked</em> due to systematic effect of the illness? What if this happens in a reliability study, and few individuals demonstrate true systematic effects of fatigue, while some demonstrate biological variability from day to day? We do assume <a href="causal-inference.html#ergodicity">Ergodicity</a> in this example.</p>
+<p>Figure <a href="measurement-error.html#fig:circular-performance-model">10.11</a> depicts my extension of the Classical Test Theory with performance specialist or sports scientist in mind <span class="citation">(Jovanović <a href="#ref-jovanovicExtendingClassicalTest2020" role="doc-biblioref">2020</a>)</span>. As alluded multiple time thorough this book, all statistical models represent “Small Worlds”, or simplifications of the complex “Large World” we ought to understand and interact with.</p>
+<div class="figure" style="text-align: center"><span id="fig:circular-performance-model"></span>
+<img src="figures/circular-performance-model.png" alt="Circular Performance Model. Extended Classical Test Theory to include phenomenology of working with athletes" width="90%" />
+<p class="caption">
+Figure 10.11: <strong>Circular Performance Model.</strong> Extended Classical Test Theory to include <em>phenomenology</em> of working with athletes
+</p>
+</div>
+
+<p>Circular Performance Model depicted in the Figure <a href="measurement-error.html#fig:circular-performance-model">10.11</a> <span class="citation">(Jovanović <a href="#ref-jovanovicExtendingClassicalTest2020" role="doc-biblioref">2020</a>)</span> can be used to model and understand <em>phenomena</em> that sport practitioners and sports scientists wrestle with daily.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-allenIntroductionMeasurementTheory2001">
+<p>Allen, Mary J., and Wendy M. Yen. 2001. <em>Introduction to Measurement Theory</em>. 1 edition. Long Grove, Ill: Waveland Pr Inc.</p>
+</div>
+<div id="ref-borsboomMeasuringMindConceptual2009">
+<p>Borsboom, Denny. 2009. <em>Measuring the Mind: Conceptual Issues in Modern Psychometrics</em>. Cambridge: Cambridge University Press.</p>
+</div>
+<div id="ref-hernanInvitedCommentaryCausal2009">
+<p>Hernan, M. A., and S. R. Cole. 2009. “Invited Commentary: Causal Diagrams and Measurement Bias.” <em>American Journal of Epidemiology</em> 170 (8): 959–62. <a href="https://doi.org/10.1093/aje/kwp293">https://doi.org/10.1093/aje/kwp293</a>.</p>
+</div>
+<div id="ref-hernanCausalDiagramsDraw2017">
+<p>Hernán, Miguel A. 2017. “Causal Diagrams: Draw Your Assumptions Before Your Conclusions Course | PH559x | edX.” <em>edX</em>. https://courses.edx.org/courses/course-v1:HarvardX+PH559x+3T2017/course/.</p>
+</div>
+<div id="ref-hernanCausalInference2019">
+<p>Hernán, Miguel A., and JM Robins. n.d. <em>Causal Inference</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
+</div>
+<div id="ref-hopkinsMeasuresReliabilitySports2000">
+<p>Hopkins, Will G. 2000. “Measures of Reliability in Sports Medicine and Science.” <em>Sports Med</em>, 15.</p>
+</div>
+<div id="ref-hopkinsBiasBlandAltmanNot2004">
+<p>Hopkins, Will G. 2004b. “Bias in Bland-Altman but Not Regression Validity Analyses.” <em>Sportscience.org</em>. https://sportsci.org/jour/04/wghbias.htm.</p>
+</div>
+<div id="ref-hopkinsUnderstandingStatisticsUsing2007">
+<p>Hopkins, Will G. 2007. “Understanding Statistics by Using Spreadsheets to Generate and Analyze Samples.” <em>Sportscience.org</em>. https://www.sportsci.org/2007/wghstats.htm.</p>
+</div>
+<div id="ref-hopkinsSocraticDialogueComparison2010">
+<p>Hopkins, Will G. 2010. “A Socratic Dialogue on Comparison of Measures.” <em>Sportscience.org</em>. http://www.sportsci.org/2010/wghmeasures.htm.</p>
+</div>
+<div id="ref-jovanovicExtendingClassicalTest2020">
+<p>Jovanović, Mladen. 2020. “Extending the Classical Test Theory with Circular Performance Model.” <em>Complementary Training</em>.</p>
+</div>
+<div id="ref-keoghSTRATOSGuidanceDocument2020">
+<p>Keogh, Ruth H., Pamela A. Shaw, Paul Gustafson, Raymond J. Carroll, Veronika Deffner, Kevin W. Dodd, Helmut Küchenhoff, et al. 2020. “STRATOS Guidance Document on Measurement Error and Misclassification of Variables in Observational Epidemiology: Part 1-Basic Theory and Simple Methods of Adjustment.” <em>Statistics in Medicine</em>, April. <a href="https://doi.org/10.1002/sim.8532">https://doi.org/10.1002/sim.8532</a>.</p>
+</div>
+<div id="ref-kuhnAppliedPredictiveModeling2018">
+<p>Kuhn, Max, and Kjell Johnson. 2018. <em>Applied Predictive Modeling</em>. 1st ed. 2013, Corr. 2nd printing 2016 edition. New York: Springer.</p>
+</div>
+<div id="ref-LedererSimex2006">
+<p>Lederer, Wolfgang, and Helmut Küchenhoff. 2006. “A Short Introduction to the SIMEX and MCSIMEX.” <em>R News</em> 6 (January).</p>
+</div>
+<div id="ref-ludbrookSPECIALARTICLECOMPARING1997">
+<p>Ludbrook, John. 1997. “SPECIAL ARTICLE COMPARING METHODS OF MEASUREMENT.” <em>Clinical and Experimental Pharmacology and Physiology</em> 24 (2): 193–203. <a href="https://doi.org/10.1111/j.1440-1681.1997.tb01807.x">https://doi.org/10.1111/j.1440-1681.1997.tb01807.x</a>.</p>
+</div>
+<div id="ref-ludbrookStatisticalTechniquesComparing2002">
+<p>Ludbrook, John. 2002. “Statistical Techniques for Comparing Measurers and Methods of Measurement: A Critical Review.” <em>Clinical and Experimental Pharmacology and Physiology</em> 29 (7): 527–36. <a href="https://doi.org/10.1046/j.1440-1681.2002.03686.x">https://doi.org/10.1046/j.1440-1681.2002.03686.x</a>.</p>
+</div>
+<div id="ref-ludbrookLinearRegressionAnalysis2010">
+<p>Ludbrook, John. 2010. “Linear Regression Analysis for Comparing Two Measurers or Methods of Measurement: But Which Regression?: Linear Regression for Comparing Methods.” <em>Clinical and Experimental Pharmacology and Physiology</em> 37 (7): 692–99. <a href="https://doi.org/10.1111/j.1440-1681.2010.05376.x">https://doi.org/10.1111/j.1440-1681.2010.05376.x</a>.</p>
+</div>
+<div id="ref-ludbrookPrimerBiomedicalScientists2012">
+<p>Ludbrook, John. 2012. “A Primer for Biomedical Scientists on How to Execute Model II Linear Regression Analysis: Model II Linear Regression Analysis.” <em>Clinical and Experimental Pharmacology and Physiology</em> 39 (4): 329–35. <a href="https://doi.org/10.1111/j.1440-1681.2011.05643.x">https://doi.org/10.1111/j.1440-1681.2011.05643.x</a>.</p>
+</div>
+<div id="ref-mullineauxAssessmentBiasComparing1999">
+<p>Mullineaux, David R., Christopher A. Barnes, and Alan M. Batterham. 1999. “Assessment of Bias in Comparing Measurements: A Reliability Example.” <em>Measurement in Physical Education and Exercise Science</em> 3 (4): 195–205. <a href="https://doi.org/10.1207/s15327841mpee0304_1">https://doi.org/10.1207/s15327841mpee0304_1</a>.</p>
+</div>
+<div id="ref-novickAxiomsPrincipalResults1966">
+<p>Novick, Melvin R. 1966. “The Axioms and Principal Results of Classical Test Theory.” <em>Journal of Mathematical Psychology</em> 3 (1): 1–18. <a href="https://doi.org/10.1016/0022-2496(66)90002-2">https://doi.org/10.1016/0022-2496(66)90002-2</a>.</p>
+</div>
+<div id="ref-shangMeasurementErrorAdjustment2012">
+<p>Shang, Yi. 2012. “Measurement Error Adjustment Using the SIMEX Method: An Application to Student Growth Percentiles: <em>Measurement Error Adjustment Using</em> <em>the</em> <em>SIMEX Method</em>.” <em>Journal of Educational Measurement</em> 49 (4): 446–65. <a href="https://doi.org/10.1111/j.1745-3984.2012.00186.x">https://doi.org/10.1111/j.1745-3984.2012.00186.x</a>.</p>
+</div>
+<div id="ref-shawSTRATOSGuidanceDocument2020">
+<p>Shaw, Pamela A., Paul Gustafson, Raymond J. Carroll, Veronika Deffner, Kevin W. Dodd, Ruth H. Keogh, Victor Kipnis, et al. 2020. “STRATOS Guidance Document on Measurement Error and Misclassification of Variables in Observational Epidemiology: Part 2-More Complex Methods of Adjustment and Advanced Topics.” <em>Statistics in Medicine</em>, April. <a href="https://doi.org/10.1002/sim.8531">https://doi.org/10.1002/sim.8531</a>.</p>
+</div>
+<div id="ref-swintonStatisticalFrameworkInterpret2018">
+<p>Swinton, Paul A., Ben Stephens Hemingway, Bryan Saunders, Bruno Gualano, and Eimear Dolan. 2018. “A Statistical Framework to Interpret Individual Response to Intervention: Paving the Way for Personalized Nutrition and Exercise Prescription.” <em>Frontiers in Nutrition</em> 5 (May). <a href="https://doi.org/10.3389/fnut.2018.00041">https://doi.org/10.3389/fnut.2018.00041</a>.</p>
+</div>
+<div id="ref-wallaceAnalysisImperfectWorld2020">
+<p>Wallace, Michael. 2020. “Analysis in an Imperfect World.” <em>Significance</em> 17 (1): 14–19. <a href="https://doi.org/10.1111/j.1740-9713.2020.01353.x">https://doi.org/10.1111/j.1740-9713.2020.01353.x</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="34">
+<li id="fn34"><p>These two types of error are conceptually equivalent to the bias and variance (see <a href="prediction.html#prediction">Prediction</a> section), and systematic and stochastic intervention effects (see <a href="causal-inference.html#causal-inference">Causal inference</a> section)<a href="measurement-error.html#fnref34" class="footnote-back">↩︎</a></p></li>
+<li id="fn35"><p>Both <code>SEM</code> and <code>TE</code> are used in the sports science literature and research. I personally prefer the simple <em>random error</em>, followed by <code>TE</code>. <code>SEM</code> has the same meaning as the <em>standard error of the mean</em> explained in the <a href="frequentist-perspective.html#frequentist-perspective">Frequentist perspective</a> chapter and might create confusion.<a href="measurement-error.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p>This should also be done with <code>TE</code> if we want to quantify uncertainty around single observation with a particular level of confidence (e.g. multiply <code>TE</code> with ±1.96 to get 95% confidence), assuming normally distributed random error that is additive.<a href="measurement-error.html#fnref36" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistical-inference-conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/10-Measurement-error.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

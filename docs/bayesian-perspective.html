@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Bayesian perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 7 Bayesian perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Bayesian perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="www.complementarytraining.net" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Bayesian perspective | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-06-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="frequentist-perspective.html"/>
+<link rel="next" href="bootstrap.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.1</b> Validity</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.2</b> Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
+<li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
+<li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
+<li class="chapter" data-level="17" data-path="recommended-material.html"><a href="recommended-material.html"><i class="fa fa-check"></i><b>17</b> Recommended material</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian-perspective" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Bayesian perspective</h1>
+<p>Bayesian inference is reallocation of plausibility (credibility) across possibilities <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; McElreath <a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span>. Kruschke and Liddell <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, 156)</span> wrote in their paper as follows:</p>
+<blockquote>
+<p>“The main idea of Bayesian analysis is simple and intuitive. There are some data to be explained, and we have a set of candidate explanations. Before knowing the new data, the candidate explanations have some prior credibility of being the best explanation. Then, when given the new data, we shift credibility toward the candidate explanations that better account for the data, and we shift credibility away from the candidate explanations that do not account well for the data. A mathematically compelling way to reallocate credibility is called Bayes’ rule. The rest is just details.”</p>
+</blockquote>
+<p>The aim of this section is to provide the gross overview of the Bayesian inference using <em>grid approximation</em> method <span class="citation">(McElreath <a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span>, which is excellent teaching tool, but very limited for Bayesian analysis beyond simple mean and simple linear regression inference. More elaborate discussion on the Bayesian methods, such as Bayes factor, priors selection, model comparison, and <em>Markov Chain Monte Carlo</em> sampling is beyond the scope of this book. Interested readers are directed to the references provided and suggested readings at the end of this book.</p>
+<div id="grid-approximation" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Grid approximation</h2>
+<p>To showcase the rationale behind Bayesian inference let’s consider the same example used in <a href="frequentist-perspective.html#frequentist-perspective">Frequentist perspective</a> chapter - the male height. The question we are asking is, given our data, what is the true average male height (<code>mean</code>; mu or Greek letter <span class="math inline">\(\mu\)</span>) and <code>SD</code> (sigma or Greek letter <span class="math inline">\(\sigma\)</span>). You can immediately notice the difference in the question asked. In the frequentist approach we are asking “What is the probability of observing the data<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a> (estimator, like <code>mean</code> or <code>Cohen's d</code>), given the null hypothesis?”</p>
+<p>True average male height and true <code>SD</code> represents parameters, and with Bayesian inference we want to relocate credibility across possibilities of those parameters (given the data collected). For the sake of this simplistic example, let’s consider the following possibilities for the <code>mean</code> height: 170, 175, 180cm, and for SD: 9, 10, 11cm. This gives us the following <em>grid</em> (Table <a href="bayesian-perspective.html#tab:bayes-height-grid">7.1</a>), which combines all possibilities in the parameters, hence the name grid approximation. Since we have three possibilities for each parameter, the grid consists of 9 total possibilities.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid">Table 7.1: </span><strong>Parameter possibilities</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="priors" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Priors</h2>
+<p>Before analyzing the collected data sample, with Bayesian inference we want to state the <em>prior</em> beliefs in parameter possibilities. For example, I might state that from previous data collected, I believe that the <code>mean</code> height is around 170 and 180cm, with a peak at 175cm (e.g. approximating normal curve). We will come back to topic of prior later on, but for now lets use <em>uniform</em> or <em>vague</em> prior, which assigns equal plausibility to all <code>mean</code> height and <code>SD</code> possibilities. Since each parameter has three possibilities, and since probabilities needs to sum up to 1, each possibility has probability of 1/3 or 0.333. This is assigned to our grid in the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-priors">7.2</a>.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-priors">Table 7.2: </span><strong>Parameter possibilities with priors</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+mu prior
+</th>
+<th style="text-align:right;">
+sigma prior
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="likelihood-function" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Likelihood function</h2>
+<p>The sample height data we have collected for N=5 individuals is 167, 192, 183, 175, 177cm. From this sample we are interested in making inference to the true parameter values (i.e. <code>mean</code> and <code>SD</code>, or <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>). Without going into the <em>Bayes theorem</em> for <em>inverse probability</em>, the next major step is the <em>likelihood function</em>. Likelihood function gives us a likelihood of observing data, given parameters. Since we have 9 parameter possibilities, we are interested in calculating the likelihood of observing the data for each possibility. This is represented with a following Equation <a href="bayesian-perspective.html#eq:likelihood-function">(7.1)</a>:</p>
+<p><span class="math display" id="eq:likelihood-function">\[
+\begin{equation}
+  L(x|\mu, \sigma) = \prod_{i=1}^{n}f(x_{i}, \mu, \sigma) 
+  \tag{7.1}
+\end{equation}
+\]</span></p>
+<p>The likelihood of observing the data is calculated by taking the <em>product</em> (indicated by <span class="math inline">\(\prod_{i=1}^{n}\)</span> sign in the Equation <a href="bayesian-perspective.html#eq:likelihood-function">(7.1)</a> of likelihood of observing individual scores. The likelihood function is normal <em>probability density function</em> (PDF)<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a>:, whose parameters are <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> (see Figure <a href="bayesian-perspective.html#fig:data-likelihood">7.1</a>). This function has the following Equation <a href="bayesian-perspective.html#eq:likelihood-equation">(7.2)</a>:</p>
+<p><span class="math display" id="eq:likelihood-equation">\[
+\begin{equation}
+  f(x_{i}, \mu, \sigma) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2}) }} {\sigma\sqrt{2\pi}}
+  \tag{7.2}
+\end{equation}
+\]</span></p>
+<p>Let’s take a particular possibility of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, e.g. 175cm and 9cm, and calculate likelihoods for each observed score (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-likelihood">7.3</a>).</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-likelihood">Table 7.3: </span><strong>Likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+likelihood
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+177
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now, to estimate likelihood of the sample, we need to take the product of each individual score likelihoods. However, now we have a problem, since the result will be very, very small number (1.272648^{-8}). To solve this issue, we take the log of the likelihood function. This is called <em>log likelihood</em> (LL) and it is easier to compute without the fear of losing digits. Table <a href="bayesian-perspective.html#tab:bayes-height-grid-log-likelihood">7.4</a> contains calculated log from the score likelihood.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-log-likelihood">Table 7.4: </span><strong>Likelihoods and log likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+likelihood
+</th>
+<th style="text-align:right;">
+LL
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+-3.51
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-4.90
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+-3.51
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-3.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+177
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-3.14
+</td>
+</tr>
+</tbody>
+</table>
+<p>Rather than taking a product of the LL to calculate the overall likelihood of the sample, we take the sum. This is due the properties of the logarithmic algebra, where <span class="math inline">\(\log{x_1\times x_2} = log{x_1} + log{x_2}\)</span>, which means that if we take the exponent of the sum of the log likelihoods, we will get the same result as taking the exponent of the product of likelihoods. Thus the overall log likelihood of observing the sample is equal to -18.18. If we take the exponent of this, we will get the same results as the product of individual likelihoods, which is equal to 1.272648^{-8}. This <em>mathematical trick</em> is needed to prevent very small numbers and thus loosing precision.</p>
+<p>If we repeat the same procedure for every parameter possibility in our grid, we get the following log likelihoods (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-log-likelihood-product">7.5</a>). This procedure is also visually represented in the Figure <a href="bayesian-perspective.html#fig:data-likelihood">7.1</a> for easier comprehension.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-log-likelihood-product">Table 7.5: </span><strong>Sum of data log likelihoods for parameter possibilities</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+mu prior
+</th>
+<th style="text-align:right;">
+sigma prior
+</th>
+<th style="text-align:right;">
+LL
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-20.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.18
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-17.78
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-19.79
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.21
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-17.89
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-19.63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.32
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.06
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:data-likelihood"></span>
+<img src="07-Bayesian-perspective_files/figure-html/data-likelihood-1.png" alt="Likelihood of data given parameters. \(\mu\) and \(\sigma\) represent parameters for which we want to estimate likelihood of observing data collected" width="90%" />
+<p class="caption">
+Figure 7.1: <strong>Likelihood of data given parameters. </strong><span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> represent parameters for which we want to estimate likelihood of observing data collected
+</p>
+</div>
+
+</div>
+<div id="posterior-probability" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Posterior probability</h2>
+<p>To get the <em>posterior</em> probabilities of parameter possibilities, likelihoods need to be multiplied with priors (<span class="math inline">\(posterior = prior \times likelihood\)</span>). This is called <em>Bayesian updating</em>. Since we have log likelihoods, we need to sum the log likelihoods with log of priors instead (<span class="math inline">\(\log{posterior} = \log{prior} + \log{likelihood}\)</span>). To get the posterior probability, after converting log posterior to posterior using exponent (<span class="math inline">\(posterior = e^{\log{posterior}}\)</span>)<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a>, we need to make sure that probabilities of parameter possibility sum to one. This is done by simply dividing probabilities for each parameter possibility by the sum of probabilities.</p>
+<p>Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior">7.6</a> contains the results of Bayesian inference. The posterior probabilities are called <em>joint probabilities</em> since they represent probability of a combination of particular <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> possibility.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-posterior">Table 7.6: </span><strong>Estimated posterior probabilities for parameter possibilities given the data</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+mu prior
+</th>
+<th style="text-align:right;">
+sigma prior
+</th>
+<th style="text-align:right;">
+LL
+</th>
+<th style="text-align:right;">
+posterior
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-20.12
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.18
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-17.78
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-19.79
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.21
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-17.89
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-19.63
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.32
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-18.06
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior">7.6</a> can be be converted into 3x3 matrix, with possibilities of <span class="math inline">\(\mu\)</span> in the columns, and possibilities of the <span class="math inline">\(\sigma\)</span> in the rows and posterior joint probabilities in the cells (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>). The <em>sums</em> of the joint probabilities in the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a> margins represent <em>marginal probabilities</em> for parameters.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-height-grid-posterior-matrix">Table 7.7: </span><strong>Joint distribution of the parameter possibilities. </strong>Sums at the table margins represent marginal probabilities
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+170
+</th>
+<th style="text-align:right;">
+175
+</th>
+<th style="text-align:right;">
+180
+</th>
+<th style="text-align:right;">
+Sum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sum
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>Since we have only two parameters, the joint probabilities can be represented with the <em>heat map</em>. Figure <a href="bayesian-perspective.html#fig:heat-map">7.2</a> is a visual representation of the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:heat-map"></span>
+<img src="07-Bayesian-perspective_files/figure-html/heat-map-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities" width="90%" />
+<p class="caption">
+Figure 7.2: <strong>Heat map of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> joint probabilities</strong>
+</p>
+</div>
+
+<p>When we have more than 2 parameters, visualization of joint probabilities get’s tricky and we rely on visualizing marginal posterior probabilities of each parameter instead. As explained, marginal probabilities are calculated by summing all joint probabilities for a particular parameter possibility (see Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>). Figure @ref(fig:(marginal-prior-posterior) depicts marginal probabilities (including prior probabilities) for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:marginal-prior-posterior"></span>
+<img src="07-Bayesian-perspective_files/figure-html/marginal-prior-posterior-1.png" alt="Prior and posterior distributions resulting from simplified grid-approximation example" width="90%" />
+<p class="caption">
+Figure 7.3: <strong>Prior and posterior distributions resulting from simplified grid-approximation example</strong>
+</p>
+</div>
+
+<p>As can be seen from the Figures <a href="bayesian-perspective.html#fig:heat-map">7.2</a> and <a href="bayesian-perspective.html#fig:marginal-prior-posterior">7.3</a>, the most likely parameter possibilities, given the data, are <span class="math inline">\(\mu\)</span> of 180cm and <span class="math inline">\(\sigma\)</span> of 9cm.</p>
+</div>
+<div id="adding-more-possibilities" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Adding more possibilities</h2>
+<p>So far, we have made this very granular in order to be understood. However, since we are dealing with continuous parameters, performing grid approximation for more than 9 total parameter possibilities seems warranted. The calculus is exactly the same, as well as the sample collected, but now we will use the larger range for both <span class="math inline">\(\mu\)</span> (160-200cm) and <span class="math inline">\(\sigma\)</span> (1-30cm), each with 100 possibilities. We are estimating credibility for total of <span class="math inline">\(100 \times 100 = 10,000\)</span> parameter possibilities. Figure <a href="bayesian-perspective.html#fig:heat-map-100-100">7.4</a> depicts heat map for the joint probabilities, and Figure <a href="bayesian-perspective.html#fig:marginal-100-100">7.5</a> depicts prior and posterior marginal distributions for each parameter.</p>
+<div class="figure" style="text-align: center"><span id="fig:heat-map-100-100"></span>
+<img src="07-Bayesian-perspective_files/figure-html/heat-map-100-100-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities when \(100\times 100\) grid-approximation is used" width="90%" />
+<p class="caption">
+Figure 7.4: <strong>Heat map of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> joint probabilities when <span class="math inline">\(100\times 100\)</span> grid-approximation is used</strong>
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:marginal-100-100"></span>
+<img src="07-Bayesian-perspective_files/figure-html/marginal-100-100-1.png" alt="Prior and posterior distributions resulting from \(100\times 100\) grid-approximation example" width="90%" />
+<p class="caption">
+Figure 7.5: <strong>Prior and posterior distributions resulting from <span class="math inline">\(100\times 100\)</span> grid-approximation example</strong>
+</p>
+</div>
+
+<p>Grid approximation utilized here is great for educational purposes and very simple models, but as number of parameters increases, the number of total parameter possibility grow so large, that it might take millions of years for a single computer to compute the posterior distributions. For example, if we have linear regression model with two predictors, we will have 4 parameters to estimate (intercept <span class="math inline">\(\beta_{0}\)</span>, predictor one <span class="math inline">\(\beta_{1}\)</span>, predictor two <span class="math inline">\(\beta_{2}\)</span>, and residual standard error <span class="math inline">\(\sigma\)</span>), and if we use 100 possibilities for each parameter, we will get 10^8 total number of possibilities.</p>
+<p>This was the reason why Bayesian inference was not very practical. Until algorithms such as <em>Markov Chain Monte Carlo</em> (MCMC) emerged making Bayesian inference a walk in the park. Statistical Rethinking book by Richard McElreath is outstanding introduction into these topics.</p>
+</div>
+<div id="different-prior" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Different prior</h2>
+<p>In this example we have used vague priors for both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. But let’s see what happens when I strongly believe (before seeing the data), that <span class="math inline">\(\mu\)</span> is around 190cm (using normal distribution with mean 190 and SD of 2 to represent this prior), but I do not have a clue about <span class="math inline">\(\sigma\)</span> prior distribution and I choose to continue using uniform prior for this parameter.</p>
+<p>This prior belief is, of course, wrong, but maybe I am biased since I originate, let’s say from Montenegro, country with one of the tallest men. Figure <a href="bayesian-perspective.html#fig:strong-prior">7.6</a> contains plotted prior and posterior distributions. As can be seen, using very strong prior for <span class="math inline">\(\mu\)</span> shifted the posterior distribution to the higher heights. In other words, the data collected were not enough to <em>overcome</em> my prior belief about average height.</p>
+<div class="figure" style="text-align: center"><span id="fig:strong-prior"></span>
+<img src="07-Bayesian-perspective_files/figure-html/strong-prior-1.png" alt="Effects of very strong prior on posterior" width="90%" />
+<p class="caption">
+Figure 7.6: <strong>Effects of very strong prior on posterior</strong>
+</p>
+</div>
+
+</div>
+<div id="more-data" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> More data</h2>
+<p>The sample height data we have collected for N=5 individuals (167, 192, 183, 175, 177cm) was not strong to overcome prior belief. However, what if we sampled N=100 males from known population of known mean height of 177.8 and SD of 10.16? Figure <a href="bayesian-perspective.html#fig:more-data">7.7</a> depicts prior and posterior distributions in this example. As can be seen, besides having narrower posterior distributions for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, more data was able to overcome my strong prior bias towards mean height of 190cm.</p>
+<div class="figure" style="text-align: center"><span id="fig:more-data"></span>
+<img src="07-Bayesian-perspective_files/figure-html/more-data-1.png" alt="When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution" width="90%" />
+<p class="caption">
+Figure 7.7: <strong>When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution</strong>
+</p>
+</div>
+
+</div>
+<div id="summarizing-prior-and-posterior-distributions-with-map-and-hdi" class="section level2" number="7.8">
+<h2><span class="header-section-number">7.8</span> Summarizing prior and posterior distributions with MAP and HDI</h2>
+<p>In Bayesian statistics, the prior and posterior distributions are usually summarized using <em>highest maximum a posteriori</em> (MAP) and 90% or 95% <em>highest density interval</em> (HDI) <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; McElreath <a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span>. MAP is simply a <code>mode</code>, or the most probable point estimate. In other words, a point in the distribution with the highest probability. With normal distribution, MAP, <code>mean</code> and <code>median</code> are identical. The problems arise with distributions that are not symmetrical.</p>
+<p>HDI is similar to frequentist CI, but represents an interval which contains all points within the interval that have higher probability density than points outside the interval <span class="citation">(Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>, <a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">2019</a><a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">b</a>)</span>. HDI is more computationally expensive to estimate, but compared to <em>equal-tailed interval</em> (ETI) or <em>percentile interval</em>, that typically excludes 2.5% or 5% from each tail of the distribution (for 95% or 90% confidence respectively), HDI is not equal-tailed and therefore always includes the mode(s) of posterior distributions <span class="citation">(Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>, <a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">2019</a><a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">b</a>)</span>.</p>
+<p>Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a> depicts comparison between MAP and 90% HDI, <code>median</code> and 90% percentile interval or ETI, and <code>mean</code> and <span class="math inline">\(±1.64 \times SD\)</span> for 90% confidence interval. As can be seen from the Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a>, the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.</p>
+<div class="figure" style="text-align: center"><span id="fig:map-hdi"></span>
+<img src="07-Bayesian-perspective_files/figure-html/map-hdi-1.png" alt="Summarizing prior and posterior distribution. A. MAP and \(90\%\) HDI. B. Median and \(90\%\) ETI. C. Mean and \(\pm1.64\times SD\)" width="90%" />
+<p class="caption">
+Figure 7.8: <strong>Summarizing prior and posterior distribution. A. </strong>MAP and <span class="math inline">\(90\%\)</span> HDI. <strong>B.</strong> Median and <span class="math inline">\(90\%\)</span> ETI. <strong>C.</strong> Mean and <span class="math inline">\(\pm1.64\times SD\)</span>
+</p>
+</div>
+
+<p>Using SESOI as a trivial range, or as a ROPE <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>)</span>, Bayesian equivalence test can be performed by quantifying proportion of posterior distribution inside the SESOI band <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>; Makowski et al., <a href="#ref-makowskiIndicesEffectExistence" role="doc-biblioref">n.d.</a>)</span>. <a href="frequentist-perspective.html#magnitude-based-inference">Magnitude Based Inference</a> discussed in the the previous chapter, would also be valid way of describing the posterior distribution.</p>
+<p>Besides estimating using MAP and HDI, Bayesian analysis also allows hypothesis testing using <em>Bayes factor</em> or <em>MAP based p-value</em> <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>; Makowski et al., <a href="#ref-makowskiIndicesEffectExistence" role="doc-biblioref">n.d.</a>)</span>. Discussing these concepts is out of the range of this book and interested readers can refer to references provided for more information.</p>
+</div>
+<div id="comparison-to-nhst-type-i-errors" class="section level2" number="7.9">
+<h2><span class="header-section-number">7.9</span> Comparison to NHST Type I errors</h2>
+<p>How do the Bayesian HDIs compare to frequentist CIs? What are the Type I error rates when the data is sampled from the null-hypothesis? To explore this question, I will repeat the simulation from <a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation">New Statistics: Confidence Intervals and Estimation</a> section, where 1,000 samples of N=20 observations are sampled from a population where the true mean height is equal to 177.8cm and SD is equal to 10.16cm. Type I error is committed when the the 95% CIs or 95% HDI intervals of the sample mean don’t cross the true value in the population. Table <a href="bayesian-perspective.html#tab:bayes-type-i-error">7.8</a> contains Type I errors for frequentist and Bayesian estimation.</p>
+
+<table>
+<caption>
+<span id="tab:bayes-type-i-error">Table 7.8: </span><strong>Frequentist vs. Bayesian Type I errors</strong>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+method
+</th>
+<th style="text-align:right;">
+Sample
+</th>
+<th style="text-align:right;">
+Correct %
+</th>
+<th style="text-align:right;">
+Type I Errors %
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Bayesian
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+96.1
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Frequentist
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+95.5
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen from the Table <a href="bayesian-perspective.html#tab:bayes-type-i-error">7.8</a>, frequentist CI and Bayesian HDI Type I error rate are not identical (which could be due to the grid approximation method as well as due to only 1000 samples used). This is often a concern, since Bayesian methods do not control error rates <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>)</span>. Although frequentist methods revolve around limiting the probability of Type I errors, error rates are extremely difficult to pin down, particularly for complex models, and because they are based on sampling and testing intentions <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>)</span>. For more detailed discussion and comparison of Bayesian and frequentist methods regarding the error control see <span class="citation">Kruschke (<a href="#ref-kruschkeBayesianEstimationSupersedes2013" role="doc-biblioref">2013</a>)</span>; <span class="citation">Wagenmakers (<a href="#ref-wagenmakersPracticalSolutionPervasive2007" role="doc-biblioref">2007</a>)</span>; <span class="citation">Morey et al. (<a href="#ref-moreyFallacyPlacingConfidence2016" role="doc-biblioref">2016</a>)</span>. Papers by Kristin Sainani <span class="citation">(Sainani et al. <a href="#ref-sainaniMagnitudeBasedInference2019" role="doc-biblioref">2019</a>; Sainani <a href="#ref-sainaniProblemMagnitudebasedInference2018" role="doc-biblioref">2018</a>)</span> are also worth pondering about which will help in understanding estimation and comparison of Type I and Type II error rates between different inferential methods, particularly when magnitude-based inference using SESOI is considered.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-kruschkeBayesianEstimationSupersedes2013">
+<p>Kruschke, John K. 2013. “Bayesian Estimation Supersedes the T Test.” <em>Journal of Experimental Psychology: General</em> 142 (2): 573–603. <a href="https://doi.org/10.1037/a0029146">https://doi.org/10.1037/a0029146</a>.</p>
+</div>
+<div id="ref-kruschkeBayesianDataAnalysis2018">
+<p>Kruschke, John K., and Torrin M. Liddell. 2018a. “Bayesian Data Analysis for Newcomers.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 155–77. <a href="https://doi.org/10.3758/s13423-017-1272-1">https://doi.org/10.3758/s13423-017-1272-1</a>.</p>
+</div>
+<div id="ref-kruschkeBayesianNewStatistics2018">
+<p>Kruschke, John K., and Torrin M. Liddell. 2018a. “Bayesian Data Analysis for Newcomers.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 155–77. <a href="https://doi.org/10.3758/s13423-017-1272-1">https://doi.org/10.3758/s13423-017-1272-1</a>.</p> 2018b. “The Bayesian New Statistics: Hypothesis Testing, Estimation, Meta-Analysis, and Power Analysis from a Bayesian Perspective.” <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 178–206. <a href="https://doi.org/10.3758/s13423-016-1221-4">https://doi.org/10.3758/s13423-016-1221-4</a>.</p>
+</div>
+<div id="ref-makowskiBayestestRDescribingEffects2019">
+<p>Makowski, Dominique, Mattan Ben-Shachar, and Daniel Lüdecke. 2019a. “bayestestR: Describing Effects and Their Uncertainty, Existence and Significance Within the Bayesian Framework.” <em>Journal of Open Source Software</em> 4 (40): 1541. <a href="https://doi.org/10.21105/joss.01541">https://doi.org/10.21105/joss.01541</a>.</p>
+</div>
+<div id="ref-makowskiIndicesEffectExistence">
+<p>Makowski, Dominique, Mattan S. Ben-Shachar, SH Annabel Chen, and Daniel Lüdecke. n.d. “Indices of Effect Existence and Significance in the Bayesian Framework.” <a href="https://doi.org/10.31234/osf.io/2zexr">https://doi.org/10.31234/osf.io/2zexr</a>.</p>
+</div>
+<div id="ref-makowskiUnderstandDescribeBayesian2019">
+<p>Makowski, Dominique, Mattan S. Ben-Shachar, and Daniel Lüdecke. 2019b. “Understand and Describe Bayesian Models and Posterior Distributions Using bayestestR.” <em>CRAN</em>. <a href="https://doi.org/10.5281/zenodo.2556486">https://doi.org/10.5281/zenodo.2556486</a>.</p>
+</div>
+<div id="ref-mcelreathStatisticalRethinkingBayesian2015">
+<p>McElreath, Richard. 2015. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. 1 edition. Boca Raton: Chapman and Hall/CRC.</p>
+</div>
+<div id="ref-moreyFallacyPlacingConfidence2016">
+<p>Morey, Richard D., Rink Hoekstra, Jeffrey N. Rouder, Michael D. Lee, and Eric-Jan Wagenmakers. 2016. “The Fallacy of Placing Confidence in Confidence Intervals.” <em>Psychonomic Bulletin &amp; Review</em> 23 (1): 103–23. <a href="https://doi.org/10.3758/s13423-015-0947-8">https://doi.org/10.3758/s13423-015-0947-8</a>.</p>
+</div>
+<div id="ref-sainaniProblemMagnitudebasedInference2018">
+<p>Sainani, Kristin L. 2018. “The Problem with "Magnitude-Based Inference".” <em>Medicine and Science in Sports and Exercise</em> 50 (10): 2166–76. <a href="https://doi.org/10.1249/MSS.0000000000001645">https://doi.org/10.1249/MSS.0000000000001645</a>.</p>
+</div>
+<div id="ref-sainaniMagnitudeBasedInference2019">
+<p>Sainani, Kristin L., Keith R. Lohse, Paul Remy Jones, and Andrew Vickers. 2019. “Magnitude-Based Inference Is Not Bayesian and Is Not a Valid Method of Inference.” <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, May. <a href="https://doi.org/10.1111/sms.13491">https://doi.org/10.1111/sms.13491</a>.</p>
+</div>
+<div id="ref-wagenmakersPracticalSolutionPervasive2007">
+<p>Wagenmakers, Eric-Jan. 2007. “A Practical Solution to the Pervasive Problems Ofp Values.” <em>Psychonomic Bulletin &amp; Review</em> 14 (5): 779–804. <a href="https://doi.org/10.3758/BF03194105">https://doi.org/10.3758/BF03194105</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="31">
+<li id="fn31"><p>Personally, I found this confusing when I started my journey into inferential statistics. I prefer to state “What is the probability of observing value (i.e. estimate) of the selected <strong>estimator</strong> given the null hypothesis (null being estimator value)?”, rather than using the term <em>data</em>. We are making inferences using the data estimator, not the data <em>per se</em>. For example, we are not inferring whether the groups differ (i.e. data), but whether the group <code>means</code> differ (estimator).<a href="bayesian-perspective.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>There are other likelihood functions that one can use of course, similar to the various <em>loss functions</em> used in <a href="prediction.html#prediction">Prediction</a> section.<a href="bayesian-perspective.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn33"><p>There is one more <em>mathematical trick</em> done to avoid very small numbers explained in <span class="citation">McElreath (<a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span> and it involves doing the following calculation to get the posterior probabilities: <span class="math inline">\(posterior = e^{\log{posterior} - max(\log{posterior}))}\)</span>.<a href="bayesian-perspective.html#fnref33" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="frequentist-perspective.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/07-Bayesian-perspective.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
