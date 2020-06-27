@@ -7,12 +7,19 @@ editor_options:
 
 # Validity and Reliability
 
+Although we have *sort-of-touched* validity and reliability topics in the [Measurement Error] chapter, here I will spend more time explaining the concepts and the use of `bmbstats` functions to perform the analysis. As pointed out multiple times thorough this book, simulation and the knowledge of the data generating process (DGP) is very helpful in understanding the analysis and what we are trying to do. To understand validity and reliability analyses, it is thus best to generate the data (i.e. simulate the DGP). 
+
 ## Data generation
+
+Let's imagine that we know the *true* vertical jump scores for N=20 individuals. We measure this true score with a *gold standard* device twice (i.e. trial 1 and trial 2). Unfortunately, this *criterion* device is expensive or takes a lot of time, so we have developed a *practical* device that measures vertical jump height much quicker and cheaper. Unfortunately, we do not know the measurement error of this device and we want to estimate how valid and reliable this practical measure is. Luckily for us, we generate the data, so we actually know all the measurement error components (i.e. fixed and proportional bias components of the the systematic error and random error). 
+
+The below code generates the data for both criteriona and practical measures using two trials and N=20 athletes:
 
 
 ```r
 require(tidyverse)
 require(bmbstats)
+require(cowplot)
 
 n_subjects <- 20
 
@@ -52,23 +59,38 @@ head(agreement_data)
 #> # … with 1 more variable: Practical_score.trial2 <dbl>
 ```
 
+The assumption of the above DGP is that true score stays unchanged for trial 1 and trial 2. Thus, the only thing that creates variance in the criterion and practical measures is the random error component of the measurement error. 
+
+It is also assumed that there is no *biological noise* involved in the measurement error.  We will make this example a bit more complex later on, so for now let's stick to this sand box example. 
+
 ## Validity
+
+*“How well does the measure measure what it's supposed to measure?”* [@hopkinsBiasBlandAltmanNot2004; @hopkinsSocraticDialogueComparison2010; @hopkinsSpreadsheetsAnalysisValidity2015] is the question validity analysis tries to answer. There are few common approaches to estimate validity of the measurements, with Bland-Altman analysis [@blandStatisticalMethodsAssessing1986; @giavarinaUnderstandingBlandAltman2015] being one of the most used (also referred to as the *method of the differences*), linear regression, and *ordinary least products* (OLP) being a better alternative [@ludbrookLinearRegressionAnalysis2010; @ludbrookPrimerBiomedicalScientists2012; @ludbrookSPECIALARTICLECOMPARING1997; @ludbrookStatisticalTechniquesComparing2002; @mullineauxAssessmentBiasComparing1999]. Since we have simulated the DGP, we know exactly the measurement error components as well as true scores (which we do not know in the *real life*). 
 
 ### True vs Criterion
 
+To *re-create* DGP parameters for the criterion measure, we will use the true scores as a predictor, and criterion score (trial 1) as the outcome. Here is the scatter plot:
+
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Criterion Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+ggplot(
+  agreement_data,
+  aes(
+    x = True_score,
+    y = Criterion_score.trial1
+  )
+) +
+  theme_cowplot(8) +
+  geom_point()
 ```
 
 <img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+For the sake of this example, let's assume that SESOI is equal to ±2.5cm (for the criterion score). We are interested in few things: (1) re-create the DGP components, or (2) can we predict the true score from the criterion score (which implies flipping predictor and outcome variables). Most validity research papers in the sports science are concerned with with describing or explaining the validity by trying to re-create the DGP components, while not many are concerned with predictive performance of the model. Let's deal with the descriptive (i.e explanatory) tasks first. 
+
+#### Method of the differences
+
+Using the `bmbstats::plot_pair_BA` function we can generate Bland-Altman plot for the true score and the criterion score:
 
 
 ```r
@@ -84,45 +106,89 @@ bmbstats::plot_pair_BA(
 
 <img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
 
-### True vs Practical
+Panel A in the previous figure depicts simple scatter plot with added *identity line* (dashed line), SESOI band around identity line, and linear regression model (blue line; this could be changed using the `control = bmbstats::plot_contron()` parameter). Panel B depicts the difference between criterion and true score (oy y-axis) and their average (on the x-axis). Using SESOI of ±2.5cm, we can conclude that all the differences fall within the SESOI band, confirming that the criterion measure has outstanding practical validity characteristic. 
+
+How do we re-create the DGP parameters? Well, using Bland-Altman method, both fixed and proportional bias are lumped together in the `bias` (i.e. `mean difference`) estimator, and random error component is estimated using `SD` of the differences. Let's write a simple estimator function to perform method of the differences validity analysis (do not mind the names of the function parameters; I know they make thing more confusing, but bear with me for a second):
+
+
+```r
+differences_method <- function(data,
+                                criterion,
+                                practical,
+                                SESOI_lower = 0,
+                                SESOI_upper = 0,
+                                na.rm = FALSE) {
+  
+  practical_obs <- data[[practical]]
+  criterion_obs <- data[[criterion]]
+
+  SESOI_range <- SESOI_upper - SESOI_lower
+  
+  diff <- criterion_obs - practical_obs
+  
+  n_obs <- length(diff)
+  
+  mean_diff <- mean(diff, na.rm = na.rm)
+  sd_diff <- sd(diff, na.rm = na.rm)
+  
+  PPER <- stats::pt((SESOI_upper - mean_diff) / sd_diff, df = n_obs - 1) - 
+    stats::pt((SESOI_lower - mean_diff) / sd_diff, df = n_obs - 1)
+  
+  c(
+    "Mean diff" = mean_diff,
+    "SD diff" = sd_diff,
+    PPER = PPER
+  )
+  
+}
+
+# Run the analysis
+differences_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>   Mean diff     SD diff        PPER 
+#> -0.07726199  0.26125825  0.99999999
+```
+
+We do know that the random error for the criterion score is 0.3cm since we have generated the data, and `SD diff` is our estimate of that parameter. Let's perform bootstrap method to get confidence intervals for these estimators using `bmbstats::validity_analysis` function with `differences_method` as a parameter:
+
+
+```r
+difference_validity <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  estimator_function = differences_method
+)
+
+difference_validity
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>  estimator       value      lower      upper
+#>  Mean diff -0.07726199 -0.1814227 0.04638186
+#>    SD diff  0.26125825  0.1971420 0.34795486
+#>       PPER  0.99999999  0.9999992 1.00000000
+```
+
+As can be seen in the results, 95% CIs for the `SD diff` captures the true DGP parameter value for the random error of the criterion measure.
+
+#### Linear Regression method
+
+Another approach involves using simple linear regression method, where `RSE` is used to estimate `PPER` estimator. Using linear regression we can estimate the intercept (i.e. fixed bias), slope (i.e. proportional bias), and random error (i.e. `RSE`). Before writing the estimators function, let's plot the relationship using `bmbstats::plot_pair_lm`:
 
 
 ```r
 bmbstats::plot_pair_lm(
   predictor = agreement_data$True_score,
-  outcome = agreement_data$Practical_score.trial1,
+  outcome = agreement_data$Criterion_score.trial1,
   predictor_label = "True Score",
-  outcome_label = "Practical Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-```
-
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
-
-
-```r
-bmbstats::plot_pair_BA(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Practical Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-```
-
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
-
-### Criterion vs Practical
-
-
-```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$Criterion_score.trial1,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "Criterion Score",
-  outcome_label = "Practical Score",
+  outcome_label = "Criterion Score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5
 )
@@ -130,18 +196,223 @@ bmbstats::plot_pair_lm(
 
 <img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
 
+The linear regression parameters are used as estimates of the measurement error:
+
 
 ```r
-bmbstats::plot_pair_BA(
-  predictor = agreement_data$Criterion_score.trial1,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "Criterion Score",
-  outcome_label = "Practical Score",
+lm_method <- function(data,
+                                criterion,
+                                practical,
+                                SESOI_lower = 0,
+                                SESOI_upper = 0,
+                                na.rm = FALSE) {
+  
+  practical_obs <- data[[practical]]
+  criterion_obs <- data[[criterion]]
+
+  SESOI_range <- SESOI_upper - SESOI_lower
+  
+  lm_model <- lm(criterion_obs~practical_obs)
+  
+  n_obs <- length(criterion_obs)
+  
+  intercept <- coef(lm_model)[[1]]
+  slope <- coef(lm_model)[[2]]
+  rse <- summary(lm_model)$sigma
+  
+  # This is very close to 0, but will use it nonetheless 
+  mean_diff <- mean(residuals(lm_model))
+
+  PPER <- stats::pt((SESOI_upper - mean_diff) / rse, df = n_obs - 1) - 
+    stats::pt((SESOI_lower - mean_diff) / rse, df = n_obs - 1)
+  
+  c(
+    "Fixed bias" = intercept,
+    "Proportinal bias" = slope,
+    "Random error" = rse,
+    PPER = PPER
+  )
+  
+}
+
+# Run the analysis
+lm_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>       Fixed bias Proportinal bias     Random error             PPER 
+#>       -0.4518909        1.0084198        0.2643645        1.0000000
+```
+
+We will use `bmbstats::validity_analysis` to get 95% CIs around the estimates:
+
+
+```r
+lm_validity <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  estimator_function = lm_method
+)
+
+lm_validity
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>         estimator      value      lower     upper
+#>        Fixed bias -0.4518909 -1.1181213 0.6878039
+#>  Proportinal bias  1.0084198  0.9846949 1.0227959
+#>      Random error  0.2643645  0.1798172 0.3475890
+#>              PPER  1.0000000  0.9999992 1.0000000
+```
+
+Since we know the DGP behind the criterion measure, we can confirm that fixed bias estimate CI captured 0, proportional bias captured 1 and that random error captured 0.3. We have thus managed to re-create DGP parameters using simple linear regression. 
+
+We can also perform NHST for fixed and proportional bias, and random error:
+
+
+```r
+bmbstats::bootstrap_NHST(
+  lm_validity,
+  estimator = "Fixed bias",
+  null_hypothesis = 0, 
+  test = "two.sided"
+)
+#> Null-hypothesis significance test for the `Fixed bias` estimator
+#> Bootstrap result: Fixed bias=-0.452, 95% CI [-1.118, 0.688]
+#> H0=0, test: two.sided
+#> p=0.282
+```
+
+
+```r
+bmbstats::bootstrap_NHST(
+  lm_validity,
+  estimator = "Proportinal bias",
+  null_hypothesis = 1, 
+  test = "two.sided"
+)
+#> Null-hypothesis significance test for the `Proportinal bias` estimator
+#> Bootstrap result: Proportinal bias=1.008, 95% CI [0.985, 1.023]
+#> H0=1, test: two.sided
+#> p=0.332
+```
+
+
+```r
+bmbstats::bootstrap_NHST(
+  lm_validity,
+  estimator = "Random error",
+  null_hypothesis = criterion_random, 
+  test = "two.sided"
+)
+#> Null-hypothesis significance test for the `Random error` estimator
+#> Bootstrap result: Random error=0.264, 95% CI [0.18, 0.348]
+#> H0=0.3, test: two.sided
+#> p=0.437
+```
+
+Please notice the similarity between `SD diff` from the method of differences and `RSE` estimator, both of which are estimates of the random error of the measurement error:
+
+
+```r
+rbind(
+  difference_validity$estimators[2,],
+  lm_validity$estimators[3,]
+)
+#>      estimator     value     lower     upper
+#> 2      SD diff 0.2612583 0.1971420 0.3479549
+#> 3 Random error 0.2643645 0.1798172 0.3475890
+```
+
+#### OLP method
+
+Ordinary least product approach calculates the residuals using product between y-residual $y - \hat{y}$ and x-residual $x - \hat{x}$. This method is used more in reliability analysis when we do not know which variable is predictor and which is the outcome or target, but it can be used with the validity analysis as well. OLP method doesn't assume that the x-variable is without random error, which in this example doesn't help since we are using the true score (and the true score is without random error). But it is useful *exactly* for this reason for the real-world analysis when both variables (x and y) have random error involved. Here is a quote from Ludbrook 1997 paper [@ludbrookSPECIALARTICLECOMPARING1997, pp.194]:
+
+>"It is an important assumption of OLS regression that whereas the values of Y in the population that has been sampled are attended by error, those of X are not. Strictly, this can be so only if the X values are categorical: for instance, conditions, treatments or places. However, most statistical theorists follow the advice of Berkson, which is that if the X values have been fixed in advance by the experimenter (e.g. by specifying times,
+doses or settings of a pump), then they can be regarded for practical purposes as error-free.2 When X is error-free, Model I regression analysis is the proper form to use. It includes the well-known OLS regression technique as well as modifications of it, such as weighted least squares (WLS) regression.
+
+>When both X and Y are free to vary and are attended by error, some statisticians allow that Model I regression analysis may still be used if it is certain, on biological grounds, that Y must depend on X and never the reverse. This is the case, for instance, in dose- or stimulus-response relationships. Even then, the Model I regression line should be used for empirical, rather than explanatory, purposes.
+
+>When investigators plan experiments to compare methods of measurement, they must assume that both Y and X will be attended by random error. Moreover, it is impossible to decide which method should be regarded as dependent and which independent and because of this it is wrong to use Model I
+regression analysis. Instead, one or another form of Model I regression analysis must be used. These are described later."
+
+To plot OLP regression, use `bmbstats::plot_pair_OLP` function. The OLP regression, in this case, looks very close to simple linear regression: 
+
+
+```r
+bmbstats::plot_pair_OLP(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Criterion Score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+The default estimator function in `bmbstats::validity_analysis` (`bmbstats::validity_estimators`) and `bmbstats::reliability_analysis` (`bmbstats::reliability_estimators`; described later) uses OLP method implemented in `bmbstats::OLP_regression` function. Let's check the output:
+
+
+```r
+bmbstats::validity_estimators(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE 
+#>   -2.5000000    2.5000000    5.0000000   -0.5024828    1.0095568    0.2644390 
+#>  Pearson's r    R Squared SESOI to RSE         PPER          SDC 
+#>    0.9988737    0.9977487   18.9079555    1.0000000    0.5534771
+```
+
+Additional estimator in this list is `SDC`. `SDC` is the *smallest detectable change*, and in this case represents the smallest change in the criterion measure for which we have 95% confidence it involves change in the true score. In other words, `SDC` represents a 95% *coverage* in the criterion for the same value of true score. `SDC` is calculated using `RSE` and critical threshold using t-distribution to have a 95% coverage.  
+
+To estimate 95% CIs for these estimators, use the *default* `bmbstats::validity_analysis`:
+
+
+```r
+olp_validity <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
+#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
+
+olp_validity
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>     estimator      value      lower      upper
+#>   SESOI lower -2.5000000         NA         NA
+#>   SESOI upper  2.5000000         NA         NA
+#>   SESOI range  5.0000000         NA         NA
+#>     Intercept -0.5024828 -1.1136357  0.6485754
+#>         Slope  1.0095568  0.9854949  1.0226245
+#>           RSE  0.2644390  0.1808726  0.3557541
+#>   Pearson's r  0.9988737  0.9971149  0.9996844
+#>     R Squared  0.9977487  0.9942380  0.9993688
+#>  SESOI to RSE 18.9079555 14.0844803 27.7706393
+#>          PPER  1.0000000  0.9999989  1.0000000
+#>           SDC  0.5534771  0.3785706  0.7446019
+```
+
+#### Prediction approach
+
+Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words
+
+**To be continued**
 
 ## Reliability
+
+## Adding biological noise to the data
