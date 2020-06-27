@@ -30,7 +30,7 @@ require(cowplot)
 n_subjects <- 20
 
 criterion_random <- 0.3
-practical_fixed <- 1
+practical_fixed <- 2
 practical_proportional <- 1.1
 practical_random <- 1
 
@@ -46,10 +46,10 @@ agreement_data <- tibble(
     )
   ),
   True_score = rnorm(n_subjects, 45, 5),
-  Criterion_score.trial1 = 0 + True_score * 1 + rnorm(n_subjects, 0, criterion_random),
-  Criterion_score.trial2 = 0 + True_score * 1 + rnorm(n_subjects, 0, criterion_random),
-  Practical_score.trial1 = practical_fixed + True_score * practical_proportional + rnorm(n_subjects, 0, practical_random),
-  Practical_score.trial2 = practical_fixed + True_score * practical_proportional + rnorm(n_subjects, 0, practical_random)
+  Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
+  Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
+  Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
+  Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
 )
 
 head(agreement_data)
@@ -102,33 +102,31 @@ How do we re-create the DGP parameters? Well, using Bland-Altman method, both fi
 
 ```{r echo=TRUE}
 differences_method <- function(data,
-                                criterion,
-                                practical,
-                                SESOI_lower = 0,
-                                SESOI_upper = 0,
-                                na.rm = FALSE) {
-  
+                               criterion,
+                               practical,
+                               SESOI_lower = 0,
+                               SESOI_upper = 0,
+                               na.rm = FALSE) {
   practical_obs <- data[[practical]]
   criterion_obs <- data[[criterion]]
 
   SESOI_range <- SESOI_upper - SESOI_lower
-  
+
   diff <- criterion_obs - practical_obs
-  
+
   n_obs <- length(diff)
-  
+
   mean_diff <- mean(diff, na.rm = na.rm)
   sd_diff <- sd(diff, na.rm = na.rm)
-  
-  PPER <- stats::pt((SESOI_upper - mean_diff) / sd_diff, df = n_obs - 1) - 
+
+  PPER <- stats::pt((SESOI_upper - mean_diff) / sd_diff, df = n_obs - 1) -
     stats::pt((SESOI_lower - mean_diff) / sd_diff, df = n_obs - 1)
-  
+
   c(
     "Mean diff" = mean_diff,
     "SD diff" = sd_diff,
     PPER = PPER
   )
-  
 }
 
 # Run the analysis
@@ -150,7 +148,8 @@ difference_validity <- bmbstats::validity_analysis(
   practical = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
-  estimator_function = differences_method
+  estimator_function = differences_method,
+  control = model_control(seed = 1667)
 )
 
 difference_validity
@@ -177,38 +176,36 @@ The linear regression parameters are used as estimates of the measurement error:
 
 ```{r echo=TRUE}
 lm_method <- function(data,
-                                criterion,
-                                practical,
-                                SESOI_lower = 0,
-                                SESOI_upper = 0,
-                                na.rm = FALSE) {
-  
+                      criterion,
+                      practical,
+                      SESOI_lower = 0,
+                      SESOI_upper = 0,
+                      na.rm = FALSE) {
   practical_obs <- data[[practical]]
   criterion_obs <- data[[criterion]]
 
   SESOI_range <- SESOI_upper - SESOI_lower
-  
-  lm_model <- lm(criterion_obs~practical_obs)
-  
+
+  lm_model <- lm(criterion_obs ~ practical_obs)
+
   n_obs <- length(criterion_obs)
-  
+
   intercept <- coef(lm_model)[[1]]
   slope <- coef(lm_model)[[2]]
   rse <- summary(lm_model)$sigma
-  
-  # This is very close to 0, but will use it nonetheless 
+
+  # This is very close to 0, but will use it nonetheless
   mean_diff <- mean(residuals(lm_model))
 
-  PPER <- stats::pt((SESOI_upper - mean_diff) / rse, df = n_obs - 1) - 
+  PPER <- stats::pt((SESOI_upper - mean_diff) / rse, df = n_obs - 1) -
     stats::pt((SESOI_lower - mean_diff) / rse, df = n_obs - 1)
-  
+
   c(
-    "Fixed bias" = intercept,
-    "Proportinal bias" = slope,
-    "Random error" = rse,
+    "Intercept" = intercept,
+    "Slope" = slope,
+    "RSE" = rse,
     PPER = PPER
   )
-  
 }
 
 # Run the analysis
@@ -230,21 +227,22 @@ lm_validity <- bmbstats::validity_analysis(
   practical = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
-  estimator_function = lm_method
+  estimator_function = lm_method,
+  control = model_control(seed = 1667)
 )
 
 lm_validity
 ```
 
-Since we know the DGP behind the criterion measure, we can confirm that fixed bias estimate CI captured 0, proportional bias captured 1 and that random error captured `r round(criterion_random, 2)`. We have thus managed to re-create DGP parameters using simple linear regression. 
+Since we know the DGP behind the criterion measure, we can confirm that fixed bias estimate (i.e. intercept) CI captured 0, proportional bias (i.e. slope) captured 1 and that random error (i.e. `RSE`) captured `r round(criterion_random, 2)`. We have thus managed to re-create DGP parameters using simple linear regression. 
 
-We can also perform NHST for fixed and proportional bias, and random error:
+We can also perform NHST for fixed and proportional bias, and random error (`RSE`):
 
 ```{r echo=TRUE}
 bmbstats::bootstrap_NHST(
   lm_validity,
-  estimator = "Fixed bias",
-  null_hypothesis = 0, 
+  estimator = "Intercept",
+  null_hypothesis = 0,
   test = "two.sided"
 )
 ```
@@ -252,8 +250,8 @@ bmbstats::bootstrap_NHST(
 ```{r echo=TRUE}
 bmbstats::bootstrap_NHST(
   lm_validity,
-  estimator = "Proportinal bias",
-  null_hypothesis = 1, 
+  estimator = "Slope",
+  null_hypothesis = 1,
   test = "two.sided"
 )
 ```
@@ -261,8 +259,8 @@ bmbstats::bootstrap_NHST(
 ```{r echo=TRUE}
 bmbstats::bootstrap_NHST(
   lm_validity,
-  estimator = "Random error",
-  null_hypothesis = criterion_random, 
+  estimator = "RSE",
+  null_hypothesis = criterion_random,
   test = "two.sided"
 )
 ```
@@ -271,8 +269,8 @@ Please notice the similarity between `SD diff` from the method of differences an
 
 ```{r echo=TRUE}
 rbind(
-  difference_validity$estimators[2,],
-  lm_validity$estimators[3,]
+  difference_validity$estimators[2, ],
+  lm_validity$estimators[3, ]
 )
 ```
 
@@ -280,13 +278,11 @@ rbind(
 
 Ordinary least product approach calculates the residuals using product between y-residual $y - \hat{y}$ and x-residual $x - \hat{x}$. This method is used more in reliability analysis when we do not know which variable is predictor and which is the outcome or target, but it can be used with the validity analysis as well. OLP method doesn't assume that the x-variable is without random error, which in this example doesn't help since we are using the true score (and the true score is without random error). But it is useful *exactly* for this reason for the real-world analysis when both variables (x and y) have random error involved. Here is a quote from Ludbrook 1997 paper [@ludbrookSPECIALARTICLECOMPARING1997, pp.194]:
 
->"It is an important assumption of OLS regression that whereas the values of Y in the population that has been sampled are attended by error, those of X are not. Strictly, this can be so only if the X values are categorical: for instance, conditions, treatments or places. However, most statistical theorists follow the advice of Berkson, which is that if the X values have been fixed in advance by the experimenter (e.g. by specifying times,
-doses or settings of a pump), then they can be regarded for practical purposes as error-free.2 When X is error-free, Model I regression analysis is the proper form to use. It includes the well-known OLS regression technique as well as modifications of it, such as weighted least squares (WLS) regression.
+>"It is an important assumption of OLS regression that whereas the values of Y in the population that has been sampled are attended by error, those of X are not. Strictly, this can be so only if the X values are categorical: for instance, conditions, treatments or places. However, most statistical theorists follow the advice of Berkson, which is that if the X values have been fixed in advance by the experimenter (e.g. by specifying times, doses or settings of a pump), then they can be regarded for practical purposes as error-free. When X is error-free, Model I regression analysis is the proper form to use. It includes the well-known OLS regression technique as well as modifications of it, such as weighted least squares (WLS) regression.
 
 >When both X and Y are free to vary and are attended by error, some statisticians allow that Model I regression analysis may still be used if it is certain, on biological grounds, that Y must depend on X and never the reverse. This is the case, for instance, in dose- or stimulus-response relationships. Even then, the Model I regression line should be used for empirical, rather than explanatory, purposes.
 
->When investigators plan experiments to compare methods of measurement, they must assume that both Y and X will be attended by random error. Moreover, it is impossible to decide which method should be regarded as dependent and which independent and because of this it is wrong to use Model I
-regression analysis. Instead, one or another form of Model I regression analysis must be used. These are described later."
+>When investigators plan experiments to compare methods of measurement, they must assume that both Y and X will be attended by random error. Moreover, it is impossible to decide which method should be regarded as dependent and which independent and because of this it is wrong to use Model I regression analysis. Instead, one or another form of Model I regression analysis must be used. These are described later."
 
 To plot OLP regression, use `bmbstats::plot_pair_OLP` function. The OLP regression, in this case, looks very close to simple linear regression: 
 
@@ -323,17 +319,488 @@ olp_validity <- bmbstats::validity_analysis(
   criterion = "Criterion_score.trial1",
   practical = "True_score",
   SESOI_lower = -2.5,
-  SESOI_upper = 2.5
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
 )
 
 olp_validity
 ```
 
-#### Prediction approach
+#### What happens if we flip the variables?
 
-Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words
+In the DGP we have used true scores to generate both criterion and practical measures, thus using true score as predictor (x-variable) and criterion as the outcome (y-variable) is valid approach to re-create the DGP parameters. Please note that `bmbstats::validity_analysis` uses `practical` parameter as predictor (x-variable) and `criterion` parameter as outcome variable (y-variable). 
 
-**To be continued**
+But in the real life (as we will soon see when using criterion and practical measures) we do not know the true scores and we might be interested in *predicting* criterion from the practical measures. Let's see what happens when we flip the predictor and outcome for all three methods:
+
+```{r echo=TRUE}
+difference_validity_flip <- bmbstats::validity_analysis(
+  data = agreement_data,
+  practical = "Criterion_score.trial1",
+  criterion = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  estimator_function = differences_method,
+  control = model_control(seed = 1667)
+)
+
+difference_validity_flip
+```
+
+```{r echo=TRUE}
+lm_validity_flip <- bmbstats::validity_analysis(
+  data = agreement_data,
+  practical = "Criterion_score.trial1",
+  criterion = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  estimator_function = lm_method,
+  control = model_control(seed = 1667)
+)
+
+lm_validity_flip
+```
+
+```{r echo=TRUE}
+olp_validity_flip <- bmbstats::validity_analysis(
+  data = agreement_data,
+  practical = "Criterion_score.trial1",
+  criterion = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
+)
+
+olp_validity_flip
+```
+
+Let's combine the result for the random error estimates so we can compare them all:
+
+```{r echo=TRUE}
+rand_err_estimates <- rbind(
+  data.frame(outcome = "Criterion", method = "Difference", difference_validity$estimators[2, ]),
+  data.frame(outcome = "True", method = "Difference", difference_validity_flip$estimators[2, ]),
+  data.frame(outcome = "Criterion", method = "lm", lm_validity$estimators[3, ]),
+  data.frame(outcome = "True", method = "lm", lm_validity_flip$estimators[3, ]),
+  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[6, ]),
+  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[6, ])
+)
+
+print(rand_err_estimates, row.names = FALSE)
+```
+
+As can be seen from the table, the estimates for the random error component of the criterion measure are very similar (although `SD diff` is smaller due dividing by $N-1$, while `RSE` uses $N-k-1$, where k is number of predictors, thus we get $N-2$) regardless of the method and which variable is the predictor and which is outcome. But this is the case since true score is the *true score* without measurement error. Let's see what happens in the *real-world*.
+
+### Practical vs Criterion
+
+In the real-world, we do not know the true scores. We can only use some type of the gold standard measure. In our DGP simulation we have generated both criterion and practical measures using the known true scores and measurement error for the each measure. Let's check if we can re-create DGP parameters for the practical measure (which has both proportional and fixed bias, as well as larger random error than criterion) using the criterion score. Here is the scatter plot of the two:
+
+```{r echo=TRUE}
+ggplot(
+  agreement_data,
+  aes(
+    x = True_score,
+    y = Practical_score.trial1
+  )
+) +
+  theme_cowplot(8) +
+  geom_point()
+```
+
+To re-create DGP for the practical measure, we need to use true score as the predictor (since that is how we have generated the practical scores). Let's use the simple linear regression method to do so:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$True_score,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "True Score",
+  outcome_label = "Practical Score"
+)
+```
+
+And let's estimate the 95% bootstrap confidence intervals:
+
+```{r echo=TRUE}
+lm_validity_practical <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Practical_score.trial1",
+  practical = "True_score",
+  SESOI_lower = NA,
+  SESOI_upper = NA,
+  estimator_function = lm_method,
+  control = model_control(seed = 1667)
+)
+
+lm_validity_practical
+```
+
+In our DGP, we have used fixed bias equal to `r round(practical_fixed, 2)`cm, proportional bias equal to `r round(practical_proportional, 2)`, and random error equal to `r round(practical_random, 2)`cm to generate the practical scores. As can be seen from results, our 95% CI captured the true DGP parameter values. 
+
+Unfortunately, we have to use the criterion measure, since we do not know the true scores. Let's check the results:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$Criterion_score.trial1,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "Criterion Score",
+  outcome_label = "Practical Score"
+)
+```
+
+And let's estimate the bootstrap 95% CIs:
+
+```{r echo=TRUE}
+lm_validity_practical_criterion <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Practical_score.trial1",
+  practical = "Criterion_score.trial1",
+  SESOI_lower = NA,
+  SESOI_upper = NA,
+  estimator_function = lm_method,
+  control = model_control(seed = 1667)
+)
+
+lm_validity_practical_criterion
+```
+
+Since criterion measure (in this case used as predictor, or x-variable) also contains random error, OLP method can be used instead:
+
+```{r echo=TRUE}
+olp_validity_practical_criterion <- bmbstats::validity_analysis(
+  data = agreement_data,
+  criterion = "Practical_score.trial1",
+  practical = "Criterion_score.trial1",
+  SESOI_lower = NA,
+  SESOI_upper = NA,
+  control = model_control(seed = 1667)
+)
+
+olp_validity_practical_criterion
+```
+
+Let's combine the three approaches so we can compare them more easily with the true DGP parameter values:
+
+```{r echo=TRUE}
+practical_estimators <- rbind(
+  data.frame(
+    method = "DGP",
+    estimator = c("Intercept", "Slope", "RSE"),
+    value = c(practical_fixed, practical_proportional, practical_random),
+    lower = NA,
+    upper = NA
+  ),
+  data.frame(method = "True lm", lm_validity_practical$estimators[1:3, ]),
+  data.frame(method = "Criterion lm", lm_validity_practical_criterion$estimators[1:3, ]),
+  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[4:6, ])
+)
+
+practical_estimators$method <- factor(
+  practical_estimators$method,
+  levels = rev(c("DGP", "True lm", "Criterion lm", "Criterion olp"))
+)
+
+practical_estimators$estimator <- factor(
+  practical_estimators$estimator,
+  levels = c("Intercept", "Slope", "RSE")
+)
+
+print(practical_estimators, row.names = FALSE)
+```
+
+Or plot for even more easier comparison (red vertical dashed line represent the true DGP parameter values):
+
+```{r echo=TRUE}
+ggplot(
+  data = filter(practical_estimators, method != "DGP"),
+  aes(y = method, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_vline(
+    data = filter(practical_estimators, method == "DGP"),
+    aes(xintercept = value),
+    linetype = "dashed", color = "red"
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
+```
+
+To understand how these methods and how their estimates behave when there is random error in the predictor variable (x-value; criterion in this case), let's create a quick simulation (see also the SIMEX procedure explained in the [What to do when we know the error?] section of the [Measurement Error] chapter). The DGP parameters of the practical measure will stay the same, but we will change the random error for the criterion score from 0 (i.e. making it essentially the true score), to double th random error of the practical score. 
+
+```{r echo=TRUE}
+simulation_df <- expand.grid(
+  simulation = seq(1, 500),
+  criterion_random_error = seq(0, 2 * practical_random, length.out = 10)
+)
+
+simulation_df <- simulation_df %>%
+  pmap_dfr(function(...) {
+    current <- tibble(...)
+
+    agreement_data <- tibble(
+      True_score = rnorm(n_subjects, 45, 5),
+      Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
+      Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
+    )
+    
+    cbind(current, agreement_data)
+  })
+
+head(simulation_df)
+```
+
+Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, slope, and random error) using simple linear regression and OLP regression using criterion as predictor and practical as the outcome variables. 
+
+```{r echo=TRUE}
+estimation_wrapper <- function(data) {
+  lm_true <- lm_method(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "True_score",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  lm_criterion <- lm_method(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  olp_criterion <- validity_estimators(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  data.frame(
+    simulation = data$simulation[1],
+    criterion_random_error = data$criterion_random_error[1],
+    method = c("True lm", "Criterion lm", "Criterion olp"),
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
+    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[5]),
+    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[6])
+  )
+}
+
+simulation_results <- simulation_df %>%
+  group_by(simulation, criterion_random_error) %>%
+  do(estimation_wrapper(.))
+
+
+head(simulation_results)
+```
+
+And now we can plot the results:
+
+```{r echo=TRUE}
+simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+
+# Join the true DGP values for plotting
+simulation_results_long <- left_join(
+  simulation_results_long,
+  data.frame(
+    key = c("Intercept", "Slope", "RSE"),
+    DGP = c(practical_fixed, practical_proportional, practical_random)
+  ),
+  by = "key"
+)
+
+simulation_results_long$key <- factor(
+  simulation_results_long$key,
+  levels = c("Intercept", "Slope", "RSE")
+)
+
+simulation_results_long$method <- factor(
+  simulation_results_long$method,
+  levels = c("True lm", "Criterion lm", "Criterion olp")
+)
+
+simulation_results_long_avg <- simulation_results_long %>%
+  group_by(method, criterion_random_error, key) %>%
+  summarise(
+    mean = mean(value),
+    upper = mean + (sd(value)),
+    lower = mean - (sd(value))
+  )
+
+ggplot(
+  simulation_results_long,
+  aes(x = criterion_random_error, y = value, group = simulation)
+) +
+  theme_cowplot(8) +
+  geom_line(alpha = 0.01) +
+  geom_ribbon(
+    data = simulation_results_long_avg,
+    aes(y = mean, ymin = lower, ymax = upper, group = 1),
+    alpha = 0.3, fill = "blue"
+  ) +
+  geom_line(
+    data = simulation_results_long_avg,
+    color = "white",
+    aes(y = mean, group = 1),
+    size = 1) +
+  facet_grid(key ~ method, scales = "free") +
+  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
+  ylab(NULL) +
+  xlab("Criterion random error")
+```
+
+
+Red dashed horizontal line on the graph indicate the true DGP parameter value, which we want to estimate. Thin black lines (spaghetti anyone?) indicate simulation results across different levels of random error in the criterion measure. These black lines are summarized with `mean` (thick white line) ± `SD` (blue ribbon). 
+
+As can be seen, the effect of changing random error in the criterion measure (predictor; x-value), while keeping the same random error in the practical measure (outcome) affects intercept, slope and random error estimates for criterion linear model and criterion OLP model. Intercept, slope, and `RSE` are only correctly estimated with simple regression model when there is no random error (0 on the x-axis). As the random error increases, both bias (i.e. simulations `mean`) and variance (i.e. simulations `SD`) are increased. 
+
+When it comes to OLP, due to random error in the practical measure, bias is involved in the intercept and slope estimates when there is no random error in the criterion. Intercept and slope are correctly estimated only when criterion has the same amount of random error as in the practical measure. OLP estimated `RSE` suffers the same issues as `RSE` estimated with simple linear model. 
+Estimating Type I errors using the bootstrapped CIs would involve slower/longer simulation and will not be considered here. Although I can speculate, as can be seen from the graphs, that these will not be great. 
+
+What can we do? Well, if we know the random error involved in the criterion score (i.e. predictor) we can *adjust* slope coefficient (see *attenuation effect* and slope adjustment explained in great article by Michael Wallace [[@wallaceAnalysisImperfectWorld2020, pp.17]]) or we can perform SIMEX as explained in the [Measurement Error] chapter. Let's repeat the simulation, but now let's use adjusted slope and `RSE`. `RSE` is adjusted by deducting known random error: $adjusted \;RSE^2 = estimated \; RSE^2 - known \; random \; error  ^2$. The problem emerges when known random error is larger from the estimated `RSE`, since we are taking a square root of their squared difference. We thus need to make a function that deals with that:
+
+```{r echo=TRUE}
+adjust_RSE <- function(est_RSE, known_error) {
+  ifelse(
+    est_RSE > known_error,
+    sqrt(est_RSE^2 - known_error^2),
+    -sqrt(known_error^2 - est_RSE^2)
+  )
+}
+```
+
+Let's summarize our simulation using adjusted slope and `RSE`:
+
+```{r echo=TRUE}
+estimation_wrapper <- function(data) {
+  
+  # Used for slope adjustment
+  sd_predictor <- sd(data$Criterion_score.trial1)
+  criterion_random_error <- data$criterion_random_error[1]
+  
+  slope_adj <- (sd_predictor^2 + criterion_random_error^2)/sd_predictor^2
+  
+  lm_true <- lm_method(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "True_score",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  lm_criterion <- lm_method(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  olp_criterion <- validity_estimators(
+    data = data,
+    criterion = "Practical_score.trial1",
+    practical = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  data.frame(
+    simulation = data$simulation[1],
+    criterion_random_error = data$criterion_random_error[1],
+    method = c("True lm", "Criterion lm", "Criterion olp"),
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
+    Slope = c(
+      lm_true[2],
+      lm_criterion[2] * slope_adj,
+      olp_criterion[5] * slope_adj
+      ),
+    RSE = c(
+      lm_true[3],
+      adjust_RSE(lm_criterion[3], criterion_random_error),
+      adjust_RSE(olp_criterion[6], criterion_random_error)
+      )
+  )
+}
+
+simulation_results <- simulation_df %>%
+  group_by(simulation, criterion_random_error) %>%
+  do(estimation_wrapper(.))
+
+
+head(simulation_results)
+```
+
+And we can plot the results of adjusted slope and `RSE`:
+
+```{r echo=TRUE}
+simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+
+# Join the true DGP values for plotting
+simulation_results_long <- left_join(
+  simulation_results_long,
+  data.frame(
+    key = c("Intercept", "Slope", "RSE"),
+    DGP = c(practical_fixed, practical_proportional, practical_random)
+  ),
+  by = "key"
+)
+
+simulation_results_long$key <- factor(
+  simulation_results_long$key,
+  levels = c("Intercept", "Slope", "RSE")
+)
+
+simulation_results_long$method <- factor(
+  simulation_results_long$method,
+  levels = c("True lm", "Criterion lm", "Criterion olp")
+)
+
+simulation_results_long_avg <- simulation_results_long %>%
+  group_by(method, criterion_random_error, key) %>%
+  summarise(
+    mean = mean(value),
+    upper = mean + (sd(value)),
+    lower = mean - (sd(value))
+  )
+
+ggplot(
+  simulation_results_long,
+  aes(x = criterion_random_error, y = value, group = simulation)
+) +
+  theme_cowplot(8) +
+  geom_line(alpha = 0.01) +
+  geom_ribbon(
+    data = simulation_results_long_avg,
+    aes(y = mean, ymin = lower, ymax = upper, group = 1),
+    alpha = 0.3, fill = "blue"
+  ) +
+  geom_line(
+    data = simulation_results_long_avg,
+    color = "white",
+    aes(y = mean, group = 1),
+    size = 1) +
+  facet_grid(key ~ method, scales = "free") +
+  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
+  ylab(NULL) +
+  xlab("Criterion random error")
+```
+
+Using the simple linear regression, we managed to adjust the bias of the slope estimate, although variance still increases with increasing criterion random error (which will probably affect the Type I error rates). Adjustment didn't help the OLP estimate slope. Adjusting `RSE` seems to remove the bias for both simple linear regression and OLP, but simulation variance keeps increasing with increase in criterion random error. 
+
+As stated beforehand, to estimate bootstrap CIs Type I error-rates, simulation would need to be much computation intensive, since for each simulation we would need to provide bootstrapped CIs to check their coverage (i.e. if they capture the true DGP parameter value or not). I suggest you try that as an example and leave the computer to run for few hours. Playing with these concepts (and simulations) is very helpful to understand statistics (and appreciate its complexity).
+
+This example indicates that it is not that straight forward to re-create DGP parameters of the practical score using the criterion score, even with the known random error. But, at practitioners are we really interested in estimating DGP parameters of the measures? 
+
+### Prediction approach
+
+Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words, can we predict the criterion measure from the practical measure and with what precision. 
+
+*to be continued*
 
 ## Reliability
 
