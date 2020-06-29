@@ -740,6 +740,12 @@ It bears repeating that I am not sure either of these are valid model comparison
 
 ## Bootstrapping model
 
+Cross-validations is one technique that allows us to evaluate model performance on unseen data, check for model over-fitting, and finally to tune the model parameters (i.e. using tuning parameters, like we did by varying the polynomial degrees) to get the best predictive performance. 
+
+With statistical inferences we are interested in *generalizing* beyond our sample, to a bigger population from which the sample is taken. We can generalize model parameters (i.e. intercept and slope of parameter coefficients), but also model performance (i.e. what is the *true* relationship between two or more variables). We can thus bootstrap the above model to get confidence intervals for both parameters and performance estimators. 
+
+Let's get the 95% bootstrapped CIs for the polynomial model:
+
 
 ```r
 model4.boot.coef <- bmbstats::bmbstats(
@@ -767,7 +773,7 @@ plot(model4.boot.coef)
 
 <img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
 
-Performance metrics
+And here are the model performance estimators and their 95% bootstrap confidence intervals:
 
 
 ```r
@@ -808,3 +814,5 @@ plot(model4.boot.perf)
 ```
 
 <img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-38-1.png" width="90%" style="display: block; margin: auto;" />
+
+It is important to remember that these model analysis are trying to answer different questions - one predictive and one inferential. 

@@ -353,24 +353,54 @@ bmbstats::plot_pair_OLP(
 
 <img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
 
-The default estimator function in `bmbstats::validity_analysis` (`bmbstats::validity_estimators`) and `bmbstats::reliability_analysis` (`bmbstats::reliability_estimators`; described later) uses OLP method implemented in `bmbstats::OLP_regression` function. Let's check the output:
+Let's write the OLP validity estimators and check the output. OLP regression is implemented in the `bmbstats::OLP_regression` function.
 
 
 ```r
-bmbstats::validity_estimators(
+olp_method <- function(data,
+                      criterion,
+                      practical,
+                      SESOI_lower = 0,
+                      SESOI_upper = 0,
+                      na.rm = FALSE) {
+  practical_obs <- data[[practical]]
+  criterion_obs <- data[[criterion]]
+
+  SESOI_range <- SESOI_upper - SESOI_lower
+
+  olp_model <- bmbstats::OLP_regression(
+    outcome = criterion_obs,
+    predictor = practical_obs,
+    na.rm = na.rm)
+
+  n_obs <- length(criterion_obs)
+
+  intercept <- olp_model$intercept
+  slope <- olp_model$slope
+  rse <- olp_model$rse
+
+  PPER <- stats::pt((SESOI_upper) / rse, df = n_obs - 1) -
+    stats::pt((SESOI_lower) / rse, df = n_obs - 1)
+
+  c(
+    "Intercept" = intercept,
+    "Slope" = slope,
+    "RSE" = rse,
+    PPER = PPER
+  )
+}
+
+
+olp_method(
   data = agreement_data,
   criterion = "Criterion_score.trial1",
   practical = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5
 )
-#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE 
-#>   -2.5000000    2.5000000    5.0000000   -0.5024828    1.0095568    0.2644390 
-#>  Pearson's r    R Squared SESOI to RSE         PPER          SDC 
-#>    0.9988737    0.9977487   18.9079555    1.0000000    0.5534771
+#>  Intercept      Slope        RSE       PPER 
+#> -0.5024828  1.0095568  0.2644390  1.0000000
 ```
-
-Additional estimator in this list is `SDC`. `SDC` is the *smallest detectable change*, and in this case represents the smallest change in the criterion measure for which we have 95% confidence it involves change in the true score. In other words, `SDC` represents a 95% *coverage* in the criterion for the same value of true score. `SDC` is calculated using `RSE` and critical threshold using t-distribution to have a 95% coverage.  
 
 To estimate 95% CIs for these estimators, use the *default* `bmbstats::validity_analysis`:
 
@@ -382,26 +412,18 @@ olp_validity <- bmbstats::validity_analysis(
   practical = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
-#> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
-#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
 olp_validity
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
 #> 
-#>     estimator      value      lower      upper
-#>   SESOI lower -2.5000000         NA         NA
-#>   SESOI upper  2.5000000         NA         NA
-#>   SESOI range  5.0000000         NA         NA
-#>     Intercept -0.5024828 -1.1085643  0.7298272
-#>         Slope  1.0095568  0.9843866  1.0226211
-#>           RSE  0.2644390  0.1859924  0.3579299
-#>   Pearson's r  0.9988737  0.9971349  0.9996741
-#>     R Squared  0.9977487  0.9942780  0.9993484
-#>  SESOI to RSE 18.9079555 13.9917931 27.0040586
-#>          PPER  1.0000000  0.9999988  1.0000000
-#>           SDC  0.5534771  0.3892867  0.7491559
+#>  estimator      value      lower     upper
+#>  Intercept -0.5024828 -1.1085643 0.7298272
+#>      Slope  1.0095568  0.9843866 1.0226211
+#>        RSE  0.2644390  0.1859924 0.3579299
+#>       PPER  1.0000000  0.9999988 1.0000000
 ```
 
 #### What happens if we flip the variables?
@@ -461,26 +483,18 @@ olp_validity_flip <- bmbstats::validity_analysis(
   criterion = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
-#> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
-#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
 olp_validity_flip
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
 #> 
-#>     estimator      value      lower      upper
-#>   SESOI lower -2.5000000         NA         NA
-#>   SESOI upper  2.5000000         NA         NA
-#>   SESOI range  5.0000000         NA         NA
-#>     Intercept  0.4977261 -0.7419619  1.0837733
-#>         Slope  0.9905337  0.9778841  1.0158849
-#>           RSE  0.2619357  0.1812142  0.3560398
-#>   Pearson's r  0.9988737  0.9971349  0.9996741
-#>     R Squared  0.9977487  0.9942780  0.9993484
-#>  SESOI to RSE 19.0886553 14.1755001 27.7275419
-#>          PPER  1.0000000  0.9999989  1.0000000
-#>           SDC  0.5482377  0.3792856  0.7451999
+#>  estimator     value      lower     upper
+#>  Intercept 0.4977261 -0.7419619 1.0837733
+#>      Slope 0.9905337  0.9778841 1.0158849
+#>        RSE 0.2619357  0.1812142 0.3560398
+#>       PPER 1.0000000  0.9999989 1.0000000
 ```
 
 Let's combine the result for the random error estimates so we can compare them all:
@@ -492,8 +506,8 @@ rand_err_estimates <- rbind(
   data.frame(outcome = "True", method = "Difference", difference_validity_flip$estimators[2, ]),
   data.frame(outcome = "Criterion", method = "lm", lm_validity$estimators[3, ]),
   data.frame(outcome = "True", method = "lm", lm_validity_flip$estimators[3, ]),
-  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[6, ]),
-  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[6, ])
+  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[3, ]),
+  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[3, ])
 )
 
 print(rand_err_estimates, row.names = FALSE)
@@ -615,24 +629,18 @@ olp_validity_practical_criterion <- bmbstats::validity_analysis(
   practical = "Criterion_score.trial1",
   SESOI_lower = NA,
   SESOI_upper = NA,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
 
 olp_validity_practical_criterion
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
 #> 
-#>     estimator     value      lower     upper
-#>   SESOI lower        NA         NA        NA
-#>   SESOI upper        NA         NA        NA
-#>   SESOI range        NA         NA        NA
-#>     Intercept 4.7308268 -0.1090732 7.6594215
-#>         Slope 1.0400989  0.9737440 1.1504408
-#>           RSE 0.9140125  0.7314260 1.2351099
-#>   Pearson's r 0.9875619  0.9763234 0.9935317
-#>     R Squared 0.9752786  0.9532061 0.9871048
-#>  SESOI to RSE        NA         NA        NA
-#>          PPER        NA         NA        NA
-#>           SDC 1.9130502  1.5308921 2.5851148
+#>  estimator     value      lower    upper
+#>  Intercept 4.7308268 -0.1090732 7.659421
+#>      Slope 1.0400989  0.9737440 1.150441
+#>        RSE 0.9140125  0.7314260 1.235110
+#>       PPER        NA         NA       NA
 ```
 
 Let's combine the three approaches so we can compare them more easily with the true DGP parameter values:
@@ -649,7 +657,7 @@ practical_estimators <- rbind(
   ),
   data.frame(method = "True lm", lm_validity_practical$estimators[1:3, ]),
   data.frame(method = "Criterion lm", lm_validity_practical_criterion$estimators[1:3, ]),
-  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[4:6, ])
+  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[1:3, ])
 )
 
 practical_estimators$method <- factor(
@@ -764,7 +772,7 @@ estimation_wrapper <- function(data) {
     SESOI_upper = NA
   )
 
-  olp_criterion <- validity_estimators(
+  olp_criterion <- olp_method(
     data = data,
     criterion = "Practical_score.trial1",
     practical = "Criterion_score.trial1",
@@ -776,9 +784,9 @@ estimation_wrapper <- function(data) {
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
     method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
-    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[5]),
-    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[6])
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
+    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2]),
+    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[3])
   )
 }
 
@@ -839,7 +847,7 @@ ggplot(
   aes(x = criterion_random_error, y = value, group = simulation)
 ) +
   theme_cowplot(8) +
-  geom_line(alpha = 0.01) +
+  geom_line(alpha = 0.02) +
   geom_ribbon(
     data = simulation_results_long_avg,
     aes(y = mean, ymin = lower, ymax = upper, group = 1),
@@ -907,7 +915,7 @@ estimation_wrapper <- function(data) {
     SESOI_upper = NA
   )
 
-  olp_criterion <- validity_estimators(
+  olp_criterion <- olp_method(
     data = data,
     criterion = "Practical_score.trial1",
     practical = "Criterion_score.trial1",
@@ -919,16 +927,16 @@ estimation_wrapper <- function(data) {
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
     method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
     Slope = c(
       lm_true[2],
       lm_criterion[2] * slope_adj,
-      olp_criterion[5] * slope_adj
+      olp_criterion[2] * slope_adj
       ),
     RSE = c(
       lm_true[3],
       adjust_RSE(lm_criterion[3], criterion_random_error),
-      adjust_RSE(olp_criterion[6], criterion_random_error)
+      adjust_RSE(olp_criterion[3], criterion_random_error)
       )
   )
 }
@@ -990,7 +998,7 @@ ggplot(
   aes(x = criterion_random_error, y = value, group = simulation)
 ) +
   theme_cowplot(8) +
-  geom_line(alpha = 0.01) +
+  geom_line(alpha = 0.02) +
   geom_ribbon(
     data = simulation_results_long_avg,
     aes(y = mean, ymin = lower, ymax = upper, group = 1),
@@ -1017,10 +1025,109 @@ This example indicates that it is not that straight forward to re-create DGP par
 
 ### Prediction approach
 
-Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words, can we predict the criterion measure from the practical measure and with what precision. 
+Rather than trying to re-create DGP, we might be interested in predictive performance instead. This implies estimating *predictive validity* using *calibration model* (i.e. simple linear regression used so far represent simple calibration model). Sometimes certain measuring devices produce multiple outputs, for example heat, humidity, and pressure readings as well as non-linear readings and we can use all these features as predictors to find a calibration model that provides the best predictive performance. 
 
-*to be continued*
+In our case, we are interested in predicting criterion measure from practical measure. Rather than using `lm_method` we have written, we can use *default* estimator function `bmbstats::validity_estimators`:
+
+
+```r
+lm_criterion_validity <- bmbstats::validity_analysis(
+  data = agreement_data,
+  practical = "Practical_score.trial1",
+  criterion = "Criterion_score.trial1",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
+)
+#> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
+#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
+
+lm_criterion_validity
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>     estimator      value      lower     upper
+#>   SESOI lower -2.5000000         NA        NA
+#>   SESOI upper  2.5000000         NA        NA
+#>   SESOI range  5.0000000         NA        NA
+#>     Intercept -3.9394072 -7.2953389 0.7734320
+#>         Slope  0.9494885  0.8579138 1.0168839
+#>           RSE  0.8760378  0.7261416 1.1122760
+#>   Pearson's r  0.9875619  0.9763234 0.9935317
+#>     R Squared  0.9752786  0.9532061 0.9871048
+#>  SESOI to RSE  5.7075161  4.4952872 6.8897943
+#>          PPER  0.9898416  0.9633314 0.9972420
+#>           SDC  1.8335682  1.5198318 2.3280204
+```
+
+Additional estimator in this list is `SDC`. `SDC` is the *smallest detectable change* (see [Smallest Detectable Change] section in [Measurement Error] chapter), and in this case represents the smallest change in the practical measure for which we have at least 95% confidence it involves change in the criterion score. In other words, `SDC` represents a 95% *coverage* in the criterion for the same value of practical measure (or same values of the predictors involved, in the case when there is multiple of them). `SDC` is calculated using `RSE` and critical threshold using t-distribution to get a 95% coverage (or simply by multiplying `RSE` with ±1.96).  
+
+This is better seen and understood using the residual graph on the panel B below:
+
+
+```r
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$Practical_score.trial1,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "Practical Score",
+  outcome_label = "Criterion Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+`SDC`, or *Level of Agreement* used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases). 
+
+"But hold your horses Mladen, we haven't tested model predictions on hold-out or unseen data!" And you are completely right. Let's do that using `bmbstats::cv_model`:
+
+
+```r
+lm_predictive_validity <- bmbstats::cv_model(
+  Criterion_score.trial1~Practical_score.trial1,
+  data = agreement_data,
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(cv_folds = 5, cv_repeats = 10)
+)
+
+lm_predictive_validity
+#> Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> 
+#> Model performance:
+#> 
+#>         metric      training training.pooled testing.pooled        mean
+#>            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363
+#>            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212
+#>           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710
+#>           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067
+#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136
+#>      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772
+#>         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158
+#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816
+#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462
+#>          SD        min        max
+#>  0.52102607 -1.0035037  1.0131942
+#>  0.21891902  0.2938133  1.4283624
+#>  0.23117615  0.4147218  1.5060507
+#>  0.05265932  0.6919549  0.9885303
+#>  1.61587442  3.3199413 12.0562748
+#>  0.56589940 -2.5312392  0.9953966
+#>  0.40660854 -1.3641311  0.4769940
+#>  0.71495843 -0.2737126  2.3455653
+#>  0.43907222  0.7468639  2.3455653
+```
+
+If we check `MaxAbsErr` we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing `RMSE` (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% `SDC` multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice. 
 
 ## Reliability
 
-## Adding biological noise to the data
+For a measure to be valid it also needs to be reliable, but for a measure to be reliable it does not necessary needs to be valid (or at least in non-calibrated way). In essence, reliability is about repeat-ability, or how much measure is in agreement with itself. From prediction modeling perspective, reliability is how well measure predicts itself. From explanatory perspective, reliability is about estimating random error within the DGP. 
+
+*To evaluate reliability, one needs repeated measures and the assumption that the True scores does not change from trial to trial. For the purpose of the current paper, we will differentiate between few types of reliability: (a) between-units reliability, (b) within-unit reliability, which both represent instrumentation reliability and an estimate of instrumentation noise, and (c) measurement error, which consists of instrumentation noise and biological noise. *
+
+**To be continued**
+
+## Adding biological noise to the mix
+
+

@@ -297,10 +297,44 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-The default estimator function in `bmbstats::validity_analysis` (`bmbstats::validity_estimators`) and `bmbstats::reliability_analysis` (`bmbstats::reliability_estimators`; described later) uses OLP method implemented in `bmbstats::OLP_regression` function. Let's check the output:
+Let's write the OLP validity estimators and check the output. OLP regression is implemented in the `bmbstats::OLP_regression` function.
 
 ```{r echo=TRUE}
-bmbstats::validity_estimators(
+olp_method <- function(data,
+                      criterion,
+                      practical,
+                      SESOI_lower = 0,
+                      SESOI_upper = 0,
+                      na.rm = FALSE) {
+  practical_obs <- data[[practical]]
+  criterion_obs <- data[[criterion]]
+
+  SESOI_range <- SESOI_upper - SESOI_lower
+
+  olp_model <- bmbstats::OLP_regression(
+    outcome = criterion_obs,
+    predictor = practical_obs,
+    na.rm = na.rm)
+
+  n_obs <- length(criterion_obs)
+
+  intercept <- olp_model$intercept
+  slope <- olp_model$slope
+  rse <- olp_model$rse
+
+  PPER <- stats::pt((SESOI_upper) / rse, df = n_obs - 1) -
+    stats::pt((SESOI_lower) / rse, df = n_obs - 1)
+
+  c(
+    "Intercept" = intercept,
+    "Slope" = slope,
+    "RSE" = rse,
+    PPER = PPER
+  )
+}
+
+
+olp_method(
   data = agreement_data,
   criterion = "Criterion_score.trial1",
   practical = "True_score",
@@ -308,8 +342,6 @@ bmbstats::validity_estimators(
   SESOI_upper = 2.5
 )
 ```
-
-Additional estimator in this list is `SDC`. `SDC` is the *smallest detectable change*, and in this case represents the smallest change in the criterion measure for which we have 95% confidence it involves change in the true score. In other words, `SDC` represents a 95% *coverage* in the criterion for the same value of true score. `SDC` is calculated using `RSE` and critical threshold using t-distribution to have a 95% coverage.  
 
 To estimate 95% CIs for these estimators, use the *default* `bmbstats::validity_analysis`:
 
@@ -320,6 +352,7 @@ olp_validity <- bmbstats::validity_analysis(
   practical = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
 
@@ -367,6 +400,7 @@ olp_validity_flip <- bmbstats::validity_analysis(
   criterion = "True_score",
   SESOI_lower = -2.5,
   SESOI_upper = 2.5,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
 
@@ -381,8 +415,8 @@ rand_err_estimates <- rbind(
   data.frame(outcome = "True", method = "Difference", difference_validity_flip$estimators[2, ]),
   data.frame(outcome = "Criterion", method = "lm", lm_validity$estimators[3, ]),
   data.frame(outcome = "True", method = "lm", lm_validity_flip$estimators[3, ]),
-  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[6, ]),
-  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[6, ])
+  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[3, ]),
+  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[3, ])
 )
 
 print(rand_err_estimates, row.names = FALSE)
@@ -471,6 +505,7 @@ olp_validity_practical_criterion <- bmbstats::validity_analysis(
   practical = "Criterion_score.trial1",
   SESOI_lower = NA,
   SESOI_upper = NA,
+  estimator_function = olp_method,
   control = model_control(seed = 1667)
 )
 
@@ -490,7 +525,7 @@ practical_estimators <- rbind(
   ),
   data.frame(method = "True lm", lm_validity_practical$estimators[1:3, ]),
   data.frame(method = "Criterion lm", lm_validity_practical_criterion$estimators[1:3, ]),
-  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[4:6, ])
+  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[1:3, ])
 )
 
 practical_estimators$method <- factor(
@@ -573,7 +608,7 @@ estimation_wrapper <- function(data) {
     SESOI_upper = NA
   )
 
-  olp_criterion <- validity_estimators(
+  olp_criterion <- olp_method(
     data = data,
     criterion = "Practical_score.trial1",
     practical = "Criterion_score.trial1",
@@ -585,9 +620,9 @@ estimation_wrapper <- function(data) {
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
     method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
-    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[5]),
-    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[6])
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
+    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2]),
+    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[3])
   )
 }
 
@@ -637,7 +672,7 @@ ggplot(
   aes(x = criterion_random_error, y = value, group = simulation)
 ) +
   theme_cowplot(8) +
-  geom_line(alpha = 0.01) +
+  geom_line(alpha = 0.02) +
   geom_ribbon(
     data = simulation_results_long_avg,
     aes(y = mean, ymin = lower, ymax = upper, group = 1),
@@ -701,7 +736,7 @@ estimation_wrapper <- function(data) {
     SESOI_upper = NA
   )
 
-  olp_criterion <- validity_estimators(
+  olp_criterion <- olp_method(
     data = data,
     criterion = "Practical_score.trial1",
     practical = "Criterion_score.trial1",
@@ -713,16 +748,16 @@ estimation_wrapper <- function(data) {
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
     method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[4]),
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
     Slope = c(
       lm_true[2],
       lm_criterion[2] * slope_adj,
-      olp_criterion[5] * slope_adj
+      olp_criterion[2] * slope_adj
       ),
     RSE = c(
       lm_true[3],
       adjust_RSE(lm_criterion[3], criterion_random_error),
-      adjust_RSE(olp_criterion[6], criterion_random_error)
+      adjust_RSE(olp_criterion[3], criterion_random_error)
       )
   )
 }
@@ -773,7 +808,7 @@ ggplot(
   aes(x = criterion_random_error, y = value, group = simulation)
 ) +
   theme_cowplot(8) +
-  geom_line(alpha = 0.01) +
+  geom_line(alpha = 0.02) +
   geom_ribbon(
     data = simulation_results_long_avg,
     aes(y = mean, ymin = lower, ymax = upper, group = 1),
@@ -798,10 +833,64 @@ This example indicates that it is not that straight forward to re-create DGP par
 
 ### Prediction approach
 
-Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words, can we predict the criterion measure from the practical measure and with what precision. 
+Rather than trying to re-create DGP, we might be interested in predictive performance instead. This implies estimating *predictive validity* using *calibration model* (i.e. simple linear regression used so far represent simple calibration model). Sometimes certain measuring devices produce multiple outputs, for example heat, humidity, and pressure readings as well as non-linear readings and we can use all these features as predictors to find a calibration model that provides the best predictive performance. 
 
-*to be continued*
+In our case, we are interested in predicting criterion measure from practical measure. Rather than using `lm_method` we have written, we can use *default* estimator function `bmbstats::validity_estimators`:
+
+```{r echo=TRUE}
+lm_criterion_validity <- bmbstats::validity_analysis(
+  data = agreement_data,
+  practical = "Practical_score.trial1",
+  criterion = "Criterion_score.trial1",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
+)
+
+lm_criterion_validity
+```
+
+Additional estimator in this list is `SDC`. `SDC` is the *smallest detectable change* (see [Smallest Detectable Change] section in [Measurement Error] chapter), and in this case represents the smallest change in the practical measure for which we have at least 95% confidence it involves change in the criterion score. In other words, `SDC` represents a 95% *coverage* in the criterion for the same value of practical measure (or same values of the predictors involved, in the case when there is multiple of them). `SDC` is calculated using `RSE` and critical threshold using t-distribution to get a 95% coverage (or simply by multiplying `RSE` with ±1.96).  
+
+This is better seen and understood using the residual graph on the panel B below:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$Practical_score.trial1,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "Practical Score",
+  outcome_label = "Criterion Score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+`SDC`, or *Level of Agreement* used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases). 
+
+"But hold your horses Mladen, we haven't tested model predictions on hold-out or unseen data!" And you are completely right. Let's do that using `bmbstats::cv_model`:
+
+```{r echo=TRUE}
+lm_predictive_validity <- bmbstats::cv_model(
+  Criterion_score.trial1~Practical_score.trial1,
+  data = agreement_data,
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(cv_folds = 5, cv_repeats = 10)
+)
+
+lm_predictive_validity
+```
+
+If we check `MaxAbsErr` we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing `RMSE` (i.e. mean across CV fold, which is equal to `r round(lm_predictive_validity$cross_validation$performance$summary$overall[3, 5], 2)`cm) we can calculate 95% `SDC` multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us `r round(lm_predictive_validity$cross_validation$performance$summary$overall[3, 5] *2, 2)`cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to `r round(lm_predictive_validity$cross_validation$performance$summary$overall[3, 5] *2, 2)`cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice. 
 
 ## Reliability
 
-## Adding biological noise to the data
+For a measure to be valid it also needs to be reliable, but for a measure to be reliable it does not necessary needs to be valid (or at least in non-calibrated way). In essence, reliability is about repeat-ability, or how much measure is in agreement with itself. From prediction modeling perspective, reliability is how well measure predicts itself. From explanatory perspective, reliability is about estimating random error within the DGP. 
+
+*To evaluate reliability, one needs repeated measures and the assumption that the True scores does not change from trial to trial. For the purpose of the current paper, we will differentiate between few types of reliability: (a) between-units reliability, (b) within-unit reliability, which both represent instrumentation reliability and an estimate of instrumentation noise, and (c) measurement error, which consists of instrumentation noise and biological noise. *
+
+**To be continued**
+
+## Adding biological noise to the mix
+
+

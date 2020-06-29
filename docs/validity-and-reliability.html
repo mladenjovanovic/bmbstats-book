@@ -283,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#prediction-approach"><i class="fa fa-check"></i><b>15.2.3</b> Prediction approach</a></li>
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a></li>
-<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#adding-biological-noise-to-the-data"><i class="fa fa-check"></i><b>15.4</b> Adding biological noise to the data</a></li>
+<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#adding-biological-noise-to-the-mix"><i class="fa fa-check"></i><b>15.4</b> Adding biological noise to the mix</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a></li>
 <li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
@@ -584,19 +584,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-7"><a href="validity-and-reliability.html#cb14-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
 <span id="cb14-8"><a href="validity-and-reliability.html#cb14-8"></a>)</span></code></pre></div>
 <p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>The default estimator function in <code>bmbstats::validity_analysis</code> (<code>bmbstats::validity_estimators</code>) and <code>bmbstats::reliability_analysis</code> (<code>bmbstats::reliability_estimators</code>; described later) uses OLP method implemented in <code>bmbstats::OLP_regression</code> function. Let’s check the output:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="validity-and-reliability.html#cb15-1"></a>bmbstats<span class="op">::</span><span class="kw">validity_estimators</span>(</span>
-<span id="cb15-2"><a href="validity-and-reliability.html#cb15-2"></a>  <span class="dt">data =</span> agreement_data,</span>
-<span id="cb15-3"><a href="validity-and-reliability.html#cb15-3"></a>  <span class="dt">criterion =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
-<span id="cb15-4"><a href="validity-and-reliability.html#cb15-4"></a>  <span class="dt">practical =</span> <span class="st">&quot;True_score&quot;</span>,</span>
-<span id="cb15-5"><a href="validity-and-reliability.html#cb15-5"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
-<span id="cb15-6"><a href="validity-and-reliability.html#cb15-6"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
-<span id="cb15-7"><a href="validity-and-reliability.html#cb15-7"></a>)</span>
-<span id="cb15-8"><a href="validity-and-reliability.html#cb15-8"></a><span class="co">#&gt;  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE </span></span>
-<span id="cb15-9"><a href="validity-and-reliability.html#cb15-9"></a><span class="co">#&gt;   -2.5000000    2.5000000    5.0000000   -0.5024828    1.0095568    0.2644390 </span></span>
-<span id="cb15-10"><a href="validity-and-reliability.html#cb15-10"></a><span class="co">#&gt;  Pearson&#39;s r    R Squared SESOI to RSE         PPER          SDC </span></span>
-<span id="cb15-11"><a href="validity-and-reliability.html#cb15-11"></a><span class="co">#&gt;    0.9988737    0.9977487   18.9079555    1.0000000    0.5534771</span></span></code></pre></div>
-<p>Additional estimator in this list is <code>SDC</code>. <code>SDC</code> is the <em>smallest detectable change</em>, and in this case represents the smallest change in the criterion measure for which we have 95% confidence it involves change in the true score. In other words, <code>SDC</code> represents a 95% <em>coverage</em> in the criterion for the same value of true score. <code>SDC</code> is calculated using <code>RSE</code> and critical threshold using t-distribution to have a 95% coverage.</p>
+<p>Let’s write the OLP validity estimators and check the output. OLP regression is implemented in the <code>bmbstats::OLP_regression</code> function.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="validity-and-reliability.html#cb15-1"></a>olp_method &lt;-<span class="st"> </span><span class="cf">function</span>(data,</span>
+<span id="cb15-2"><a href="validity-and-reliability.html#cb15-2"></a>                      criterion,</span>
+<span id="cb15-3"><a href="validity-and-reliability.html#cb15-3"></a>                      practical,</span>
+<span id="cb15-4"><a href="validity-and-reliability.html#cb15-4"></a>                      <span class="dt">SESOI_lower =</span> <span class="dv">0</span>,</span>
+<span id="cb15-5"><a href="validity-and-reliability.html#cb15-5"></a>                      <span class="dt">SESOI_upper =</span> <span class="dv">0</span>,</span>
+<span id="cb15-6"><a href="validity-and-reliability.html#cb15-6"></a>                      <span class="dt">na.rm =</span> <span class="ot">FALSE</span>) {</span>
+<span id="cb15-7"><a href="validity-and-reliability.html#cb15-7"></a>  practical_obs &lt;-<span class="st"> </span>data[[practical]]</span>
+<span id="cb15-8"><a href="validity-and-reliability.html#cb15-8"></a>  criterion_obs &lt;-<span class="st"> </span>data[[criterion]]</span>
+<span id="cb15-9"><a href="validity-and-reliability.html#cb15-9"></a></span>
+<span id="cb15-10"><a href="validity-and-reliability.html#cb15-10"></a>  SESOI_range &lt;-<span class="st"> </span>SESOI_upper <span class="op">-</span><span class="st"> </span>SESOI_lower</span>
+<span id="cb15-11"><a href="validity-and-reliability.html#cb15-11"></a></span>
+<span id="cb15-12"><a href="validity-and-reliability.html#cb15-12"></a>  olp_model &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">OLP_regression</span>(</span>
+<span id="cb15-13"><a href="validity-and-reliability.html#cb15-13"></a>    <span class="dt">outcome =</span> criterion_obs,</span>
+<span id="cb15-14"><a href="validity-and-reliability.html#cb15-14"></a>    <span class="dt">predictor =</span> practical_obs,</span>
+<span id="cb15-15"><a href="validity-and-reliability.html#cb15-15"></a>    <span class="dt">na.rm =</span> na.rm)</span>
+<span id="cb15-16"><a href="validity-and-reliability.html#cb15-16"></a></span>
+<span id="cb15-17"><a href="validity-and-reliability.html#cb15-17"></a>  n_obs &lt;-<span class="st"> </span><span class="kw">length</span>(criterion_obs)</span>
+<span id="cb15-18"><a href="validity-and-reliability.html#cb15-18"></a></span>
+<span id="cb15-19"><a href="validity-and-reliability.html#cb15-19"></a>  intercept &lt;-<span class="st"> </span>olp_model<span class="op">$</span>intercept</span>
+<span id="cb15-20"><a href="validity-and-reliability.html#cb15-20"></a>  slope &lt;-<span class="st"> </span>olp_model<span class="op">$</span>slope</span>
+<span id="cb15-21"><a href="validity-and-reliability.html#cb15-21"></a>  rse &lt;-<span class="st"> </span>olp_model<span class="op">$</span>rse</span>
+<span id="cb15-22"><a href="validity-and-reliability.html#cb15-22"></a></span>
+<span id="cb15-23"><a href="validity-and-reliability.html#cb15-23"></a>  PPER &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">pt</span>((SESOI_upper) <span class="op">/</span><span class="st"> </span>rse, <span class="dt">df =</span> n_obs <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">-</span></span>
+<span id="cb15-24"><a href="validity-and-reliability.html#cb15-24"></a><span class="st">    </span>stats<span class="op">::</span><span class="kw">pt</span>((SESOI_lower) <span class="op">/</span><span class="st"> </span>rse, <span class="dt">df =</span> n_obs <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb15-25"><a href="validity-and-reliability.html#cb15-25"></a></span>
+<span id="cb15-26"><a href="validity-and-reliability.html#cb15-26"></a>  <span class="kw">c</span>(</span>
+<span id="cb15-27"><a href="validity-and-reliability.html#cb15-27"></a>    <span class="st">&quot;Intercept&quot;</span> =<span class="st"> </span>intercept,</span>
+<span id="cb15-28"><a href="validity-and-reliability.html#cb15-28"></a>    <span class="st">&quot;Slope&quot;</span> =<span class="st"> </span>slope,</span>
+<span id="cb15-29"><a href="validity-and-reliability.html#cb15-29"></a>    <span class="st">&quot;RSE&quot;</span> =<span class="st"> </span>rse,</span>
+<span id="cb15-30"><a href="validity-and-reliability.html#cb15-30"></a>    <span class="dt">PPER =</span> PPER</span>
+<span id="cb15-31"><a href="validity-and-reliability.html#cb15-31"></a>  )</span>
+<span id="cb15-32"><a href="validity-and-reliability.html#cb15-32"></a>}</span>
+<span id="cb15-33"><a href="validity-and-reliability.html#cb15-33"></a></span>
+<span id="cb15-34"><a href="validity-and-reliability.html#cb15-34"></a></span>
+<span id="cb15-35"><a href="validity-and-reliability.html#cb15-35"></a><span class="kw">olp_method</span>(</span>
+<span id="cb15-36"><a href="validity-and-reliability.html#cb15-36"></a>  <span class="dt">data =</span> agreement_data,</span>
+<span id="cb15-37"><a href="validity-and-reliability.html#cb15-37"></a>  <span class="dt">criterion =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
+<span id="cb15-38"><a href="validity-and-reliability.html#cb15-38"></a>  <span class="dt">practical =</span> <span class="st">&quot;True_score&quot;</span>,</span>
+<span id="cb15-39"><a href="validity-and-reliability.html#cb15-39"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
+<span id="cb15-40"><a href="validity-and-reliability.html#cb15-40"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
+<span id="cb15-41"><a href="validity-and-reliability.html#cb15-41"></a>)</span>
+<span id="cb15-42"><a href="validity-and-reliability.html#cb15-42"></a><span class="co">#&gt;  Intercept      Slope        RSE       PPER </span></span>
+<span id="cb15-43"><a href="validity-and-reliability.html#cb15-43"></a><span class="co">#&gt; -0.5024828  1.0095568  0.2644390  1.0000000</span></span></code></pre></div>
 <p>To estimate 95% CIs for these estimators, use the <em>default</em> <code>bmbstats::validity_analysis</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="validity-and-reliability.html#cb16-1"></a>olp_validity &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">validity_analysis</span>(</span>
 <span id="cb16-2"><a href="validity-and-reliability.html#cb16-2"></a>  <span class="dt">data =</span> agreement_data,</span>
@@ -604,26 +635,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-4"><a href="validity-and-reliability.html#cb16-4"></a>  <span class="dt">practical =</span> <span class="st">&quot;True_score&quot;</span>,</span>
 <span id="cb16-5"><a href="validity-and-reliability.html#cb16-5"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
 <span id="cb16-6"><a href="validity-and-reliability.html#cb16-6"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span>,</span>
-<span id="cb16-7"><a href="validity-and-reliability.html#cb16-7"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
-<span id="cb16-8"><a href="validity-and-reliability.html#cb16-8"></a>)</span>
-<span id="cb16-9"><a href="validity-and-reliability.html#cb16-9"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  2.5 \n Cannot calculate confidence intervals&quot;</span></span>
-<span id="cb16-10"><a href="validity-and-reliability.html#cb16-10"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  5 \n Cannot calculate confidence intervals&quot;</span></span>
-<span id="cb16-11"><a href="validity-and-reliability.html#cb16-11"></a></span>
-<span id="cb16-12"><a href="validity-and-reliability.html#cb16-12"></a>olp_validity</span>
-<span id="cb16-13"><a href="validity-and-reliability.html#cb16-13"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
-<span id="cb16-14"><a href="validity-and-reliability.html#cb16-14"></a><span class="co">#&gt; </span></span>
-<span id="cb16-15"><a href="validity-and-reliability.html#cb16-15"></a><span class="co">#&gt;     estimator      value      lower      upper</span></span>
-<span id="cb16-16"><a href="validity-and-reliability.html#cb16-16"></a><span class="co">#&gt;   SESOI lower -2.5000000         NA         NA</span></span>
-<span id="cb16-17"><a href="validity-and-reliability.html#cb16-17"></a><span class="co">#&gt;   SESOI upper  2.5000000         NA         NA</span></span>
-<span id="cb16-18"><a href="validity-and-reliability.html#cb16-18"></a><span class="co">#&gt;   SESOI range  5.0000000         NA         NA</span></span>
-<span id="cb16-19"><a href="validity-and-reliability.html#cb16-19"></a><span class="co">#&gt;     Intercept -0.5024828 -1.1085643  0.7298272</span></span>
-<span id="cb16-20"><a href="validity-and-reliability.html#cb16-20"></a><span class="co">#&gt;         Slope  1.0095568  0.9843866  1.0226211</span></span>
-<span id="cb16-21"><a href="validity-and-reliability.html#cb16-21"></a><span class="co">#&gt;           RSE  0.2644390  0.1859924  0.3579299</span></span>
-<span id="cb16-22"><a href="validity-and-reliability.html#cb16-22"></a><span class="co">#&gt;   Pearson&#39;s r  0.9988737  0.9971349  0.9996741</span></span>
-<span id="cb16-23"><a href="validity-and-reliability.html#cb16-23"></a><span class="co">#&gt;     R Squared  0.9977487  0.9942780  0.9993484</span></span>
-<span id="cb16-24"><a href="validity-and-reliability.html#cb16-24"></a><span class="co">#&gt;  SESOI to RSE 18.9079555 13.9917931 27.0040586</span></span>
-<span id="cb16-25"><a href="validity-and-reliability.html#cb16-25"></a><span class="co">#&gt;          PPER  1.0000000  0.9999988  1.0000000</span></span>
-<span id="cb16-26"><a href="validity-and-reliability.html#cb16-26"></a><span class="co">#&gt;           SDC  0.5534771  0.3892867  0.7491559</span></span></code></pre></div>
+<span id="cb16-7"><a href="validity-and-reliability.html#cb16-7"></a>  <span class="dt">estimator_function =</span> olp_method,</span>
+<span id="cb16-8"><a href="validity-and-reliability.html#cb16-8"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
+<span id="cb16-9"><a href="validity-and-reliability.html#cb16-9"></a>)</span>
+<span id="cb16-10"><a href="validity-and-reliability.html#cb16-10"></a></span>
+<span id="cb16-11"><a href="validity-and-reliability.html#cb16-11"></a>olp_validity</span>
+<span id="cb16-12"><a href="validity-and-reliability.html#cb16-12"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb16-13"><a href="validity-and-reliability.html#cb16-13"></a><span class="co">#&gt; </span></span>
+<span id="cb16-14"><a href="validity-and-reliability.html#cb16-14"></a><span class="co">#&gt;  estimator      value      lower     upper</span></span>
+<span id="cb16-15"><a href="validity-and-reliability.html#cb16-15"></a><span class="co">#&gt;  Intercept -0.5024828 -1.1085643 0.7298272</span></span>
+<span id="cb16-16"><a href="validity-and-reliability.html#cb16-16"></a><span class="co">#&gt;      Slope  1.0095568  0.9843866 1.0226211</span></span>
+<span id="cb16-17"><a href="validity-and-reliability.html#cb16-17"></a><span class="co">#&gt;        RSE  0.2644390  0.1859924 0.3579299</span></span>
+<span id="cb16-18"><a href="validity-and-reliability.html#cb16-18"></a><span class="co">#&gt;       PPER  1.0000000  0.9999988 1.0000000</span></span></code></pre></div>
 </div>
 <div id="what-happens-if-we-flip-the-variables" class="section level4" number="15.2.1.4">
 <h4><span class="header-section-number">15.2.1.4</span> What happens if we flip the variables?</h4>
@@ -670,34 +693,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-4"><a href="validity-and-reliability.html#cb19-4"></a>  <span class="dt">criterion =</span> <span class="st">&quot;True_score&quot;</span>,</span>
 <span id="cb19-5"><a href="validity-and-reliability.html#cb19-5"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
 <span id="cb19-6"><a href="validity-and-reliability.html#cb19-6"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span>,</span>
-<span id="cb19-7"><a href="validity-and-reliability.html#cb19-7"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
-<span id="cb19-8"><a href="validity-and-reliability.html#cb19-8"></a>)</span>
-<span id="cb19-9"><a href="validity-and-reliability.html#cb19-9"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  2.5 \n Cannot calculate confidence intervals&quot;</span></span>
-<span id="cb19-10"><a href="validity-and-reliability.html#cb19-10"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  5 \n Cannot calculate confidence intervals&quot;</span></span>
-<span id="cb19-11"><a href="validity-and-reliability.html#cb19-11"></a></span>
-<span id="cb19-12"><a href="validity-and-reliability.html#cb19-12"></a>olp_validity_flip</span>
-<span id="cb19-13"><a href="validity-and-reliability.html#cb19-13"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
-<span id="cb19-14"><a href="validity-and-reliability.html#cb19-14"></a><span class="co">#&gt; </span></span>
-<span id="cb19-15"><a href="validity-and-reliability.html#cb19-15"></a><span class="co">#&gt;     estimator      value      lower      upper</span></span>
-<span id="cb19-16"><a href="validity-and-reliability.html#cb19-16"></a><span class="co">#&gt;   SESOI lower -2.5000000         NA         NA</span></span>
-<span id="cb19-17"><a href="validity-and-reliability.html#cb19-17"></a><span class="co">#&gt;   SESOI upper  2.5000000         NA         NA</span></span>
-<span id="cb19-18"><a href="validity-and-reliability.html#cb19-18"></a><span class="co">#&gt;   SESOI range  5.0000000         NA         NA</span></span>
-<span id="cb19-19"><a href="validity-and-reliability.html#cb19-19"></a><span class="co">#&gt;     Intercept  0.4977261 -0.7419619  1.0837733</span></span>
-<span id="cb19-20"><a href="validity-and-reliability.html#cb19-20"></a><span class="co">#&gt;         Slope  0.9905337  0.9778841  1.0158849</span></span>
-<span id="cb19-21"><a href="validity-and-reliability.html#cb19-21"></a><span class="co">#&gt;           RSE  0.2619357  0.1812142  0.3560398</span></span>
-<span id="cb19-22"><a href="validity-and-reliability.html#cb19-22"></a><span class="co">#&gt;   Pearson&#39;s r  0.9988737  0.9971349  0.9996741</span></span>
-<span id="cb19-23"><a href="validity-and-reliability.html#cb19-23"></a><span class="co">#&gt;     R Squared  0.9977487  0.9942780  0.9993484</span></span>
-<span id="cb19-24"><a href="validity-and-reliability.html#cb19-24"></a><span class="co">#&gt;  SESOI to RSE 19.0886553 14.1755001 27.7275419</span></span>
-<span id="cb19-25"><a href="validity-and-reliability.html#cb19-25"></a><span class="co">#&gt;          PPER  1.0000000  0.9999989  1.0000000</span></span>
-<span id="cb19-26"><a href="validity-and-reliability.html#cb19-26"></a><span class="co">#&gt;           SDC  0.5482377  0.3792856  0.7451999</span></span></code></pre></div>
+<span id="cb19-7"><a href="validity-and-reliability.html#cb19-7"></a>  <span class="dt">estimator_function =</span> olp_method,</span>
+<span id="cb19-8"><a href="validity-and-reliability.html#cb19-8"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
+<span id="cb19-9"><a href="validity-and-reliability.html#cb19-9"></a>)</span>
+<span id="cb19-10"><a href="validity-and-reliability.html#cb19-10"></a></span>
+<span id="cb19-11"><a href="validity-and-reliability.html#cb19-11"></a>olp_validity_flip</span>
+<span id="cb19-12"><a href="validity-and-reliability.html#cb19-12"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb19-13"><a href="validity-and-reliability.html#cb19-13"></a><span class="co">#&gt; </span></span>
+<span id="cb19-14"><a href="validity-and-reliability.html#cb19-14"></a><span class="co">#&gt;  estimator     value      lower     upper</span></span>
+<span id="cb19-15"><a href="validity-and-reliability.html#cb19-15"></a><span class="co">#&gt;  Intercept 0.4977261 -0.7419619 1.0837733</span></span>
+<span id="cb19-16"><a href="validity-and-reliability.html#cb19-16"></a><span class="co">#&gt;      Slope 0.9905337  0.9778841 1.0158849</span></span>
+<span id="cb19-17"><a href="validity-and-reliability.html#cb19-17"></a><span class="co">#&gt;        RSE 0.2619357  0.1812142 0.3560398</span></span>
+<span id="cb19-18"><a href="validity-and-reliability.html#cb19-18"></a><span class="co">#&gt;       PPER 1.0000000  0.9999989 1.0000000</span></span></code></pre></div>
 <p>Let’s combine the result for the random error estimates so we can compare them all:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="validity-and-reliability.html#cb20-1"></a>rand_err_estimates &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
 <span id="cb20-2"><a href="validity-and-reliability.html#cb20-2"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;Criterion&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;Difference&quot;</span>, difference_validity<span class="op">$</span>estimators[<span class="dv">2</span>, ]),</span>
 <span id="cb20-3"><a href="validity-and-reliability.html#cb20-3"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;True&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;Difference&quot;</span>, difference_validity_flip<span class="op">$</span>estimators[<span class="dv">2</span>, ]),</span>
 <span id="cb20-4"><a href="validity-and-reliability.html#cb20-4"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;Criterion&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, lm_validity<span class="op">$</span>estimators[<span class="dv">3</span>, ]),</span>
 <span id="cb20-5"><a href="validity-and-reliability.html#cb20-5"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;True&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, lm_validity_flip<span class="op">$</span>estimators[<span class="dv">3</span>, ]),</span>
-<span id="cb20-6"><a href="validity-and-reliability.html#cb20-6"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;Criterion&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;olp&quot;</span>, olp_validity<span class="op">$</span>estimators[<span class="dv">6</span>, ]),</span>
-<span id="cb20-7"><a href="validity-and-reliability.html#cb20-7"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;True&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;olp&quot;</span>, olp_validity_flip<span class="op">$</span>estimators[<span class="dv">6</span>, ])</span>
+<span id="cb20-6"><a href="validity-and-reliability.html#cb20-6"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;Criterion&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;olp&quot;</span>, olp_validity<span class="op">$</span>estimators[<span class="dv">3</span>, ]),</span>
+<span id="cb20-7"><a href="validity-and-reliability.html#cb20-7"></a>  <span class="kw">data.frame</span>(<span class="dt">outcome =</span> <span class="st">&quot;True&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;olp&quot;</span>, olp_validity_flip<span class="op">$</span>estimators[<span class="dv">3</span>, ])</span>
 <span id="cb20-8"><a href="validity-and-reliability.html#cb20-8"></a>)</span>
 <span id="cb20-9"><a href="validity-and-reliability.html#cb20-9"></a></span>
 <span id="cb20-10"><a href="validity-and-reliability.html#cb20-10"></a><span class="kw">print</span>(rand_err_estimates, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span>
@@ -786,24 +801,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-4"><a href="validity-and-reliability.html#cb26-4"></a>  <span class="dt">practical =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
 <span id="cb26-5"><a href="validity-and-reliability.html#cb26-5"></a>  <span class="dt">SESOI_lower =</span> <span class="ot">NA</span>,</span>
 <span id="cb26-6"><a href="validity-and-reliability.html#cb26-6"></a>  <span class="dt">SESOI_upper =</span> <span class="ot">NA</span>,</span>
-<span id="cb26-7"><a href="validity-and-reliability.html#cb26-7"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
-<span id="cb26-8"><a href="validity-and-reliability.html#cb26-8"></a>)</span>
-<span id="cb26-9"><a href="validity-and-reliability.html#cb26-9"></a></span>
-<span id="cb26-10"><a href="validity-and-reliability.html#cb26-10"></a>olp_validity_practical_criterion</span>
-<span id="cb26-11"><a href="validity-and-reliability.html#cb26-11"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
-<span id="cb26-12"><a href="validity-and-reliability.html#cb26-12"></a><span class="co">#&gt; </span></span>
-<span id="cb26-13"><a href="validity-and-reliability.html#cb26-13"></a><span class="co">#&gt;     estimator     value      lower     upper</span></span>
-<span id="cb26-14"><a href="validity-and-reliability.html#cb26-14"></a><span class="co">#&gt;   SESOI lower        NA         NA        NA</span></span>
-<span id="cb26-15"><a href="validity-and-reliability.html#cb26-15"></a><span class="co">#&gt;   SESOI upper        NA         NA        NA</span></span>
-<span id="cb26-16"><a href="validity-and-reliability.html#cb26-16"></a><span class="co">#&gt;   SESOI range        NA         NA        NA</span></span>
-<span id="cb26-17"><a href="validity-and-reliability.html#cb26-17"></a><span class="co">#&gt;     Intercept 4.7308268 -0.1090732 7.6594215</span></span>
-<span id="cb26-18"><a href="validity-and-reliability.html#cb26-18"></a><span class="co">#&gt;         Slope 1.0400989  0.9737440 1.1504408</span></span>
-<span id="cb26-19"><a href="validity-and-reliability.html#cb26-19"></a><span class="co">#&gt;           RSE 0.9140125  0.7314260 1.2351099</span></span>
-<span id="cb26-20"><a href="validity-and-reliability.html#cb26-20"></a><span class="co">#&gt;   Pearson&#39;s r 0.9875619  0.9763234 0.9935317</span></span>
-<span id="cb26-21"><a href="validity-and-reliability.html#cb26-21"></a><span class="co">#&gt;     R Squared 0.9752786  0.9532061 0.9871048</span></span>
-<span id="cb26-22"><a href="validity-and-reliability.html#cb26-22"></a><span class="co">#&gt;  SESOI to RSE        NA         NA        NA</span></span>
-<span id="cb26-23"><a href="validity-and-reliability.html#cb26-23"></a><span class="co">#&gt;          PPER        NA         NA        NA</span></span>
-<span id="cb26-24"><a href="validity-and-reliability.html#cb26-24"></a><span class="co">#&gt;           SDC 1.9130502  1.5308921 2.5851148</span></span></code></pre></div>
+<span id="cb26-7"><a href="validity-and-reliability.html#cb26-7"></a>  <span class="dt">estimator_function =</span> olp_method,</span>
+<span id="cb26-8"><a href="validity-and-reliability.html#cb26-8"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
+<span id="cb26-9"><a href="validity-and-reliability.html#cb26-9"></a>)</span>
+<span id="cb26-10"><a href="validity-and-reliability.html#cb26-10"></a></span>
+<span id="cb26-11"><a href="validity-and-reliability.html#cb26-11"></a>olp_validity_practical_criterion</span>
+<span id="cb26-12"><a href="validity-and-reliability.html#cb26-12"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb26-13"><a href="validity-and-reliability.html#cb26-13"></a><span class="co">#&gt; </span></span>
+<span id="cb26-14"><a href="validity-and-reliability.html#cb26-14"></a><span class="co">#&gt;  estimator     value      lower    upper</span></span>
+<span id="cb26-15"><a href="validity-and-reliability.html#cb26-15"></a><span class="co">#&gt;  Intercept 4.7308268 -0.1090732 7.659421</span></span>
+<span id="cb26-16"><a href="validity-and-reliability.html#cb26-16"></a><span class="co">#&gt;      Slope 1.0400989  0.9737440 1.150441</span></span>
+<span id="cb26-17"><a href="validity-and-reliability.html#cb26-17"></a><span class="co">#&gt;        RSE 0.9140125  0.7314260 1.235110</span></span>
+<span id="cb26-18"><a href="validity-and-reliability.html#cb26-18"></a><span class="co">#&gt;       PPER        NA         NA       NA</span></span></code></pre></div>
 <p>Let’s combine the three approaches so we can compare them more easily with the true DGP parameter values:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="validity-and-reliability.html#cb27-1"></a>practical_estimators &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
 <span id="cb27-2"><a href="validity-and-reliability.html#cb27-2"></a>  <span class="kw">data.frame</span>(</span>
@@ -815,7 +824,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-8"><a href="validity-and-reliability.html#cb27-8"></a>  ),</span>
 <span id="cb27-9"><a href="validity-and-reliability.html#cb27-9"></a>  <span class="kw">data.frame</span>(<span class="dt">method =</span> <span class="st">&quot;True lm&quot;</span>, lm_validity_practical<span class="op">$</span>estimators[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]),</span>
 <span id="cb27-10"><a href="validity-and-reliability.html#cb27-10"></a>  <span class="kw">data.frame</span>(<span class="dt">method =</span> <span class="st">&quot;Criterion lm&quot;</span>, lm_validity_practical_criterion<span class="op">$</span>estimators[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]),</span>
-<span id="cb27-11"><a href="validity-and-reliability.html#cb27-11"></a>  <span class="kw">data.frame</span>(<span class="dt">method =</span> <span class="st">&quot;Criterion olp&quot;</span>, olp_validity_practical_criterion<span class="op">$</span>estimators[<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>, ])</span>
+<span id="cb27-11"><a href="validity-and-reliability.html#cb27-11"></a>  <span class="kw">data.frame</span>(<span class="dt">method =</span> <span class="st">&quot;Criterion olp&quot;</span>, olp_validity_practical_criterion<span class="op">$</span>estimators[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])</span>
 <span id="cb27-12"><a href="validity-and-reliability.html#cb27-12"></a>)</span>
 <span id="cb27-13"><a href="validity-and-reliability.html#cb27-13"></a></span>
 <span id="cb27-14"><a href="validity-and-reliability.html#cb27-14"></a>practical_estimators<span class="op">$</span>method &lt;-<span class="st"> </span><span class="kw">factor</span>(</span>
@@ -914,7 +923,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-15"><a href="validity-and-reliability.html#cb30-15"></a>    <span class="dt">SESOI_upper =</span> <span class="ot">NA</span></span>
 <span id="cb30-16"><a href="validity-and-reliability.html#cb30-16"></a>  )</span>
 <span id="cb30-17"><a href="validity-and-reliability.html#cb30-17"></a></span>
-<span id="cb30-18"><a href="validity-and-reliability.html#cb30-18"></a>  olp_criterion &lt;-<span class="st"> </span><span class="kw">validity_estimators</span>(</span>
+<span id="cb30-18"><a href="validity-and-reliability.html#cb30-18"></a>  olp_criterion &lt;-<span class="st"> </span><span class="kw">olp_method</span>(</span>
 <span id="cb30-19"><a href="validity-and-reliability.html#cb30-19"></a>    <span class="dt">data =</span> data,</span>
 <span id="cb30-20"><a href="validity-and-reliability.html#cb30-20"></a>    <span class="dt">criterion =</span> <span class="st">&quot;Practical_score.trial1&quot;</span>,</span>
 <span id="cb30-21"><a href="validity-and-reliability.html#cb30-21"></a>    <span class="dt">practical =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
@@ -926,9 +935,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-27"><a href="validity-and-reliability.html#cb30-27"></a>    <span class="dt">simulation =</span> data<span class="op">$</span>simulation[<span class="dv">1</span>],</span>
 <span id="cb30-28"><a href="validity-and-reliability.html#cb30-28"></a>    <span class="dt">criterion_random_error =</span> data<span class="op">$</span>criterion_random_error[<span class="dv">1</span>],</span>
 <span id="cb30-29"><a href="validity-and-reliability.html#cb30-29"></a>    <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;True lm&quot;</span>, <span class="st">&quot;Criterion lm&quot;</span>, <span class="st">&quot;Criterion olp&quot;</span>),</span>
-<span id="cb30-30"><a href="validity-and-reliability.html#cb30-30"></a>    <span class="dt">Intercept =</span> <span class="kw">c</span>(lm_true[<span class="dv">1</span>], lm_criterion[<span class="dv">1</span>], olp_criterion[<span class="dv">4</span>]),</span>
-<span id="cb30-31"><a href="validity-and-reliability.html#cb30-31"></a>    <span class="dt">Slope =</span> <span class="kw">c</span>(lm_true[<span class="dv">2</span>], lm_criterion[<span class="dv">2</span>], olp_criterion[<span class="dv">5</span>]),</span>
-<span id="cb30-32"><a href="validity-and-reliability.html#cb30-32"></a>    <span class="dt">RSE =</span> <span class="kw">c</span>(lm_true[<span class="dv">3</span>], lm_criterion[<span class="dv">3</span>], olp_criterion[<span class="dv">6</span>])</span>
+<span id="cb30-30"><a href="validity-and-reliability.html#cb30-30"></a>    <span class="dt">Intercept =</span> <span class="kw">c</span>(lm_true[<span class="dv">1</span>], lm_criterion[<span class="dv">1</span>], olp_criterion[<span class="dv">1</span>]),</span>
+<span id="cb30-31"><a href="validity-and-reliability.html#cb30-31"></a>    <span class="dt">Slope =</span> <span class="kw">c</span>(lm_true[<span class="dv">2</span>], lm_criterion[<span class="dv">2</span>], olp_criterion[<span class="dv">2</span>]),</span>
+<span id="cb30-32"><a href="validity-and-reliability.html#cb30-32"></a>    <span class="dt">RSE =</span> <span class="kw">c</span>(lm_true[<span class="dv">3</span>], lm_criterion[<span class="dv">3</span>], olp_criterion[<span class="dv">3</span>])</span>
 <span id="cb30-33"><a href="validity-and-reliability.html#cb30-33"></a>  )</span>
 <span id="cb30-34"><a href="validity-and-reliability.html#cb30-34"></a>}</span>
 <span id="cb30-35"><a href="validity-and-reliability.html#cb30-35"></a></span>
@@ -984,7 +993,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-33"><a href="validity-and-reliability.html#cb31-33"></a>  <span class="kw">aes</span>(<span class="dt">x =</span> criterion_random_error, <span class="dt">y =</span> value, <span class="dt">group =</span> simulation)</span>
 <span id="cb31-34"><a href="validity-and-reliability.html#cb31-34"></a>) <span class="op">+</span></span>
 <span id="cb31-35"><a href="validity-and-reliability.html#cb31-35"></a><span class="st">  </span><span class="kw">theme_cowplot</span>(<span class="dv">8</span>) <span class="op">+</span></span>
-<span id="cb31-36"><a href="validity-and-reliability.html#cb31-36"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.01</span>) <span class="op">+</span></span>
+<span id="cb31-36"><a href="validity-and-reliability.html#cb31-36"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.02</span>) <span class="op">+</span></span>
 <span id="cb31-37"><a href="validity-and-reliability.html#cb31-37"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(</span>
 <span id="cb31-38"><a href="validity-and-reliability.html#cb31-38"></a>    <span class="dt">data =</span> simulation_results_long_avg,</span>
 <span id="cb31-39"><a href="validity-and-reliability.html#cb31-39"></a>    <span class="kw">aes</span>(<span class="dt">y =</span> mean, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper, <span class="dt">group =</span> <span class="dv">1</span>),</span>
@@ -1037,7 +1046,7 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb33-22"><a href="validity-and-reliability.html#cb33-22"></a>    <span class="dt">SESOI_upper =</span> <span class="ot">NA</span></span>
 <span id="cb33-23"><a href="validity-and-reliability.html#cb33-23"></a>  )</span>
 <span id="cb33-24"><a href="validity-and-reliability.html#cb33-24"></a></span>
-<span id="cb33-25"><a href="validity-and-reliability.html#cb33-25"></a>  olp_criterion &lt;-<span class="st"> </span><span class="kw">validity_estimators</span>(</span>
+<span id="cb33-25"><a href="validity-and-reliability.html#cb33-25"></a>  olp_criterion &lt;-<span class="st"> </span><span class="kw">olp_method</span>(</span>
 <span id="cb33-26"><a href="validity-and-reliability.html#cb33-26"></a>    <span class="dt">data =</span> data,</span>
 <span id="cb33-27"><a href="validity-and-reliability.html#cb33-27"></a>    <span class="dt">criterion =</span> <span class="st">&quot;Practical_score.trial1&quot;</span>,</span>
 <span id="cb33-28"><a href="validity-and-reliability.html#cb33-28"></a>    <span class="dt">practical =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
@@ -1049,16 +1058,16 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb33-34"><a href="validity-and-reliability.html#cb33-34"></a>    <span class="dt">simulation =</span> data<span class="op">$</span>simulation[<span class="dv">1</span>],</span>
 <span id="cb33-35"><a href="validity-and-reliability.html#cb33-35"></a>    <span class="dt">criterion_random_error =</span> data<span class="op">$</span>criterion_random_error[<span class="dv">1</span>],</span>
 <span id="cb33-36"><a href="validity-and-reliability.html#cb33-36"></a>    <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;True lm&quot;</span>, <span class="st">&quot;Criterion lm&quot;</span>, <span class="st">&quot;Criterion olp&quot;</span>),</span>
-<span id="cb33-37"><a href="validity-and-reliability.html#cb33-37"></a>    <span class="dt">Intercept =</span> <span class="kw">c</span>(lm_true[<span class="dv">1</span>], lm_criterion[<span class="dv">1</span>], olp_criterion[<span class="dv">4</span>]),</span>
+<span id="cb33-37"><a href="validity-and-reliability.html#cb33-37"></a>    <span class="dt">Intercept =</span> <span class="kw">c</span>(lm_true[<span class="dv">1</span>], lm_criterion[<span class="dv">1</span>], olp_criterion[<span class="dv">1</span>]),</span>
 <span id="cb33-38"><a href="validity-and-reliability.html#cb33-38"></a>    <span class="dt">Slope =</span> <span class="kw">c</span>(</span>
 <span id="cb33-39"><a href="validity-and-reliability.html#cb33-39"></a>      lm_true[<span class="dv">2</span>],</span>
 <span id="cb33-40"><a href="validity-and-reliability.html#cb33-40"></a>      lm_criterion[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>slope_adj,</span>
-<span id="cb33-41"><a href="validity-and-reliability.html#cb33-41"></a>      olp_criterion[<span class="dv">5</span>] <span class="op">*</span><span class="st"> </span>slope_adj</span>
+<span id="cb33-41"><a href="validity-and-reliability.html#cb33-41"></a>      olp_criterion[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>slope_adj</span>
 <span id="cb33-42"><a href="validity-and-reliability.html#cb33-42"></a>      ),</span>
 <span id="cb33-43"><a href="validity-and-reliability.html#cb33-43"></a>    <span class="dt">RSE =</span> <span class="kw">c</span>(</span>
 <span id="cb33-44"><a href="validity-and-reliability.html#cb33-44"></a>      lm_true[<span class="dv">3</span>],</span>
 <span id="cb33-45"><a href="validity-and-reliability.html#cb33-45"></a>      <span class="kw">adjust_RSE</span>(lm_criterion[<span class="dv">3</span>], criterion_random_error),</span>
-<span id="cb33-46"><a href="validity-and-reliability.html#cb33-46"></a>      <span class="kw">adjust_RSE</span>(olp_criterion[<span class="dv">6</span>], criterion_random_error)</span>
+<span id="cb33-46"><a href="validity-and-reliability.html#cb33-46"></a>      <span class="kw">adjust_RSE</span>(olp_criterion[<span class="dv">3</span>], criterion_random_error)</span>
 <span id="cb33-47"><a href="validity-and-reliability.html#cb33-47"></a>      )</span>
 <span id="cb33-48"><a href="validity-and-reliability.html#cb33-48"></a>  )</span>
 <span id="cb33-49"><a href="validity-and-reliability.html#cb33-49"></a>}</span>
@@ -1115,7 +1124,7 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb34-33"><a href="validity-and-reliability.html#cb34-33"></a>  <span class="kw">aes</span>(<span class="dt">x =</span> criterion_random_error, <span class="dt">y =</span> value, <span class="dt">group =</span> simulation)</span>
 <span id="cb34-34"><a href="validity-and-reliability.html#cb34-34"></a>) <span class="op">+</span></span>
 <span id="cb34-35"><a href="validity-and-reliability.html#cb34-35"></a><span class="st">  </span><span class="kw">theme_cowplot</span>(<span class="dv">8</span>) <span class="op">+</span></span>
-<span id="cb34-36"><a href="validity-and-reliability.html#cb34-36"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.01</span>) <span class="op">+</span></span>
+<span id="cb34-36"><a href="validity-and-reliability.html#cb34-36"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.02</span>) <span class="op">+</span></span>
 <span id="cb34-37"><a href="validity-and-reliability.html#cb34-37"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(</span>
 <span id="cb34-38"><a href="validity-and-reliability.html#cb34-38"></a>    <span class="dt">data =</span> simulation_results_long_avg,</span>
 <span id="cb34-39"><a href="validity-and-reliability.html#cb34-39"></a>    <span class="kw">aes</span>(<span class="dt">y =</span> mean, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper, <span class="dt">group =</span> <span class="dv">1</span>),</span>
@@ -1137,15 +1146,91 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 </div>
 <div id="prediction-approach" class="section level3" number="15.2.3">
 <h3><span class="header-section-number">15.2.3</span> Prediction approach</h3>
-<p>Rather than trying to re-create DGP, we might be interested in predictive performance (i.e. on unseen data) of a validity model. In other words, can we predict the criterion measure from the practical measure and with what precision.</p>
-<p><em>to be continued</em></p>
+<p>Rather than trying to re-create DGP, we might be interested in predictive performance instead. This implies estimating <em>predictive validity</em> using <em>calibration model</em> (i.e. simple linear regression used so far represent simple calibration model). Sometimes certain measuring devices produce multiple outputs, for example heat, humidity, and pressure readings as well as non-linear readings and we can use all these features as predictors to find a calibration model that provides the best predictive performance.</p>
+<p>In our case, we are interested in predicting criterion measure from practical measure. Rather than using <code>lm_method</code> we have written, we can use <em>default</em> estimator function <code>bmbstats::validity_estimators</code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="validity-and-reliability.html#cb35-1"></a>lm_criterion_validity &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">validity_analysis</span>(</span>
+<span id="cb35-2"><a href="validity-and-reliability.html#cb35-2"></a>  <span class="dt">data =</span> agreement_data,</span>
+<span id="cb35-3"><a href="validity-and-reliability.html#cb35-3"></a>  <span class="dt">practical =</span> <span class="st">&quot;Practical_score.trial1&quot;</span>,</span>
+<span id="cb35-4"><a href="validity-and-reliability.html#cb35-4"></a>  <span class="dt">criterion =</span> <span class="st">&quot;Criterion_score.trial1&quot;</span>,</span>
+<span id="cb35-5"><a href="validity-and-reliability.html#cb35-5"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
+<span id="cb35-6"><a href="validity-and-reliability.html#cb35-6"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span>,</span>
+<span id="cb35-7"><a href="validity-and-reliability.html#cb35-7"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">seed =</span> <span class="dv">1667</span>)</span>
+<span id="cb35-8"><a href="validity-and-reliability.html#cb35-8"></a>)</span>
+<span id="cb35-9"><a href="validity-and-reliability.html#cb35-9"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  2.5 \n Cannot calculate confidence intervals&quot;</span></span>
+<span id="cb35-10"><a href="validity-and-reliability.html#cb35-10"></a><span class="co">#&gt; [1] &quot;All values of t are equal to  5 \n Cannot calculate confidence intervals&quot;</span></span>
+<span id="cb35-11"><a href="validity-and-reliability.html#cb35-11"></a></span>
+<span id="cb35-12"><a href="validity-and-reliability.html#cb35-12"></a>lm_criterion_validity</span>
+<span id="cb35-13"><a href="validity-and-reliability.html#cb35-13"></a><span class="co">#&gt; Bootstrap with 2000 resamples and 95% bca confidence intervals.</span></span>
+<span id="cb35-14"><a href="validity-and-reliability.html#cb35-14"></a><span class="co">#&gt; </span></span>
+<span id="cb35-15"><a href="validity-and-reliability.html#cb35-15"></a><span class="co">#&gt;     estimator      value      lower     upper</span></span>
+<span id="cb35-16"><a href="validity-and-reliability.html#cb35-16"></a><span class="co">#&gt;   SESOI lower -2.5000000         NA        NA</span></span>
+<span id="cb35-17"><a href="validity-and-reliability.html#cb35-17"></a><span class="co">#&gt;   SESOI upper  2.5000000         NA        NA</span></span>
+<span id="cb35-18"><a href="validity-and-reliability.html#cb35-18"></a><span class="co">#&gt;   SESOI range  5.0000000         NA        NA</span></span>
+<span id="cb35-19"><a href="validity-and-reliability.html#cb35-19"></a><span class="co">#&gt;     Intercept -3.9394072 -7.2953389 0.7734320</span></span>
+<span id="cb35-20"><a href="validity-and-reliability.html#cb35-20"></a><span class="co">#&gt;         Slope  0.9494885  0.8579138 1.0168839</span></span>
+<span id="cb35-21"><a href="validity-and-reliability.html#cb35-21"></a><span class="co">#&gt;           RSE  0.8760378  0.7261416 1.1122760</span></span>
+<span id="cb35-22"><a href="validity-and-reliability.html#cb35-22"></a><span class="co">#&gt;   Pearson&#39;s r  0.9875619  0.9763234 0.9935317</span></span>
+<span id="cb35-23"><a href="validity-and-reliability.html#cb35-23"></a><span class="co">#&gt;     R Squared  0.9752786  0.9532061 0.9871048</span></span>
+<span id="cb35-24"><a href="validity-and-reliability.html#cb35-24"></a><span class="co">#&gt;  SESOI to RSE  5.7075161  4.4952872 6.8897943</span></span>
+<span id="cb35-25"><a href="validity-and-reliability.html#cb35-25"></a><span class="co">#&gt;          PPER  0.9898416  0.9633314 0.9972420</span></span>
+<span id="cb35-26"><a href="validity-and-reliability.html#cb35-26"></a><span class="co">#&gt;           SDC  1.8335682  1.5198318 2.3280204</span></span></code></pre></div>
+<p>Additional estimator in this list is <code>SDC</code>. <code>SDC</code> is the <em>smallest detectable change</em> (see <a href="measurement-error.html#smallest-detectable-change">Smallest Detectable Change</a> section in <a href="measurement-error.html#measurement-error">Measurement Error</a> chapter), and in this case represents the smallest change in the practical measure for which we have at least 95% confidence it involves change in the criterion score. In other words, <code>SDC</code> represents a 95% <em>coverage</em> in the criterion for the same value of practical measure (or same values of the predictors involved, in the case when there is multiple of them). <code>SDC</code> is calculated using <code>RSE</code> and critical threshold using t-distribution to get a 95% coverage (or simply by multiplying <code>RSE</code> with ±1.96).</p>
+<p>This is better seen and understood using the residual graph on the panel B below:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="validity-and-reliability.html#cb36-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_pair_lm</span>(</span>
+<span id="cb36-2"><a href="validity-and-reliability.html#cb36-2"></a>  <span class="dt">predictor =</span> agreement_data<span class="op">$</span>Practical_score.trial1,</span>
+<span id="cb36-3"><a href="validity-and-reliability.html#cb36-3"></a>  <span class="dt">outcome =</span> agreement_data<span class="op">$</span>Criterion_score.trial1,</span>
+<span id="cb36-4"><a href="validity-and-reliability.html#cb36-4"></a>  <span class="dt">predictor_label =</span> <span class="st">&quot;Practical Score&quot;</span>,</span>
+<span id="cb36-5"><a href="validity-and-reliability.html#cb36-5"></a>  <span class="dt">outcome_label =</span> <span class="st">&quot;Criterion Score&quot;</span>,</span>
+<span id="cb36-6"><a href="validity-and-reliability.html#cb36-6"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
+<span id="cb36-7"><a href="validity-and-reliability.html#cb36-7"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
+<span id="cb36-8"><a href="validity-and-reliability.html#cb36-8"></a>)</span></code></pre></div>
+<p><img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><code>SDC</code>, or <em>Level of Agreement</em> used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases).</p>
+<p>“But hold your horses Mladen, we haven’t tested model predictions on hold-out or unseen data!” And you are completely right. Let’s do that using <code>bmbstats::cv_model</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="validity-and-reliability.html#cb37-1"></a>lm_predictive_validity &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">cv_model</span>(</span>
+<span id="cb37-2"><a href="validity-and-reliability.html#cb37-2"></a>  Criterion_score.trial1<span class="op">~</span>Practical_score.trial1,</span>
+<span id="cb37-3"><a href="validity-and-reliability.html#cb37-3"></a>  <span class="dt">data =</span> agreement_data,</span>
+<span id="cb37-4"><a href="validity-and-reliability.html#cb37-4"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
+<span id="cb37-5"><a href="validity-and-reliability.html#cb37-5"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span>,</span>
+<span id="cb37-6"><a href="validity-and-reliability.html#cb37-6"></a>  <span class="dt">control =</span> <span class="kw">model_control</span>(<span class="dt">cv_folds =</span> <span class="dv">5</span>, <span class="dt">cv_repeats =</span> <span class="dv">10</span>)</span>
+<span id="cb37-7"><a href="validity-and-reliability.html#cb37-7"></a>)</span>
+<span id="cb37-8"><a href="validity-and-reliability.html#cb37-8"></a></span>
+<span id="cb37-9"><a href="validity-and-reliability.html#cb37-9"></a>lm_predictive_validity</span>
+<span id="cb37-10"><a href="validity-and-reliability.html#cb37-10"></a><span class="co">#&gt; Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.</span></span>
+<span id="cb37-11"><a href="validity-and-reliability.html#cb37-11"></a><span class="co">#&gt; </span></span>
+<span id="cb37-12"><a href="validity-and-reliability.html#cb37-12"></a><span class="co">#&gt; Model performance:</span></span>
+<span id="cb37-13"><a href="validity-and-reliability.html#cb37-13"></a><span class="co">#&gt; </span></span>
+<span id="cb37-14"><a href="validity-and-reliability.html#cb37-14"></a><span class="co">#&gt;         metric      training training.pooled testing.pooled        mean</span></span>
+<span id="cb37-15"><a href="validity-and-reliability.html#cb37-15"></a><span class="co">#&gt;            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363</span></span>
+<span id="cb37-16"><a href="validity-and-reliability.html#cb37-16"></a><span class="co">#&gt;            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212</span></span>
+<span id="cb37-17"><a href="validity-and-reliability.html#cb37-17"></a><span class="co">#&gt;           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710</span></span>
+<span id="cb37-18"><a href="validity-and-reliability.html#cb37-18"></a><span class="co">#&gt;           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067</span></span>
+<span id="cb37-19"><a href="validity-and-reliability.html#cb37-19"></a><span class="co">#&gt;  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136</span></span>
+<span id="cb37-20"><a href="validity-and-reliability.html#cb37-20"></a><span class="co">#&gt;      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772</span></span>
+<span id="cb37-21"><a href="validity-and-reliability.html#cb37-21"></a><span class="co">#&gt;         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158</span></span>
+<span id="cb37-22"><a href="validity-and-reliability.html#cb37-22"></a><span class="co">#&gt;         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816</span></span>
+<span id="cb37-23"><a href="validity-and-reliability.html#cb37-23"></a><span class="co">#&gt;      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462</span></span>
+<span id="cb37-24"><a href="validity-and-reliability.html#cb37-24"></a><span class="co">#&gt;          SD        min        max</span></span>
+<span id="cb37-25"><a href="validity-and-reliability.html#cb37-25"></a><span class="co">#&gt;  0.52102607 -1.0035037  1.0131942</span></span>
+<span id="cb37-26"><a href="validity-and-reliability.html#cb37-26"></a><span class="co">#&gt;  0.21891902  0.2938133  1.4283624</span></span>
+<span id="cb37-27"><a href="validity-and-reliability.html#cb37-27"></a><span class="co">#&gt;  0.23117615  0.4147218  1.5060507</span></span>
+<span id="cb37-28"><a href="validity-and-reliability.html#cb37-28"></a><span class="co">#&gt;  0.05265932  0.6919549  0.9885303</span></span>
+<span id="cb37-29"><a href="validity-and-reliability.html#cb37-29"></a><span class="co">#&gt;  1.61587442  3.3199413 12.0562748</span></span>
+<span id="cb37-30"><a href="validity-and-reliability.html#cb37-30"></a><span class="co">#&gt;  0.56589940 -2.5312392  0.9953966</span></span>
+<span id="cb37-31"><a href="validity-and-reliability.html#cb37-31"></a><span class="co">#&gt;  0.40660854 -1.3641311  0.4769940</span></span>
+<span id="cb37-32"><a href="validity-and-reliability.html#cb37-32"></a><span class="co">#&gt;  0.71495843 -0.2737126  2.3455653</span></span>
+<span id="cb37-33"><a href="validity-and-reliability.html#cb37-33"></a><span class="co">#&gt;  0.43907222  0.7468639  2.3455653</span></span></code></pre></div>
+<p>If we check <code>MaxAbsErr</code> we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing <code>RMSE</code> (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% <code>SDC</code> multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice.</p>
 </div>
 </div>
 <div id="reliability" class="section level2" number="15.3">
 <h2><span class="header-section-number">15.3</span> Reliability</h2>
+<p>For a measure to be valid it also needs to be reliable, but for a measure to be reliable it does not necessary needs to be valid (or at least in non-calibrated way). In essence, reliability is about repeat-ability, or how much measure is in agreement with itself. From prediction modeling perspective, reliability is how well measure predicts itself. From explanatory perspective, reliability is about estimating random error within the DGP.</p>
+<p><em>To evaluate reliability, one needs repeated measures and the assumption that the True scores does not change from trial to trial. For the purpose of the current paper, we will differentiate between few types of reliability: (a) between-units reliability, (b) within-unit reliability, which both represent instrumentation reliability and an estimate of instrumentation noise, and (c) measurement error, which consists of instrumentation noise and biological noise. </em></p>
+<p><strong>To be continued</strong></p>
 </div>
-<div id="adding-biological-noise-to-the-data" class="section level2" number="15.4">
-<h2><span class="header-section-number">15.4</span> Adding biological noise to the data</h2>
+<div id="adding-biological-noise-to-the-mix" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Adding biological noise to the mix</h2>
 
 </div>
 </div>
