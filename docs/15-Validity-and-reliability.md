@@ -524,7 +524,11 @@ As can be seen from the table, the estimates for the random error component of t
 
 ### Practical vs Criterion
 
-In the real-world, we do not know the true scores. We can only use some type of the gold standard measure. In our DGP simulation we have generated both criterion and practical measures using the known true scores and measurement error for the each measure. Let's check if we can re-create DGP parameters for the practical measure (which has both proportional and fixed bias, as well as larger random error than criterion) using the criterion score. Here is the scatter plot of the two:
+In the real-world, we do not know the true scores. We can only use some type of the gold standard measure. In our DGP simulation we have generated both criterion and practical measures using the known true scores and measurement error for the each measure.
+
+<img src="figures/validity-analysis.png" width="50%" style="display: block; margin: auto;" />
+
+Let's check if we can re-create DGP parameters for the practical measure (which has both proportional and fixed bias, as well as larger random error than criterion) using the criterion score. Here is the scatter plot of the two:
 
 
 ```r
@@ -539,7 +543,7 @@ ggplot(
   geom_point()
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
 
 To re-create DGP for the practical measure, we need to use true score as the predictor (since that is how we have generated the practical scores). Let's use the simple linear regression method to do so:
 
@@ -553,7 +557,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
 
 And let's estimate the 95% bootstrap confidence intervals:
 
@@ -593,7 +597,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
 
 And let's estimate the bootstrap 95% CIs:
 
@@ -710,7 +714,7 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-28-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
 
 To understand how these methods and how their estimates behave when there is random error in the predictor variable (x-value; criterion in this case), let's create a quick simulation (see also the SIMEX procedure explained in the [What to do when we know the error?] section of the [Measurement Error] chapter). The DGP parameters of the practical measure will stay the same, but we will change the random error for the criterion score from 0 (i.e. making it essentially the true score), to double th random error of the practical score. 
 
@@ -728,7 +732,9 @@ simulation_df <- simulation_df %>%
     agreement_data <- tibble(
       True_score = rnorm(n_subjects, 45, 5),
       Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
+      Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
       Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
+      Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
     )
     
     cbind(current, agreement_data)
@@ -742,13 +748,13 @@ head(simulation_df)
 #> 4          1                      0   54.14657               54.14657
 #> 5          1                      0   42.17742               42.17742
 #> 6          1                      0   50.57845               50.57845
-#>   Practical_score.trial1
-#> 1               47.36111
-#> 2               49.30239
-#> 3               46.81175
-#> 4               62.99236
-#> 5               49.52856
-#> 6               56.14485
+#>   Criterion_score.trial2 Practical_score.trial1 Practical_score.trial2
+#> 1               41.44284               47.36111               47.05610
+#> 2               42.76338               49.30239               47.59944
+#> 3               39.33558               46.81175               45.48609
+#> 4               54.14657               62.99236               62.44907
+#> 5               42.17742               49.52856               49.12834
+#> 6               50.57845               56.14485               59.70339
 ```
 
 Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, slope, and random error) using simple linear regression and OLP regression using criterion as predictor and practical as the outcome variables. 
@@ -800,12 +806,12 @@ head(simulation_results)
 #> # Groups:   simulation, criterion_random_error [2]
 #>   simulation criterion_random_error method        Intercept Slope   RSE
 #>        <int>                  <dbl> <chr>             <dbl> <dbl> <dbl>
-#> 1          1                  0     True lm            3.35  1.08 0.949
-#> 2          1                  0     Criterion lm       3.35  1.08 0.949
-#> 3          1                  0     Criterion olp      2.83  1.09 0.952
-#> 4          1                  0.222 True lm            1.68  1.11 0.897
-#> 5          1                  0.222 Criterion lm       2.15  1.09 0.832
-#> 6          1                  0.222 Criterion olp      1.44  1.11 0.835
+#> 1          1                  0     True lm          3.35    1.08 0.949
+#> 2          1                  0     Criterion lm     3.35    1.08 0.949
+#> 3          1                  0     Criterion olp    2.83    1.09 0.952
+#> 4          1                  0.222 True lm         -0.0301  1.14 1.19 
+#> 5          1                  0.222 Criterion lm    -0.717   1.16 1.15 
+#> 6          1                  0.222 Criterion olp   -1.38    1.17 1.15
 ```
 
 And now we can plot the results:
@@ -864,7 +870,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 Red dashed horizontal line on the graph indicate the true DGP parameter value, which we want to estimate. Thin black lines (spaghetti anyone?) indicate simulation results across different levels of random error in the criterion measure. These black lines are summarized with `mean` (thick white line) ± `SD` (blue ribbon). 
@@ -872,9 +878,9 @@ Red dashed horizontal line on the graph indicate the true DGP parameter value, w
 As can be seen, the effect of changing random error in the criterion measure (predictor; x-value), while keeping the same random error in the practical measure (outcome) affects intercept, slope and random error estimates for criterion linear model and criterion OLP model. Intercept, slope, and `RSE` are only correctly estimated with simple regression model when there is no random error (0 on the x-axis). As the random error increases, both bias (i.e. simulations `mean`) and variance (i.e. simulations `SD`) are increased. 
 
 When it comes to OLP, due to random error in the practical measure, bias is involved in the intercept and slope estimates when there is no random error in the criterion. Intercept and slope are correctly estimated only when criterion has the same amount of random error as in the practical measure. OLP estimated `RSE` suffers the same issues as `RSE` estimated with simple linear model. 
-Estimating Type I errors using the bootstrapped CIs would involve slower/longer simulation and will not be considered here. Although I can speculate, as can be seen from the graphs, that these will not be great. 
+Estimating Type I errors using the bootstrapped CIs would involve slower/longer simulation and will not be considered here. Although I can speculate, as can be seen from the graphs, that these will not be constants, particularly for the biased estimators. 
 
-What can we do? Well, if we know the random error involved in the criterion score (i.e. predictor) we can *adjust* slope coefficient (see *attenuation effect* and slope adjustment explained in great article by Michael Wallace [[@wallaceAnalysisImperfectWorld2020, pp.17]]) or we can perform SIMEX as explained in the [Measurement Error] chapter. Let's repeat the simulation, but now let's use adjusted slope and `RSE`. `RSE` is adjusted by deducting known random error: $adjusted \;RSE^2 = estimated \; RSE^2 - known \; random \; error  ^2$. The problem emerges when known random error is larger from the estimated `RSE`, since we are taking a square root of their squared difference. We thus need to make a function that deals with that:
+What can we do? Well, if we know the random error involved in the criterion score (i.e. predictor) we can *adjust* slope coefficient (see *attenuation effect* and slope adjustment explained in great article by Michael Wallace [@wallaceAnalysisImperfectWorld2020, pp.17]) or we can perform SIMEX as explained in the [Measurement Error] chapter. Let's repeat the simulation, but now let's use adjusted slope and `RSE`. `RSE` is adjusted by deducting known random error: $adjusted \;RSE^2 = estimated \; RSE^2 - known \; random \; error  ^2$. The problem emerges when known random error is larger from the estimated `RSE`, since we are taking a square root of their squared difference. We thus need to make a function that deals with that:
 
 
 ```r
@@ -951,12 +957,12 @@ head(simulation_results)
 #> # Groups:   simulation, criterion_random_error [2]
 #>   simulation criterion_random_error method        Intercept Slope   RSE
 #>        <int>                  <dbl> <chr>             <dbl> <dbl> <dbl>
-#> 1          1                  0     True lm            3.35  1.08 0.949
-#> 2          1                  0     Criterion lm       3.35  1.08 0.949
-#> 3          1                  0     Criterion olp      2.83  1.09 0.952
-#> 4          1                  0.222 True lm            1.68  1.11 0.897
-#> 5          1                  0.222 Criterion lm       2.15  1.10 0.802
-#> 6          1                  0.222 Criterion olp      1.44  1.11 0.805
+#> 1          1                  0     True lm          3.35    1.08 0.949
+#> 2          1                  0     Criterion lm     3.35    1.08 0.949
+#> 3          1                  0     Criterion olp    2.83    1.09 0.952
+#> 4          1                  0.222 True lm         -0.0301  1.14 1.19 
+#> 5          1                  0.222 Criterion lm    -0.717   1.16 1.13 
+#> 6          1                  0.222 Criterion olp   -1.38    1.17 1.13
 ```
 
 And we can plot the results of adjusted slope and `RSE`:
@@ -1015,7 +1021,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" />
 
 Using the simple linear regression, we managed to adjust the bias of the slope estimate, although variance still increases with increasing criterion random error (which will probably affect the Type I error rates). Adjustment didn't help the OLP estimate slope. Adjusting `RSE` seems to remove the bias for both simple linear regression and OLP, but simulation variance keeps increasing with increase in criterion random error. 
 
@@ -1075,7 +1081,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" />
 
 `SDC`, or *Level of Agreement* used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases). 
 
@@ -1120,14 +1126,459 @@ lm_predictive_validity
 
 If we check `MaxAbsErr` we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing `RMSE` (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% `SDC` multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice. 
 
+### Can we adjust for the know criterion measure random error?
+
+Let's use our simulated data to check what happens to intercept, slope, and `RSE` when changing the random error involved in the criterion (which is now a outcome variable). We can also adjust the estimated `RSE` be deducting known criterion random error. In this case, practical measure will be the predictor (x-variable) and criterion will be outcome (y-variable). Using estimated parameters with true score as outcome variable will be used as a reference.
+
+
+```r
+estimation_wrapper <- function(data) {
+  lm_true <- lm_method(
+    data = data,
+    practical = "Practical_score.trial1",
+    criterion = "True_score",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  lm_criterion <- lm_method(
+    data = data,
+    practical = "Practical_score.trial1",
+    criterion = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+
+  data.frame(
+    simulation = data$simulation[1],
+    criterion_random_error = data$criterion_random_error[1],
+    method = c("True lm", "Criterion lm", "Adjusted lm"),
+    Intercept = c(lm_true[1], lm_criterion[1], lm_criterion[1]),
+    Slope = c(lm_true[2], lm_criterion[2], lm_criterion[2]),
+    RSE = c(
+      lm_true[3],
+      lm_criterion[3],
+      adjust_RSE(lm_criterion[3], data$criterion_random_error[1])
+      )
+  )
+}
+
+simulation_results <- simulation_df %>%
+  group_by(simulation, criterion_random_error) %>%
+  do(estimation_wrapper(.))
+
+
+head(simulation_results)
+#> # A tibble: 6 x 6
+#> # Groups:   simulation, criterion_random_error [2]
+#>   simulation criterion_random_error method       Intercept Slope   RSE
+#>        <int>                  <dbl> <chr>            <dbl> <dbl> <dbl>
+#> 1          1                  0     True lm          -2.10 0.909 0.873
+#> 2          1                  0     Criterion lm     -2.10 0.909 0.873
+#> 3          1                  0     Adjusted lm      -2.10 0.909 0.873
+#> 4          1                  0.222 True lm           1.24 0.852 1.03 
+#> 5          1                  0.222 Criterion lm      1.73 0.842 0.979
+#> 6          1                  0.222 Adjusted lm       1.73 0.842 0.953
+```
+
+And plot the results again:
+
+
+```r
+simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+
+simulation_results_long$key <- factor(
+  simulation_results_long$key,
+  levels = c("Intercept", "Slope", "RSE")
+)
+
+simulation_results_long$method <- factor(
+  simulation_results_long$method,
+  levels = c("True lm", "Criterion lm", "Adjusted lm")
+)
+
+simulation_results_long_avg <- simulation_results_long %>%
+  group_by(method, criterion_random_error, key) %>%
+  summarise(
+    mean = mean(value),
+    upper = mean + (sd(value)),
+    lower = mean - (sd(value))
+  )
+
+ggplot(
+  simulation_results_long,
+  aes(x = criterion_random_error, y = value, group = simulation)
+) +
+  theme_cowplot(8) +
+  geom_line(alpha = 0.02) +
+  geom_ribbon(
+    data = simulation_results_long_avg,
+    aes(y = mean, ymin = lower, ymax = upper, group = 1),
+    alpha = 0.3, fill = "blue"
+  ) +
+  geom_line(
+    data = simulation_results_long_avg,
+    color = "white",
+    aes(y = mean, group = 1),
+    size = 1) +
+  facet_grid(key ~ method, scales = "free") +
+  ylab(NULL) +
+  xlab("Criterion random error")
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+
+As can be seen from the figure, `RSE` for the simple linear regression model (where criterion is the outcome and practical is the predictor) climbs up as criterion random error increases. When using adjusted `RSE`, up until the point where criterion has lower or equal random error to a practical score, we are able to correctly adjust `RSE` to give us estimation of the model fit using the true score (which is unknown of course, but we have used known criterion random error). 
+
+
 ## Reliability
 
-For a measure to be valid it also needs to be reliable, but for a measure to be reliable it does not necessary needs to be valid (or at least in non-calibrated way). In essence, reliability is about repeat-ability, or how much measure is in agreement with itself. From prediction modeling perspective, reliability is how well measure predicts itself. From explanatory perspective, reliability is about estimating random error within the DGP. 
+For a measure to be valid it also needs to be reliable, but for a measure to be reliable it does not necessary needs to be valid (or at least in non-calibrated way). In essence, reliability is about *reproducibility* and *repeatability*, or how much measure is in agreement with itself. From prediction modeling perspective, reliability is how well measure predicts itself. From explanatory perspective, reliability is about estimating random error within the DGP (i.e. `TE` or typical error). 
 
-*To evaluate reliability, one needs repeated measures and the assumption that the True scores does not change from trial to trial. For the purpose of the current paper, we will differentiate between few types of reliability: (a) between-units reliability, (b) within-unit reliability, which both represent instrumentation reliability and an estimate of instrumentation noise, and (c) measurement error, which consists of instrumentation noise and biological noise. *
+How is reliability evaluated? We need to make a distinction between few methods. When we have compared practical measure to criterion, we assumed criterion to be gold standard without measurement error (i.e. true score). If that analysis showed non-valid performance, it automatically implied that the measurement is unreliable. In short, if practical measure cannot predict the criterion or is not in agreement with the criterion, it cannot be reliable. 
 
-**To be continued**
+Second method is concerned with the scenario when we do not have the criterion or the true score available. Theoretically, we want a measuring instrument of interest to measure the same phenomena multiple times, to check measurement *reproducibility*. This can be achieved in few ways - we might have a special device that produce perfectly repeatable phenomena that is measured multiple times with one unit. This scenario is simulated within our DGP that we have used so far: the true score stays the same across two trial, which is then estimated with criterion and practical measures. 
 
-## Adding biological noise to the mix
+<img src="figures/reproducibility.png" width="50%" style="display: block; margin: auto;" />
+
+But that is easily done in simulations, and not so in real life. The other option is to measure with two or more devices of the the same measuring unit. Thus, each trial is measured with two or more devices. The assumption must be made that the random error in each device is the same. Let's see how this plays out with our simulated data.
+
+### Reproducibility
+
+For the purpose of this example, let's assume that true score is measured with two criterion and two practical measuring devices (or measured twice with *perfect repeatability* of the true score). Let's plot these:
+
+
+```r
+ggplot(
+  agreement_data,
+  aes(
+    x = Criterion_score.trial2,
+    y = Criterion_score.trial1
+  )
+) +
+  theme_cowplot(8) +
+  geom_point() +
+  ggtitle("Criterion measure")
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(
+  agreement_data,
+  aes(
+    x = Practical_score.trial2,
+    y = Practical_score.trial1
+  )
+) +
+  theme_cowplot(8) +
+  geom_point() +
+  ggtitle("Practical measure")
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
+
+Let's check the reproducibility of the criterion measure. Same as with validity analysis, we can use few methods to estimate reproducibility: (1) method of differences (i.e. Bland-Altman), (2) simple linear regression, and (3) OLP regression. When there are more than two trials, there are few options that can be considered, and the simplest it pairwise analysis (i.e. 2-1, 3-2, 4-3  or all combinations; this technique estimates average reproducibility) or use of *ANOVA* or repeated-measures analysis. These will not be considered in this book. 
+
+We can use the functions that we have written already for the validity analysis. Let's start with the differences analysis by creating Bland-Altman plot:
+
+
+```r
+bmbstats::plot_pair_BA(
+  predictor = agreement_data$Criterion_score.trial2,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "Criterion Score Trial1",
+  outcome_label = "Criterion Score Trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
+
+To provide estimators we will use functions that we have already written:
+
+
+```r
+diff_reporoducibility <- differences_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+
+diff_reporoducibility
+#>  Mean diff    SD diff       PPER 
+#> 0.05560546 0.30504044 0.99999988
+```
+
+Please note the true criterion random error used in the DGP, which is equal to 0.3cm and `SD diff` which is not estimated with `SD diff`, even if they are similar: 0.31 (this is due to sampling error involved in this particular sample). As explained in [Measurement Error], to get the estimate of criterion score random error (i.e. `TE`), we need to divide `SD diff` with $\sqrt{2}$. This is because, random error is involved in both trials, and thus twice in their difference. 
+
+Estimated `TE` is equal to 0.22. If we repeat the validity analysis of the criterion score using true score as predictor, we will get the same and correct estimate:
+
+
+```r
+differences_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "True_score",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>   Mean diff     SD diff        PPER 
+#> -0.07726199  0.26125825  0.99999999
+```
+
+The next approach is to use simple linear regression:
+
+
+```r
+bmbstats::plot_pair_lm(
+  predictor = agreement_data$Criterion_score.trial2,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "Criterion Score Trial1",
+  outcome_label = "Criterion Score Trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" />
+
+We can also use the function we wrote to provide validity analysis using simple linear regression:
+
+
+```r
+lm_reporoducibility <- lm_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+
+lm_reporoducibility
+#>  Intercept      Slope        RSE       PPER 
+#> -0.4298105  1.0109424  0.3075601  0.9999999
+```
+
+To estimate `TE`, we again need to divide estimated `RSE` with $\sqrt{2}$. 
+
+THe "problem" with both method of differences and simple linear regression, is that we need to use one variable as predictor and one as the outcome. This is avoided with the OLP approach, although parameters are estimated using one measure as predictor and other as outcome, but as explained previously, product of x- and x-variable residuals are used instead. 
+
+Let's perform the OLP reproducibility plot and analysis using the function we have wrote already:
+
+
+```r
+bmbstats::plot_pair_OLP(
+  predictor = agreement_data$Criterion_score.trial2,
+  outcome = agreement_data$Criterion_score.trial1,
+  predictor_label = "Criterion Score Trial1",
+  outcome_label = "Criterion Score Trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+olp_reporoducibility <- olp_method(
+  data = agreement_data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+
+olp_reporoducibility
+#>  Intercept      Slope        RSE       PPER 
+#> -0.4982932  1.0124861  0.3076774  0.9999999
+```
+
+In `bmbstats`, reliability is estimated using `bmbstats::reliability_analysis` that uses OLP as the default method implemented in `bmbstats::reliability_estimators` function. Rather than using parameters `criterion` and `practical`, `bmbstats::reliability_analysis` and `bmbstats::reliability_estimators` use `trial1` and `trial2`:
+
+
+```r
+bmbstats::reliability_estimators(
+  data = agreement_data,
+  trial1 = "Criterion_score.trial1",
+  trial2 = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE 
+#>   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774 
+#>  Pearson's r    R Squared SESOI to RSE         PPER           TE          SDC 
+#>    0.9984753    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761
+```
+
+`bmbstats::reliability_estimators` provides additional estimators, including `TE` and `SDC`. To get 95% bootstrap confidence intervals, use:
+
+
+```r
+criterion_reproducibility <- bmbstats::reliability_analysis(
+  data = agreement_data,
+  trial1 = "Criterion_score.trial1",
+  trial2 = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
+)
+#> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
+#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
+
+criterion_reproducibility
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>     estimator      value      lower      upper
+#>   SESOI lower -2.5000000         NA         NA
+#>   SESOI upper  2.5000000         NA         NA
+#>   SESOI range  5.0000000         NA         NA
+#>     Intercept -0.4982932 -1.3450623  0.6000301
+#>         Slope  1.0124861  0.9888145  1.0317365
+#>           RSE  0.3076774  0.2362124  0.4474032
+#>   Pearson's r  0.9984753  0.9956386  0.9993848
+#>     R Squared  0.9969529  0.9912963  0.9987701
+#>  SESOI to RSE 16.2507895 11.2407775 21.2231826
+#>          PPER  0.9999999  0.9999782  1.0000000
+#>            TE  0.2175607  0.1670274  0.3163618
+#>           SDC  0.6439761  0.4943982  0.9364256
+```
+
+#### Simulating effects of different levels of random error on reproducibility results
+
+Since we already have generated simulated data, let's check how estimated `TE` behaves using three different analysis methods over varying degrees of random error involved in the criterion score. To represent the intercept for the differences method, I've used `Mean Diff`. 
+
+
+```r
+estimation_wrapper <- function(data) {
+  diff_reporoducibility <- differences_method(
+  data = data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+
+  lm_reporoducibility <- lm_method(
+  data = data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+
+  olp_reporoducibility <- olp_method(
+  data = data,
+  criterion = "Criterion_score.trial1",
+  practical = "Criterion_score.trial2",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+  
+  data.frame(
+    simulation = data$simulation[1],
+    criterion_random_error = data$criterion_random_error[1],
+    method = c("diff", "lm", "olp"),
+    Intercept = c(diff_reporoducibility[1], lm_reporoducibility[1], olp_reporoducibility[1]),
+    Slope = c(NA, lm_reporoducibility[2], olp_reporoducibility[2]),
+    TE = c(diff_reporoducibility[2], lm_reporoducibility[3], olp_reporoducibility[3]) / sqrt(2)
+  )
+}
+
+simulation_results <- simulation_df %>%
+  group_by(simulation, criterion_random_error) %>%
+  do(estimation_wrapper(.))
+
+
+head(simulation_results)
+#> # A tibble: 6 x 6
+#> # Groups:   simulation, criterion_random_error [2]
+#>   simulation criterion_random_error method Intercept  Slope       TE
+#>        <int>                  <dbl> <chr>      <dbl>  <dbl>    <dbl>
+#> 1          1                  0     diff    0.       NA     0.      
+#> 2          1                  0     lm     -1.27e-14  1.    3.40e-16
+#> 3          1                  0     olp     0.        1     0.      
+#> 4          1                  0.222 diff   -8.06e- 2 NA     2.52e- 1
+#> 5          1                  0.222 lm      1.12e+ 0  0.974 2.30e- 1
+#> 6          1                  0.222 olp     1.06e+ 0  0.975 2.30e- 1
+```
+
+And we can finally plot the results: 
+
+
+```r
+simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+
+# Join the true DGP values for plotting
+simulation_results_long <- left_join(
+  simulation_results_long,
+  data.frame(
+    key = c("Intercept", "Slope", "TE"),
+    DGP = c(0, 1, NA)
+  ),
+  by = "key"
+)
+
+simulation_results_long$key <- factor(
+  simulation_results_long$key,
+  levels = c("Intercept", "Slope", "TE")
+)
+
+simulation_results_long$method <- factor(
+  simulation_results_long$method,
+  levels = c("diff", "lm", "olp")
+)
+
+simulation_results_long_avg <- simulation_results_long %>%
+  group_by(method, criterion_random_error, key) %>%
+  summarise(
+    mean = mean(value),
+    upper = mean + (sd(value)),
+    lower = mean - (sd(value))
+  )
+
+ggplot(
+  simulation_results_long,
+  aes(x = criterion_random_error, y = value, group = simulation)
+) +
+  theme_cowplot(8) +
+  geom_line(alpha = 0.02) +
+  geom_ribbon(
+    data = simulation_results_long_avg,
+    aes(y = mean, ymin = lower, ymax = upper, group = 1),
+    alpha = 0.3, fill = "blue"
+  ) +
+  geom_line(
+    data = simulation_results_long_avg,
+    color = "white",
+    aes(y = mean, group = 1),
+    size = 1) +
+  facet_grid(key ~ method, scales = "free") +
+  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
+  ylab(NULL) +
+  xlab("Criterion random error")
+```
+
+<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
+
+Although all three methods are good in estimating `TE`, only OLP should be used when estimating reproducibility fixed and proportional biases (i.e. slope and intercept; which are simulated to be 0 and 1, since both criterion measures trials have same fixed and proportional biases against the true score). Again, this recommendation is given under the assumption that the random error involved in two units/trials is the same. 
+
+**to be continued**
+
+#### Uses of reproducibility analyses
+
+- Comparing results with one unit across time
+- Comparing units
+
+### Repeatability
+
+Reproducibility doesn't involve the effect of biological noise. Repeatability is a *combo*
+
+<img src="figures/measurement-error-two-measures.png" width="50%" style="display: block; margin: auto;" />
 
 
