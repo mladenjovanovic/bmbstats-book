@@ -1,7 +1,7 @@
 --- 
 title: "bmbstats: bootstrap magnitude-based statistics for sports scientists"
 author: "Mladen Jovanovic"
-date: "2020-06-24"
+date: "2020-07-02"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook

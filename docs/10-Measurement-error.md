@@ -79,7 +79,7 @@ Athlete 18      81.64       82.61       83.30       83.66       82.87       82.6
 Athlete 19      55.03       56.70       56.35       56.90       56.48       56.37
 Athlete 20      65.03       66.33       66.44       67.29       67.28       66.82
 
-The objective of the analysis is to estimate DGP parameters of the measurement error (the proportional bias, fixed bias, and the `SD` of the random error). Unfortunately, since TS is unknown, we are unable to estimate proportional bias and fixed bias. To overcome this problem, we usually compare OS to some *gold standard* measure which can serve as proxy to TS. These issues are covered in much more detail in the second part of this book in the [Validity and Reliability] chapter. 
+The objective of the analysis is to estimate DGP parameters of the measurement error (the proportional bias, fixed bias, and the `SD` of the random error). Unfortunately, since TS is unknown, we are unable to estimate proportional bias and fixed bias. To overcome this problem, we usually compare OS to some *gold standard* (or *criterion*) measure which can serve as proxy to TS. These issues are covered in much more detail in the second part of this book in the [Validity and Reliability] chapter. 
 
 What is left to be estimated is the `SD` of the random error, which is often referred to as *typical error* (`TE`) of the test, or *standard error of the measurement* (`SEM`)[^SEM-vs-TE]. `TE` is estimated using individual `SD` of the OS in the five trials (Table \@ref(tab:individual-error)).
 

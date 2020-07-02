@@ -697,7 +697,6 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-
 Red dashed horizontal line on the graph indicate the true DGP parameter value, which we want to estimate. Thin black lines (spaghetti anyone?) indicate simulation results across different levels of random error in the criterion measure. These black lines are summarized with `mean` (thick white line) ± `SD` (blue ribbon). 
 
 As can be seen, the effect of changing random error in the criterion measure (predictor; x-value), while keeping the same random error in the practical measure (outcome) affects intercept, slope and random error estimates for criterion linear model and criterion OLP model. Intercept, slope, and `RSE` are only correctly estimated with simple regression model when there is no random error (0 on the x-axis). As the random error increases, both bias (i.e. simulations `mean`) and variance (i.e. simulations `SD`) are increased. 
@@ -913,16 +912,26 @@ estimation_wrapper <- function(data) {
     SESOI_upper = NA
   )
 
+  olp_criterion <- olp_method(
+    data = data,
+    practical = "Practical_score.trial1",
+    criterion = "Criterion_score.trial1",
+    SESOI_lower = NA,
+    SESOI_upper = NA
+  )
+  
   data.frame(
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
-    method = c("True lm", "Criterion lm", "Adjusted lm"),
-    Intercept = c(lm_true[1], lm_criterion[1], lm_criterion[1]),
-    Slope = c(lm_true[2], lm_criterion[2], lm_criterion[2]),
+    method = c("True lm", "Criterion lm", "Criterion olp",  "Adjusted lm", "Adjusted olp"),
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1], lm_criterion[1], olp_criterion[1]),
+    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2], lm_criterion[2], olp_criterion[2]),
     RSE = c(
       lm_true[3],
       lm_criterion[3],
-      adjust_RSE(lm_criterion[3], data$criterion_random_error[1])
+      olp_criterion[3],
+      adjust_RSE(lm_criterion[3], data$criterion_random_error[1]),
+      adjust_RSE(olp_criterion[3], data$criterion_random_error[1])
       )
   )
 }
@@ -947,7 +956,7 @@ simulation_results_long$key <- factor(
 
 simulation_results_long$method <- factor(
   simulation_results_long$method,
-  levels = c("True lm", "Criterion lm", "Adjusted lm")
+  levels = c("True lm", "Criterion lm", "Criterion olp", "Adjusted lm", "Adjusted olp")
 )
 
 simulation_results_long_avg <- simulation_results_long %>%
@@ -981,6 +990,22 @@ ggplot(
 
 As can be seen from the figure, `RSE` for the simple linear regression model (where criterion is the outcome and practical is the predictor) climbs up as criterion random error increases. When using adjusted `RSE`, up until the point where criterion has lower or equal random error to a practical score, we are able to correctly adjust `RSE` to give us estimation of the model fit using the true score (which is unknown of course, but we have used known criterion random error). 
 
+As can be seen from the figure as well, OLP method provided biased estimates for slope and intercept.  
+
+### Estimating SESOI for the practical score
+
+So for we have used SESOI of ±2.5cm for both true score and criterion, and it was used to estimate predictive validity of the practical measure (i.e. does residuals fit within SESOI band; i.e. `PPER`). But we can use outcome variable SESOI to estimate SESOI in the predictor. This way we can estimate the SESOI in the predictor that yields SESOI in the criterion. In the case of simple linear regression, this is done by using estimated slope, by simply dividing outcome (i.e. criterion measure) SESOI with estimated slope: 
+
+$$
+\begin{aligned}
+  SESOI_{outcome} = \beta_1 \times predictor \\
+  SESOI_{predictor} = \frac{SESOI_{outcome}}{\beta_1}
+\end{aligned}
+$$
+
+In our validity model where criterion measure is the outcome and practical measure is the predictor, estimated slope is equal to `r round(lm_criterion_validity$estimators$value[5], 2)`, thus practical measure SESOI would be  ±`r round(2.5 / lm_criterion_validity$estimators$value[5], 2)`cm. 
+
+This could also be implemented inside the estimator function to provide for bootstrapped confidence intervals. 
 
 ## Reliability
 
@@ -1255,21 +1280,338 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-Although all three methods are good in estimating `TE`, only OLP should be used when estimating reproducibility fixed and proportional biases (i.e. slope and intercept; which are simulated to be 0 and 1, since both criterion measures trials have same fixed and proportional biases against the true score). Again, this recommendation is given under the assumption that the random error involved in two units/trials is the same. 
+Although all three methods are good in estimating `TE`, only OLP should be used when estimating reproducibility fixed and proportional biases (i.e. intercept and slope; which are simulated to be 0 and 1 respectively, since both criterion measure trials have same fixed and proportional biases against the true score). Again, this recommendation is given under the assumption that the random error involved in two units/trials is the same. 
 
-**to be continued**
+#### Reproducibility of the practical measure
+
+Let's quickly perform the reproducibility of the practical measure as well. SESOI for the practical measure will be equal to SESOI of the true and practical (i.e. 2.5cm) multiplied by practical proportional bias ($`r round(practical_proportional, 2)` \times 2.5$cm). We can either use this know and true DGP relationship, or use estimated practical measure SESOI from the validity analysis. 
+
+```{r echo=TRUE}
+bmbstats::plot_pair_OLP(
+  predictor = agreement_data$Practical_score.trial2,
+  outcome = agreement_data$Practical_score.trial1,
+  predictor_label = "Practical Score Trial1",
+  outcome_label = "Practical Score Trial2",
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional
+)
+```
+
+```{r echo=TRUE}
+practical_reproducibility <- bmbstats::reliability_analysis(
+  data = agreement_data,
+  trial1 = "Practical_score.trial1",
+  trial2 = "Practical_score.trial2",
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional,
+  control = model_control(seed = 1667)
+)
+
+practical_reproducibility
+```
 
 #### Uses of reproducibility analyses
 
-- Comparing results with one unit across time
-- Comparing units
+There are few uses of reproducibility analyses. If single unit is used over two (or more) trial using specialized equipment, we would tend not to expect any biases involved. If there are biases involved, the preparation and utilization of the measuring devices might be erroneous, or there might be error in the specialized equipment (i.e. indication of *systematic effects*). In either way, we do not want to see fixed nor proportional biases.
+
+If multiple units are used to measure single phenomena, existence of biases might demand that the units needs to be *calibrated*. If that is not possible, this implies that exchange of units for longitudinal monitoring is not recommended (depends on the magnitude of the biases and differences). In plain English - you need to stick to one unit for longitudinal monitoring. Assuming, of course acceptable practical reproducibility (i.e. small `TE`, or `SDC` compared to SESOI). 
+
+To demonstrate this, let's consider the following example. We will have three devices that measure a single true score. Two of these devices (A and B) have same biases against the true score (hence, no biases between them), while one device (device C) has different biases against the true score. 
+
+```{r echo=TRUE}
+reproducibility_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  True_score = rnorm(n_subjects, 45, 5),
+  Criterion_score_A = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
+  Criterion_score_B = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
+  Criterion_score_C = 2.5 + (True_score * 1.5) + rnorm(n_subjects, 0, criterion_random)
+)
+
+head(reproducibility_data)
+```
+
+Rather than using simple linear regression or OLP for plotting the residuals (i.e. calibrating the predictor), we will use the *raw* values using Bland-Altman plot. Here is the plot and the analysis using method of differences:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_BA(
+  predictor = reproducibility_data$Criterion_score_B,
+  outcome = reproducibility_data$Criterion_score_A,
+  predictor_label = "Unit B",
+  outcome_label = "Unit A",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+differences_method(
+  data = reproducibility_data,
+  criterion = "Criterion_score_A",
+  practical = "Criterion_score_B",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+As can be seen from the analysis, `PPER` for these two devices is excellent (and this is *without* calibration), implying that these can be used inter-changeably for longitudinal monitoring. Let's see if that is the case for unit C (comparing it with unit A):
+
+```{r echo=TRUE}
+bmbstats::plot_pair_BA(
+  predictor = reproducibility_data$Criterion_score_C,
+  outcome = reproducibility_data$Criterion_score_A,
+  predictor_label = "Unit C",
+  outcome_label = "Unit A",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+differences_method(
+  data = reproducibility_data,
+  criterion = "Criterion_score_A",
+  practical = "Criterion_score_C",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+Unless we are able to calibrate the unit C, we cannot use it interchangeably with units A and B. But unit C is more than good to be used for measurement - we just need to stick to that unit across time.
 
 ### Repeatability
 
-Reproducibility doesn't involve the effect of biological noise. Repeatability is a *combo*. IT was involved, but only one, no effect, etc, etc
+So far, we have assumed no change in the true score across trials, thus no effect of the *biological noise*. In the next data set we are going to measure vertical jump height on two days spread by 7 days for N=20 athletes. We will assume that there is no change in the true score (i.e. no systematic change/effect), but there will be some *biological noise* that will affect the *manifestable performance* (see [Extending the Classical Test Theory] section). This unavoidably presents the question "What is the true score?". Well, in this case we can consider it some individual *stable* level of performance, that varies from day to day due to various factors, such as sleep, nutrition, motivation, circadian rhythms and so forth. Please refer to Borsboom's text for more in depth treatment of the issues with the *true score* concept [@borsboomMeasuringMindConceptual2009].
+
+In this DGP, we will assume that this *stochastic* biological effect (i.e. random error or biological noise) is equal for all individuals (please see the [Ergodicity] section for more information about this assumption) and that there is not systematic effect (i.e. fatigue, learning effects and so forth). 
 
 ```{r out.width="50%"}
 knitr::include_graphics(path = "figures/measurement-error-two-measures.png")
 ```
 
+This vertical jump is measured with our practical measuring unit, that we have shown to be reliable, and for which we have estimated `TE` and `SDC`. 
 
+```{r echo=TRUE}
+n_subjects <- 20
+
+practical_proportional <- 1.1
+practical_random <- 1
+biological_noise <- 2
+
+set.seed(1667)
+
+repeatability_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  True_score.Pre = rnorm(n_subjects, 45, 5),
+  True_change = rep(0, n_subjects),
+  True_score.Post = True_score.Pre + True_change,
+  
+  # Add biological noise to true score
+  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_noise),
+  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_noise),
+  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+
+  # Add measurement of the manifested score
+  Measured_score.Pre = practical_fixed + 
+    (Manifested_score.Pre * practical_proportional) +
+    rnorm(n_subjects, 0, practical_random),
+  
+  Measured_score.Post = practical_fixed +
+    (Manifested_score.Post * practical_proportional) + 
+    rnorm(n_subjects, 0, practical_random),
+  
+  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+)
+
+head(repeatability_data)
+```
+
+As can be see in the DGP, we have three components: (1) true score, that doesn't change from Pre-test to Post-test, (2) manifested score, that doesn't have systematic effect (i.e. expected or `mean` is equal to 0) but is affected by random biological noise, and (3) measured score that is affected by both biological noise and instrumentation error (vertical jump was measured using the practical measure). 
+
+Let's estimate reliability using each of these scores. Here is the reliability of the manifested score. SESOI for both true and manifested scores is chosen to be ±2.5cm:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_OLP(
+  predictor = repeatability_data$Manifested_score.Pre,
+  outcome = repeatability_data$Manifested_score.Post,
+  predictor_label = "Manifested Score Pre-test",
+  outcome_label = "Manifested Score Post-test",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+```
+
+```{r echo=TRUE}
+manifested_reliability <- bmbstats::reliability_analysis(
+  data = repeatability_data,
+  trial1 = "Manifested_score.Pre",
+  trial2 = "Manifested_score.Post",
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5,
+  control = model_control(seed = 1667)
+)
+
+manifested_reliability
+```
+
+Unfortunately, we do not know this manifested score, as we do not know the true score. We can only measure manifested score. The estimated `TE` of the practical measure will now contain both instrumentation noise and biological noise. As explained previously, the SESOI for practical is equal to true SESOI multiplied by practical proportional bias ($`r round(practical_proportional, 2)` \times 2.5$cm):
+
+```{r echo=TRUE}
+bmbstats::plot_pair_OLP(
+  predictor = repeatability_data$Measured_score.Pre,
+  outcome = repeatability_data$Measured_score.Post,
+  predictor_label = "Measured Score Pre-test",
+  outcome_label = "Measured Score Post-test",
+  SESOI_lower = - 2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional
+)
+```
+
+```{r echo=TRUE}
+measured_reliability <- bmbstats::reliability_analysis(
+  data = repeatability_data,
+  trial1 = "Measured_score.Pre",
+  trial2 = "Measured_score.Post",
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional,
+  control = model_control(seed = 1667)
+)
+
+measured_reliability
+```
+
+As can be seen from the analysis, now the biological noise is contained (or propagated) to `RSE`, `SDC` and other estimators of the practical measure random error. The random error (`TE`) inside the practical measure is equal to:
+
+$$
+  TE^2 = (proportional \; bias \times biological \; noise)^2 + practical \; random \; error ^2 
+$$
+
+Estimated biological noise (using manifested analysis `TE`) is equal to `r round(manifested_reliability$estimators$value[11], 2)`cm (or we could use true DGP value of `r round(biological_noise, 2)`cm), simulated practical random error is equal to `r round(practical_random, 2)`cm, and the simulated slope is equal to `r round(practical_proportional, 2)`. Thus expected estimate `TE` of the practical measure is equal to `r round(sqrt((manifested_reliability$estimators$value[11] * practical_proportional)^2 + practical_random^2), 2)`cm, which is very close to the above estimated `TE` (`r round(measured_reliability$estimators$value[11], 2)`cm).
+
+### The difference between Reproducibility and Repeatability
+
+What's the difference between the estimate reproducibility and repeatability of the practical measure? Well, with reproducibility we aim to estimate sole instrumentation noise without biological noise/variation. This is done by making sure that the devices are measuring exactly the same phenomena. 
+
+With repeatability, we want to estimate combination of the biological variation and instrumentation noise. Since we have used SESOI defined for reproducibility (i.e. same true score), the magnitude-based estimators were much worse with the repeatability analysis, where biological variation introduced additional stochastic component.
+
+In [Measurement Error] chapter, I have explained that measurement error is the combination of instrumentation noise and biological variation (i.e. repeatability analysis is used to estimate it). I have also explained the use of `SDC` (and `TE`) to interpret individual changes (see [Interpreting individual changes using SESOI and SDC] in the aforementioned chapter). The question is then which `SDC` should be used? The one estimated from reproducibility (or validity analysis), or the one estimated from repeatability (involving biological noise)?
+
+The answer depends on what question we are trying to answer. If we use `SDC` from reproducibility analysis (i.e. pure instrumentation noise) to interpret individual change, we will estimate the uncertainty around manifested performance change. On the other hand, if we use `SDC` from repeatability analysis (i.e. combined biological variation and instrumentation noise), we will estimate uncertainty around true performance change. 
+
+To demonstrate and plot these differences, let's use `bmbstats::observations_MET` that we have introduced in [Measurement error issues] section of the [Descriptive tasks using `bmbstats`] chapter. But before we demonstrate these differences, we need to create few more column inside our simulated DGP - we need to have true score as would be measured by the practical measure (without the practical measure random noise), and manifested score as would be measured by the practical measure (without the practical measure random noise). This needs to be done to deal with practical measure proportional bias. 
+
+```{r echo=TRUE}
+repeatability_data <- repeatability_data %>%
+  mutate(
+    True_score_measured.Pre = practical_fixed + (True_score.Pre * practical_proportional),
+    True_score_measured.Post = practical_fixed + (True_score.Post * practical_proportional),
+    True_score_measured.Change = True_score_measured.Post - True_score_measured.Pre,
+    
+    Manifested_score_measured.Pre = practical_fixed + (Manifested_score.Pre * practical_proportional),
+    Manifested_score_measured.Post = practical_fixed + (Manifested_score.Post * practical_proportional),
+    Manifested_score_measured.Change = Manifested_score_measured.Post - Manifested_score_measured.Pre
+  )
+
+head(repeatability_data)
+```
+
+Now let's plot measured change (i.e. difference between measured Post-test and Pre-test using practical measure), together with manifested change (as would be measured with practical measure with no random error). Confidence intervals around measured change represent 95% `SDC` that is calculated using known practical measure random error (i.e. estimated `TE` from reproducibility analysis - the sole instrumentation noise). CIs should capture vertical red lines (manifested change):
+
+```{r echo=TRUE}
+measured_change <- bmbstats::observations_MET(
+  observations = repeatability_data$Measured_score.Change,
+  observations_label = repeatability_data$Athlete,
+  measurement_error = practical_random * sqrt(2),
+  # Degrees of freedom from the reliability study. Use `Inf` for normal distribution
+  df = Inf,
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional,
+  
+  # Will not use Bonferroni adjustment here
+  alpha = 0.05,
+  # No adjustment in CIs for plotting
+  confidence = 0.95
+)
+
+plot(
+  measured_change,
+  true_observations = repeatability_data$Manifested_score_measured.Change,
+  control = plot_control(points_size = 5)) +
+  xlim(-8, 9)
+```
+
+Our CIs using sole instrumentation noise (I have used DGP parameter, but in real life we can use `TE` from reproducibility analysis) managed to capture manifested change (i.e. true change plus biological variation). 
+
+If we use `TE` from repeatability analysis (i.e. the one that captures both biological variation and instrumentation noise), we will be interested in capturing "true change" (without biological variation):
+
+```{r echo=TRUE}
+measured_change <- bmbstats::observations_MET(
+  observations = repeatability_data$Measured_score.Change,
+  observations_label = repeatability_data$Athlete,
+  
+  # Use TE from repeatability analysis
+  measurement_error = measured_reliability$estimators$value[11] * sqrt(2),
+  # Degrees of freedom from the reliability study. Use `Inf` for normal distribution
+  df = Inf,
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional,
+  
+  # Will not use Bonferroni adjustment here
+  alpha = 0.05,
+  # No adjustment in CIs for plotting
+  confidence = 0.95
+)
+
+plot(
+  measured_change,
+  true_observations = repeatability_data$True_score_measured.Change,
+  control = plot_control(points_size = 5))
+```
+
+Since there is no true change in this DGP, all vertical red lines are aligned at 0. Our CIs in this case represent 95% `SDC` estimated using both biological variation and instrumentation error. 
+
+It is important to remember when analyzing individual change how `TE` or `SDC` are estimated - does it represent sole instrumentation error (i.e. estimated in validity or reproducibility study)  or it represents measurement error combined of biological variation and instrumentation error (i.e. estimated in repeatability study). Ideally, we would need to know instrumentation noise and biological noise. If we know instrumentation noise (from validity or reproducibility study), we can *extract* biological variation (as it would be measured with the practical measure in this case). 
+
+To get biological noise, as it would be measured with the practical measure, let's use the generated columns: 
+
+```{r echo=TRUE}
+manifested_measured_reliability <- bmbstats::reliability_analysis(
+  data = repeatability_data,
+  trial1 = "Manifested_score_measured.Pre",
+  trial2 = "Manifested_score_measured.Post",
+  SESOI_lower = -2.5 * practical_proportional,
+  SESOI_upper = 2.5 * practical_proportional,
+  control = model_control(seed = 1667)
+)
+
+manifested_measured_reliability
+```
+
+Measured manifested `TE` represents biological noise/variation that would be measured with the practical measure without random error. It is equal to `r round(manifested_measured_reliability$estimators$value[11], 2)`cm. But we do not know this in the real life and we want to estimate it from the `TE` from repeatability study and know instrumentation noise. 
+
+The estimated `TE` of the practical measure in the repeatability study is equal to `r round(measured_reliability$estimators$value[11], 2)`cm. This `TE` contains both biological noise and instrumentation noise. Since we know the instrumentation noise (either from reproducibility or validity study; or from DGP in our case), we can estimate biological error (as would be estimated by practical measure without random error):
+
+$$
+\begin{align}
+  TE^2 &= Biological^2 + Instrument^2 \\
+  Biological^2 &= TE^2 - Instrument^2 \\
+  Biological &= \sqrt{TE^2 - Instrument^2}
+\end{align}
+$$
+
+We thus get the estimate of biological variation to be equal to `r round(sqrt(measured_reliability$estimators$value[11]^2 - practical_random^2), 2)`cm, which is very close to the above estimate biological variation of `r round(manifested_measured_reliability$estimators$value[11], 2)`cm. Please note that the difference is due to me using simulation true practical measure random error, rather than estimated in this sample. 
+
+We will continue this topic in the next chapter where we will discuss Randomized Controlled Trials and the Control group will serves as a simple repeatability study that will inform us about uncertainty around true treatment effect. 
