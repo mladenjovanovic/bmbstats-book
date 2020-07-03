@@ -10,6 +10,5 @@ bookdown::gitbook:
     sharing: no
 bookdown::word_document2:
   always_allow_html: true
-bookdown::pdf: default
 
 
