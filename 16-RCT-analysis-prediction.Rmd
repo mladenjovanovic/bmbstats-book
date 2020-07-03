@@ -1,1 +1,611 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Run common script
+source("_common.R")
+```
+
+
 # RCT analysis and prediction in `bmbstats`
+
+In this chapter I will demonstrate how to analyze simple randomized controlled trials (RCTs) from both explanatory and predictive perspectives using `bmbstats` package and functions. As a refresher, please consider re-reading [Causal inference] chapter. 
+
+## Data Generating Process behind RCT
+
+The following image is re-posted from the [Causal inference] chapter, outlining Treatment and Non-Treatment effects. 
+
+```{r out.width="100%"}
+knitr::include_graphics(path = "figures/treatment-and-non-treatment-effects.png")
+```
+
+Let's consider the following RCT DGP. We have two group (Control and Treatment), each with N=10 athletes, measured twice (Pre-test and Post-test) on the vertical jump height, using a measuring device with a known measurement error (i.e. only instrumentation noise; see [Validity and Reliability] chapter for more info) estimated through validity and reliability studies and equal to 0.5cm. Control group are doing their normal training for 4 weeks, while Treatment group is doing EMS stimulation of their calf muscles on top of their normal training. 
+
+Since this is DGP, we will assume there is no treatment effect nor non-treatment effects. Both Control and Treatment groups will experience normal biological variation in their jump height, which is equal to 1.5cm. Please refer to [Validity and Reliability] chapter for more info about the concepts of true score and measurement error. SESOI for the measured score will be ±5cm (since there is no proportional bias in the measurement, this will also be SESOI for the true score - see previous chapter for more information).
+
+```{r echo=TRUE}
+require(tidyverse)
+require(bmbstats)
+require(cowplot)
+
+set.seed(1667)
+
+n_subjects <- 20
+
+
+instrumentation_noise <- 0.5
+biological_variation <- 1.5
+
+# -------------------------
+# Treatment effect
+treatment_systematic <- 0
+treatment_random <- 0
+
+# Non-treatment effect
+non_treatment_systematic <- 0
+non_treatment_random <- 0
+#-------------------------
+
+RCT_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  Group = rep(c("Treatment", "Control"), length.out = n_subjects),
+
+  # True score
+  True_score.Pre = rnorm(n_subjects, 45, 5),
+
+  # Treatment effect
+  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
+  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+
+  # Calculate the change in true score
+  True_score.Change = if_else(
+    Group == "Treatment",
+    # Treatment group is a sum of treatment and non-treatment effects
+    Treatment_effect + Non_treatment_effect,
+    # While control group only get non-treatment effects
+    Non_treatment_effect
+  ),
+  True_score.Post = True_score.Pre + True_score.Change,
+
+  # Manifested score
+  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+
+  # Measured score
+  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+)
+
+head(RCT_data)
+```
+
+Since we have generated this data, we know that there are no treatment nor non-treatment effects (neither systematic, nor random or variable effects). But let's plot the data.
+
+First let's plot the Pre-test measured scores (vertical jump) distribution:
+
+```{r echo=TRUE}
+bmbstats::plot_raincloud(
+  RCT_data,
+  value = "Measured_score.Pre",
+  groups = "Group"
+)
+```
+
+And the Post-test:
+
+```{r echo=TRUE}
+bmbstats::plot_raincloud(
+  RCT_data,
+  value = "Measured_score.Post",
+  groups = "Group"
+)
+```
+
+And finally measured change scores:
+
+```{r echo=TRUE}
+bmbstats::plot_raincloud_SESOI(
+  RCT_data,
+  value = "Measured_score.Change",
+  groups = "Group",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
+```
+
+From these graphs we can see that there is no difference between group. We have also selected large SESOI taking into account our a-priori knowledge about biological variation and measurement error in the vertical jump height. 
+
+Let's plot the individual change fro athletes from the Treatment group:
+
+```{r echo=TRUE}
+bmbstats::plot_pair_changes(
+  group_a = RCT_data$Measured_score.Pre,
+  group_b = RCT_data$Measured_score.Post,
+  group_a_label = "Measured Pre-test",
+  group_b_label = "Measured Post-test",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
+```
+
+## RCT analysis using `bmbstats::RCT_analysis` function
+
+To perform RCT analysis explained in the [Causal inference] chapter, we will use `bmbstats::RCT_analysis` function. `bmbstats::RCT_analysis` function has two built-in estimator function: `bmbstats::RCT_estimators` and `bmbstats::RCT_estimators_simple`. `bmbstats::RCT_estimators` is more extensive and involves individual group analysis, while the `bmbstats::RCT_estimators_simple` only provides estimated treatment and non-treatment effects. 
+
+```{r echo=TRUE}
+extensive_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  control = model_control(seed = 1667)
+)
+
+
+extensive_RCT
+```
+
+We can also plot the estimators bootstrap distributions:
+
+```{r echo=TRUE}
+plot(extensive_RCT)
+```
+
+If we use `bmbstats::RCT_estimators_simple`, we will get much more condensed output: 
+
+```{r echo=TRUE}
+simple_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_simple,
+  control = model_control(seed = 1667)
+)
+
+
+simple_RCT
+```
+
+```{r echo=TRUE}
+plot(simple_RCT)
+```
+
+As can be seen, the analysis correctly identified no treatment effect. There is an issue with random treatment effects estimation since is demonstrates distribution with two peaks. This effect is due to random treatment effect being zero and the way the root of the squared differences is calculated to avoid irrational numbers (i.e. taking root of negative number). 
+
+There are additional graphs that can be produced. All graphs can take `control = plot_control` parameter to setup plotting options as explained in the previous chapters. 
+
+Control group Pre- and Post-test distribution:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "control-pre-post")
+```
+
+Treatment group Pre- and Post-test distribution:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "treatment-pre-post")
+```
+
+Control change graph:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "control-change")
+```
+
+Treatment change graph:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "treatment-change")
+```
+
+Change graph:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "change")
+```
+
+Individual changes in the Control group:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "control-paired-change")
+```
+
+Individual changes in the Treatment group:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "treatment-paired-change")
+```
+
+Distribution of the change scores:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "change-distribution")
+```
+
+Treatment effect distribution:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "effect-distribution")
+```
+
+And finally, adjusted treatment responses:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "adjusted-treatment-responses")
+```
+
+The adjusted treatment responses are calculated by deducting `mean` Control group change from individual change in the Treatment group (i.e. *adjusted change*). Error-bars represent 95% confidence intervals (i.e. `SDC`) using change `SD` of the Control group. 
+The data used to create this graph can be found in the returned object:
+
+```{r echo=TRUE}
+head(simple_RCT$extra$treatment_responses)
+```
+
+We can also plot the un-adjusted treatment responses:
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "treatment-responses")
+```
+
+Let's re-create this graph using `bmbstats::observations_MET` function since that function also allows us to set Type I error rates and confidence for plotting. 
+
+```{r echo=TRUE}
+treatment_group <- filter(
+  RCT_data,
+  Group == "Treatment"
+)
+
+control_group <- filter(
+  RCT_data,
+  Group == "Control"
+)
+
+treatment_responses <- bmbstats::observations_MET(
+  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations_label = treatment_group$Athlete,
+
+  # Use control group change as measurement error
+  measurement_error = sd(control_group$Measured_score.Change),
+
+  # Degrees of freedom from the reliability study. Use `Inf` for normal distribution
+  df = nrow(control_group) - 1,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+
+  # Will not use Bonferroni adjustment here
+  alpha = 0.05,
+  # No adjustment in CIs for plotting
+  confidence = 0.95
+)
+
+plot(
+  treatment_responses,
+  true_observations = treatment_group$True_score.Change,
+  control = plot_control(points_size = 5)
+) +
+  xlim(-9, 9)
+```
+
+This way, Control group is used as *sort-of* reliability study (see [Repeatability] section in the [Validity and Reliability] chapter) that provides source of information about the non-treatment effect (in this case 0 for both systematic and random components), biological variation and instrumentation noise. This helps us to provide uncertainty intervals around individual treatment (adjusted) effects.
+
+## Adding some effects
+
+The previous example contained no treatment nor non-treatment effects, only biological variation and instrumentation noise. Let's now consider different treatment - plyometric training that has systematic effect of 5cm (`mean` or expected change) and random effect of 5cm. But, since this study is done after the off-season, all athletes experienced systematic effect of 2.5cm and random effect of 1cm only by normal training. This represents non-treatment effect. 
+
+This is the code to generate the data (i.e. DGP):
+
+```{r echo=TRUE}
+set.seed(16)
+
+n_subjects <- 20
+
+# These stay the same
+instrumentation_noise <- 0.5
+biological_variation <- 1.5
+
+# -------------------------
+# Treatment effect
+treatment_systematic <- 5
+treatment_random <- 5
+
+# Non-treatment effect
+non_treatment_systematic <- 2.5
+non_treatment_random <- 1
+#-------------------------
+
+RCT_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  Group = rep(c("Treatment", "Control"), length.out = n_subjects),
+
+  # True score
+  True_score.Pre = rnorm(n_subjects, 45, 5),
+
+  # Treatment effect
+  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
+  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+
+  # Calculate the change in true score
+  True_score.Change = if_else(
+    Group == "Treatment",
+    # Treatment group is a sum of treatment and non-treatment effects
+    Treatment_effect + Non_treatment_effect,
+    # While control group only get non-treatment effects
+    Non_treatment_effect
+  ),
+  True_score.Post = True_score.Pre + True_score.Change,
+
+  # Manifested score
+  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+
+  # Measured score
+  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+)
+
+head(RCT_data)
+```
+
+Using `bmbstats::RCT_estimators_simple` estimator and `bmbstats::RCT_analysis` functions, let's perform the analysis and generate 95% bootstrap confidence intervals:
+
+```{r echo=TRUE}
+simple_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_simple,
+  control = model_control(seed = 1667)
+)
+
+
+simple_RCT
+```
+
+Here is the estimators bootstrap distribution:
+
+```{r echo=TRUE}
+plot(simple_RCT)
+```
+
+As can be seen from the results, both systematic and random components of the treatment effects were estimated correctly. We can now plot individual treatment responses: 
+
+```{r echo=TRUE}
+plot(simple_RCT, type = "treatment-responses")
+```
+
+And we can add the true treatment effects on the plot from the DGP: 
+
+```{r echo=TRUE}
+treatment_group <- filter(
+  RCT_data,
+  Group == "Treatment"
+)
+
+control_group <- filter(
+  RCT_data,
+  Group == "Control"
+)
+
+treatment_responses <- bmbstats::observations_MET(
+  observations = treatment_group$Measured_score.Change,
+  observations_label = treatment_group$Athlete,
+
+  # Use control group change as measurement error
+  measurement_error = sd(control_group$Measured_score.Change),
+
+  # Degrees of freedom from the reliability study. Use `Inf` for normal distribution
+  df = nrow(control_group) - 1,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+
+  # Will not use Bonferroni adjustment here
+  alpha = 0.05,
+  # No adjustment in CIs for plotting
+  confidence = 0.95
+)
+
+plot(
+  treatment_responses,
+  true_observations = treatment_group$True_score.Change,
+  control = plot_control(points_size = 5)
+) +
+  xlim(-10, 28)
+```
+
+Adjusted treatment response would deduct `mean` change from the Control group and would show individual effect ONLY with treatment effect (without non-treatment effect). We can use our DGP generated data frame to generate that graph (or to recreate it) and plot true treatment effects:
+
+```{r echo=TRUE}
+treatment_responses <- bmbstats::observations_MET(
+  
+  # Adjustment
+  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations_label = treatment_group$Athlete,
+
+  # Use control group change as measurement error
+  measurement_error = sd(control_group$Measured_score.Change),
+
+  # Degrees of freedom from the reliability study. Use `Inf` for normal distribution
+  df = nrow(control_group) - 1,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+
+  # Will not use Bonferroni adjustment here
+  alpha = 0.05,
+  # No adjustment in CIs for plotting
+  confidence = 0.95
+)
+
+plot(
+  treatment_responses,
+  # The true observation now is the DGP Treatment effect only
+  true_observations = treatment_group$Treatment_effect,
+  control = plot_control(points_size = 5)
+) +
+  xlim(-10, 28)
+```
+
+## What goes inside the *measurement error*?
+
+As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to `r round(sd(control_group$Measured_score.Change), 2)`cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
+
+$$
+  SD_{control\;change} = \sqrt{2\times biological\;variation^2 + 2\times instrumentation\;noise^2 + non\;treatment\;random\;effect^2}
+$$
+If we plug our DGP values, we get the following expected `SD` of the Control group change: `r round(sqrt(2*biological_variation^2 + 2*instrumentation_noise^2 + non_treatment_random^2), 2)`cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
+
+## Prediction perspective
+
+**To be continued**
+
+```{r echo=TRUE}
+set.seed(16)
+
+n_subjects <- 20
+
+# These stay the same
+instrumentation_noise <- 0.5
+biological_variation <- 1.5
+
+# -------------------------
+# Treatment effect
+treatment_systematic <- 5
+treatment_random <- 5
+
+# Non-treatment effect
+non_treatment_systematic <- 2.5
+non_treatment_random <- 1
+#-------------------------
+
+RCT_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  Group = rep(c("Treatment", "Control"), length.out = n_subjects),
+
+  # Strength covariate
+  Squat_1RM_relative = rnorm(n_subjects, 1, 0.4),
+  # True score
+  True_score.Pre = rnorm(n_subjects, 45, 5),
+
+  # Treatment effect
+  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic * Squat_1RM_relative, sd = treatment_random),
+  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+
+  # Calculate the change in true score
+  True_score.Change = if_else(
+    Group == "Treatment",
+    # Treatment group is a sum of treatment and non-treatment effects
+    Treatment_effect + Non_treatment_effect,
+    # While control group only get non-treatment effects
+    Non_treatment_effect
+  ),
+  True_score.Post = True_score.Pre + True_score.Change,
+
+  # Manifested score
+  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
+  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+
+  # Measured score
+  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
+  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+)
+
+head(RCT_data)
+```
+
+```{r echo=TRUE}
+covariate_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_simple,
+  control = model_control(seed = 1667)
+)
+
+
+covariate_RCT
+```
+
+```{r echo=TRUE}
+panel_a <- ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Change, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = "none")
+
+panel_b <- ggplot(
+  RCT_data,
+  aes(x = Squat_1RM_relative, y = Measured_score.Change, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  theme(legend.position = c(0.1,.95)) +
+  ylab(NULL)
+
+plot_grid(
+  panel_a,
+  panel_b,
+  labels = c("A", "B"),
+  label_size = 10,
+  align = "hv",
+  axis = "l",
+  ncol = 2,
+  nrow = 1
+)
+```

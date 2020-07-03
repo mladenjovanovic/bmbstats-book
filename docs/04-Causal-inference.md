@@ -2876,7 +2876,7 @@ There could also be *hidden variables* involved that *moderate* and *mediate* th
 To explain these concepts, let's assume that that besides Pre-test and Post-test scores in our RCT study, we have also measured Back squat relative 1RMs since we believed that strength of the individual will moderate the effects of the plyometric treatment. This data is enlisted in the Table \@ref(tab:rct-data-with-squat). Squat 1RM in this case represent characteristic of the subject, or a *covariate*. Additional covariates (not considered here) might include gender, experience, height, weight and so forth. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:rct-data-with-squat)(ref:simple-rct-counterfactual-group-caption)</caption>
+<caption style="font-size: initial !important;">(\#tab:rct-data-with-squat)(ref:rct-data-with-squat-caption)</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Athlete </th>
@@ -3130,6 +3130,8 @@ To explain these concepts, let's assume that that besides Pre-test and Post-test
   </tr>
 </tbody>
 </table>
+
+(ref:rct-data-with-squat-caption) **Randomized control trial data but now with 1RM strength covariate**
 
 Since the individual are randomized into Treatment and Control groups, we expect that there is no difference between Squat 1RM betweem them. Figure \@ref(fig:rct-squat) demonstrates that there is no difference between groups.
 
