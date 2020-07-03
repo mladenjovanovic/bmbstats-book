@@ -909,7 +909,7 @@ rct_model$extra$treatment_responses$id <- vertical_jump_data$Athlete[as.numeric(
 
 plot(
   rct_model,
-  type = "treatment-responses",
+  type = "adjusted-treatment-responses",
   control = plot_control(
     points_shape = 19,
     points_alpha = 1,
@@ -1072,10 +1072,12 @@ knitr::kable(
   select(vj_data, -Magnitude),
   booktabs = TRUE,
   digits = 2,
-  caption = "(ref:simple-rct-counterfactual-group-caption)"
+  caption = "(ref:rct-data-with-squat-caption)"
 ) %>%
   kable_styling(font_size = 10)
 ```
+
+(ref:rct-data-with-squat-caption) **Randomized control trial data but now with 1RM strength covariate**
 
 Since the individual are randomized into Treatment and Control groups, we expect that there is no difference between Squat 1RM betweem them. Figure \@ref(fig:rct-squat) demonstrates that there is no difference between groups.
 
@@ -1161,7 +1163,7 @@ knitr::kable(
   kable_styling(font_size = 10)
 ```
 
-Bu as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
+But as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
 
 
 ```{r rct-post-test-relationships, fig.cap="(ref:rct-post-test-relationships-caption)"}
