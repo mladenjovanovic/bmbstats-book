@@ -3413,7 +3413,7 @@ What does interaction mean? If we check the panel C in the Figure \@ref(fig:rct-
 </tbody>
 </table>
 
-Bu as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
+But as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
 
 
 <div class="figure" style="text-align: center">
