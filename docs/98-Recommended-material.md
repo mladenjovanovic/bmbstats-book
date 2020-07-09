@@ -61,8 +61,8 @@
 
 **Online Courses**
 
-22. Hastie T, Tibshirani R. 2016.Statistical Learning. Available at https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about (accessed October 16, 2019).
+22. Hastie T, Tibshirani R. 2016. Statistical Learning. Available at https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about (accessed October 16, 2019).
 
-23. Lakens D. 2017.Improving your statistical inferences. Available at https://www.coursera.org/learn/statistical-inferences (accessed October 16, 2019).
+23. Lakens D. 2017. Improving your statistical inferences. Available at https://www.coursera.org/learn/statistical-inferences (accessed October 16, 2019).
 
-24. Lakens D. 2019.Improving your statistical questions. Available at https://www.coursera.org/learn/improving-statistical-questions (accessed October 16, 2019).
+24. Lakens D. 2019. Improving your statistical questions. Available at https://www.coursera.org/learn/improving-statistical-questions (accessed October 16, 2019).

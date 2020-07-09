@@ -1877,89 +1877,89 @@ As explained in the [Prediction] section, this model can be cross-validated. Pre
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> -0.04 </td>
    <td style="text-align:right;"> -0.04 </td>
-   <td style="text-align:right;"> 1.55 </td>
-   <td style="text-align:right;"> -3.22 </td>
-   <td style="text-align:right;"> 3.18 </td>
+   <td style="text-align:right;"> 1.19 </td>
+   <td style="text-align:right;"> -2.00 </td>
+   <td style="text-align:right;"> 2.04 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MAE </td>
    <td style="text-align:right;"> 2.41 </td>
-   <td style="text-align:right;"> 2.36 </td>
-   <td style="text-align:right;"> 2.76 </td>
-   <td style="text-align:right;"> 2.76 </td>
-   <td style="text-align:right;"> 0.67 </td>
-   <td style="text-align:right;"> 1.38 </td>
-   <td style="text-align:right;"> 3.80 </td>
+   <td style="text-align:right;"> 2.37 </td>
+   <td style="text-align:right;"> 2.69 </td>
+   <td style="text-align:right;"> 2.69 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 1.68 </td>
+   <td style="text-align:right;"> 4.39 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> RMSE </td>
    <td style="text-align:right;"> 3.31 </td>
-   <td style="text-align:right;"> 3.22 </td>
-   <td style="text-align:right;"> 3.78 </td>
-   <td style="text-align:right;"> 3.66 </td>
-   <td style="text-align:right;"> 0.97 </td>
-   <td style="text-align:right;"> 1.72 </td>
-   <td style="text-align:right;"> 5.15 </td>
+   <td style="text-align:right;"> 3.24 </td>
+   <td style="text-align:right;"> 3.68 </td>
+   <td style="text-align:right;"> 3.62 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 5.28 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> PPER </td>
    <td style="text-align:right;"> 0.54 </td>
    <td style="text-align:right;"> 0.56 </td>
-   <td style="text-align:right;"> 0.49 </td>
-   <td style="text-align:right;"> 0.49 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.68 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SESOI to RMSE </td>
    <td style="text-align:right;"> 1.51 </td>
-   <td style="text-align:right;"> 1.55 </td>
-   <td style="text-align:right;"> 1.32 </td>
-   <td style="text-align:right;"> 1.49 </td>
-   <td style="text-align:right;"> 0.52 </td>
-   <td style="text-align:right;"> 0.97 </td>
-   <td style="text-align:right;"> 2.91 </td>
+   <td style="text-align:right;"> 1.54 </td>
+   <td style="text-align:right;"> 1.36 </td>
+   <td style="text-align:right;"> 1.43 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 2.19 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> R-squared </td>
    <td style="text-align:right;"> 0.75 </td>
    <td style="text-align:right;"> 0.76 </td>
-   <td style="text-align:right;"> 0.67 </td>
-   <td style="text-align:right;"> 0.65 </td>
-   <td style="text-align:right;"> 0.29 </td>
-   <td style="text-align:right;"> -0.53 </td>
-   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 0.69 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.91 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MinErr </td>
    <td style="text-align:right;"> -7.08 </td>
-   <td style="text-align:right;"> -8.66 </td>
-   <td style="text-align:right;"> -9.42 </td>
-   <td style="text-align:right;"> -6.08 </td>
-   <td style="text-align:right;"> 2.47 </td>
-   <td style="text-align:right;"> -9.42 </td>
-   <td style="text-align:right;"> -1.84 </td>
+   <td style="text-align:right;"> -7.80 </td>
+   <td style="text-align:right;"> -8.83 </td>
+   <td style="text-align:right;"> -6.14 </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> -8.83 </td>
+   <td style="text-align:right;"> -1.65 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxErr </td>
    <td style="text-align:right;"> 8.80 </td>
-   <td style="text-align:right;"> 8.96 </td>
-   <td style="text-align:right;"> 10.99 </td>
-   <td style="text-align:right;"> 5.68 </td>
-   <td style="text-align:right;"> 3.23 </td>
-   <td style="text-align:right;"> 1.34 </td>
-   <td style="text-align:right;"> 10.99 </td>
+   <td style="text-align:right;"> 9.93 </td>
+   <td style="text-align:right;"> 10.75 </td>
+   <td style="text-align:right;"> 5.95 </td>
+   <td style="text-align:right;"> 2.87 </td>
+   <td style="text-align:right;"> 1.35 </td>
+   <td style="text-align:right;"> 10.75 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxAbsErr </td>
    <td style="text-align:right;"> 8.80 </td>
-   <td style="text-align:right;"> 8.96 </td>
-   <td style="text-align:right;"> 10.99 </td>
-   <td style="text-align:right;"> 7.74 </td>
-   <td style="text-align:right;"> 2.34 </td>
-   <td style="text-align:right;"> 2.96 </td>
-   <td style="text-align:right;"> 10.99 </td>
+   <td style="text-align:right;"> 9.93 </td>
+   <td style="text-align:right;"> 10.75 </td>
+   <td style="text-align:right;"> 7.91 </td>
+   <td style="text-align:right;"> 1.59 </td>
+   <td style="text-align:right;"> 3.78 </td>
+   <td style="text-align:right;"> 10.75 </td>
   </tr>
 </tbody>
 </table>
@@ -1991,89 +1991,89 @@ For the sake of completeness, Table \@ref(tab:simple-rct-model-perf-metrics) con
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.24 </td>
-   <td style="text-align:right;"> -2.81 </td>
-   <td style="text-align:right;"> 1.72 </td>
+   <td style="text-align:right;"> 1.05 </td>
+   <td style="text-align:right;"> -2.22 </td>
+   <td style="text-align:right;"> 1.98 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MAE </td>
    <td style="text-align:right;"> 2.16 </td>
    <td style="text-align:right;"> 2.14 </td>
-   <td style="text-align:right;"> 2.33 </td>
-   <td style="text-align:right;"> 2.33 </td>
-   <td style="text-align:right;"> 0.61 </td>
-   <td style="text-align:right;"> 1.10 </td>
-   <td style="text-align:right;"> 3.53 </td>
+   <td style="text-align:right;"> 2.30 </td>
+   <td style="text-align:right;"> 2.30 </td>
+   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 3.44 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> RMSE </td>
    <td style="text-align:right;"> 3.22 </td>
-   <td style="text-align:right;"> 3.18 </td>
-   <td style="text-align:right;"> 3.46 </td>
-   <td style="text-align:right;"> 3.36 </td>
-   <td style="text-align:right;"> 0.84 </td>
-   <td style="text-align:right;"> 1.60 </td>
-   <td style="text-align:right;"> 4.69 </td>
+   <td style="text-align:right;"> 3.19 </td>
+   <td style="text-align:right;"> 3.41 </td>
+   <td style="text-align:right;"> 3.35 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 2.02 </td>
+   <td style="text-align:right;"> 4.53 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> PPER </td>
    <td style="text-align:right;"> 0.55 </td>
    <td style="text-align:right;"> 0.57 </td>
    <td style="text-align:right;"> 0.53 </td>
-   <td style="text-align:right;"> 0.52 </td>
-   <td style="text-align:right;"> 0.12 </td>
-   <td style="text-align:right;"> 0.37 </td>
-   <td style="text-align:right;"> 0.84 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.73 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SESOI to RMSE </td>
    <td style="text-align:right;"> 1.55 </td>
    <td style="text-align:right;"> 1.57 </td>
-   <td style="text-align:right;"> 1.45 </td>
-   <td style="text-align:right;"> 1.61 </td>
-   <td style="text-align:right;"> 0.51 </td>
-   <td style="text-align:right;"> 1.07 </td>
-   <td style="text-align:right;"> 3.12 </td>
+   <td style="text-align:right;"> 1.47 </td>
+   <td style="text-align:right;"> 1.56 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.48 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> R-squared </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 0.61 </td>
-   <td style="text-align:right;"> 0.54 </td>
-   <td style="text-align:right;"> 0.59 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 0.25 </td>
-   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.57 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> -0.14 </td>
+   <td style="text-align:right;"> 0.82 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MinErr </td>
    <td style="text-align:right;"> -7.64 </td>
-   <td style="text-align:right;"> -8.63 </td>
-   <td style="text-align:right;"> -9.27 </td>
-   <td style="text-align:right;"> -5.67 </td>
-   <td style="text-align:right;"> 2.52 </td>
-   <td style="text-align:right;"> -9.27 </td>
-   <td style="text-align:right;"> -0.40 </td>
+   <td style="text-align:right;"> -8.73 </td>
+   <td style="text-align:right;"> -9.10 </td>
+   <td style="text-align:right;"> -5.97 </td>
+   <td style="text-align:right;"> 2.10 </td>
+   <td style="text-align:right;"> -9.10 </td>
+   <td style="text-align:right;"> -1.40 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxErr </td>
    <td style="text-align:right;"> 8.86 </td>
-   <td style="text-align:right;"> 9.74 </td>
-   <td style="text-align:right;"> 9.89 </td>
-   <td style="text-align:right;"> 5.79 </td>
-   <td style="text-align:right;"> 2.84 </td>
-   <td style="text-align:right;"> 1.88 </td>
-   <td style="text-align:right;"> 9.89 </td>
+   <td style="text-align:right;"> 9.84 </td>
+   <td style="text-align:right;"> 10.33 </td>
+   <td style="text-align:right;"> 5.67 </td>
+   <td style="text-align:right;"> 3.05 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 10.33 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxAbsErr </td>
    <td style="text-align:right;"> 8.86 </td>
-   <td style="text-align:right;"> 9.74 </td>
-   <td style="text-align:right;"> 9.89 </td>
-   <td style="text-align:right;"> 7.54 </td>
-   <td style="text-align:right;"> 1.94 </td>
-   <td style="text-align:right;"> 3.85 </td>
-   <td style="text-align:right;"> 9.89 </td>
+   <td style="text-align:right;"> 9.84 </td>
+   <td style="text-align:right;"> 10.33 </td>
+   <td style="text-align:right;"> 7.69 </td>
+   <td style="text-align:right;"> 1.62 </td>
+   <td style="text-align:right;"> 3.78 </td>
+   <td style="text-align:right;"> 10.33 </td>
   </tr>
 </tbody>
 </table>
@@ -2510,7 +2510,7 @@ $$
  (\#eq:ite-equation)
 $$
 
-Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to 7.85cm. Table \@ref(tab:ancova-rct-pITE) contains all individual model predictions using ANCOVA RCT model. 
+Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to -7.85cm. Table \@ref(tab:ancova-rct-pITE) contains all individual model predictions using ANCOVA RCT model. 
 
 (ref:ancova-rct-pITE-caption) **Individual model predictions using ANCOVA RCT model**
 
@@ -3492,51 +3492,51 @@ As opposed to the Figures \@ref(fig:simple-rct-model-ba) and \@ref(fig:ancova-rc
    <td style="text-align:left;"> MBE </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.51 </td>
-   <td style="text-align:right;"> -1.12 </td>
-   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.07 </td>
+   <td style="text-align:right;"> 0.07 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> -1.40 </td>
+   <td style="text-align:right;"> 1.18 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MAE </td>
    <td style="text-align:right;"> 0.90 </td>
-   <td style="text-align:right;"> 0.82 </td>
-   <td style="text-align:right;"> 1.17 </td>
-   <td style="text-align:right;"> 1.17 </td>
-   <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.58 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 1.19 </td>
+   <td style="text-align:right;"> 1.19 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> 1.76 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> RMSE </td>
    <td style="text-align:right;"> 1.08 </td>
-   <td style="text-align:right;"> 1.01 </td>
-   <td style="text-align:right;"> 1.42 </td>
-   <td style="text-align:right;"> 1.40 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.46 </td>
+   <td style="text-align:right;"> 1.43 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.67 </td>
-   <td style="text-align:right;"> 1.87 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 1.99 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> PPER </td>
    <td style="text-align:right;"> 0.97 </td>
    <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.92 </td>
-   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.87 </td>
    <td style="text-align:right;"> 0.06 </td>
-   <td style="text-align:right;"> 0.76 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.97 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SESOI to RMSE </td>
    <td style="text-align:right;"> 4.64 </td>
-   <td style="text-align:right;"> 4.95 </td>
-   <td style="text-align:right;"> 3.51 </td>
-   <td style="text-align:right;"> 3.74 </td>
-   <td style="text-align:right;"> 0.94 </td>
-   <td style="text-align:right;"> 2.68 </td>
-   <td style="text-align:right;"> 7.44 </td>
+   <td style="text-align:right;"> 5.02 </td>
+   <td style="text-align:right;"> 3.43 </td>
+   <td style="text-align:right;"> 3.61 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 2.52 </td>
+   <td style="text-align:right;"> 5.61 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> R-squared </td>
@@ -3544,39 +3544,39 @@ As opposed to the Figures \@ref(fig:simple-rct-model-ba) and \@ref(fig:ancova-rc
    <td style="text-align:right;"> 0.98 </td>
    <td style="text-align:right;"> 0.95 </td>
    <td style="text-align:right;"> 0.95 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.85 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.98 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MinErr </td>
    <td style="text-align:right;"> -2.12 </td>
-   <td style="text-align:right;"> -2.57 </td>
-   <td style="text-align:right;"> -3.00 </td>
-   <td style="text-align:right;"> -1.91 </td>
-   <td style="text-align:right;"> 0.64 </td>
-   <td style="text-align:right;"> -3.00 </td>
-   <td style="text-align:right;"> -0.72 </td>
+   <td style="text-align:right;"> -2.40 </td>
+   <td style="text-align:right;"> -2.72 </td>
+   <td style="text-align:right;"> -1.90 </td>
+   <td style="text-align:right;"> 0.58 </td>
+   <td style="text-align:right;"> -2.72 </td>
+   <td style="text-align:right;"> -0.76 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxErr </td>
    <td style="text-align:right;"> 1.97 </td>
-   <td style="text-align:right;"> 2.20 </td>
-   <td style="text-align:right;"> 3.38 </td>
-   <td style="text-align:right;"> 2.23 </td>
-   <td style="text-align:right;"> 0.64 </td>
-   <td style="text-align:right;"> 0.95 </td>
-   <td style="text-align:right;"> 3.38 </td>
+   <td style="text-align:right;"> 2.12 </td>
+   <td style="text-align:right;"> 3.15 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 3.15 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MaxAbsErr </td>
    <td style="text-align:right;"> 2.12 </td>
+   <td style="text-align:right;"> 2.40 </td>
+   <td style="text-align:right;"> 3.15 </td>
    <td style="text-align:right;"> 2.57 </td>
-   <td style="text-align:right;"> 3.38 </td>
-   <td style="text-align:right;"> 2.48 </td>
-   <td style="text-align:right;"> 0.41 </td>
-   <td style="text-align:right;"> 1.57 </td>
-   <td style="text-align:right;"> 3.38 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 1.65 </td>
+   <td style="text-align:right;"> 3.15 </td>
   </tr>
 </tbody>
 </table>
@@ -3664,22 +3664,22 @@ Table \@ref(tab:rct-models-performance-comparison) contains comparison between t
   </tr>
   <tr>
    <td style="text-align:left;"> CV RMSE </td>
-   <td style="text-align:right;"> 3.78 </td>
-   <td style="text-align:right;"> 1.42 </td>
+   <td style="text-align:right;"> 3.68 </td>
+   <td style="text-align:right;"> 1.46 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> CV PPER </td>
-   <td style="text-align:right;"> 0.49 </td>
-   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.91 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> CV SESOI to RMSE </td>
-   <td style="text-align:right;"> 1.32 </td>
-   <td style="text-align:right;"> 3.51 </td>
+   <td style="text-align:right;"> 1.36 </td>
+   <td style="text-align:right;"> 3.43 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> CV R-squared </td>
-   <td style="text-align:right;"> 0.67 </td>
+   <td style="text-align:right;"> 0.69 </td>
    <td style="text-align:right;"> 0.95 </td>
   </tr>
   <tr>
@@ -3694,8 +3694,8 @@ Table \@ref(tab:rct-models-performance-comparison) contains comparison between t
   </tr>
   <tr>
    <td style="text-align:left;"> pATE (Treatment) </td>
-   <td style="text-align:right;"> 7.85 </td>
-   <td style="text-align:right;"> 7.57 </td>
+   <td style="text-align:right;"> -7.85 </td>
+   <td style="text-align:right;"> -7.57 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> pATE (Control) </td>

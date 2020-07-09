@@ -1,13 +1,12 @@
 my_random_seed <- 1667
 set.seed(my_random_seed)
 
-
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
   cache = FALSE,
   fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
-  dpi = 300,
+  dpi = 600,
   out.width = "90%",
   fig.align = 'center',
   fig.width = 6,

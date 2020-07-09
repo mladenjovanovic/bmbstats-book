@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-03" />
+<meta name="date" content="2020-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,9 +295,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="16.1" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#data-generating-process-behind-rct"><i class="fa fa-check"></i><b>16.1</b> Data Generating Process behind RCT</a></li>
 <li class="chapter" data-level="16.2" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#rct-analysis-using-bmbstatsrct_analysis-function"><i class="fa fa-check"></i><b>16.2</b> RCT analysis using <code>bmbstats::RCT_analysis</code> function</a></li>
-<li class="chapter" data-level="16.3" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#adding-some-effects"><i class="fa fa-check"></i><b>16.3</b> Adding some effects</a></li>
-<li class="chapter" data-level="16.4" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#what-goes-inside-the-measurement-error"><i class="fa fa-check"></i><b>16.4</b> What goes inside the <em>measurement error</em>?</a></li>
-<li class="chapter" data-level="16.5" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective"><i class="fa fa-check"></i><b>16.5</b> Prediction perspective</a></li>
+<li class="chapter" data-level="16.3" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#linear-regression-perspective"><i class="fa fa-check"></i><b>16.3</b> Linear Regression Perspective</a></li>
+<li class="chapter" data-level="16.4" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective-1"><i class="fa fa-check"></i><b>16.4</b> Prediction perspective 1</a></li>
+<li class="chapter" data-level="16.5" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#adding-some-effects"><i class="fa fa-check"></i><b>16.5</b> Adding some effects</a></li>
+<li class="chapter" data-level="16.6" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#what-goes-inside-the-measurement-error-or-control-group-change-or-residuals-sd"><i class="fa fa-check"></i><b>16.6</b> What goes inside the <em>measurement error</em> (or Control group change or residuals <code>SD</code>)?</a></li>
+<li class="chapter" data-level="16.7" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective-2"><i class="fa fa-check"></i><b>16.7</b> Prediction perspective 2</a></li>
+<li class="chapter" data-level="16.8" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#making-it-more-complex-by-adding-covariate"><i class="fa fa-check"></i><b>16.8</b> Making it more complex by adding covariate</a></li>
 </ul></li>
 <li><a href="appendix-a-dorem-package.html#appendix-a-dorem-package">Appendix A: <code>dorem</code> package</a></li>
 <li><a href="appendix-b-shorts-package.html#appendix-b-shorts-package">Appendix B: <code>shorts</code> package</a></li>
@@ -4149,13 +4152,13 @@ MBE
 -0.04
 </td>
 <td style="text-align:right;">
-1.55
+1.19
 </td>
 <td style="text-align:right;">
--3.22
+-2.00
 </td>
 <td style="text-align:right;">
-3.18
+2.04
 </td>
 </tr>
 <tr>
@@ -4166,22 +4169,22 @@ MAE
 2.41
 </td>
 <td style="text-align:right;">
-2.36
+2.37
 </td>
 <td style="text-align:right;">
-2.76
+2.69
 </td>
 <td style="text-align:right;">
-2.76
+2.69
 </td>
 <td style="text-align:right;">
-0.67
+0.55
 </td>
 <td style="text-align:right;">
-1.38
+1.68
 </td>
 <td style="text-align:right;">
-3.80
+4.39
 </td>
 </tr>
 <tr>
@@ -4192,22 +4195,22 @@ RMSE
 3.31
 </td>
 <td style="text-align:right;">
-3.22
+3.24
 </td>
 <td style="text-align:right;">
-3.78
+3.68
 </td>
 <td style="text-align:right;">
-3.66
+3.62
 </td>
 <td style="text-align:right;">
-0.97
+0.68
 </td>
 <td style="text-align:right;">
-1.72
+2.28
 </td>
 <td style="text-align:right;">
-5.15
+5.28
 </td>
 </tr>
 <tr>
@@ -4221,19 +4224,19 @@ PPER
 0.56
 </td>
 <td style="text-align:right;">
-0.49
+0.50
 </td>
 <td style="text-align:right;">
-0.49
+0.48
 </td>
 <td style="text-align:right;">
-0.13
+0.08
 </td>
 <td style="text-align:right;">
-0.33
+0.34
 </td>
 <td style="text-align:right;">
-0.80
+0.68
 </td>
 </tr>
 <tr>
@@ -4244,22 +4247,22 @@ SESOI to RMSE
 1.51
 </td>
 <td style="text-align:right;">
-1.55
+1.54
 </td>
 <td style="text-align:right;">
-1.32
+1.36
 </td>
 <td style="text-align:right;">
-1.49
+1.43
 </td>
 <td style="text-align:right;">
-0.52
+0.27
 </td>
 <td style="text-align:right;">
-0.97
+0.95
 </td>
 <td style="text-align:right;">
-2.91
+2.19
 </td>
 </tr>
 <tr>
@@ -4273,19 +4276,19 @@ R-squared
 0.76
 </td>
 <td style="text-align:right;">
-0.67
+0.69
 </td>
 <td style="text-align:right;">
-0.65
+0.70
 </td>
 <td style="text-align:right;">
-0.29
+0.14
 </td>
 <td style="text-align:right;">
--0.53
+0.25
 </td>
 <td style="text-align:right;">
-0.95
+0.91
 </td>
 </tr>
 <tr>
@@ -4296,22 +4299,22 @@ MinErr
 -7.08
 </td>
 <td style="text-align:right;">
--8.66
+-7.80
 </td>
 <td style="text-align:right;">
--9.42
+-8.83
 </td>
 <td style="text-align:right;">
--6.08
+-6.14
 </td>
 <td style="text-align:right;">
-2.47
+2.23
 </td>
 <td style="text-align:right;">
--9.42
+-8.83
 </td>
 <td style="text-align:right;">
--1.84
+-1.65
 </td>
 </tr>
 <tr>
@@ -4322,22 +4325,22 @@ MaxErr
 8.80
 </td>
 <td style="text-align:right;">
-8.96
+9.93
 </td>
 <td style="text-align:right;">
-10.99
+10.75
 </td>
 <td style="text-align:right;">
-5.68
+5.95
 </td>
 <td style="text-align:right;">
-3.23
+2.87
 </td>
 <td style="text-align:right;">
-1.34
+1.35
 </td>
 <td style="text-align:right;">
-10.99
+10.75
 </td>
 </tr>
 <tr>
@@ -4348,22 +4351,22 @@ MaxAbsErr
 8.80
 </td>
 <td style="text-align:right;">
-8.96
+9.93
 </td>
 <td style="text-align:right;">
-10.99
+10.75
 </td>
 <td style="text-align:right;">
-7.74
+7.91
 </td>
 <td style="text-align:right;">
-2.34
+1.59
 </td>
 <td style="text-align:right;">
-2.96
+3.78
 </td>
 <td style="text-align:right;">
-10.99
+10.75
 </td>
 </tr>
 </tbody>
@@ -4421,13 +4424,13 @@ MBE
 0.00
 </td>
 <td style="text-align:right;">
-1.24
+1.05
 </td>
 <td style="text-align:right;">
--2.81
+-2.22
 </td>
 <td style="text-align:right;">
-1.72
+1.98
 </td>
 </tr>
 <tr>
@@ -4441,19 +4444,19 @@ MAE
 2.14
 </td>
 <td style="text-align:right;">
-2.33
+2.30
 </td>
 <td style="text-align:right;">
-2.33
+2.30
 </td>
 <td style="text-align:right;">
-0.61
+0.48
 </td>
 <td style="text-align:right;">
-1.10
+1.33
 </td>
 <td style="text-align:right;">
-3.53
+3.44
 </td>
 </tr>
 <tr>
@@ -4464,22 +4467,22 @@ RMSE
 3.22
 </td>
 <td style="text-align:right;">
-3.18
+3.19
 </td>
 <td style="text-align:right;">
-3.46
+3.41
 </td>
 <td style="text-align:right;">
-3.36
+3.35
 </td>
 <td style="text-align:right;">
-0.84
+0.66
 </td>
 <td style="text-align:right;">
-1.60
+2.02
 </td>
 <td style="text-align:right;">
-4.69
+4.53
 </td>
 </tr>
 <tr>
@@ -4496,16 +4499,16 @@ PPER
 0.53
 </td>
 <td style="text-align:right;">
-0.52
+0.51
 </td>
 <td style="text-align:right;">
-0.12
+0.09
 </td>
 <td style="text-align:right;">
-0.37
+0.39
 </td>
 <td style="text-align:right;">
-0.84
+0.73
 </td>
 </tr>
 <tr>
@@ -4519,19 +4522,19 @@ SESOI to RMSE
 1.57
 </td>
 <td style="text-align:right;">
-1.45
+1.47
 </td>
 <td style="text-align:right;">
-1.61
+1.56
 </td>
 <td style="text-align:right;">
-0.51
+0.35
 </td>
 <td style="text-align:right;">
-1.07
+1.10
 </td>
 <td style="text-align:right;">
-3.12
+2.48
 </td>
 </tr>
 <tr>
@@ -4545,19 +4548,19 @@ R-squared
 0.61
 </td>
 <td style="text-align:right;">
-0.54
+0.55
 </td>
 <td style="text-align:right;">
-0.59
+0.57
 </td>
 <td style="text-align:right;">
-0.15
+0.19
 </td>
 <td style="text-align:right;">
-0.25
+-0.14
 </td>
 <td style="text-align:right;">
-0.88
+0.82
 </td>
 </tr>
 <tr>
@@ -4568,22 +4571,22 @@ MinErr
 -7.64
 </td>
 <td style="text-align:right;">
--8.63
+-8.73
 </td>
 <td style="text-align:right;">
--9.27
+-9.10
 </td>
 <td style="text-align:right;">
--5.67
+-5.97
 </td>
 <td style="text-align:right;">
-2.52
+2.10
 </td>
 <td style="text-align:right;">
--9.27
+-9.10
 </td>
 <td style="text-align:right;">
--0.40
+-1.40
 </td>
 </tr>
 <tr>
@@ -4594,22 +4597,22 @@ MaxErr
 8.86
 </td>
 <td style="text-align:right;">
-9.74
+9.84
 </td>
 <td style="text-align:right;">
-9.89
+10.33
 </td>
 <td style="text-align:right;">
-5.79
+5.67
 </td>
 <td style="text-align:right;">
-2.84
+3.05
 </td>
 <td style="text-align:right;">
-1.88
+0.59
 </td>
 <td style="text-align:right;">
-9.89
+10.33
 </td>
 </tr>
 <tr>
@@ -4620,22 +4623,22 @@ MaxAbsErr
 8.86
 </td>
 <td style="text-align:right;">
-9.74
+9.84
 </td>
 <td style="text-align:right;">
-9.89
+10.33
 </td>
 <td style="text-align:right;">
-7.54
+7.69
 </td>
 <td style="text-align:right;">
-1.94
+1.62
 </td>
 <td style="text-align:right;">
-3.85
+3.78
 </td>
 <td style="text-align:right;">
-9.89
+10.33
 </td>
 </tr>
 </tbody>
@@ -5615,7 +5618,7 @@ Figure 4.14: <strong>Individual counterfactual prediction when the Group changes
 \widehat{ITE_i} = \widehat{y_{i}^{Group=Treatment}} - \widehat{y_{i}^{Group=Control}} 
  \tag{4.8}
 \]</span></p>
-<p>Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to 7.85cm. Table <a href="causal-inference.html#tab:ancova-rct-pITE">4.19</a> contains all individual model predictions using ANCOVA RCT model.</p>
+<p>Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to -7.85cm. Table <a href="causal-inference.html#tab:ancova-rct-pITE">4.19</a> contains all individual model predictions using ANCOVA RCT model.</p>
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
@@ -7925,19 +7928,19 @@ MBE
 0.00
 </td>
 <td style="text-align:right;">
-0.03
+0.07
 </td>
 <td style="text-align:right;">
-0.03
+0.07
 </td>
 <td style="text-align:right;">
-0.51
+0.61
 </td>
 <td style="text-align:right;">
--1.12
+-1.40
 </td>
 <td style="text-align:right;">
-0.92
+1.18
 </td>
 </tr>
 <tr>
@@ -7948,22 +7951,22 @@ MAE
 0.90
 </td>
 <td style="text-align:right;">
-0.82
+0.81
 </td>
 <td style="text-align:right;">
-1.17
+1.19
 </td>
 <td style="text-align:right;">
-1.17
+1.19
 </td>
 <td style="text-align:right;">
-0.26
+0.25
 </td>
 <td style="text-align:right;">
-0.50
+0.75
 </td>
 <td style="text-align:right;">
-1.58
+1.76
 </td>
 </tr>
 <tr>
@@ -7974,22 +7977,22 @@ RMSE
 1.08
 </td>
 <td style="text-align:right;">
-1.01
+1.00
 </td>
 <td style="text-align:right;">
-1.42
+1.46
 </td>
 <td style="text-align:right;">
-1.40
+1.43
 </td>
 <td style="text-align:right;">
 0.27
 </td>
 <td style="text-align:right;">
-0.67
+0.89
 </td>
 <td style="text-align:right;">
-1.87
+1.99
 </td>
 </tr>
 <tr>
@@ -8003,19 +8006,19 @@ PPER
 0.99
 </td>
 <td style="text-align:right;">
-0.92
+0.91
 </td>
 <td style="text-align:right;">
-0.88
+0.87
 </td>
 <td style="text-align:right;">
 0.06
 </td>
 <td style="text-align:right;">
-0.76
+0.74
 </td>
 <td style="text-align:right;">
-0.99
+0.97
 </td>
 </tr>
 <tr>
@@ -8026,22 +8029,22 @@ SESOI to RMSE
 4.64
 </td>
 <td style="text-align:right;">
-4.95
+5.02
 </td>
 <td style="text-align:right;">
-3.51
+3.43
 </td>
 <td style="text-align:right;">
-3.74
+3.61
 </td>
 <td style="text-align:right;">
-0.94
+0.73
 </td>
 <td style="text-align:right;">
-2.68
+2.52
 </td>
 <td style="text-align:right;">
-7.44
+5.61
 </td>
 </tr>
 <tr>
@@ -8061,13 +8064,13 @@ R-squared
 0.95
 </td>
 <td style="text-align:right;">
-0.03
+0.02
 </td>
 <td style="text-align:right;">
-0.85
+0.88
 </td>
 <td style="text-align:right;">
-0.99
+0.98
 </td>
 </tr>
 <tr>
@@ -8078,22 +8081,22 @@ MinErr
 -2.12
 </td>
 <td style="text-align:right;">
--2.57
+-2.40
 </td>
 <td style="text-align:right;">
--3.00
+-2.72
 </td>
 <td style="text-align:right;">
--1.91
+-1.90
 </td>
 <td style="text-align:right;">
-0.64
+0.58
 </td>
 <td style="text-align:right;">
--3.00
+-2.72
 </td>
 <td style="text-align:right;">
--0.72
+-0.76
 </td>
 </tr>
 <tr>
@@ -8104,22 +8107,22 @@ MaxErr
 1.97
 </td>
 <td style="text-align:right;">
-2.20
+2.12
 </td>
 <td style="text-align:right;">
-3.38
+3.15
 </td>
 <td style="text-align:right;">
-2.23
+2.27
 </td>
 <td style="text-align:right;">
-0.64
+0.80
 </td>
 <td style="text-align:right;">
-0.95
+0.32
 </td>
 <td style="text-align:right;">
-3.38
+3.15
 </td>
 </tr>
 <tr>
@@ -8130,22 +8133,22 @@ MaxAbsErr
 2.12
 </td>
 <td style="text-align:right;">
+2.40
+</td>
+<td style="text-align:right;">
+3.15
+</td>
+<td style="text-align:right;">
 2.57
 </td>
 <td style="text-align:right;">
-3.38
+0.42
 </td>
 <td style="text-align:right;">
-2.48
+1.65
 </td>
 <td style="text-align:right;">
-0.41
-</td>
-<td style="text-align:right;">
-1.57
-</td>
-<td style="text-align:right;">
-3.38
+3.15
 </td>
 </tr>
 </tbody>
@@ -8260,10 +8263,10 @@ Training R-squared
 CV RMSE
 </td>
 <td style="text-align:right;">
-3.78
+3.68
 </td>
 <td style="text-align:right;">
-1.42
+1.46
 </td>
 </tr>
 <tr>
@@ -8271,10 +8274,10 @@ CV RMSE
 CV PPER
 </td>
 <td style="text-align:right;">
-0.49
+0.50
 </td>
 <td style="text-align:right;">
-0.92
+0.91
 </td>
 </tr>
 <tr>
@@ -8282,10 +8285,10 @@ CV PPER
 CV SESOI to RMSE
 </td>
 <td style="text-align:right;">
-1.32
+1.36
 </td>
 <td style="text-align:right;">
-3.51
+3.43
 </td>
 </tr>
 <tr>
@@ -8293,7 +8296,7 @@ CV SESOI to RMSE
 CV R-squared
 </td>
 <td style="text-align:right;">
-0.67
+0.69
 </td>
 <td style="text-align:right;">
 0.95
@@ -8326,10 +8329,10 @@ SD Residual (Control)
 pATE (Treatment)
 </td>
 <td style="text-align:right;">
-7.85
+-7.85
 </td>
 <td style="text-align:right;">
-7.57
+-7.57
 </td>
 </tr>
 <tr>

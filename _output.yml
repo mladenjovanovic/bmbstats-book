@@ -8,7 +8,9 @@ bookdown::gitbook:
       link: https://github.com/mladenjovanovic/bmbstats-book/%s
       text: "Edit"
     sharing: no
-bookdown::word_document2:
-  always_allow_html: true
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  keep_tex: no
 
 

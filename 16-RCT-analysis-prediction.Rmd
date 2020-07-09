@@ -12,7 +12,6 @@ editor_options:
 source("_common.R")
 ```
 
-
 # RCT analysis and prediction in `bmbstats`
 
 In this chapter I will demonstrate how to analyze simple randomized controlled trials (RCTs) from both explanatory and predictive perspectives using `bmbstats` package and functions. As a refresher, please consider re-reading [Causal inference] chapter. 
@@ -27,7 +26,7 @@ knitr::include_graphics(path = "figures/treatment-and-non-treatment-effects.png"
 
 Let's consider the following RCT DGP. We have two group (Control and Treatment), each with N=10 athletes, measured twice (Pre-test and Post-test) on the vertical jump height, using a measuring device with a known measurement error (i.e. only instrumentation noise; see [Validity and Reliability] chapter for more info) estimated through validity and reliability studies and equal to 0.5cm. Control group are doing their normal training for 4 weeks, while Treatment group is doing EMS stimulation of their calf muscles on top of their normal training. 
 
-Since this is DGP, we will assume there is no treatment effect nor non-treatment effects. Both Control and Treatment groups will experience normal biological variation in their jump height, which is equal to 1.5cm. Please refer to [Validity and Reliability] chapter for more info about the concepts of true score and measurement error. SESOI for the measured score will be ±5cm (since there is no proportional bias in the measurement, this will also be SESOI for the true score - see previous chapter for more information).
+Since this is DGP, we will assume there is no treatment effect nor non-treatment effects. Both Control and Treatment groups will experience normal biological variation in their jump height, which is equal to 1.5cm. Please refer to [Validity and Reliability] chapter for more info about the concepts of true score and measurement error. SESOI for the measured score will be ±5cm (since there is no proportional bias in the measurement, this will also be SESOI for the true score - see [Validity and Reliability] chapter for more information).
 
 ```{r echo=TRUE}
 require(tidyverse)
@@ -91,6 +90,10 @@ RCT_data <- tibble(
   Measured_score.Change = Measured_score.Post - Measured_score.Pre
 )
 
+# Make sure that the Group column is a factor
+# This will not create issues with PDP+ICE and ICE plotting later
+RCT_data$Group <- factor(RCT_data$Group)
+
 head(RCT_data)
 ```
 
@@ -128,7 +131,7 @@ bmbstats::plot_raincloud_SESOI(
 )
 ```
 
-From these graphs we can see that there is no difference between group. We have also selected large SESOI taking into account our a-priori knowledge about biological variation and measurement error in the vertical jump height. 
+From these graphs we can see that there is no difference between group. We have also selected large SESOI taking into account our *a priori* knowledge about biological variation and measurement error in the vertical jump height. 
 
 Let's plot the individual change fro athletes from the Treatment group:
 
@@ -145,7 +148,7 @@ bmbstats::plot_pair_changes(
 
 ## RCT analysis using `bmbstats::RCT_analysis` function
 
-To perform RCT analysis explained in the [Causal inference] chapter, we will use `bmbstats::RCT_analysis` function. `bmbstats::RCT_analysis` function has two built-in estimator function: `bmbstats::RCT_estimators` and `bmbstats::RCT_estimators_simple`. `bmbstats::RCT_estimators` is more extensive and involves individual group analysis, while the `bmbstats::RCT_estimators_simple` only provides estimated treatment and non-treatment effects. 
+To perform RCT analysis explained in the [Causal inference] chapter, we will use `bmbstats::RCT_analysis` function. `bmbstats::RCT_analysis` function has three built-in estimator function: `bmbstats::RCT_estimators`, `bmbstats::RCT_estimators_simple`, and `bmbstats::RCT_estimators_lm`. `bmbstats::RCT_estimators` is more extensive and involves individual group analysis, while the `bmbstats::RCT_estimators_simple` only provides estimated treatment and non-treatment effects. `bmbstats::RCT_estimators_lm` will be explained in the next section. 
 
 ```{r echo=TRUE}
 extensive_RCT <- bmbstats::RCT_analysis(
@@ -259,6 +262,7 @@ plot(simple_RCT, type = "adjusted-treatment-responses")
 ```
 
 The adjusted treatment responses are calculated by deducting `mean` Control group change from individual change in the Treatment group (i.e. *adjusted change*). Error-bars represent 95% confidence intervals (i.e. `SDC`) using change `SD` of the Control group. 
+
 The data used to create this graph can be found in the returned object:
 
 ```{r echo=TRUE}
@@ -312,9 +316,287 @@ plot(
 
 This way, Control group is used as *sort-of* reliability study (see [Repeatability] section in the [Validity and Reliability] chapter) that provides source of information about the non-treatment effect (in this case 0 for both systematic and random components), biological variation and instrumentation noise. This helps us to provide uncertainty intervals around individual treatment (adjusted) effects.
 
+## Linear Regression Perspective
+
+RCT analysis performed with `bmbstats::RCT_analysis` is the method of differences (i.e. changes). This is similar to the method of differences explained in the [Validity and Reliability] chapter. Another approach is to utilize linear regression( explained in the [Prediction as a complement to causal inference] section of the [Causal inference] chapter). To understand this, let's depict this RCT data by using Group as predictor and Change score as outcome:
+
+```{r echo=TRUE}
+ggplot(
+  RCT_data,
+  aes(x = Group, y = Measured_score.Change, color = Group)) +
+  theme_cowplot(8) +
+  geom_jitter(width = 0.2) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+If we perform the linear regression, we will get the following:
+
+```{r echo=TRUE}
+model1 <- lm(
+  Measured_score.Change ~ Group,
+  RCT_data
+)
+
+summary(model1)
+```
+
+Intercept in this case (`r round(coef(model1)[[1]], 2)`cm) represents the `mean` change in the Control group, while slope (`GroupTreatment`; `r round(coef(model1)[[2]], 2)`cm) represents estimate of the systematic treatment effect (i.e. difference in means). 
+
+This can be easily explained visually:
+
+```{r echo=TRUE}
+RCT_data$Group_num <- ifelse(
+  RCT_data$Group == "Treatment",
+  1,
+  0
+)
+
+ggplot(
+  RCT_data,
+  aes(x = Group_num, y = Measured_score.Change)) +
+  theme_cowplot(8) +
+  geom_jitter(aes(color = Group), width = 0.2) +
+  geom_smooth(method = "lm", formula = y~x, se=TRUE) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_x_continuous(
+    name = "Group",
+    breaks = c(0, 1),
+    labels = c("Control", "Treatment"))
+```
+
+Random components of the treatment and non-treatment effects can be seen as *residuals* (actually as `SD` of the residuals) around `mean` of the group changes. `RSE` of this model (`r round(summary(model1)$sigma, 2)`cm) represents *pooled* random errors of both Treatment and Control groups. If we perform `SD` of the residuals for each Group, we will get the following:
+
+```{r echo=TRUE}
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model1)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+SD_summary
+```
+
+Estimating random treatment effect is thus equal to $\sqrt{SD_{Treatment \;group}^2 - SD_{Control \; group}^2}$: 
+
+```{r echo=TRUE}
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+```
+
+If you compare these regression estimates to those from the `bmbstats::RCT_analysis`, you will notice they are equal. 
+
+But, as alluded in [Causal inference] chapter, one should avoid using Change scores and rather use Pre-test and Post-test scores. In this case, our model would look visually like this (I have added dashed identity line so Pre-test and Post-test comparison is easier):
+
+```{r echo=TRUE}
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+And estimated linear regression model:
+
+```{r echo=TRUE}
+model2 <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data
+)
+
+summary(model2)
+```
+
+In this model, Pre-test represent covariate. The estimated coefficient for this covariate is `r round(coef(model2)[[2]],2)`, or very close to 1. 
+
+The systematic treatment effect (`r round(coef(model2)[[3]],2)`cm) can be interpreted as "everything else being equal, changing group from Control to Treatment will result in" effect on the Post-test. Graphically, this represent the *vertical gap* between the two lines. Please note that in the previous graph, each group is modeled separately, and in this model the lines are assumed to be parallel (i.e. no interaction between the lines - or no interaction between Group and Pre-test). Let us thus plot our model:
+
+```{r echo=TRUE}
+RCT_data$.pred <- predict(
+  model2,
+  newdata = RCT_data
+)
+
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_point(alpha=0.8) +
+  geom_line(aes(y = .pred)) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+As can be seen from the figure, lines are almost identical, but more importantly, they are now parallel. 
+
+To estimate random treatment effect, we can use residuals `SD` for each group yet again. 
+
+```{r echo=TRUE}
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model2)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+SD_summary
+```
+
+```{r echo=TRUE}
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+```
+
+This concept was a bit hard for me to wrap my head around as well. Residuals are something we cannot explain with our model (be it using simple `mean` with the method of differences, or using linear regression model with Group and Pre-test). Everything we can explain with the model can be thus seen as systematic effect. Thus, the *thing that is left* is unexplained variance. This variance is due to biological variation, instrumentation error and random non-treatment effects (which are zero in this example), as well as random treatment effects (which are also zero in this example). 
+
+This approach is implemented in `bmbstats::RCT_estimators_lm` function that we can use in `bmbstats::RCT_analysis` to get bootstrap CIs:
+
+```{r echo=TRUE}
+regression_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_lm,
+  control = model_control(seed = 1667)
+)
+
+
+regression_RCT
+```
+
+Let's now compare the results of the linear regression method with the method of differences (which uses Change score analysis):
+
+```{r echo=TRUE}
+compare_methods <- rbind(
+  data.frame(method = "differences", simple_RCT$estimators),
+  data.frame(method = "linear regression", regression_RCT$estimators)
+)
+
+
+ggplot(
+  compare_methods,
+  aes(y = method, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
+```
+
+Which method should be used? For simple designs, these provide almost identical results. We could perform simulations as we have done in the [Validity and Reliability] chapter to see the behavior of the estimates, but I will leave that to you as an exercise. I would generally follow the advice by [Frank Harrell](https://www.fharrell.com/post/errmed/#change) and avoid the use of the change scores, particularly for more complex designs involving covariates and extra parameters of the treatment (i.e. when treatment is not only TRUE/FALSE but can have a continuous membership function, or some type of the loading parameter, like number of jumps performed and so forth). 
+
+## Prediction perspective 1
+
+Using simple linear regression function brings us to the prediction perspective of modeling the RCT data. Rather than estimating DGP parameters, we are interested in predicting individual responses on the unseen data. We can thus use `bmbstats::cv_model` function to estimate predictive performance of our simple linear regression model. One thing to keep in mind, is that now we are using SESOI to judge the residuals magnitudes, not observed scores (i.e. measured Post-test). Please note that I have used Group column to setup the CV strata - this results in same number of CV observations in each group.  
+
+```{r echo=TRUE}
+model3 <- cv_model(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  control = model_control(
+    seed = 1667,
+    cv_folds = 3,
+    cv_repeats = 10,
+    cv_strata = factor(RCT_data$Group))
+)
+
+model3
+```
+
+As can be seen from the performance results, we have pretty good prediction of the individual responses since our SESOI is pretty large and we do not have any treatment nor non-treatment effects. 
+
+`bmbstats` package comes with additional function `bmbstats::RCT_predict` that uses returned object by `bmbstats::cv_model` and analyze is from RCT perspective: 
+
+```{r echo=TRUE}
+prediction_RCT <- RCT_predict(
+  model3, 
+  new_data = RCT_data,
+  outcome = "Measured_score.Post",
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  subject_label = RCT_data$Athlete
+)
+
+prediction_RCT
+```
+
+The results of `bmbstats::RCT_predict` contain (1) model performance (also returned from `bmbstats::cv_model`), (2) individual model results (which contains individual model predictions, as well as counterfactual predictions assuming Group changes from Control to Treatment and *vice versa*), (3) residuals summary per group (these are our random effects), and (4) summary of counterfactual effects (please refer to [Causal inference] chapter for more information about these concepts). The *extra* details that `bmbstats::RCT_predict` adds on top of `bmbstats::cv_model` can be found in the `prediction_RCT$extra`. 
+
+Now that we have the more info about the underlying RCT, we can do various plots. Let's plot the residuals first:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "residuals")
+```
+
+To plot individual model predictions use the following:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "prediction")
+```
+
+Circlets or dots represent observed (i.e. outcome or target variable), and vertical line represent model predictions. Residual between the two is color coded based on the provided SESOI threshold. 
+
+By default, prediction plot uses `metric = "RMSE"` and `metric_cv = "testing.pooled"` parameters to plot confidence intervals. We can use some other metric returned from `bmbstats::cv_model`. Let's use `MaxAbsErr` (maximum absolute prediction error) from mean testing CV column: 
+
+```{r echo=TRUE}
+plot(prediction_RCT, "prediction", metric = "MaxAbsErr", metric_cv = "mean")
+```
+
+To plot individual bias-variance error decomposition thorough testing CV folds use:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "bias-variance")
+```
+
+Here we can see which athletes are prediction outliers and generally present issues for the predictive model. Together with the individual predictions, we can use this plot and data to gain more info regarding individual reactions to intervention (i.e. who jumps out from the model prediction).
+
+To gain understanding into counterfactual prediction, we could use PDP and ICE plots. The default variable to be used is the Group, which we can change later:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "pdp+ice")
+```
+
+This plot gives us insights into model prediction for each athlete when the Group variable changes, while keeping all other variables the same. Since this is RCT, this plot can be given counterfactual interpretation. The PDP line (thick red line) represent the average of these individual prediction (ICE lines), and as can be seen, the counterfactual effects of changing group is zero (since the line is parallel) and thus represents *expected* or systematic effect of the treatment. 
+
+Let's do that for out other variable in the model (with addition of the dashed identity line):
+
+```{r echo=TRUE}
+plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
+  geom_abline(slope = 1, linetype = "dashed")
+```
+
+To plot these individual ICE line for each athlete we can use counterfactual plot:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "counterfactual")
+```
+
+Since the systematic treatment effect is zero, these are very small. The mean of these individual counterfactual prediction effect is presented in the object printout in the last table as `pATE` (predicted average treatment effect) and `SD` of these effects as `pVTE` (predicted variable treatment effect). In this case, due simple model, the predicted treatment effects are the same, thus the `pVTE` is equal to zero. 
+
+Different way to plot these is to have *trellis* plot for each individual:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "ice")
+```
+
+These plots represent strong tool for understanding predictive model performance for the RCT data and study designs. 
+
 ## Adding some effects
 
-The previous example contained no treatment nor non-treatment effects, only biological variation and instrumentation noise. Let's now consider different treatment - plyometric training that has systematic effect of 5cm (`mean` or expected change) and random effect of 5cm. But, since this study is done after the off-season, all athletes experienced systematic effect of 2.5cm and random effect of 1cm only by normal training. This represents non-treatment effect. 
+The previous example contained no treatment nor non-treatment effects, only biological variation and instrumentation noise. Let's now consider different treatment - plyometric training that has systematic effect of 5cm (`mean` or expected change) and random effect of 5cm. But, since this study is done after the off-season, all athletes experienced systematic effect of 2.5cm increase and random effect of 1cm only by normal training. This represents non-treatment effect. 
+
+Biological variation (1.5cm) and instrumentation noise (0.5cm) are still involved in the measured scores. 
 
 This is the code to generate the data (i.e. DGP):
 
@@ -376,13 +658,59 @@ RCT_data <- tibble(
   Measured_score.Change = Measured_score.Post - Measured_score.Pre
 )
 
+RCT_data$Group <- factor(RCT_data$Group)
+
 head(RCT_data)
 ```
 
-Using `bmbstats::RCT_estimators_simple` estimator and `bmbstats::RCT_analysis` functions, let's perform the analysis and generate 95% bootstrap confidence intervals:
+Let's plot the data using Pre-test as predictor (x-axis) and Post-test as the outcome (y-axis). Please remember that this plot provide simple linear regression for each group independently. I will add identity line for easier comparison:
 
 ```{r echo=TRUE}
-simple_RCT <- bmbstats::RCT_analysis(
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  theme_cowplot(8) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+We can see that both Control and Treatment group demonstrated improvements since both lines are above the dashed identity line. 
+
+Using simple linear regression we get the following coefficients:
+
+```{r echo=TRUE}
+model4 <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data
+)
+
+summary(model4)
+```
+
+Now the simple linear regression estimated systematic treatment effect of `r round(coef(model4)[[3]], 2)`cm, which is very close to our DGP systematic treatment effect of 5cm. 
+
+To estimate random treatment effect, we can use residuals `SD` for each group: 
+
+```{r echo=TRUE}
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model4)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+SD_summary
+```
+
+```{r echo=TRUE}
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+```
+
+Using `bmbstats::RCT_estimators_lm` estimator function and `bmbstats::RCT_analysis` functions, let's perform the analysis and generate 95% bootstrap confidence intervals:
+
+```{r echo=TRUE}
+regression_RCT <- bmbstats::RCT_analysis(
   data = RCT_data,
   group = "Group",
   treatment_label = "Treatment",
@@ -391,28 +719,41 @@ simple_RCT <- bmbstats::RCT_analysis(
   post_test = "Measured_score.Post",
   SESOI_lower = -5,
   SESOI_upper = 5,
-  estimator_function = bmbstats::RCT_estimators_simple,
+  estimator_function = bmbstats::RCT_estimators_lm,
   control = model_control(seed = 1667)
 )
 
 
-simple_RCT
+regression_RCT
 ```
 
 Here is the estimators bootstrap distribution:
 
 ```{r echo=TRUE}
-plot(simple_RCT)
+plot(regression_RCT)
 ```
 
-As can be seen from the results, both systematic and random components of the treatment effects were estimated correctly. We can now plot individual treatment responses: 
+As can be seen from the results, both systematic and random components of the treatment effects were estimated correctly. 
+
+Let's plot the Pre- and Post-Test results for each group (I will let you play and plot other figures as explained in the previous sections):
 
 ```{r echo=TRUE}
-plot(simple_RCT, type = "treatment-responses")
+plot(regression_RCT, type = "control-paired-change")
 ```
 
-And we can add the true treatment effects on the plot from the DGP: 
+```{r echo=TRUE}
+plot(regression_RCT, type = "treatment-paired-change")
+```
 
+Let's now plot individual treatment responses with uncertainty intervals: 
+
+```{r echo=TRUE}
+plot(regression_RCT, type = "treatment-responses")
+```
+
+As explained previously, this type of analysis and plot, uses Control group change score as some type of a *proxy* to quantify the uncertainty around observed treatment group change scores. Please note that even though we have used linear regression approach to estimate treatment effects, the plots still rely on the change scores. 
+
+To check if this plot make sense, we can add the true treatment effects from the DGP using `bmbstats::observations_MET` function (we can also use `bmbstats::observations_MBI` function for plotting): 
 ```{r echo=TRUE}
 treatment_group <- filter(
   RCT_data,
@@ -482,7 +823,7 @@ plot(
   xlim(-10, 28)
 ```
 
-## What goes inside the *measurement error*?
+## What goes inside the *measurement error* (or Control group change or residuals `SD`)?
 
 As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to `r round(sd(control_group$Measured_score.Change), 2)`cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
 
@@ -491,9 +832,139 @@ $$
 $$
 If we plug our DGP values, we get the following expected `SD` of the Control group change: `r round(sqrt(2*biological_variation^2 + 2*instrumentation_noise^2 + non_treatment_random^2), 2)`cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
 
-## Prediction perspective
+This measurement error decomposition belongs to the method of differences, but the same error decomposition happens in the `SD` of the residuals with the linear regression approach. 
 
-**To be continued**
+To demonstrate this, consider random treatment effect estimated using the measured Pre-test and Post-test scores, versus using True scores. 
+
+```{r echo=TRUE}
+model_true <- lm(
+  True_score.Post ~ True_score.Pre + Group,
+  RCT_data
+)
+
+summary(model_true)
+```
+
+The model with measured scores is the model we have used so far (`model4`), but I am repeating it here for the sake of easier comprehension:
+
+```{r echo=TRUE}
+model_measured <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data
+)
+
+summary(model_measured)
+```
+
+Estimate random treatment effect for each model are the following, we can use residuals `SD` for each group: 
+
+```{r echo=TRUE}
+SD_summary_true <- RCT_data %>%
+  mutate(.resid = residuals(model_true)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+SD_summary_true
+```
+
+The `SD` of the Control group residuals using the True scores should only involve random non-treatment effect, which is in our case equal to 1cm, and `SD` of the Treatment group residuals should be 5cm.
+
+Let's see whats the case with the model that uses Measured scores:
+
+```{r echo=TRUE}
+SD_summary_measured <- RCT_data %>%
+  mutate(.resid = residuals(model_measured)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+
+SD_summary_measured
+```
+
+The `SD` of the Control group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm) and 2 x instrumentation noise (0.5cm), which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2), 2)`cm. 
+
+The `SD` of the Treatment group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm), 2 x instrumentation noise (0.5cm), and additional random treatment effect (5cm) which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2 + 5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2 + 5^2), 2)`cm. 
+
+Estimated random treatment effects:
+
+```{r echo=TRUE}
+sqrt(SD_summary_true$`Residual SD`[2]^2 - SD_summary_true$`Residual SD`[1]^2)
+```
+
+```{r echo=TRUE}
+sqrt(SD_summary_measured$`Residual SD`[2]^2 - SD_summary_measured$`Residual SD`[1]^2)
+```
+
+As can be seen, these are exactly the same. So, using measures scores and `SD` of control group change or residuals can *recover* true random treatment effect value.  
+
+## Prediction perspective 2
+
+Let's see what happens when we run this RCT through predictive model. 
+
+```{r echo=TRUE}
+model5 <- cv_model(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  control = model_control(
+    seed = 1667,
+    cv_folds = 3,
+    cv_repeats = 10,
+    cv_strata = factor(RCT_data$Group))
+)
+
+prediction_RCT <- RCT_predict(
+  model5, 
+  new_data = RCT_data,
+  outcome = "Measured_score.Post",
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  subject_label = RCT_data$Athlete
+)
+
+prediction_RCT
+```
+
+The prediction performance in this case is much worse (compared to previous RCT example), since now there are systematic and random treatment and non-treatment effects. Although we can *explain* the RCT components, we cannot use it to predict individual responses. 
+
+Let's check the individual predictions:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "prediction")
+```
+
+We can now see that certain residuals are larger than SESOI (indicated by green or red color on the figure). 
+
+Here is the PDP+ICE plot:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "pdp+ice")
+```
+
+Parallel lines indicate that we predict that each individual will have same treatment effect (indicated by `pVTE` as well as with the arrows of same length in the counterfactual plot that follows). If we plot PDP+ICE for the measured Pre-test, we will get the following figure:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") + 
+  geom_abline(slope = 1, linetype = "dashed")
+```
+
+Two thin lines indicate two groups and the gap between them represents the systematic treatment effect. 
+
+Estimating individual counterfactual effects when switching group:
+
+```{r echo=TRUE}
+plot(prediction_RCT, "counterfactual")
+```
+
+As can be seen, counterfactual plot depicts same treatment effect for every individual. 
+
+## Making it more complex by adding covariate
+
+To make this more complex, let's assume that besides randomizing athletes to Treatment and Control group, we have also measured their lower body strength using relative back squat 1RM. This variable represents our covariate, and we can expect (i.e. we hypothesize) that individuals with higher relative strength will manifest bigger improvements from the plyometric intervention. 
+
+The following code represented DGP, where the effects of the training intervention depend on the 1RM squat (i.e. the higher the relative squat, the higher the training intervention). But on top of that, we are going to reduce the improvement based on the initial jump height (i.e. the higher someone jumps, the less improvement over time). It is assumed that squat 1RM and Pre-training jump height are unrelated (independent). Random components of the treatment and non-treatment effects are zero, and the only variance in the measured scores is due to biological noise and instrumentation error. 
 
 ```{r echo=TRUE}
 set.seed(16)
@@ -505,13 +976,14 @@ instrumentation_noise <- 0.5
 biological_variation <- 1.5
 
 # -------------------------
+# These are not used in this DGP
 # Treatment effect
-treatment_systematic <- 5
-treatment_random <- 5
+treatment_systematic <- 0
+treatment_random <- 0
 
 # Non-treatment effect
-non_treatment_systematic <- 2.5
-non_treatment_random <- 1
+non_treatment_systematic <- 0
+non_treatment_random <- 0
 #-------------------------
 
 RCT_data <- tibble(
@@ -531,8 +1003,8 @@ RCT_data <- tibble(
   True_score.Pre = rnorm(n_subjects, 45, 5),
 
   # Treatment effect
-  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic * Squat_1RM_relative, sd = treatment_random),
-  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+  Treatment_effect = (10 - 0.002 * True_score.Pre^2 + 1) * Squat_1RM_relative,
+  Non_treatment_effect = 15 - 0.005 * True_score.Pre^2,
 
   # Calculate the change in true score
   True_score.Change = if_else(
@@ -542,6 +1014,7 @@ RCT_data <- tibble(
     # While control group only get non-treatment effects
     Non_treatment_effect
   ),
+  
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
@@ -558,54 +1031,4 @@ RCT_data <- tibble(
 head(RCT_data)
 ```
 
-```{r echo=TRUE}
-covariate_RCT <- bmbstats::RCT_analysis(
-  data = RCT_data,
-  group = "Group",
-  treatment_label = "Treatment",
-  control_label = "Control",
-  pre_test = "Measured_score.Pre",
-  post_test = "Measured_score.Post",
-  SESOI_lower = -5,
-  SESOI_upper = 5,
-  estimator_function = bmbstats::RCT_estimators_simple,
-  control = model_control(seed = 1667)
-)
-
-
-covariate_RCT
-```
-
-```{r echo=TRUE}
-panel_a <- ggplot(
-  RCT_data,
-  aes(x = Measured_score.Pre, y = Measured_score.Change, color = Group, fill = Group)) +
-  theme_cowplot(8) +
-  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
-  geom_point(alpha=0.8) +
-  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
-  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
-  theme(legend.position = "none")
-
-panel_b <- ggplot(
-  RCT_data,
-  aes(x = Squat_1RM_relative, y = Measured_score.Change, color = Group, fill = Group)) +
-  theme_cowplot(8) +
-  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
-  geom_point(alpha=0.8) +
-  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
-  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
-  theme(legend.position = c(0.1,.95)) +
-  ylab(NULL)
-
-plot_grid(
-  panel_a,
-  panel_b,
-  labels = c("A", "B"),
-  label_size = 10,
-  align = "hv",
-  axis = "l",
-  ncol = 2,
-  nrow = 1
-)
-```
+*To be continued*
