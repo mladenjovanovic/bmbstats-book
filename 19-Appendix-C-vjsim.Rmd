@@ -1,0 +1,204 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# install from GitHub
+# require(devtools)
+# devtools::install_github("mladenjovanovic/bmbstats")
+
+# Run common script
+source("_common.R")
+```
+
+
+# Appendix C: `vjsim` package
+
+<img src="figures/vjsim-logo.png" align="right" width="200" />
+
+`vjsim` [@R-vjsim] is R package that simulates vertical jump with the aim of teaching basic biomechanical principles, FV profiling, and exploring assumptions of FV optimization models. 
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/mladenjovanovic/vjsim) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mladenjovanovic/vjsim")
+
+require(vjsim)
+```
+
+## Usage
+
+Please read accompanying vignettes for examples and usage of the `vjsim` package
+
+
+### [Introduction](https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html)
+
+This vignette discusses the basic mechanical representation of the vertical jump system. Please read this to understand the overall setup. Access it by clicking the above link or running the following code:
+
+``` r
+vignette("introduction-vjsim")
+```
+
+### [Simulation](https://mladenjovanovic.github.io/vjsim/articles/simulation-vjsim.html)
+
+This vignette continues the [Introduction](https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html) vignette and expands on the topic of simulation and how vertical jump is simulated. Access it by clicking the above link or running the following code:
+
+``` r
+vignette("simulation-vjsim")
+```
+
+### [Profiling](https://mladenjovanovic.github.io/vjsim/articles/profiling-vjsim.html)
+
+Once you understand how the [Simulation](https://mladenjovanovic.github.io/vjsim/articles/simulation-vjsim.html) works, we can start playing with profiling. Force-Velocity (FV), Load-Velocity (LV), and other profiles are discussed. Access it by clicking the above link or running the following code:
+
+``` r
+vignette("profiling-vjsim")
+```
+
+### [Optimization](https://mladenjovanovic.github.io/vjsim/articles/optimization-vjsim.html)
+
+In this vignette I will introduce few optimization models, influenced by the work of Pierre Samozino and Jean-Benoit Morin. Access it by clicking the above link or running the following code:
+
+``` r
+vignette("optimization-vjsim")
+```
+
+### [Exploring](https://mladenjovanovic.github.io/vjsim/articles/exploring-vjsim.html)
+
+In this vignette we are going to explore various assumptions of the model, "optimal" FV profiles and some other interesting questions. Access it by clicking the above link or running the following code:
+
+``` r
+vignette("exploring-vjsim")
+```
+
+### [Modeling](https://mladenjovanovic.github.io/vjsim/articles/modeling-vjsim.html)
+
+In this vignette I am going to show you how you can use `vjsim` to create athlete profiles from collected data
+
+``` r
+vignette("modeling-vjsim")
+```
+
+
+## [Shiny App](https://athletess.shinyapps.io/shiny-simulator/)
+
+To run the Shiny app, use the following code, or by clicking on the above link (this will take you to the *shinyapps.io*)
+``` r
+# install.packages(c("shiny", "plotly", "DT"))
+run_simulator()
+```
+
+## Example
+
+`vjsim` comes with an example data (`testing_data`) that can be used to demonstrate the profiling:
+
+```{r echo=TRUE}
+require(vjsim)
+require(tidyverse)
+
+data("testing_data")
+
+testing_data
+```
+
+As can be seen from the above listing, `testing_data` contains data for N=5 athletes. Each athlete performed progressive squat jumps (external load is indicated in `external_load` column; weight are in kg) and the flight time (`aerial_time`) in seconds is measured using the jump mat. Some measuring devices will return *peak velocity* (PV), *take-off velocity* (TOV), or calculated *jump height* (height) which is the most common. 
+
+We will select Jack and show his *Load-Velocity* (LV) profile using `vsim` function `vjsim::make_load_profile`[^omit_vjsim]: 
+
+[^omit_vjsim]: You can omit typing `vjsim::` in the code. I use it here to indicate functions from the `vjsim` package).
+
+```{r echo=TRUE}
+# Filter only Jack's data
+jack_data <- filter(testing_data, athlete == "Jack")
+
+# Make a LV profile
+# Here we have used `with` command to simplify the code
+# If not we need to use:
+#
+# vjsim::make_load_profile(
+#   bodyweight = jack_data$bodyweight,
+#   external_load = jack_data$external_load,
+#   aerial_time = jack_data$aerial_time,
+#   plot = TRUE
+# )
+
+jack_LV_profile <- with(jack_data,
+ vjsim::make_load_profile(
+   bodyweight = bodyweight,
+   external_load = external_load,
+   aerial_time = aerial_time,
+   plot = TRUE
+ )
+)
+```
+
+Velocity, in this case TOV, is calculated by first calculating jump height from the `aerial_time` using `vjsim::get_height_from_aerial_time` function inside the `vjsim::make_load_profile`, which is later converted to TOV using ballistic equations. 
+
+This LV profile has the following parameters:
+
+```{r echo=TRUE}
+jack_LV_profile
+```
+
+To perform optimization *Force-Velocity* (FV) profile using Samozino *et al.* approach [@jimenez-reyesEffectivenessIndividualizedTraining2017; @jimenez-reyesOptimizedTrainingJumping2019; @samozinoJumpingAbilityTheoretical2010; @samozinoOptimalForceVelocity2012; @samozinoOptimalForceVelocityProfile2018; @samozinoSimpleMethodMeasuring2008; @samozinoSimpleMethodMeasuring2018; @samozinoSimpleMethodMeasuring2018a] use `vjsim::make_samozino_profile`:
+
+```{r echo=TRUE}
+jack_FV_profile <- with(jack_data,
+ vjsim::make_samozino_profile(
+   bodyweight = bodyweight,
+   push_off_distance = push_off_distance,
+   external_load = external_load,
+   aerial_time = aerial_time,
+   plot = TRUE
+ )
+)
+```
+
+Here are the parameters estimated:
+
+```{r echo=TRUE}
+jack_FV_profile
+```
+
+In the case that you need to make analysis for multiple athletes, rather than doing one-by-one, use the following `tidyverse` wrapper:
+
+```{r echo=TRUE}
+make_samozino_profile_wrapper <- function(data) {
+  profile <- with(
+    data,
+    vjsim::make_samozino_profile(
+      bodyweight = bodyweight,
+      push_off_distance = push_off_distance,
+      external_load = external_load,
+      aerial_time = aerial_time,
+      plot = FALSE
+    )
+  )
+
+  return(data.frame(
+    F0 = profile$F0,
+    V0 = profile$V0,
+    height = profile$height,
+    optimal_F0 = profile$optimal_F0,
+    optimal_V0 = profile$optimal_V0,
+    optimal_height = profile$optimal_height,
+    Sfv_perc = profile$Sfv_perc
+  ))
+}
+```
+
+We can now apply this wrapper function to get FV profile for all athletes in the `testing_data` data set:
+
+```{r echo=TRUE}
+athlete_profiles <- testing_data %>%
+  group_by(athlete) %>%
+  do(make_samozino_profile_wrapper(.))
+
+
+athlete_profiles
+```
+

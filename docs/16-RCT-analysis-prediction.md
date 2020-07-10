@@ -458,7 +458,8 @@ RCT analysis performed with `bmbstats::RCT_analysis` is the method of difference
 ```r
 ggplot(
   RCT_data,
-  aes(x = Group, y = Measured_score.Change, color = Group)) +
+  aes(x = Group, y = Measured_score.Change, color = Group)
+) +
   theme_cowplot(8) +
   geom_jitter(width = 0.2) +
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
@@ -508,15 +509,17 @@ RCT_data$Group_num <- ifelse(
 
 ggplot(
   RCT_data,
-  aes(x = Group_num, y = Measured_score.Change)) +
+  aes(x = Group_num, y = Measured_score.Change)
+) +
   theme_cowplot(8) +
   geom_jitter(aes(color = Group), width = 0.2) +
-  geom_smooth(method = "lm", formula = y~x, se=TRUE) +
+  geom_smooth(method = "lm", formula = y ~ x, se = TRUE) +
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
   scale_x_continuous(
     name = "Group",
     breaks = c(0, 1),
-    labels = c("Control", "Treatment"))
+    labels = c("Control", "Treatment")
+  )
 ```
 
 <img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
@@ -554,11 +557,12 @@ But, as alluded in [Causal inference] chapter, one should avoid using Change sco
 ```r
 ggplot(
   RCT_data,
-  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)
+) +
   theme_cowplot(8) +
   geom_abline(slope = 1, linetype = "dashed") +
-  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
-  geom_point(alpha=0.8) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_point(alpha = 0.8) +
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
@@ -610,9 +614,10 @@ RCT_data$.pred <- predict(
 
 ggplot(
   RCT_data,
-  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)
+) +
   theme_cowplot(8) +
-  geom_point(alpha=0.8) +
+  geom_point(alpha = 0.8) +
   geom_line(aes(y = .pred)) +
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
@@ -727,7 +732,8 @@ model3 <- cv_model(
     seed = 1667,
     cv_folds = 3,
     cv_repeats = 10,
-    cv_strata = factor(RCT_data$Group))
+    cv_strata = factor(RCT_data$Group)
+  )
 )
 
 model3
@@ -764,7 +770,7 @@ As can be seen from the performance results, we have pretty good prediction of t
 
 ```r
 prediction_RCT <- RCT_predict(
-  model3, 
+  model3,
   new_data = RCT_data,
   outcome = "Measured_score.Post",
   group = "Group",
@@ -856,6 +862,12 @@ prediction_RCT
 #>  Treatment  0.142417    0
 #>    Control -0.142417    0
 #>     pooled  0.142417    0
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  0.142417
+#> Variable Treatment effect:  0
+#> Random Treatment effect:  1.151716
 ```
 
 The results of `bmbstats::RCT_predict` contain (1) model performance (also returned from `bmbstats::cv_model`), (2) individual model results (which contains individual model predictions, as well as counterfactual predictions assuming Group changes from Control to Treatment and *vice versa*), (3) residuals summary per group (these are our random effects), and (4) summary of counterfactual effects (please refer to [Causal inference] chapter for more information about these concepts). The *extra* details that `bmbstats::RCT_predict` adds on top of `bmbstats::cv_model` can be found in the `prediction_RCT$extra`. 
@@ -1034,11 +1046,12 @@ Let's plot the data using Pre-test as predictor (x-axis) and Post-test as the ou
 ```r
 ggplot(
   RCT_data,
-  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)) +
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)
+) +
   theme_cowplot(8) +
   geom_abline(slope = 1, linetype = "dashed") +
-  geom_smooth(method = "lm", se = TRUE, alpha=0.2) +
-  geom_point(alpha=0.8) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_point(alpha = 0.8) +
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
@@ -1224,7 +1237,7 @@ Adjusted treatment response would deduct `mean` change from the Control group an
 
 ```r
 treatment_responses <- bmbstats::observations_MET(
-  
+
   # Adjustment
   observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
   observations_label = treatment_group$Athlete,
@@ -1400,11 +1413,12 @@ model5 <- cv_model(
     seed = 1667,
     cv_folds = 3,
     cv_repeats = 10,
-    cv_strata = factor(RCT_data$Group))
+    cv_strata = factor(RCT_data$Group)
+  )
 )
 
 prediction_RCT <- RCT_predict(
-  model5, 
+  model5,
   new_data = RCT_data,
   outcome = "Measured_score.Post",
   group = "Group",
@@ -1496,6 +1510,12 @@ prediction_RCT
 #>  Treatment -4.926546    0
 #>    Control  4.926546    0
 #>     pooled  4.926546    0
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  4.926546
+#> Variable Treatment effect:  0
+#> Random Treatment effect:  4.816519
 ```
 
 The prediction performance in this case is much worse (compared to previous RCT example), since now there are systematic and random treatment and non-treatment effects. Although we can *explain* the RCT components, we cannot use it to predict individual responses. 
@@ -1524,7 +1544,7 @@ Parallel lines indicate that we predict that each individual will have same trea
 
 
 ```r
-plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") + 
+plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
   geom_abline(slope = 1, linetype = "dashed")
 ```
 
@@ -1598,7 +1618,7 @@ RCT_data <- tibble(
     # While control group only get non-treatment effects
     Non_treatment_effect
   ),
-  
+
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
@@ -1612,10 +1632,12 @@ RCT_data <- tibble(
   Measured_score.Change = Measured_score.Post - Measured_score.Pre
 )
 
+RCT_data$Group <- factor(RCT_data$Group)
+
 head(RCT_data)
 #> # A tibble: 6 x 14
 #>   Athlete Group Squat_1RM_relat… True_score.Pre Treatment_effect
-#>   <chr>   <chr>            <dbl>          <dbl>            <dbl>
+#>   <chr>   <fct>            <dbl>          <dbl>            <dbl>
 #> 1 Athlet… Trea…            1.19            36.8             9.88
 #> 2 Athlet… Cont…            0.950           43.4             6.87
 #> 3 Athlet… Trea…            1.44            44.1            10.2 
@@ -1629,4 +1651,1031 @@ head(RCT_data)
 #> #   Measured_score.Change <dbl>
 ```
 
-*To be continued*
+Let's plot before we jump into the analysis. In the next plot we will depict measured Post-test (y-axis) and measured Pre-test (x-axis) per group.
+
+
+```r
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)
+) +
+  theme_cowplot(8) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" />
+
+Might be also usable to plot the change score:
+
+
+```r
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Change, color = Group, fill = Group)
+) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-72-1.png" width="90%" style="display: block; margin: auto;" />
+
+From these two graph we can see that as one has higher Pre-test, change scores gets smaller (i.e. effect decreases). 
+
+Let's plot the 1RM strength relationship to Post-test:
+
+
+```r
+ggplot(
+  RCT_data,
+  aes(x = Squat_1RM_relative, y = Measured_score.Post, color = Group, fill = Group)
+) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" />
+
+As can be seen from the figure, there is interaction between 1RM and group (the lines are not parallel). Let's check with the change score:
+
+
+```r
+ggplot(
+  RCT_data,
+  aes(x = Squat_1RM_relative, y = Measured_score.Change, color = Group, fill = Group)
+) +
+  theme_cowplot(8) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" />
+
+With change score we have *controlled* for Pre-test, which gives us information that the stronger someone is, the higher the improvement. This is even more evident for the Treatment group. 
+
+Let's do the usual analysis and check the effects. Let's first perform the method of the differences (which uses change score `mean` and `SD`):
+
+
+```r
+simple_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_simple,
+  control = model_control(seed = 1667)
+)
+#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
+#> [1] "All values of t are equal to  10 \n Cannot calculate confidence intervals"
+
+
+simple_RCT
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>                   estimator       value      lower       upper
+#>                 SESOI lower -5.00000000         NA          NA
+#>                 SESOI upper  5.00000000         NA          NA
+#>                 SESOI range 10.00000000         NA          NA
+#>           Systematic effect  9.60660366 5.36900820 13.44947544
+#>               Random effect  5.39012073 3.51072089  6.92558325
+#>  Systematic effect to SESOI  0.96066037 0.53690082  1.34494754
+#>      SESOI to Random effect  1.85524601 1.43972066  3.06650272
+#>                      pLower  0.01200102 0.00037884  0.05838599
+#>                 pEquivalent  0.19545959 0.02005083  0.46036640
+#>                     pHigher  0.79253939 0.46809992  0.97792031
+```
+
+From our DGP we know that there is no random treatment effect, but only systematic treatment effect depending on the Pre-test and relative strength levels. But with this analysis we do not know that and we use only `mean` change to estimate treatment effects, and all the residuals around the `mean` (i.e. total variance) are assumed to be random error. This is *unexplained* variance (by this model). But we do know we can explain this variance with better model specification. 
+
+If we use linear regression model (using `bmbstats::RCT_estimators_lm`), we will address the effect of the Pre-test on the Post-test. But before, let's just show model coefficients:
+
+
+```r
+model6 <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Group,
+  RCT_data
+)
+
+summary(model6)
+#> 
+#> Call:
+#> lm(formula = Measured_score.Post ~ Measured_score.Pre + Group, 
+#>     data = RCT_data)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -3.3819 -1.7924  0.4125  1.3648  4.9797 
+#> 
+#> Coefficients:
+#>                    Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)         42.6606     5.2220   8.169 2.74e-07 ***
+#> Measured_score.Pre   0.1584     0.1099   1.441    0.168    
+#> GroupTreatment       7.5994     1.0578   7.184 1.53e-06 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 2.291 on 17 degrees of freedom
+#> Multiple R-squared:  0.7527,	Adjusted R-squared:  0.7236 
+#> F-statistic: 25.87 on 2 and 17 DF,  p-value: 6.963e-06
+```
+
+Visually, this model looks like this:
+
+
+```r
+RCT_data$.pred <- predict(
+  model6,
+  newdata = RCT_data
+)
+
+ggplot(
+  RCT_data,
+  aes(x = Measured_score.Pre, y = Measured_score.Post, color = Group, fill = Group)
+) +
+  theme_cowplot(8) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_point(alpha = 0.8) +
+  geom_line(aes(y = .pred)) +
+  scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA")) +
+  scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-77-1.png" width="90%" style="display: block; margin: auto;" />
+
+Estimated random treatment effect is equal to:
+
+
+```r
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model6)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+#> [1] 2.521028
+```
+
+Now, let's run this model using the `bmbstats::RCT_estimators_lm` and `bmbstats::RCT_analysis`:
+
+
+```r
+regression_RCT <- bmbstats::RCT_analysis(
+  data = RCT_data,
+  group = "Group",
+  treatment_label = "Treatment",
+  control_label = "Control",
+  pre_test = "Measured_score.Pre",
+  post_test = "Measured_score.Post",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::RCT_estimators_lm,
+  control = model_control(seed = 1667)
+)
+#> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
+#> [1] "All values of t are equal to  10 \n Cannot calculate confidence intervals"
+
+
+regression_RCT
+#> Bootstrap with 2000 resamples and 95% bca confidence intervals.
+#> 
+#>                   estimator         value         lower      upper
+#>                 SESOI lower -5.000000e+00            NA         NA
+#>                 SESOI upper  5.000000e+00            NA         NA
+#>                 SESOI range  1.000000e+01            NA         NA
+#>           Systematic effect  7.599370e+00  5.559460e+00 10.4054050
+#>               Random effect  2.521028e+00  1.281688e+00  3.7842396
+#>  Systematic effect to SESOI  7.599370e-01  5.559460e-01  1.0405405
+#>      SESOI to Random effect  3.966636e+00 -2.288091e+01  9.9649843
+#>                      pLower  3.995354e-05  7.377399e-10  1.0000000
+#>                 pEquivalent  1.576864e-01  2.068126e-03  0.4686692
+#>                     pHigher  8.422736e-01  3.994218e-05  0.9902346
+```
+
+Let's plot the estimated from the method of differences and linear regression model for easier comparison:
+
+
+```r
+compare_methods <- rbind(
+  data.frame(method = "differences", simple_RCT$estimators),
+  data.frame(method = "linear regression", regression_RCT$estimators)
+)
+
+
+ggplot(
+  compare_methods,
+  aes(y = method, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-80-1.png" width="90%" style="display: block; margin: auto;" />
+
+Please note that the estimated systematic treatment effect is smaller for the linear regression method compared to method of differences. It is the opposite for the random treatment effect estimate. This is because linear regression method estimates the effect of the group while controlling for the Pre-test.
+
+Let's now add relative 1RM strength to the mix:
+
+
+```r
+model7 <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + Group,
+  RCT_data
+)
+
+summary(model7)
+#> 
+#> Call:
+#> lm(formula = Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + 
+#>     Group, data = RCT_data)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -3.6732 -1.3602  0.1547  1.5569  3.7951 
+#> 
+#> Coefficients:
+#>                    Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)         35.2743     6.7717   5.209 8.61e-05 ***
+#> Measured_score.Pre   0.2621     0.1231   2.128   0.0492 *  
+#> Squat_1RM_relative   2.4779     1.5351   1.614   0.1260    
+#> GroupTreatment       7.4215     1.0171   7.297 1.79e-06 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 2.19 on 16 degrees of freedom
+#> Multiple R-squared:  0.7873,	Adjusted R-squared:  0.7474 
+#> F-statistic: 19.74 on 3 and 16 DF,  p-value: 1.259e-05
+```
+
+Please notice the slightly improved `RSE` of this model (indicating better model fit). Let's check the estimate random treatment effect:
+
+
+```r
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model7)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+#> [1] 1.59975
+```
+
+This implies that with this model we were able to explain more of the treatment effect. But we do know there is interaction between Group and relative 1RM. We can model that: 
+
+
+```r
+model8 <- lm(
+  Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + Squat_1RM_relative:Group + Group,
+  # OR we can specify the model with this
+  # Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative * Group
+  RCT_data
+)
+
+summary(model8)
+#> 
+#> Call:
+#> lm(formula = Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + 
+#>     Squat_1RM_relative:Group + Group, data = RCT_data)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -3.8832 -0.8725 -0.0257  0.9302  2.8875 
+#> 
+#> Coefficients:
+#>                                   Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)                       38.07464    5.35343   7.112 3.55e-06 ***
+#> Measured_score.Pre                 0.26809    0.09618   2.787  0.01381 *  
+#> Squat_1RM_relative                -0.56615    1.50382  -0.376  0.71183    
+#> GroupTreatment                    -0.20765    2.41029  -0.086  0.93248    
+#> Squat_1RM_relative:GroupTreatment  6.89774    2.05750   3.352  0.00436 ** 
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 1.71 on 15 degrees of freedom
+#> Multiple R-squared:  0.8784,	Adjusted R-squared:  0.846 
+#> F-statistic: 27.09 on 4 and 15 DF,  p-value: 1.039e-06
+```
+
+`RSE` of this model improved even further. Let's calculate the random treatment effect:
+
+
+```r
+SD_summary <- RCT_data %>%
+  mutate(.resid = residuals(model8)) %>%
+  group_by(Group) %>%
+  summarise(`Residual SD` = sd(.resid))
+
+
+sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
+#> [1] 1.476142
+```
+
+We managed to explain mode of the treatment effect (i.e. reduce the random component), but how do we not estimate the systematic effect? Now we have interaction term, and we introduced *indirect* effect of the `Group:1RM`, so we cannot simply quantify it with a single number. 
+
+But maybe the predictive perspective can help?
+
+## Prediction perspective 3
+
+Before analyzing the most complex model specification, let's build from the ground-up again using *baseline* model first. This model predicts Post-test to be the same for everyone using Group as predictor. This model is useful since it gives us the worst prediction we can use to judge the other models. 
+
+Since we are going to perform same modeling using different specification, to avoid repeating the code (which I have done on purpose thorough this book, but will avoid doing here), I will write down the function:
+
+
+```r
+model_RCT <- function(formula) {
+  model <- cv_model(
+    formula,
+    RCT_data,
+    SESOI_lower = -5,
+    SESOI_upper = 5,
+    control = model_control(
+      seed = 1667,
+      cv_folds = 5,
+      cv_repeats = 10,
+      cv_strata = factor(RCT_data$Group)
+    )
+  )
+
+  RCT <- RCT_predict(
+    model,
+    new_data = RCT_data,
+    outcome = "Measured_score.Post",
+    group = "Group",
+    treatment_label = "Treatment",
+    control_label = "Control",
+    subject_label = RCT_data$Athlete
+  )
+
+  return(RCT)
+}
+```
+
+Here is our baseline model:
+
+
+```r
+base_model <- model_RCT(Measured_score.Post ~ Group)
+
+base_model
+#> Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> 
+#> Model performance:
+#> 
+#>         metric      training training.pooled testing.pooled          mean
+#>            MBE -4.618506e-15    1.634262e-15   1.634259e-15  1.634238e-15
+#>            MAE  1.793742e+00    1.768937e+00   1.997720e+00  1.997720e+00
+#>           RMSE  2.238021e+00    2.206270e+00   2.505740e+00  2.393620e+00
+#>           PPER  9.577526e-01    9.762111e-01   9.520871e-01  8.549957e-01
+#>  SESOI to RMSE  4.468233e+00    4.532536e+00   3.990837e+00  4.591613e+00
+#>      R-squared  7.224490e-01    7.302684e-01   6.520744e-01  6.595240e-01
+#>         MinErr -5.933469e+00   -6.532374e+00  -7.016430e+00 -2.794574e+00
+#>         MaxErr  3.414524e+00    3.926733e+00   4.141234e+00  2.385040e+00
+#>      MaxAbsErr  5.933469e+00    6.532374e+00   7.016430e+00  3.768324e+00
+#>          SD        min       max
+#>  1.33279182 -2.5926409 2.7658984
+#>  0.55544631  1.0781811 3.3474423
+#>  0.74868547  1.1928031 4.0973536
+#>  0.08929827  0.6560171 0.9718218
+#>  1.42736849  2.4405997 8.3836132
+#>  0.32999136 -0.5542973 0.9646862
+#>  2.16480138 -7.0164300 2.0578483
+#>  1.21855651 -0.2376657 4.1412343
+#>  1.58419875  1.4647768 7.0164300
+#> 
+#> Individual model results:
+#> 
+#>     subject     group observed predicted    residual  magnitude counterfactual
+#>  Athlete 01 Treatment 53.92165  57.33617  3.41452429 Equivalent       50.11469
+#>  Athlete 02   Control 48.65099  50.11469  1.46369772 Equivalent       57.33617
+#>  Athlete 03 Treatment 60.06640  57.33617 -2.73022311 Equivalent       50.11469
+#>  Athlete 04   Control 51.66451  50.11469 -1.54981912 Equivalent       57.33617
+#>  Athlete 05 Treatment 56.88816  57.33617  0.44801588 Equivalent       50.11469
+#>  Athlete 06   Control 52.31237  50.11469 -2.19768413 Equivalent       57.33617
+#>  Athlete 07 Treatment 54.93702  57.33617  2.39915590 Equivalent       50.11469
+#>  Athlete 08   Control 51.29489  50.11469 -1.18019529 Equivalent       57.33617
+#>  Athlete 09 Treatment 63.26964  57.33617 -5.93346853      Lower       50.11469
+#>  Athlete 10   Control 50.28937  50.11469 -0.17467663 Equivalent       57.33617
+#>  Athlete 11 Treatment 59.39720  57.33617 -2.06102088 Equivalent       50.11469
+#>  Athlete 12   Control 50.02810  50.11469  0.08658834 Equivalent       57.33617
+#>  Athlete 13 Treatment 55.63766  57.33617  1.69851405 Equivalent       50.11469
+#>  Athlete 14   Control 46.82518  50.11469  3.28950733 Equivalent       57.33617
+#>  Athlete 15 Treatment 57.89749  57.33617 -0.56131425 Equivalent       50.11469
+#>  Athlete 16   Control 50.56725  50.11469 -0.45256087 Equivalent       57.33617
+#>  Athlete 17 Treatment 55.12290  57.33617  2.21327604 Equivalent       50.11469
+#>  Athlete 18   Control 48.30309  50.11469  1.81159973 Equivalent       57.33617
+#>  Athlete 19 Treatment 56.22363  57.33617  1.11254061 Equivalent       50.11469
+#>  Athlete 20   Control 51.21115  50.11469 -1.09645708 Equivalent       57.33617
+#>       pITE pITE_magnitude
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#>  -7.221484          Lower
+#>   7.221484         Higher
+#> 
+#> Summary of residuals per RCT group:
+#> 
+#>      group          mean       SD
+#>    Control -2.842214e-15 1.709932
+#>  Treatment -6.394885e-15 2.864728
+#> 
+#> Summary of counterfactual effects of RCT group:
+#> 
+#>      group      pATE pVTE
+#>  Treatment -7.221484    0
+#>    Control  7.221484    0
+#>     pooled  7.221484    0
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  7.221484
+#> Variable Treatment effect:  0
+#> Random Treatment effect:  2.298433
+```
+
+Let's plot key model predictions (individual and counterfactual).
+
+
+```r
+plot(base_model, "prediction")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-87-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(base_model, "counterfactual")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-88-1.png" width="90%" style="display: block; margin: auto;" />
+
+As can be seen, base model predict the same Post-test scores for each athlete (depending on the group).
+
+Our next model is the one that uses Pre-test and Group. Let's call it `pre_test_model` (please note that this is the model used in `bmbstats::RCT_estimators_lm` function):
+
+
+```r
+pre_test_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre)
+
+pre_test_model
+#> Training data consists of 3 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> 
+#> Model performance:
+#> 
+#>         metric      training training.pooled testing.pooled        mean
+#>            MBE -1.385555e-14    3.774758e-15     0.03197143  0.03197143
+#>            MAE  1.757354e+00    1.700865e+00     2.04500207  2.04500207
+#>           RMSE  2.112647e+00    2.066468e+00     2.51137986  2.43165066
+#>           PPER  9.675019e-01    9.841744e-01     0.95158915  0.84684948
+#>  SESOI to RMSE  4.733399e+00    4.839174e+00     3.98187473  4.44664689
+#>      R-squared  7.526750e-01    7.633690e-01     0.65056316  0.63480891
+#>         MinErr -4.979659e+00   -5.620519e+00    -6.48925129 -2.73668942
+#>         MaxErr  3.381897e+00    4.723784e+00     4.36811806  2.71096150
+#>      MaxAbsErr  4.979659e+00    5.620519e+00     6.48925129  3.85285271
+#>          SD        min       max
+#>  1.25159476 -2.5288076 2.8367663
+#>  0.53059190  0.8621495 3.2662051
+#>  0.63415044  1.0726499 3.8740486
+#>  0.07383527  0.6842390 0.9746472
+#>  1.40990552  2.5812789 9.3227066
+#>  0.32450934 -0.7834415 0.9507508
+#>  1.95426062 -6.4892513 1.9406012
+#>  1.23032364 -0.6916705 4.3681181
+#>  1.30595427  1.9061280 6.4892513
+#> 
+#> Individual model results:
+#> 
+#>     subject     group observed predicted    residual  magnitude counterfactual
+#>  Athlete 01 Treatment 53.92165  55.89316  1.97150648 Equivalent       48.29379
+#>  Athlete 02   Control 48.65099  50.11805  1.46705656 Equivalent       57.71742
+#>  Athlete 03 Treatment 60.06640  57.39899 -2.66741213 Equivalent       49.79962
+#>  Athlete 04   Control 51.66451  50.83931 -0.82520345 Equivalent       58.43868
+#>  Athlete 05 Treatment 56.88816  56.54332 -0.34484151 Equivalent       48.94395
+#>  Athlete 06   Control 52.31237  51.05577 -1.25660375 Equivalent       58.65514
+#>  Athlete 07 Treatment 54.93702  58.31892  3.38189720 Equivalent       50.71955
+#>  Athlete 08   Control 51.29489  50.73095 -0.56393813 Equivalent       58.33032
+#>  Athlete 09 Treatment 63.26964  58.28998 -4.97965920 Equivalent       50.69061
+#>  Athlete 10   Control 50.28937  49.75682 -0.53254676 Equivalent       57.35619
+#>  Athlete 11 Treatment 59.39720  56.86111 -2.53609024 Equivalent       49.26174
+#>  Athlete 12   Control 50.02810  50.09865  0.07054839 Equivalent       57.69802
+#>  Athlete 13 Treatment 55.63766  57.37036  1.73269990 Equivalent       49.77099
+#>  Athlete 14   Control 46.82518  49.28717  2.46198498 Equivalent       56.88654
+#>  Athlete 15 Treatment 57.89749  56.20799 -1.68949873 Equivalent       48.60862
+#>  Athlete 16   Control 50.56725  50.08713 -0.48012312 Equivalent       57.68650
+#>  Athlete 17 Treatment 55.12290  58.14891  3.02601000 Equivalent       50.54954
+#>  Athlete 18   Control 48.30309  49.65954  1.35644850 Equivalent       57.25891
+#>  Athlete 19 Treatment 56.22363  58.32902  2.10538825 Equivalent       50.72965
+#>  Athlete 20   Control 51.21115  49.51352 -1.69762322 Equivalent       57.11289
+#>      pITE pITE_magnitude
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#>  -7.59937          Lower
+#>   7.59937         Higher
+#> 
+#> Summary of residuals per RCT group:
+#> 
+#>      group          mean       SD
+#>    Control -1.136866e-14 1.334693
+#>  Treatment -1.634257e-14 2.852540
+#> 
+#> Summary of counterfactual effects of RCT group:
+#> 
+#>      group     pATE         pVTE
+#>  Treatment -7.59937 5.246187e-15
+#>    Control  7.59937 2.254722e-15
+#>     pooled  7.59937 3.992905e-15
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  7.59937
+#> Variable Treatment effect:  3.992905e-15
+#> Random Treatment effect:  2.521028
+```
+
+
+```r
+plot(pre_test_model, "prediction")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-90-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(pre_test_model, "counterfactual")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-91-1.png" width="90%" style="display: block; margin: auto;" />
+
+Additional plot we can do is the PDP+ICE for group predictor (i.e. treatment effect):
+
+
+```r
+plot(pre_test_model, "pdp+ice")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-92-1.png" width="90%" style="display: block; margin: auto;" />
+
+And also for the Pre-test predictor:
+
+
+```r
+plot(pre_test_model, "pdp+ice", predictor = "Measured_score.Pre")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-93-1.png" width="90%" style="display: block; margin: auto;" />
+
+Next model adds additional predictor (covariate): relative squat 1RM:
+
+
+```r
+covariate_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative)
+
+covariate_model
+#> Training data consists of 4 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> 
+#> Model performance:
+#> 
+#>         metric      training training.pooled testing.pooled        mean
+#>            MBE -1.492140e-14    3.641497e-15    -0.04731864 -0.04731864
+#>            MAE  1.609713e+00    1.560087e+00     1.99431750  1.99431750
+#>           RMSE  1.959142e+00    1.895527e+00     2.51905179  2.40288524
+#>           PPER  9.776803e-01    9.914518e-01     0.95090835  0.84667956
+#>  SESOI to RMSE  5.104275e+00    5.275579e+00     3.96974768  5.02832487
+#>      R-squared  7.873104e-01    8.008987e-01     0.64849202  0.58513228
+#>         MinErr -3.795052e+00   -4.671246e+00    -6.30927941 -2.64672001
+#>         MaxErr  3.673197e+00    4.356870e+00     5.13611940  2.81303001
+#>      MaxAbsErr  3.795052e+00    4.671246e+00     6.30927941  3.84840058
+#>          SD        min        max
+#>  1.27184288 -2.4388220  2.4598851
+#>  0.67386685  0.3458090  3.4404583
+#>  0.76382791  0.4106030  3.7642949
+#>  0.08174096  0.6970788  0.9981811
+#>  3.49488784  2.6565400 24.3544266
+#>  0.56466111 -1.9362660  0.9784156
+#>  1.65641966 -6.3092794  0.8127197
+#>  1.68991662 -0.2922030  5.1361194
+#>  1.32366331  0.7157490  6.3092794
+#> 
+#> Individual model results:
+#> 
+#>     subject     group observed predicted   residual  magnitude counterfactual
+#>  Athlete 01 Treatment 53.92165  54.96555  1.0439001 Equivalent       47.54404
+#>  Athlete 02   Control 48.65099  49.96562  1.3146319 Equivalent       57.38714
+#>  Athlete 03 Treatment 60.06640  58.07113 -1.9952645 Equivalent       50.64962
+#>  Athlete 04   Control 51.66451  49.85167 -1.8128409 Equivalent       57.27318
+#>  Athlete 05 Treatment 56.88816  56.70667 -0.1814903 Equivalent       49.28515
+#>  Athlete 06   Control 52.31237  51.17699 -1.1353824 Equivalent       58.59851
+#>  Athlete 07 Treatment 54.93702  57.50946  2.5724418 Equivalent       50.08795
+#>  Athlete 08   Control 51.29489  51.16688 -0.1280040 Equivalent       58.58840
+#>  Athlete 09 Treatment 63.26964  59.47459 -3.7950523 Equivalent       52.05308
+#>  Athlete 10   Control 50.28937  50.06036 -0.2290056 Equivalent       57.48188
+#>  Athlete 11 Treatment 59.39720  57.92560 -1.4715975 Equivalent       50.50408
+#>  Athlete 12   Control 50.02810  50.16875  0.1406476 Equivalent       57.59026
+#>  Athlete 13 Treatment 55.63766  56.19778  0.5601237 Equivalent       48.77627
+#>  Athlete 14   Control 46.82518  50.35886  3.5336766 Equivalent       57.78037
+#>  Athlete 15 Treatment 57.89749  55.72955 -2.1679347 Equivalent       48.30804
+#>  Athlete 16   Control 50.56725  48.39034 -2.1769094 Equivalent       55.81186
+#>  Athlete 17 Treatment 55.12290  58.79610  3.6731974 Equivalent       51.37458
+#>  Athlete 18   Control 48.30309  49.79992  1.4968326 Equivalent       57.22144
+#>  Athlete 19 Treatment 56.22363  57.98531  1.7616764 Equivalent       50.56380
+#>  Athlete 20   Control 51.21115  50.20750 -1.0036463 Equivalent       57.62902
+#>       pITE pITE_magnitude
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#>  -7.421514          Lower
+#>   7.421514         Higher
+#> 
+#> Summary of residuals per RCT group:
+#> 
+#>      group          mean       SD
+#>    Control -1.492135e-14 1.727747
+#>  Treatment -1.492135e-14 2.354636
+#> 
+#> Summary of counterfactual effects of RCT group:
+#> 
+#>      group      pATE         pVTE
+#>  Treatment -7.421514 5.617334e-15
+#>    Control  7.421514 4.037713e-15
+#>     pooled  7.421514 4.890290e-15
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  7.421514
+#> Variable Treatment effect:  4.89029e-15
+#> Random Treatment effect:  1.59975
+```
+
+
+```r
+plot(covariate_model, "prediction")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-95-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(covariate_model, "counterfactual")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-96-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(covariate_model, "pdp+ice")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-97-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(covariate_model, "pdp+ice", predictor = "Measured_score.Pre")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-98-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(covariate_model, "pdp+ice", predictor = "Squat_1RM_relative")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-99-1.png" width="90%" style="display: block; margin: auto;" />
+
+And the final model is the interaction model:
+
+
+```r
+interaction_model <- model_RCT(Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre)
+
+interaction_model
+#> Training data consists of 5 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> 
+#> Model performance:
+#> 
+#>         metric      training training.pooled testing.pooled        mean
+#>            MBE  2.486856e-15    5.107026e-15    -0.02897255 -0.02897255
+#>            MAE  1.102035e+00    1.073541e+00     1.51448758  1.51448758
+#>           RMSE  1.481278e+00    1.420252e+00     2.00731144  1.86964221
+#>           PPER  9.961488e-01    9.995411e-01     0.98620762  0.90318747
+#>  SESOI to RMSE  6.750926e+00    7.041003e+00     4.98178798  6.39845655
+#>      R-squared  8.784129e-01    8.882249e-01     0.77676962  0.72661171
+#>         MinErr -2.887520e+00   -3.387465e+00    -4.84781640 -2.22509568
+#>         MaxErr  3.883197e+00    4.125618e+00     5.22505955  2.04804580
+#>      MaxAbsErr  3.883197e+00    4.125618e+00     5.22505955  3.10011470
+#>          SD         min        max
+#>  0.96232473 -2.10791777  2.0771169
+#>  0.62541112  0.42250638  2.9228564
+#>  0.73799039  0.62520553  3.2658803
+#>  0.07713261  0.73706941  0.9955572
+#>  2.94071918  3.06196160 15.9947402
+#>  0.39233243 -1.30891277  0.9875223
+#>  1.45777723 -4.84781640  1.2235186
+#>  1.57273644  0.03320484  5.2250596
+#>  1.33675406  1.05228122  5.2250596
+#> 
+#> Individual model results:
+#> 
+#>     subject     group observed predicted    residual  magnitude counterfactual
+#>  Athlete 01 Treatment 53.92165  54.93714  1.01549088 Equivalent       46.93258
+#>  Athlete 02   Control 48.65099  50.15570  1.50470919 Equivalent       56.49986
+#>  Athlete 03 Treatment 60.06640  59.05490 -1.01150268 Equivalent       49.34023
+#>  Athlete 04   Control 51.66451  51.67481  0.01030262 Equivalent       54.38014
+#>  Athlete 05 Treatment 56.88816  57.73773  0.84957368 Equivalent       47.88067
+#>  Athlete 06   Control 52.31237  51.82011 -0.49226674 Equivalent       57.21781
+#>  Athlete 07 Treatment 54.93702  55.28749  0.35047044 Equivalent       51.37291
+#>  Athlete 08   Control 51.29489  51.15000 -0.14488443 Equivalent       58.01547
+#>  Athlete 09 Treatment 63.26964  60.38212 -2.88752039 Equivalent       50.86403
+#>  Athlete 10   Control 50.28937  49.38628 -0.90309058 Equivalent       57.65772
+#>  Athlete 11 Treatment 59.39720  60.04667  0.64947349 Equivalent       48.26002
+#>  Athlete 12   Control 50.02810  50.06914  0.04103265 Equivalent       57.06806
+#>  Athlete 13 Treatment 55.63766  54.34070 -1.29696009 Equivalent       49.70900
+#>  Athlete 14   Control 46.82518  48.34585  1.52066587 Equivalent       59.61112
+#>  Athlete 15 Treatment 57.89749  56.09115 -1.80634311 Equivalent       47.40976
+#>  Athlete 16   Control 50.56725  50.45161 -0.11564089 Equivalent       52.55310
+#>  Athlete 17 Treatment 55.12290  59.00610  3.88319663 Equivalent       50.72701
+#>  Athlete 18   Control 48.30309  49.24440  0.94130869 Equivalent       57.23888
+#>  Athlete 19 Treatment 56.22363  56.47776  0.25412115 Equivalent       51.28511
+#>  Athlete 20   Control 51.21115  48.84901 -2.36213638 Equivalent       58.65050
+#>        pITE pITE_magnitude
+#>   -8.004564          Lower
+#>    6.344157         Higher
+#>   -9.714660          Lower
+#>    2.705324     Equivalent
+#>   -9.857066          Lower
+#>    5.397698         Higher
+#>   -3.914577     Equivalent
+#>    6.865468         Higher
+#>   -9.518092          Lower
+#>    8.271448         Higher
+#>  -11.786649          Lower
+#>    6.998928         Higher
+#>   -4.631703     Equivalent
+#>   11.265266         Higher
+#>   -8.681390          Lower
+#>    2.101491     Equivalent
+#>   -8.279084          Lower
+#>    7.994484         Higher
+#>   -5.192643          Lower
+#>    9.801492         Higher
+#> 
+#> Summary of residuals per RCT group:
+#> 
+#>      group         mean       SD
+#>    Control 7.105211e-16 1.161243
+#>  Treatment 4.263218e-15 1.878159
+#> 
+#> Summary of counterfactual effects of RCT group:
+#> 
+#>      group      pATE     pVTE
+#>  Treatment -7.958043 2.570647
+#>    Control  6.774576 2.859555
+#>     pooled  7.366309 2.715167
+#> 
+#> Treatment effect summary
+#> 
+#> Average Treatment effect:  7.366309
+#> Variable Treatment effect:  2.715167
+#> Random Treatment effect:  1.476142
+```
+
+
+```r
+plot(interaction_model, "prediction")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-101-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(interaction_model, "counterfactual")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-102-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(interaction_model, "pdp+ice")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-103-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(interaction_model, "pdp+ice", predictor = "Measured_score.Pre")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-104-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+```r
+plot(interaction_model, "pdp+ice", predictor = "Squat_1RM_relative")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-105-1.png" width="90%" style="display: block; margin: auto;" />
+
+For the sake of comparisson between the models, let's pull out estimated average, random, and variable treatment effects. Average treatment effect (`pATE`) is estimated using the `mean` of the pooled (absolute) counterfactual effects (see the previous model print summaries). Variable treatment effect (`pVTE`) is estimated using the `SD` of the pooled (absolute) counterfactual effects. Random treatment effect (`RTE`) is estimated using the group residuals as explained thorough this chapter. 
+
+
+```r
+model_estimates <- rbind(
+  data.frame(
+    model = "base",
+    pATE = base_model$extra$average_treatment_effect,
+    pVTE = base_model$extra$variable_treatment_effect,
+    RTE =  base_model$extra$random_treatment_effect
+  ),
+  data.frame(
+    model = "pre-test",
+    pATE = pre_test_model$extra$average_treatment_effect,
+    pVTE = pre_test_model$extra$variable_treatment_effect,
+    RTE =  pre_test_model$extra$random_treatment_effect
+  ),
+  data.frame(
+    model = "covariate",
+    pATE = covariate_model$extra$average_treatment_effect,
+    pVTE = covariate_model$extra$variable_treatment_effect,
+    RTE =  covariate_model$extra$random_treatment_effect
+  ),
+    data.frame(
+    model = "interaction",
+    pATE = interaction_model$extra$average_treatment_effect,
+    pVTE = interaction_model$extra$variable_treatment_effect,
+    RTE =  interaction_model$extra$random_treatment_effect
+  )
+)
+
+model_estimates
+#>         model     pATE         pVTE      RTE
+#> 1        base 7.221484 0.000000e+00 2.298433
+#> 2    pre-test 7.599370 3.992905e-15 2.521028
+#> 3   covariate 7.421514 4.890290e-15 1.599750
+#> 4 interaction 7.366309 2.715167e+00 1.476142
+```
+
+Using counterfactual prediction, which is estimated by changing the group (and also group interaction with the squat 1RM), allows us to estimate average treatment effect (i.e. systematic or expected treatment effect) from the model with interactions. 
+
+Let's plot the model predictive performance to compare the models. Let's check the training performance (using training CV folds, where error bars represent `min` and `max` across training folds):
+
+
+```r
+model_performace <- rbind(
+  data.frame(
+    model = "base",
+    base_model$cross_validation$performance$summary$training
+  ),
+  data.frame(
+    model = "pre-test",
+    pre_test_model$cross_validation$performance$summary$training
+  ),
+  data.frame(
+    model = "covariate",
+    covariate_model$cross_validation$performance$summary$training
+  ),
+    data.frame(
+    model = "interaction",
+    interaction_model$cross_validation$performance$summary$training
+  )
+)
+
+model_performace$model <- factor(
+  model_performace$model,
+  levels = rev(c("base", "pre-test", "covariate", "interaction"))
+)
+
+ggplot(
+  model_performace,
+  aes(y = model, x = mean)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = min, xmin = max),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~metric, scales = "free_x")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-107-1.png" width="90%" style="display: block; margin: auto;" />
+
+As can be seen from the figure, interaction model has the best training folds predictive performance. What about performance on the testing CV folds?
+
+
+```r
+model_performace <- rbind(
+  data.frame(
+    model = "base",
+    base_model$cross_validation$performance$summary$testing
+  ),
+  data.frame(
+    model = "pre-test",
+    pre_test_model$cross_validation$performance$summary$testing
+  ),
+  data.frame(
+    model = "covariate",
+    covariate_model$cross_validation$performance$summary$testing
+  ),
+    data.frame(
+    model = "interaction",
+    interaction_model$cross_validation$performance$summary$testing
+  )
+)
+
+model_performace$model <- factor(
+  model_performace$model,
+  levels = rev(c("base", "pre-test", "covariate", "interaction"))
+)
+
+ggplot(
+  model_performace,
+  aes(y = model, x = mean)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = min, xmin = max),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~metric, scales = "free_x")
+```
+
+<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-108-1.png" width="90%" style="display: block; margin: auto;" />
+
+Interaction model is better, but not drastically better. Mean testing `PPER` is pretty good, over 0.9 indicating good practical predictive performance of this model. 
+
+Although the simple differences method or linear regression model helped us to *explain* overall treatment effects, predictive approach can tell us if we are able to predict individual responses, but also help in interpreting model counterfactually, particularly when there is interaction terms in the model. 
+
+We have used linear regression as out predictive model, but we could use any other model for that matter. Having RCT design allows us the interpret certain effect causally. Discussing these topics further is beyond the scope of this book (and the author) and the reader is directed to the references provided. 

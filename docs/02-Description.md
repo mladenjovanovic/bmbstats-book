@@ -30,21 +30,21 @@ Commonly provided descriptive statistics for each group can be found in the Tabl
 
 Table: (\#tab:common-descriptive-statistics-or-estimators)(ref:common-descriptive-statistics-or-estimators-caption)
 
-Estimator        Male   Female
-------------  -------  -------
-n               50.00    50.00
-mean (cm)      175.90   163.18
-SD (cm)          9.32     8.20
-% CV             5.30     5.02
-median (cm)    176.30   164.00
-MAD (cm)         9.52     8.86
-IQR (cm)        11.24    11.67
-mode (cm)      176.26   164.94
-min (cm)       154.24   145.59
-max (cm)       193.90   181.12
-range (cm)      39.66    35.53
-skew             0.08     0.08
-kurtosis        -0.53    -0.69
+|Estimator   |   Male| Female|
+|:-----------|------:|------:|
+|n           |  50.00|  50.00|
+|mean (cm)   | 175.90| 163.18|
+|SD (cm)     |   9.32|   8.20|
+|% CV        |   5.30|   5.02|
+|median (cm) | 176.30| 164.00|
+|MAD (cm)    |   9.52|   8.86|
+|IQR (cm)    |  11.24|  11.67|
+|mode (cm)   | 176.26| 164.94|
+|min (cm)    | 154.24| 145.59|
+|max (cm)    | 193.90| 181.12|
+|range (cm)  |  39.66|  35.53|
+|skew        |   0.08|   0.08|
+|kurtosis    |  -0.53|  -0.69|
 
 ### Sample `mean` as the simplest statistical model
 
@@ -130,9 +130,9 @@ Besides describing groups, we are often interested in comparing them. In order t
 
 Table: (\#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)(ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption)
 
- Difference (cm)   SDdiff (cm)   % CVdiff   % Difference   Ratio   Cohen's d   CLES    OVL
-----------------  ------------  ---------  -------------  ------  ----------  -----  -----
-           12.73         12.41      97.55            7.8    1.08        1.45   0.85   0.47
+| Difference (cm)| SDdiff (cm)| % CVdiff| % Difference| Ratio| Cohen's d| CLES|  OVL|
+|---------------:|-----------:|--------:|------------:|-----:|---------:|----:|----:|
+|           12.73|       12.41|    97.55|          7.8|  1.08|      1.45| 0.85| 0.47|
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
 
@@ -310,10 +310,10 @@ Table \@ref(tab:table-magnitude-based-diff) contains estimated probabilities of 
 
 Table: (\#tab:table-magnitude-based-diff)(ref:table-magnitude-based-diff-caption)
 
-Method         pLower   pEquivalent   pHigher
-------------  -------  ------------  --------
-brute-force     0.110         0.096     0.794
-algebraic       0.111         0.095     0.794
+|Method      | pLower| pEquivalent| pHigher|
+|:-----------|------:|-----------:|-------:|
+|brute-force |  0.110|       0.096|   0.794|
+|algebraic   |  0.111|       0.095|   0.794|
 
 It is common to represent means as *systematic component* or *fixed effect* (e.g. `mean difference`), and variability around the mean (i.e. `SDdiff`) as *stochastic component* or *random effect*. It is unfortunate that the common statistical modeling and analysis, particularly in sport science, takes the stance of approaching and treating between-individual variation as *random error*. The approach suggested in this book complements *group-based* or *average-based* statistics with magnitude-based predictions that aim to help in answering individual-based questions, common to sport practitioners. Table \@ref(tab:magnitude-based-estimators-diff) contains discussed magnitude-based estimators that can complement common effect size statistics (Table \@ref(tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)) when comparing two independent groups. 
 
@@ -322,9 +322,9 @@ It is common to represent means as *systematic component* or *fixed effect* (e.g
 
 Table: (\#tab:magnitude-based-estimators-diff)(ref:magnitude-based-estimators-diff-caption)
 
- SESOI lower (cm)   SESOI upper (cm)   Difference to SESOI   SDdiff to SESOI   pLower   pEquivalent   pHigher
------------------  -----------------  --------------------  ----------------  -------  ------------  --------
-             -2.5                2.5                  2.55              2.48     0.11          0.09      0.79
+| SESOI lower (cm)| SESOI upper (cm)| Difference to SESOI| SDdiff to SESOI| pLower| pEquivalent| pHigher|
+|----------------:|----------------:|-------------------:|---------------:|------:|-----------:|-------:|
+|             -2.5|              2.5|                2.55|            2.48|   0.11|        0.09|    0.79|
 
 ## Comparing dependent groups
 
@@ -335,28 +335,28 @@ As an example of dependent or paired groups descriptive analysis, let's consider
 
 Table: (\#tab:bench-press-1RM-pre-post)(ref:bench-press-1RM-pre-post-caption)
 
-Athlete       Pre-test (kg)   Post-test (kg)   Change (kg)
------------  --------------  ---------------  ------------
-Athlete 01           111.80           121.42          9.62
-Athlete 02            95.95           102.13          6.18
-Athlete 03           105.87           125.56         19.69
-Athlete 04            98.79           109.67         10.87
-Athlete 05            95.81           108.11         12.30
-Athlete 06            95.27            92.67         -2.60
-Athlete 07            97.75           106.03          8.28
-Athlete 08           106.50           109.51          3.01
-Athlete 09            80.62            95.96         15.34
-Athlete 10           100.40            94.30         -6.11
-Athlete 11            82.71            78.91         -3.80
-Athlete 12           102.89            93.98         -8.91
-Athlete 13            91.34           105.21         13.87
-Athlete 14           111.14           108.07         -3.07
-Athlete 15            95.13            96.01          0.88
-Athlete 16           109.12           112.12          3.00
-Athlete 17            91.87           103.41         11.54
-Athlete 18            92.16           103.93         11.77
-Athlete 19           108.88           119.72         10.84
-Athlete 20            97.94            95.91         -2.03
+|Athlete    | Pre-test (kg)| Post-test (kg)| Change (kg)|
+|:----------|-------------:|--------------:|-----------:|
+|Athlete 01 |        111.80|         121.42|        9.62|
+|Athlete 02 |         95.95|         102.13|        6.18|
+|Athlete 03 |        105.87|         125.56|       19.69|
+|Athlete 04 |         98.79|         109.67|       10.87|
+|Athlete 05 |         95.81|         108.11|       12.30|
+|Athlete 06 |         95.27|          92.67|       -2.60|
+|Athlete 07 |         97.75|         106.03|        8.28|
+|Athlete 08 |        106.50|         109.51|        3.01|
+|Athlete 09 |         80.62|          95.96|       15.34|
+|Athlete 10 |        100.40|          94.30|       -6.11|
+|Athlete 11 |         82.71|          78.91|       -3.80|
+|Athlete 12 |        102.89|          93.98|       -8.91|
+|Athlete 13 |         91.34|         105.21|       13.87|
+|Athlete 14 |        111.14|         108.07|       -3.07|
+|Athlete 15 |         95.13|          96.01|        0.88|
+|Athlete 16 |        109.12|         112.12|        3.00|
+|Athlete 17 |         91.87|         103.41|       11.54|
+|Athlete 18 |         92.16|         103.93|       11.77|
+|Athlete 19 |        108.88|         119.72|       10.84|
+|Athlete 20 |         97.94|          95.91|       -2.03|
 
 The results of this simple Pre-test and Post-test design can be described in multiple ways. Here, I will present the three most common approaches. 
 
@@ -369,21 +369,21 @@ The simplest analysis involve descriptive statistics assuming groups as independ
 
 Table: (\#tab:bench-press-data-independent-summary)(ref:bench-press-data-independent-summary-caption)
 
-Estimator      Pre-test   Post-test   Change
-------------  ---------  ----------  -------
-n                 20.00       20.00    20.00
-mean (kg)         98.60      104.13     5.53
-SD (kg)            8.70       11.08     8.05
-% CV               8.83       10.64   145.46
-median (kg)       97.84      104.57     7.23
-MAD (kg)           8.64       11.94     8.46
-IQR (kg)          11.64       13.60    13.77
-mode (kg)         96.49      105.76    10.78
-min (kg)          80.62       78.91    -8.91
-max (kg)         111.80      125.56    19.69
-range (kg)        31.18       46.64    28.60
-skew              -0.26       -0.05    -0.16
-kurtosis          -0.73       -0.28    -1.28
+|Estimator   | Pre-test| Post-test| Change|
+|:-----------|--------:|---------:|------:|
+|n           |    20.00|     20.00|  20.00|
+|mean (kg)   |    98.60|    104.13|   5.53|
+|SD (kg)     |     8.70|     11.08|   8.05|
+|% CV        |     8.83|     10.64| 145.46|
+|median (kg) |    97.84|    104.57|   7.23|
+|MAD (kg)    |     8.64|     11.94|   8.46|
+|IQR (kg)    |    11.64|     13.60|  13.77|
+|mode (kg)   |    96.49|    105.76|  10.78|
+|min (kg)    |    80.62|     78.91|  -8.91|
+|max (kg)    |   111.80|    125.56|  19.69|
+|range (kg)  |    31.18|     46.64|  28.60|
+|skew        |    -0.26|     -0.05|  -0.16|
+|kurtosis    |    -0.73|     -0.28|  -1.28|
 
 <div class="figure" style="text-align: center">
 <img src="02-Description_files/figure-html/bench-press-pre-post-raincloud-1.png" alt="(ref:bench-press-pre-post-raincloud-caption)" width="90%" />
@@ -401,9 +401,9 @@ Table \@ref(tab:change-effect-size) contains the most common effect size estimat
 
 Table: (\#tab:change-effect-size)(ref:change-effect-size-caption)
 
- Change (kg)   SDchange (kg)   % CVchange   % Change   Ratio   Cohen's d   CLES    OVL
-------------  --------------  -----------  ---------  ------  ----------  -----  -----
-        5.53            8.05       145.46       5.75    1.06        0.64   0.65   0.75
+| Change (kg)| SDchange (kg)| % CVchange| % Change| Ratio| Cohen's d| CLES|  OVL|
+|-----------:|-------------:|----------:|--------:|-----:|---------:|----:|----:|
+|        5.53|          8.05|     145.46|     5.75|  1.06|      0.64| 0.65| 0.75|
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
 
@@ -472,9 +472,9 @@ Magnitude-based effect size estimators involve the use of SESOI and can be found
 
 Table: (\#tab:change-MB-stats)(ref:change-MB-stats-caption)
 
-SESOI (kg)    Change to SESOI   SDchange to SESOI   pLower   pEquivalent   pHigher
------------  ----------------  ------------------  -------  ------------  --------
-±5                       0.55                0.81      0.1          0.37      0.53
+|SESOI (kg) | Change to SESOI| SDchange to SESOI| pLower| pEquivalent| pHigher|
+|:----------|---------------:|-----------------:|------:|-----------:|-------:|
+|±5         |            0.55|              0.81|    0.1|        0.37|    0.53|
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
@@ -499,38 +499,38 @@ Let's assume we tested N=30 female soccer athletes by using two tests: (1) YoYoI
 
 Table: (\#tab:yoyo-mas-results)(ref:yoyo-mas-results-caption)
 
-Athlete       YoYoIR1 (m)   MAS (km/h)
------------  ------------  -----------
-Athlete 01           1640         15.5
-Athlete 02           1080         15.0
-Athlete 03           1440         15.0
-Athlete 04           1200         15.0
-Athlete 05            960         14.5
-Athlete 06           1120         15.0
-Athlete 07           1000         14.5
-Athlete 08           1440         15.0
-Athlete 09            640         14.0
-Athlete 10           1360         15.0
-Athlete 11            760         14.5
-Athlete 12           1240         15.0
-Athlete 13           1000         15.0
-Athlete 14           1600         15.5
-Athlete 15           1160         15.0
-Athlete 16           1520         15.0
-Athlete 17           1000         14.5
-Athlete 18           1000         14.5
-Athlete 19           1480         15.5
-Athlete 20           1280         15.0
-Athlete 21           1200         14.5
-Athlete 22           1200         14.5
-Athlete 23           1200         15.0
-Athlete 24           1120         14.5
-Athlete 25           1560         15.5
-Athlete 26           1120         14.5
-Athlete 27           1640         15.5
-Athlete 28           1280         15.0
-Athlete 29           1040         14.5
-Athlete 30            880         14.0
+|Athlete    | YoYoIR1 (m)| MAS (km/h)|
+|:----------|-----------:|----------:|
+|Athlete 01 |        1640|       15.5|
+|Athlete 02 |        1080|       15.0|
+|Athlete 03 |        1440|       15.0|
+|Athlete 04 |        1200|       15.0|
+|Athlete 05 |         960|       14.5|
+|Athlete 06 |        1120|       15.0|
+|Athlete 07 |        1000|       14.5|
+|Athlete 08 |        1440|       15.0|
+|Athlete 09 |         640|       14.0|
+|Athlete 10 |        1360|       15.0|
+|Athlete 11 |         760|       14.5|
+|Athlete 12 |        1240|       15.0|
+|Athlete 13 |        1000|       15.0|
+|Athlete 14 |        1600|       15.5|
+|Athlete 15 |        1160|       15.0|
+|Athlete 16 |        1520|       15.0|
+|Athlete 17 |        1000|       14.5|
+|Athlete 18 |        1000|       14.5|
+|Athlete 19 |        1480|       15.5|
+|Athlete 20 |        1280|       15.0|
+|Athlete 21 |        1200|       14.5|
+|Athlete 22 |        1200|       14.5|
+|Athlete 23 |        1200|       15.0|
+|Athlete 24 |        1120|       14.5|
+|Athlete 25 |        1560|       15.5|
+|Athlete 26 |        1120|       14.5|
+|Athlete 27 |        1640|       15.5|
+|Athlete 28 |        1280|       15.0|
+|Athlete 29 |        1040|       14.5|
+|Athlete 30 |         880|       14.0|
 
 Descriptive statistics for YoYoIR1 and MAS test results can be found in the Table \@ref(tab:yoyo-mas-descriptive-stats). 
 
@@ -539,21 +539,21 @@ Descriptive statistics for YoYoIR1 and MAS test results can be found in the Tabl
 
 Table: (\#tab:yoyo-mas-descriptive-stats)(ref:yoyo-mas-descriptive-stats-caption)
 
-Estimator    YoYoIR1     MAS
-----------  --------  ------
-n              30.00   30.00
-mean         1205.33   14.85
-SD            255.96    0.42
-% CV           21.24    2.82
-median       1200.00   15.00
-MAD           296.52    0.74
-IQR           410.00    0.50
-mode         1131.68   15.00
-min           640.00   14.00
-max          1640.00   15.50
-range        1000.00    1.50
-skew           -0.02   -0.11
-kurtosis       -0.68   -0.72
+|Estimator | YoYoIR1|   MAS|
+|:---------|-------:|-----:|
+|n         |   30.00| 30.00|
+|mean      | 1205.33| 14.85|
+|SD        |  255.96|  0.42|
+|% CV      |   21.24|  2.82|
+|median    | 1200.00| 15.00|
+|MAD       |  296.52|  0.74|
+|IQR       |  410.00|  0.50|
+|mode      | 1131.68| 15.00|
+|min       |  640.00| 14.00|
+|max       | 1640.00| 15.50|
+|range     | 1000.00|  1.50|
+|skew      |   -0.02| -0.11|
+|kurtosis  |   -0.68| -0.72|
 
 Visual analysis in Figure \@ref(fig:yoyo-mas-simple-scatterplot) depicts the association between these two tests using scatter plot. 
 <div class="figure" style="text-align: center">
@@ -569,9 +569,9 @@ Table \@ref(tab:common-estimators-association) contains common estimators of the
 
 Table: (\#tab:common-estimators-association)(ref:common-estimators-association-caption)
 
- Pearson r   R-squared    MIC
-----------  ----------  -----
-      0.86        0.74   0.55
+| Pearson r| R-squared|  MIC|
+|---------:|---------:|----:|
+|      0.86|      0.74| 0.55|
 
 The *Pearson product-moment correlation coefficient* (`Pearson's r`) is a measure of the strength of the linear relationship between two variables (Equation \@ref(eq:pearson-r)).
 
@@ -627,9 +627,9 @@ $$
 
 Table: (\#tab:linear-reg-estimates)(ref:linear-reg-estimates-caption)
 
- Intercept (km/h)    Slope   RSE (km/h)
------------------  -------  -----------
-            13.16   0.0014         0.22
+| Intercept (km/h)|  Slope| RSE (km/h)|
+|----------------:|------:|----------:|
+|            13.16| 0.0014|       0.22|
 
 Estimated parameters in the Table \@ref(tab:linear-reg-estimates) can be written using the linear equation format (Equation \@ref(eq:mas-equation)).
 
@@ -663,9 +663,9 @@ It can be seen that the reverse parameters from \@ref(eq:rse-equation) differ fr
 
 Table: (\#tab:reverse-estimates-table)(ref:reverse-linear-reg-estimates-caption)
 
- Intercept (m)    Slope   RSE (m)
---------------  -------  --------
-      -6589.82   524.93    133.84
+| Intercept (m)|  Slope| RSE (m)|
+|-------------:|------:|-------:|
+|      -6589.82| 524.93|  133.84|
 
 This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
@@ -742,9 +742,9 @@ Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Pra
 
 Table: (\#tab:association-magnitude-table)(ref:association-magnitude-table-caption)
 
-SESOI YoYoIR1 (m)   SESOI MAS (km/h)    Sensitivity    RSE   SESOI MAS to RSE   PPER
-------------------  -----------------  ------------  -----  -----------------  -----
-±40                 ±0.5                       0.11   0.22               4.57   0.98
+|SESOI YoYoIR1 (m) |SESOI MAS (km/h) | Sensitivity|  RSE| SESOI MAS to RSE| PPER|
+|:-----------------|:----------------|-----------:|----:|----------------:|----:|
+|±40               |±0.5             |        0.11| 0.22|             4.57| 0.98|
 
 Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based estimates from the Table \@ref(tab:association-magnitude-table) indicate that using YoYoIR1 test scores, we are able to *predict*[^PREDICTION_ISSUE] MAS test scores with the error within SESOI. But would that be the case if the we want to predict YoYoIR1 from MAS test scores? Predictive performance of such model is depicted on the Figure \@ref(fig:p-equivalent-for-yoyo) and magnitude-based estimator are enlisted in the Table \@ref(tab:association-magnitude-yoyo-table). 
 
@@ -761,9 +761,9 @@ Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based es
 
 Table: (\#tab:association-magnitude-yoyo-table)(ref:association-magnitude-yoyo-table-caption)
 
-SESOI YoYoIR1 (m)   SESOI MAS (km/h)    Sensitivity      RSE   SESOI YoYoIR1 to RSE   PPER
-------------------  -----------------  ------------  -------  ---------------------  -----
-±40                 ±0.5                       6.56   133.84                    0.6   0.23
+|SESOI YoYoIR1 (m) |SESOI MAS (km/h) | Sensitivity|    RSE| SESOI YoYoIR1 to RSE| PPER|
+|:-----------------|:----------------|-----------:|------:|--------------------:|----:|
+|±40               |±0.5             |        6.56| 133.84|                  0.6| 0.23|
 
 As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to `Pearson's r`, `R-Squared` and `MIC`, this is not the case and results are same regardless of which variable is predictor and which is target. 
 

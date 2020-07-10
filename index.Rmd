@@ -10,7 +10,7 @@ bibliography: ["citations/references.bib", "citations/r-references.bib"]
 biblio-style: apalike
 link-citations: yes
 github-repo: mladenjovanovic/bmbstats-book
-url: www.complementarytraining.net
+url: mladenjovanovic.github.io/bmbstats-book
 twitter-handle: physical_prep
 editor_options: 
   chunk_output_type: console
@@ -57,7 +57,7 @@ require(boot)
 
 The aim of this book is to provide an overview of the three classes of tasks in the statistical modeling: description, prediction and causal inference [@hernanSecondChanceGet2019]. Statistical inference is often required for all three tasks. Short introduction to frequentist null-hypothesis testing, Bayesian estimation and bootstrap are provided. Special attention is given to the practical significance with the introduction of magnitude-based estimators and statistical inference by using the concept of smallest effect size of interest (SESOI). Measurement error is discussed with the particular aim of interpreting individual change scores. In the second part of this book, common sport science problems are introduced and analyzed with the `bmbstats` package.
 
-This book, as well as the `bmbstats` package are currently in development phase. Please be free to contribute pull request at GitHub
+This book, as well as the `bmbstats` package are in active opens-source development. Please be free to contribute pull request at GitHub when you spot an issue or have an improvement idea. I am hoping both this book and the `bmbstats` package to be collaborative tools that can help both up-and-coming as well as experienced researchers and sports scientists. 
 
 #### bmbstats package {-}
 

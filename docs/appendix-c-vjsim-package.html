@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 19 Appendix C: vjsim package | bmbstats: bootstrap magnitude-based statistics for sports scientists</title>
+  <meta name="description" content="Chapter 19 Appendix C: vjsim package | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 19 Appendix C: vjsim package | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="mladenjovanovic.github.io/bmbstats-book" />
+  
+  
+  <meta name="github-repo" content="mladenjovanovic/bmbstats-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 19 Appendix C: vjsim package | bmbstats: bootstrap magnitude-based statistics for sports scientists" />
+  <meta name="twitter:site" content="@physical_prep" />
+  
+  
+
+<meta name="author" content="Mladen Jovanovic" />
+
+
+<meta name="date" content="2020-07-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="appendix-b-shorts-package.html"/>
+<link rel="next" href="appendix-d-recommended-material.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="adv-r.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bmbstats book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#r-and-r-packages"><i class="fa fa-check"></i>R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Part One</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>2</b> Description</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="description.html"><a href="description.html#comparing-two-independent-groups"><i class="fa fa-check"></i><b>2.1</b> Comparing two independent groups</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="description.html"><a href="description.html#sample-mean-as-the-simplest-statistical-model"><i class="fa fa-check"></i><b>2.1.1</b> Sample <code>mean</code> as the simplest statistical model</a></li>
+<li class="chapter" data-level="2.1.2" data-path="description.html"><a href="description.html#effect-sizes"><i class="fa fa-check"></i><b>2.1.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="2.1.3" data-path="description.html"><a href="description.html#the-smallest-effect-size-of-interest"><i class="fa fa-check"></i><b>2.1.3</b> The Smallest Effect Size Of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="description.html"><a href="description.html#comparing-dependent-groups"><i class="fa fa-check"></i><b>2.2</b> Comparing dependent groups</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="description.html"><a href="description.html#describing-groups-as-independent"><i class="fa fa-check"></i><b>2.2.1</b> Describing groups as independent</a></li>
+<li class="chapter" data-level="2.2.2" data-path="description.html"><a href="description.html#effect-sizes-1"><i class="fa fa-check"></i><b>2.2.2</b> Effect Sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="description.html"><a href="description.html#describing-relationship-between-two-variables"><i class="fa fa-check"></i><b>2.3</b> Describing relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="description.html"><a href="description.html#magnitude-based-estimators"><i class="fa fa-check"></i><b>2.3.1</b> Magnitude-based estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="description.html"><a href="description.html#advanced-uses"><i class="fa fa-check"></i><b>2.4</b> Advanced uses</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>3</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prediction.html"><a href="prediction.html#overfitting"><i class="fa fa-check"></i><b>3.1</b> Overfitting</a></li>
+<li class="chapter" data-level="3.2" data-path="prediction.html"><a href="prediction.html#cross-validation"><i class="fa fa-check"></i><b>3.2</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="prediction.html"><a href="prediction.html#sample-mean-as-the-simplest-predictive-model"><i class="fa fa-check"></i><b>3.2.1</b> Sample <code>mean</code> as the simplest predictive model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="prediction.html"><a href="prediction.html#bias-variance-decomposition-and-trade-off"><i class="fa fa-check"></i><b>3.3</b> Bias-Variance decomposition and trade-off</a></li>
+<li class="chapter" data-level="3.4" data-path="prediction.html"><a href="prediction.html#interpretability"><i class="fa fa-check"></i><b>3.4</b> Interpretability</a></li>
+<li class="chapter" data-level="3.5" data-path="prediction.html"><a href="prediction.html#magnitude-based-prediction-estimators"><i class="fa fa-check"></i><b>3.5</b> Magnitude-based prediction estimators</a></li>
+<li class="chapter" data-level="3.6" data-path="prediction.html"><a href="prediction.html#practical-example-mas-and-yoyoir1-prediction"><i class="fa fa-check"></i><b>3.6</b> Practical example: MAS and YoYoIR1 prediction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prediction.html"><a href="prediction.html#predicting-mas-from-yoyoir1"><i class="fa fa-check"></i><b>3.6.1</b> Predicting MAS from YoYoIR1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prediction.html"><a href="prediction.html#predicting-yoyoir1-from-mas"><i class="fa fa-check"></i><b>3.6.2</b> Predicting YoYoIR1 from MAS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causal-inference.html"><a href="causal-inference.html"><i class="fa fa-check"></i><b>4</b> Causal inference</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causal-inference.html"><a href="causal-inference.html#necessary-versus-sufficient-causality"><i class="fa fa-check"></i><b>4.1</b> Necessary versus sufficient causality</a></li>
+<li class="chapter" data-level="4.2" data-path="causal-inference.html"><a href="causal-inference.html#observational-data"><i class="fa fa-check"></i><b>4.2</b> Observational data</a></li>
+<li class="chapter" data-level="4.3" data-path="causal-inference.html"><a href="causal-inference.html#potential-outcomes-or-counterfactuals"><i class="fa fa-check"></i><b>4.3</b> Potential outcomes or counterfactuals</a></li>
+<li class="chapter" data-level="4.4" data-path="causal-inference.html"><a href="causal-inference.html#ceteris-paribus-and-the-biases"><i class="fa fa-check"></i><b>4.4</b> <em>Ceteris paribus</em> and the biases</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="causal-inference.html"><a href="causal-inference.html#randomization"><i class="fa fa-check"></i><b>4.4.1</b> Randomization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="causal-inference.html"><a href="causal-inference.html#subject-matter-knowledge"><i class="fa fa-check"></i><b>4.5</b> Subject matter knowledge</a></li>
+<li class="chapter" data-level="4.6" data-path="causal-inference.html"><a href="causal-inference.html#example-of-randomized-control-trial"><i class="fa fa-check"></i><b>4.6</b> Example of randomized control trial</a></li>
+<li class="chapter" data-level="4.7" data-path="causal-inference.html"><a href="causal-inference.html#prediction-as-a-complement-to-causal-inference"><i class="fa fa-check"></i><b>4.7</b> Prediction as a complement to causal inference</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="causal-inference.html"><a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders"><i class="fa fa-check"></i><b>4.7.1</b> Analysis of the individual residuals: responders vs non-responders</a></li>
+<li class="chapter" data-level="4.7.2" data-path="causal-inference.html"><a href="causal-inference.html#counterfactual-analysis-and-individual-treatment-effects"><i class="fa fa-check"></i><b>4.7.2</b> Counterfactual analysis and Individual Treatment Effects</a></li>
+<li class="chapter" data-level="4.7.3" data-path="causal-inference.html"><a href="causal-inference.html#direct-and-indirect-effect-covariates-and-then-some"><i class="fa fa-check"></i><b>4.7.3</b> Direct and indirect effect, covariates and then some</a></li>
+<li class="chapter" data-level="4.7.4" data-path="causal-inference.html"><a href="causal-inference.html#model-selection"><i class="fa fa-check"></i><b>4.7.4</b> Model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="causal-inference.html"><a href="causal-inference.html#ergodicity"><i class="fa fa-check"></i><b>4.8</b> Ergodicity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-inference.html"><a href="statistical-inference.html#two-kinds-of-uncertainty-two-kinds-of-probability-two-kinds-of-statistical-inference"><i class="fa fa-check"></i><b>5.1</b> Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html"><i class="fa fa-check"></i><b>6</b> Frequentist perspective</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#null-hypothesis-significance-testing"><i class="fa fa-check"></i><b>6.1</b> Null-Hypothesis Significance Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#statistical-power"><i class="fa fa-check"></i><b>6.2</b> Statistical Power</a></li>
+<li class="chapter" data-level="6.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#new-statistics-confidence-intervals-and-estimation"><i class="fa fa-check"></i><b>6.3</b> New Statistics: Confidence Intervals and Estimation</a></li>
+<li class="chapter" data-level="6.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#minimum-effect-tests"><i class="fa fa-check"></i><b>6.4</b> Minimum Effect Tests</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#individual-vs.-parameter-sesoi"><i class="fa fa-check"></i><b>6.4.1</b> Individual vs. Parameter SESOI</a></li>
+<li class="chapter" data-level="6.4.2" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#two-one-sided-tests-of-equivalence"><i class="fa fa-check"></i><b>6.4.2</b> Two one-sided tests of equivalence</a></li>
+<li class="chapter" data-level="6.4.3" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#superiority-and-non-inferiority"><i class="fa fa-check"></i><b>6.4.3</b> Superiority and Non-Inferiority</a></li>
+<li class="chapter" data-level="6.4.4" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inferiority-and-non-superiority"><i class="fa fa-check"></i><b>6.4.4</b> Inferiority and Non-Superiority</a></li>
+<li class="chapter" data-level="6.4.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#inference-from-mets"><i class="fa fa-check"></i><b>6.4.5</b> Inference from METs</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="frequentist-perspective.html"><a href="frequentist-perspective.html#magnitude-based-inference"><i class="fa fa-check"></i><b>6.5</b> Magnitude Based Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html"><i class="fa fa-check"></i><b>7</b> Bayesian perspective</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#grid-approximation"><i class="fa fa-check"></i><b>7.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#priors"><i class="fa fa-check"></i><b>7.2</b> Priors</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#likelihood-function"><i class="fa fa-check"></i><b>7.3</b> Likelihood function</a></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#posterior-probability"><i class="fa fa-check"></i><b>7.4</b> Posterior probability</a></li>
+<li class="chapter" data-level="7.5" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#adding-more-possibilities"><i class="fa fa-check"></i><b>7.5</b> Adding more possibilities</a></li>
+<li class="chapter" data-level="7.6" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#different-prior"><i class="fa fa-check"></i><b>7.6</b> Different prior</a></li>
+<li class="chapter" data-level="7.7" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#more-data"><i class="fa fa-check"></i><b>7.7</b> More data</a></li>
+<li class="chapter" data-level="7.8" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#summarizing-prior-and-posterior-distributions-with-map-and-hdi"><i class="fa fa-check"></i><b>7.8</b> Summarizing prior and posterior distributions with MAP and HDI</a></li>
+<li class="chapter" data-level="7.9" data-path="bayesian-perspective.html"><a href="bayesian-perspective.html#comparison-to-nhst-type-i-errors"><i class="fa fa-check"></i><b>7.9</b> Comparison to NHST Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>8</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrap.html"><a href="bootstrap.html#summarizing-bootstrap-distribution"><i class="fa fa-check"></i><b>8.1</b> Summarizing bootstrap distribution</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrap-type-i-errors"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Type I errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-conclusion.html"><a href="statistical-inference-conclusion.html"><i class="fa fa-check"></i><b>9</b> Statistical inference conclusion</a></li>
+<li class="chapter" data-level="10" data-path="measurement-error.html"><a href="measurement-error.html"><i class="fa fa-check"></i><b>10</b> Measurement Error</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="measurement-error.html"><a href="measurement-error.html#estimating-te-using-ordinary-least-products-regression"><i class="fa fa-check"></i><b>10.1</b> Estimating <code>TE</code> using <em>ordinary least products</em> regression</a></li>
+<li class="chapter" data-level="10.2" data-path="measurement-error.html"><a href="measurement-error.html#smallest-detectable-change"><i class="fa fa-check"></i><b>10.2</b> Smallest Detectable Change</a></li>
+<li class="chapter" data-level="10.3" data-path="measurement-error.html"><a href="measurement-error.html#interpreting-individual-changes-using-sesoi-and-sdc"><i class="fa fa-check"></i><b>10.3</b> Interpreting individual changes using SESOI and SDC</a></li>
+<li class="chapter" data-level="10.4" data-path="measurement-error.html"><a href="measurement-error.html#what-to-do-when-we-know-the-error"><i class="fa fa-check"></i><b>10.4</b> What to do when we know the error?</a></li>
+<li class="chapter" data-level="10.5" data-path="measurement-error.html"><a href="measurement-error.html#extending-the-classical-test-theory"><i class="fa fa-check"></i><b>10.5</b> Extending the Classical Test Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>11</b> Conclusion</a></li>
+<li class="part"><span><b>II Part Two</b></span></li>
+<li class="chapter" data-level="12" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html"><i class="fa fa-check"></i><b>12</b> <code>bmbstats</code>: Bootstrap Magnitude-based Statistics package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="bmbstats-bootstrap-magnitude-based-statistics-package.html"><a href="bmbstats-bootstrap-magnitude-based-statistics-package.html#installation"><i class="fa fa-check"></i><b>12.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>13</b> Descriptive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#generating-height-data"><i class="fa fa-check"></i><b>13.1</b> Generating <em>height data</em></a></li>
+<li class="chapter" data-level="13.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-a-single-groupvariable"><i class="fa fa-check"></i><b>13.2</b> Visualization and analysis of a single group/variable</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#using-your-own-estimators"><i class="fa fa-check"></i><b>13.2.1</b> Using your own estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#visualization-and-analysis-of-the-two-independent-groups"><i class="fa fa-check"></i><b>13.3</b> Visualization and analysis of the two independent groups</a></li>
+<li class="chapter" data-level="13.4" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#nhst-mets-and-mbi-functions"><i class="fa fa-check"></i><b>13.4</b> NHST, METs and MBI functions</a></li>
+<li class="chapter" data-level="13.5" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#comparing-two-dependent-groups"><i class="fa fa-check"></i><b>13.5</b> Comparing two dependent groups</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#measurement-error-issues"><i class="fa fa-check"></i><b>13.5.1</b> Measurement error issues</a></li>
+<li class="chapter" data-level="13.5.2" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups"><i class="fa fa-check"></i><b>13.5.2</b> Analysis of the dependent groups using <code>bmbstats::compare_dependent_groups</code></a></li>
+<li class="chapter" data-level="13.5.3" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#statistical-tests"><i class="fa fa-check"></i><b>13.5.3</b> Statistical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="descriptive-tasks-using-bmbstats.html"><a href="descriptive-tasks-using-bmbstats.html#describing-relationship-between-two-groups"><i class="fa fa-check"></i><b>13.6</b> Describing relationship between two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html"><i class="fa fa-check"></i><b>14</b> Predictive tasks using <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-implement-different-performance-metrics"><i class="fa fa-check"></i><b>14.1</b> How to implement different performance metrics?</a></li>
+<li class="chapter" data-level="14.2" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#how-to-use-different-prediction-model"><i class="fa fa-check"></i><b>14.2</b> How to use different prediction model?</a></li>
+<li class="chapter" data-level="14.3" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#example-of-using-tuning-parameter"><i class="fa fa-check"></i><b>14.3</b> Example of using tuning parameter</a></li>
+<li class="chapter" data-level="14.4" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#plotting"><i class="fa fa-check"></i><b>14.4</b> Plotting</a></li>
+<li class="chapter" data-level="14.5" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#comparing-models"><i class="fa fa-check"></i><b>14.5</b> Comparing models</a></li>
+<li class="chapter" data-level="14.6" data-path="predictive-tasks-using-bmbstats.html"><a href="predictive-tasks-using-bmbstats.html#bootstrapping-model"><i class="fa fa-check"></i><b>14.6</b> Bootstrapping model</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html"><i class="fa fa-check"></i><b>15</b> Validity and Reliability</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#data-generation"><i class="fa fa-check"></i><b>15.1</b> Data generation</a></li>
+<li class="chapter" data-level="15.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#validity"><i class="fa fa-check"></i><b>15.2</b> Validity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#true-vs-criterion"><i class="fa fa-check"></i><b>15.2.1</b> True vs Criterion</a></li>
+<li class="chapter" data-level="15.2.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#practical-vs-criterion"><i class="fa fa-check"></i><b>15.2.2</b> Practical vs Criterion</a></li>
+<li class="chapter" data-level="15.2.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#prediction-approach"><i class="fa fa-check"></i><b>15.2.3</b> Prediction approach</a></li>
+<li class="chapter" data-level="15.2.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#can-we-adjust-for-the-know-criterion-measure-random-error"><i class="fa fa-check"></i><b>15.2.4</b> Can we adjust for the know criterion measure random error?</a></li>
+<li class="chapter" data-level="15.2.5" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#estimating-sesoi-for-the-practical-score"><i class="fa fa-check"></i><b>15.2.5</b> Estimating SESOI for the practical score</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reproducibility"><i class="fa fa-check"></i><b>15.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="15.3.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.3.2</b> Repeatability</a></li>
+<li class="chapter" data-level="15.3.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.3.3</b> The difference between Reproducibility and Repeatability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#data-generating-process-behind-rct"><i class="fa fa-check"></i><b>16.1</b> Data Generating Process behind RCT</a></li>
+<li class="chapter" data-level="16.2" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#rct-analysis-using-bmbstatsrct_analysis-function"><i class="fa fa-check"></i><b>16.2</b> RCT analysis using <code>bmbstats::RCT_analysis</code> function</a></li>
+<li class="chapter" data-level="16.3" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#linear-regression-perspective"><i class="fa fa-check"></i><b>16.3</b> Linear Regression Perspective</a></li>
+<li class="chapter" data-level="16.4" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective-1"><i class="fa fa-check"></i><b>16.4</b> Prediction perspective 1</a></li>
+<li class="chapter" data-level="16.5" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#adding-some-effects"><i class="fa fa-check"></i><b>16.5</b> Adding some effects</a></li>
+<li class="chapter" data-level="16.6" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#what-goes-inside-the-measurement-error-or-control-group-change-or-residuals-sd"><i class="fa fa-check"></i><b>16.6</b> What goes inside the <em>measurement error</em> (or Control group change or residuals <code>SD</code>)?</a></li>
+<li class="chapter" data-level="16.7" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective-2"><i class="fa fa-check"></i><b>16.7</b> Prediction perspective 2</a></li>
+<li class="chapter" data-level="16.8" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#making-it-more-complex-by-adding-covariate"><i class="fa fa-check"></i><b>16.8</b> Making it more complex by adding covariate</a></li>
+<li class="chapter" data-level="16.9" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html#prediction-perspective-3"><i class="fa fa-check"></i><b>16.9</b> Prediction perspective 3</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html"><i class="fa fa-check"></i><b>17</b> Appendix A: <code>dorem</code> package</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#installation-1"><i class="fa fa-check"></i><b>17.1</b> Installation</a></li>
+<li class="chapter" data-level="17.2" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#example"><i class="fa fa-check"></i><b>17.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html"><i class="fa fa-check"></i><b>18</b> Appendix B: <code>shorts</code> package</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#installation-2"><i class="fa fa-check"></i><b>18.1</b> Installation</a></li>
+<li class="chapter" data-level="18.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#examples"><i class="fa fa-check"></i><b>18.2</b> Examples</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
+<li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
+<li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#installation-3"><i class="fa fa-check"></i><b>19.1</b> Installation</a></li>
+<li class="chapter" data-level="19.2" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#usage"><i class="fa fa-check"></i><b>19.2</b> Usage</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#introduction-1"><i class="fa fa-check"></i><b>19.2.1</b> <span>Introduction</span></a></li>
+<li class="chapter" data-level="19.2.2" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#simulation"><i class="fa fa-check"></i><b>19.2.2</b> <span>Simulation</span></a></li>
+<li class="chapter" data-level="19.2.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#profiling"><i class="fa fa-check"></i><b>19.2.3</b> <span>Profiling</span></a></li>
+<li class="chapter" data-level="19.2.4" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#optimization"><i class="fa fa-check"></i><b>19.2.4</b> <span>Optimization</span></a></li>
+<li class="chapter" data-level="19.2.5" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#exploring"><i class="fa fa-check"></i><b>19.2.5</b> <span>Exploring</span></a></li>
+<li class="chapter" data-level="19.2.6" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#modeling"><i class="fa fa-check"></i><b>19.2.6</b> <span>Modeling</span></a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#shiny-app"><i class="fa fa-check"></i><b>19.3</b> <span>Shiny App</span></a></li>
+<li class="chapter" data-level="19.4" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#example-1"><i class="fa fa-check"></i><b>19.4</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i>Appendix D: Recommended material</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bmbstats: bootstrap magnitude-based statistics for sports scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix-c-vjsim-package" class="section level1" number="19">
+<h1><span class="header-section-number">Chapter 19</span> Appendix C: <code>vjsim</code> package</h1>
+<p><img src="figures/vjsim-logo.png" align="right" width="200" /></p>
+<p><code>vjsim</code> <span class="citation">(Jovanović <a href="#ref-R-vjsim" role="doc-biblioref">2020</a><a href="#ref-R-vjsim" role="doc-biblioref">b</a>)</span> is R package that simulates vertical jump with the aim of teaching basic biomechanical principles, FV profiling, and exploring assumptions of FV optimization models.</p>
+<div id="installation-3" class="section level2" number="19.1">
+<h2><span class="header-section-number">19.1</span> Installation</h2>
+<p>You can install the development version from <a href="https://github.com/mladenjovanovic/vjsim">GitHub</a> with:</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="appendix-c-vjsim-package.html#cb310-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb310-2"><a href="appendix-c-vjsim-package.html#cb310-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;mladenjovanovic/vjsim&quot;</span>)</span>
+<span id="cb310-3"><a href="appendix-c-vjsim-package.html#cb310-3"></a></span>
+<span id="cb310-4"><a href="appendix-c-vjsim-package.html#cb310-4"></a><span class="kw">require</span>(vjsim)</span></code></pre></div>
+</div>
+<div id="usage" class="section level2" number="19.2">
+<h2><span class="header-section-number">19.2</span> Usage</h2>
+<p>Please read accompanying vignettes for examples and usage of the <code>vjsim</code> package</p>
+<div id="introduction-1" class="section level3" number="19.2.1">
+<h3><span class="header-section-number">19.2.1</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html">Introduction</a></h3>
+<p>This vignette discusses the basic mechanical representation of the vertical jump system. Please read this to understand the overall setup. Access it by clicking the above link or running the following code:</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="appendix-c-vjsim-package.html#cb311-1"></a><span class="kw">vignette</span>(<span class="st">&quot;introduction-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+<div id="simulation" class="section level3" number="19.2.2">
+<h3><span class="header-section-number">19.2.2</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/simulation-vjsim.html">Simulation</a></h3>
+<p>This vignette continues the <a href="https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html">Introduction</a> vignette and expands on the topic of simulation and how vertical jump is simulated. Access it by clicking the above link or running the following code:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="appendix-c-vjsim-package.html#cb312-1"></a><span class="kw">vignette</span>(<span class="st">&quot;simulation-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+<div id="profiling" class="section level3" number="19.2.3">
+<h3><span class="header-section-number">19.2.3</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/profiling-vjsim.html">Profiling</a></h3>
+<p>Once you understand how the <a href="https://mladenjovanovic.github.io/vjsim/articles/simulation-vjsim.html">Simulation</a> works, we can start playing with profiling. Force-Velocity (FV), Load-Velocity (LV), and other profiles are discussed. Access it by clicking the above link or running the following code:</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="appendix-c-vjsim-package.html#cb313-1"></a><span class="kw">vignette</span>(<span class="st">&quot;profiling-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+<div id="optimization" class="section level3" number="19.2.4">
+<h3><span class="header-section-number">19.2.4</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/optimization-vjsim.html">Optimization</a></h3>
+<p>In this vignette I will introduce few optimization models, influenced by the work of Pierre Samozino and Jean-Benoit Morin. Access it by clicking the above link or running the following code:</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="appendix-c-vjsim-package.html#cb314-1"></a><span class="kw">vignette</span>(<span class="st">&quot;optimization-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+<div id="exploring" class="section level3" number="19.2.5">
+<h3><span class="header-section-number">19.2.5</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/exploring-vjsim.html">Exploring</a></h3>
+<p>In this vignette we are going to explore various assumptions of the model, “optimal” FV profiles and some other interesting questions. Access it by clicking the above link or running the following code:</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="appendix-c-vjsim-package.html#cb315-1"></a><span class="kw">vignette</span>(<span class="st">&quot;exploring-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+<div id="modeling" class="section level3" number="19.2.6">
+<h3><span class="header-section-number">19.2.6</span> <a href="https://mladenjovanovic.github.io/vjsim/articles/modeling-vjsim.html">Modeling</a></h3>
+<p>In this vignette I am going to show you how you can use <code>vjsim</code> to create athlete profiles from collected data</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="appendix-c-vjsim-package.html#cb316-1"></a><span class="kw">vignette</span>(<span class="st">&quot;modeling-vjsim&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="shiny-app" class="section level2" number="19.3">
+<h2><span class="header-section-number">19.3</span> <a href="https://athletess.shinyapps.io/shiny-simulator/">Shiny App</a></h2>
+<p>To run the Shiny app, use the following code, or by clicking on the above link (this will take you to the <em>shinyapps.io</em>)</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="appendix-c-vjsim-package.html#cb317-1"></a><span class="co"># install.packages(c(&quot;shiny&quot;, &quot;plotly&quot;, &quot;DT&quot;))</span></span>
+<span id="cb317-2"><a href="appendix-c-vjsim-package.html#cb317-2"></a><span class="kw">run_simulator</span>()</span></code></pre></div>
+</div>
+<div id="example-1" class="section level2" number="19.4">
+<h2><span class="header-section-number">19.4</span> Example</h2>
+<p><code>vjsim</code> comes with an example data (<code>testing_data</code>) that can be used to demonstrate the profiling:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="appendix-c-vjsim-package.html#cb318-1"></a><span class="kw">require</span>(vjsim)</span>
+<span id="cb318-2"><a href="appendix-c-vjsim-package.html#cb318-2"></a><span class="kw">require</span>(tidyverse)</span>
+<span id="cb318-3"><a href="appendix-c-vjsim-package.html#cb318-3"></a></span>
+<span id="cb318-4"><a href="appendix-c-vjsim-package.html#cb318-4"></a><span class="kw">data</span>(<span class="st">&quot;testing_data&quot;</span>)</span>
+<span id="cb318-5"><a href="appendix-c-vjsim-package.html#cb318-5"></a></span>
+<span id="cb318-6"><a href="appendix-c-vjsim-package.html#cb318-6"></a>testing_data</span>
+<span id="cb318-7"><a href="appendix-c-vjsim-package.html#cb318-7"></a><span class="co">#&gt;    athlete bodyweight push_off_distance external_load aerial_time</span></span>
+<span id="cb318-8"><a href="appendix-c-vjsim-package.html#cb318-8"></a><span class="co">#&gt; 1     John        100              0.45             0   0.5393402</span></span>
+<span id="cb318-9"><a href="appendix-c-vjsim-package.html#cb318-9"></a><span class="co">#&gt; 2     John        100              0.45            20   0.4692551</span></span>
+<span id="cb318-10"><a href="appendix-c-vjsim-package.html#cb318-10"></a><span class="co">#&gt; 3     John        100              0.45            40   0.4383948</span></span>
+<span id="cb318-11"><a href="appendix-c-vjsim-package.html#cb318-11"></a><span class="co">#&gt; 4     John        100              0.45            60   0.3869457</span></span>
+<span id="cb318-12"><a href="appendix-c-vjsim-package.html#cb318-12"></a><span class="co">#&gt; 5     John        100              0.45            80   0.3383155</span></span>
+<span id="cb318-13"><a href="appendix-c-vjsim-package.html#cb318-13"></a><span class="co">#&gt; 6     Jack         85              0.35             0   0.4991416</span></span>
+<span id="cb318-14"><a href="appendix-c-vjsim-package.html#cb318-14"></a><span class="co">#&gt; 7     Jack         85              0.35            20   0.4188160</span></span>
+<span id="cb318-15"><a href="appendix-c-vjsim-package.html#cb318-15"></a><span class="co">#&gt; 8     Jack         85              0.35            40   0.3664766</span></span>
+<span id="cb318-16"><a href="appendix-c-vjsim-package.html#cb318-16"></a><span class="co">#&gt; 9     Jack         85              0.35            60   0.2746293</span></span>
+<span id="cb318-17"><a href="appendix-c-vjsim-package.html#cb318-17"></a><span class="co">#&gt; 10   Peter         95              0.50             0   0.6908913</span></span>
+<span id="cb318-18"><a href="appendix-c-vjsim-package.html#cb318-18"></a><span class="co">#&gt; 11   Peter         95              0.50            20   0.5973635</span></span>
+<span id="cb318-19"><a href="appendix-c-vjsim-package.html#cb318-19"></a><span class="co">#&gt; 12   Peter         95              0.50            40   0.5546890</span></span>
+<span id="cb318-20"><a href="appendix-c-vjsim-package.html#cb318-20"></a><span class="co">#&gt; 13   Peter         95              0.50            60   0.4896103</span></span>
+<span id="cb318-21"><a href="appendix-c-vjsim-package.html#cb318-21"></a><span class="co">#&gt; 14   Peter         95              0.50           100   0.4131987</span></span>
+<span id="cb318-22"><a href="appendix-c-vjsim-package.html#cb318-22"></a><span class="co">#&gt; 15    Jane         55              0.30             0   0.4589603</span></span>
+<span id="cb318-23"><a href="appendix-c-vjsim-package.html#cb318-23"></a><span class="co">#&gt; 16    Jane         55              0.30            10   0.4310090</span></span>
+<span id="cb318-24"><a href="appendix-c-vjsim-package.html#cb318-24"></a><span class="co">#&gt; 17    Jane         55              0.30            20   0.3717250</span></span>
+<span id="cb318-25"><a href="appendix-c-vjsim-package.html#cb318-25"></a><span class="co">#&gt; 18    Jane         55              0.30            30   0.3354157</span></span>
+<span id="cb318-26"><a href="appendix-c-vjsim-package.html#cb318-26"></a><span class="co">#&gt; 19    Jane         55              0.30            40   0.3197858</span></span>
+<span id="cb318-27"><a href="appendix-c-vjsim-package.html#cb318-27"></a><span class="co">#&gt; 20   Chris         75                NA             0   0.4943675</span></span>
+<span id="cb318-28"><a href="appendix-c-vjsim-package.html#cb318-28"></a><span class="co">#&gt; 21   Chris         75                NA            20   0.4618711</span></span>
+<span id="cb318-29"><a href="appendix-c-vjsim-package.html#cb318-29"></a><span class="co">#&gt; 22   Chris         75                NA            40   0.4318388</span></span>
+<span id="cb318-30"><a href="appendix-c-vjsim-package.html#cb318-30"></a><span class="co">#&gt; 23   Chris         75                NA            60   0.4013240</span></span>
+<span id="cb318-31"><a href="appendix-c-vjsim-package.html#cb318-31"></a><span class="co">#&gt; 24   Chris         75                NA            80   0.3696963</span></span></code></pre></div>
+<p>As can be seen from the above listing, <code>testing_data</code> contains data for N=5 athletes. Each athlete performed progressive squat jumps (external load is indicated in <code>external_load</code> column; weight are in kg) and the flight time (<code>aerial_time</code>) in seconds is measured using the jump mat. Some measuring devices will return <em>peak velocity</em> (PV), <em>take-off velocity</em> (TOV), or calculated <em>jump height</em> (height) which is the most common.</p>
+<p>We will select Jack and show his <em>Load-Velocity</em> (LV) profile using <code>vsim</code> function <code>vjsim::make_load_profile</code><a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>:</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="appendix-c-vjsim-package.html#cb319-1"></a><span class="co"># Filter only Jack&#39;s data</span></span>
+<span id="cb319-2"><a href="appendix-c-vjsim-package.html#cb319-2"></a>jack_data &lt;-<span class="st"> </span><span class="kw">filter</span>(testing_data, athlete <span class="op">==</span><span class="st"> &quot;Jack&quot;</span>)</span>
+<span id="cb319-3"><a href="appendix-c-vjsim-package.html#cb319-3"></a></span>
+<span id="cb319-4"><a href="appendix-c-vjsim-package.html#cb319-4"></a><span class="co"># Make a LV profile</span></span>
+<span id="cb319-5"><a href="appendix-c-vjsim-package.html#cb319-5"></a><span class="co"># Here we have used `with` command to simplify the code</span></span>
+<span id="cb319-6"><a href="appendix-c-vjsim-package.html#cb319-6"></a><span class="co"># If not we need to use:</span></span>
+<span id="cb319-7"><a href="appendix-c-vjsim-package.html#cb319-7"></a><span class="co">#</span></span>
+<span id="cb319-8"><a href="appendix-c-vjsim-package.html#cb319-8"></a><span class="co"># vjsim::make_load_profile(</span></span>
+<span id="cb319-9"><a href="appendix-c-vjsim-package.html#cb319-9"></a><span class="co">#   bodyweight = jack_data$bodyweight,</span></span>
+<span id="cb319-10"><a href="appendix-c-vjsim-package.html#cb319-10"></a><span class="co">#   external_load = jack_data$external_load,</span></span>
+<span id="cb319-11"><a href="appendix-c-vjsim-package.html#cb319-11"></a><span class="co">#   aerial_time = jack_data$aerial_time,</span></span>
+<span id="cb319-12"><a href="appendix-c-vjsim-package.html#cb319-12"></a><span class="co">#   plot = TRUE</span></span>
+<span id="cb319-13"><a href="appendix-c-vjsim-package.html#cb319-13"></a><span class="co"># )</span></span>
+<span id="cb319-14"><a href="appendix-c-vjsim-package.html#cb319-14"></a></span>
+<span id="cb319-15"><a href="appendix-c-vjsim-package.html#cb319-15"></a>jack_LV_profile &lt;-<span class="st"> </span><span class="kw">with</span>(jack_data,</span>
+<span id="cb319-16"><a href="appendix-c-vjsim-package.html#cb319-16"></a> vjsim<span class="op">::</span><span class="kw">make_load_profile</span>(</span>
+<span id="cb319-17"><a href="appendix-c-vjsim-package.html#cb319-17"></a>   <span class="dt">bodyweight =</span> bodyweight,</span>
+<span id="cb319-18"><a href="appendix-c-vjsim-package.html#cb319-18"></a>   <span class="dt">external_load =</span> external_load,</span>
+<span id="cb319-19"><a href="appendix-c-vjsim-package.html#cb319-19"></a>   <span class="dt">aerial_time =</span> aerial_time,</span>
+<span id="cb319-20"><a href="appendix-c-vjsim-package.html#cb319-20"></a>   <span class="dt">plot =</span> <span class="ot">TRUE</span></span>
+<span id="cb319-21"><a href="appendix-c-vjsim-package.html#cb319-21"></a> )</span>
+<span id="cb319-22"><a href="appendix-c-vjsim-package.html#cb319-22"></a>)</span></code></pre></div>
+<p><img src="19-Appendix-C-vjsim_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Velocity, in this case TOV, is calculated by first calculating jump height from the <code>aerial_time</code> using <code>vjsim::get_height_from_aerial_time</code> function inside the <code>vjsim::make_load_profile</code>, which is later converted to TOV using ballistic equations.</p>
+<p>This LV profile has the following parameters:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="appendix-c-vjsim-package.html#cb320-1"></a>jack_LV_profile</span>
+<span id="cb320-2"><a href="appendix-c-vjsim-package.html#cb320-2"></a><span class="co">#&gt; $L0</span></span>
+<span id="cb320-3"><a href="appendix-c-vjsim-package.html#cb320-3"></a><span class="co">#&gt; [1] 222.3918</span></span>
+<span id="cb320-4"><a href="appendix-c-vjsim-package.html#cb320-4"></a><span class="co">#&gt; </span></span>
+<span id="cb320-5"><a href="appendix-c-vjsim-package.html#cb320-5"></a><span class="co">#&gt; $L0_rel</span></span>
+<span id="cb320-6"><a href="appendix-c-vjsim-package.html#cb320-6"></a><span class="co">#&gt; [1] 2.616374</span></span>
+<span id="cb320-7"><a href="appendix-c-vjsim-package.html#cb320-7"></a><span class="co">#&gt; </span></span>
+<span id="cb320-8"><a href="appendix-c-vjsim-package.html#cb320-8"></a><span class="co">#&gt; $TOV0</span></span>
+<span id="cb320-9"><a href="appendix-c-vjsim-package.html#cb320-9"></a><span class="co">#&gt; [1] 3.959045</span></span>
+<span id="cb320-10"><a href="appendix-c-vjsim-package.html#cb320-10"></a><span class="co">#&gt; </span></span>
+<span id="cb320-11"><a href="appendix-c-vjsim-package.html#cb320-11"></a><span class="co">#&gt; $Sltv</span></span>
+<span id="cb320-12"><a href="appendix-c-vjsim-package.html#cb320-12"></a><span class="co">#&gt; [1] -56.17309</span></span>
+<span id="cb320-13"><a href="appendix-c-vjsim-package.html#cb320-13"></a><span class="co">#&gt; </span></span>
+<span id="cb320-14"><a href="appendix-c-vjsim-package.html#cb320-14"></a><span class="co">#&gt; $Sltv_rel</span></span>
+<span id="cb320-15"><a href="appendix-c-vjsim-package.html#cb320-15"></a><span class="co">#&gt; [1] -0.6608599</span></span>
+<span id="cb320-16"><a href="appendix-c-vjsim-package.html#cb320-16"></a><span class="co">#&gt; </span></span>
+<span id="cb320-17"><a href="appendix-c-vjsim-package.html#cb320-17"></a><span class="co">#&gt; $RSE</span></span>
+<span id="cb320-18"><a href="appendix-c-vjsim-package.html#cb320-18"></a><span class="co">#&gt; [1] 0.0560288</span></span>
+<span id="cb320-19"><a href="appendix-c-vjsim-package.html#cb320-19"></a><span class="co">#&gt; </span></span>
+<span id="cb320-20"><a href="appendix-c-vjsim-package.html#cb320-20"></a><span class="co">#&gt; $R_squared</span></span>
+<span id="cb320-21"><a href="appendix-c-vjsim-package.html#cb320-21"></a><span class="co">#&gt; [1] 0.9901916</span></span></code></pre></div>
+<p>To perform optimization <em>Force-Velocity</em> (FV) profile using Samozino <em>et al.</em> approach <span class="citation">(Jiménez-Reyes et al. <a href="#ref-jimenez-reyesEffectivenessIndividualizedTraining2017" role="doc-biblioref">2017</a>; Jiménez-Reyes, Samozino, and Morin <a href="#ref-jimenez-reyesOptimizedTrainingJumping2019" role="doc-biblioref">2019</a>; Samozino et al. <a href="#ref-samozinoJumpingAbilityTheoretical2010" role="doc-biblioref">2010</a>, <a href="#ref-samozinoOptimalForceVelocity2012" role="doc-biblioref">2012</a>, <a href="#ref-samozinoSimpleMethodMeasuring2008" role="doc-biblioref">2008</a>; Samozino <a href="#ref-samozinoOptimalForceVelocityProfile2018" role="doc-biblioref">2018</a><a href="#ref-samozinoOptimalForceVelocityProfile2018" role="doc-biblioref">c</a>, <a href="#ref-samozinoSimpleMethodMeasuring2018" role="doc-biblioref">2018</a><a href="#ref-samozinoSimpleMethodMeasuring2018" role="doc-biblioref">b</a>, <a href="#ref-samozinoSimpleMethodMeasuring2018a" role="doc-biblioref">2018</a><a href="#ref-samozinoSimpleMethodMeasuring2018a" role="doc-biblioref">a</a>)</span> use <code>vjsim::make_samozino_profile</code>:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="appendix-c-vjsim-package.html#cb321-1"></a>jack_FV_profile &lt;-<span class="st"> </span><span class="kw">with</span>(jack_data,</span>
+<span id="cb321-2"><a href="appendix-c-vjsim-package.html#cb321-2"></a> vjsim<span class="op">::</span><span class="kw">make_samozino_profile</span>(</span>
+<span id="cb321-3"><a href="appendix-c-vjsim-package.html#cb321-3"></a>   <span class="dt">bodyweight =</span> bodyweight,</span>
+<span id="cb321-4"><a href="appendix-c-vjsim-package.html#cb321-4"></a>   <span class="dt">push_off_distance =</span> push_off_distance,</span>
+<span id="cb321-5"><a href="appendix-c-vjsim-package.html#cb321-5"></a>   <span class="dt">external_load =</span> external_load,</span>
+<span id="cb321-6"><a href="appendix-c-vjsim-package.html#cb321-6"></a>   <span class="dt">aerial_time =</span> aerial_time,</span>
+<span id="cb321-7"><a href="appendix-c-vjsim-package.html#cb321-7"></a>   <span class="dt">plot =</span> <span class="ot">TRUE</span></span>
+<span id="cb321-8"><a href="appendix-c-vjsim-package.html#cb321-8"></a> )</span>
+<span id="cb321-9"><a href="appendix-c-vjsim-package.html#cb321-9"></a>)</span></code></pre></div>
+<p><img src="19-Appendix-C-vjsim_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Here are the parameters estimated:</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="appendix-c-vjsim-package.html#cb322-1"></a>jack_FV_profile</span>
+<span id="cb322-2"><a href="appendix-c-vjsim-package.html#cb322-2"></a><span class="co">#&gt; $F0</span></span>
+<span id="cb322-3"><a href="appendix-c-vjsim-package.html#cb322-3"></a><span class="co">#&gt; [1] 2235.995</span></span>
+<span id="cb322-4"><a href="appendix-c-vjsim-package.html#cb322-4"></a><span class="co">#&gt; </span></span>
+<span id="cb322-5"><a href="appendix-c-vjsim-package.html#cb322-5"></a><span class="co">#&gt; $F0_rel</span></span>
+<span id="cb322-6"><a href="appendix-c-vjsim-package.html#cb322-6"></a><span class="co">#&gt; [1] 26.30583</span></span>
+<span id="cb322-7"><a href="appendix-c-vjsim-package.html#cb322-7"></a><span class="co">#&gt; </span></span>
+<span id="cb322-8"><a href="appendix-c-vjsim-package.html#cb322-8"></a><span class="co">#&gt; $V0</span></span>
+<span id="cb322-9"><a href="appendix-c-vjsim-package.html#cb322-9"></a><span class="co">#&gt; [1] 4.037337</span></span>
+<span id="cb322-10"><a href="appendix-c-vjsim-package.html#cb322-10"></a><span class="co">#&gt; </span></span>
+<span id="cb322-11"><a href="appendix-c-vjsim-package.html#cb322-11"></a><span class="co">#&gt; $Pmax</span></span>
+<span id="cb322-12"><a href="appendix-c-vjsim-package.html#cb322-12"></a><span class="co">#&gt; [1] 2256.867</span></span>
+<span id="cb322-13"><a href="appendix-c-vjsim-package.html#cb322-13"></a><span class="co">#&gt; </span></span>
+<span id="cb322-14"><a href="appendix-c-vjsim-package.html#cb322-14"></a><span class="co">#&gt; $Pmax_rel</span></span>
+<span id="cb322-15"><a href="appendix-c-vjsim-package.html#cb322-15"></a><span class="co">#&gt; [1] 26.55137</span></span>
+<span id="cb322-16"><a href="appendix-c-vjsim-package.html#cb322-16"></a><span class="co">#&gt; </span></span>
+<span id="cb322-17"><a href="appendix-c-vjsim-package.html#cb322-17"></a><span class="co">#&gt; $Sfv</span></span>
+<span id="cb322-18"><a href="appendix-c-vjsim-package.html#cb322-18"></a><span class="co">#&gt; [1] -553.8293</span></span>
+<span id="cb322-19"><a href="appendix-c-vjsim-package.html#cb322-19"></a><span class="co">#&gt; </span></span>
+<span id="cb322-20"><a href="appendix-c-vjsim-package.html#cb322-20"></a><span class="co">#&gt; $Sfv_rel</span></span>
+<span id="cb322-21"><a href="appendix-c-vjsim-package.html#cb322-21"></a><span class="co">#&gt; [1] -6.515638</span></span>
+<span id="cb322-22"><a href="appendix-c-vjsim-package.html#cb322-22"></a><span class="co">#&gt; </span></span>
+<span id="cb322-23"><a href="appendix-c-vjsim-package.html#cb322-23"></a><span class="co">#&gt; $take_off_velocity</span></span>
+<span id="cb322-24"><a href="appendix-c-vjsim-package.html#cb322-24"></a><span class="co">#&gt; [1] 2.444065</span></span>
+<span id="cb322-25"><a href="appendix-c-vjsim-package.html#cb322-25"></a><span class="co">#&gt; </span></span>
+<span id="cb322-26"><a href="appendix-c-vjsim-package.html#cb322-26"></a><span class="co">#&gt; $height</span></span>
+<span id="cb322-27"><a href="appendix-c-vjsim-package.html#cb322-27"></a><span class="co">#&gt; [1] 0.3044574</span></span>
+<span id="cb322-28"><a href="appendix-c-vjsim-package.html#cb322-28"></a><span class="co">#&gt; </span></span>
+<span id="cb322-29"><a href="appendix-c-vjsim-package.html#cb322-29"></a><span class="co">#&gt; $optimal_F0</span></span>
+<span id="cb322-30"><a href="appendix-c-vjsim-package.html#cb322-30"></a><span class="co">#&gt; [1] 3389.95</span></span>
+<span id="cb322-31"><a href="appendix-c-vjsim-package.html#cb322-31"></a><span class="co">#&gt; </span></span>
+<span id="cb322-32"><a href="appendix-c-vjsim-package.html#cb322-32"></a><span class="co">#&gt; $optimal_F0_rel</span></span>
+<span id="cb322-33"><a href="appendix-c-vjsim-package.html#cb322-33"></a><span class="co">#&gt; [1] 39.88176</span></span>
+<span id="cb322-34"><a href="appendix-c-vjsim-package.html#cb322-34"></a><span class="co">#&gt; </span></span>
+<span id="cb322-35"><a href="appendix-c-vjsim-package.html#cb322-35"></a><span class="co">#&gt; $optimal_V0</span></span>
+<span id="cb322-36"><a href="appendix-c-vjsim-package.html#cb322-36"></a><span class="co">#&gt; [1] 2.663009</span></span>
+<span id="cb322-37"><a href="appendix-c-vjsim-package.html#cb322-37"></a><span class="co">#&gt; </span></span>
+<span id="cb322-38"><a href="appendix-c-vjsim-package.html#cb322-38"></a><span class="co">#&gt; $optimal_height</span></span>
+<span id="cb322-39"><a href="appendix-c-vjsim-package.html#cb322-39"></a><span class="co">#&gt; [1] 0.3614484</span></span>
+<span id="cb322-40"><a href="appendix-c-vjsim-package.html#cb322-40"></a><span class="co">#&gt; </span></span>
+<span id="cb322-41"><a href="appendix-c-vjsim-package.html#cb322-41"></a><span class="co">#&gt; $optimal_height_diff</span></span>
+<span id="cb322-42"><a href="appendix-c-vjsim-package.html#cb322-42"></a><span class="co">#&gt; [1] 0.05699097</span></span>
+<span id="cb322-43"><a href="appendix-c-vjsim-package.html#cb322-43"></a><span class="co">#&gt; </span></span>
+<span id="cb322-44"><a href="appendix-c-vjsim-package.html#cb322-44"></a><span class="co">#&gt; $optimal_height_ratio</span></span>
+<span id="cb322-45"><a href="appendix-c-vjsim-package.html#cb322-45"></a><span class="co">#&gt; [1] 1.187189</span></span>
+<span id="cb322-46"><a href="appendix-c-vjsim-package.html#cb322-46"></a><span class="co">#&gt; </span></span>
+<span id="cb322-47"><a href="appendix-c-vjsim-package.html#cb322-47"></a><span class="co">#&gt; $optimal_Pmax</span></span>
+<span id="cb322-48"><a href="appendix-c-vjsim-package.html#cb322-48"></a><span class="co">#&gt; [1] 2256.867</span></span>
+<span id="cb322-49"><a href="appendix-c-vjsim-package.html#cb322-49"></a><span class="co">#&gt; </span></span>
+<span id="cb322-50"><a href="appendix-c-vjsim-package.html#cb322-50"></a><span class="co">#&gt; $optimal_Pmax_rel</span></span>
+<span id="cb322-51"><a href="appendix-c-vjsim-package.html#cb322-51"></a><span class="co">#&gt; [1] 26.55137</span></span>
+<span id="cb322-52"><a href="appendix-c-vjsim-package.html#cb322-52"></a><span class="co">#&gt; </span></span>
+<span id="cb322-53"><a href="appendix-c-vjsim-package.html#cb322-53"></a><span class="co">#&gt; $optimal_take_off_velocity</span></span>
+<span id="cb322-54"><a href="appendix-c-vjsim-package.html#cb322-54"></a><span class="co">#&gt; [1] 2.663009</span></span>
+<span id="cb322-55"><a href="appendix-c-vjsim-package.html#cb322-55"></a><span class="co">#&gt; </span></span>
+<span id="cb322-56"><a href="appendix-c-vjsim-package.html#cb322-56"></a><span class="co">#&gt; $optimal_take_off_velocity_diff</span></span>
+<span id="cb322-57"><a href="appendix-c-vjsim-package.html#cb322-57"></a><span class="co">#&gt; [1] 0.2189439</span></span>
+<span id="cb322-58"><a href="appendix-c-vjsim-package.html#cb322-58"></a><span class="co">#&gt; </span></span>
+<span id="cb322-59"><a href="appendix-c-vjsim-package.html#cb322-59"></a><span class="co">#&gt; $optimal_take_off_velocity_ratio</span></span>
+<span id="cb322-60"><a href="appendix-c-vjsim-package.html#cb322-60"></a><span class="co">#&gt; [1] 1.089582</span></span>
+<span id="cb322-61"><a href="appendix-c-vjsim-package.html#cb322-61"></a><span class="co">#&gt; </span></span>
+<span id="cb322-62"><a href="appendix-c-vjsim-package.html#cb322-62"></a><span class="co">#&gt; $optimal_Sfv</span></span>
+<span id="cb322-63"><a href="appendix-c-vjsim-package.html#cb322-63"></a><span class="co">#&gt; [1] -1272.977</span></span>
+<span id="cb322-64"><a href="appendix-c-vjsim-package.html#cb322-64"></a><span class="co">#&gt; </span></span>
+<span id="cb322-65"><a href="appendix-c-vjsim-package.html#cb322-65"></a><span class="co">#&gt; $optimal_Sfv_rel</span></span>
+<span id="cb322-66"><a href="appendix-c-vjsim-package.html#cb322-66"></a><span class="co">#&gt; [1] -14.9762</span></span>
+<span id="cb322-67"><a href="appendix-c-vjsim-package.html#cb322-67"></a><span class="co">#&gt; </span></span>
+<span id="cb322-68"><a href="appendix-c-vjsim-package.html#cb322-68"></a><span class="co">#&gt; $Sfv_perc</span></span>
+<span id="cb322-69"><a href="appendix-c-vjsim-package.html#cb322-69"></a><span class="co">#&gt; [1] 43.50661</span></span>
+<span id="cb322-70"><a href="appendix-c-vjsim-package.html#cb322-70"></a><span class="co">#&gt; </span></span>
+<span id="cb322-71"><a href="appendix-c-vjsim-package.html#cb322-71"></a><span class="co">#&gt; $FV_imbalance</span></span>
+<span id="cb322-72"><a href="appendix-c-vjsim-package.html#cb322-72"></a><span class="co">#&gt; [1] 56.49339</span></span>
+<span id="cb322-73"><a href="appendix-c-vjsim-package.html#cb322-73"></a><span class="co">#&gt; </span></span>
+<span id="cb322-74"><a href="appendix-c-vjsim-package.html#cb322-74"></a><span class="co">#&gt; $probe_IMB</span></span>
+<span id="cb322-75"><a href="appendix-c-vjsim-package.html#cb322-75"></a><span class="co">#&gt; [1] 42.45125</span></span>
+<span id="cb322-76"><a href="appendix-c-vjsim-package.html#cb322-76"></a><span class="co">#&gt; </span></span>
+<span id="cb322-77"><a href="appendix-c-vjsim-package.html#cb322-77"></a><span class="co">#&gt; $RSE</span></span>
+<span id="cb322-78"><a href="appendix-c-vjsim-package.html#cb322-78"></a><span class="co">#&gt; [1] 0.1172931</span></span>
+<span id="cb322-79"><a href="appendix-c-vjsim-package.html#cb322-79"></a><span class="co">#&gt; </span></span>
+<span id="cb322-80"><a href="appendix-c-vjsim-package.html#cb322-80"></a><span class="co">#&gt; $R_squared</span></span>
+<span id="cb322-81"><a href="appendix-c-vjsim-package.html#cb322-81"></a><span class="co">#&gt; [1] 0.8280585</span></span></code></pre></div>
+<p>In the case that you need to make analysis for multiple athletes, rather than doing one-by-one, use the following <code>tidyverse</code> wrapper:</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="appendix-c-vjsim-package.html#cb323-1"></a>make_samozino_profile_wrapper &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</span>
+<span id="cb323-2"><a href="appendix-c-vjsim-package.html#cb323-2"></a>  profile &lt;-<span class="st"> </span><span class="kw">with</span>(</span>
+<span id="cb323-3"><a href="appendix-c-vjsim-package.html#cb323-3"></a>    data,</span>
+<span id="cb323-4"><a href="appendix-c-vjsim-package.html#cb323-4"></a>    vjsim<span class="op">::</span><span class="kw">make_samozino_profile</span>(</span>
+<span id="cb323-5"><a href="appendix-c-vjsim-package.html#cb323-5"></a>      <span class="dt">bodyweight =</span> bodyweight,</span>
+<span id="cb323-6"><a href="appendix-c-vjsim-package.html#cb323-6"></a>      <span class="dt">push_off_distance =</span> push_off_distance,</span>
+<span id="cb323-7"><a href="appendix-c-vjsim-package.html#cb323-7"></a>      <span class="dt">external_load =</span> external_load,</span>
+<span id="cb323-8"><a href="appendix-c-vjsim-package.html#cb323-8"></a>      <span class="dt">aerial_time =</span> aerial_time,</span>
+<span id="cb323-9"><a href="appendix-c-vjsim-package.html#cb323-9"></a>      <span class="dt">plot =</span> <span class="ot">FALSE</span></span>
+<span id="cb323-10"><a href="appendix-c-vjsim-package.html#cb323-10"></a>    )</span>
+<span id="cb323-11"><a href="appendix-c-vjsim-package.html#cb323-11"></a>  )</span>
+<span id="cb323-12"><a href="appendix-c-vjsim-package.html#cb323-12"></a></span>
+<span id="cb323-13"><a href="appendix-c-vjsim-package.html#cb323-13"></a>  <span class="kw">return</span>(<span class="kw">data.frame</span>(</span>
+<span id="cb323-14"><a href="appendix-c-vjsim-package.html#cb323-14"></a>    <span class="dt">F0 =</span> profile<span class="op">$</span>F0,</span>
+<span id="cb323-15"><a href="appendix-c-vjsim-package.html#cb323-15"></a>    <span class="dt">V0 =</span> profile<span class="op">$</span>V0,</span>
+<span id="cb323-16"><a href="appendix-c-vjsim-package.html#cb323-16"></a>    <span class="dt">height =</span> profile<span class="op">$</span>height,</span>
+<span id="cb323-17"><a href="appendix-c-vjsim-package.html#cb323-17"></a>    <span class="dt">optimal_F0 =</span> profile<span class="op">$</span>optimal_F0,</span>
+<span id="cb323-18"><a href="appendix-c-vjsim-package.html#cb323-18"></a>    <span class="dt">optimal_V0 =</span> profile<span class="op">$</span>optimal_V0,</span>
+<span id="cb323-19"><a href="appendix-c-vjsim-package.html#cb323-19"></a>    <span class="dt">optimal_height =</span> profile<span class="op">$</span>optimal_height,</span>
+<span id="cb323-20"><a href="appendix-c-vjsim-package.html#cb323-20"></a>    <span class="dt">Sfv_perc =</span> profile<span class="op">$</span>Sfv_perc</span>
+<span id="cb323-21"><a href="appendix-c-vjsim-package.html#cb323-21"></a>  ))</span>
+<span id="cb323-22"><a href="appendix-c-vjsim-package.html#cb323-22"></a>}</span></code></pre></div>
+<p>We can now apply this wrapper function to get FV profile for all athletes in the <code>testing_data</code> data set:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="appendix-c-vjsim-package.html#cb324-1"></a>athlete_profiles &lt;-<span class="st"> </span>testing_data <span class="op">%&gt;%</span></span>
+<span id="cb324-2"><a href="appendix-c-vjsim-package.html#cb324-2"></a><span class="st">  </span><span class="kw">group_by</span>(athlete) <span class="op">%&gt;%</span></span>
+<span id="cb324-3"><a href="appendix-c-vjsim-package.html#cb324-3"></a><span class="st">  </span><span class="kw">do</span>(<span class="kw">make_samozino_profile_wrapper</span>(.))</span>
+<span id="cb324-4"><a href="appendix-c-vjsim-package.html#cb324-4"></a></span>
+<span id="cb324-5"><a href="appendix-c-vjsim-package.html#cb324-5"></a></span>
+<span id="cb324-6"><a href="appendix-c-vjsim-package.html#cb324-6"></a>athlete_profiles</span>
+<span id="cb324-7"><a href="appendix-c-vjsim-package.html#cb324-7"></a><span class="co">#&gt; # A tibble: 5 x 8</span></span>
+<span id="cb324-8"><a href="appendix-c-vjsim-package.html#cb324-8"></a><span class="co">#&gt; # Groups:   athlete [5]</span></span>
+<span id="cb324-9"><a href="appendix-c-vjsim-package.html#cb324-9"></a><span class="co">#&gt;   athlete    F0    V0 height optimal_F0 optimal_V0 optimal_height Sfv_perc</span></span>
+<span id="cb324-10"><a href="appendix-c-vjsim-package.html#cb324-10"></a><span class="co">#&gt;   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb324-11"><a href="appendix-c-vjsim-package.html#cb324-11"></a><span class="co">#&gt; 1 John    3373.  2.72  0.351      3495.       2.63          0.352     93.2</span></span>
+<span id="cb324-12"><a href="appendix-c-vjsim-package.html#cb324-12"></a><span class="co">#&gt; 2 Jack    2236.  4.04  0.304      3390.       2.66          0.361     43.5</span></span>
+<span id="cb324-13"><a href="appendix-c-vjsim-package.html#cb324-13"></a><span class="co">#&gt; 3 Peter   3772.  3.49  0.562      3964.       3.32          0.563     90.5</span></span>
+<span id="cb324-14"><a href="appendix-c-vjsim-package.html#cb324-14"></a><span class="co">#&gt; 4 Jane    1961.  2.31  0.259      2011.       2.25          0.259     95.1</span></span>
+<span id="cb324-15"><a href="appendix-c-vjsim-package.html#cb324-15"></a><span class="co">#&gt; 5 Chris     NA  NA    NA            NA       NA            NA         NA</span></span></code></pre></div>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-jimenez-reyesEffectivenessIndividualizedTraining2017">
+<p>Jiménez-Reyes, Pedro, Pierre Samozino, Matt Brughelli, and Jean-Benoît Morin. 2017. “Effectiveness of an Individualized Training Based on Force-Velocity Profiling During Jumping.” <em>Frontiers in Physiology</em> 7 (January). <a href="https://doi.org/10.3389/fphys.2016.00677">https://doi.org/10.3389/fphys.2016.00677</a>.</p>
+</div>
+<div id="ref-jimenez-reyesOptimizedTrainingJumping2019">
+<p>Jiménez-Reyes, Pedro, Pierre Samozino, and Jean-Benoît Morin. 2019. “Optimized Training for Jumping Performance Using the Force-Velocity Imbalance: Individual Adaptation Kinetics.” Edited by Daniel Boullosa. <em>PLOS ONE</em> 14 (5): e0216681. <a href="https://doi.org/10.1371/journal.pone.0216681">https://doi.org/10.1371/journal.pone.0216681</a>.</p>
+</div>
+<div id="ref-R-vjsim">
+<p>Jovanović, Mladen. 2020b. “vjsim: Vertical Jump Simulator.” <a href="https://doi.org/10.5281/zenodo.3740291">https://doi.org/10.5281/zenodo.3740291</a>.</p>
+</div>
+<div id="ref-samozinoSimpleMethodMeasuring2018a">
+<p>Samozino, Pierre. 2018a. “A Simple Method for Measuring Force, Velocity and Power Capabilities and Mechanical Effectiveness During Sprint Running.” In <em>Biomechanics of Training and Testing</em>, edited by Jean-Benoit Morin and Pierre Samozino, 237–67. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-05633-3_11">https://doi.org/10.1007/978-3-319-05633-3_11</a>.</p>
+</div>
+<div id="ref-samozinoSimpleMethodMeasuring2018">
+<p>Samozino, Pierre. 2018b. “A Simple Method for Measuring Lower Limb Force, Velocity and Power Capabilities During Jumping.” In <em>Biomechanics of Training and Testing</em>, edited by Jean-Benoit Morin and Pierre Samozino, 65–96. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-05633-3_4">https://doi.org/10.1007/978-3-319-05633-3_4</a>.</p>
+</div>
+<div id="ref-samozinoOptimalForceVelocityProfile2018">
+<p>Samozino, Pierre. 2018c. “Optimal Force-Velocity Profile in Ballistic Push-Off: Measurement and Relationship with Performance.” In <em>Biomechanics of Training and Testing</em>, edited by Jean-Benoit Morin and Pierre Samozino, 97–119. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-05633-3_5">https://doi.org/10.1007/978-3-319-05633-3_5</a>.</p>
+</div>
+<div id="ref-samozinoSimpleMethodMeasuring2008">
+<p>Samozino, Pierre, Jean-Benoît Morin, Frédérique Hintzy, and Alain Belli. 2008. “A Simple Method for Measuring Force, Velocity and Power Output During Squat Jump.” <em>Journal of Biomechanics</em> 41 (14): 2940–5. <a href="https://doi.org/10.1016/j.jbiomech.2008.07.028">https://doi.org/10.1016/j.jbiomech.2008.07.028</a>.</p>
+</div>
+<div id="ref-samozinoJumpingAbilityTheoretical2010">
+<p>Samozino, Pierre, Jean-Benoît Morin, Frédérique Hintzy, and Alain Belli. 2010. “Jumping Ability: A Theoretical Integrative Approach.” <em>Journal of Theoretical Biology</em> 264 (1): 11–18. <a href="https://doi.org/10.1016/j.jtbi.2010.01.021">https://doi.org/10.1016/j.jtbi.2010.01.021</a>.</p>
+</div>
+<div id="ref-samozinoOptimalForceVelocity2012">
+<p>Samozino, Pierre, Enrico Rejc, Pietro Enrico Di Prampero, Alain Belli, and Jean-Benoît Morin. 2012. “Optimal ForceVelocity Profile in Ballistic MovementsAltius:” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 44 (2): 313–22. <a href="https://doi.org/10.1249/MSS.0b013e31822d757a">https://doi.org/10.1249/MSS.0b013e31822d757a</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="38">
+<li id="fn38"><p>You can omit typing <code>vjsim::</code> in the code. I use it here to indicate functions from the <code>vjsim</code> package).<a href="appendix-c-vjsim-package.html#fnref38" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appendix-b-shorts-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix-d-recommended-material.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mladenjovanovic/bmbstats-book/19-Appendix-C-vjsim.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

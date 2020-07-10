@@ -56,28 +56,28 @@ Table \@ref(tab:bodyweight-data) contains the simulated sample for N=20 athletes
 
 Table: (\#tab:bodyweight-data)(ref:bodyweight-data-caption)
 
-Athlete       TS (kg)   OS 1 (kg)   OS 2 (kg)   OS 3 (kg)   OS 4 (kg)   OS 5 (kg)
------------  --------  ----------  ----------  ----------  ----------  ----------
-Athlete 01      77.93       79.47       79.37       79.25       80.38       79.46
-Athlete 02      76.11       77.83       77.71       77.36       78.32       76.78
-Athlete 03      77.04       78.65       78.30       78.48       78.30       78.55
-Athlete 04      54.96       56.58       56.36       56.05       56.20       56.45
-Athlete 05      84.03       85.53       85.44       86.10       85.96       85.11
-Athlete 06      61.32       61.84       63.05       63.52       63.73       62.43
-Athlete 07      68.62       70.26       69.82       70.34       70.45       70.84
-Athlete 08      61.06       62.03       62.91       62.93       62.15       62.40
-Athlete 09      80.46       81.34       83.04       82.57       82.60       82.33
-Athlete 10      91.14       94.02       93.47       93.28       93.40       93.51
-Athlete 11      79.98       81.89       82.13       81.13       81.57       81.94
-Athlete 12      67.07       69.54       68.32       68.29       69.23       67.72
-Athlete 13      79.41       80.66       80.81       81.17       80.56       80.92
-Athlete 14      69.54       71.14       72.34       70.16       72.01       71.11
-Athlete 15      76.01       77.42       77.41       78.32       78.22       77.61
-Athlete 16      68.31       70.11       70.05       70.17       69.02       70.06
-Athlete 17      58.53       60.04       60.56       59.69       59.72       60.69
-Athlete 18      81.64       82.61       83.30       83.66       82.87       82.60
-Athlete 19      55.03       56.70       56.35       56.90       56.48       56.37
-Athlete 20      65.03       66.33       66.44       67.29       67.28       66.82
+|Athlete    | TS (kg)| OS 1 (kg)| OS 2 (kg)| OS 3 (kg)| OS 4 (kg)| OS 5 (kg)|
+|:----------|-------:|---------:|---------:|---------:|---------:|---------:|
+|Athlete 01 |   77.93|     79.47|     79.37|     79.25|     80.38|     79.46|
+|Athlete 02 |   76.11|     77.83|     77.71|     77.36|     78.32|     76.78|
+|Athlete 03 |   77.04|     78.65|     78.30|     78.48|     78.30|     78.55|
+|Athlete 04 |   54.96|     56.58|     56.36|     56.05|     56.20|     56.45|
+|Athlete 05 |   84.03|     85.53|     85.44|     86.10|     85.96|     85.11|
+|Athlete 06 |   61.32|     61.84|     63.05|     63.52|     63.73|     62.43|
+|Athlete 07 |   68.62|     70.26|     69.82|     70.34|     70.45|     70.84|
+|Athlete 08 |   61.06|     62.03|     62.91|     62.93|     62.15|     62.40|
+|Athlete 09 |   80.46|     81.34|     83.04|     82.57|     82.60|     82.33|
+|Athlete 10 |   91.14|     94.02|     93.47|     93.28|     93.40|     93.51|
+|Athlete 11 |   79.98|     81.89|     82.13|     81.13|     81.57|     81.94|
+|Athlete 12 |   67.07|     69.54|     68.32|     68.29|     69.23|     67.72|
+|Athlete 13 |   79.41|     80.66|     80.81|     81.17|     80.56|     80.92|
+|Athlete 14 |   69.54|     71.14|     72.34|     70.16|     72.01|     71.11|
+|Athlete 15 |   76.01|     77.42|     77.41|     78.32|     78.22|     77.61|
+|Athlete 16 |   68.31|     70.11|     70.05|     70.17|     69.02|     70.06|
+|Athlete 17 |   58.53|     60.04|     60.56|     59.69|     59.72|     60.69|
+|Athlete 18 |   81.64|     82.61|     83.30|     83.66|     82.87|     82.60|
+|Athlete 19 |   55.03|     56.70|     56.35|     56.90|     56.48|     56.37|
+|Athlete 20 |   65.03|     66.33|     66.44|     67.29|     67.28|     66.82|
 
 The objective of the analysis is to estimate DGP parameters of the measurement error (the proportional bias, fixed bias, and the `SD` of the random error). Unfortunately, since TS is unknown, we are unable to estimate proportional bias and fixed bias. To overcome this problem, we usually compare OS to some *gold standard* (or *criterion*) measure which can serve as proxy to TS. These issues are covered in much more detail in the second part of this book in the [Validity and Reliability] chapter. 
 
@@ -90,28 +90,28 @@ What is left to be estimated is the `SD` of the random error, which is often ref
 
 Table: (\#tab:individual-error)(ref:individual-error-caption)
 
-Athlete        Mean     SD
------------  ------  -----
-Athlete 01    79.59   0.45
-Athlete 02    77.60   0.57
-Athlete 03    78.46   0.16
-Athlete 04    56.33   0.21
-Athlete 05    85.63   0.40
-Athlete 06    62.91   0.78
-Athlete 07    70.34   0.37
-Athlete 08    62.48   0.42
-Athlete 09    82.38   0.63
-Athlete 10    93.54   0.28
-Athlete 11    81.73   0.39
-Athlete 12    68.62   0.75
-Athlete 13    80.82   0.24
-Athlete 14    71.35   0.86
-Athlete 15    77.80   0.44
-Athlete 16    69.88   0.49
-Athlete 17    60.14   0.47
-Athlete 18    83.01   0.46
-Athlete 19    56.56   0.24
-Athlete 20    66.83   0.45
+|Athlete    |  Mean|   SD|
+|:----------|-----:|----:|
+|Athlete 01 | 79.59| 0.45|
+|Athlete 02 | 77.60| 0.57|
+|Athlete 03 | 78.46| 0.16|
+|Athlete 04 | 56.33| 0.21|
+|Athlete 05 | 85.63| 0.40|
+|Athlete 06 | 62.91| 0.78|
+|Athlete 07 | 70.34| 0.37|
+|Athlete 08 | 62.48| 0.42|
+|Athlete 09 | 82.38| 0.63|
+|Athlete 10 | 93.54| 0.28|
+|Athlete 11 | 81.73| 0.39|
+|Athlete 12 | 68.62| 0.75|
+|Athlete 13 | 80.82| 0.24|
+|Athlete 14 | 71.35| 0.86|
+|Athlete 15 | 77.80| 0.44|
+|Athlete 16 | 69.88| 0.49|
+|Athlete 17 | 60.14| 0.47|
+|Athlete 18 | 83.01| 0.46|
+|Athlete 19 | 56.56| 0.24|
+|Athlete 20 | 66.83| 0.45|
 
 The `mean` of athletes’ typical errors (`SD` in Table \@ref(tab:individual-error)) is equal to 0.45kg, which is quite close to DGP random error parameter of 0.5kg. The reason for the difference between estimated and true value of the random error `SD` is due to the *sampling error*, which is a topic covered in the [Statistical inference] section of this book.
 
@@ -122,28 +122,28 @@ Unfortunately, this method of estimating `TE` is not always practically feasible
 
 Table: (\#tab:two-observations)(ref:two-observations-caption)
 
-Athlete       OS 1 (kg)   OS 2 (kg)   Difference OS 2-1 (kg)
------------  ----------  ----------  -----------------------
-Athlete 01        79.47       79.37                    -0.11
-Athlete 02        77.83       77.71                    -0.11
-Athlete 03        78.65       78.30                    -0.35
-Athlete 04        56.58       56.36                    -0.23
-Athlete 05        85.53       85.44                    -0.09
-Athlete 06        61.84       63.05                     1.22
-Athlete 07        70.26       69.82                    -0.44
-Athlete 08        62.03       62.91                     0.88
-Athlete 09        81.34       83.04                     1.70
-Athlete 10        94.02       93.47                    -0.55
-Athlete 11        81.89       82.13                     0.24
-Athlete 12        69.54       68.32                    -1.22
-Athlete 13        80.66       80.81                     0.15
-Athlete 14        71.14       72.34                     1.21
-Athlete 15        77.42       77.41                    -0.01
-Athlete 16        70.11       70.05                    -0.06
-Athlete 17        60.04       60.56                     0.52
-Athlete 18        82.61       83.30                     0.70
-Athlete 19        56.70       56.35                    -0.35
-Athlete 20        66.33       66.44                     0.11
+|Athlete    | OS 1 (kg)| OS 2 (kg)| Difference OS 2-1 (kg)|
+|:----------|---------:|---------:|----------------------:|
+|Athlete 01 |     79.47|     79.37|                  -0.11|
+|Athlete 02 |     77.83|     77.71|                  -0.11|
+|Athlete 03 |     78.65|     78.30|                  -0.35|
+|Athlete 04 |     56.58|     56.36|                  -0.23|
+|Athlete 05 |     85.53|     85.44|                  -0.09|
+|Athlete 06 |     61.84|     63.05|                   1.22|
+|Athlete 07 |     70.26|     69.82|                  -0.44|
+|Athlete 08 |     62.03|     62.91|                   0.88|
+|Athlete 09 |     81.34|     83.04|                   1.70|
+|Athlete 10 |     94.02|     93.47|                  -0.55|
+|Athlete 11 |     81.89|     82.13|                   0.24|
+|Athlete 12 |     69.54|     68.32|                  -1.22|
+|Athlete 13 |     80.66|     80.81|                   0.15|
+|Athlete 14 |     71.14|     72.34|                   1.21|
+|Athlete 15 |     77.42|     77.41|                  -0.01|
+|Athlete 16 |     70.11|     70.05|                  -0.06|
+|Athlete 17 |     60.04|     60.56|                   0.52|
+|Athlete 18 |     82.61|     83.30|                   0.70|
+|Athlete 19 |     56.70|     56.35|                  -0.35|
+|Athlete 20 |     66.33|     66.44|                   0.11|
 
 If we calculate `SD` of the difference scores from the Table \@ref(tab:two-observations), we get 0.7kg. However, this is not quite right, since we know that the true `SD` of the random error is 0.5kg. This happens because random error is affecting both Trial 1 (OS1) and Trial 2 (OS2), and is *propagated* to the difference between the two (Figure measurement-error-propagation). This is exactly the same concept as described in the [Example of randomized control trial]. The benefit of using squared errors and assuming Gaussian error distribution, as alluded multiple times in this book, is that this propagation can be mathematically and neatly expressed and estimated.
 
@@ -233,28 +233,28 @@ In order to showcase the interpretation of the individual changes by using SESOI
 
 Table: (\#tab:bench-press-1RM-pre-post-repeated)(ref:bench-press-1RM-pre-post-repeated-caption)
 
-Athlete       Pre-test (kg)   Post-test (kg)   Change (kg)
------------  --------------  ---------------  ------------
-Athlete 01           111.80           121.42          9.62
-Athlete 02            95.95           102.13          6.18
-Athlete 03           105.87           125.56         19.69
-Athlete 04            98.79           109.67         10.87
-Athlete 05            95.81           108.11         12.30
-Athlete 06            95.27            92.67         -2.60
-Athlete 07            97.75           106.03          8.28
-Athlete 08           106.50           109.51          3.01
-Athlete 09            80.62            95.96         15.34
-Athlete 10           100.40            94.30         -6.11
-Athlete 11            82.71            78.91         -3.80
-Athlete 12           102.89            93.98         -8.91
-Athlete 13            91.34           105.21         13.87
-Athlete 14           111.14           108.07         -3.07
-Athlete 15            95.13            96.01          0.88
-Athlete 16           109.12           112.12          3.00
-Athlete 17            91.87           103.41         11.54
-Athlete 18            92.16           103.93         11.77
-Athlete 19           108.88           119.72         10.84
-Athlete 20            97.94            95.91         -2.03
+|Athlete    | Pre-test (kg)| Post-test (kg)| Change (kg)|
+|:----------|-------------:|--------------:|-----------:|
+|Athlete 01 |        111.80|         121.42|        9.62|
+|Athlete 02 |         95.95|         102.13|        6.18|
+|Athlete 03 |        105.87|         125.56|       19.69|
+|Athlete 04 |         98.79|         109.67|       10.87|
+|Athlete 05 |         95.81|         108.11|       12.30|
+|Athlete 06 |         95.27|          92.67|       -2.60|
+|Athlete 07 |         97.75|         106.03|        8.28|
+|Athlete 08 |        106.50|         109.51|        3.01|
+|Athlete 09 |         80.62|          95.96|       15.34|
+|Athlete 10 |        100.40|          94.30|       -6.11|
+|Athlete 11 |         82.71|          78.91|       -3.80|
+|Athlete 12 |        102.89|          93.98|       -8.91|
+|Athlete 13 |         91.34|         105.21|       13.87|
+|Athlete 14 |        111.14|         108.07|       -3.07|
+|Athlete 15 |         95.13|          96.01|        0.88|
+|Athlete 16 |        109.12|         112.12|        3.00|
+|Athlete 17 |         91.87|         103.41|       11.54|
+|Athlete 18 |         92.16|         103.93|       11.77|
+|Athlete 19 |        108.88|         119.72|       10.84|
+|Athlete 20 |         97.94|          95.91|       -2.03|
 
 
 Before commencing this simple intervention, measurement error of the bench press 1RM test is estimated (using `TE` estimator), and is equal to 2.5kg (N=19). Practically, this means that due to the biological and instrumentation error, 1RM in the bench press would tend to vary normally distributed with `TE` equal to 2.5kg, given, of course, no *real* change in the strength (i.e. no change in TS). Expected `SDC` (with 95% confidence level) is thus equal to $\sqrt{2}\times TE \times \pm2.09$ (±7.39kg). Please note that `TE` of the *change score* is equal to $\sqrt{2}\times TE$, or (3.54kg). 
