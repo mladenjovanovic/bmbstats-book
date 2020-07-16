@@ -15,14 +15,10 @@ To provide further explanation of the descriptive statistics, three common descr
 
 Imagine we carried collection of body height measurements and we obtained N=100 observations using N=50 female and N=50 male subjects. Collected data is visualized in Figure \@ref(fig:common-techniques-to-visualize-independent-groups). 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/common-techniques-to-visualize-independent-groups-1} 
-
-}
-
-\caption{(ref:common-techniques-to-visualize-independent-groups-caption)}(\#fig:common-techniques-to-visualize-independent-groups)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/common-techniques-to-visualize-independent-groups-1.png" alt="(ref:common-techniques-to-visualize-independent-groups-caption)" width="90%" />
+<p class="caption">(\#fig:common-techniques-to-visualize-independent-groups)(ref:common-techniques-to-visualize-independent-groups-caption)</p>
+</div>
 (ref:common-techniques-to-visualize-independent-groups-caption) **Common techniques to visualize independent groups observations**. Before any analysis takes place, it is always a good practice to visualize the data first. Ideally, we want to visualize the complete data set, rather than only provide descriptive summaries, such as means. **A.** Simple scatter-plot with jitter to avoid overlap between the points. **B.** Mean and standard deviation as error bars. **C.** Box-plot. Horizontal line represents median, or 50th percentile, whereas boxes represent 25th and 75th percentile. Vertical lines usually represent min and max, although they can extend up to 1.5xIQR (inter-quartile range) with point outside of that interval plotted as *outliers*. **D.** Violin plots representing double-side density plots with 25th, 50th and 75th percentile lines. **E.** Density plots indicating sample distribution. **F.** Raincloud plot [@allenRaincloudPlotsMultiplatform2019; @allenRaincloudplotsTutorialsCodebase2018] which combine kernel density plots as *clouds* with accompanying 25th, 50th and 75th percentile lines, mean±SD error bars and jittered points as *rain*
 
 Commonly provided descriptive statistics for each group can be found in the Table \@ref(tab:common-descriptive-statistics-or-estimators). `Mean`, `median` and `mode` are common measures of central tendencies. *Standard deviation* (`SD`), *median absolute difference* (`MAD`), *inter-quartile range* (`IQR`), `min`, `max` and `range` are common measures of spread or dispersion. *Percent coefficient of variation* (`% CV`) is also a measure of dispersion, but *standardized*[^standardization_explanation] which allows comparison of variables that are on different scales. *Skewness* (`skew`) is usually described as a measure of a symmetry. A perfectly symmetrical data set will have a skewness of 0. `Kurtosis` measures the tail-heaviness of the distribution. More in depth discussion of descriptive estimators, particularly *robust estimators* [@rousseletDifferencesMeansRobust2017; @wilcoxDataAnalysesWhen2018; @wilcoxGuideRobustStatistical2017; @wilcoxIntroductionRobustEstimation2016] is beyond the topic of this short overview.
@@ -31,32 +27,24 @@ Commonly provided descriptive statistics for each group can be found in the Tabl
 
 (ref:common-descriptive-statistics-or-estimators-caption) **Common descriptive statistics or estimators**
 
-\begin{table}
 
-\caption{(\#tab:common-descriptive-statistics-or-estimators)(ref:common-descriptive-statistics-or-estimators-caption)}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-Estimator & Male & Female\\
-\midrule
-n & 50.00 & 50.00\\
-mean (cm) & 175.90 & 163.18\\
-SD (cm) & 9.32 & 8.20\\
-\% CV & 5.30 & 5.02\\
-median (cm) & 176.30 & 164.00\\
-\addlinespace
-MAD (cm) & 9.52 & 8.86\\
-IQR (cm) & 11.24 & 11.67\\
-mode (cm) & 176.26 & 164.94\\
-min (cm) & 154.24 & 145.59\\
-max (cm) & 193.90 & 181.12\\
-\addlinespace
-range (cm) & 39.66 & 35.53\\
-skew & 0.08 & 0.08\\
-kurtosis & -0.53 & -0.69\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:common-descriptive-statistics-or-estimators)(ref:common-descriptive-statistics-or-estimators-caption)
+
+|Estimator   |   Male| Female|
+|:-----------|------:|------:|
+|n           |  50.00|  50.00|
+|mean (cm)   | 175.90| 163.18|
+|SD (cm)     |   9.32|   8.20|
+|% CV        |   5.30|   5.02|
+|median (cm) | 176.30| 164.00|
+|MAD (cm)    |   9.52|   8.86|
+|IQR (cm)    |  11.24|  11.67|
+|mode (cm)   | 176.26| 164.94|
+|min (cm)    | 154.24| 145.59|
+|max (cm)    | 193.90| 181.12|
+|range (cm)  |  39.66|  35.53|
+|skew        |   0.08|   0.08|
+|kurtosis    |  -0.53|  -0.69|
 
 ### Sample `mean` as the simplest statistical model
 
@@ -106,14 +94,10 @@ One such cost function is *root-mean-square-error* (`RMSE`) (Equation \@ref(eq:r
 
 By using body height data from the female group, we can *search* for a body height estimate that minimizes the `RMSE` (Figure \@ref(fig:sample-mean-as-the-simplest-statistical-model)). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sample-mean-as-the-simplest-statistical-model-1} 
-
-}
-
-\caption{(ref:sample-mean-as-the-simplest-statistical-model-caption)}(\#fig:sample-mean-as-the-simplest-statistical-model)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/sample-mean-as-the-simplest-statistical-model-1.png" alt="(ref:sample-mean-as-the-simplest-statistical-model-caption)" width="90%" />
+<p class="caption">(\#fig:sample-mean-as-the-simplest-statistical-model)(ref:sample-mean-as-the-simplest-statistical-model-caption)</p>
+</div>
 (ref:sample-mean-as-the-simplest-statistical-model-caption) **Sample mean as the simplest statistical model.** **A.** Dashed line represents the estimate, in this case the `mean` of the sample. Vertical line represent residuals between estimate and observed values. **B.** Each estimate has a `RMSE` value. Central tendency estimate with the lowest `RMSE` value is the sample `mean`. **C.** Similar to panel A, this panel depicts residuals for a central tendency estimate with higher `RMSE`
 
 As the result of this search, the body height estimate that minimizes the error is 163.18cm, and accompanying RMSE is equal to 8.12cm. As it can be read from the Table \@ref(tab:common-descriptive-statistics-or-estimators), this optimal body height estimate is equal to calculated sample `mean`. Standard deviation of the sample is equal to `RMSE`[^standard_deviation_vs_RMSE]. From statistical modeling perspective, sample mean can be considered sample estimate that minimizes the sample `SD`, and sample `SD` can be seen as the measure of the model fit. 
@@ -143,18 +127,12 @@ Besides describing groups, we are often interested in comparing them. In order t
 
 (ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption) **Effect size statistics for estimating differences between two independent groups**
 
-\begin{table}
 
-\caption{(\#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)(ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption)}
-\centering
-\begin{tabular}[t]{rrrrrrrr}
-\toprule
-Difference (cm) & SDdiff (cm) & \% CVdiff & \% Difference & Ratio & Cohen's d & CLES & OVL\\
-\midrule
-12.73 & 12.41 & 97.55 & 7.8 & 1.08 & 1.45 & 0.85 & 0.47\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)(ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption)
+
+| Difference (cm)| SDdiff (cm)| % CVdiff| % Difference| Ratio| Cohen's d| CLES|  OVL|
+|---------------:|-----------:|--------:|------------:|-----:|---------:|----:|----:|
+|           12.73|       12.41|    97.55|          7.8|  1.08|      1.45| 0.85| 0.47|
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
 
@@ -242,14 +220,10 @@ Table: (\#tab:magnitudes-of-effect) **Magnitudes of effect**
 
 [^simulation_drawing]: In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/drawing-random-hundred-pairs-1} 
-
-}
-
-\caption{(ref:drawing-random-hundred-pairs-caption)}(\#fig:drawing-random-hundred-pairs)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/drawing-random-hundred-pairs-1.png" alt="(ref:drawing-random-hundred-pairs-caption)" width="90%" />
+<p class="caption">(\#fig:drawing-random-hundred-pairs)(ref:drawing-random-hundred-pairs-caption)</p>
+</div>
 (ref:drawing-random-hundred-pairs-caption) **Drawing random 100 pairs to estimate probability of males being taller than females.** **A.** Scatterplot of 100 pairs drawn at random from two samples. Since we are comparing paired males and females, lines can be drawn between each of 100 draws. Blue line indicates taller male, while orange line indicates taller female. **B.** Distribution of the difference between males and females for each of 100 pairs drawn
 
 By using simple counting from 100 random paired samples, males are taller in 85 cases, or 85%. By using probability, that is equal to 0.85. In other words, if I blindfoldedly, randomly select a male and a female from the two groups and if I bet that the male is taller, I would be correct 85% of the time.  
@@ -271,14 +245,10 @@ Algebraically, `CLES` is then derived assuming normal distribution (where mean o
 
 Since `Cohen's d`, `CLES` and `OVL` are mathematically related, it is possible to convert one to another (assuming normal distribution of the samples and equal `SD` between the two groups for the `OVL` estimation). Figure \@ref(fig:Cohen-CLES-OVL)B depicts relationship between the `Cohen's d`, `CLES`, and `OVL`. Figure \@ref(fig:Cohen-CLES-OVL)C depicts relationship between the `CLES` and `OVL`.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/Cohen-CLES-OVL-1} 
-
-}
-
-\caption{(ref:Cohen-CLES-OVL-caption)}(\#fig:Cohen-CLES-OVL)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/Cohen-CLES-OVL-1.png" alt="(ref:Cohen-CLES-OVL-caption)" width="90%" />
+<p class="caption">(\#fig:Cohen-CLES-OVL)(ref:Cohen-CLES-OVL-caption)</p>
+</div>
 (ref:Cohen-CLES-OVL-caption) **Relationship between the `Cohen's d`, `CLES`, and `OVL`.** **A.** Visual display of the samples of varying degrees of separations, and calculated `Cohen's d`, `CLES`, and `OVL`. **B.** Relationship between the `CLES` and `OVL` to the `Cohen's d`. **C.** Relationship between the `CLES` and `OVL`
 
 Table \@ref(tab:magnitudes-of-effect-CLES-OVL) contains `Cohen's d` magnitudes of effect with accompanying estimated `CLES` and `OVL` thresholds.  
@@ -327,50 +297,34 @@ Using brute-force computational method and drawing all pair-wise combinations fr
 
 [^symmetrical_SESOI]: It is assumed here that SESOI is *symmetrical* in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn't necessary needs to be symmetrical in both positive and negative directions.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/pairwise-comparison-1} 
-
-}
-
-\caption{(ref:pairwise-comparison-caption)}(\#fig:pairwise-comparison)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/pairwise-comparison-1.png" alt="(ref:pairwise-comparison-caption)" width="90%" />
+<p class="caption">(\#fig:pairwise-comparison)(ref:pairwise-comparison-caption)</p>
+</div>
 (ref:pairwise-comparison-caption) **Pairwise comparison of males and females to estimate probability of lower, equivalent, and higher magnitude of difference. A.** Scatterplot of all pair-wise combinations (50x50 = 2500), drawn at random out of two samples. Since we are comparing paired males and females, lines can be drawn between each of 2500 draws. Blue line indicates males taller than females higher than SESOI, equivalent lines indicates pairs with a height difference less or equal to SESOI, while orange line indicates females taller than males higher than SESOI. **B.** Distribution of the differences between males and females for all 2500 pair-wise combinations. Grey band indicates SESOI. Surface of the distribution over SESOI (blue color) indicates probability of randomly selected male being taller than a randomly selected female (`pHigher`), with a height difference of at least SESOI magnitude. Surface of the distribution under SESOI (orange color) indicates probability of randomly selected female being taller than a randomly selected female (`pLower`), with a height difference of at least SESOI magnitude. Grey surface area indicates probability of randomly selecting male and female with a height difference within SESOI band (`pEquivalent`)
 
 Table \@ref(tab:table-magnitude-based-diff) contains estimated probabilities of observing lower, equivalent, and higher differences in height between the randomly selected male and female using brute-force computational method and algebraic method. These estimates answer the following question "If I compare random male and random female from my sample, how probable are lower/equivalent/higher magnitudes of difference in height?". Asking such a magnitude-based question regarding the random individual difference represents a form of prediction question and predictive task. In this book, such questions are answered with *magnitude-based prediction* approaches. 
 
 (ref:table-magnitude-based-diff-caption) **Estimated probabilities of observing lower, equivalent, and higher differences in height**
 
-\begin{table}
 
-\caption{(\#tab:table-magnitude-based-diff)(ref:table-magnitude-based-diff-caption)}
-\centering
-\begin{tabular}[t]{lrrr}
-\toprule
-Method & pLower & pEquivalent & pHigher\\
-\midrule
-brute-force & 0.110 & 0.096 & 0.794\\
-algebraic & 0.111 & 0.095 & 0.794\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:table-magnitude-based-diff)(ref:table-magnitude-based-diff-caption)
+
+|Method      | pLower| pEquivalent| pHigher|
+|:-----------|------:|-----------:|-------:|
+|brute-force |  0.110|       0.096|   0.794|
+|algebraic   |  0.111|       0.095|   0.794|
 
 It is common to represent means as *systematic component* or *fixed effect* (e.g. `mean difference`), and variability around the mean (i.e. `SDdiff`) as *stochastic component* or *random effect*. It is unfortunate that the common statistical modeling and analysis, particularly in sport science, takes the stance of approaching and treating between-individual variation as *random error*. The approach suggested in this book complements *group-based* or *average-based* statistics with magnitude-based predictions that aim to help in answering individual-based questions, common to sport practitioners. Table \@ref(tab:magnitude-based-estimators-diff) contains discussed magnitude-based estimators that can complement common effect size statistics (Table \@ref(tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)) when comparing two independent groups. 
 
 (ref:magnitude-based-estimators-diff-caption) **Magnitude-based effect size statistics for estimating difference between two independent groups**
 
-\begin{table}
 
-\caption{(\#tab:magnitude-based-estimators-diff)(ref:magnitude-based-estimators-diff-caption)}
-\centering
-\begin{tabular}[t]{rrrrrrr}
-\toprule
-SESOI lower (cm) & SESOI upper (cm) & Difference to SESOI & SDdiff to SESOI & pLower & pEquivalent & pHigher\\
-\midrule
--2.5 & 2.5 & 2.55 & 2.48 & 0.11 & 0.09 & 0.79\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:magnitude-based-estimators-diff)(ref:magnitude-based-estimators-diff-caption)
+
+| SESOI lower (cm)| SESOI upper (cm)| Difference to SESOI| SDdiff to SESOI| pLower| pEquivalent| pHigher|
+|----------------:|----------------:|-------------------:|---------------:|------:|-----------:|-------:|
+|             -2.5|              2.5|                2.55|            2.48|   0.11|        0.09|    0.79|
 
 ## Comparing dependent groups
 
@@ -378,40 +332,31 @@ As an example of dependent or paired groups descriptive analysis, let's consider
 
 (ref:bench-press-1RM-pre-post-caption) **Individual Pre and Post scores, as well as Change in the bench press 1RM**
 
-\begin{table}
 
-\caption{(\#tab:bench-press-1RM-pre-post)(ref:bench-press-1RM-pre-post-caption)}
-\centering
-\begin{tabular}[t]{lrrr}
-\toprule
-Athlete & Pre-test (kg) & Post-test (kg) & Change (kg)\\
-\midrule
-Athlete 01 & 111.80 & 121.42 & 9.62\\
-Athlete 02 & 95.95 & 102.13 & 6.18\\
-Athlete 03 & 105.87 & 125.56 & 19.69\\
-Athlete 04 & 98.79 & 109.67 & 10.87\\
-Athlete 05 & 95.81 & 108.11 & 12.30\\
-\addlinespace
-Athlete 06 & 95.27 & 92.67 & -2.60\\
-Athlete 07 & 97.75 & 106.03 & 8.28\\
-Athlete 08 & 106.50 & 109.51 & 3.01\\
-Athlete 09 & 80.62 & 95.96 & 15.34\\
-Athlete 10 & 100.40 & 94.30 & -6.11\\
-\addlinespace
-Athlete 11 & 82.71 & 78.91 & -3.80\\
-Athlete 12 & 102.89 & 93.98 & -8.91\\
-Athlete 13 & 91.34 & 105.21 & 13.87\\
-Athlete 14 & 111.14 & 108.07 & -3.07\\
-Athlete 15 & 95.13 & 96.01 & 0.88\\
-\addlinespace
-Athlete 16 & 109.12 & 112.12 & 3.00\\
-Athlete 17 & 91.87 & 103.41 & 11.54\\
-Athlete 18 & 92.16 & 103.93 & 11.77\\
-Athlete 19 & 108.88 & 119.72 & 10.84\\
-Athlete 20 & 97.94 & 95.91 & -2.03\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:bench-press-1RM-pre-post)(ref:bench-press-1RM-pre-post-caption)
+
+|Athlete    | Pre-test (kg)| Post-test (kg)| Change (kg)|
+|:----------|-------------:|--------------:|-----------:|
+|Athlete 01 |        111.80|         121.42|        9.62|
+|Athlete 02 |         95.95|         102.13|        6.18|
+|Athlete 03 |        105.87|         125.56|       19.69|
+|Athlete 04 |         98.79|         109.67|       10.87|
+|Athlete 05 |         95.81|         108.11|       12.30|
+|Athlete 06 |         95.27|          92.67|       -2.60|
+|Athlete 07 |         97.75|         106.03|        8.28|
+|Athlete 08 |        106.50|         109.51|        3.01|
+|Athlete 09 |         80.62|          95.96|       15.34|
+|Athlete 10 |        100.40|          94.30|       -6.11|
+|Athlete 11 |         82.71|          78.91|       -3.80|
+|Athlete 12 |        102.89|          93.98|       -8.91|
+|Athlete 13 |         91.34|         105.21|       13.87|
+|Athlete 14 |        111.14|         108.07|       -3.07|
+|Athlete 15 |         95.13|          96.01|        0.88|
+|Athlete 16 |        109.12|         112.12|        3.00|
+|Athlete 17 |         91.87|         103.41|       11.54|
+|Athlete 18 |         92.16|         103.93|       11.77|
+|Athlete 19 |        108.88|         119.72|       10.84|
+|Athlete 20 |         97.94|          95.91|       -2.03|
 
 The results of this simple Pre-test and Post-test design can be described in multiple ways. Here, I will present the three most common approaches. 
 
@@ -421,41 +366,29 @@ The simplest analysis involve descriptive statistics assuming groups as independ
 
 (ref:bench-press-data-independent-summary-caption) **Descriptive analysis of the Pre-test, Post-test, and Change as independent samples**
 
-\begin{table}
 
-\caption{(\#tab:bench-press-data-independent-summary)(ref:bench-press-data-independent-summary-caption)}
-\centering
-\begin{tabular}[t]{lrrr}
-\toprule
-Estimator & Pre-test & Post-test & Change\\
-\midrule
-n & 20.00 & 20.00 & 20.00\\
-mean (kg) & 98.60 & 104.13 & 5.53\\
-SD (kg) & 8.70 & 11.08 & 8.05\\
-\% CV & 8.83 & 10.64 & 145.46\\
-median (kg) & 97.84 & 104.57 & 7.23\\
-\addlinespace
-MAD (kg) & 8.64 & 11.94 & 8.46\\
-IQR (kg) & 11.64 & 13.60 & 13.77\\
-mode (kg) & 96.49 & 105.76 & 10.78\\
-min (kg) & 80.62 & 78.91 & -8.91\\
-max (kg) & 111.80 & 125.56 & 19.69\\
-\addlinespace
-range (kg) & 31.18 & 46.64 & 28.60\\
-skew & -0.26 & -0.05 & -0.16\\
-kurtosis & -0.73 & -0.28 & -1.28\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:bench-press-data-independent-summary)(ref:bench-press-data-independent-summary-caption)
 
-\begin{figure}
+|Estimator   | Pre-test| Post-test| Change|
+|:-----------|--------:|---------:|------:|
+|n           |    20.00|     20.00|  20.00|
+|mean (kg)   |    98.60|    104.13|   5.53|
+|SD (kg)     |     8.70|     11.08|   8.05|
+|% CV        |     8.83|     10.64| 145.46|
+|median (kg) |    97.84|    104.57|   7.23|
+|MAD (kg)    |     8.64|     11.94|   8.46|
+|IQR (kg)    |    11.64|     13.60|  13.77|
+|mode (kg)   |    96.49|    105.76|  10.78|
+|min (kg)    |    80.62|     78.91|  -8.91|
+|max (kg)    |   111.80|    125.56|  19.69|
+|range (kg)  |    31.18|     46.64|  28.60|
+|skew        |    -0.26|     -0.05|  -0.16|
+|kurtosis    |    -0.73|     -0.28|  -1.28|
 
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pre-post-raincloud-1} 
-
-}
-
-\caption{(ref:bench-press-pre-post-raincloud-caption)}(\#fig:bench-press-pre-post-raincloud)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/bench-press-pre-post-raincloud-1.png" alt="(ref:bench-press-pre-post-raincloud-caption)" width="90%" />
+<p class="caption">(\#fig:bench-press-pre-post-raincloud)(ref:bench-press-pre-post-raincloud-caption)</p>
+</div>
 (ref:bench-press-pre-post-raincloud-caption) **Raincloud plots of the Pre-test, Post-test and Change scores in the bench press 1RM. A. **Distribution of the Pre-test and Post-test scores. **B.** Distribution of the Change score
 
 
@@ -465,18 +398,12 @@ Table \@ref(tab:change-effect-size) contains the most common effect size estimat
 
 (ref:change-effect-size-caption) **Effect size statistics for estimating change in two dependent groups**
 
-\begin{table}
 
-\caption{(\#tab:change-effect-size)(ref:change-effect-size-caption)}
-\centering
-\begin{tabular}[t]{rrrrrrrr}
-\toprule
-Change (kg) & SDchange (kg) & \% CVchange & \% Change & Ratio & Cohen's d & CLES & OVL\\
-\midrule
-5.53 & 8.05 & 145.46 & 5.75 & 1.06 & 0.64 & 0.65 & 0.75\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:change-effect-size)(ref:change-effect-size-caption)
+
+| Change (kg)| SDchange (kg)| % CVchange| % Change| Ratio| Cohen's d| CLES|  OVL|
+|-----------:|-------------:|----------:|--------:|-----:|---------:|----:|----:|
+|        5.53|          8.05|     145.46|     5.75|  1.06|      0.64| 0.65| 0.75|
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
 
@@ -542,29 +469,19 @@ Magnitude-based effect size estimators involve the use of SESOI and can be found
 
 (ref:change-MB-stats-caption) **Magnitude-based effect size statistics for estimating change between two dependent groups**
 
-\begin{table}
 
-\caption{(\#tab:change-MB-stats)(ref:change-MB-stats-caption)}
-\centering
-\begin{tabular}[t]{lrrrrr}
-\toprule
-SESOI (kg) & Change to SESOI & SDchange to SESOI & pLower & pEquivalent & pHigher\\
-\midrule
-±5 & 0.55 & 0.81 & 0.1 & 0.37 & 0.53\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:change-MB-stats)(ref:change-MB-stats-caption)
+
+|SESOI (kg) | Change to SESOI| SDchange to SESOI| pLower| pEquivalent| pHigher|
+|:----------|---------------:|-----------------:|------:|-----------:|-------:|
+|±5         |            0.55|              0.81|    0.1|        0.37|    0.53|
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pair-change-1} 
-
-}
-
-\caption{(ref:bench-press-pair-change-caption)}(\#fig:bench-press-pair-change)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/bench-press-pair-change-1.png" alt="(ref:bench-press-pair-change-caption)" width="90%" />
+<p class="caption">(\#fig:bench-press-pair-change)(ref:bench-press-pair-change-caption)</p>
+</div>
 (ref:bench-press-pair-change-caption) **Visual analysis of the dependent groups scores using SESOI. A. **Scatter plot of Pre-test and Post-test scores. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. **B.** Distribution of the change scores. Green area represents proportion of change scores higher than SESOI upper, red area represents proportion of negative change scores lower than SESOI lower, and grey area indicates equivalent change, which is within SESOI band
 
 It might be tempting to claim that this intervention is *causing* changes in the bench press 1RM, but we should be vary of doing that. It is important to keep in mind that the effect size estimators are used only descriptively without any causal connotation. To make causal claims, further criteria needs to be taken into account. This is discussed in more details in the [Causal inference] section of this book. 
@@ -579,111 +496,82 @@ Let's assume we tested N=30 female soccer athletes by using two tests: (1) YoYoI
 
 (ref:yoyo-mas-results-caption) **Results of YoYoIR1 and MAS tests for N=30 female soccer athletes**
 
-\begin{table}
 
-\caption{(\#tab:yoyo-mas-results)(ref:yoyo-mas-results-caption)}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-Athlete & YoYoIR1 (m) & MAS (km/h)\\
-\midrule
-Athlete 01 & 1640 & 15.5\\
-Athlete 02 & 1080 & 15.0\\
-Athlete 03 & 1440 & 15.0\\
-Athlete 04 & 1200 & 15.0\\
-Athlete 05 & 960 & 14.5\\
-\addlinespace
-Athlete 06 & 1120 & 15.0\\
-Athlete 07 & 1000 & 14.5\\
-Athlete 08 & 1440 & 15.0\\
-Athlete 09 & 640 & 14.0\\
-Athlete 10 & 1360 & 15.0\\
-\addlinespace
-Athlete 11 & 760 & 14.5\\
-Athlete 12 & 1240 & 15.0\\
-Athlete 13 & 1000 & 15.0\\
-Athlete 14 & 1600 & 15.5\\
-Athlete 15 & 1160 & 15.0\\
-\addlinespace
-Athlete 16 & 1520 & 15.0\\
-Athlete 17 & 1000 & 14.5\\
-Athlete 18 & 1000 & 14.5\\
-Athlete 19 & 1480 & 15.5\\
-Athlete 20 & 1280 & 15.0\\
-\addlinespace
-Athlete 21 & 1200 & 14.5\\
-Athlete 22 & 1200 & 14.5\\
-Athlete 23 & 1200 & 15.0\\
-Athlete 24 & 1120 & 14.5\\
-Athlete 25 & 1560 & 15.5\\
-\addlinespace
-Athlete 26 & 1120 & 14.5\\
-Athlete 27 & 1640 & 15.5\\
-Athlete 28 & 1280 & 15.0\\
-Athlete 29 & 1040 & 14.5\\
-Athlete 30 & 880 & 14.0\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:yoyo-mas-results)(ref:yoyo-mas-results-caption)
+
+|Athlete    | YoYoIR1 (m)| MAS (km/h)|
+|:----------|-----------:|----------:|
+|Athlete 01 |        1640|       15.5|
+|Athlete 02 |        1080|       15.0|
+|Athlete 03 |        1440|       15.0|
+|Athlete 04 |        1200|       15.0|
+|Athlete 05 |         960|       14.5|
+|Athlete 06 |        1120|       15.0|
+|Athlete 07 |        1000|       14.5|
+|Athlete 08 |        1440|       15.0|
+|Athlete 09 |         640|       14.0|
+|Athlete 10 |        1360|       15.0|
+|Athlete 11 |         760|       14.5|
+|Athlete 12 |        1240|       15.0|
+|Athlete 13 |        1000|       15.0|
+|Athlete 14 |        1600|       15.5|
+|Athlete 15 |        1160|       15.0|
+|Athlete 16 |        1520|       15.0|
+|Athlete 17 |        1000|       14.5|
+|Athlete 18 |        1000|       14.5|
+|Athlete 19 |        1480|       15.5|
+|Athlete 20 |        1280|       15.0|
+|Athlete 21 |        1200|       14.5|
+|Athlete 22 |        1200|       14.5|
+|Athlete 23 |        1200|       15.0|
+|Athlete 24 |        1120|       14.5|
+|Athlete 25 |        1560|       15.5|
+|Athlete 26 |        1120|       14.5|
+|Athlete 27 |        1640|       15.5|
+|Athlete 28 |        1280|       15.0|
+|Athlete 29 |        1040|       14.5|
+|Athlete 30 |         880|       14.0|
 
 Descriptive statistics for YoYoIR1 and MAS test results can be found in the Table \@ref(tab:yoyo-mas-descriptive-stats). 
 
 (ref:yoyo-mas-descriptive-stats-caption) **Descriptive statistics for YoYoIR1 and MAS test results**
 
-\begin{table}
 
-\caption{(\#tab:yoyo-mas-descriptive-stats)(ref:yoyo-mas-descriptive-stats-caption)}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-Estimator & YoYoIR1 & MAS\\
-\midrule
-n & 30.00 & 30.00\\
-mean & 1205.33 & 14.85\\
-SD & 255.96 & 0.42\\
-\% CV & 21.24 & 2.82\\
-median & 1200.00 & 15.00\\
-\addlinespace
-MAD & 296.52 & 0.74\\
-IQR & 410.00 & 0.50\\
-mode & 1131.68 & 15.00\\
-min & 640.00 & 14.00\\
-max & 1640.00 & 15.50\\
-\addlinespace
-range & 1000.00 & 1.50\\
-skew & -0.02 & -0.11\\
-kurtosis & -0.68 & -0.72\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:yoyo-mas-descriptive-stats)(ref:yoyo-mas-descriptive-stats-caption)
+
+|Estimator | YoYoIR1|   MAS|
+|:---------|-------:|-----:|
+|n         |   30.00| 30.00|
+|mean      | 1205.33| 14.85|
+|SD        |  255.96|  0.42|
+|% CV      |   21.24|  2.82|
+|median    | 1200.00| 15.00|
+|MAD       |  296.52|  0.74|
+|IQR       |  410.00|  0.50|
+|mode      | 1131.68| 15.00|
+|min       |  640.00| 14.00|
+|max       | 1640.00| 15.50|
+|range     | 1000.00|  1.50|
+|skew      |   -0.02| -0.11|
+|kurtosis  |   -0.68| -0.72|
 
 Visual analysis in Figure \@ref(fig:yoyo-mas-simple-scatterplot) depicts the association between these two tests using scatter plot. 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/yoyo-mas-simple-scatterplot-1} 
-
-}
-
-\caption{(ref:yoyo-mas-simple-scatterplot-caption)}(\#fig:yoyo-mas-simple-scatterplot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/yoyo-mas-simple-scatterplot-1.png" alt="(ref:yoyo-mas-simple-scatterplot-caption)" width="90%" />
+<p class="caption">(\#fig:yoyo-mas-simple-scatterplot)(ref:yoyo-mas-simple-scatterplot-caption)</p>
+</div>
 (ref:yoyo-mas-simple-scatterplot-caption) **Scatter plot between two variables. **Dashed line represents linear regression line
 
 Table \@ref(tab:common-estimators-association) contains common estimators of the association between two variables. All estimators except *maximum information coefficient* (`MIC`) [@albaneseMinervaMinepyEngine2012; @reshefDetectingNovelAssociations2011] assumes linear relationship between two variables. It is thus important to visually analyze the association (see Figure \@ref(fig:yoyo-mas-simple-scatterplot)) before trusting numerical estimators. 
 
 (ref:common-estimators-association-caption) **Common estimators of the association between two variables**
 
-\begin{table}
 
-\caption{(\#tab:common-estimators-association)(ref:common-estimators-association-caption)}
-\centering
-\begin{tabular}[t]{rrr}
-\toprule
-Pearson r & R-squared & MIC\\
-\midrule
-0.86 & 0.74 & 0.55\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:common-estimators-association)(ref:common-estimators-association-caption)
+
+| Pearson r| R-squared|  MIC|
+|---------:|---------:|----:|
+|      0.86|      0.74| 0.55|
 
 The *Pearson product-moment correlation coefficient* (`Pearson's r`) is a measure of the strength of the linear relationship between two variables (Equation \@ref(eq:pearson-r)).
 
@@ -736,18 +624,12 @@ Table \@ref(tab:linear-reg-estimates) contains estimates for `intercept`, `slope
 
 (ref:linear-reg-estimates-caption) Linear regression estimates for `intercept`, `slope coefficient`, and `RSE` when MAS is the target variable an YoYoIR1 is the predictor
 
-\begin{table}
 
-\caption{(\#tab:linear-reg-estimates)(ref:linear-reg-estimates-caption)}
-\centering
-\begin{tabular}[t]{rrr}
-\toprule
-Intercept (km/h) & Slope & RSE (km/h)\\
-\midrule
-13.16 & 0.0014 & 0.22\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:linear-reg-estimates)(ref:linear-reg-estimates-caption)
+
+| Intercept (km/h)|  Slope| RSE (km/h)|
+|----------------:|------:|----------:|
+|            13.16| 0.0014|       0.22|
 
 Estimated parameters in the Table \@ref(tab:linear-reg-estimates) can be written using the linear equation format (Equation \@ref(eq:mas-equation)).
 
@@ -778,29 +660,19 @@ It can be seen that the reverse parameters from \@ref(eq:rse-equation) differ fr
 
 (ref:reverse-linear-reg-estimates-caption) Linear regression estimates for `intercept`, `slope coefficient`, and `RSE` when YoYoIR1 is the target variable an MAS is the predictor
 
-\begin{table}
 
-\caption{(\#tab:reverse-estimates-table)(ref:reverse-linear-reg-estimates-caption)}
-\centering
-\begin{tabular}[t]{rrr}
-\toprule
-Intercept (m) & Slope & RSE (m)\\
-\midrule
--6589.82 & 524.93 & 133.84\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:reverse-estimates-table)(ref:reverse-linear-reg-estimates-caption)
+
+| Intercept (m)|  Slope| RSE (m)|
+|-------------:|------:|-------:|
+|      -6589.82| 524.93|  133.84|
 
 This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/reverse-linear-1} 
-
-}
-
-\caption{(ref:reverse-linear-caption)}(\#fig:reverse-linear)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/reverse-linear-1.png" alt="(ref:reverse-linear-caption)" width="90%" />
+<p class="caption">(\#fig:reverse-linear)(ref:reverse-linear-caption)</p>
+</div>
 (ref:reverse-linear-caption) **Regression line differs depending which variable is target or the outcome variable. **Dashed grey line represents regression line when MAS is the target variable. Grey line represents regression line when YoYoIR1 is the target variable. Since they are not identical, one cannot reverse the equation to predict YoYoIR1 from MAS score, when such equation is estimated by predicting MAS from YoYoIR1
 
 Unfortunately, this is common practice in sport science. Rather than reversing parameters, one needs to fit, in this case, linear regression model again with the properly defined target and predictor variables. In certain scenarios, such as [Reliability] analysis, we do not know which variable represents predictor and which represents target or outcome. For this reason, different approaches to regression, such as *ordinary least products* (OLP) are utilized [@ludbrookLinearRegressionAnalysis2010; @ludbrookPrimerBiomedicalScientists2012; @ludbrookSPECIALARTICLECOMPARING1997; @ludbrookStatisticalTechniquesComparing2002; @mullineauxAssessmentBiasComparing1999]. These topics will be covered in the second part of this book.  
@@ -845,14 +717,10 @@ In the case where SESOI of the MAS test is unknown, using known SESOI of the YoY
 
 Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±0.5km/h). Figure \@ref(fig:sesoiscatterplot-mas-yoyo) depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sesoiscatterplot-mas-yoyo-1} 
-
-}
-
-\caption{(ref:sesoiscatterplot-mas-yoyo-caption)}(\#fig:sesoiscatterplot-mas-yoyo)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/sesoiscatterplot-mas-yoyo-1.png" alt="(ref:sesoiscatterplot-mas-yoyo-caption)" width="90%" />
+<p class="caption">(\#fig:sesoiscatterplot-mas-yoyo)(ref:sesoiscatterplot-mas-yoyo-caption)</p>
+</div>
 (ref:sesoiscatterplot-mas-yoyo-caption) **Scatter plot between two variables using SESOI to indicate practically significant difference A.** Scatterplot with SESOI depicted as grey band around linear regression line. **B.** Residual plot, where the difference between MAS and linear regression line (model estimate) is plotted against linear regression line (fitted or predicted MAS). SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Dashed lines represent upper and lower *levels of agreement* using `RSE` and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines).
 
 Magnitude-based estimators of the practically significant strength of the two variable association involve ratio between the SESOI ($SESOI_{upper} - SESOI_{lower}$) and `RSE` (`SESOI to RSE`), and `PPER`. `SESOI to RSE` indicates how big are the residuals compared to the SESOI, and thus a metric of the practical strength of the association. Assuming that residuals are being normally distributed, SESOI to RSE over 4 (or $2\times 1.96$) would indicate excellent practical strength of the association. If you look at the Table 15, estimated SESOI to RSE in this example is not great, indicating poor practical strength of association. 
@@ -863,59 +731,39 @@ Magnitude-based estimators of the practically significant strength of the two va
 
 Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Practically significant association between two variables would have `PPER` equal to 1, which indicates that all residuals are within confines of the SESOI. If you look at the Table \@ref(tab:association-magnitude-table), estimated `PPER` in this example is almost perfect, indicating great practical strength of the association between YoYoIR1 and MAS tests.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-1} 
-
-}
-
-\caption{(ref:p-equivalent-caption)}(\#fig:p-equivalent)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/p-equivalent-1.png" alt="(ref:p-equivalent-caption)" width="90%" />
+<p class="caption">(\#fig:p-equivalent)(ref:p-equivalent-caption)</p>
+</div>
 (ref:p-equivalent-caption) **Residuals of the linear regression model predicting MAS from YoYoIR1 test. **Proportion of residuals within SESOI band represent `PPER`
 
 (ref:association-magnitude-table-caption) **Magnitude-based estimators of the association between two variables.** Association is estimated using linear regression model. MAS is the target variable, and YoYoIR1 is the predictor
 
-\begin{table}
 
-\caption{(\#tab:association-magnitude-table)(ref:association-magnitude-table-caption)}
-\centering
-\begin{tabular}[t]{llrrrr}
-\toprule
-SESOI YoYoIR1 (m) & SESOI MAS (km/h) & Sensitivity & RSE & SESOI MAS to RSE & PPER\\
-\midrule
-±40 & ±0.5 & 0.11 & 0.22 & 4.57 & 0.98\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:association-magnitude-table)(ref:association-magnitude-table-caption)
+
+|SESOI YoYoIR1 (m) |SESOI MAS (km/h) | Sensitivity|  RSE| SESOI MAS to RSE| PPER|
+|:-----------------|:----------------|-----------:|----:|----------------:|----:|
+|±40               |±0.5             |        0.11| 0.22|             4.57| 0.98|
 
 Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based estimates from the Table \@ref(tab:association-magnitude-table) indicate that using YoYoIR1 test scores, we are able to *predict*[^PREDICTION_ISSUE] MAS test scores with the error within SESOI. But would that be the case if the we want to predict YoYoIR1 from MAS test scores? Predictive performance of such model is depicted on the Figure \@ref(fig:p-equivalent-for-yoyo) and magnitude-based estimator are enlisted in the Table \@ref(tab:association-magnitude-yoyo-table). 
 
 [^PREDICTION_ISSUE]: This is not ideal estimate of the predictive performance of this model as will be explained in the next section on [Prediction]. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-for-yoyo-1} 
-
-}
-
-\caption{(ref:p-equivalent-for-yoyo-caption)}(\#fig:p-equivalent-for-yoyo)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-Description_files/figure-html/p-equivalent-for-yoyo-1.png" alt="(ref:p-equivalent-for-yoyo-caption)" width="90%" />
+<p class="caption">(\#fig:p-equivalent-for-yoyo)(ref:p-equivalent-for-yoyo-caption)</p>
+</div>
 (ref:p-equivalent-for-yoyo-caption) **Linear regression model estimating association between YoYoIR1 and MAS tests where YoYoIR1 is now the target variable. A.** Scatterplot with SESOI depicted as grey band around linear regression line. **B.** Residual plot, where the difference between YoYoIR1 and linear regression line (model estimate) is plotted against MAS variable. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent `PPER`
 
 (ref:association-magnitude-yoyo-table-caption) **Magnitude-based estimators of the association between two variables.** Association is estimated using linear regression model. YoYoIR1 is the target variable, and MAS is the predictor
 
-\begin{table}
 
-\caption{(\#tab:association-magnitude-yoyo-table)(ref:association-magnitude-yoyo-table-caption)}
-\centering
-\begin{tabular}[t]{llrrrr}
-\toprule
-SESOI YoYoIR1 (m) & SESOI MAS (km/h) & Sensitivity & RSE & SESOI YoYoIR1 to RSE & PPER\\
-\midrule
-±40 & ±0.5 & 6.56 & 133.84 & 0.6 & 0.23\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:association-magnitude-yoyo-table)(ref:association-magnitude-yoyo-table-caption)
+
+|SESOI YoYoIR1 (m) |SESOI MAS (km/h) | Sensitivity|    RSE| SESOI YoYoIR1 to RSE| PPER|
+|:-----------------|:----------------|-----------:|------:|--------------------:|----:|
+|±40               |±0.5             |        6.56| 133.84|                  0.6| 0.23|
 
 As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to `Pearson's r`, `R-Squared` and `MIC`, this is not the case and results are same regardless of which variable is predictor and which is target. 
 
