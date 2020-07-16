@@ -8,9 +8,10 @@ bookdown::gitbook:
       link: https://github.com/mladenjovanovic/bmbstats-book/%s
       text: "Edit"
     sharing: no
-bookdown::pdf_book:
-  includes:
-    in_header: preamble.tex
-  keep_tex: no
+bookdown::pdf_book: default
+bookdown::word_document2:
+    fig_caption: yes
+    keep_md: yes
+    toc: yes
 
 
