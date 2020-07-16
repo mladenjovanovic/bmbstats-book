@@ -288,9 +288,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reproducibility"><i class="fa fa-check"></i><b>15.3.1</b> Reproducibility</a></li>
-<li class="chapter" data-level="15.3.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.3.2</b> Repeatability</a></li>
-<li class="chapter" data-level="15.3.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.3.3</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
+<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.4</b> Repeatability</a></li>
+<li class="chapter" data-level="15.5" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.5</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a>
 <ul>
@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#shiny-app"><i class="fa fa-check"></i><b>19.3</b> <span>Shiny App</span></a></li>
 <li class="chapter" data-level="19.4" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#example"><i class="fa fa-check"></i><b>19.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i>Appendix D: Recommended material</a></li>
+<li class="chapter" data-level="20" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i><b>20</b> Appendix D: Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -366,91 +366,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>True average male height and true <code>SD</code> represents parameters, and with Bayesian inference we want to relocate credibility across possibilities of those parameters (given the data collected). For the sake of this simplistic example, let’s consider the following possibilities for the <code>mean</code> height: 170, 175, 180cm, and for SD: 9, 10, 11cm. This gives us the following <em>grid</em> (Table <a href="bayesian-perspective.html#tab:bayes-height-grid">7.1</a>), which combines all possibilities in the parameters, hence the name grid approximation. Since we have three possibilities for each parameter, the grid consists of 9 total possibilities.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid">Table 7.1: </span><strong>Parameter possibilities</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid">Table 7.1: </span><strong>Parameter possibilities</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-9
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">9</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-9
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">9</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-10
-</td>
+<tr class="even">
+<td align="right">170</td>
+<td align="right">10</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-10
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">10</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-10
-</td>
+<tr class="even">
+<td align="right">180</td>
+<td align="right">10</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-11
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">11</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-11
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">11</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-11
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">11</td>
 </tr>
 </tbody>
 </table>
@@ -460,151 +418,69 @@ sigma
 <p>Before analyzing the collected data sample, with Bayesian inference we want to state the <em>prior</em> beliefs in parameter possibilities. For example, I might state that from previous data collected, I believe that the <code>mean</code> height is around 170 and 180cm, with a peak at 175cm (e.g. approximating normal curve). We will come back to topic of prior later on, but for now lets use <em>uniform</em> or <em>vague</em> prior, which assigns equal plausibility to all <code>mean</code> height and <code>SD</code> possibilities. Since each parameter has three possibilities, and since probabilities needs to sum up to 1, each possibility has probability of 1/3 or 0.333. This is assigned to our grid in the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-priors">7.2</a>.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-priors">Table 7.2: </span><strong>Parameter possibilities with priors</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid-priors">Table 7.2: </span><strong>Parameter possibilities with priors</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-mu prior
-</th>
-<th style="text-align:right;">
-sigma prior
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
+<th align="right">mu prior</th>
+<th align="right">sigma prior</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="even">
+<td align="right">170</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="even">
+<td align="right">180</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
 </tr>
 </tbody>
 </table>
@@ -612,224 +488,108 @@ sigma prior
 <div id="likelihood-function" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Likelihood function</h2>
 <p>The sample height data we have collected for N=5 individuals is 167, 192, 183, 175, 177cm. From this sample we are interested in making inference to the true parameter values (i.e. <code>mean</code> and <code>SD</code>, or <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>). Without going into the <em>Bayes theorem</em> for <em>inverse probability</em>, the next major step is the <em>likelihood function</em>. Likelihood function gives us a likelihood of observing data, given parameters. Since we have 9 parameter possibilities, we are interested in calculating the likelihood of observing the data for each possibility. This is represented with a following Equation <a href="bayesian-perspective.html#eq:likelihood-function">(7.1)</a>:</p>
-<p><span class="math display" id="eq:likelihood-function">\[
-\begin{equation}
+<p><span class="math display" id="eq:likelihood-function">\[\begin{equation}
   L(x|\mu, \sigma) = \prod_{i=1}^{n}f(x_{i}, \mu, \sigma) 
   \tag{7.1}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>The likelihood of observing the data is calculated by taking the <em>product</em> (indicated by <span class="math inline">\(\prod_{i=1}^{n}\)</span> sign in the Equation <a href="bayesian-perspective.html#eq:likelihood-function">(7.1)</a> of likelihood of observing individual scores. The likelihood function is normal <em>probability density function</em> (PDF)<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a>:, whose parameters are <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> (see Figure <a href="bayesian-perspective.html#fig:data-likelihood">7.1</a>). This function has the following Equation <a href="bayesian-perspective.html#eq:likelihood-equation">(7.2)</a>:</p>
-<p><span class="math display" id="eq:likelihood-equation">\[
-\begin{equation}
+<p><span class="math display" id="eq:likelihood-equation">\[\begin{equation}
   f(x_{i}, \mu, \sigma) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2}) }} {\sigma\sqrt{2\pi}}
   \tag{7.2}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Let’s take a particular possibility of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, e.g. 175cm and 9cm, and calculate likelihoods for each observed score (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-likelihood">7.3</a>).</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-likelihood">Table 7.3: </span><strong>Likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid-likelihood">Table 7.3: </span><strong>Likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-x
-</th>
-<th style="text-align:right;">
-likelihood
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
+<th align="right">x</th>
+<th align="right">likelihood</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-167
-</td>
-<td style="text-align:right;">
-0.03
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">167</td>
+<td align="right">0.03</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-192
-</td>
-<td style="text-align:right;">
-0.01
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">192</td>
+<td align="right">0.01</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-183
-</td>
-<td style="text-align:right;">
-0.03
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">183</td>
+<td align="right">0.03</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-0.04
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">175</td>
+<td align="right">0.04</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-177
-</td>
-<td style="text-align:right;">
-0.04
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">177</td>
+<td align="right">0.04</td>
 </tr>
 </tbody>
 </table>
 <p>Now, to estimate likelihood of the sample, we need to take the product of each individual score likelihoods. However, now we have a problem, since the result will be very, very small number (1.272648^{-8}). To solve this issue, we take the log of the likelihood function. This is called <em>log likelihood</em> (LL) and it is easier to compute without the fear of losing digits. Table <a href="bayesian-perspective.html#tab:bayes-height-grid-log-likelihood">7.4</a> contains calculated log from the score likelihood.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-log-likelihood">Table 7.4: </span><strong>Likelihoods and log likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid-log-likelihood">Table 7.4: </span><strong>Likelihoods and log likelihoods of observing scores given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> equal to 175cm and 9cm</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-x
-</th>
-<th style="text-align:right;">
-likelihood
-</th>
-<th style="text-align:right;">
-LL
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
+<th align="right">x</th>
+<th align="right">likelihood</th>
+<th align="right">LL</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-167
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
--3.51
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">167</td>
+<td align="right">0.03</td>
+<td align="right">-3.51</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-192
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
--4.90
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">192</td>
+<td align="right">0.01</td>
+<td align="right">-4.90</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-183
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
--3.51
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">183</td>
+<td align="right">0.03</td>
+<td align="right">-3.51</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-0.04
-</td>
-<td style="text-align:right;">
--3.12
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">175</td>
+<td align="right">0.04</td>
+<td align="right">-3.12</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-177
-</td>
-<td style="text-align:right;">
-0.04
-</td>
-<td style="text-align:right;">
--3.14
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">177</td>
+<td align="right">0.04</td>
+<td align="right">-3.14</td>
 </tr>
 </tbody>
 </table>
@@ -837,186 +597,84 @@ LL
 <p>If we repeat the same procedure for every parameter possibility in our grid, we get the following log likelihoods (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-log-likelihood-product">7.5</a>). This procedure is also visually represented in the Figure <a href="bayesian-perspective.html#fig:data-likelihood">7.1</a> for easier comprehension.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-log-likelihood-product">Table 7.5: </span><strong>Sum of data log likelihoods for parameter possibilities</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid-log-likelihood-product">Table 7.5: </span><strong>Sum of data log likelihoods for parameter possibilities</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-mu prior
-</th>
-<th style="text-align:right;">
-sigma prior
-</th>
-<th style="text-align:right;">
-LL
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
+<th align="right">mu prior</th>
+<th align="right">sigma prior</th>
+<th align="right">LL</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--20.12
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-20.12</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.18
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.18</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--17.78
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-17.78</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--19.79
-</td>
+<tr class="even">
+<td align="right">170</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-19.79</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.21
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.21</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--17.89
-</td>
+<tr class="even">
+<td align="right">180</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-17.89</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--19.63
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-19.63</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.32
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.32</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.06
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.06</td>
 </tr>
 </tbody>
 </table>
 <div class="figure" style="text-align: center"><span id="fig:data-likelihood"></span>
-<img src="generated_figures/data-likelihood-1.png" alt="Likelihood of data given parameters. \(\mu\) and \(\sigma\) represent parameters for which we want to estimate likelihood of observing data collected" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/data-likelihood-1.png" alt="Likelihood of data given parameters. \(\mu\) and \(\sigma\) represent parameters for which we want to estimate likelihood of observing data collected" width="90%" />
 <p class="caption">
 Figure 7.1: <strong>Likelihood of data given parameters. </strong><span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> represent parameters for which we want to estimate likelihood of observing data collected
 </p>
@@ -1029,312 +687,139 @@ Figure 7.1: <strong>Likelihood of data given parameters. </strong><span class="m
 <p>Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior">7.6</a> contains the results of Bayesian inference. The posterior probabilities are called <em>joint probabilities</em> since they represent probability of a combination of particular <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> possibility.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-posterior">Table 7.6: </span><strong>Estimated posterior probabilities for parameter possibilities given the data</strong>
-</caption>
+<caption><span id="tab:bayes-height-grid-posterior">Table 7.6: </span><strong>Estimated posterior probabilities for parameter possibilities given the data</strong></caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-mu
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-mu prior
-</th>
-<th style="text-align:right;">
-sigma prior
-</th>
-<th style="text-align:right;">
-LL
-</th>
-<th style="text-align:right;">
-posterior
-</th>
+<tr class="header">
+<th align="right">mu</th>
+<th align="right">sigma</th>
+<th align="right">mu prior</th>
+<th align="right">sigma prior</th>
+<th align="right">LL</th>
+<th align="right">posterior</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--20.12
-</td>
-<td style="text-align:right;">
-0.02
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-20.12</td>
+<td align="right">0.02</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.18
-</td>
-<td style="text-align:right;">
-0.14
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.18</td>
+<td align="right">0.14</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--17.78
-</td>
-<td style="text-align:right;">
-0.20
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">9</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-17.78</td>
+<td align="right">0.20</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--19.79
-</td>
-<td style="text-align:right;">
-0.03
-</td>
+<tr class="even">
+<td align="right">170</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-19.79</td>
+<td align="right">0.03</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.21
-</td>
-<td style="text-align:right;">
-0.13
-</td>
+<tr class="odd">
+<td align="right">175</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.21</td>
+<td align="right">0.13</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--17.89
-</td>
-<td style="text-align:right;">
-0.18
-</td>
+<tr class="even">
+<td align="right">180</td>
+<td align="right">10</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-17.89</td>
+<td align="right">0.18</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--19.63
-</td>
-<td style="text-align:right;">
-0.03
-</td>
+<tr class="odd">
+<td align="right">170</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-19.63</td>
+<td align="right">0.03</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.32
-</td>
-<td style="text-align:right;">
-0.12
-</td>
+<tr class="even">
+<td align="right">175</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.32</td>
+<td align="right">0.12</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
-0.33
-</td>
-<td style="text-align:right;">
--18.06
-</td>
-<td style="text-align:right;">
-0.15
-</td>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">11</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+<td align="right">-18.06</td>
+<td align="right">0.15</td>
 </tr>
 </tbody>
 </table>
 <p>Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior">7.6</a> can be be converted into 3x3 matrix, with possibilities of <span class="math inline">\(\mu\)</span> in the columns, and possibilities of the <span class="math inline">\(\sigma\)</span> in the rows and posterior joint probabilities in the cells (Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>). The <em>sums</em> of the joint probabilities in the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a> margins represent <em>marginal probabilities</em> for parameters.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-height-grid-posterior-matrix">Table 7.7: </span><strong>Joint distribution of the parameter possibilities. </strong>Sums at the table margins represent marginal probabilities
-</caption>
+<caption><span id="tab:bayes-height-grid-posterior-matrix">Table 7.7: </span><strong>Joint distribution of the parameter possibilities. </strong>Sums at the table margins represent marginal probabilities</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-170
-</th>
-<th style="text-align:right;">
-175
-</th>
-<th style="text-align:right;">
-180
-</th>
-<th style="text-align:right;">
-Sum
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="right">170</th>
+<th align="right">175</th>
+<th align="right">180</th>
+<th align="right">Sum</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-9
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.14
-</td>
-<td style="text-align:right;">
-0.20
-</td>
-<td style="text-align:right;">
-0.36
-</td>
+<tr class="odd">
+<td align="left">9</td>
+<td align="right">0.02</td>
+<td align="right">0.14</td>
+<td align="right">0.20</td>
+<td align="right">0.36</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-10
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-0.13
-</td>
-<td style="text-align:right;">
-0.18
-</td>
-<td style="text-align:right;">
-0.34
-</td>
+<tr class="even">
+<td align="left">10</td>
+<td align="right">0.03</td>
+<td align="right">0.13</td>
+<td align="right">0.18</td>
+<td align="right">0.34</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-11
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-0.12
-</td>
-<td style="text-align:right;">
-0.15
-</td>
-<td style="text-align:right;">
-0.30
-</td>
+<tr class="odd">
+<td align="left">11</td>
+<td align="right">0.03</td>
+<td align="right">0.12</td>
+<td align="right">0.15</td>
+<td align="right">0.30</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Sum
-</td>
-<td style="text-align:right;">
-0.08
-</td>
-<td style="text-align:right;">
-0.38
-</td>
-<td style="text-align:right;">
-0.54
-</td>
-<td style="text-align:right;">
-1.00
-</td>
+<tr class="even">
+<td align="left">Sum</td>
+<td align="right">0.08</td>
+<td align="right">0.38</td>
+<td align="right">0.54</td>
+<td align="right">1.00</td>
 </tr>
 </tbody>
 </table>
 <p>Since we have only two parameters, the joint probabilities can be represented with the <em>heat map</em>. Figure <a href="bayesian-perspective.html#fig:heat-map">7.2</a> is a visual representation of the Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:heat-map"></span>
-<img src="generated_figures/heat-map-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/heat-map-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities" width="90%" />
 <p class="caption">
 Figure 7.2: <strong>Heat map of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> joint probabilities</strong>
 </p>
@@ -1342,7 +827,7 @@ Figure 7.2: <strong>Heat map of <span class="math inline">\(\mu\)</span> and <sp
 
 <p>When we have more than 2 parameters, visualization of joint probabilities get’s tricky and we rely on visualizing marginal posterior probabilities of each parameter instead. As explained, marginal probabilities are calculated by summing all joint probabilities for a particular parameter possibility (see Table <a href="bayesian-perspective.html#tab:bayes-height-grid-posterior-matrix">7.7</a>). Figure @ref(fig:(marginal-prior-posterior) depicts marginal probabilities (including prior probabilities) for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:marginal-prior-posterior"></span>
-<img src="generated_figures/marginal-prior-posterior-1.png" alt="Prior and posterior distributions resulting from simplified grid-approximation example" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/marginal-prior-posterior-1.png" alt="Prior and posterior distributions resulting from simplified grid-approximation example" width="90%" />
 <p class="caption">
 Figure 7.3: <strong>Prior and posterior distributions resulting from simplified grid-approximation example</strong>
 </p>
@@ -1354,14 +839,14 @@ Figure 7.3: <strong>Prior and posterior distributions resulting from simplified 
 <h2><span class="header-section-number">7.5</span> Adding more possibilities</h2>
 <p>So far, we have made this very granular in order to be understood. However, since we are dealing with continuous parameters, performing grid approximation for more than 9 total parameter possibilities seems warranted. The calculus is exactly the same, as well as the sample collected, but now we will use the larger range for both <span class="math inline">\(\mu\)</span> (160-200cm) and <span class="math inline">\(\sigma\)</span> (1-30cm), each with 100 possibilities. We are estimating credibility for total of <span class="math inline">\(100 \times 100 = 10,000\)</span> parameter possibilities. Figure <a href="bayesian-perspective.html#fig:heat-map-100-100">7.4</a> depicts heat map for the joint probabilities, and Figure <a href="bayesian-perspective.html#fig:marginal-100-100">7.5</a> depicts prior and posterior marginal distributions for each parameter.</p>
 <div class="figure" style="text-align: center"><span id="fig:heat-map-100-100"></span>
-<img src="generated_figures/heat-map-100-100-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities when \(100\times 100\) grid-approximation is used" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/heat-map-100-100-1.png" alt="Heat map of \(\mu\) and \(\sigma\) joint probabilities when \(100\times 100\) grid-approximation is used" width="90%" />
 <p class="caption">
 Figure 7.4: <strong>Heat map of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> joint probabilities when <span class="math inline">\(100\times 100\)</span> grid-approximation is used</strong>
 </p>
 </div>
 
 <div class="figure" style="text-align: center"><span id="fig:marginal-100-100"></span>
-<img src="generated_figures/marginal-100-100-1.png" alt="Prior and posterior distributions resulting from \(100\times 100\) grid-approximation example" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/marginal-100-100-1.png" alt="Prior and posterior distributions resulting from \(100\times 100\) grid-approximation example" width="90%" />
 <p class="caption">
 Figure 7.5: <strong>Prior and posterior distributions resulting from <span class="math inline">\(100\times 100\)</span> grid-approximation example</strong>
 </p>
@@ -1375,7 +860,7 @@ Figure 7.5: <strong>Prior and posterior distributions resulting from <span class
 <p>In this example we have used vague priors for both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. But let’s see what happens when I strongly believe (before seeing the data), that <span class="math inline">\(\mu\)</span> is around 190cm (using normal distribution with mean 190 and SD of 2 to represent this prior), but I do not have a clue about <span class="math inline">\(\sigma\)</span> prior distribution and I choose to continue using uniform prior for this parameter.</p>
 <p>This prior belief is, of course, wrong, but maybe I am biased since I originate, let’s say from Montenegro, country with one of the tallest men. Figure <a href="bayesian-perspective.html#fig:strong-prior">7.6</a> contains plotted prior and posterior distributions. As can be seen, using very strong prior for <span class="math inline">\(\mu\)</span> shifted the posterior distribution to the higher heights. In other words, the data collected were not enough to <em>overcome</em> my prior belief about average height.</p>
 <div class="figure" style="text-align: center"><span id="fig:strong-prior"></span>
-<img src="generated_figures/strong-prior-1.png" alt="Effects of very strong prior on posterior" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/strong-prior-1.png" alt="Effects of very strong prior on posterior" width="90%" />
 <p class="caption">
 Figure 7.6: <strong>Effects of very strong prior on posterior</strong>
 </p>
@@ -1386,7 +871,7 @@ Figure 7.6: <strong>Effects of very strong prior on posterior</strong>
 <h2><span class="header-section-number">7.7</span> More data</h2>
 <p>The sample height data we have collected for N=5 individuals (167, 192, 183, 175, 177cm) was not strong to overcome prior belief. However, what if we sampled N=100 males from known population of known mean height of 177.8 and SD of 10.16? Figure <a href="bayesian-perspective.html#fig:more-data">7.7</a> depicts prior and posterior distributions in this example. As can be seen, besides having narrower posterior distributions for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, more data was able to overcome my strong prior bias towards mean height of 190cm.</p>
 <div class="figure" style="text-align: center"><span id="fig:more-data"></span>
-<img src="generated_figures/more-data-1.png" alt="When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/more-data-1.png" alt="When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution" width="90%" />
 <p class="caption">
 Figure 7.7: <strong>When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution</strong>
 </p>
@@ -1397,9 +882,9 @@ Figure 7.7: <strong>When larger sample is taken (N=100) as opposed to smaller sa
 <h2><span class="header-section-number">7.8</span> Summarizing prior and posterior distributions with MAP and HDI</h2>
 <p>In Bayesian statistics, the prior and posterior distributions are usually summarized using <em>highest maximum a posteriori</em> (MAP) and 90% or 95% <em>highest density interval</em> (HDI) <span class="citation">(Kruschke and Liddell <a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianDataAnalysis2018" role="doc-biblioref">a</a>, <a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">2018</a><a href="#ref-kruschkeBayesianNewStatistics2018" role="doc-biblioref">b</a>; McElreath <a href="#ref-mcelreathStatisticalRethinkingBayesian2015" role="doc-biblioref">2015</a>)</span>. MAP is simply a <code>mode</code>, or the most probable point estimate. In other words, a point in the distribution with the highest probability. With normal distribution, MAP, <code>mean</code> and <code>median</code> are identical. The problems arise with distributions that are not symmetrical.</p>
 <p>HDI is similar to frequentist CI, but represents an interval which contains all points within the interval that have higher probability density than points outside the interval <span class="citation">(Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>, <a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">2019</a><a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">b</a>)</span>. HDI is more computationally expensive to estimate, but compared to <em>equal-tailed interval</em> (ETI) or <em>percentile interval</em>, that typically excludes 2.5% or 5% from each tail of the distribution (for 95% or 90% confidence respectively), HDI is not equal-tailed and therefore always includes the mode(s) of posterior distributions <span class="citation">(Makowski, Ben-Shachar, and Lüdecke <a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">2019</a><a href="#ref-makowskiBayestestRDescribingEffects2019" role="doc-biblioref">a</a>, <a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">2019</a><a href="#ref-makowskiUnderstandDescribeBayesian2019" role="doc-biblioref">b</a>)</span>.</p>
-<p>Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a> depicts comparison between MAP and 90% HDI, <code>median</code> and 90% percentile interval or ETI, and <code>mean</code> and <span class="math inline">\(±1.64 \times SD\)</span> for 90% confidence interval. As can be seen from the Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a>, the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.</p>
+<p>Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a> depicts comparison between MAP and 90% HDI, <code>median</code> and 90% percentile interval or ETI, and <code>mean</code> and <span class="math inline">\(\pm1.64 \times SD\)</span> for 90% confidence interval. As can be seen from the Figure <a href="bayesian-perspective.html#fig:map-hdi">7.8</a>, the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.</p>
 <div class="figure" style="text-align: center"><span id="fig:map-hdi"></span>
-<img src="generated_figures/map-hdi-1.png" alt="Summarizing prior and posterior distribution. A. MAP and \(90\%\) HDI. B. Median and \(90\%\) ETI. C. Mean and \(\pm1.64\times SD\)" width="90%" />
+<img src="07-Bayesian-perspective_files/figure-html/map-hdi-1.png" alt="Summarizing prior and posterior distribution. A. MAP and \(90\%\) HDI. B. Median and \(90\%\) ETI. C. Mean and \(\pm1.64\times SD\)" width="90%" />
 <p class="caption">
 Figure 7.8: <strong>Summarizing prior and posterior distribution. A. </strong>MAP and <span class="math inline">\(90\%\)</span> HDI. <strong>B.</strong> Median and <span class="math inline">\(90\%\)</span> ETI. <strong>C.</strong> Mean and <span class="math inline">\(\pm1.64\times SD\)</span>
 </p>
@@ -1413,53 +898,27 @@ Figure 7.8: <strong>Summarizing prior and posterior distribution. A. </strong>MA
 <p>How do the Bayesian HDIs compare to frequentist CIs? What are the Type I error rates when the data is sampled from the null-hypothesis? To explore this question, I will repeat the simulation from [New Statistics: Confidence Intervals and Estimation] section, where 1,000 samples of N=20 observations are sampled from a population where the true mean height is equal to 177.8cm and SD is equal to 10.16cm. Type I error is committed when the the 95% CIs or 95% HDI intervals of the sample mean don’t cross the true value in the population. Table <a href="bayesian-perspective.html#tab:bayes-type-i-error">7.8</a> contains Type I errors for frequentist and Bayesian estimation.</p>
 
 <table>
-<caption>
-<span id="tab:bayes-type-i-error">Table 7.8: </span><strong>Frequentist vs. Bayesian Type I errors</strong>
-</caption>
+<caption><span id="tab:bayes-type-i-error">Table 7.8: </span><strong>Frequentist vs. Bayesian Type I errors</strong></caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-method
-</th>
-<th style="text-align:right;">
-Sample
-</th>
-<th style="text-align:right;">
-Correct %
-</th>
-<th style="text-align:right;">
-Type I Errors %
-</th>
+<tr class="header">
+<th align="left">method</th>
+<th align="right">Sample</th>
+<th align="right">Correct %</th>
+<th align="right">Type I Errors %</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Bayesian
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-96.1
-</td>
-<td style="text-align:right;">
-3.9
-</td>
+<tr class="odd">
+<td align="left">Bayesian</td>
+<td align="right">1000</td>
+<td align="right">96.1</td>
+<td align="right">3.9</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Frequentist
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-95.5
-</td>
-<td style="text-align:right;">
-4.5
-</td>
+<tr class="even">
+<td align="left">Frequentist</td>
+<td align="right">1000</td>
+<td align="right">95.5</td>
+<td align="right">4.5</td>
 </tr>
 </tbody>
 </table>

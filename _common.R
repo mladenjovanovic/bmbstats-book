@@ -14,42 +14,8 @@ knitr::opts_chunk$set(
   fig.show = "hold",
   echo = FALSE,
   warning = FALSE,
-  message = FALSE,
-  fig.path = 'generated_figures/'
+  message = FALSE
 )
-
-#if (knitr::is_latex_output()) {
-#  knitr::opts_chunk$set(width = 69)
-#  options(width = 69)
-#  options(crayon.enabled = FALSE)
-#  options(cli.unicode = TRUE)
-#}
-#
-#knitr::knit_hooks$set(
-#  small_mar = function(before, options, envir) {
-#    if (before) {
-#      par(mar = c(4.1, 4.1, 0.5, 0.5))
-#    }
-#  }
-#)
-
-
-# Knitr options
-#knitr::opts_chunk$set(
-#  cache = FALSE,
-#  echo = FALSE,
-#  collapse = TRUE,
-#  comment = "#>",
-  # fig.path = "fig-",
-#  fig.align = "center",
-#  fig.width = 6,
-#  fig.height = 0.618 * 6,
-#  dpi = 300,
-#  out.width = "95%",
-#  auto_pdf = TRUE,
-#  message = FALSE,
-#  warning = FALSE
-#)
 
 # Set colors
 user_black <- "#000000"

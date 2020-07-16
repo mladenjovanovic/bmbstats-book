@@ -13,7 +13,8 @@ In this chapter I will demonstrate how to analyze simple randomized controlled t
 
 The following image is re-posted from the [Causal inference] chapter, outlining Treatment and Non-Treatment effects. 
 
-<img src="figures/treatment-and-non-treatment-effects.png" width="100%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=1\linewidth]{figures/treatment-and-non-treatment-effects} \end{center}
 
 Let's consider the following RCT DGP. We have two group (Control and Treatment), each with N=10 athletes, measured twice (Pre-test and Post-test) on the vertical jump height, using a measuring device with a known measurement error (i.e. only instrumentation noise; see [Validity and Reliability] chapter for more info) estimated through validity and reliability studies and equal to 0.5cm. Control group are doing their normal training for 4 weeks, while Treatment group is doing EMS stimulation of their calf muscles on top of their normal training. 
 
@@ -88,15 +89,15 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e…
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~
 #>   <chr>   <fct>          <dbl>            <dbl>            <dbl>
-#> 1 Athlet… Trea…           52.9                0                0
-#> 2 Athlet… Cont…           42.4                0                0
-#> 3 Athlet… Trea…           49.2                0                0
-#> 4 Athlet… Cont…           44.8                0                0
-#> 5 Athlet… Trea…           40.0                0                0
-#> 6 Athlet… Cont…           42.6                0                0
-#> # … with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
+#> 1 Athlet~ Trea~           52.9                0                0
+#> 2 Athlet~ Cont~           42.4                0                0
+#> 3 Athlet~ Trea~           49.2                0                0
+#> 4 Athlet~ Cont~           44.8                0                0
+#> 5 Athlet~ Trea~           40.0                0                0
+#> 6 Athlet~ Cont~           42.6                0                0
+#> # ... with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
 #> #   Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>,
 #> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
 #> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
@@ -115,7 +116,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 And the Post-test:
 
@@ -128,7 +131,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 And finally measured change scores:
 
@@ -143,7 +148,9 @@ bmbstats::plot_raincloud_SESOI(
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 From these graphs we can see that there is no difference between group. We have also selected large SESOI taking into account our *a priori* knowledge about biological variation and measurement error in the vertical jump height. 
 
@@ -161,7 +168,9 @@ bmbstats::plot_pair_changes(
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 ## RCT analysis using `bmbstats::RCT_analysis` function
 
@@ -235,7 +244,9 @@ We can also plot the estimators bootstrap distributions:
 plot(extensive_RCT)
 ```
 
-<img src="generated_figures/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 If we use `bmbstats::RCT_estimators_simple`, we will get much more condensed output: 
 
@@ -278,7 +289,9 @@ simple_RCT
 plot(simple_RCT)
 ```
 
-<img src="generated_figures/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 As can be seen, the analysis correctly identified no treatment effect. There is an issue with random treatment effects estimation since is demonstrates distribution with two peaks. This effect is due to random treatment effect being zero and the way the root of the squared differences is calculated to avoid irrational numbers (i.e. taking root of negative number). 
 
@@ -291,7 +304,9 @@ Control group Pre- and Post-test distribution:
 plot(simple_RCT, type = "control-pre-post")
 ```
 
-<img src="generated_figures/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Treatment group Pre- and Post-test distribution:
 
@@ -300,7 +315,9 @@ Treatment group Pre- and Post-test distribution:
 plot(simple_RCT, type = "treatment-pre-post")
 ```
 
-<img src="generated_figures/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Control change graph:
 
@@ -309,7 +326,9 @@ Control change graph:
 plot(simple_RCT, type = "control-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Treatment change graph:
 
@@ -318,7 +337,9 @@ Treatment change graph:
 plot(simple_RCT, type = "treatment-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Change graph:
 
@@ -327,7 +348,9 @@ Change graph:
 plot(simple_RCT, type = "change")
 ```
 
-<img src="generated_figures/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Individual changes in the Control group:
 
@@ -336,7 +359,9 @@ Individual changes in the Control group:
 plot(simple_RCT, type = "control-paired-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Individual changes in the Treatment group:
 
@@ -345,7 +370,9 @@ Individual changes in the Treatment group:
 plot(simple_RCT, type = "treatment-paired-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Distribution of the change scores:
 
@@ -354,7 +381,9 @@ Distribution of the change scores:
 plot(simple_RCT, type = "change-distribution")
 ```
 
-<img src="generated_figures/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Treatment effect distribution:
 
@@ -363,7 +392,9 @@ Treatment effect distribution:
 plot(simple_RCT, type = "effect-distribution")
 ```
 
-<img src="generated_figures/unnamed-chunk-20-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 And finally, adjusted treatment responses:
 
@@ -372,7 +403,9 @@ And finally, adjusted treatment responses:
 plot(simple_RCT, type = "adjusted-treatment-responses")
 ```
 
-<img src="generated_figures/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 The adjusted treatment responses are calculated by deducting `mean` Control group change from individual change in the Treatment group (i.e. *adjusted change*). Error-bars represent 95% confidence intervals (i.e. `SDC`) using change `SD` of the Control group. 
 
@@ -404,7 +437,9 @@ We can also plot the un-adjusted treatment responses:
 plot(simple_RCT, type = "treatment-responses")
 ```
 
-<img src="generated_figures/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Let's re-create this graph using `bmbstats::observations_MET` function since that function also allows us to set Type I error rates and confidence for plotting. 
 
@@ -446,7 +481,9 @@ plot(
   xlim(-9, 9)
 ```
 
-<img src="generated_figures/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 This way, Control group is used as *sort-of* reliability study (see [Repeatability] section in the [Validity and Reliability] chapter) that provides source of information about the non-treatment effect (in this case 0 for both systematic and random components), biological variation and instrumentation noise. This helps us to provide uncertainty intervals around individual treatment (adjusted) effects.
 
@@ -465,7 +502,9 @@ ggplot(
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 If we perform the linear regression, we will get the following:
 
@@ -522,7 +561,9 @@ ggplot(
   )
 ```
 
-<img src="generated_figures/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 Random components of the treatment and non-treatment effects can be seen as *residuals* (actually as `SD` of the residuals) around `mean` of the group changes. `RSE` of this model (1.59cm) represents *pooled* random errors of both Treatment and Control groups. If we perform `SD` of the residuals for each Group, we will get the following:
 
@@ -567,7 +608,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 And estimated linear regression model:
 
@@ -623,7 +666,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 As can be seen from the figure, lines are almost identical, but more importantly, they are now parallel. 
 
@@ -713,7 +758,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="generated_figures/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 Which method should be used? For simple designs, these provide almost identical results. We could perform simulations as we have done in the [Validity and Reliability] chapter to see the behavior of the estimates, but I will leave that to you as an exercise. I would generally follow the advice by [Frank Harrell](https://www.fharrell.com/post/errmed/#change) and avoid the use of the change scores, particularly for more complex designs involving covariates and extra parameters of the treatment (i.e. when treatment is not only TRUE/FALSE but can have a continuous membership function, or some type of the loading parameter, like number of jumps performed and so forth). 
 
@@ -879,7 +926,9 @@ Now that we have the more info about the underlying RCT, we can do various plots
 plot(prediction_RCT, "residuals")
 ```
 
-<img src="generated_figures/unnamed-chunk-39-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 To plot individual model predictions use the following:
 
@@ -888,7 +937,9 @@ To plot individual model predictions use the following:
 plot(prediction_RCT, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 Circlets or dots represent observed (i.e. outcome or target variable), and vertical line represent model predictions. Residual between the two is color coded based on the provided SESOI threshold. 
 
@@ -899,7 +950,9 @@ By default, prediction plot uses `metric = "RMSE"` and `metric_cv = "testing.poo
 plot(prediction_RCT, "prediction", metric = "MaxAbsErr", metric_cv = "mean")
 ```
 
-<img src="generated_figures/unnamed-chunk-41-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 To plot individual bias-variance error decomposition thorough testing CV folds use:
 
@@ -908,7 +961,9 @@ To plot individual bias-variance error decomposition thorough testing CV folds u
 plot(prediction_RCT, "bias-variance")
 ```
 
-<img src="generated_figures/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Here we can see which athletes are prediction outliers and generally present issues for the predictive model. Together with the individual predictions, we can use this plot and data to gain more info regarding individual reactions to intervention (i.e. who jumps out from the model prediction).
 
@@ -919,7 +974,9 @@ To gain understanding into counterfactual prediction, we could use PDP and ICE p
 plot(prediction_RCT, "pdp+ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 This plot gives us insights into model prediction for each athlete when the Group variable changes, while keeping all other variables the same. Since this is RCT, this plot can be given counterfactual interpretation. The PDP line (thick red line) represent the average of these individual prediction (ICE lines), and as can be seen, the counterfactual effects of changing group is zero (since the line is parallel) and thus represents *expected* or systematic effect of the treatment. 
 
@@ -931,7 +988,9 @@ plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
   geom_abline(slope = 1, linetype = "dashed")
 ```
 
-<img src="generated_figures/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 To plot these individual ICE line for each athlete we can use counterfactual plot:
 
@@ -940,7 +999,9 @@ To plot these individual ICE line for each athlete we can use counterfactual plo
 plot(prediction_RCT, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-45-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 Since the systematic treatment effect is zero, these are very small. The mean of these individual counterfactual prediction effect is presented in the object printout in the last table as `pATE` (predicted average treatment effect) and `SD` of these effects as `pVTE` (predicted variable treatment effect). In this case, due simple model, the predicted treatment effects are the same, thus the `pVTE` is equal to zero. 
 
@@ -951,7 +1012,9 @@ Different way to plot these is to have *trellis* plot for each individual:
 plot(prediction_RCT, "ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-46-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 These plots represent strong tool for understanding predictive model performance for the RCT data and study designs. 
 
@@ -1026,15 +1089,15 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e…
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~
 #>   <chr>   <fct>          <dbl>            <dbl>            <dbl>
-#> 1 Athlet… Trea…           47.4           -3.24              1.17
-#> 2 Athlet… Cont…           44.4            3.43              4.57
-#> 3 Athlet… Trea…           50.5            4.09              2.74
-#> 4 Athlet… Cont…           37.8           12.4               2.15
-#> 5 Athlet… Trea…           50.7            0.671             1.87
-#> 6 Athlet… Cont…           42.7           12.6               2.78
-#> # … with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
+#> 1 Athlet~ Trea~           47.4           -3.24              1.17
+#> 2 Athlet~ Cont~           44.4            3.43              4.57
+#> 3 Athlet~ Trea~           50.5            4.09              2.74
+#> 4 Athlet~ Cont~           37.8           12.4               2.15
+#> 5 Athlet~ Trea~           50.7            0.671             1.87
+#> 6 Athlet~ Cont~           42.7           12.6               2.78
+#> # ... with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
 #> #   Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>,
 #> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
 #> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
@@ -1056,7 +1119,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-48-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 We can see that both Control and Treatment group demonstrated improvements since both lines are above the dashed identity line. 
 
@@ -1160,7 +1225,9 @@ Here is the estimators bootstrap distribution:
 plot(regression_RCT)
 ```
 
-<img src="generated_figures/unnamed-chunk-53-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 As can be seen from the results, both systematic and random components of the treatment effects were estimated correctly. 
 
@@ -1171,14 +1238,18 @@ Let's plot the Pre- and Post-Test results for each group (I will let you play an
 plot(regression_RCT, type = "control-paired-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 
 ```r
 plot(regression_RCT, type = "treatment-paired-change")
 ```
 
-<img src="generated_figures/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 Let's now plot individual treatment responses with uncertainty intervals: 
 
@@ -1187,7 +1258,9 @@ Let's now plot individual treatment responses with uncertainty intervals:
 plot(regression_RCT, type = "treatment-responses")
 ```
 
-<img src="generated_figures/unnamed-chunk-56-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 As explained previously, this type of analysis and plot, uses Control group change score as some type of a *proxy* to quantify the uncertainty around observed treatment group change scores. Please note that even though we have used linear regression approach to estimate treatment effects, the plots still rely on the change scores. 
 
@@ -1230,7 +1303,9 @@ plot(
   xlim(-10, 28)
 ```
 
-<img src="generated_figures/unnamed-chunk-57-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 Adjusted treatment response would deduct `mean` change from the Control group and would show individual effect ONLY with treatment effect (without non-treatment effect). We can use our DGP generated data frame to generate that graph (or to recreate it) and plot true treatment effects:
 
@@ -1265,15 +1340,18 @@ plot(
   xlim(-10, 28)
 ```
 
-<img src="generated_figures/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 ## What goes inside the *measurement error* (or Control group change or residuals `SD`)?
 
 As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to 2.23cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
 
-$$
+\begin{equation}
   SD_{control\;change} = \sqrt{2\times biological\;variation^2 + 2\times instrumentation\;noise^2 + non\;treatment\;random\;effect^2}
-$$
+\end{equation}
+
 If we plug our DGP values, we get the following expected `SD` of the Control group change: 2.45cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
 
 This measurement error decomposition belongs to the method of differences, but the same error decomposition happens in the `SD` of the residuals with the linear regression approach. 
@@ -1527,7 +1605,9 @@ Let's check the individual predictions:
 plot(prediction_RCT, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-66-1} \end{center}
 
 We can now see that certain residuals are larger than SESOI (indicated by green or red color on the figure). 
 
@@ -1538,7 +1618,9 @@ Here is the PDP+ICE plot:
 plot(prediction_RCT, "pdp+ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-67-1} \end{center}
 
 Parallel lines indicate that we predict that each individual will have same treatment effect (indicated by `pVTE` as well as with the arrows of same length in the counterfactual plot that follows). If we plot PDP+ICE for the measured Pre-test, we will get the following figure:
 
@@ -1548,7 +1630,9 @@ plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
   geom_abline(slope = 1, linetype = "dashed")
 ```
 
-<img src="generated_figures/unnamed-chunk-68-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-68-1} \end{center}
 
 Two thin lines indicate two groups and the gap between them represents the systematic treatment effect. 
 
@@ -1559,7 +1643,9 @@ Estimating individual counterfactual effects when switching group:
 plot(prediction_RCT, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-69-1} \end{center}
 
 As can be seen, counterfactual plot depicts same treatment effect for every individual. 
 
@@ -1636,16 +1722,16 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 14
-#>   Athlete Group Squat_1RM_relat… True_score.Pre Treatment_effect
+#>   Athlete Group Squat_1RM_relat~ True_score.Pre Treatment_effect
 #>   <chr>   <fct>            <dbl>          <dbl>            <dbl>
-#> 1 Athlet… Trea…            1.19            36.8             9.88
-#> 2 Athlet… Cont…            0.950           43.4             6.87
-#> 3 Athlet… Trea…            1.44            44.1            10.2 
-#> 4 Athlet… Cont…            0.422           52.4             2.33
-#> 5 Athlet… Trea…            1.46            40.7            11.2 
-#> 6 Athlet… Cont…            0.813           52.6             4.44
-#> # … with 9 more variables: Non_treatment_effect <dbl>, True_score.Change <dbl>,
-#> #   True_score.Post <dbl>, Manifested_score.Pre <dbl>,
+#> 1 Athlet~ Trea~            1.19            36.8             9.88
+#> 2 Athlet~ Cont~            0.950           43.4             6.87
+#> 3 Athlet~ Trea~            1.44            44.1            10.2 
+#> 4 Athlet~ Cont~            0.422           52.4             2.33
+#> 5 Athlet~ Trea~            1.46            40.7            11.2 
+#> 6 Athlet~ Cont~            0.813           52.6             4.44
+#> # ... with 9 more variables: Non_treatment_effect <dbl>,
+#> #   True_score.Change <dbl>, True_score.Post <dbl>, Manifested_score.Pre <dbl>,
 #> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>,
 #> #   Measured_score.Pre <dbl>, Measured_score.Post <dbl>,
 #> #   Measured_score.Change <dbl>
@@ -1667,7 +1753,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-71-1} \end{center}
 
 Might be also usable to plot the change score:
 
@@ -1685,7 +1773,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-72-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-72-1} \end{center}
 
 From these two graph we can see that as one has higher Pre-test, change scores gets smaller (i.e. effect decreases). 
 
@@ -1704,7 +1794,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-73-1} \end{center}
 
 As can be seen from the figure, there is interaction between 1RM and group (the lines are not parallel). Let's check with the change score:
 
@@ -1722,7 +1814,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-74-1} \end{center}
 
 With change score we have *controlled* for Pre-test, which gives us information that the stronger someone is, the higher the improvement. This is even more evident for the Treatment group. 
 
@@ -1817,7 +1911,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="generated_figures/unnamed-chunk-77-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-77-1} \end{center}
 
 Estimated random treatment effect is equal to:
 
@@ -1894,7 +1990,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="generated_figures/unnamed-chunk-80-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-80-1} \end{center}
 
 Please note that the estimated systematic treatment effect is smaller for the linear regression method compared to method of differences. It is the opposite for the random treatment effect estimate. This is because linear regression method estimates the effect of the group while controlling for the Pre-test.
 
@@ -2139,14 +2237,18 @@ Let's plot key model predictions (individual and counterfactual).
 plot(base_model, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-87-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-87-1} \end{center}
 
 
 ```r
 plot(base_model, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-88-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-88-1} \end{center}
 
 As can be seen, base model predict the same Post-test scores for each athlete (depending on the group).
 
@@ -2252,14 +2354,18 @@ pre_test_model
 plot(pre_test_model, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-90-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-90-1} \end{center}
 
 
 ```r
 plot(pre_test_model, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-91-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-91-1} \end{center}
 
 Additional plot we can do is the PDP+ICE for group predictor (i.e. treatment effect):
 
@@ -2268,7 +2374,9 @@ Additional plot we can do is the PDP+ICE for group predictor (i.e. treatment eff
 plot(pre_test_model, "pdp+ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-92-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-92-1} \end{center}
 
 And also for the Pre-test predictor:
 
@@ -2277,7 +2385,9 @@ And also for the Pre-test predictor:
 plot(pre_test_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="generated_figures/unnamed-chunk-93-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-93-1} \end{center}
 
 Next model adds additional predictor (covariate): relative squat 1RM:
 
@@ -2381,35 +2491,45 @@ covariate_model
 plot(covariate_model, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-95-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-95-1} \end{center}
 
 
 ```r
 plot(covariate_model, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-96-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-96-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-97-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-97-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="generated_figures/unnamed-chunk-98-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-98-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice", predictor = "Squat_1RM_relative")
 ```
 
-<img src="generated_figures/unnamed-chunk-99-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-99-1} \end{center}
 
 And the final model is the interaction model:
 
@@ -2513,35 +2633,45 @@ interaction_model
 plot(interaction_model, "prediction")
 ```
 
-<img src="generated_figures/unnamed-chunk-101-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-101-1} \end{center}
 
 
 ```r
 plot(interaction_model, "counterfactual")
 ```
 
-<img src="generated_figures/unnamed-chunk-102-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-102-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice")
 ```
 
-<img src="generated_figures/unnamed-chunk-103-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-103-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="generated_figures/unnamed-chunk-104-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-104-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice", predictor = "Squat_1RM_relative")
 ```
 
-<img src="generated_figures/unnamed-chunk-105-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-105-1} \end{center}
 
 For the sake of comparisson between the models, let's pull out estimated average, random, and variable treatment effects. Average treatment effect (`pATE`) is estimated using the `mean` of the pooled (absolute) counterfactual effects (see the previous model print summaries). Variable treatment effect (`pVTE`) is estimated using the `SD` of the pooled (absolute) counterfactual effects. Random treatment effect (`RTE`) is estimated using the group residuals as explained thorough this chapter. 
 
@@ -2627,7 +2757,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="generated_figures/unnamed-chunk-107-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-107-1} \end{center}
 
 As can be seen from the figure, interaction model has the best training folds predictive performance. What about performance on the testing CV folds?
 
@@ -2672,7 +2804,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="generated_figures/unnamed-chunk-108-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-108-1} \end{center}
 
 Interaction model is better, but not drastically better. Mean testing `PPER` is pretty good, over 0.9 indicating good practical predictive performance of this model. 
 

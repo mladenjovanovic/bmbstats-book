@@ -834,9 +834,10 @@ plot(
 
 As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to `r round(sd(control_group$Measured_score.Change), 2)`cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
 
-$$
+\begin{equation}
   SD_{control\;change} = \sqrt{2\times biological\;variation^2 + 2\times instrumentation\;noise^2 + non\;treatment\;random\;effect^2}
-$$
+\end{equation}
+
 If we plug our DGP values, we get the following expected `SD` of the Control group change: `r round(sqrt(2*biological_variation^2 + 2*instrumentation_noise^2 + non_treatment_random^2), 2)`cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
 
 This measurement error decomposition belongs to the method of differences, but the same error decomposition happens in the `SD` of the residuals with the linear regression approach. 

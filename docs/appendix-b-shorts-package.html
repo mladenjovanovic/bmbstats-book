@@ -288,9 +288,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reproducibility"><i class="fa fa-check"></i><b>15.3.1</b> Reproducibility</a></li>
-<li class="chapter" data-level="15.3.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.3.2</b> Repeatability</a></li>
-<li class="chapter" data-level="15.3.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.3.3</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
+<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.4</b> Repeatability</a></li>
+<li class="chapter" data-level="15.5" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.5</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a>
 <ul>
@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#shiny-app"><i class="fa fa-check"></i><b>19.3</b> <span>Shiny App</span></a></li>
 <li class="chapter" data-level="19.4" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#example"><i class="fa fa-check"></i><b>19.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i>Appendix D: Recommended material</a></li>
+<li class="chapter" data-level="20" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i><b>20</b> Appendix D: Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -417,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb297-4"><a href="appendix-b-shorts-package.html#cb297-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_time)) <span class="op">+</span></span>
 <span id="cb297-5"><a href="appendix-b-shorts-package.html#cb297-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distance (m)&quot;</span>) <span class="op">+</span></span>
 <span id="cb297-6"><a href="appendix-b-shorts-package.html#cb297-6"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Time (s)&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>To plot predicted velocity, acceleration, and relative power over distance, use <code>shorts:predict_</code></p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="appendix-b-shorts-package.html#cb298-1"></a>kimberley_pred &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
 <span id="cb298-2"><a href="appendix-b-shorts-package.html#cb298-2"></a>  <span class="dt">distance =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dt">length.out =</span> <span class="dv">1000</span>),</span>
@@ -450,7 +450,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb298-29"><a href="appendix-b-shorts-package.html#cb298-29"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>metric, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb298-30"><a href="appendix-b-shorts-package.html#cb298-30"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distance (m)&quot;</span>) <span class="op">+</span></span>
 <span id="cb298-31"><a href="appendix-b-shorts-package.html#cb298-31"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="ot">NULL</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Package <code>shorts</code> comes with <code>find_</code> family of functions that allow finding peak power and it’s location, as well as <em>critical distance</em> over which velocity, acceleration, or power drops below certain threshold:</p>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="appendix-b-shorts-package.html#cb299-1"></a><span class="co"># Peak power and location</span></span>
 <span id="cb299-2"><a href="appendix-b-shorts-package.html#cb299-2"></a>shorts<span class="op">::</span><span class="kw">find_max_power_distance</span>(</span>
@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb301-15"><a href="appendix-b-shorts-package.html#cb301-15"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb301-16"><a href="appendix-b-shorts-package.html#cb301-16"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distance (m)&quot;</span>) <span class="op">+</span></span>
 <span id="cb301-17"><a href="appendix-b-shorts-package.html#cb301-17"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted velocity (m/s)&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="profiling-using-radar-gun-data" class="section level3" number="18.2.2">
@@ -566,7 +566,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb303-4"><a href="appendix-b-shorts-package.html#cb303-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_velocity), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
 <span id="cb303-5"><a href="appendix-b-shorts-package.html#cb303-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (s)&quot;</span>) <span class="op">+</span></span>
 <span id="cb303-6"><a href="appendix-b-shorts-package.html#cb303-6"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Velocity (m/s)&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Radar gun data can be modeled individually or using <em>non-linear mixed model</em> implemented in <code>shorts::mixed_model_using_radar</code>:</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="appendix-b-shorts-package.html#cb304-1"></a>mixed_model &lt;-<span class="st"> </span>shorts<span class="op">::</span><span class="kw">mixed_model_using_radar</span>(</span>
 <span id="cb304-2"><a href="appendix-b-shorts-package.html#cb304-2"></a>  <span class="dt">data =</span> radar_gun_data,</span>
@@ -621,7 +621,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb305-15"><a href="appendix-b-shorts-package.html#cb305-15"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb305-16"><a href="appendix-b-shorts-package.html#cb305-16"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (s)&quot;</span>) <span class="op">+</span></span>
 <span id="cb305-17"><a href="appendix-b-shorts-package.html#cb305-17"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted acceleration (m/s^2)&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-corrections" class="section level3" number="18.2.3">
 <h3><span class="header-section-number">18.2.3</span> Using corrections</h3>
@@ -673,7 +673,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb308-16"><a href="appendix-b-shorts-package.html#cb308-16"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb308-17"><a href="appendix-b-shorts-package.html#cb308-17"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distance (m)&quot;</span>) <span class="op">+</span></span>
 <span id="cb308-18"><a href="appendix-b-shorts-package.html#cb308-18"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted velocity (m/s)&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Instead of providing for <code>time_correction</code>, this parameter can be estimated using <code>shorts::model_using_splits_with_time_correction</code> and <code>shorts::mixed_model_using_splits_with_time_correction</code>:</p>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="appendix-b-shorts-package.html#cb309-1"></a>kimberley_profile_with_time_correction &lt;-<span class="st"> </span>shorts<span class="op">::</span><span class="kw">model_using_splits_with_time_correction</span>(</span>
 <span id="cb309-2"><a href="appendix-b-shorts-package.html#cb309-2"></a>  <span class="dt">distance =</span> kimberley_data<span class="op">$</span>distance,</span>

@@ -17,8 +17,8 @@ source("_common.R")
 require(tidyverse)
 require(cowplot)
 require(directlabels)
-require(kableExtra)
 require(pdp)
+require(kableExtra)
 ```
 # Causal inference
 
@@ -78,8 +78,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 0,
   caption = "(ref:basketball-data-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 Using descriptive estimators introduced in the [Description] section, one can quickly calculate the group `mean` and `SD` as well as their difference (Table \@ref(tab:descriptive-group-analysis)). But does mean difference between basketball and control represent *average causal effect* (ACE)[^ACE_ATE]? No, unfortunately not!
@@ -143,8 +142,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 0,
   caption = "(ref:basketball-counterfactuals-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a *proxy* to reveal what might have happened *on average* to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the *true* systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table \@ref(tab:table-counterfactuals-simulated)). Individual causal effect in this case is the difference between two potential outcomes: $Height_{1}$ and $Height_{0}$. 
@@ -167,13 +165,12 @@ knitr::kable(
   booktabs = TRUE,
   digits = c(0, 0, 0, 0, 0, 2),
   caption = "(ref:table-counterfactuals-simulated-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 From Table \@ref(tab:table-counterfactuals-simulated), we can state that the mean difference between the groups consists of two components: *average causal effect* and the *selection bias* [@angristMasteringMetricsPath2015] (Equation \@ref(eq:mean-causal-effect)).
 
-$$
+
 \begin{equation}
   \begin{split}
     mean_{difference} &= Average \; causal\; effect + Selection\; bias \\
@@ -182,7 +179,7 @@ $$
   \end{split}
   (\#eq:mean-causal-effect)
 \end{equation}
-$$
+
 
 ```{r}
 selection_bias <- mean(
@@ -259,8 +256,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 0,
   caption = "(ref:randomized-basketball-data-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 If we calculate the mean differences in this randomly assigned basketball treatment (Table \@ref(tab:basketball-randomized-summary)), we can quickly notice that random assignment washed out selection bias involved with the observational study, and that the mean difference is closer to the known systematic (or average or *expected*) causal effect. The difference between estimated systematic causal effect using mean group difference from the randomized trial and the true causal effect is due to the *sampling error* which will be explained in the [Statistical inference] section. 
@@ -345,8 +341,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-vj-data-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 Descriptive summary statistics for Treatment and Control groups are enlisted in the Table \@ref(tab:rct-summary), and visually depicted in the Figure \@ref(fig:rct-groups). 
@@ -556,7 +551,7 @@ knitr::include_graphics(path = "figures/treatment-and-non-treatment-effects.png"
 
 The following equation captures the essence of estimating Treatment effects from Pre-test and Post-test scores in the Treatment and Control groups (Equation \@ref(eq:te-and-nte-equation)):
 
-$$
+
 \begin{equation}
   \begin{split}
     Treatment_{post} &= Treatment_{pre} + Treatment \; Effect + NonTreatment \; Effect \\
@@ -570,7 +565,7 @@ $$
   \end{split}
   (\#eq:te-and-nte-equation)
 \end{equation}
-$$
+
 
 From the Equation \@ref(eq:te-and-nte-equation), the differences between the changes in Treatment and Control groups can be interpreted as the estimate of the causal effect of the treatment. More precisely, average causal effect or expected causal effect represent systematic treatment effect. This is estimated using difference between `mean` Treatment change and `mean` Control change.
 
@@ -600,18 +595,18 @@ knitr::kable(
 
 `Cohen's d` in the Table \@ref(tab:rct-te-estimates) is calculated by using the Equation \@ref(eq:te-nte-cohen) and it estimates standardized difference between change scores in Treatment and the Control groups.
 
-$$
+
 \begin{equation}
 Cohen's\;d = \frac{mean_{treatment\; group \; change} - mean_{control\; group \;change}}{SD_{control\; group \; change}}
 (\#eq:te-nte-cohen)
 \end{equation}
-$$
+
 
 Besides estimating systematic component of the treatment (i.e. the difference between the mean change in Treatment and Control groups), we might be interested in estimating random component and proportions of lower, equivalent and higher effects compared to SESOI (`pLower`, `pEquivalent`, and `pHigher`). Unfortunately, differences in `pLower`, `pEquivalent`, and `pHigher` from Table \@ref(tab:rct-te-estimates) don't answer this question, but rather the expected difference in proportions compared to Control (e.g. the expected improvement of `r round(vj_group_difference[6],2)` in observing proportion of higher change outcomes compared to Control).
 
 Since the changes in Treatment group are due both to the treatment and non-treatment effects (equation 29), the average treatment effect (systematic component) represents the difference between the `mean` changes in Treatment and Control groups (Table \@ref(tab:rct-te-estimates)). In the same manner, the `variance` of the change scores in the Treatment group are due to the random component of the treatment and non-treatment effects. Assuming normal (Gaussian) distribution of the random components, the *SD of the treatment effects* ($SD_{TE}$)[^SD_IR_comment] is estimated using the following Equation \@ref(eq:sd-te-equation).   
 
-$$
+
 \begin{equation}
   \begin{split}
     \epsilon_{treatment \;group \;change} &= \epsilon_{treatment \; effect} + \epsilon_{nontreatment \; effect} \\
@@ -627,7 +622,7 @@ $$
   \end{split}
   (\#eq:sd-te-equation)
 \end{equation}
-$$
+
 
 [^SD_IR_comment]: Also referred to as $SD_{IR}$ or standard deviation of the intervention responses [@hopkinsIndividualResponsesMade2015; @swintonStatisticalFrameworkInterpret2018]. $SD_{IR}$ or $SD_{TE}$ represent estimate of treatment effect heterogeneity, also referred to as *variable treatment effect* (VTE)
 
@@ -635,7 +630,7 @@ This neat mathematical solution is due to assumption of Gaussian error, assumpti
 
 Thus, the estimated parameters of the causal treatment effects in the underlying DGP are are summarized with the following Equation \@ref(eq:treatment-effects-estimates). This treatment effect is graphically depicted in the Figure \@ref(fig:te-effects). 
 
-$$
+
 \begin{equation}
   \begin{split}
     Treatment \; effect &\sim \mathcal{N}(Mean_{TE},\,SD_{TE}) \\
@@ -646,7 +641,7 @@ $$
   \end{split}
   (\#eq:treatment-effects-estimates)
 \end{equation}
-$$
+
 
 
 ```{r te-effects, fig.cap="(ref:te-effects-caption)"}
@@ -694,12 +689,12 @@ In the previous section, RCT is analyzed using *analysis of changes*. In this se
 
 Analysis in the previous section can be represented using simple linear regression model (Equation \@ref(eq:simple-rct-change-regression)). 
 
-$$
+
 \begin{equation}
   \widehat{Change} = \hat{\beta_0} + \hat{\beta_1}Group
   (\#eq:simple-rct-change-regression)
 \end{equation}
-$$
+
 
 According to [Frank Harrell](https://www.fharrell.com/post/errmed/#change), the use of change scores in the RCT analysis is problematic. Although this model definition (Equation \@ref(eq:simple-rct-change-regression)) will give us exactly the same results as obtained in the previous section, the use of change scores should be avoided. Thus, look at this example as *training vehicle*. After this initial discussion, valid model representation will be used. 
 
@@ -717,8 +712,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:dummy-coded-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 Estimated parameters for this linear model are enlisted in the Table \@ref(tab:simple-rct-model-coef)
@@ -809,12 +803,12 @@ ggplot(vertical_jump_data, aes(x = `Pre-test`, y = `Post-test`, color = Group)) 
 
 Figure \@ref(fig:ancova-rct-model) also represents *ANCOVA* (analysis of co-variance) design. Equation \@ref(eq:ancova-rct-change-regression) represent model definition where effects of Group (i.e., Treatment) are estimated by controlling the effects of the Pre-test. 
 
-$$
+
 \begin{equation}
   \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group + \hat{\beta_2}Pre
   (\#eq:ancova-rct-change-regression)
 \end{equation}
-$$
+
 
 Estimated parameters for this linear model are enlisted in the Table \@ref(tab:ancova-rct-model-coef). Please note the similarity with the Table \@ref(tab:simple-rct-model-coef). 
 
@@ -1007,8 +1001,7 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:ancova-rct-counterfactual-group-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
 ```
 
 If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
@@ -1036,25 +1029,28 @@ plot(
 
 This analysis allows us to estimate counterfactual *individual causal (treatment) effects* (ITE) predicted by the model. These are indicated with the arrows on the Figure \@ref(fig:ancova-rct-counterfactual-effects). Mathematically, arrow width is calculates using the Equation \@ref(eq:ite-equation).
 
-$$
 \begin{equation}
   \widehat{ITE_i} = \widehat{y_{i}^{Group=Treatment}} - \widehat{y_{i}^{Group=Control}} 
- (\#eq:ite-equation)
+  (\#eq:ite-equation)
 \end{equation}
-$$
 
 Since ANCOVA RCT model is used, which predicts average Group effect for every participant, estimated counterfactual ITEs are all the same and are equal to `r round(model2cv_rct$extra$counterfactual_summary$pATE[1], 2)`cm. Table \@ref(tab:ancova-rct-pITE) contains all individual model predictions using ANCOVA RCT model. 
 
 (ref:ancova-rct-pITE-caption) **Individual model predictions using ANCOVA RCT model**
 
 ```{r ancova-rct-pITE}
-knitr::kable(
+tbl <- knitr::kable(
   model2cv_rct$extra$results,
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:ancova-rct-pITE-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 PDP and  ICE plots, as well as individual treatment effects plots (and estimates) can be very valuable tool in visualizing the causal effects, which are appropriate in this case since we are analyzing RCT data. But we need to be very wary when using them with the observational data and giving them causal interpretation. 
@@ -1070,13 +1066,18 @@ There could also be *hidden variables* involved that *moderate* and *mediate* th
 To explain these concepts, let's assume that that besides Pre-test and Post-test scores in our RCT study, we have also measured Back squat relative 1RMs since we believed that strength of the individual will moderate the effects of the plyometric treatment. This data is enlisted in the Table \@ref(tab:rct-data-with-squat). Squat 1RM in this case represent characteristic of the subject, or a *covariate*. Additional covariates (not considered here) might include gender, experience, height, weight and so forth. 
 
 ```{r rct-data-with-squat}
-knitr::kable(
+tbl <- knitr::kable(
   select(vj_data, -Magnitude),
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-data-with-squat-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 (ref:rct-data-with-squat-caption) **Randomized control trial data but now with 1RM strength covariate**
@@ -1156,13 +1157,18 @@ vj_data_interaction_dummy <- vj_data %>%
          `groupTreatment:Squat 1RM` = groupTreatment * `Squat 1RM`) %>%
   select(Athlete, groupTreatment, `Squat 1RM`, `groupTreatment:Squat 1RM`, `Pre-test (cm)`, `Change (cm)`)
 
-knitr::kable(
+tbl <- knitr::kable(
   vj_data_interaction_dummy,
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-interaction-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 But as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
@@ -1217,12 +1223,12 @@ plot_grid(
 
 Let's apply linear regression model to these predictors. The parameters we are going to estimate are enlisted in the linear Equation \@ref(eq:rct-interaction-equation).
 
-$$
+
 \begin{equation}
   \widehat{Post} = \hat{\beta_0} + \hat{\beta_1}Group +  \hat{\beta_2}Pre + \hat{\beta_3}Squat\:1RM + \hat{\beta_4}Group:Squat\:1RM 
   (\#eq:rct-interaction-equation)
 \end{equation}
-$$
+
 
 Estimated parameters for this linear model with interaction are enlisted in the Table \@ref(tab:rct-interaction-model-coef).
 

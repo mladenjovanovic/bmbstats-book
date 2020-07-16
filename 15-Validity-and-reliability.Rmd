@@ -996,12 +996,12 @@ As can be seen from the figure as well, OLP method provided biased estimates for
 
 So for we have used SESOI of ±2.5cm for both true score and criterion, and it was used to estimate predictive validity of the practical measure (i.e. does residuals fit within SESOI band; i.e. `PPER`). But we can use outcome variable SESOI to estimate SESOI in the predictor. This way we can estimate the SESOI in the predictor that yields SESOI in the criterion. In the case of simple linear regression, this is done by using estimated slope, by simply dividing outcome (i.e. criterion measure) SESOI with estimated slope: 
 
-$$
-\begin{aligned}
-  SESOI_{outcome} = \beta_1 \times predictor \\
-  SESOI_{predictor} = \frac{SESOI_{outcome}}{\beta_1}
-\end{aligned}
-$$
+\begin{equation}
+  \begin{split}
+  SESOI_{outcome} &= \beta_1 \times predictor \\
+  SESOI_{predictor} &= \frac{SESOI_{outcome}}{\beta_1}
+  \end{split}
+\end{equation}
 
 In our validity model where criterion measure is the outcome and practical measure is the predictor, estimated slope is equal to `r round(lm_criterion_validity$estimators$value[5], 2)`, thus practical measure SESOI would be  ±`r round(2.5 / lm_criterion_validity$estimators$value[5], 2)`cm. 
 
@@ -1385,7 +1385,7 @@ differences_method(
 
 Unless we are able to calibrate the unit C, we cannot use it interchangeably with units A and B. But unit C is more than good to be used for measurement - we just need to stick to that unit across time.
 
-### Repeatability
+## Repeatability
 
 So far, we have assumed no change in the true score across trials, thus no effect of the *biological noise*. In the next data set we are going to measure vertical jump height on two days spread by 7 days for N=20 athletes. We will assume that there is no change in the true score (i.e. no systematic change/effect), but there will be some *biological noise* that will affect the *manifestable performance* (see [Extending the Classical Test Theory] section). This unavoidably presents the question "What is the true score?". Well, in this case we can consider it some individual *stable* level of performance, that varies from day to day due to various factors, such as sleep, nutrition, motivation, circadian rhythms and so forth. Please refer to Borsboom's text for more in depth treatment of the issues with the *true score* concept [@borsboomMeasuringMindConceptual2009].
 
@@ -1495,13 +1495,13 @@ measured_reliability
 
 As can be seen from the analysis, now the biological noise is contained (or propagated) to `RSE`, `SDC` and other estimators of the practical measure random error. The random error (`TE`) inside the practical measure is equal to:
 
-$$
+\begin{equation}
   TE^2 = (proportional \; bias \times biological \; noise)^2 + practical \; random \; error ^2 
-$$
+\end{equation}
 
 Estimated biological noise (using manifested analysis `TE`) is equal to `r round(manifested_reliability$estimators$value[11], 2)`cm (or we could use true DGP value of `r round(biological_noise, 2)`cm), simulated practical random error is equal to `r round(practical_random, 2)`cm, and the simulated slope is equal to `r round(practical_proportional, 2)`. Thus expected estimate `TE` of the practical measure is equal to `r round(sqrt((manifested_reliability$estimators$value[11] * practical_proportional)^2 + practical_random^2), 2)`cm, which is very close to the above estimated `TE` (`r round(measured_reliability$estimators$value[11], 2)`cm).
 
-### The difference between Reproducibility and Repeatability
+## The difference between Reproducibility and Repeatability
 
 What's the difference between the estimate reproducibility and repeatability of the practical measure? Well, with reproducibility we aim to estimate sole instrumentation noise without biological noise/variation. This is done by making sure that the devices are measuring exactly the same phenomena. 
 
@@ -1604,13 +1604,14 @@ Measured manifested `TE` represents biological noise/variation that would be mea
 
 The estimated `TE` of the practical measure in the repeatability study is equal to `r round(measured_reliability$estimators$value[11], 2)`cm. This `TE` contains both biological noise and instrumentation noise. Since we know the instrumentation noise (either from reproducibility or validity study; or from DGP in our case), we can estimate biological error (as would be estimated by practical measure without random error):
 
-$$
-\begin{align}
+\begin{equation}
+  \begin{split}
   TE^2 &= Biological^2 + Instrument^2 \\
   Biological^2 &= TE^2 - Instrument^2 \\
   Biological &= \sqrt{TE^2 - Instrument^2}
-\end{align}
-$$
+  \end{split}
+\end{equation}
+
 
 We thus get the estimate of biological variation to be equal to `r round(sqrt(measured_reliability$estimators$value[11]^2 - practical_random^2), 2)`cm, which is very close to the above estimate biological variation of `r round(manifested_measured_reliability$estimators$value[11], 2)`cm. Please note that the difference is due to me using simulation true practical measure random error, rather than estimated in this sample. 
 

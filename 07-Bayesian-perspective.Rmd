@@ -17,7 +17,6 @@ source("_common.R")
 require(tidyverse)
 require(cowplot)
 require(directlabels)
-require(kableExtra)
 require(bayestestR)
 require(ggridges)
 
@@ -113,23 +112,23 @@ knitr::kable(
 
 The sample height data we have collected for N=5 individuals is 167, 192, 183, 175, 177cm. From this sample we are interested in making inference to the true parameter values (i.e. `mean` and `SD`, or $\mu$ and $\sigma$). Without going into the *Bayes theorem* for *inverse probability*, the next major step is the *likelihood function*. Likelihood function gives us a likelihood of observing data, given parameters. Since we have 9 parameter possibilities, we are interested in calculating the likelihood of observing the data for each possibility. This is represented with a following Equation \@ref(eq:likelihood-function):
 
-$$
+
 \begin{equation}
   L(x|\mu, \sigma) = \prod_{i=1}^{n}f(x_{i}, \mu, \sigma) 
   (\#eq:likelihood-function)
 \end{equation}
-$$
+
 
 The likelihood of observing the data is calculated by taking the *product* (indicated by $\prod_{i=1}^{n}$ sign in the Equation \@ref(eq:likelihood-function) of likelihood of observing individual scores. The likelihood function is normal *probability density function* (PDF)[^other-likelihood]:, whose parameters are $\mu$ and $\sigma$ (see Figure \@ref(fig:data-likelihood)). This function has the following Equation \@ref(eq:likelihood-equation):
 
 [^other-likelihood]: There are other likelihood functions that one can use of course, similar to the various *loss functions* used in [Prediction] section. 
 
-$$
+
 \begin{equation}
   f(x_{i}, \mu, \sigma) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2}) }} {\sigma\sqrt{2\pi}}
   (\#eq:likelihood-equation)
 \end{equation}
-$$
+
 
 Let's take a particular possibility of $\mu$ and $\sigma$, e.g. 175cm and 9cm, and calculate likelihoods for each observed score (Table \@ref(tab:bayes-height-grid-likelihood)).
 
@@ -613,7 +612,7 @@ In Bayesian statistics, the prior and posterior distributions are usually summar
 
 HDI is similar to frequentist CI, but represents an interval which contains all points within the interval that have higher probability density than points outside the interval [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. HDI is more computationally expensive to estimate, but compared to *equal-tailed interval* (ETI) or *percentile interval*, that typically excludes 2.5% or 5% from each tail of the distribution (for 95% or 90% confidence respectively), HDI is not equal-tailed and therefore always includes the mode(s) of posterior distributions [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. 
 
-Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $±1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
+Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $\pm1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
 
 ```{r map-hdi, fig.cap="(ref:map-hdi-caption)"}
 posterior <- data.frame(x = c(

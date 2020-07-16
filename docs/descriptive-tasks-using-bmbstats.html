@@ -288,9 +288,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reproducibility"><i class="fa fa-check"></i><b>15.3.1</b> Reproducibility</a></li>
-<li class="chapter" data-level="15.3.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.3.2</b> Repeatability</a></li>
-<li class="chapter" data-level="15.3.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.3.3</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
+<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.4</b> Repeatability</a></li>
+<li class="chapter" data-level="15.5" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.5</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a>
 <ul>
@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#shiny-app"><i class="fa fa-check"></i><b>19.3</b> <span>Shiny App</span></a></li>
 <li class="chapter" data-level="19.4" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#example"><i class="fa fa-check"></i><b>19.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i>Appendix D: Recommended material</a></li>
+<li class="chapter" data-level="20" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i><b>20</b> Appendix D: Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -397,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-3"><a href="descriptive-tasks-using-bmbstats.html#cb4-3"></a>  <span class="dt">value =</span> <span class="st">&quot;Female&quot;</span>,</span>
 <span id="cb4-4"><a href="descriptive-tasks-using-bmbstats.html#cb4-4"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">group_colors =</span> <span class="st">&quot;pink&quot;</span>)</span>
 <span id="cb4-5"><a href="descriptive-tasks-using-bmbstats.html#cb4-5"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Functions in <code>bmbstats</code> package use <code>control</code> parameter to setup graphing or modeling parameters. For example, we can remove the quantile lines, resize points, change color by using <code>bmbstats::plot_control</code> function in the <code>control</code> parameter:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="descriptive-tasks-using-bmbstats.html#cb5-1"></a>bmbstats<span class="op">::</span><span class="kw">plot_raincloud</span>(</span>
 <span id="cb5-2"><a href="descriptive-tasks-using-bmbstats.html#cb5-2"></a>  <span class="dt">data =</span> height_data,</span>
@@ -411,7 +411,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-10"><a href="descriptive-tasks-using-bmbstats.html#cb5-10"></a>    <span class="dt">points_size =</span> <span class="dv">2</span></span>
 <span id="cb5-11"><a href="descriptive-tasks-using-bmbstats.html#cb5-11"></a>  )</span>
 <span id="cb5-12"><a href="descriptive-tasks-using-bmbstats.html#cb5-12"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>One of the core functions in <code>bmbstats</code> package is <code>bmbstats::bmbstats</code>, around which multiple <em>wrapper</em> functions are built, such as <code>bmbstats::describe_data</code>. <code>bmbstats::describe_data</code> performs bootstrap using the estimators provided in the <code>estimator_function</code> parameter. To modify bootstrap parameters, use <code>control</code> parameter and <code>bmbstats::model_control</code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="descriptive-tasks-using-bmbstats.html#cb6-1"></a>female_analysis &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_data</span>(</span>
 <span id="cb6-2"><a href="descriptive-tasks-using-bmbstats.html#cb6-2"></a>  <span class="dt">x =</span> height_data<span class="op">$</span>Female,</span>
@@ -435,7 +435,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Since we have generated the data, we know the <em>true</em> population parameters for the <code>mean</code> (165.1cm) and <code>SD</code> (8.89cm), and we are hoping that our 90% confidence intervals capture those values in 90% of the cases in the long run (i.e. have 10% Type I error).</p>
 <p>To plot bootstrap distributions, use simple <code>plot</code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="descriptive-tasks-using-bmbstats.html#cb8-1"></a><span class="kw">plot</span>(female_analysis)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The figure above depicts distribution of the bootstrap resamples with the error bar representing estimator value and upper and lower confidence thresholds (in this case 90% estimated using <em>percentile</em> method). To change the colors, use <code>control</code> and <code>plot_control</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="descriptive-tasks-using-bmbstats.html#cb9-1"></a><span class="kw">plot</span>(</span>
 <span id="cb9-2"><a href="descriptive-tasks-using-bmbstats.html#cb9-2"></a>  female_analysis,</span>
@@ -444,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-5"><a href="descriptive-tasks-using-bmbstats.html#cb9-5"></a>    <span class="dt">summary_bar_color =</span> <span class="st">&quot;red&quot;</span></span>
 <span id="cb9-6"><a href="descriptive-tasks-using-bmbstats.html#cb9-6"></a>  )</span>
 <span id="cb9-7"><a href="descriptive-tasks-using-bmbstats.html#cb9-7"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div id="using-your-own-estimators" class="section level3" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Using your own estimators</h3>
 <p><code>bmbstats</code> functions are <em>modular</em>, implying that you can use different modules that you write yourself. This includes estimators function, but also performance functions (covered later when discussing prediction using <code>bmbstats</code>). Let’s say we are interested in the calculating <code>mean</code>, <code>SD</code>, and <code>CV%</code> (coefficient of variation):</p>
@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-17"><a href="descriptive-tasks-using-bmbstats.html#cb12-17"></a><span class="co">#&gt;         SD   8.199373   6.914061   9.136136</span></span>
 <span id="cb12-18"><a href="descriptive-tasks-using-bmbstats.html#cb12-18"></a><span class="co">#&gt;         CV   5.024806   4.240318   5.600490</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="descriptive-tasks-using-bmbstats.html#cb13-1"></a><span class="kw">plot</span>(female_analysis_my_est)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p><code>bmbstats::describe_data</code> comes with three estimator functions: <code>bmbstats::data_estimators</code>, <code>bmbstats::data_estimators_simple</code>, and <code>bmbstats::data_estimators_robust</code>. Let’s run the <code>bmbstats::data_estimators</code> and <code>bmbstats::data_estimators_robust</code>, but this time using <em>bca</em> method of estimating 95% bootstrap confidence intervals (CIs):</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="descriptive-tasks-using-bmbstats.html#cb14-1"></a>female_analysis_extensive &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_data</span>(</span>
 <span id="cb14-2"><a href="descriptive-tasks-using-bmbstats.html#cb14-2"></a>  <span class="dt">x =</span> height_data<span class="op">$</span>Female,</span>
@@ -512,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-24"><a href="descriptive-tasks-using-bmbstats.html#cb14-24"></a><span class="co">#&gt;        max 181.121685 175.163488 181.121685</span></span>
 <span id="cb14-25"><a href="descriptive-tasks-using-bmbstats.html#cb14-25"></a><span class="co">#&gt;      range  35.528292  28.764563  35.528292</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descriptive-tasks-using-bmbstats.html#cb15-1"></a><span class="kw">plot</span>(female_analysis_extensive)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>As can be seen from the bootstrap estimators distribution, some estimators, like <code>mode</code>, <code>median</code>, <code>min</code>, <code>max</code> and <code>range</code> have <em>weird</em> distribution and their CIs should not be trusted.</p>
 <p>Robust estimators is a family of estimators that are <em>robust</em> to outliers. Here I will use <code>median</code> and 10 and 20% <em>trimmed</em> <code>mean</code>. Trimming involves removing certain percentage of top and bottom observations from the sample, which removes potential outliers.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="descriptive-tasks-using-bmbstats.html#cb16-1"></a>female_analysis_robust &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_data</span>(</span>
@@ -536,7 +536,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-19"><a href="descriptive-tasks-using-bmbstats.html#cb16-19"></a><span class="co">#&gt;  10% trimmed mean 163.095407 160.630145 165.42765</span></span>
 <span id="cb16-20"><a href="descriptive-tasks-using-bmbstats.html#cb16-20"></a><span class="co">#&gt;  20% trimmed mean 163.020558 160.356299 165.52687</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="descriptive-tasks-using-bmbstats.html#cb17-1"></a><span class="kw">plot</span>(female_analysis_robust)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The simplicity of the bootstrap is that it can provide CIs for any estimator you can think of. But as always, Devil is in the details and some CIs for certain estimators (or small sample sizes) cannot be trusted and can be biased. This topic is beyond this book. The easiest test you can do is to run a simulation and see if the Type I error rates are not inflated.</p>
 <p>To summarize the analysis of the single sample, let’s say that I am interested in estimating proportion of the females taller than 180cm in the population using the sample acquired. I can easily write my own estimator function and use normal or t-distribution to estimate the proportion, then plug that into the bootstrap to get CIs:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="descriptive-tasks-using-bmbstats.html#cb18-1"></a><span class="co"># Estimators function</span></span>
@@ -584,7 +584,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-43"><a href="descriptive-tasks-using-bmbstats.html#cb18-43"></a><span class="co">#&gt;   Over 180cm proportion (norm-distr)   0.02010279 6.171549e-03   0.05644849</span></span>
 <span id="cb18-44"><a href="descriptive-tasks-using-bmbstats.html#cb18-44"></a><span class="co">#&gt;  Over 180cm proportion (brute-force)   0.02000000 0.000000e+00   0.06000000</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="descriptive-tasks-using-bmbstats.html#cb19-1"></a><span class="kw">plot</span>(tall_females)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="visualization-and-analysis-of-the-two-independent-groups" class="section level2" number="13.3">
@@ -619,7 +619,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-27"><a href="descriptive-tasks-using-bmbstats.html#cb20-27"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb20-28"><a href="descriptive-tasks-using-bmbstats.html#cb20-28"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb20-29"><a href="descriptive-tasks-using-bmbstats.html#cb20-29"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>estimator, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>As can be seen from the figure, males have higher <code>mean</code> height, higher <code>SD</code> (but not sure if it is <em>statistically significant</em> nor <em>practically significant</em> - you can check this later with a few <code>bmbstats</code> functions) and higher proportion of individual over 180cm.
 Rather than comparing individual group estimates, we can perform independent group analysis using <code>bmbstats::compare_independent_groups</code>. But before we do that, let’s plot the groups using <code>bmbstats::plot_raincloud</code> function. To do that, we need to convert our <em>wide</em> height data to <em>long</em> format:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="descriptive-tasks-using-bmbstats.html#cb21-1"></a>height_data_long &lt;-<span class="st"> </span><span class="kw">gather</span>(</span>
@@ -648,7 +648,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb22-3"><a href="descriptive-tasks-using-bmbstats.html#cb22-3"></a>  <span class="dt">value =</span> <span class="st">&quot;Height&quot;</span>,</span>
 <span id="cb22-4"><a href="descriptive-tasks-using-bmbstats.html#cb22-4"></a>  <span class="dt">group =</span> <span class="st">&quot;Gender&quot;</span></span>
 <span id="cb22-5"><a href="descriptive-tasks-using-bmbstats.html#cb22-5"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>To perform descriptive analysis of the independent groups, we will use <code>bmbstats::compare_independent_groups</code> function. This function use estimator function <code>bmbstats::independent_groups_estimators</code> that provide all the major estimators introduced in the [Comparing dependent groups] section. For the SESOI we will use 2.5cm, like we have done in the [Comparing dependent groups] section as well:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="descriptive-tasks-using-bmbstats.html#cb23-1"></a><span class="kw">independent_groups_estimators</span>(</span>
 <span id="cb23-2"><a href="descriptive-tasks-using-bmbstats.html#cb23-2"></a>  <span class="dt">group_a =</span> height_data<span class="op">$</span>Female,</span>
@@ -698,7 +698,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb24-29"><a href="descriptive-tasks-using-bmbstats.html#cb24-29"></a><span class="co">#&gt;         pEquivalent  0.09457649  0.06862640   0.1250760</span></span>
 <span id="cb24-30"><a href="descriptive-tasks-using-bmbstats.html#cb24-30"></a><span class="co">#&gt;             pHigher  0.79394008  0.68781913   0.8655902</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="descriptive-tasks-using-bmbstats.html#cb25-1"></a><span class="kw">plot</span>(males_females_comp)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>You can notice that SESOI threshold doesn’t have any bootstrap distribution. That is because we have provide <em>a priori</em> SESOI. We can also estimate SESOI within the bootstrap loop. For SESOI we can use <code>pooled SD</code> of the <code>group_a</code> and <code>group_b</code> multiplied by 0.2, which represents Cohen’s trivial magnitude. This is the default behavior of the <code>bmbstats::compare_independent_groups</code> and other similar functions. You can write your own function for estimating SESOI by providing function argument to <code>SESOI_lower</code> and <code>SESOI_upper</code> parameters. For the sake of example, I will do that here, but only for the <code>SESOI_upper</code> and will stick to -2.5cm for the <code>SESOI_lower</code>:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="descriptive-tasks-using-bmbstats.html#cb26-1"></a>males_females_comp_est &lt;-<span class="st"> </span><span class="kw">compare_independent_groups</span>(</span>
 <span id="cb26-2"><a href="descriptive-tasks-using-bmbstats.html#cb26-2"></a>  <span class="dt">group_a =</span> height_data<span class="op">$</span>Female,</span>
@@ -731,7 +731,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb26-29"><a href="descriptive-tasks-using-bmbstats.html#cb26-29"></a><span class="co">#&gt;         pEquivalent  0.07554712  0.05221579   0.09808881</span></span>
 <span id="cb26-30"><a href="descriptive-tasks-using-bmbstats.html#cb26-30"></a><span class="co">#&gt;             pHigher  0.81296945  0.72639255   0.88497505</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="descriptive-tasks-using-bmbstats.html#cb27-1"></a><span class="kw">plot</span>(males_females_comp_est)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>You can now notice that <code>SESOI upper</code> and <code>SESOI range</code> have bootstrap distribution. It is important that if we estimate SESOI from the obtained sample, the SESOI estimation <em>must</em> be in the bootstrap loop, and our uncertainty about it’s estimate must be propagated to other estimators that uses SESOI (e.g. <code>pLower</code>, <code>pEquivalent</code>, <code>pHigher</code>). To demonstrate the difference, consider the following two analyses using different SESOI estimation. One estimates SESOI <em>inside</em> the bootstrap loop, and the other estimates SESOI <em>outside</em> the bootstrap loop. To make sure the same bootstrap is performed, we will set the same <code>seed</code> parameter:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="descriptive-tasks-using-bmbstats.html#cb28-1"></a><span class="co"># SESOI estimated inside the bootstrap loop</span></span>
 <span id="cb28-2"><a href="descriptive-tasks-using-bmbstats.html#cb28-2"></a>males_females_comp_inside &lt;-<span class="st"> </span><span class="kw">compare_independent_groups</span>(</span>
@@ -776,7 +776,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb28-41"><a href="descriptive-tasks-using-bmbstats.html#cb28-41"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb28-42"><a href="descriptive-tasks-using-bmbstats.html#cb28-42"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb28-43"><a href="descriptive-tasks-using-bmbstats.html#cb28-43"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>estimator, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The difference in CIs for the estimators that uses SESOI (i.e. magnitude-based estimators) is not staggering, but CIs are wider for the <em>inside</em> method (for example, compare <code>Mean diff to SESOI</code> estimator).</p>
 </div>
 <div id="nhst-mets-and-mbi-functions" class="section level2" number="13.4">
@@ -811,7 +811,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <p>Estimated <code>p-value</code> is slightly over 0.05, so we do not reject the Null Hypothesis. This is interesting result, particularly since we know that the <em>true</em> <code>mean</code> difference is around 12.7cm (true <code>mean</code> height for males is 177.8cm and for females is 165.1cm). It could be that this sample size is under-powered to detect this small difference between Null Hypothesis (i.e. &gt;10cm) and Alternative Hypothesis - true difference in this case - of 12.7cm. This topic is discussed in the [Statistical Power]. This could easily be tested with a simulation, althought that is beyond the scope of this chapter.</p>
 <p>Graphically, this test looks like this:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="descriptive-tasks-using-bmbstats.html#cb31-1"></a><span class="kw">plot</span>(males_females_NHST)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>In the above graph, the estimator bootstrap distribution (i.e. <code>mean difference</code>) is centered around Null Hypothesis (i.e. 10cm). If we perform this same test, but using two sided NHST (which is default), we will the the following result and plot:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="descriptive-tasks-using-bmbstats.html#cb32-1"></a>males_females_NHST &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bootstrap_NHST</span>(</span>
 <span id="cb32-2"><a href="descriptive-tasks-using-bmbstats.html#cb32-2"></a>  males_females_comp,</span>
@@ -820,7 +820,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb32-5"><a href="descriptive-tasks-using-bmbstats.html#cb32-5"></a>)</span>
 <span id="cb32-6"><a href="descriptive-tasks-using-bmbstats.html#cb32-6"></a></span>
 <span id="cb32-7"><a href="descriptive-tasks-using-bmbstats.html#cb32-7"></a><span class="kw">plot</span>(males_females_NHST)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We have already decided that our SESOI in height is 2.5cm. But this SESOI is related to individual observations, not necessary to estimators (i.e. <code>mean difference</code>). This topic is discussed in the [Individual vs. Parameter SESOI] section of this book. Let’s use 10cm as SESOI for the <code>mean difference</code> estimator and perform METs using <code>bmbstats::bootstrap_MET</code> function and alpha level set to 0.05:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="descriptive-tasks-using-bmbstats.html#cb33-1"></a>males_females_MET &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bootstrap_MET</span>(</span>
 <span id="cb33-2"><a href="descriptive-tasks-using-bmbstats.html#cb33-2"></a>  males_females_comp,</span>
@@ -845,12 +845,12 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb33-21"><a href="descriptive-tasks-using-bmbstats.html#cb33-21"></a><span class="co">#&gt; Final inference: Not-Lower</span></span></code></pre></div>
 <p>As can be seen from the result of the MET analysis, the final inference is that male height is “not lower” than female height using SESOI of 10cm. I personally prefer this to be conveyed visually by using <code>plot</code> function:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="descriptive-tasks-using-bmbstats.html#cb34-1"></a><span class="kw">plot</span>(males_females_MET)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-33-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-33-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We can also plot each individual MET test, for example <em>equivalence</em> and <em>non-inferiority</em> tests:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="descriptive-tasks-using-bmbstats.html#cb35-1"></a><span class="kw">plot</span>(males_females_MET, <span class="dt">type =</span> <span class="st">&quot;equivalence&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="descriptive-tasks-using-bmbstats.html#cb36-1"></a><span class="kw">plot</span>(males_females_MET, <span class="dt">type =</span> <span class="st">&quot;non-inferiority&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>What if I decide about different SESOI values or different Null Hypothesis or even alpha levels? Well, that is and example of <em>p-harking</em> discussed in the [Statistical Power] section. P-harking represents <em>hypothesizing after results are known</em>, or in other words tuning your analysis to be more acceptable for publications. That’s why it is important for the <em>confirmatory</em> studies to have all the threshold and the analysis <em>a priori</em> defined or pre-registered.</p>
 <p>To perform MBI, use <code>bmbstats::bootstrap_MBI</code> function:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="descriptive-tasks-using-bmbstats.html#cb37-1"></a>males_females_MBI &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bootstrap_MBI</span>(</span>
@@ -873,7 +873,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb37-18"><a href="descriptive-tasks-using-bmbstats.html#cb37-18"></a><span class="co">#&gt; Final inference: Likely higher</span></span></code></pre></div>
 <p>The final inference of the MBI is “likely higher” <code>mean difference</code>. As always, plotting is much more informational:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="descriptive-tasks-using-bmbstats.html#cb38-1"></a><span class="kw">plot</span>(males_females_MBI)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="comparing-two-dependent-groups" class="section level2" number="13.5">
 <h2><span class="header-section-number">13.5</span> Comparing two dependent groups</h2>
@@ -974,7 +974,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb40-6"><a href="descriptive-tasks-using-bmbstats.html#cb40-6"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-5</span>,</span>
 <span id="cb40-7"><a href="descriptive-tasks-using-bmbstats.html#cb40-7"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">5</span></span>
 <span id="cb40-8"><a href="descriptive-tasks-using-bmbstats.html#cb40-8"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-39-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-39-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>As can be seen, there is no true change. Let’s see what happens when we plot observed scores:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="descriptive-tasks-using-bmbstats.html#cb41-1"></a><span class="kw">plot_pair_changes</span>(</span>
 <span id="cb41-2"><a href="descriptive-tasks-using-bmbstats.html#cb41-2"></a>  <span class="dt">group_a =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Pre-test (observed)</span><span class="st">`</span>,</span>
@@ -984,7 +984,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb41-6"><a href="descriptive-tasks-using-bmbstats.html#cb41-6"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-5</span>,</span>
 <span id="cb41-7"><a href="descriptive-tasks-using-bmbstats.html#cb41-7"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">5</span></span>
 <span id="cb41-8"><a href="descriptive-tasks-using-bmbstats.html#cb41-8"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We can also plot distribution of the Change scores:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="descriptive-tasks-using-bmbstats.html#cb42-1"></a><span class="kw">plot_raincloud_SESOI</span>(</span>
 <span id="cb42-2"><a href="descriptive-tasks-using-bmbstats.html#cb42-2"></a>  bench_press_data,</span>
@@ -992,7 +992,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb42-4"><a href="descriptive-tasks-using-bmbstats.html#cb42-4"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-5</span>,</span>
 <span id="cb42-5"><a href="descriptive-tasks-using-bmbstats.html#cb42-5"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">5</span></span>
 <span id="cb42-6"><a href="descriptive-tasks-using-bmbstats.html#cb42-6"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-41-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-41-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We would be very quick to claim that there are individuals that demonstrated higher or lower change (compared to SESOI). But remember that in this data set there is not <em>true</em> change - implying that all observed change is due to measurement error.</p>
 <p>Since we know that there is no true change, let’s do the summary of the observed Change score:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="descriptive-tasks-using-bmbstats.html#cb43-1"></a><span class="kw">mean</span>(bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (observed)</span><span class="st">`</span>)</span>
@@ -1037,7 +1037,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb46-15"><a href="descriptive-tasks-using-bmbstats.html#cb46-15"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">points_size =</span> <span class="dv">5</span>)</span>
 <span id="cb46-16"><a href="descriptive-tasks-using-bmbstats.html#cb46-16"></a>) <span class="op">+</span></span>
 <span id="cb46-17"><a href="descriptive-tasks-using-bmbstats.html#cb46-17"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-45-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-45-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>To perform METs, use <code>bmbstats::observations_MET</code> function:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="descriptive-tasks-using-bmbstats.html#cb47-1"></a>obs_change_MET &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">observations_MET</span>(</span>
 <span id="cb47-2"><a href="descriptive-tasks-using-bmbstats.html#cb47-2"></a>  <span class="dt">observations =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (observed)</span><span class="st">`</span>,</span>
@@ -1057,7 +1057,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb47-16"><a href="descriptive-tasks-using-bmbstats.html#cb47-16"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">points_size =</span> <span class="dv">5</span>)</span>
 <span id="cb47-17"><a href="descriptive-tasks-using-bmbstats.html#cb47-17"></a>) <span class="op">+</span></span>
 <span id="cb47-18"><a href="descriptive-tasks-using-bmbstats.html#cb47-18"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-46-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-46-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>It seems like the Athlete 02 showed <em>true</em> Change, but since we generated the data we know that there is no true Change (also check the vertical red lines for the true Change scores). Thus, if we conclude that this individual showed lower change, we would be making <em>Type I</em> error. Since we are performing multiple individual tests, we could/should <em>adjust</em> the <code>alpha</code> parameter (e.g. by dividing it by number of tests, or in this case athletes - <em>Bonferroni correction</em>) to avoid <em>inflating</em> family-wise error rates, since particular athlete can show significant change due to chance alone (due to multiple comparisons/test). To do that, simply divide <code>alpha</code> by the number of athletes:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="descriptive-tasks-using-bmbstats.html#cb48-1"></a>obs_change_MET &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">observations_MET</span>(</span>
 <span id="cb48-2"><a href="descriptive-tasks-using-bmbstats.html#cb48-2"></a>  <span class="dt">observations =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (observed)</span><span class="st">`</span>,</span>
@@ -1080,7 +1080,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb48-19"><a href="descriptive-tasks-using-bmbstats.html#cb48-19"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">points_size =</span> <span class="dv">5</span>)</span>
 <span id="cb48-20"><a href="descriptive-tasks-using-bmbstats.html#cb48-20"></a>) <span class="op">+</span></span>
 <span id="cb48-21"><a href="descriptive-tasks-using-bmbstats.html#cb48-21"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The point of this analysis is that we need to know measurement error to infer about true change in individuals. Since we do know that there is no real change in this example, we can see how measurement error cause cause wrong inferences about the true changes.</p>
 <p>Let’s now generate the data with true changes, where systematic change is 10kg and random change is 10kg as well:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="descriptive-tasks-using-bmbstats.html#cb49-1"></a><span class="kw">set.seed</span>(<span class="dv">1666</span>)</span>
@@ -1177,7 +1177,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb50-6"><a href="descriptive-tasks-using-bmbstats.html#cb50-6"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-5</span>,</span>
 <span id="cb50-7"><a href="descriptive-tasks-using-bmbstats.html#cb50-7"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">5</span></span>
 <span id="cb50-8"><a href="descriptive-tasks-using-bmbstats.html#cb50-8"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Since there are true changes (systematic and random) in this DGP, estimating <code>mean</code> and <code>SD</code> fo the true Change scores will give us the estimate of the DGP parameters:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="descriptive-tasks-using-bmbstats.html#cb51-1"></a><span class="kw">mean</span>(bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (true)</span><span class="st">`</span>)</span>
 <span id="cb51-2"><a href="descriptive-tasks-using-bmbstats.html#cb51-2"></a><span class="co">#&gt; [1] 12.82946</span></span></code></pre></div>
@@ -1210,7 +1210,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb54-6"><a href="descriptive-tasks-using-bmbstats.html#cb54-6"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-5</span>,</span>
 <span id="cb54-7"><a href="descriptive-tasks-using-bmbstats.html#cb54-7"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">5</span></span>
 <span id="cb54-8"><a href="descriptive-tasks-using-bmbstats.html#cb54-8"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-53-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-53-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The image looks similar to true scores analysis. Let’s estimate <code>mean</code> and <code>SD</code> CIs:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="descriptive-tasks-using-bmbstats.html#cb55-1"></a>obs_change_analysis &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_data</span>(</span>
 <span id="cb55-2"><a href="descriptive-tasks-using-bmbstats.html#cb55-2"></a>  <span class="dt">x =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (observed)</span><span class="st">`</span>,</span>
@@ -1247,7 +1247,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb56-15"><a href="descriptive-tasks-using-bmbstats.html#cb56-15"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">points_size =</span> <span class="dv">5</span>)</span>
 <span id="cb56-16"><a href="descriptive-tasks-using-bmbstats.html#cb56-16"></a>) <span class="op">+</span></span>
 <span id="cb56-17"><a href="descriptive-tasks-using-bmbstats.html#cb56-17"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">65</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="descriptive-tasks-using-bmbstats.html#cb57-1"></a>obs_change_MET &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">observations_MET</span>(</span>
 <span id="cb57-2"><a href="descriptive-tasks-using-bmbstats.html#cb57-2"></a>  <span class="dt">observations =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Change (observed)</span><span class="st">`</span>,</span>
 <span id="cb57-3"><a href="descriptive-tasks-using-bmbstats.html#cb57-3"></a>  <span class="dt">observations_label =</span> bench_press_data<span class="op">$</span>Athlete,</span>
@@ -1267,7 +1267,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb57-17"><a href="descriptive-tasks-using-bmbstats.html#cb57-17"></a>  <span class="dt">control =</span> <span class="kw">plot_control</span>(<span class="dt">points_size =</span> <span class="dv">5</span>)</span>
 <span id="cb57-18"><a href="descriptive-tasks-using-bmbstats.html#cb57-18"></a>) <span class="op">+</span></span>
 <span id="cb57-19"><a href="descriptive-tasks-using-bmbstats.html#cb57-19"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">65</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-56-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-56-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Before jumping on the <em>responders vs. non-responders</em> bandwagon, it would be wise to check the statistical error committed by Dankel and Loenneke <span class="citation">(Dankel and Loenneke <a href="#ref-dankelMethodStopAnalyzing2019" role="doc-biblioref">2019</a>)</span> pointed out in the letter-to-the-editor by Tenan <em>et al.</em> <span class="citation">(Tenan, Vigotsky, and Caldwell, <a href="#ref-tenanStatisticalPropertiesDankelLoenneke" role="doc-biblioref">n.d.</a>)</span>. This is a lesson to us all who are trying to come up with a <em>novel analyses</em>, like myself, so I am trying to be very cautious in using any bold statements.</p>
 </div>
 <div id="analysis-of-the-dependent-groups-using-bmbstatscompare_dependent_groups" class="section level3" number="13.5.2">
@@ -1310,7 +1310,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb58-35"><a href="descriptive-tasks-using-bmbstats.html#cb58-35"></a><span class="co">#&gt;           pEquivalent  0.17027690  0.087087118  0.24817063</span></span>
 <span id="cb58-36"><a href="descriptive-tasks-using-bmbstats.html#cb58-36"></a><span class="co">#&gt;               pHigher  0.79414243  0.691105965  0.90546802</span></span></code></pre></div>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="descriptive-tasks-using-bmbstats.html#cb59-1"></a><span class="kw">plot</span>(true_pre_post)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>And now with the observed Pre- and Post- scores:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="descriptive-tasks-using-bmbstats.html#cb60-1"></a>obs_pre_post &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">compare_dependent_groups</span>(</span>
 <span id="cb60-2"><a href="descriptive-tasks-using-bmbstats.html#cb60-2"></a>  <span class="dt">pre =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Pre-test (observed)</span><span class="st">`</span>,</span>
@@ -1349,7 +1349,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb60-35"><a href="descriptive-tasks-using-bmbstats.html#cb60-35"></a><span class="co">#&gt;           pEquivalent  0.17017990  0.09737292  0.23894195</span></span>
 <span id="cb60-36"><a href="descriptive-tasks-using-bmbstats.html#cb60-36"></a><span class="co">#&gt;               pHigher  0.78333084  0.69453555  0.88551971</span></span></code></pre></div>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="descriptive-tasks-using-bmbstats.html#cb61-1"></a><span class="kw">plot</span>(obs_pre_post)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Let’s plot the estimated CIs for all the estimators:</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="descriptive-tasks-using-bmbstats.html#cb62-1"></a><span class="co"># Plot the estimators</span></span>
 <span id="cb62-2"><a href="descriptive-tasks-using-bmbstats.html#cb62-2"></a>compare_analyses &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
@@ -1370,7 +1370,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb62-17"><a href="descriptive-tasks-using-bmbstats.html#cb62-17"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb62-18"><a href="descriptive-tasks-using-bmbstats.html#cb62-18"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb62-19"><a href="descriptive-tasks-using-bmbstats.html#cb62-19"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>estimator, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-61-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-61-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>As can be seen on the figure, some estimators (those depending on the <code>SD</code>) are more affected by the measurement error. Since we do not know <em>true</em> scores, we can perform SIMEX analysis on the observed scores, or adjust <code>SD</code> of the change using the change measurement error. Let’s do that by writing our own estimator equation that uses adjustment for the change <code>SD</code>:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="descriptive-tasks-using-bmbstats.html#cb63-1"></a>adjusted_estimators &lt;-<span class="st"> </span><span class="cf">function</span>(pre,</span>
 <span id="cb63-2"><a href="descriptive-tasks-using-bmbstats.html#cb63-2"></a>                                post,</span>
@@ -1483,7 +1483,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb64-18"><a href="descriptive-tasks-using-bmbstats.html#cb64-18"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb64-19"><a href="descriptive-tasks-using-bmbstats.html#cb64-19"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb64-20"><a href="descriptive-tasks-using-bmbstats.html#cb64-20"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>estimator, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-63-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-63-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>To be fair, some estimators like <code>Cohen's d</code> and those depending on it and Pre-test <code>SD</code> were not adjusted (which we can do that too as well), but <code>SD change</code>and other estimators dependent on that it we adjusted and much closer to the estimates using the true scores.</p>
 <p>As explained in the [What to do when we know the error?] section, SIMEX procedure can be implemented as well.</p>
 <p>This simple example demonstrates the effect of the measurement error on the estimators and a simple adjustment that could be done to come closer to estimators using true scores for the dependent group analysis. This is very similar to the RCT analysis, where <code>SD</code> of the Control group change scores will be used instead of known measurement error.</p>
@@ -1504,7 +1504,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb65-11"><a href="descriptive-tasks-using-bmbstats.html#cb65-11"></a><span class="co">#&gt; H0=0, test: two.sided</span></span>
 <span id="cb65-12"><a href="descriptive-tasks-using-bmbstats.html#cb65-12"></a><span class="co">#&gt; p=0.000999000999000999</span></span></code></pre></div>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="descriptive-tasks-using-bmbstats.html#cb66-1"></a><span class="kw">plot</span>(pre_vs_post_NHST)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Using SESOI of ±5kg for the <code>mean change</code> estimator as well, let’s do the METs:</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="descriptive-tasks-using-bmbstats.html#cb67-1"></a>pre_vs_post_MET &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bootstrap_MET</span>(</span>
 <span id="cb67-2"><a href="descriptive-tasks-using-bmbstats.html#cb67-2"></a>  obs_pre_post,</span>
@@ -1528,7 +1528,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb67-20"><a href="descriptive-tasks-using-bmbstats.html#cb67-20"></a><span class="co">#&gt; </span></span>
 <span id="cb67-21"><a href="descriptive-tasks-using-bmbstats.html#cb67-21"></a><span class="co">#&gt; Final inference: Higher</span></span></code></pre></div>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="descriptive-tasks-using-bmbstats.html#cb68-1"></a><span class="kw">plot</span>(pre_vs_post_MET)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>And finally MBI:</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="descriptive-tasks-using-bmbstats.html#cb69-1"></a>pre_vs_post_MBI &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">bootstrap_MBI</span>(</span>
 <span id="cb69-2"><a href="descriptive-tasks-using-bmbstats.html#cb69-2"></a>  obs_pre_post,</span>
@@ -1549,7 +1549,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb69-17"><a href="descriptive-tasks-using-bmbstats.html#cb69-17"></a><span class="co">#&gt; </span></span>
 <span id="cb69-18"><a href="descriptive-tasks-using-bmbstats.html#cb69-18"></a><span class="co">#&gt; Final inference: Almost certainly higher</span></span></code></pre></div>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="descriptive-tasks-using-bmbstats.html#cb70-1"></a><span class="kw">plot</span>(pre_vs_post_MBI)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="describing-relationship-between-two-groups" class="section level2" number="13.6">
@@ -1601,7 +1601,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb72-6"><a href="descriptive-tasks-using-bmbstats.html#cb72-6"></a>  <span class="dt">SESOI_lower =</span> <span class="dv">-40</span>,</span>
 <span id="cb72-7"><a href="descriptive-tasks-using-bmbstats.html#cb72-7"></a>  <span class="dt">SESOI_upper =</span> <span class="dv">40</span></span>
 <span id="cb72-8"><a href="descriptive-tasks-using-bmbstats.html#cb72-8"></a>)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>To get bootstrapped CIs of the estimators, use <code>bmbstats::describe_relationship</code> and <code>bmbstats::relationship_lm_estimators</code> functions:</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="descriptive-tasks-using-bmbstats.html#cb73-1"></a>boot_relationship &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_relationship</span>(</span>
 <span id="cb73-2"><a href="descriptive-tasks-using-bmbstats.html#cb73-2"></a>  <span class="dt">predictor =</span> yoyo_mas_data<span class="op">$</span>MAS,</span>
@@ -1634,9 +1634,9 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb73-29"><a href="descriptive-tasks-using-bmbstats.html#cb73-29"></a><span class="co">#&gt;  SESOI to RSE     0.8462003     0.7485542     1.0381170</span></span>
 <span id="cb73-30"><a href="descriptive-tasks-using-bmbstats.html#cb73-30"></a><span class="co">#&gt;          PPER     0.3246566     0.2890790     0.3923412</span></span></code></pre></div>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="descriptive-tasks-using-bmbstats.html#cb74-1"></a><span class="kw">plot</span>(boot_relationship)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Magnitude-based estimators <code>SESOI to RSE</code> and <code>PPER</code> are useful in judging practical significance of this model, which is this case very bad. For example, if we now use MAS as outcome and YoYoIR1 as predictor with SESOI equal to ±0.5kmh, <code>R Squared</code> and <code>Pearson's r</code> will stay the same, but <code>SESOI to RSE</code> and <code>PPER</code> will demonstrate model that now had much better practical significance:</p>
-<p><img src="generated_figures/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="descriptive-tasks-using-bmbstats.html#cb75-1"></a>boot_relationship &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">describe_relationship</span>(</span>
 <span id="cb75-2"><a href="descriptive-tasks-using-bmbstats.html#cb75-2"></a>  <span class="dt">outcome =</span> yoyo_mas_data<span class="op">$</span>MAS,</span>
 <span id="cb75-3"><a href="descriptive-tasks-using-bmbstats.html#cb75-3"></a>  <span class="dt">predictor =</span> yoyo_mas_data<span class="op">$</span>YoYoIR1,</span>
@@ -1668,7 +1668,7 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb75-29"><a href="descriptive-tasks-using-bmbstats.html#cb75-29"></a><span class="co">#&gt;  SESOI to RSE  6.595790544  5.86691658  8.064845693</span></span>
 <span id="cb75-30"><a href="descriptive-tasks-using-bmbstats.html#cb75-30"></a><span class="co">#&gt;          PPER  0.997419105  0.99351216  0.999633678</span></span></code></pre></div>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="descriptive-tasks-using-bmbstats.html#cb76-1"></a><span class="kw">plot</span>(boot_relationship)</span></code></pre></div>
-<p><img src="generated_figures/unnamed-chunk-76-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-76-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>In the next chapter we will continue with the prediction tasks.</p>
 
 </div>

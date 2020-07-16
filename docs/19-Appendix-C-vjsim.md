@@ -156,7 +156,9 @@ jack_LV_profile <- with(jack_data,
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{19-Appendix-C-vjsim_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 Velocity, in this case TOV, is calculated by first calculating jump height from the `aerial_time` using `vjsim::get_height_from_aerial_time` function inside the `vjsim::make_load_profile`, which is later converted to TOV using ballistic equations. 
 
@@ -202,7 +204,9 @@ jack_FV_profile <- with(jack_data,
 )
 ```
 
-<img src="generated_figures/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{19-Appendix-C-vjsim_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Here are the parameters estimated:
 

@@ -288,9 +288,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reliability"><i class="fa fa-check"></i><b>15.3</b> Reliability</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#reproducibility"><i class="fa fa-check"></i><b>15.3.1</b> Reproducibility</a></li>
-<li class="chapter" data-level="15.3.2" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.3.2</b> Repeatability</a></li>
-<li class="chapter" data-level="15.3.3" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.3.3</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
+<li class="chapter" data-level="15.4" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#repeatability"><i class="fa fa-check"></i><b>15.4</b> Repeatability</a></li>
+<li class="chapter" data-level="15.5" data-path="validity-and-reliability.html"><a href="validity-and-reliability.html#the-difference-between-reproducibility-and-repeatability"><i class="fa fa-check"></i><b>15.5</b> The difference between Reproducibility and Repeatability</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="rct-analysis-and-prediction-in-bmbstats.html"><a href="rct-analysis-and-prediction-in-bmbstats.html"><i class="fa fa-check"></i><b>16</b> RCT analysis and prediction in <code>bmbstats</code></a>
 <ul>
@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.3" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html#shiny-app"><i class="fa fa-check"></i><b>19.3</b> <span>Shiny App</span></a></li>
 <li class="chapter" data-level="19.4" data-path="appendix-a-dorem-package.html"><a href="appendix-a-dorem-package.html#example"><i class="fa fa-check"></i><b>19.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i>Appendix D: Recommended material</a></li>
+<li class="chapter" data-level="20" data-path="appendix-d-recommended-material.html"><a href="appendix-d-recommended-material.html"><i class="fa fa-check"></i><b>20</b> Appendix D: Recommended material</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -363,36 +363,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To explain a few caveats with predictive modeling, let’s take slightly more complex example (although we will come back to YoYoIR1 and MAS relationship later). Imagine we know the <em>true</em> relationship between back squat <em>relative 1RM</em> (BS)<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> and vertical jump height during a bodyweight squat jump (SJ; measured in cm). This true relationship is usually referred to as <em>data generating process</em> (DGP) <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>)</span> and one of the aims of causal inference tasks is to uncover parameters and mechanism of DGP from the acquired sample<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. With predictive tasks this aim is of no direct interest, but rather reliable prediction regarding new or unseen observations.</p>
 <p>DGP is usually unknown, but with simulations, such as this one, DGP is known and it is used to generate the sample data. Simulation is thus excellent teaching tool, since one can <em>play</em> with the problem and understand how the statistical analysis works, since the true DGP is known and can be compared with estimates <span class="citation">(Carsey and Harden <a href="#ref-carseyMonteCarloSimulation2013" role="doc-biblioref">2013</a>; Hopkins <a href="#ref-hopkinsUnderstandingStatisticsUsing2007" role="doc-biblioref">2007</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>.</p>
 <p>DGP is assumed to consist of <em>systematic component</em> <span class="math inline">\(f(x)\)</span> and <em>stochastic component</em> <span class="math inline">\(\epsilon\)</span> (Equation <a href="prediction.html#eq:systematic-stochastic">(3.1)</a>).</p>
-<p><span class="math display" id="eq:systematic-stochastic">\[
-\begin{equation}
+<p><span class="math display" id="eq:systematic-stochastic">\[\begin{equation}
   Y = f(X) + \epsilon
   \tag{3.1}
-\end{equation}
-\]</span>
-Systematic component is assumed to be <em>fixed</em> in the population (constant from sample to sample) and captures the <em>true</em> relationship <span class="math inline">\(f(X)\)</span> among variables in the population (e.g. this can also be termed <em>signal</em>), while stochastic component represents <em>random noise</em> or <em>random error</em>, that varies from sample to sample, although its distribution remains the same. Random error is assumed to be normally distributed with mean of 0 and standard deviation which represents estimated parameter (either with <code>RMSE</code> or <code>RSE</code>). Thus, <code>RMSE</code> or <code>RSE</code> are <em>estimates</em> of <span class="math inline">\(\epsilon\)</span>.</p>
+\end{equation}\]</span></p>
+<p>Systematic component is assumed to be <em>fixed</em> in the population (constant from sample to sample) and captures the <em>true</em> relationship <span class="math inline">\(f(X)\)</span> among variables in the population (e.g. this can also be termed <em>signal</em>), while stochastic component represents <em>random noise</em> or <em>random error</em>, that varies from sample to sample, although its distribution remains the same. Random error is assumed to be normally distributed with mean of 0 and standard deviation which represents estimated parameter (either with <code>RMSE</code> or <code>RSE</code>). Thus, <code>RMSE</code> or <code>RSE</code> are <em>estimates</em> of <span class="math inline">\(\epsilon\)</span>.</p>
 <p>In our example, the relationship between SJ and BS is expressed with the following Equation <a href="prediction.html#eq:sj-bs-equation">(3.2)</a>.</p>
-<p><span class="math display" id="eq:sj-bs-equation">\[
-\begin{equation}
+<p><span class="math display" id="eq:sj-bs-equation">\[\begin{equation}
   \begin{split}
     SJ &amp;= 30 + 15\times BS\times\sin(BS)+\epsilon \\
     \epsilon &amp;\sim \mathcal{N}(0,\,2)
   \end{split}
   \tag{3.2}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Systematic component in the DGP is represented with <span class="math inline">\(30 + 15\times BS\times\sin(BS)\)</span>, and stochastic component is represented with the <em>known</em> random error (<span class="math inline">\(\epsilon\)</span>) that is normally distributed with the mean equal to zero and standard deviation equal to 2cm (<span class="math inline">\(\mathcal{N}(0,\,2)\)</span>). This random error can be termed <em>irreducible error</em> <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>, since it is inherent to the true DGP. As will be demonstrated shortly, models that perform better than this irreducible error are said to <em>overfit</em>. In other words, models are jumping to the noise.</p>
 <p>The objective of causal inference or explanatory modeling is to estimate the <span class="math inline">\(f(X)\)</span> (estimate is indicated with the <em>hat</em> symbol: <span class="math inline">\(\hat{f}(x)\)</span>) or to understand the underlying DGP. With the predictive analysis, the goal is to find the best estimate of <span class="math inline">\(Y\)</span> or <span class="math inline">\(\hat{y}\)</span>. The underlying DGP is treated as a <em>black box</em>.</p>
 <p>To demonstrate a concept of overfitting, we are going to generate two samples (N=35 observations) from the DGP with BS ranging from 0.8 to 2.5. These samples are <em>training</em> and <em>testing</em> sample (Figure <a href="prediction.html#fig:bs-sj-training-testing">3.1</a>). Training sample is used to <em>train</em> the prediction model, while <em>testing</em> sample will be used as a <em>holdout</em> sample for evaluating model performance on the <em>unseen</em> data.</p>
 <div class="figure" style="text-align: center"><span id="fig:bs-sj-training-testing"></span>
-<img src="generated_figures/bs-sj-training-testing-1.png" alt="Two samples simulated from the known DGP. Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP" width="90%" />
+<img src="03-Prediction_files/figure-html/bs-sj-training-testing-1.png" alt="Two samples simulated from the known DGP. Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP" width="90%" />
 <p class="caption">
 Figure 3.1: <strong>Two samples simulated from the known DGP. </strong>Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP
 </p>
 </div>
 
 <p>Model used to predict SJ from BS will be <em>polynomial linear regression</em>. Equation <a href="prediction.html#eq:polynomial-equation">(3.3)</a> explains first, second, and third degree polynomial linear regression function and provides a form for n-degree polynomials. Please, note that first degree polynomial function represents simple linear regression.</p>
-<p><span class="math display" id="eq:polynomial-equation">\[
-\begin{equation}
+<p><span class="math display" id="eq:polynomial-equation">\[\begin{equation}
   \begin{split}
     \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 \\
     \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 + \hat{\beta}_2 x_i^2 \\
@@ -400,11 +395,10 @@ Figure 3.1: <strong>Two samples simulated from the known DGP. </strong>Black lin
     \hat{y_i} &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 + \dots + \hat{\beta}_n x_i^n
   \end{split}
   \tag{3.3}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Increasing polynomial degrees increases the <em>flexibility</em> of the polynomial regression model, and thus can represent <em>tuning parameter</em> that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure <a href="prediction.html#fig:poly-fit-model">3.2</a> contains model performance on the training data for polynomial degrees ranging from 1 to 20.</p>
 <div class="figure" style="text-align: center"><span id="fig:poly-fit-model"></span>
-<img src="generated_figures/poly-fit-model-1.png" alt="Model fit with varying polynomial degrees. More degrees equals better model fit" width="90%" />
+<img src="03-Prediction_files/figure-html/poly-fit-model-1.png" alt="Model fit with varying polynomial degrees. More degrees equals better model fit" width="90%" />
 <p class="caption">
 Figure 3.2: <strong>Model fit with varying polynomial degrees. </strong>More degrees equals better model fit
 </p>
@@ -412,7 +406,7 @@ Figure 3.2: <strong>Model fit with varying polynomial degrees. </strong>More deg
 
 <p>As can be seen from the Figure <a href="prediction.html#fig:poly-fit-model">3.2</a>, the more flexible the model (or the higher the polynomial degree) the better it fits the data. But how do these models perform on the unseen, testing data sample? In order to quantify model performance, <code>RMSE</code> metric is used. Figure <a href="prediction.html#fig:testing-training-poly-errors">3.3</a> demonstrates performance of the polynomial regression model on the training and testing data sample across different polynomial degrees.</p>
 <div class="figure" style="text-align: center"><span id="fig:testing-training-poly-errors"></span>
-<img src="generated_figures/testing-training-poly-errors-1.png" alt="Testing and training errors across varying polynomial degrees. Model error is estimated with the RMSE metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn’t imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data" width="90%" />
+<img src="03-Prediction_files/figure-html/testing-training-poly-errors-1.png" alt="Testing and training errors across varying polynomial degrees. Model error is estimated with the RMSE metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn’t imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data" width="90%" />
 <p class="caption">
 Figure 3.3: <strong>Testing and training errors across varying polynomial degrees. </strong>Model error is estimated with the <code>RMSE</code> metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn’t imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data
 </p>
@@ -641,7 +635,7 @@ Squared Error
 <p>Aforementioned error estimators, <code>MBE</code>, <code>MAE</code>, <code>MSE</code>, and <code>RMSE</code> can be considered different <em>cost functions</em>. Which one should be used<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>? As always, it depends <span class="citation">(Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>. Assuming Gaussian normal distribution of the errors, <code>MSE</code> and <code>RMSE</code> have very useful mathematical properties that can be utilized in modeling stochastic or random components (i.e. <em>random error propagation</em> and prediction error decomposition in <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section). This property will be utilized thorough this book and particularly in the [Example of randomized control trial] section when estimating random or stochastic component of the treatment effect. I personally prefer to report multiple estimators, including error estimators, which is also a strategy suggested by <span class="citation">Chai and Draxler (<a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>)</span>.</p>
 <p>The are, of course, other loss and cost functions that could be used. For example, one might only use the <em>maximal error</em> (<code>MaxErr</code>) and <em>minimal error</em> (<code>MinErr</code>), rather than average. Discussion and review of these different metrics is beyond the scope of this book (for more information please check the package <em>Metrics</em> <span class="citation">(Hamner and Frasco <a href="#ref-R-Metrics" role="doc-biblioref">2018</a>)</span> and the following references <span class="citation">(Botchkarev <a href="#ref-botchkarevNewTypologyDesign2019" role="doc-biblioref">2019</a>; Chai and Draxler <a href="#ref-chaiRootMeanSquare2014" role="doc-biblioref">2014</a>; Willmott and Matsuura <a href="#ref-willmottAdvantagesMeanAbsolute2005" role="doc-biblioref">2005</a>; Barron <a href="#ref-barronGeneralAdaptiveRobust2019" role="doc-biblioref">2019</a>)</span>). Figure <a href="prediction.html#fig:loss-function-metrics-example">3.5</a> visualize the most common loss functions that are used in both model training and as <em>performance metrics</em>. It is important to keep in mind that in the case of OLS regression, <code>MSE</code> (or <code>RMSE</code>) is minimized. It is thus important to make a distinction between cost function used in the optimization and model training (i.e. in OLS, parameters of the model are found so that <code>MSE</code> is minimized; in some machine-learning models <code>Huber loss</code> or <code>Rigde loss</code><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> is minimized; see Figure <a href="prediction.html#fig:loss-function-metrics-example">3.5</a>) versus cost function used as a performance metric (e.g. reporting <code>pEquivalent</code>, <code>MaxErr</code> or <code>MinErr</code> for OLS models).</p>
 <div class="figure" style="text-align: center"><span id="fig:loss-function-metrics-example"></span>
-<img src="generated_figures/loss-function-metrics-example-1.png" alt="Common loss functions. A. Trellis plot of each loss function. B. Plot of all loss functions on a common scale. Huber loss is a combination of absolute and quadratic loss." width="90%" />
+<img src="03-Prediction_files/figure-html/loss-function-metrics-example-1.png" alt="Common loss functions. A. Trellis plot of each loss function. B. Plot of all loss functions on a common scale. Huber loss is a combination of absolute and quadratic loss." width="90%" />
 <p class="caption">
 Figure 3.5: <strong>Common loss functions. A. </strong> Trellis plot of each loss function. <strong>B.</strong> Plot of all loss functions on a common scale. <em>Huber loss</em> is a combination of absolute and quadratic loss.
 </p>
@@ -1350,15 +1344,13 @@ cvMaxErr
 <div id="bias-variance-decomposition-and-trade-off" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Bias-Variance decomposition and trade-off</h2>
 <p>Prediction error can be <em>decomposed</em> into two components, <em>reducible</em> and <em>irreducible</em> error<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>. Reducible error is the error that can be reduced with a better model, while irreducible error is the unknown error inherent to the DGP itself <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>. Reducible error can be further divided into <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> (Figure <a href="prediction.html#fig:bias-variance">3.6</a> and Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>).</p>
-<p><span class="math display" id="eq:reducible-irreducible">\[
-\begin{equation}
+<p><span class="math display" id="eq:reducible-irreducible">\[\begin{equation}
   \begin{split}
     Prediction \; error &amp;= Reducible \; error + Irreducible \; error \\
     Prediction \; error &amp;= (Bias^2 + Variance) + Irreducible \; error
   \end{split}
   \tag{3.4}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p><span class="math inline">\(Bias^2\)</span> represents constant or systematic error, which is introduced by approximating a real-life problem, which may be extremely complicated, by a much simpler model <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>. <span class="math inline">\(Variance\)</span> represents variable or random error, and refers to the amount by which model parameters would change if we estimated it by using a different training data set <span class="citation">(James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:bias-variance"></span>
 <img src="figures/bias-variance.png" alt="Bias and variance decomposition of the error. A. Visual representation of \(Bias^2\) and \(Variance\) using the shooting target. B. Error can be decomposed to \(Bias^2\), \(Variance\), and \(Irreducible \: error\), where \(Bias^2\) represents constant or systematic error and \(Variance\) represents variable or random error" width="100%" />
@@ -1607,35 +1599,27 @@ y_predicted
 </tbody>
 </table>
 <p>To estimate reducible error, <code>MSE</code> estimator is used (Equation <a href="prediction.html#eq:MSE-reducible-error">(3.5)</a>.</p>
-<p><span class="math display" id="eq:MSE-reducible-error">\[
-\begin{equation}
+<p><span class="math display" id="eq:MSE-reducible-error">\[\begin{equation}
   Reducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j,x=1.75}} - y_{true_{x=1.75}})^2
   \tag{3.5}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Reducible error can be decomposed to <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>, or systematic error and variable or random error. <span class="math inline">\(Bias^2\)</span> is squared difference between <span class="math inline">\(y_{true}\)</span> and mean of <span class="math inline">\(y_{predicted}\)</span> across simulations (Equation <a href="prediction.html#eq:bias-equation">(3.6)</a>).</p>
-<p><span class="math display" id="eq:bias-equation">\[
-\begin{equation}
+<p><span class="math display" id="eq:bias-equation">\[\begin{equation}
   Bias^2 = (\frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j, x=1.75}}) - y_{true_{x=1.75}})^2
   \tag{3.6}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p><span class="math inline">\(Variance\)</span> represents, pretty much, <code>SD</code> of the of the <span class="math inline">\(y_{predicted}\)</span> and it is an estimate of how much the predictions vary across simulations (Equation <a href="prediction.html#eq:variance-equation">(3.7)</a>).</p>
-<p><span class="math display" id="eq:variance-equation">\[
-\begin{equation}
+<p><span class="math display" id="eq:variance-equation">\[\begin{equation}
   Variance = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(\bar{y_{predicted_{x=1.75}}} - y_{predicted_{j, x=1.75}})^2
   \tag{3.7}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Reducible error is thus equal to the sum of <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span>.</p>
 <p>If you remember from [Description] section, <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> are nothing more than measure of central tendency (i.e. systematic or constant error) and measure of spread (i.e. variable or random error). Figure <a href="prediction.html#fig:bias-variance">3.6</a> also illustrates this concept.</p>
 <p>Irreducible error is estimated using <code>MSE</code> as well (Equation MSE-irreducible-error).</p>
-<p><span class="math display" id="eq:MSE-irreducible-error">\[
-\begin{equation}
+<p><span class="math display" id="eq:MSE-irreducible-error">\[\begin{equation}
   Irreducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{observed_{x=1.75}} - y_{true_{x=1.75}})^2
   \tag{3.8}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because <code>MSE</code> is mean squared error, and <code>RMSE</code>, which is equivalent to <code>SD</code>, is calculated by doing square root of <code>MSE</code>). This might not be exactly 4cm due <em>sampling error</em> which is the topic of [Statistical inference] section.</p>
 <p>As explained in Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>, <span class="math inline">\(Prediction \: error\)</span> is equal to sum of <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span> and <span class="math inline">\(Irreducible \: error\)</span>. Table contains estimated aforementioned errors using all 200 simulations for 2nd degree polynomial linear regression.</p>
 
@@ -1697,7 +1681,7 @@ Irreducible error
 <p>This decomposition of errors is one useful mathematical property when using squared erors that I alluded to in the <a href="prediction.html#cross-validation">Cross-Validation</a> section when discussing prediction error metrics.</p>
 <p>If we perfrom this analysis for each degree of polynomial fit, we will estimate prediction error, as well as <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> across model complexity (i.e. polynomial degrees). This is visualized in the Figure <a href="prediction.html#fig:bias-variance-simulation">3.7</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:bias-variance-simulation"></span>
-<img src="generated_figures/bias-variance-simulation-1.png" alt="Bias and Variance error decomposition. \(Prediction \: error\) is indicated with the black line, and is decomposed to \(Bias^2\), \(Variance\), and \(Irreducible \: error\). These are represents with areas of different color" width="90%" />
+<img src="03-Prediction_files/figure-html/bias-variance-simulation-1.png" alt="Bias and Variance error decomposition. \(Prediction \: error\) is indicated with the black line, and is decomposed to \(Bias^2\), \(Variance\), and \(Irreducible \: error\). These are represents with areas of different color" width="90%" />
 <p class="caption">
 Figure 3.7: <strong>Bias and Variance error decomposition. </strong><span class="math inline">\(Prediction \: error\)</span> is indicated with the black line, and is decomposed to <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span>, and <span class="math inline">\(Irreducible \: error\)</span>. These are represents with areas of different color
 </p>
@@ -1779,7 +1763,7 @@ PPER
 <p>Utilizing <em>apriori</em> known SESOI gives us practical <em>anchor</em> to evaluate predictive model performance. Reported <code>SESOI to cvRMSE</code> (0.91) as well as <code>cvPPER</code> (0.33) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn’t produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized.</p>
 <p>Model performance can be visualized using the training data set (Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a>). <code>PPER</code> estimator, for both cross-validate estimate and training data performance estimate, utilized <code>SD</code> of the residuals and provided SESOI. Grey band on panels A and B on Figure <a href="prediction.html#fig:elastic-net-prediction">3.8</a> represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance.</p>
 <div class="figure" style="text-align: center"><span id="fig:elastic-net-prediction"></span>
-<img src="generated_figures/elastic-net-prediction-1.png" alt="Model performance on the training data set. A. Model with the lowest cvRMSE is selected. SESOI is depicted as grey band around the model prediction (blue line). B. Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. PPER represents proportion of residuals inside the SESOI band" width="90%" />
+<img src="03-Prediction_files/figure-html/elastic-net-prediction-1.png" alt="Model performance on the training data set. A. Model with the lowest cvRMSE is selected. SESOI is depicted as grey band around the model prediction (blue line). B. Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. PPER represents proportion of residuals inside the SESOI band" width="90%" />
 <p class="caption">
 Figure 3.8: <strong>Model performance on the training data set. A. </strong>Model with the lowest <code>cvRMSE</code> is selected. SESOI is depicted as grey band around the model prediction (blue line). <strong>B.</strong> Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. <code>PPER</code> represents proportion of residuals inside the SESOI band
 </p>
@@ -1795,7 +1779,7 @@ Figure 3.8: <strong>Model performance on the training data set. A. </strong>Mode
 <p>Let’s first estimate predictive performance when predicting MAS scores from the YoYoIR1 score using MAS SESOI ±0.5km/h and linear regression.</p>
 <p>Figure <a href="prediction.html#fig:mas-yoyo-ba">3.9</a> consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts <span class="math inline">\(y_{predicted}\)</span> (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals <span class="math inline">\(y_residual = y_{predicted} - y_{observed}\)</span>, or Predicted MAS - MAS. The data points represent model performance on the full training data set.</p>
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-ba"></span>
-<img src="generated_figures/mas-yoyo-ba-1.png" alt="Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted MAS) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted MAS - MAS. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-1.png" alt="Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted MAS) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted MAS - MAS. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
 <p class="caption">
 Figure 3.9: <strong>Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. </strong> Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. <strong>B.</strong> Scatter plot between <span class="math inline">\(y_{predicted}\)</span> (fitted or predicted MAS) against model residual <span class="math inline">\(y_{residual} = y_{predicted} - y_{observed}\)</span>, or Predicted MAS - MAS. Dotted lines indicate <em>Levels of Agreement</em> (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
 </p>
@@ -2442,7 +2426,7 @@ Fold3.Rep5
 </table>
 <p>As explained in <a href="prediction.html#cross-validation">Cross-Validation</a> section, to calculate overall cross-validated performance, the <code>mean</code> is calculated for the performance metrics in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance">3.9</a>. Besides reporting the <code>mean</code> as the summary for predictive performances across cross-validated samples, <code>SD</code>, <code>min</code>, and <code>max</code> can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to <em>bind</em> or <em>pool</em> all <span class="math inline">\(y_{observed}\)</span> and <span class="math inline">\(y_{predicted}\)</span> scores from the test samples together and then calculate <em>overall</em> predictive performance metrics. These pooled cross_validated <span class="math inline">\(y_{observed}\)</span> and <span class="math inline">\(y_{predicted}\)</span> can also be visualized using the residuals plot (Panel C in Figure <a href="prediction.html#fig:mas-yoyo-ba-cross-validated">3.10</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-ba-cross-validated"></span>
-<img src="generated_figures/mas-yoyo-ba-cross-validated-1.png" alt="Residuals plot. A. Model residuals using the training data. This is exactly the same as panel B in Figure 3.9. B. Model residuals using the cross-validated training data. C. Model residuals using the cross-validated testing data." width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-cross-validated-1.png" alt="Residuals plot. A. Model residuals using the training data. This is exactly the same as panel B in Figure 3.9. B. Model residuals using the cross-validated training data. C. Model residuals using the cross-validated testing data." width="90%" />
 <p class="caption">
 Figure 3.10: <strong>Residuals plot. A. </strong> Model residuals using the training data. This is exactly the same as panel B in Figure <a href="prediction.html#fig:mas-yoyo-ba">3.9</a>. <strong>B.</strong> Model residuals using the cross-validated training data. <strong>C.</strong> Model residuals using the cross-validated testing data.
 </p>
@@ -2451,14 +2435,14 @@ Figure 3.10: <strong>Residuals plot. A. </strong> Model residuals using the trai
 <p>As can be seen from the panels B and C in Figure <a href="prediction.html#fig:mas-yoyo-ba-cross-validated">3.10</a>, since we have used 5 repeats of the 3-fold cross-validations, each <span class="math inline">\(y_{observed}\)</span> will have 5 assigned <span class="math inline">\(y_{predicted}\)</span> scores. These can be used to estimate <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> as explained in the <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section. Since we do not know the <span class="math inline">\(y_{true}\)</span> scores, we can only estimate <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> of the model for each <span class="math inline">\(y_{observed}\)</span> using cross-validated <span class="math inline">\(y_{predicted}\)</span>. This is, of course, only possible if multiple repeats of cross-validation are performed. It bears repeating that this <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> decomposition of the prediction error using cross-validated <span class="math inline">\(y_{predicted}\)</span> and <span class="math inline">\(y_{observed}\)</span> are <strong>NOT</strong> the same as when using simulation and known DGP as done in <a href="prediction.html#bias-variance-decomposition-and-trade-off">Bias-Variance decomposition and trade-off</a> section.</p>
 <p>But these can be useful diagnostic tools for checking where the model fails (e.g. what particular observation might be problematic or outlier, as well how does <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> changes across <span class="math inline">\(y_{observed}\)</span> continuum). These two concepts are depicted on Figure <a href="prediction.html#fig:mas-yoyo-bias-variance-index">3.11</a> and Figure <a href="prediction.html#fig:mas-yoyo-bias-variance-y-obs">3.12</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-variance-index"></span>
-<img src="generated_figures/mas-yoyo-bias-variance-index-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\), and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represents observation index, as in \(y_{i, observed}\)" width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-index-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\), and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represents observation index, as in \(y_{i, observed}\)" width="90%" />
 <p class="caption">
 Figure 3.11: <strong>Prediction error (<span class="math inline">\(MSE\)</span>), <span class="math inline">\(Bias^2\)</span>, and <span class="math inline">\(Variance\)</span> across repeated cross-validated testing data. </strong>X-axis on the panels represents observation <em>index</em>, as in <span class="math inline">\(y_{i, observed}\)</span>
 </p>
 </div>
 
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-variance-y-obs"></span>
-<img src="generated_figures/mas-yoyo-bias-variance-y-obs-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\) and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represent \(y_{observed}\). Since there might be multiple equal \(y_{observed}\), min and max are used and represent ribbon over mean (indicated by line)" width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-y-obs-1.png" alt="Prediction error (\(MSE\)), \(Bias^2\) and \(Variance\) across repeated cross-validated testing data. X-axis on the panels represent \(y_{observed}\). Since there might be multiple equal \(y_{observed}\), min and max are used and represent ribbon over mean (indicated by line)" width="90%" />
 <p class="caption">
 Figure 3.12: <strong>Prediction error (<span class="math inline">\(MSE\)</span>), <span class="math inline">\(Bias^2\)</span> and <span class="math inline">\(Variance\)</span> across repeated cross-validated testing data. </strong>X-axis on the panels represent <span class="math inline">\(y_{observed}\)</span>. Since there might be multiple equal <span class="math inline">\(y_{observed}\)</span>, <code>min</code> and <code>max</code> are used and represent <em>ribbon</em> over <code>mean</code> (indicated by line)
 </p>
@@ -2466,14 +2450,14 @@ Figure 3.12: <strong>Prediction error (<span class="math inline">\(MSE\)</span>)
 
 <p>Since <span class="math inline">\(Bias\)</span> and <span class="math inline">\(Variance\)</span> represent a quantitative summary of the residuals across cross-validations, the residuals and predicted observations across cross-validation testing folds can be visualized in more details as depicted on Figures <a href="prediction.html#fig:mas-yoyo-bias-cv-prediction-index">3.13</a> and <a href="prediction.html#fig:mas-yoyo-bias-cv-prediction-observation">3.14</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-cv-prediction-index"></span>
-<img src="generated_figures/mas-yoyo-bias-cv-prediction-index-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-index-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
 <p class="caption">
 Figure 3.13: <strong>Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation.</strong> Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents <span class="math inline">\(Variance\)</span>, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents <span class="math inline">\(Bias\)</span>.
 </p>
 </div>
 
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-bias-cv-prediction-observation"></span>
-<img src="generated_figures/mas-yoyo-bias-cv-prediction-observation-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-observation-1.png" alt="Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value. Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents \(Variance\), while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents \(Bias\)." width="90%" />
 <p class="caption">
 Figure 3.14: <strong>Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value.</strong> Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents <span class="math inline">\(Variance\)</span>, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents <span class="math inline">\(Bias\)</span>.
 </p>
@@ -2752,7 +2736,7 @@ MaxAbsErr
 </table>
 <p>Summary from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a> as well as the individual cross-validated sample predictive performance from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance">3.9</a> are visually represented in the Figure <a href="prediction.html#fig:mas-yoyo-cv-graphical">3.15</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:mas-yoyo-cv-graphical"></span>
-<img src="generated_figures/mas-yoyo-cv-graphical-1.png" alt="Cross-validated model performance. Dot and line bar indicate mean, min and max of the cross-validated performance. Dotted line indicate model performance on the training data set." width="90%" />
+<img src="03-Prediction_files/figure-html/mas-yoyo-cv-graphical-1.png" alt="Cross-validated model performance. Dot and line bar indicate mean, min and max of the cross-validated performance. Dotted line indicate model performance on the training data set." width="90%" />
 <p class="caption">
 Figure 3.15: <strong>Cross-validated model performance. </strong>Dot and line bar indicate <code>mean</code>, <code>min</code> and <code>max</code> of the cross-validated performance. Dotted line indicate model performance on the training data set.
 </p>
@@ -2766,7 +2750,7 @@ Figure 3.15: <strong>Cross-validated model performance. </strong>Dot and line ba
 <p>As shown in [Describing relationship between two variables], predicting YoYoIR1 from MAS scores was not practically useful (or precise enough). But for the sake of completeness, let’s perform cross-validated prediction (using 3 folds and 5 repeats). YoYoIR1 SESOI is taken to be ±40m.</p>
 <p>Figure <a href="prediction.html#fig:yoyo-mas-ba">3.16</a> depicts modified Bland-Altman plot for predictions using the full training data set. Visual inspection demonstrates that many points are outside of SESOI band, indicating poor practically significant (or useful) predictions.</p>
 <div class="figure" style="text-align: center"><span id="fig:yoyo-mas-ba"></span>
-<img src="generated_figures/yoyo-mas-ba-1.png" alt="Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted YoYoIR1) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
+<img src="03-Prediction_files/figure-html/yoyo-mas-ba-1.png" alt="Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. B. Scatter plot between \(y_{predicted}\) (fitted or predicted YoYoIR1) against model residual \(y_{residual} = y_{predicted} - y_{observed}\), or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate Levels of Agreement (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)" width="90%" />
 <p class="caption">
 Figure 3.16: <strong>Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. </strong> Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. <strong>B.</strong> Scatter plot between <span class="math inline">\(y_{predicted}\)</span> (fitted or predicted YoYoIR1) against model residual <span class="math inline">\(y_{residual} = y_{predicted} - y_{observed}\)</span>, or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate <em>Levels of Agreement</em> (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
 </p>

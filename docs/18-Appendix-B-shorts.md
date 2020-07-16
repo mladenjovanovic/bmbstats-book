@@ -93,7 +93,9 @@ ggplot(kimberley_profile$data, aes(x = distance)) +
   ylab("Time (s)")
 ```
 
-<img src="generated_figures/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 To plot predicted velocity, acceleration, and relative power over distance, use `shorts:predict_`
 
@@ -132,7 +134,9 @@ ggplot(kimberley_pred, aes(x = distance, y = value)) +
   ylab(NULL)
 ```
 
-<img src="generated_figures/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Package `shorts` comes with `find_` family of functions that allow finding peak power and it's location, as well as *critical distance* over which velocity, acceleration, or power drops below certain threshold:
 
@@ -236,7 +240,9 @@ ggplot(velocity_over_distance, aes(x = distance, y = pred_velocity, color = athl
   ylab("Predicted velocity (m/s)")
 ```
 
-<img src="generated_figures/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 ### Profiling using radar gun data
 
@@ -274,7 +280,9 @@ ggplot(jim_profile$data, aes(x = time)) +
   ylab("Velocity (m/s)")
 ```
 
-<img src="generated_figures/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Radar gun data can be modeled individually or using *non-linear mixed model* implemented in `shorts::mixed_model_using_radar`:
 
@@ -340,7 +348,9 @@ ggplot(acceleration_over_time, aes(x = time, y = pred_acceleration, color = athl
   ylab("Predicted acceleration (m/s^2)")
 ```
 
-<img src="generated_figures/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 ### Using corrections
 
@@ -406,7 +416,9 @@ ggplot(velocity_over_distance_corrected, aes(x = distance, y = pred_velocity, co
   ylab("Predicted velocity (m/s)")
 ```
 
-<img src="generated_figures/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Instead of providing for `time_correction`, this parameter can be estimated using `shorts::model_using_splits_with_time_correction` and `shorts::mixed_model_using_splits_with_time_correction`:
 

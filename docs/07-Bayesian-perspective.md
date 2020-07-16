@@ -23,53 +23,27 @@ True average male height and true `SD` represents parameters, and with Bayesian 
 
 (ref:bayes-height-grid-caption) **Parameter possibilities**
 
-<table>
-<caption>(\#tab:bayes-height-grid)(ref:bayes-height-grid-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 11 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:bayes-height-grid)(ref:bayes-height-grid-caption)}
+\centering
+\begin{tabular}[t]{rr}
+\toprule
+mu & sigma\\
+\midrule
+170 & 9\\
+175 & 9\\
+180 & 9\\
+170 & 10\\
+175 & 10\\
+\addlinespace
+180 & 10\\
+170 & 11\\
+175 & 11\\
+180 & 11\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 ## Priors
@@ -78,286 +52,128 @@ Before analyzing the collected data sample, with Bayesian inference we want to s
 
 (ref:bayes-height-grid-priors-caption) **Parameter possibilities with priors**
 
-<table>
-<caption>(\#tab:bayes-height-grid-priors)(ref:bayes-height-grid-priors-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-   <th style="text-align:right;"> mu prior </th>
-   <th style="text-align:right;"> sigma prior </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:bayes-height-grid-priors)(ref:bayes-height-grid-priors-caption)}
+\centering
+\begin{tabular}[t]{rrrr}
+\toprule
+mu & sigma & mu prior & sigma prior\\
+\midrule
+170 & 9 & 0.33 & 0.33\\
+175 & 9 & 0.33 & 0.33\\
+180 & 9 & 0.33 & 0.33\\
+170 & 10 & 0.33 & 0.33\\
+175 & 10 & 0.33 & 0.33\\
+\addlinespace
+180 & 10 & 0.33 & 0.33\\
+170 & 11 & 0.33 & 0.33\\
+175 & 11 & 0.33 & 0.33\\
+180 & 11 & 0.33 & 0.33\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 ## Likelihood function
 
 The sample height data we have collected for N=5 individuals is 167, 192, 183, 175, 177cm. From this sample we are interested in making inference to the true parameter values (i.e. `mean` and `SD`, or $\mu$ and $\sigma$). Without going into the *Bayes theorem* for *inverse probability*, the next major step is the *likelihood function*. Likelihood function gives us a likelihood of observing data, given parameters. Since we have 9 parameter possibilities, we are interested in calculating the likelihood of observing the data for each possibility. This is represented with a following Equation \@ref(eq:likelihood-function):
 
-$$
+
 \begin{equation}
   L(x|\mu, \sigma) = \prod_{i=1}^{n}f(x_{i}, \mu, \sigma) 
   (\#eq:likelihood-function)
 \end{equation}
-$$
+
 
 The likelihood of observing the data is calculated by taking the *product* (indicated by $\prod_{i=1}^{n}$ sign in the Equation \@ref(eq:likelihood-function) of likelihood of observing individual scores. The likelihood function is normal *probability density function* (PDF)[^other-likelihood]:, whose parameters are $\mu$ and $\sigma$ (see Figure \@ref(fig:data-likelihood)). This function has the following Equation \@ref(eq:likelihood-equation):
 
 [^other-likelihood]: There are other likelihood functions that one can use of course, similar to the various *loss functions* used in [Prediction] section. 
 
-$$
+
 \begin{equation}
   f(x_{i}, \mu, \sigma) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2}) }} {\sigma\sqrt{2\pi}}
   (\#eq:likelihood-equation)
 \end{equation}
-$$
+
 
 Let's take a particular possibility of $\mu$ and $\sigma$, e.g. 175cm and 9cm, and calculate likelihoods for each observed score (Table \@ref(tab:bayes-height-grid-likelihood)).
 
 (ref:bayes-height-grid-likelihood-caption) **Likelihoods of observing scores given $\mu$ and $\sigma$ equal to 175cm and 9cm**
 
-<table>
-<caption>(\#tab:bayes-height-grid-likelihood)(ref:bayes-height-grid-likelihood-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-   <th style="text-align:right;"> x </th>
-   <th style="text-align:right;"> likelihood </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 167 </td>
-   <td style="text-align:right;"> 0.03 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 192 </td>
-   <td style="text-align:right;"> 0.01 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 183 </td>
-   <td style="text-align:right;"> 0.03 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 0.04 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 177 </td>
-   <td style="text-align:right;"> 0.04 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
 
-Now, to estimate likelihood of the sample, we need to take the product of each individual score likelihoods. However, now we have a problem, since the result will be very, very small number (1.272648\times 10^{-8}). To solve this issue, we take the log of the likelihood function. This is called *log likelihood* (LL) and it is easier to compute without the fear of losing digits. Table \@ref(tab:bayes-height-grid-log-likelihood) contains calculated log from the score likelihood. 
+\caption{(\#tab:bayes-height-grid-likelihood)(ref:bayes-height-grid-likelihood-caption)}
+\centering
+\begin{tabular}[t]{rrrr}
+\toprule
+mu & sigma & x & likelihood\\
+\midrule
+175 & 9 & 167 & 0.03\\
+175 & 9 & 192 & 0.01\\
+175 & 9 & 183 & 0.03\\
+175 & 9 & 175 & 0.04\\
+175 & 9 & 177 & 0.04\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Now, to estimate likelihood of the sample, we need to take the product of each individual score likelihoods. However, now we have a problem, since the result will be very, very small number (\ensuremath{1.272648\times 10^{-8}}). To solve this issue, we take the log of the likelihood function. This is called *log likelihood* (LL) and it is easier to compute without the fear of losing digits. Table \@ref(tab:bayes-height-grid-log-likelihood) contains calculated log from the score likelihood. 
 
 (ref:bayes-height-grid-log-likelihood-caption) **Likelihoods and log likelihoods of observing scores given $\mu$ and $\sigma$ equal to 175cm and 9cm**
 
-<table>
-<caption>(\#tab:bayes-height-grid-log-likelihood)(ref:bayes-height-grid-log-likelihood-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-   <th style="text-align:right;"> x </th>
-   <th style="text-align:right;"> likelihood </th>
-   <th style="text-align:right;"> LL </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 167 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> -3.51 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 192 </td>
-   <td style="text-align:right;"> 0.01 </td>
-   <td style="text-align:right;"> -4.90 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 183 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> -3.51 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 0.04 </td>
-   <td style="text-align:right;"> -3.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 177 </td>
-   <td style="text-align:right;"> 0.04 </td>
-   <td style="text-align:right;"> -3.14 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
 
-Rather than taking a product of the LL to calculate the overall likelihood of the sample, we take the sum. This is due the properties of the logarithmic algebra, where $\log{x_1\times x_2} = log{x_1} + log{x_2}$, which means that if we take the exponent of the sum of the log likelihoods, we will get the same result as taking the exponent of the product of likelihoods. Thus the overall log likelihood of observing the sample is equal to -18.18. If we take the exponent of this, we will get the same results as the product of individual likelihoods, which is equal to 1.272648\times 10^{-8}. This *mathematical trick* is needed to prevent very small numbers and thus loosing precision. 
+\caption{(\#tab:bayes-height-grid-log-likelihood)(ref:bayes-height-grid-log-likelihood-caption)}
+\centering
+\begin{tabular}[t]{rrrrr}
+\toprule
+mu & sigma & x & likelihood & LL\\
+\midrule
+175 & 9 & 167 & 0.03 & -3.51\\
+175 & 9 & 192 & 0.01 & -4.90\\
+175 & 9 & 183 & 0.03 & -3.51\\
+175 & 9 & 175 & 0.04 & -3.12\\
+175 & 9 & 177 & 0.04 & -3.14\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Rather than taking a product of the LL to calculate the overall likelihood of the sample, we take the sum. This is due the properties of the logarithmic algebra, where $\log{x_1\times x_2} = log{x_1} + log{x_2}$, which means that if we take the exponent of the sum of the log likelihoods, we will get the same result as taking the exponent of the product of likelihoods. Thus the overall log likelihood of observing the sample is equal to -18.18. If we take the exponent of this, we will get the same results as the product of individual likelihoods, which is equal to \ensuremath{1.272648\times 10^{-8}}. This *mathematical trick* is needed to prevent very small numbers and thus loosing precision. 
 
 If we repeat the same procedure for every parameter possibility in our grid, we get the following log likelihoods (Table \@ref(tab:bayes-height-grid-log-likelihood-product)). This procedure is also visually represented in the Figure \@ref(fig:data-likelihood) for easier comprehension.
 
 (ref:bayes-height-grid-log-likelihood-product-caption) **Sum of data log likelihoods for parameter possibilities**
 
-<table>
-<caption>(\#tab:bayes-height-grid-log-likelihood-product)(ref:bayes-height-grid-log-likelihood-product-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-   <th style="text-align:right;"> mu prior </th>
-   <th style="text-align:right;"> sigma prior </th>
-   <th style="text-align:right;"> LL </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -20.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.18 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -17.78 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -19.79 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.21 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -17.89 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -19.63 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.32 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.06 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/data-likelihood-1.png" alt="(ref:data-likelihood-caption)" width="90%" />
-<p class="caption">(\#fig:data-likelihood)(ref:data-likelihood-caption)</p>
-</div>
+\caption{(\#tab:bayes-height-grid-log-likelihood-product)(ref:bayes-height-grid-log-likelihood-product-caption)}
+\centering
+\begin{tabular}[t]{rrrrr}
+\toprule
+mu & sigma & mu prior & sigma prior & LL\\
+\midrule
+170 & 9 & 0.33 & 0.33 & -20.12\\
+175 & 9 & 0.33 & 0.33 & -18.18\\
+180 & 9 & 0.33 & 0.33 & -17.78\\
+170 & 10 & 0.33 & 0.33 & -19.79\\
+175 & 10 & 0.33 & 0.33 & -18.21\\
+\addlinespace
+180 & 10 & 0.33 & 0.33 & -17.89\\
+170 & 11 & 0.33 & 0.33 & -19.63\\
+175 & 11 & 0.33 & 0.33 & -18.32\\
+180 & 11 & 0.33 & 0.33 & -18.06\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/data-likelihood-1} 
+
+}
+
+\caption{(ref:data-likelihood-caption)}(\#fig:data-likelihood)
+\end{figure}
 
 (ref:data-likelihood-caption) **Likelihood of data given parameters. **$\mu$ and $\sigma$ represent parameters for which we want to estimate likelihood of observing data collected
 
@@ -371,156 +187,71 @@ Table \@ref(tab:bayes-height-grid-posterior) contains the results of Bayesian in
 
 (ref:bayes-height-grid-posterior-caption) **Estimated posterior probabilities for parameter possibilities given the data**
 
-<table>
-<caption>(\#tab:bayes-height-grid-posterior)(ref:bayes-height-grid-posterior-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> mu </th>
-   <th style="text-align:right;"> sigma </th>
-   <th style="text-align:right;"> mu prior </th>
-   <th style="text-align:right;"> sigma prior </th>
-   <th style="text-align:right;"> LL </th>
-   <th style="text-align:right;"> posterior </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -20.12 </td>
-   <td style="text-align:right;"> 0.02 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.18 </td>
-   <td style="text-align:right;"> 0.14 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -17.78 </td>
-   <td style="text-align:right;"> 0.20 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -19.79 </td>
-   <td style="text-align:right;"> 0.03 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.21 </td>
-   <td style="text-align:right;"> 0.13 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -17.89 </td>
-   <td style="text-align:right;"> 0.18 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -19.63 </td>
-   <td style="text-align:right;"> 0.03 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 175 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.32 </td>
-   <td style="text-align:right;"> 0.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 180 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> -18.06 </td>
-   <td style="text-align:right;"> 0.15 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:bayes-height-grid-posterior)(ref:bayes-height-grid-posterior-caption)}
+\centering
+\begin{tabular}[t]{rrrrrr}
+\toprule
+mu & sigma & mu prior & sigma prior & LL & posterior\\
+\midrule
+170 & 9 & 0.33 & 0.33 & -20.12 & 0.02\\
+175 & 9 & 0.33 & 0.33 & -18.18 & 0.14\\
+180 & 9 & 0.33 & 0.33 & -17.78 & 0.20\\
+170 & 10 & 0.33 & 0.33 & -19.79 & 0.03\\
+175 & 10 & 0.33 & 0.33 & -18.21 & 0.13\\
+\addlinespace
+180 & 10 & 0.33 & 0.33 & -17.89 & 0.18\\
+170 & 11 & 0.33 & 0.33 & -19.63 & 0.03\\
+175 & 11 & 0.33 & 0.33 & -18.32 & 0.12\\
+180 & 11 & 0.33 & 0.33 & -18.06 & 0.15\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Table \@ref(tab:bayes-height-grid-posterior) can be be converted into 3x3 matrix, with possibilities of $\mu$ in the columns, and possibilities of the $\sigma$ in the rows and posterior joint probabilities in the cells (Table \@ref(tab:bayes-height-grid-posterior-matrix)). The *sums* of the joint probabilities in the Table \@ref(tab:bayes-height-grid-posterior-matrix) margins represent *marginal probabilities* for parameters. 
 
 (ref:bayes-height-grid-posterior-matrix-caption) **Joint distribution of the parameter possibilities. **Sums at the table margins represent marginal probabilities
 
-<table>
-<caption>(\#tab:bayes-height-grid-posterior-matrix)(ref:bayes-height-grid-posterior-matrix-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> 170 </th>
-   <th style="text-align:right;"> 175 </th>
-   <th style="text-align:right;"> 180 </th>
-   <th style="text-align:right;"> Sum </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 9 </td>
-   <td style="text-align:right;"> 0.02 </td>
-   <td style="text-align:right;"> 0.14 </td>
-   <td style="text-align:right;"> 0.20 </td>
-   <td style="text-align:right;"> 0.36 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0.18 </td>
-   <td style="text-align:right;"> 0.34 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 11 </td>
-   <td style="text-align:right;"> 0.03 </td>
-   <td style="text-align:right;"> 0.12 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 0.30 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sum </td>
-   <td style="text-align:right;"> 0.08 </td>
-   <td style="text-align:right;"> 0.38 </td>
-   <td style="text-align:right;"> 0.54 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:bayes-height-grid-posterior-matrix)(ref:bayes-height-grid-posterior-matrix-caption)}
+\centering
+\begin{tabular}[t]{lrrrr}
+\toprule
+  & 170 & 175 & 180 & Sum\\
+\midrule
+9 & 0.02 & 0.14 & 0.20 & 0.36\\
+10 & 0.03 & 0.13 & 0.18 & 0.34\\
+11 & 0.03 & 0.12 & 0.15 & 0.30\\
+Sum & 0.08 & 0.38 & 0.54 & 1.00\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Since we have only two parameters, the joint probabilities can be represented with the *heat map*. Figure \@ref(fig:heat-map) is a visual representation of the Table \@ref(tab:bayes-height-grid-posterior-matrix).
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/heat-map-1.png" alt="(ref:heat-map-caption)" width="90%" />
-<p class="caption">(\#fig:heat-map)(ref:heat-map-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/heat-map-1} 
+
+}
+
+\caption{(ref:heat-map-caption)}(\#fig:heat-map)
+\end{figure}
 
 (ref:heat-map-caption) **Heat map of $\mu$ and $\sigma$ joint probabilities**
 
 When we have more than 2 parameters, visualization of joint probabilities get's tricky and we rely on visualizing marginal posterior probabilities of each parameter instead. As explained, marginal probabilities are calculated by summing all joint probabilities for a particular parameter possibility (see Table \@ref(tab:bayes-height-grid-posterior-matrix)). Figure \@ref(fig:(marginal-prior-posterior) depicts marginal probabilities (including prior probabilities) for $\mu$ and $\sigma$.
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/marginal-prior-posterior-1.png" alt="(ref:marginal-prior-posterior-caption)" width="90%" />
-<p class="caption">(\#fig:marginal-prior-posterior)(ref:marginal-prior-posterior-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/marginal-prior-posterior-1} 
+
+}
+
+\caption{(ref:marginal-prior-posterior-caption)}(\#fig:marginal-prior-posterior)
+\end{figure}
 
 (ref:marginal-prior-posterior-caption) **Prior and posterior distributions resulting from simplified grid-approximation example**
 
@@ -530,17 +261,25 @@ As can be seen from the Figures \@ref(fig:heat-map) and \@ref(fig:marginal-prior
 
 So far, we have made this very granular in order to be understood. However, since we are dealing with continuous parameters, performing grid approximation for more than 9 total parameter possibilities seems warranted. The calculus is exactly the same, as well as the sample collected, but now we will use the larger range for both $\mu$ (160-200cm) and $\sigma$ (1-30cm), each with 100 possibilities. We are estimating credibility for total of $100 \times 100 = 10,000$ parameter possibilities. Figure \@ref(fig:heat-map-100-100) depicts heat map for the joint probabilities, and Figure \@ref(fig:marginal-100-100) depicts prior and posterior marginal distributions for each parameter. 
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/heat-map-100-100-1.png" alt="(ref:heat-map-100-100-caption)" width="90%" />
-<p class="caption">(\#fig:heat-map-100-100)(ref:heat-map-100-100-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/heat-map-100-100-1} 
+
+}
+
+\caption{(ref:heat-map-100-100-caption)}(\#fig:heat-map-100-100)
+\end{figure}
 
 (ref:heat-map-100-100-caption) **Heat map of $\mu$ and $\sigma$ joint probabilities when $100\times 100$ grid-approximation is used**
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/marginal-100-100-1.png" alt="(ref:marginal-100-100-caption)" width="90%" />
-<p class="caption">(\#fig:marginal-100-100)(ref:marginal-100-100-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/marginal-100-100-1} 
+
+}
+
+\caption{(ref:marginal-100-100-caption)}(\#fig:marginal-100-100)
+\end{figure}
 
 (ref:marginal-100-100-caption) **Prior and posterior distributions resulting from $100\times 100$ grid-approximation example**
 
@@ -554,10 +293,14 @@ In this example we have used vague priors for both $\mu$ and $\sigma$. But let's
 
 This prior belief is, of course, wrong, but maybe I am biased since I originate, let's say from Montenegro, country with one of the tallest men. Figure \@ref(fig:strong-prior) contains plotted prior and posterior distributions. As can be seen, using very strong prior for $\mu$ shifted the posterior distribution to the higher heights. In other words, the data collected were not enough to *overcome* my prior belief about average height.
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/strong-prior-1.png" alt="(ref:strong-prior-caption)" width="90%" />
-<p class="caption">(\#fig:strong-prior)(ref:strong-prior-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/strong-prior-1} 
+
+}
+
+\caption{(ref:strong-prior-caption)}(\#fig:strong-prior)
+\end{figure}
 
 (ref:strong-prior-caption) **Effects of very strong prior on posterior**
 
@@ -565,10 +308,14 @@ This prior belief is, of course, wrong, but maybe I am biased since I originate,
 
 The sample height data we have collected for N=5 individuals (167, 192, 183, 175, 177cm) was not strong to overcome prior belief. However, what if we sampled N=100 males from known population of known mean height of 177.8 and SD of 10.16? Figure \@ref(fig:more-data) depicts prior and posterior distributions in this example. As can be seen, besides having narrower posterior distributions for $\mu$ and $\sigma$, more data was able to overcome my strong prior bias towards mean height of 190cm. 
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/more-data-1.png" alt="(ref:more-data-caption)" width="90%" />
-<p class="caption">(\#fig:more-data)(ref:more-data-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/more-data-1} 
+
+}
+
+\caption{(ref:more-data-caption)}(\#fig:more-data)
+\end{figure}
 
 (ref:more-data-caption) **When larger sample is taken (N=100) as opposed to smaller sample (N=20), strong prior was not able to influence the posterior distribution**
 
@@ -578,12 +325,16 @@ In Bayesian statistics, the prior and posterior distributions are usually summar
 
 HDI is similar to frequentist CI, but represents an interval which contains all points within the interval that have higher probability density than points outside the interval [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. HDI is more computationally expensive to estimate, but compared to *equal-tailed interval* (ETI) or *percentile interval*, that typically excludes 2.5% or 5% from each tail of the distribution (for 95% or 90% confidence respectively), HDI is not equal-tailed and therefore always includes the mode(s) of posterior distributions [@makowskiBayestestRDescribingEffects2019; @makowskiUnderstandDescribeBayesian2019]. 
 
-Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $±1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
+Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $\pm1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
 
-<div class="figure" style="text-align: center">
-<img src="generated_figures/map-hdi-1.png" alt="(ref:map-hdi-caption)" width="90%" />
-<p class="caption">(\#fig:map-hdi)(ref:map-hdi-caption)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{07-Bayesian-perspective_files/figure-latex/map-hdi-1} 
+
+}
+
+\caption{(ref:map-hdi-caption)}(\#fig:map-hdi)
+\end{figure}
 (ref:map-hdi-caption) **Summarizing prior and posterior distribution. A. **MAP and $90\%$ HDI. **B.** Median and $90\%$ ETI. **C.** Mean and $\pm1.64\times SD$
 
 Using SESOI as a trivial range, or as a ROPE [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018], Bayesian equivalence test can be performed by quantifying proportion of posterior distribution inside the SESOI band [@kruschkeBayesianDataAnalysis2018; @kruschkeBayesianNewStatistics2018; @makowskiBayestestRDescribingEffects2019; @makowskiIndicesEffectExistence]. [Magnitude Based Inference] discussed in the the previous chapter, would also be valid way of describing the posterior distribution. 
@@ -596,31 +347,19 @@ How do the Bayesian HDIs compare to frequentist CIs? What are the Type I error r
 
 (ref:bayes-type-i-error-caption) **Frequentist vs. Bayesian Type I errors**
 
-<table>
-<caption>(\#tab:bayes-type-i-error)(ref:bayes-type-i-error-caption)</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> method </th>
-   <th style="text-align:right;"> Sample </th>
-   <th style="text-align:right;"> Correct % </th>
-   <th style="text-align:right;"> Type I Errors % </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Bayesian </td>
-   <td style="text-align:right;"> 1000 </td>
-   <td style="text-align:right;"> 96.1 </td>
-   <td style="text-align:right;"> 3.9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Frequentist </td>
-   <td style="text-align:right;"> 1000 </td>
-   <td style="text-align:right;"> 95.5 </td>
-   <td style="text-align:right;"> 4.5 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:bayes-type-i-error)(ref:bayes-type-i-error-caption)}
+\centering
+\begin{tabular}[t]{lrrr}
+\toprule
+method & Sample & Correct \% & Type I Errors \%\\
+\midrule
+Bayesian & 1000 & 96.1 & 3.9\\
+Frequentist & 1000 & 95.5 & 4.5\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 As can be seen from the Table \@ref(tab:bayes-type-i-error), frequentist CI and Bayesian HDI Type I error rate are not identical (which could be due to the grid approximation method as well as due to only 1000 samples used). This is often a concern, since Bayesian methods do not control error rates [@kruschkeBayesianDataAnalysis2018]. Although frequentist methods revolve around limiting the probability of Type I errors, error rates are extremely difficult to pin down, particularly for complex models, and because they are based on sampling and testing intentions [@kruschkeBayesianDataAnalysis2018]. For more detailed discussion and comparison of Bayesian and frequentist methods regarding the error control see @kruschkeBayesianEstimationSupersedes2013; @wagenmakersPracticalSolutionPervasive2007; @moreyFallacyPlacingConfidence2016. Papers by Kristin Sainani [@sainaniMagnitudeBasedInference2019; @sainaniProblemMagnitudebasedInference2018] are also worth pondering about which will help in understanding estimation and comparison of Type I and Type II error rates between different inferential methods, particularly when magnitude-based inference using SESOI is considered.  
 

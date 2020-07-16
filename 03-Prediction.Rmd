@@ -17,8 +17,8 @@ source("_common.R")
 require(tidyverse)
 require(cowplot)
 require(directlabels)
-require(kableExtra)
 require(caret)
+require(kableExtra)
 
 trivial_color <- user_grey
 trivial_color_transparent <- user_grey_transparent
@@ -46,17 +46,17 @@ DGP is usually unknown, but with simulations, such as this one, DGP is known and
 
 DGP is assumed to consist of *systematic component* $f(x)$ and *stochastic component* $\epsilon$ (Equation \@ref(eq:systematic-stochastic)).
 
-$$
+
 \begin{equation}
   Y = f(X) + \epsilon
   (\#eq:systematic-stochastic)
 \end{equation}
-$$
+
 Systematic component is assumed to be *fixed* in the population (constant from sample to sample) and captures the *true* relationship $f(X)$ among variables in the population (e.g. this can also be termed *signal*), while stochastic component represents *random noise* or *random error*, that varies from sample to sample, although its distribution remains the same. Random error is assumed to be normally distributed with mean of 0 and standard deviation which represents estimated parameter (either with `RMSE` or `RSE`). Thus, `RMSE` or `RSE` are *estimates* of $\epsilon$. 
 
 In our example, the relationship between SJ and BS is expressed with the following Equation \@ref(eq:sj-bs-equation).
 
-$$
+
 \begin{equation}
   \begin{split}
     SJ &= 30 + 15\times BS\times\sin(BS)+\epsilon \\
@@ -64,7 +64,7 @@ $$
   \end{split}
   (\#eq:sj-bs-equation)
 \end{equation}
-$$
+
 
 Systematic component in the DGP is represented with $30 + 15\times BS\times\sin(BS)$, and stochastic component is represented with the *known* random error ($\epsilon$) that is normally distributed with the mean equal to zero and standard deviation equal to 2cm ($\mathcal{N}(0,\,2)$). This random error can be termed *irreducible error* [@jamesIntroductionStatisticalLearning2017], since it is inherent to the true DGP. As will be demonstrated shortly, models that perform better than this irreducible error are said to *overfit*. In other words, models are jumping to the noise.
 
@@ -107,7 +107,7 @@ ggplot(mergedData, aes(x = x, y = y)) +
 
 Model used to predict SJ from BS will be *polynomial linear regression*. Equation \@ref(eq:polynomial-equation) explains first, second, and third degree polynomial linear regression function and provides a form for n-degree polynomials. Please, note that first degree polynomial function represents simple linear regression. 
 
-$$
+
 \begin{equation}
   \begin{split}
     \hat{y_i} &= \hat{\beta}_0 + \hat{\beta}_1 x_i^1 \\
@@ -117,7 +117,7 @@ $$
   \end{split}
   (\#eq:polynomial-equation)
 \end{equation}
-$$
+
 
 Increasing polynomial degrees increases the *flexibility* of the polynomial regression model, and thus can represent *tuning parameter* that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure \@ref(fig:poly-fit-model) contains model performance on the training data for polynomial degrees ranging from 1 to 20.  
 
@@ -433,15 +433,20 @@ colnames(cv_sample_data) <- c(
   "MaxErr"
 )
 
-knitr::kable(
+tbl <- knitr::kable(
   cv_sample_data %>%
     filter(Repeat == 1) %>%
     select(-Repeat),
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:mean-cross-validation-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 Since this is a small sample, we can repeat cross-validation few times. This is called *repeated cross-validation*. Let's repeat 3-folds cross-validation for 5 repeats (Table \@ref(tab:repeated-cross-validation)).
@@ -449,13 +454,18 @@ Since this is a small sample, we can repeat cross-validation few times. This is 
 (ref:repeated-cross-validation-caption) **Example repeated cross-validation using sample `mean` as the prediction model**
 
 ```{r repeated-cross-validation}
-knitr::kable(
+tbl <- knitr::kable(
   cv_sample_data,
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:repeated-cross-validation-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 To calculate cross-validated prediction performance metrics, average of testing `MBE`, `MAE`, `RMSE`, `MinErr`, and `MaxErr` is calculated and reported as `cvMBE`, `cvMAE`, `cvRMSE`, `cvMinErr`, and `cvMaxErr` (Table \@ref(tab:cv-performance-metrics)). Prediction performance metrics don't need to be averaged across cross-validation samples and can be instead estimated by *binding* (or *pooling*) all cross-validated samples together (i.e. target variable and predicted target variable). More about this at the end of this chapter in [Practical example: MAS and YoYoIR1 prediction] section. 
@@ -490,7 +500,7 @@ Prediction error can be *decomposed* into two components, *reducible* and *irred
 
 [^error_types]: As it will be explained in [Statistical inference] section, there are two kinds of uncertainty: *aleatory* and *epistemic*. Aleatory uncertainty is inherent randomness and it is usually represented as irreducible error. Epistemic uncertainty is due to the lack of knowledge or information, which can be considered reducible error. In other words, better models or models with more information will be able to reduce prediction error by reducing the reducible or epistemic uncertainty. The upper ceiling of the predictive performance is determined by irreducible error (which is unknown). Please refer to the [Statistical inference] section for more information. 
 
-$$
+
 \begin{equation}
   \begin{split}
     Prediction \; error &= Reducible \; error + Irreducible \; error \\
@@ -498,7 +508,7 @@ $$
   \end{split}
   (\#eq:reducible-irreducible)
 \end{equation}
-$$
+
  
 $Bias^2$ represents constant or systematic error, which is introduced by approximating a real-life problem, which may be extremely complicated, by a much simpler model [@jamesIntroductionStatisticalLearning2017]. $Variance$ represents variable or random error, and refers to the amount by which model parameters would change if we estimated it by using a different training data set [@jamesIntroductionStatisticalLearning2017]. 
 
@@ -573,30 +583,30 @@ knitr::kable(
 
 To estimate reducible error, `MSE` estimator is used (Equation \@ref(eq:MSE-reducible-error).
 
-$$
+
 \begin{equation}
   Reducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j,x=1.75}} - y_{true_{x=1.75}})^2
   (\#eq:MSE-reducible-error)
 \end{equation}
-$$
+
 
 Reducible error can be decomposed to $Bias^2$ and $Variance$, or systematic error and variable or random error. $Bias^2$ is squared difference between $y_{true}$ and mean of $y_{predicted}$ across simulations (Equation \@ref(eq:bias-equation)). 
 
-$$
+
 \begin{equation}
   Bias^2 = (\frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{predicted_{j, x=1.75}}) - y_{true_{x=1.75}})^2
   (\#eq:bias-equation)
 \end{equation}
-$$
+
 
 $Variance$ represents, pretty much, `SD` of the of the $y_{predicted}$ and it is an estimate of how much the predictions vary across simulations (Equation \@ref(eq:variance-equation)).
 
-$$
+
 \begin{equation}
   Variance = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(\bar{y_{predicted_{x=1.75}}} - y_{predicted_{j, x=1.75}})^2
   (\#eq:variance-equation)
 \end{equation}
-$$
+
 
 Reducible error is thus equal to the sum of $Bias^2$ and $Variance$.
 
@@ -604,12 +614,12 @@ If you remember from [Description] section, $Bias^2$ and $Variance$ are nothing 
 
 Irreducible error is estimated using `MSE` as well (Equation MSE-irreducible-error).
 
-$$
+
 \begin{equation}
   Irreducible \: error = \frac{1}{n_{sim}}\Sigma_{j=1}^{n_{sim}}(y_{observed_{x=1.75}} - y_{true_{x=1.75}})^2
   (\#eq:MSE-irreducible-error)
 \end{equation}
-$$
+
 
 Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because `MSE` is mean squared error, and `RMSE`, which is equivalent to `SD`, is calculated by doing square root of `MSE`). This might not be exactly 4cm due *sampling error* which is the topic of [Statistical inference] section. 
 
@@ -952,14 +962,19 @@ Predictive performance for the full training data set is enlisted in the Table \
 (ref:mas-yoyo-training-performance-caption) **Predictive performance using the full training data set**
 
 ```{r mas-yoyo-training-performance}
-knitr::kable(
+tbl <- knitr::kable(
   data.frame(t(mas_yoyo_linear$performance)),
   digits = 2,
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:mas-yoyo-training-performance-caption)"
-) %>%
-  kable_styling(font_size = 10)
+) 
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 But as already explained, these are not predictive performance estimators for the unseen data. To estimate how the model performs on the unseen data (i.e. unseen athletes in this case), cross-validation is performed using 3 folds and 5 repeats. Estimated predictive performance for every cross-validation sample is enlisted in the Table \@ref(tab:mas-yoyo-cv-performance).
@@ -967,7 +982,7 @@ But as already explained, these are not predictive performance estimators for th
 (ref:mas-yoyo-cv-performance-caption) **Predictive performance for every repeated cross-validated sample**
 
 ```{r mas-yoyo-cv-performance}
-knitr::kable(
+tbl <- knitr::kable(
   spread(
     mas_yoyo_linear$cross_validation$performance$folds$testing,
     key = "metric",
@@ -976,8 +991,13 @@ knitr::kable(
   booktabs = TRUE,
   row.names = TRUE,
   caption = "(ref:mas-yoyo-cv-performance-caption)"
-) %>%
-  kable_styling(font_size = 10)
+)
+
+if((!knitr::is_html_output())) {
+  tbl
+} else {
+  kable_styling(tbl, font_size = 10)
+}
 ```
 
 As explained in [Cross-Validation] section, to calculate overall cross-validated performance, the `mean` is calculated for the performance metrics in the Table \@ref(tab:mas-yoyo-cv-performance). Besides reporting the `mean` as the summary for predictive performances across cross-validated samples, `SD`, `min`, and `max` can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to *bind* or *pool* all $y_{observed}$ and $y_{predicted}$ scores from the test samples together and then calculate *overall* predictive performance metrics. These pooled cross_validated $y_{observed}$ and $y_{predicted}$ can also be visualized using the residuals plot (Panel C in Figure \@ref(fig:mas-yoyo-ba-cross-validated)). 

@@ -17,7 +17,6 @@ source("_common.R")
 require(tidyverse)
 require(cowplot)
 require(directlabels)
-require(kableExtra)
 require(ggstance)
 require(ggridges)
 
@@ -202,21 +201,21 @@ figure_sampling_dsitribution_of_the_mean
 
 As can be seen from the Figure \@ref(fig:sampling-distribution-of-the-mean), the sampling distribution of the `mean` looks like normal distribution. If the number of samples reach very large number or *infinity*, the sampling distribution of the `mean` will eventually be distributed with the `SEM` equal to (Equation \@ref(eq:sem-equation)):
 
-$$
+
 \begin{equation}
   SEM = \frac{\sigma}{\sqrt{N}}
   (\#eq:sem-equation)
 \end{equation}
-$$
+
 
 This *theoretical* distribution is overlaid on the acquired sampling distribution from 50 samples in the Figure \@ref(fig:sampling-distribution-of-the-mean) (Panels E and F). Since the true $\sigma$ is not known, sample `SD` is utilized instead, in order to estimate the true `SEM` (Equation \@ref(eq:estimated-sem-equation)):
 
-$$
+
 \begin{equation}
   \hat{SEM} = \frac{SD}{\sqrt{N}}
   (\#eq:estimated-sem-equation)
 \end{equation}
-$$
+
 
 The take-home point is that the larger the sample, the smaller the standard error, which is visually seen as narrower sampling distribution (compare N=5 and N=20 sampling distributions on Figure \@ref(fig:sampling-distribution-of-the-mean)). Another conclusion regarding frequentist inference, is that calculated probabilities revolve around sampling distribution of the sample `mean` and other long-frequency sampling distributions. Everything else are details. But as the saying goes, the devil is in the details.
 
@@ -368,12 +367,12 @@ figure_NHST
 
 The calculated probability of observing sample mean or larger, given null-hypothesis, is called *p-value*. In other words, p-value is the probability of observing data (in this case sample `mean`) given the null hypothesis (Equation \@ref(eq:p-value-equation))
 
-$$
+
 \begin{equation}
   p \; value = p(Data | H{0}) 
   (\#eq:p-value-equation)
 \end{equation}
-$$
+
 
 It is easy to interpret p-values as "probability of the null hypothesis (given data)" ($p(H{0}|Data)$), but that is erroneous. This is Bayesian interpretation (also called *inverse probability*) which is quite common, even for the experienced researchers. Unfortunately, p-values cannot be interpreted in such way, but rather as a "probability of data given null hypothesis".  
 
@@ -381,7 +380,7 @@ As you can see from the Figure \@ref(fig:null-hypothesis)), for the same differe
 
 The procedures of acquiring p-values are called *statistical tests*. With the example above, we are using one variation of the *Student t test*, where we are calculating the test value *t* using the following Equation \@ref(eq:t-test). 
 
-$$
+
 \begin{equation}
   \begin{split}
   t &= \frac{\bar{x} -\mu}{SEM} \\
@@ -390,7 +389,7 @@ $$
   \end{split}
   (\#eq:t-test)
 \end{equation}
-$$
+
 
 P-value is then estimated by using the calculated t value and appropriate Student's t distribution (see Figure \@ref(fig:student-distribution)) to calculate the surface area over a particular value of t. This is usually done in the statistical program, or by using tables similar to Table \@ref(tab:student-critical-values) .  
 
@@ -617,12 +616,12 @@ knitr::kable(
 
 Similarly to different alphas, CIs can use different levels of confidence, usually 90%, 95%, 99%. As already mentioned, mathematics behind the confidence intervals is equal to mathematics behind NHST. In order to calculate two-sided CIs for the sample mean, the Equation \@ref(eq:ci-equation) is used:
 
-$$
+
 \begin{equation}
   CI = \bar{x} \pm t_{crit} \times \widehat{SEM} 
   (\#eq:ci-equation)
 \end{equation}
-$$
+
 
 
 $T_{crit}$ can be found in the Table \@ref(tab:student-critical-values), where for 95% two-sided confidence and DF=20, is equal to 2.086. Using the example of observed sample mean of 185cm, known sample `SD` (10.16cm) and N=20 (which is equal to DF=19, but for the sake of example DF=20 will be used), calculated 95% confidence interval is equal to 180.26 to 189.74cm. From the compatibility interpretation standpoint, this CI means that the hypotheses with values ranging from 180.26 to 189.74cm, will not be rejected with alpha=0.05. 

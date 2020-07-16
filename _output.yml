@@ -8,4 +8,9 @@ bookdown::gitbook:
       link: https://github.com/mladenjovanovic/bmbstats-book/%s
       text: "Edit"
     sharing: no
-
+bookdown::pdf_book:
+  keep_tex: yes
+bookdown::word_document2:
+    fig_caption: yes
+    keep_md: no
+    toc: yes

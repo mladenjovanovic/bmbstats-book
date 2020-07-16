@@ -31,12 +31,12 @@ Measurement error is involved in all measurements and causes an *observed score*
 
 In mathematical notation, observed score (OS) comprises of the hypothetical true score (TS) and measurement error (ME) (Equation \@ref(eq:measurement-error)) [@allenIntroductionMeasurementTheory2001; @swintonStatisticalFrameworkInterpret2018]. This conceptual model is called *Classical Test Theory* (for more information, philosophy, and issues behind it please see @borsboomMeasuringMindConceptual2009)
 
-$$
+
 \begin{equation}
   OS = TS + ME
   (\#eq:measurement-error)
 \end{equation}
-$$
+
 
 In the sports science domain, since the measured objects are usually humans, measurement error comprises of *instrumentation* and *biological noise* [@swintonStatisticalFrameworkInterpret2018]. In this book I assume instrumentation noise to be error caused solely by the measurement apparatus [@swintonStatisticalFrameworkInterpret2018]. Biological noise, on the other hand, is defined as an error in the observed scores caused by biological processes, including, but not limited to, phenomena such as circadian rhythm, nutritional intake, sleep and motivation [@swintonStatisticalFrameworkInterpret2018]. Thus, I prefer to use the terms *instrumentation error* and *biological variation* (these will be further discussed in the [Extending the Classical Test Theory] section)
 
@@ -52,21 +52,21 @@ knitr::include_graphics(path = "figures/measurement-error-model.png")
 
 Systematic error represents constant and stable error that is fixed across measurements. Systematic error is commonly refereed to as *bias*. With measurement instruments that have a linear response, systematic error can be further divided into *proportional bias* and *fixed bias* [@hopkinsBiasBlandAltmanNot2004; @hopkinsSocraticDialogueComparison2010; @hopkinsUnderstandingStatisticsUsing2007]. Random error ($\epsilon$) represents unknown and unpredictable error, which varies between measurements. Random errors are often represented and modeled using a Gaussian normal distribution (with `mean` zero and `SD` which represent a parameter of the random error). The Equation \@ref(eq:measurement-error-components) represent theoretical linear relationship between TS and OS, with normally distributed random error.
 
-$$
+
 \begin{equation}
   OS = Fixed\; Bias + (Proportional \; Bias\times TS) + \epsilon
   (\#eq:measurement-error-components)
 \end{equation}
-$$
+
 
 This can be easily explained with a simple example. Imagine N=20 athletes being measured on a novel bodyweight scale, using total of 5 trials separated by 1 minute. The assumption in this example is that there is no change in the TS across trials (e.g. athletes are not allowed to use bathroom, consume water or food, nor change the wardrobe) and that there is no biological noise involved (i.e. there are no fluctuations in bodyweight due motivation, fatigue or what have you). Since this is simulated example, we know the TS of the athletes, but also the instrumentation noise characteristic of the novel bodyweight scale (i.e. this represents the underlying DGP). This scale tends to have proportional bias equal to factor 1.01 (i.e. athlete weighting 100kg which is his TS, will have OS equal to 101kg due proportional bias, while the athlete weighting 50kg will have her OS equal to 50.5kg), fixed bias equal to 1kg (everyone will get OS higher for 1kg than TS), and random error normally distributed with `SD` equal to 0.5kg. Equation \@ref(eq:measurement-error-example) captures this relationship between OS and TS.
 
-$$
+
 \begin{equation}
   OS = 1 + (1.01 \times TS) + \mathcal{N}(0,\, 0.5) 
   (\#eq:measurement-error-example)
 \end{equation}
-$$
+
 
 Table \@ref(tab:bodyweight-data) contains the simulated sample for N=20 athletes and 5 trials.
 
@@ -149,7 +149,7 @@ knitr::include_graphics(path = "figures/measurement-error-two-measures.png")
 
 Error propagation, assuming normal distribution, is equal to Equation \@ref(eq:measurement-error-propagation):
 
-$$
+
 \begin{equation}
   \begin{split}
     SD_{difference}^2 &= TE_{trial\;1}^2 + TE_{trial\;2}^2 \\
@@ -162,7 +162,7 @@ $$
   \end{split}
   (\#eq:measurement-error-propagation)
 \end{equation}
-$$
+
 
 According to the Equation \@ref(eq:measurement-error-propagation), the `SD` of the difference score needs to be divided by $\sqrt{2}$ to estimate `TE` of the measurement. The assumption is that TE is equal in both trials (and for all athletes), which is defined in the second line in the Equation \@ref(eq:measurement-error-propagation). Estimated `TE` is now equal to `r round(sd(weight_data_summary_trials_1_2[[4]] / sqrt(2)), 2)`kg, which is much closer to known `SD` of the random error of 0.5kg. 
 
@@ -220,7 +220,7 @@ If you check the Panel B in the Figure \@ref(fig:OLP-demonstration-SESOI), `SDC`
 
 [^TE-confidence]: This should also be done with `TE` if we want to quantify uncertainty around single observation with a particular level of confidence (e.g. multiply `TE` with ±1.96 to get 95% confidence), assuming normally distributed random error that is additive. 
 
-$$
+
 \begin{equation}
   \begin{split}
       SDC &= SD_{diff} \times \pm1.96 \\
@@ -229,7 +229,7 @@ $$
   \end{split}
   (\#eq:sdc-equation)
 \end{equation}
-$$
+
 
 Using OLP regression estimate `RSE` (equal to `r round(olp_model$rse, 2)`), and critical value to cover 95% of the Student's t-distribution (DF=19) equal to ±`r round(stats::qt(1 - ((1 - 0.95)/2), df = 20 - 1), 2)`, `SDC` for our scale is equal to ±`r round(olp_model$rse * stats::qt(1 - ((1 - 0.95)/2), df = 20 - 1), 2)`kg. This implies that, with the 95% confidence, we are able to detect true signal (i.e. change in weight) as low as ±`r round(olp_model$rse * stats::qt(1 - ((1 - 0.95)/2), df = 20 - 1), 2)`kg. If `SDC` is lower than SESOI, reliability of the measure is (practically) perfect. This is not the case for our scale. We cannot use it to detect changes of ±1kg with satisficing level of confidence. 
 
@@ -643,7 +643,7 @@ plot_simex(simex_simulation, alpha = 0.1, add_smooth = TRUE, add_average = FALSE
 
 From \@ref(fig:simex-quadratic) it is interesting to notice that `mean` is *robust* to measurement error, while `SD` is not, which is expected since normal error increase *variance* of the data. Using SIMEX for Change `SD`, we can estimate *true* Change `SD`, or in other words, when there is no measurement error. This can also be done using math rather than simulation and extrapolation (i.e. SIMEX) by using the same error propagation reasoning explained in the [Example of randomized control trial] section (Equation \@ref(eq:adjusting-sigma)). 
 
-$$
+
 \begin{equation}
   \begin{split}
     \sigma_{OS}^2 &= \sigma_{TS}^2 + \epsilon^2 \\
@@ -652,7 +652,7 @@ $$
   \end{split}
     (\#eq:adjusting-sigma)
 \end{equation}
-$$
+
 
 Observed Change `SD` is equal to `r round(sd(change), 2)`kg, while the change `TE` is equal to $\sqrt{2} \times 2.5$kg or 3.53kg. True Change `SD` is thus equal to $\sqrt{`r round(sd(change), 2)`^2 - 3.53^2 }$, or `r round(sqrt(sd(change)^2 - (2.5 * sqrt(2))^2), 2)`kg. This is also done when estimating stochastic treatment effect in the RCT, if we assume that the Change `SD` in the Control group is mainly due to measurement error. 
 

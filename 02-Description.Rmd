@@ -210,48 +210,48 @@ knitr::kable(
 
 In the [Introduction] of this book, statistical models are defined as "Small Worlds" or simplifications of the complex and uncertain reality. From this perspective, sample `mean` can be considered the simplest statistical model. With this estimator we are representing all of the data points with one quantitative summary (i.e. *aggregate*). However, how do we choose an estimate that represents the sample the best? Estimate that has the minimal *error* is selected as the *optimal* representative. Error is defined using a *loss function* that penalizes difference between the model estimate or prediction ($\hat{y_i}$) and observations ($y_i$) (Equation \@ref(eq:loss-function)). The difference between model prediction ($\hat{y_i}$) and observations ($y_i$) is called *residual*.
 
-$$
+
 \begin{equation}
   Loss \: function = f(observed, predicted)
   (\#eq:loss-function)
 \end{equation}
-$$
+
 
 Two most common loss functions are *absolute loss* (also referred to as $L1$) (Equation \@ref(eq:absolute-loss)) and *quadratic loss* (also referred to as *squared errors* or $L2$) (Equation \@ref(eq:quadratic-loss)). Please refer to section [Sample `mean` as the simplest predictive model] in [Prediction] chapter for more examples.
 
-$$
+
 \begin{equation}
   absolute \: loss = \mid{\hat{y_i} - y_i\mid}
   (\#eq:absolute-loss)
 \end{equation}
-$$
 
-$$
+
+
 \begin{equation}
   quadratic \: loss = (\hat{y_i} - y_i)^2
   (\#eq:quadratic-loss)
 \end{equation}
-$$
+
 
 *Cost function* is an *aggregate* of the loss function (Equation \@ref(eq:cost-function)). 
 
-$$
+
 \begin{equation}
   Cost \: function = f(Loss \: function (observed, predicted))
   (\#eq:cost-function)
 \end{equation}
-$$
+
 
 Since loss function is defined on a data point (i.e. $y_i$), we need to aggregate losses into a single metric. This is done with a cost function, usually using `sum` or `mean`.
 
 One such cost function is *root-mean-square-error* (`RMSE`) (Equation \@ref(eq:rmse-equation)). `RMSE` takes the square root of the mean of the quadratic loss (note the $(\hat{y_i} - y_i)^2$ in the `RMSE` equation, which represent quadratic loss). `RMSE` thus represents a measure of the *model fit*, or how good the model fits the data. Lower `RMSE` means lower error and thus a better fit.
 
-$$
+
 \begin{equation}
   RMSE = \sqrt{\frac{1}{n}\Sigma_{i=1}^{n}(\hat{y_i} - y_i)^2}
   (\#eq:rmse-equation)
 \end{equation}
-$$
+
 By using body height data from the female group, we can *search* for a body height estimate that minimizes the `RMSE` (Figure \@ref(fig:sample-mean-as-the-simplest-statistical-model)). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model. 
 
 ```{r sample-mean-as-the-simplest-statistical-model, fig.cap="(ref:sample-mean-as-the-simplest-statistical-model-caption)"}
@@ -389,12 +389,12 @@ The take-home message from this short interlude is that even the simple descript
 
 If we take another cost function, for example *mean absolute error* (`MAE`) (Equation \@ref(eq:mae-equation)) and if we *optimize* so that the sample central tendency estimate minimizes MAE, we will get `median` estimator. 
 
-$$
+
 \begin{equation}
   MAE = \frac{1}{n}\Sigma_{i=1}^{n}\mid{\hat{y_i} - y_i\mid}
   (\#eq:mae-equation)
 \end{equation}
-$$
+
 
 We will expand this discussion about loss functions, cost functions, and performance metrics in [Sample `mean` as the simplest predictive model] section. For more information please check the package *Metrics* [@R-Metrics] and the following references [@botchkarevNewTypologyDesign2019; @chaiRootMeanSquare2014; @willmottAdvantagesMeanAbsolute2005; @barronGeneralAdaptiveRobust2019]. 
 
@@ -430,7 +430,7 @@ knitr::kable(
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
 
-$$
+
 \begin{equation}
   \begin{split}
     mean_{difference} &= mean_{males} - mean_{females} \\
@@ -439,52 +439,52 @@ $$
   \end{split}
   (\#eq:mean-difference-equation)
 \end{equation}
-$$
+
 
 `% CVdiff`, or percent coefficient of variation of the difference is the standard deviation of the difference (`SDdiff` - explained shortly) divided by `mean diff` (Equation \@ref(eq:diff-percent-cv-equation)):
 
-$$
+
 \begin{equation}
   \%\;CV_{difference} = 100\times\frac{SD_{difference}}{mean_{difference}}
   (\#eq:diff-percent-cv-equation)
 \end{equation}
-$$
+
 
 `% Difference`, or `mean percent difference` is calculated by dividing `mean diff` with the `mean` of the baseline group, in this case the female group, multiplied by 100 (Equation \@ref(eq:percent-diff-equation)):
 
-$$
+
 \begin{equation}
   mean_{\% difference} = 100\times\frac{mean_{difference}}{mean_{females}}
   (\#eq:percent-diff-equation)
 \end{equation}
-$$
+
 
 `Mean ratio`, as its name suggests, is simple ratio between the two `means` (Equation \@ref(eq:mean-ratio-equation)):
 
-$$
+
 \begin{equation}
   mean_{ratio} = \frac{mean_{males}}{mean_{females}}
   (\#eq:mean-ratio-equation)
 \end{equation}
-$$
+
 
 `Cohen's d` represent standardized effects size and thus preferable effect size statistic. For this reason, `Cohen's d` is commonly written as ES, short of effect size. `Cohen's d` for the independent groups is calculated by dividing `mean diff` (Equation \@ref(eq:mean-difference-equation)) with `pooled standard deviation` (\@ref(eq:cohen-diff-equation)).
 
-$$
+
 \begin{equation}
   Cohen's\;d = \frac{mean_{difference}}{SD_{pooled}}
   (\#eq:cohen-diff-equation)
 \end{equation}
-$$
+
 
 `Pooled standard deviation` represents *combined* standard deviations from two groups (Equation \@ref(eq:pooled-SD-equation)).
 
-$$
+
 \begin{equation}
   SD_{pooled} = \sqrt{\frac{(n_{males} - 1) SD_{males}^2 + (n_{females} - 1) SD_{females}^2}{n_{males}+n_{females} - 2}}
   (\#eq:pooled-SD-equation)
 \end{equation}
-$$
+
 
 Why `Cohen's d` should be used instead of other effect size estimators can be demonstrated by a simple example, coming from a study by @buchheit3015Intermittent2014. In this study, authors examined the relationship between the performance in the *YoYo Intermittent Recovery Test Level 1* (YoYoIR1) and the *30-15 Intermittent Fitness Test* (30-15IFT), and compared the *sensitivity* of both tests to the training. Although this study used two dependent groups (Pre-training and Post-training), the rationale can be applied to the topic of estimating effect sizes between the two independent groups. Table \@ref(tab:perc-change-vs-cohensd) contains Pre-training results and the effect sizes estimated with `percent change`[^percent_change] and `Cohen's d`. 
 
@@ -585,12 +585,12 @@ By using simple counting from 100 random paired samples, males are taller in `r 
 
 `CLES` can be estimated using *brute-force* computational method, or *algebraic* method. Brute-force method involves generating all possible pair-wise combinations from two groups, and in our example that is equal to $50 \times 50 = 2500$ cases, and then simply counting in how many cases males are taller than females. This method can become very computationally intensive for groups with large sample number. Algebraic method, on the other hand, assumes normal distribution of the observations in the groups, and estimates *standard deviation of the difference* (`SDdiff`) (Equation \@ref(eq:sd-diff)). Note that standard deviation of the all pairwise differences estimated with brute-force method would be very similar to algebraically derived `SDdiff`. 
 
-$$
+
 \begin{equation}
   SD_{difference} = \sqrt{SD_{males}^{2} + SD_{females}^{2}}
   (\#eq:sd-diff)
 \end{equation}
-$$
+
 
 Algebraically, `CLES` is then derived assuming normal distribution (where mean of the distribution is equal to `mean diff` between the groups, and standard deviation of the distribution is equal to `SDdiff`) by calculating probability of the difference scores higher than zero (see Figure \@ref(fig:drawing-random-hundred-pairs)B for a visual representation). Table \@ref(tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups) contains algebraically computed CLES estimate.  
 
@@ -756,20 +756,20 @@ To introduce magnitude-based estimators, consider ±2.5cm to be body height SESO
 
 The simplest magnitude-based statistics would be `mean diff` divided by SESOI (`Difference to SESOI`) (Equation \@ref(eq:diff-to-SESOI)). This estimator, similar to other standardized estimators (e.g. `Cohen's d`) allows comparison of variables at different scales, but it would also give more insight into differences from practical significance perspective. 
 
-$$
+
 \begin{equation}
   Difference\;to\;SESOI = \frac{mean_{difference}}{SESOI_{upper} - SESOI_{lower}}
   (\#eq:diff-to-SESOI)
 \end{equation}
-$$
+
 
 Second magnitude-based statistic is `SDdiff` divided by SESOI (`SDdiff to SESOI`) (Equation \@ref(eq:SD-diff-to-SESOI)). This estimator, similar to `% CVdiff`, would answer how variable are the differences compared to SESOI.   
-$$
+
 \begin{equation}
   SDdiff\;to\;SESOI = \frac{SD_{difference}}{SESOI_{upper} - SESOI_{lower}}
   (\#eq:SD-diff-to-SESOI)
 \end{equation}
-$$
+
 
 Similarly, `CLES` estimator can become magnitude-based by utilizing SESOI. Rather than being interested in probability of a random male being taller than a random female (out of the two sample groups), we might be interested in estimating how probable are *lower*, *equivalent*, and *higher* (or usually defined as *harmful*, *trivial*, and *beneficial*) differences defined by SESOI. Practically equivalent (trivial) differences are differences ranging from $SESOI_{lower}$ to $SESOI_{upper}$, while everything over $SESOI_{upper}$ is higher (or beneficial) difference and everything lower than $SESOI_{lower}$ is lower (or harmful) difference. 
 
@@ -1179,7 +1179,7 @@ knitr::kable(
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
 
-$$
+
 \begin{equation}
   \begin{split}
     mean_{change} &= \frac{1}{n}\Sigma_{i=1}^{n}(post_{i}-pre_{i}) \\
@@ -1188,52 +1188,52 @@ $$
   \end{split}
   (\#eq:mean-change-equation)
 \end{equation}
-$$
+
 
 `SDchange`, or standard deviation of the change is a simple standard deviation of the change (Equation \@ref(eq:SD-change-equation)). It represents a measure of dispersion of the change scores.
 
-$$
+
 \begin{equation}
   SD_{change} = \sqrt{\frac{1}{n-1}\Sigma_{i=1}^{n}(change_i -mean_{change})^2}
   (\#eq:SD-change-equation)
 \end{equation}
-$$
+
 
 `% CVchange`, or percent coefficient of variation of the change is the `SDchange` divided by `mean change` (Equation \@ref(eq:CV-change-coeff)).
 
-$$
+
 \begin{equation}
   \%\;CV_{change} = 100\times\frac{SD_{change}}{mean_{change}}
   (\#eq:CV-change-coeff)
 \end{equation}
-$$
+
 
 `% Change`, or `Mean percent change` is calculated by taking a mean of the ratio between the change and the Pre-test, multiplied by 100 (Equation \@ref(eq:percent-change-equation)).
 
-$$
+
 \begin{equation}
   mean_{\% change} = 100\times\frac{1}{n}\Sigma_{i}^{n}\frac{change_{i}}{pre_{i}}
  (\#eq:percent-change-equation)
 \end{equation}
-$$
+
 
 `Mean ratio` represents mean of the Post-test to Pre-test scores ratios (Equation \@ref(eq:mean-ratio-paired-equation)).
 
-$$
+
 \begin{equation}
   mean_{ratio} = \frac{1}{n}\Sigma_{i}^{n}\frac{post_{i}}{pre_{i}}
   (\#eq:mean-ratio-paired-equation)
 \end{equation}
-$$
+
 
 `Cohen's d` represents standardized effect size of the change. In the paired design, `Cohen's d` is calculated by dividing `mean change` with standard deviation of the Pre-test scores (`SDpre`) (Equation \@ref(eq:cohens-d-paired)).
 
-$$
+
 \begin{equation}
   Cohen's\;d = \frac{mean_{change}}{SD_{pre}}
   (\#eq:cohens-d-paired)
 \end{equation}
-$$
+
 
 `CLES` for the paired groups represents probability of observing positive change. `OVL`, equally to the independent groups, represents overlap between the Pre-test and Post-test scores.  
 
@@ -1448,19 +1448,19 @@ knitr::kable(
 
 The *Pearson product-moment correlation coefficient* (`Pearson's r`) is a measure of the strength of the linear relationship between two variables (Equation \@ref(eq:pearson-r)).
 
-$$
+
 \begin{equation}
   r = \frac{{}\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
   {\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2}}
   (\#eq:pearson-r)
 \end{equation}
-$$
+
 
 `Pearson's r` is standardized measure that can take values ranging from -1 to +1, where 0 indicates no relationship, and -1 and +1 indicates perfect relationship. Negative `Pearson's r` value represents negative association (i.e. as one variable increases the other decreases), while positive `Pearson's r` value represents positive association (i.e., as one variable increases so does the other).
 
 `R-squared` ($R^2$) represents *variance explained*, i.e. how much the *model* explains variance in the target variable. In this example the model is *linear regression*. `R-squared` is standardized measure of association that can take values ranging from zero (no association, or no variance explained) to 1 (perfect association, or all variance explained). `R-squared`, as its name suggests, represents Pearson's r squared, but for more complex models it can be calculated using variances or *mean squares* (`MS`) (Equation \@ref(eq:pearson-r)):
 
-$$
+
 \begin{equation}
   \begin{split}
     R^2 &= \frac{MS_{model}}{MS_{total}} \\
@@ -1469,7 +1469,7 @@ $$
   \end{split}
   (\#eq:r-squared)
 \end{equation}
-$$
+
 
 *Maximal information coefficient* (`MIC`) is a novel measure of the strength of the linear or non-linear association between two variables and belongs to the *maximal information-based non-parametric exploration* (MINE) class of statistics [@albaneseMinervaMinepyEngine2012; @reshefDetectingNovelAssociations2011]. `MIC` is standardized measure of association that can take values ranging from zero (no association) to 1 (perfect association). As opposed to `Pearson r`, `MIC` can *pick up* non-linear association between two variables. 
 
@@ -1479,21 +1479,21 @@ Statistical model, or *machinery* underlying `Pearson r` and `R-squared` is line
 
 [^COMP_VS_ANALYTIC]: The benefit of using *squared errors* in OLS approaches, is that this *optimization* (or the search for parameters that minimize `RMSE` as a cost function in this case) can be done analytically. One of the drawbacks of using squared errors (or squared residuals) is sensitivity to *outliers*. Other regression approaches, such as *quantiles regression* or *ordinary least products* (OLP) for example, use different loss and cost functions. OLP regression will be utilized in the [Reliability] section of the book. 
 
-$$
+
 \begin{equation}
   \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i + \hat{\epsilon}
   (\#eq:linear-equation)
 \end{equation}
-$$
+
 
 Table \@ref(tab:linear-reg-estimates) contains estimates for `intercept`, `slope`, and residual error. Residual error ($\epsilon$) is estimated by using *residual standard error* (`RSE`), which is similar to already discussed `RMSE`, but rather than dividing sum of square errors by $n$ observations, it is divided by $n-p$ (Equation \@ref(eq:rse-equation)). The $p$ is the number of model parameters, in this case 2 (`intercept` and one `slope coefficient`). 
 
-$$
+
 \begin{equation}
   RSE = \sqrt{\frac{1}{n-p}\Sigma_{i=1}^{n}(y_i -\hat{y_i})^2}
   (\#eq:rse-equation)
 \end{equation}
-$$
+
 
 (ref:linear-reg-estimates-caption) Linear regression estimates for `intercept`, `slope coefficient`, and `RSE` when MAS is the target variable an YoYoIR1 is the predictor
 
@@ -1518,18 +1518,18 @@ knitr::kable(
 
 Estimated parameters in the Table \@ref(tab:linear-reg-estimates) can be written using the linear equation format (Equation \@ref(eq:mas-equation)).
 
-$$
+
 \begin{equation}
   MAS = `r round(coef(linear_model)[1], 2)` + `r round(coef(linear_model)[2], 5)` \times YoYoIR1 \pm `r round(sqrt(sum(relationship$residual^2) / df.residual(linear_model)), 2)` \: km/h
   (\#eq:mas-equation)
 \end{equation}
-$$
+
 
 Slope coefficient of `r round(coef(linear_model)[2], 5)` can be interpreted the following way: if YoYoIR1 increases by 500m, then MAS would increase by 500 x `r round(coef(linear_model)[2], 5)` or `r round(500 * coef(linear_model)[2], 2)`km/h.   
 
 Although measures of association between two variables, such as `Pearson's r` and `R-squared`, are symmetrical (meaning it doesn't matter which variable is predictor or target), one cannot reverse the linear regression equation to get YoYoIR1 from MAS as done in the Equation \@ref(eq:rse-equation). 
 
-$$
+
 \begin{equation}
   \begin{split}
     MAS &= \hat{\beta}_0 + \hat{\beta}_1 \times YoYoIR1 \\
@@ -1539,7 +1539,7 @@ $$
   \end{split}
   (\#eq:reverse-linear-equation)
 \end{equation}
-$$
+
 
 It can be seen that the reverse parameters from \@ref(eq:rse-equation) differ from the parameters in the Table \@ref(tab:reverse-estimates-table) which are estimated using YoYoIR1 as the target variable an MAS as the predictor variable. 
 
@@ -1590,7 +1590,7 @@ Similarly to independent and dependent group analysis, with association we might
 
 One question we might ask is whether the YoYoIR1 SESOI is associated with MAS SESOI. This can be answered with the `sensitivity` estimator (Equation \@ref(eq:practical-sensitivity)).
 
-$$
+
 \begin{equation}
   \begin{split}
     Sensitivity &= \frac{(SESOI_{YoYoIR1_{upper}} - SESOI_{YoYoIR1_{lower}})\times\hat{\beta}_1}{SESOI_{MAS_{upper}}-SESOI_{MAS_{lower}}} \\
@@ -1601,13 +1601,13 @@ $$
   \end{split}
   (\#eq:practical-sensitivity)
 \end{equation}
-$$
+
 
 This means that the change in the YoYoIR1 test equal to SESOI will yield only a small proportion of SESOI in the MAS test. 
 
 In the case where SESOI of the MAS test is unknown, using known SESOI of the YoYoIR1 test can be used to estimate it. This is done by using estimated $\hat{\beta}_1$ (`slope coefficient`), as demonstrated in the Equation \@ref(eq:mas-sesoi-equation).
 
-$$
+
 \begin{equation}
   \begin{split}
     SESOI_{MAS_{upper}} &= \hat{\beta}_1\times SESOI_{YoYoIR1_{upper}} \\
@@ -1620,7 +1620,7 @@ $$
     \end{split}  
     (\#eq:mas-sesoi-equation)
 \end{equation}
-$$
+
 
 Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±`r SESOI_MAS_upper`km/h). Figure \@ref(fig:sesoiscatterplot-mas-yoyo) depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area. 
 

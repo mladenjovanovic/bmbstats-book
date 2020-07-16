@@ -3,8 +3,6 @@ title: "bmbstats: bootstrap magnitude-based statistics for sports scientists"
 author: "Mladen Jovanovic"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: 
-  bookdown::gitbook
 documentclass: book
 bibliography: ["citations/references.bib", "citations/r-references.bib"]
 biblio-style: apalike
