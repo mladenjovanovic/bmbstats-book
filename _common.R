@@ -14,23 +14,24 @@ knitr::opts_chunk$set(
   fig.show = "hold",
   echo = FALSE,
   warning = FALSE,
-  message = FALSE
+  message = FALSE,
+  fig.path = 'generated_figures/'
 )
 
-if (knitr::is_latex_output()) {
-  knitr::opts_chunk$set(width = 69)
-  options(width = 69)
-  options(crayon.enabled = FALSE)
-  options(cli.unicode = TRUE)
-}
-
-knitr::knit_hooks$set(
-  small_mar = function(before, options, envir) {
-    if (before) {
-      par(mar = c(4.1, 4.1, 0.5, 0.5))
-    }
-  }
-)
+#if (knitr::is_latex_output()) {
+#  knitr::opts_chunk$set(width = 69)
+#  options(width = 69)
+#  options(crayon.enabled = FALSE)
+#  options(cli.unicode = TRUE)
+#}
+#
+#knitr::knit_hooks$set(
+#  small_mar = function(before, options, envir) {
+#    if (before) {
+#      par(mar = c(4.1, 4.1, 0.5, 0.5))
+#    }
+#  }
+#)
 
 
 # Knitr options
