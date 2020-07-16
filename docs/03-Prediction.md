@@ -54,7 +54,7 @@ The objective of causal inference or explanatory modeling is to estimate the $f(
 To demonstrate a concept of overfitting, we are going to generate two samples (N=35 observations) from the DGP with BS ranging from 0.8 to 2.5. These samples are *training* and *testing* sample (Figure \@ref(fig:bs-sj-training-testing)). Training sample is used to *train* the prediction model, while *testing* sample will be used as a *holdout* sample for evaluating model performance on the *unseen* data.  
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/bs-sj-training-testing-1.png" alt="(ref:bs-sj-training-testing-caption)" width="90%" />
+<img src="generated_figures/bs-sj-training-testing-1.png" alt="(ref:bs-sj-training-testing-caption)" width="90%" />
 <p class="caption">(\#fig:bs-sj-training-testing)(ref:bs-sj-training-testing-caption)</p>
 </div>
 (ref:bs-sj-training-testing-caption) **Two samples simulated from the known DGP. **Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP
@@ -76,7 +76,7 @@ $$
 Increasing polynomial degrees increases the *flexibility* of the polynomial regression model, and thus can represent *tuning parameter* that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure \@ref(fig:poly-fit-model) contains model performance on the training data for polynomial degrees ranging from 1 to 20.  
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/poly-fit-model-1.png" alt="(ref:poly-fit-model-caption)" width="90%" />
+<img src="generated_figures/poly-fit-model-1.png" alt="(ref:poly-fit-model-caption)" width="90%" />
 <p class="caption">(\#fig:poly-fit-model)(ref:poly-fit-model-caption)</p>
 </div>
 (ref:poly-fit-model-caption) **Model fit with varying polynomial degrees. **More degrees equals better model fit
@@ -84,7 +84,7 @@ Increasing polynomial degrees increases the *flexibility* of the polynomial regr
 As can be seen from the Figure \@ref(fig:poly-fit-model), the more flexible the model (or the higher the polynomial degree) the better it fits the data. But how do these models perform on the unseen, testing data sample? In order to quantify model performance, `RMSE` metric is used. Figure \@ref(fig:testing-training-poly-errors) demonstrates performance of the polynomial regression model on the training and testing data sample across different polynomial degrees.  
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/testing-training-poly-errors-1.png" alt="(ref:testing-training-poly-errors-caption)" width="90%" />
+<img src="generated_figures/testing-training-poly-errors-1.png" alt="(ref:testing-training-poly-errors-caption)" width="90%" />
 <p class="caption">(\#fig:testing-training-poly-errors)(ref:testing-training-poly-errors-caption)</p>
 </div>
 (ref:testing-training-poly-errors-caption) **Testing and training errors across varying polynomial degrees. **Model error is estimated with the `RMSE` metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn't imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data
@@ -219,7 +219,7 @@ The are, of course, other loss and cost functions that could be used. For exampl
 [^HUBER_RIDGE]: Although I've used the term *loss* here, these loss functions are also aggregated using `sum` or `mean` to create `Huber cost` or `Ridge cost`. `Huber loss` is a combination of absolute and quadratic losses and it's property is better *robustness* to outliers.
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/loss-function-metrics-example-1.png" alt="(ref:loss-function-metrics-example-caption)" width="90%" />
+<img src="generated_figures/loss-function-metrics-example-1.png" alt="(ref:loss-function-metrics-example-caption)" width="90%" />
 <p class="caption">(\#fig:loss-function-metrics-example)(ref:loss-function-metrics-example-caption)</p>
 </div>
 
@@ -729,7 +729,7 @@ This decomposition of errors is one useful mathematical property when using squa
 If we perfrom this analysis for each degree of polynomial fit, we will estimate prediction error, as well as $Bias^2$ and $Variance$ across model complexity (i.e. polynomial degrees). This is visualized in the Figure \@ref(fig:bias-variance-simulation). 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/bias-variance-simulation-1.png" alt="(ref:bias-variance-simulation-caption)" width="90%" />
+<img src="generated_figures/bias-variance-simulation-1.png" alt="(ref:bias-variance-simulation-caption)" width="90%" />
 <p class="caption">(\#fig:bias-variance-simulation)(ref:bias-variance-simulation-caption)</p>
 </div>
 (ref:bias-variance-simulation-caption) **Bias and Variance error decomposition. **$Prediction \: error$ is indicated with the black line, and is decomposed to $Bias^2$, $Variance$, and $Irreducible \: error$. These are represents with areas of different color
@@ -799,7 +799,7 @@ Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predicti
 Model performance can be visualized using the training data set (Figure \@ref(fig:elastic-net-prediction)). `PPER` estimator, for both cross-validate estimate and training data performance estimate, utilized `SD` of the residuals and provided SESOI. Grey band on panels A and B on Figure \@ref(fig:elastic-net-prediction) represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance. 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/elastic-net-prediction-1.png" alt="(ref:elastic-net-prediction)" width="90%" />
+<img src="generated_figures/elastic-net-prediction-1.png" alt="(ref:elastic-net-prediction)" width="90%" />
 <p class="caption">(\#fig:elastic-net-prediction)(ref:elastic-net-prediction)</p>
 </div>
 (ref:elastic-net-prediction) **Model performance on the training data set. A. **Model with the lowest `cvRMSE` is selected. SESOI is depicted as grey band around the model prediction (blue line). **B.** Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. `PPER` represents proportion of residuals inside the SESOI band
@@ -819,7 +819,7 @@ Let's first estimate predictive performance when predicting MAS scores from the 
 Figure \@ref(fig:mas-yoyo-ba) consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts $y_{predicted}$ (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals $y_residual = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. The data points represent model performance on the full training data set.  
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-ba-1.png" alt="(ref:mas-yoyo-ba-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-ba-1.png" alt="(ref:mas-yoyo-ba-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-ba)(ref:mas-yoyo-ba-caption)</p>
 </div>
 (ref:mas-yoyo-ba-caption) **Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. ** Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. **B.** Scatter plot between $y_{predicted}$ (fitted or predicted MAS) against model residual $y_{residual} = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. Dotted lines indicate *Levels of Agreement* (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
@@ -1081,7 +1081,7 @@ But as already explained, these are not predictive performance estimators for th
 As explained in [Cross-Validation] section, to calculate overall cross-validated performance, the `mean` is calculated for the performance metrics in the Table \@ref(tab:mas-yoyo-cv-performance). Besides reporting the `mean` as the summary for predictive performances across cross-validated samples, `SD`, `min`, and `max` can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to *bind* or *pool* all $y_{observed}$ and $y_{predicted}$ scores from the test samples together and then calculate *overall* predictive performance metrics. These pooled cross_validated $y_{observed}$ and $y_{predicted}$ can also be visualized using the residuals plot (Panel C in Figure \@ref(fig:mas-yoyo-ba-cross-validated)). 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-ba-cross-validated-1.png" alt="(ref:mas-yoyo-ba-cross-validated-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-ba-cross-validated-1.png" alt="(ref:mas-yoyo-ba-cross-validated-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-ba-cross-validated)(ref:mas-yoyo-ba-cross-validated-caption)</p>
 </div>
 
@@ -1092,13 +1092,13 @@ As can be seen from the panels B and C in Figure \@ref(fig:mas-yoyo-ba-cross-val
 But these can be useful diagnostic tools for checking where the model fails (e.g. what particular observation might be problematic or outlier, as well how does $Bias^2$ and $Variance$ changes across $y_{observed}$ continuum). These two concepts are depicted on Figure \@ref(fig:mas-yoyo-bias-variance-index) and Figure \@ref(fig:mas-yoyo-bias-variance-y-obs). 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-index-1.png" alt="(ref:mas-yoyo-bias-variance-index-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-bias-variance-index-1.png" alt="(ref:mas-yoyo-bias-variance-index-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-bias-variance-index)(ref:mas-yoyo-bias-variance-index-caption)</p>
 </div>
 (ref:mas-yoyo-bias-variance-index-caption) **Prediction error ($MSE$), $Bias^2$, and $Variance$ across repeated cross-validated testing data. **X-axis on the panels represents observation *index*, as in $y_{i, observed}$
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-y-obs-1.png" alt="(ref:mas-yoyo-bias-variance-y-obs-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-bias-variance-y-obs-1.png" alt="(ref:mas-yoyo-bias-variance-y-obs-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-bias-variance-y-obs)(ref:mas-yoyo-bias-variance-y-obs-caption)</p>
 </div>
 (ref:mas-yoyo-bias-variance-y-obs-caption) **Prediction error ($MSE$), $Bias^2$ and $Variance$ across repeated cross-validated testing data. **X-axis on the panels represent $y_{observed}$. Since there might be multiple equal $y_{observed}$, `min` and `max` are used and represent *ribbon* over `mean` (indicated by line)
@@ -1106,14 +1106,14 @@ But these can be useful diagnostic tools for checking where the model fails (e.g
 Since $Bias$ and $Variance$ represent a quantitative summary of the residuals across cross-validations, the residuals and predicted observations across cross-validation testing folds can be visualized in more details as depicted on Figures \@ref(fig:mas-yoyo-bias-cv-prediction-index) and \@ref(fig:mas-yoyo-bias-cv-prediction-observation). 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-index-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-index-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-bias-cv-prediction-index-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-index-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-bias-cv-prediction-index)(ref:mas-yoyo-bias-cv-prediction-index-caption)</p>
 </div>
 
 (ref:mas-yoyo-bias-cv-prediction-index-caption) **Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation.** Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents $Variance$, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents $Bias$. 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-observation-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-observation-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-bias-cv-prediction-observation-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-observation-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-bias-cv-prediction-observation)(ref:mas-yoyo-bias-cv-prediction-observation-caption)</p>
 </div>
 
@@ -1234,7 +1234,7 @@ Cross-validated, *pooled*, and full training data set predictive performance met
 Summary from the Table \@ref(tab:mas-yoyo-cv-performance-summary) as well as the individual cross-validated sample predictive performance from the Table \@ref(tab:mas-yoyo-cv-performance) are visually represented in the Figure \@ref(fig:mas-yoyo-cv-graphical)). 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/mas-yoyo-cv-graphical-1.png" alt="(ref:mas-yoyo-cv-graphical-caption)" width="90%" />
+<img src="generated_figures/mas-yoyo-cv-graphical-1.png" alt="(ref:mas-yoyo-cv-graphical-caption)" width="90%" />
 <p class="caption">(\#fig:mas-yoyo-cv-graphical)(ref:mas-yoyo-cv-graphical-caption)</p>
 </div>
 (ref:mas-yoyo-cv-graphical-caption) **Cross-validated model performance. **Dot and line bar indicate `mean`, `min` and `max` of the cross-validated performance. Dotted line indicate model performance on the training data set. 
@@ -1252,7 +1252,7 @@ As shown in [Describing relationship between two variables], predicting YoYoIR1 
 Figure \@ref(fig:yoyo-mas-ba) depicts modified Bland-Altman plot for predictions using the full training data set. Visual inspection demonstrates that many points are outside of SESOI band, indicating poor practically significant (or useful) predictions. 
 
 <div class="figure" style="text-align: center">
-<img src="03-Prediction_files/figure-html/yoyo-mas-ba-1.png" alt="(ref:yoyo-mas-ba-caption)" width="90%" />
+<img src="generated_figures/yoyo-mas-ba-1.png" alt="(ref:yoyo-mas-ba-caption)" width="90%" />
 <p class="caption">(\#fig:yoyo-mas-ba)(ref:yoyo-mas-ba-caption)</p>
 </div>
 (ref:yoyo-mas-ba-caption) **Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. ** Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. **B.** Scatter plot between $y_{predicted}$ (fitted or predicted YoYoIR1) against model residual $y_{residual} = y_{predicted} - y_{observed}$, or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate *Levels of Agreement* (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)

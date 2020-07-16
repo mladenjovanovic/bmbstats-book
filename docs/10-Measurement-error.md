@@ -182,7 +182,7 @@ The method of estimating `TE` using `SD` of the difference score can be termed *
 Figure \@ref(fig:OLP-demonstration) demonstrate OLP regression between Trial 1 (OS1) and Trial 2 (OS2). Estimated residual standard error (`RSE`) is equal to 0.72cm. To estimate `TE`, this `RSE` also needs to be divided by $\sqrt{2}$, which results in 0.51cm. This estimate of `TE` is very close to `TE` estimated by the method of differences. 
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/OLP-demonstration-1.png" alt="(ref:OLP-demonstration-caption)" width="90%" />
+<img src="generated_figures/OLP-demonstration-1.png" alt="(ref:OLP-demonstration-caption)" width="90%" />
 <p class="caption">(\#fig:OLP-demonstration)(ref:OLP-demonstration-caption)</p>
 </div>
 
@@ -193,7 +193,7 @@ Figure \@ref(fig:OLP-demonstration) demonstrate OLP regression between Trial 1 (
 If we consider ±1kg to be SESOI in the observed score, we can estimate practical reliability of this scale. Magnitude-based estimators, such as `PPER` or `SESOI to RSE` can be used to quantify scale reliability from a practical significance perspective. This can be represented with the SESOI band as done in the Figure \@ref(fig:OLP-demonstration-SESOI). 
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/OLP-demonstration-SESOI-1.png" alt="(ref:OLP-demonstration-SESOI-caption)" width="90%" />
+<img src="generated_figures/OLP-demonstration-SESOI-1.png" alt="(ref:OLP-demonstration-SESOI-caption)" width="90%" />
 <p class="caption">(\#fig:OLP-demonstration-SESOI)(ref:OLP-demonstration-SESOI-caption)</p>
 </div>
 
@@ -264,7 +264,7 @@ For the sake of example, ±5kg can be considered minimal important change, which
 Panel A in the Figure \@ref(fig:individual-change-mbi) depicts individual Change scores *probabilistically* using the known change `TE` (3.54kg). Using the SESOI as equivalent change, we can estimate individual probability of lower, equivalent, and higher change. Panel B in the Figure \@ref(fig:individual-change-mbi) depicts individual change scores with error bars representing `SDC`. The numbers in brackets on Panel B in the Figure \@ref(fig:individual-change-mbi) represent estimated probabilities of the true change score being lower, equivalent, and higher compared to SESOI. To be more certain of individual changes, `SDC` needs to be smaller compared to SESOI. Ratio between SESOI and change `TE` can thus represent an estimate of the *test sensitivity* to detect practically meaningful changes (i.e. `SESOI to RSE` estimator). The smallest change that has at least 95% chance of being higher or lower than SESOI is equal to $SESOI \pm SDC$, or ±12.39kg. Graphically, bench press 1RM change of ±12.39kg is the smallest change, where 95% confidence intervals do not touch the SESOI band. Please note that inference from MET is slightly different, since METs use single-tailed tests, thus the critical value will be smaller that 2.09 (it will be 1.73 for single-tailed 95% confidence). This implies that 95% confidence intervals (i.e. `SDC`) can slightly cross SESOI threshold and still be considered "Higher" or "Lower.  
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/individual-change-mbi-1.png" alt="(ref:individual-change-mbi-caption)" width="90%" />
+<img src="generated_figures/individual-change-mbi-1.png" alt="(ref:individual-change-mbi-caption)" width="90%" />
 <p class="caption">(\#fig:individual-change-mbi)(ref:individual-change-mbi-caption)</p>
 </div>
 
@@ -275,7 +275,7 @@ As explained in the [Statistical inference] section of this book, this method of
 Since we do not know the true change scores, we are interested in probabilities of seeing the observed change score given the assumption of where we think the true change score is (i.e. null hypothesis). For this reason the question to be asked is "assuming individual's true change scores are at ±SESOI, how likely are we to see the observed change score, given the known change `TE`?". This question demands answer and interpretation of change `TE` from the frequentist perspective. Thus the correct interpretation of the individual changes involves the use of minimum effect tests (METs) discussed in the [Statistical Inference] section. METs approach to interpreting individual changes is depicted in the Figure \@ref(fig:individual-change-met). 
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/individual-change-met-1.png" alt="(ref:individual-change-met-caption)" width="90%" />
+<img src="generated_figures/individual-change-met-1.png" alt="(ref:individual-change-met-caption)" width="90%" />
 <p class="caption">(\#fig:individual-change-met)(ref:individual-change-met-caption)</p>
 </div>
 
@@ -290,7 +290,7 @@ There are few *adjustment* techniques that can be implemented [@keoghSTRATOSGuid
 Since we know that error is already inside our observations, we can call that error factor or error multiplier of 1. Then we add additional error to our observations and repeat the analysis. This is done for error multipliers from 1 to usually 3 (i.e. extra 2 x measurement error). Let's do that using bench press data and calculate `mean` and `SD` of the Pre-test, Post-test, and Change. This single simulation is in Figure \@ref(fig:simex-single). 
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/simex-single-1.png" alt="(ref:simex-single-caption)" width="90%" />
+<img src="generated_figures/simex-single-1.png" alt="(ref:simex-single-caption)" width="90%" />
 <p class="caption">(\#fig:simex-single)(ref:simex-single-caption)</p>
 </div>
 
@@ -299,7 +299,7 @@ Since we know that error is already inside our observations, we can call that er
 We can't conclude much since adding error multiplier once is *stochastic*. We need to repeat this numerous times, say 100 times. This is depicted in Figure \@ref(fig:simex-thousand).
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/simex-thousand-1.png" alt="(ref:simex-thousand-caption)" width="90%" />
+<img src="generated_figures/simex-thousand-1.png" alt="(ref:simex-thousand-caption)" width="90%" />
 <p class="caption">(\#fig:simex-thousand)(ref:simex-thousand-caption)</p>
 </div>
 
@@ -308,7 +308,7 @@ We can't conclude much since adding error multiplier once is *stochastic*. We ne
 What we are interested in, is calculating the average or expected estimator value for each error multiplier. This is depicted in Figure \@ref(fig:simex-average)
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/simex-average-1.png" alt="(ref:simex-average-caption)" width="90%" />
+<img src="generated_figures/simex-average-1.png" alt="(ref:simex-average-caption)" width="90%" />
 <p class="caption">(\#fig:simex-average)(ref:simex-average-caption)</p>
 </div>
 
@@ -317,7 +317,7 @@ What we are interested in, is calculating the average or expected estimator valu
 Rather than using average across simulations, we can fit a particular model and then *extrapolate* to error multiplier of 0. This way we can get estimated estimator value when there is no measurement error involved in Pre-test and Post-test variables. Usually this is done using second order polynomial (i.e. $\hat{y_i} = \beta_0 + \beta_1x_i + \beta_2x_i^2$), or quadratic equation (i.e. $\hat{y_i} = \beta_0 + \beta_1x_i^2$). Extrapolating using quadratic equation is depicted in the Figure \@ref(fig:simex-quadratic). 
 
 <div class="figure" style="text-align: center">
-<img src="10-Measurement-error_files/figure-html/simex-quadratic-1.png" alt="(ref:simex-quadratic-caption)" width="90%" />
+<img src="generated_figures/simex-quadratic-1.png" alt="(ref:simex-quadratic-caption)" width="90%" />
 <p class="caption">(\#fig:simex-quadratic)(ref:simex-quadratic-caption)</p>
 </div>
 

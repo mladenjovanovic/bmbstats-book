@@ -355,7 +355,7 @@ If we repeat the same procedure for every parameter possibility in our grid, we 
 </table>
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/data-likelihood-1.png" alt="(ref:data-likelihood-caption)" width="90%" />
+<img src="generated_figures/data-likelihood-1.png" alt="(ref:data-likelihood-caption)" width="90%" />
 <p class="caption">(\#fig:data-likelihood)(ref:data-likelihood-caption)</p>
 </div>
 
@@ -509,7 +509,7 @@ Table \@ref(tab:bayes-height-grid-posterior) can be be converted into 3x3 matrix
 Since we have only two parameters, the joint probabilities can be represented with the *heat map*. Figure \@ref(fig:heat-map) is a visual representation of the Table \@ref(tab:bayes-height-grid-posterior-matrix).
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/heat-map-1.png" alt="(ref:heat-map-caption)" width="90%" />
+<img src="generated_figures/heat-map-1.png" alt="(ref:heat-map-caption)" width="90%" />
 <p class="caption">(\#fig:heat-map)(ref:heat-map-caption)</p>
 </div>
 
@@ -518,7 +518,7 @@ Since we have only two parameters, the joint probabilities can be represented wi
 When we have more than 2 parameters, visualization of joint probabilities get's tricky and we rely on visualizing marginal posterior probabilities of each parameter instead. As explained, marginal probabilities are calculated by summing all joint probabilities for a particular parameter possibility (see Table \@ref(tab:bayes-height-grid-posterior-matrix)). Figure \@ref(fig:(marginal-prior-posterior) depicts marginal probabilities (including prior probabilities) for $\mu$ and $\sigma$.
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/marginal-prior-posterior-1.png" alt="(ref:marginal-prior-posterior-caption)" width="90%" />
+<img src="generated_figures/marginal-prior-posterior-1.png" alt="(ref:marginal-prior-posterior-caption)" width="90%" />
 <p class="caption">(\#fig:marginal-prior-posterior)(ref:marginal-prior-posterior-caption)</p>
 </div>
 
@@ -531,14 +531,14 @@ As can be seen from the Figures \@ref(fig:heat-map) and \@ref(fig:marginal-prior
 So far, we have made this very granular in order to be understood. However, since we are dealing with continuous parameters, performing grid approximation for more than 9 total parameter possibilities seems warranted. The calculus is exactly the same, as well as the sample collected, but now we will use the larger range for both $\mu$ (160-200cm) and $\sigma$ (1-30cm), each with 100 possibilities. We are estimating credibility for total of $100 \times 100 = 10,000$ parameter possibilities. Figure \@ref(fig:heat-map-100-100) depicts heat map for the joint probabilities, and Figure \@ref(fig:marginal-100-100) depicts prior and posterior marginal distributions for each parameter. 
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/heat-map-100-100-1.png" alt="(ref:heat-map-100-100-caption)" width="90%" />
+<img src="generated_figures/heat-map-100-100-1.png" alt="(ref:heat-map-100-100-caption)" width="90%" />
 <p class="caption">(\#fig:heat-map-100-100)(ref:heat-map-100-100-caption)</p>
 </div>
 
 (ref:heat-map-100-100-caption) **Heat map of $\mu$ and $\sigma$ joint probabilities when $100\times 100$ grid-approximation is used**
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/marginal-100-100-1.png" alt="(ref:marginal-100-100-caption)" width="90%" />
+<img src="generated_figures/marginal-100-100-1.png" alt="(ref:marginal-100-100-caption)" width="90%" />
 <p class="caption">(\#fig:marginal-100-100)(ref:marginal-100-100-caption)</p>
 </div>
 
@@ -555,7 +555,7 @@ In this example we have used vague priors for both $\mu$ and $\sigma$. But let's
 This prior belief is, of course, wrong, but maybe I am biased since I originate, let's say from Montenegro, country with one of the tallest men. Figure \@ref(fig:strong-prior) contains plotted prior and posterior distributions. As can be seen, using very strong prior for $\mu$ shifted the posterior distribution to the higher heights. In other words, the data collected were not enough to *overcome* my prior belief about average height.
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/strong-prior-1.png" alt="(ref:strong-prior-caption)" width="90%" />
+<img src="generated_figures/strong-prior-1.png" alt="(ref:strong-prior-caption)" width="90%" />
 <p class="caption">(\#fig:strong-prior)(ref:strong-prior-caption)</p>
 </div>
 
@@ -566,7 +566,7 @@ This prior belief is, of course, wrong, but maybe I am biased since I originate,
 The sample height data we have collected for N=5 individuals (167, 192, 183, 175, 177cm) was not strong to overcome prior belief. However, what if we sampled N=100 males from known population of known mean height of 177.8 and SD of 10.16? Figure \@ref(fig:more-data) depicts prior and posterior distributions in this example. As can be seen, besides having narrower posterior distributions for $\mu$ and $\sigma$, more data was able to overcome my strong prior bias towards mean height of 190cm. 
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/more-data-1.png" alt="(ref:more-data-caption)" width="90%" />
+<img src="generated_figures/more-data-1.png" alt="(ref:more-data-caption)" width="90%" />
 <p class="caption">(\#fig:more-data)(ref:more-data-caption)</p>
 </div>
 
@@ -581,7 +581,7 @@ HDI is similar to frequentist CI, but represents an interval which contains all 
 Figure \@ref(fig:map-hdi) depicts comparison between MAP and 90% HDI, `median` and 90% percentile interval or ETI, and `mean` and $±1.64 \times SD$ for 90% confidence interval. As can be seen from the Figure \@ref(fig:map-hdi), the distribution summaries differ since the distribution is asymmetrical and not-normal. Thus, in order to summarize prior or posterior distribution, MAP and HDI are most often used, apart from visual representation.
 
 <div class="figure" style="text-align: center">
-<img src="07-Bayesian-perspective_files/figure-html/map-hdi-1.png" alt="(ref:map-hdi-caption)" width="90%" />
+<img src="generated_figures/map-hdi-1.png" alt="(ref:map-hdi-caption)" width="90%" />
 <p class="caption">(\#fig:map-hdi)(ref:map-hdi-caption)</p>
 </div>
 (ref:map-hdi-caption) **Summarizing prior and posterior distribution. A. **MAP and $90\%$ HDI. **B.** Median and $90\%$ ETI. **C.** Mean and $\pm1.64\times SD$

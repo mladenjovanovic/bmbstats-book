@@ -16,7 +16,7 @@ To provide further explanation of the descriptive statistics, three common descr
 Imagine we carried collection of body height measurements and we obtained N=100 observations using N=50 female and N=50 male subjects. Collected data is visualized in Figure \@ref(fig:common-techniques-to-visualize-independent-groups). 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/common-techniques-to-visualize-independent-groups-1.png" alt="(ref:common-techniques-to-visualize-independent-groups-caption)" width="90%" />
+<img src="generated_figures/common-techniques-to-visualize-independent-groups-1.png" alt="(ref:common-techniques-to-visualize-independent-groups-caption)" width="90%" />
 <p class="caption">(\#fig:common-techniques-to-visualize-independent-groups)(ref:common-techniques-to-visualize-independent-groups-caption)</p>
 </div>
 (ref:common-techniques-to-visualize-independent-groups-caption) **Common techniques to visualize independent groups observations**. Before any analysis takes place, it is always a good practice to visualize the data first. Ideally, we want to visualize the complete data set, rather than only provide descriptive summaries, such as means. **A.** Simple scatter-plot with jitter to avoid overlap between the points. **B.** Mean and standard deviation as error bars. **C.** Box-plot. Horizontal line represents median, or 50th percentile, whereas boxes represent 25th and 75th percentile. Vertical lines usually represent min and max, although they can extend up to 1.5xIQR (inter-quartile range) with point outside of that interval plotted as *outliers*. **D.** Violin plots representing double-side density plots with 25th, 50th and 75th percentile lines. **E.** Density plots indicating sample distribution. **F.** Raincloud plot [@allenRaincloudPlotsMultiplatform2019; @allenRaincloudplotsTutorialsCodebase2018] which combine kernel density plots as *clouds* with accompanying 25th, 50th and 75th percentile lines, mean±SD error bars and jittered points as *rain*
@@ -95,7 +95,7 @@ $$
 By using body height data from the female group, we can *search* for a body height estimate that minimizes the `RMSE` (Figure \@ref(fig:sample-mean-as-the-simplest-statistical-model)). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model. 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/sample-mean-as-the-simplest-statistical-model-1.png" alt="(ref:sample-mean-as-the-simplest-statistical-model-caption)" width="90%" />
+<img src="generated_figures/sample-mean-as-the-simplest-statistical-model-1.png" alt="(ref:sample-mean-as-the-simplest-statistical-model-caption)" width="90%" />
 <p class="caption">(\#fig:sample-mean-as-the-simplest-statistical-model)(ref:sample-mean-as-the-simplest-statistical-model-caption)</p>
 </div>
 (ref:sample-mean-as-the-simplest-statistical-model-caption) **Sample mean as the simplest statistical model.** **A.** Dashed line represents the estimate, in this case the `mean` of the sample. Vertical line represent residuals between estimate and observed values. **B.** Each estimate has a `RMSE` value. Central tendency estimate with the lowest `RMSE` value is the sample `mean`. **C.** Similar to panel A, this panel depicts residuals for a central tendency estimate with higher `RMSE`
@@ -221,7 +221,7 @@ Table: (\#tab:magnitudes-of-effect) **Magnitudes of effect**
 [^simulation_drawing]: In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent. 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/drawing-random-hundred-pairs-1.png" alt="(ref:drawing-random-hundred-pairs-caption)" width="90%" />
+<img src="generated_figures/drawing-random-hundred-pairs-1.png" alt="(ref:drawing-random-hundred-pairs-caption)" width="90%" />
 <p class="caption">(\#fig:drawing-random-hundred-pairs)(ref:drawing-random-hundred-pairs-caption)</p>
 </div>
 (ref:drawing-random-hundred-pairs-caption) **Drawing random 100 pairs to estimate probability of males being taller than females.** **A.** Scatterplot of 100 pairs drawn at random from two samples. Since we are comparing paired males and females, lines can be drawn between each of 100 draws. Blue line indicates taller male, while orange line indicates taller female. **B.** Distribution of the difference between males and females for each of 100 pairs drawn
@@ -246,7 +246,7 @@ Algebraically, `CLES` is then derived assuming normal distribution (where mean o
 Since `Cohen's d`, `CLES` and `OVL` are mathematically related, it is possible to convert one to another (assuming normal distribution of the samples and equal `SD` between the two groups for the `OVL` estimation). Figure \@ref(fig:Cohen-CLES-OVL)B depicts relationship between the `Cohen's d`, `CLES`, and `OVL`. Figure \@ref(fig:Cohen-CLES-OVL)C depicts relationship between the `CLES` and `OVL`.
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/Cohen-CLES-OVL-1.png" alt="(ref:Cohen-CLES-OVL-caption)" width="90%" />
+<img src="generated_figures/Cohen-CLES-OVL-1.png" alt="(ref:Cohen-CLES-OVL-caption)" width="90%" />
 <p class="caption">(\#fig:Cohen-CLES-OVL)(ref:Cohen-CLES-OVL-caption)</p>
 </div>
 (ref:Cohen-CLES-OVL-caption) **Relationship between the `Cohen's d`, `CLES`, and `OVL`.** **A.** Visual display of the samples of varying degrees of separations, and calculated `Cohen's d`, `CLES`, and `OVL`. **B.** Relationship between the `CLES` and `OVL` to the `Cohen's d`. **C.** Relationship between the `CLES` and `OVL`
@@ -298,7 +298,7 @@ Using brute-force computational method and drawing all pair-wise combinations fr
 [^symmetrical_SESOI]: It is assumed here that SESOI is *symmetrical* in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn't necessary needs to be symmetrical in both positive and negative directions.
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/pairwise-comparison-1.png" alt="(ref:pairwise-comparison-caption)" width="90%" />
+<img src="generated_figures/pairwise-comparison-1.png" alt="(ref:pairwise-comparison-caption)" width="90%" />
 <p class="caption">(\#fig:pairwise-comparison)(ref:pairwise-comparison-caption)</p>
 </div>
 (ref:pairwise-comparison-caption) **Pairwise comparison of males and females to estimate probability of lower, equivalent, and higher magnitude of difference. A.** Scatterplot of all pair-wise combinations (50x50 = 2500), drawn at random out of two samples. Since we are comparing paired males and females, lines can be drawn between each of 2500 draws. Blue line indicates males taller than females higher than SESOI, equivalent lines indicates pairs with a height difference less or equal to SESOI, while orange line indicates females taller than males higher than SESOI. **B.** Distribution of the differences between males and females for all 2500 pair-wise combinations. Grey band indicates SESOI. Surface of the distribution over SESOI (blue color) indicates probability of randomly selected male being taller than a randomly selected female (`pHigher`), with a height difference of at least SESOI magnitude. Surface of the distribution under SESOI (orange color) indicates probability of randomly selected female being taller than a randomly selected female (`pLower`), with a height difference of at least SESOI magnitude. Grey surface area indicates probability of randomly selecting male and female with a height difference within SESOI band (`pEquivalent`)
@@ -386,7 +386,7 @@ Table: (\#tab:bench-press-data-independent-summary)(ref:bench-press-data-indepen
 |kurtosis    |    -0.73|     -0.28|  -1.28|
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/bench-press-pre-post-raincloud-1.png" alt="(ref:bench-press-pre-post-raincloud-caption)" width="90%" />
+<img src="generated_figures/bench-press-pre-post-raincloud-1.png" alt="(ref:bench-press-pre-post-raincloud-caption)" width="90%" />
 <p class="caption">(\#fig:bench-press-pre-post-raincloud)(ref:bench-press-pre-post-raincloud-caption)</p>
 </div>
 (ref:bench-press-pre-post-raincloud-caption) **Raincloud plots of the Pre-test, Post-test and Change scores in the bench press 1RM. A. **Distribution of the Pre-test and Post-test scores. **B.** Distribution of the Change score
@@ -479,7 +479,7 @@ Table: (\#tab:change-MB-stats)(ref:change-MB-stats-caption)
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/bench-press-pair-change-1.png" alt="(ref:bench-press-pair-change-caption)" width="90%" />
+<img src="generated_figures/bench-press-pair-change-1.png" alt="(ref:bench-press-pair-change-caption)" width="90%" />
 <p class="caption">(\#fig:bench-press-pair-change)(ref:bench-press-pair-change-caption)</p>
 </div>
 (ref:bench-press-pair-change-caption) **Visual analysis of the dependent groups scores using SESOI. A. **Scatter plot of Pre-test and Post-test scores. Green line indicates change higher than SESOI upper, grey line indicates change within SESOI band, and red line indicates negative change lower than SESOI lower. **B.** Distribution of the change scores. Green area represents proportion of change scores higher than SESOI upper, red area represents proportion of negative change scores lower than SESOI lower, and grey area indicates equivalent change, which is within SESOI band
@@ -557,7 +557,7 @@ Table: (\#tab:yoyo-mas-descriptive-stats)(ref:yoyo-mas-descriptive-stats-caption
 
 Visual analysis in Figure \@ref(fig:yoyo-mas-simple-scatterplot) depicts the association between these two tests using scatter plot. 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/yoyo-mas-simple-scatterplot-1.png" alt="(ref:yoyo-mas-simple-scatterplot-caption)" width="90%" />
+<img src="generated_figures/yoyo-mas-simple-scatterplot-1.png" alt="(ref:yoyo-mas-simple-scatterplot-caption)" width="90%" />
 <p class="caption">(\#fig:yoyo-mas-simple-scatterplot)(ref:yoyo-mas-simple-scatterplot-caption)</p>
 </div>
 (ref:yoyo-mas-simple-scatterplot-caption) **Scatter plot between two variables. **Dashed line represents linear regression line
@@ -670,7 +670,7 @@ Table: (\#tab:reverse-estimates-table)(ref:reverse-linear-reg-estimates-caption)
 This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/reverse-linear-1.png" alt="(ref:reverse-linear-caption)" width="90%" />
+<img src="generated_figures/reverse-linear-1.png" alt="(ref:reverse-linear-caption)" width="90%" />
 <p class="caption">(\#fig:reverse-linear)(ref:reverse-linear-caption)</p>
 </div>
 (ref:reverse-linear-caption) **Regression line differs depending which variable is target or the outcome variable. **Dashed grey line represents regression line when MAS is the target variable. Grey line represents regression line when YoYoIR1 is the target variable. Since they are not identical, one cannot reverse the equation to predict YoYoIR1 from MAS score, when such equation is estimated by predicting MAS from YoYoIR1
@@ -718,7 +718,7 @@ $$
 Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±0.5km/h). Figure \@ref(fig:sesoiscatterplot-mas-yoyo) depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area. 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/sesoiscatterplot-mas-yoyo-1.png" alt="(ref:sesoiscatterplot-mas-yoyo-caption)" width="90%" />
+<img src="generated_figures/sesoiscatterplot-mas-yoyo-1.png" alt="(ref:sesoiscatterplot-mas-yoyo-caption)" width="90%" />
 <p class="caption">(\#fig:sesoiscatterplot-mas-yoyo)(ref:sesoiscatterplot-mas-yoyo-caption)</p>
 </div>
 (ref:sesoiscatterplot-mas-yoyo-caption) **Scatter plot between two variables using SESOI to indicate practically significant difference A.** Scatterplot with SESOI depicted as grey band around linear regression line. **B.** Residual plot, where the difference between MAS and linear regression line (model estimate) is plotted against linear regression line (fitted or predicted MAS). SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Dashed lines represent upper and lower *levels of agreement* using `RSE` and 95% confidence level (or in other words, 95% of the residuals distribution will be within these two dashed lines).
@@ -732,7 +732,7 @@ Magnitude-based estimators of the practically significant strength of the two va
 Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Practically significant association between two variables would have `PPER` equal to 1, which indicates that all residuals are within confines of the SESOI. If you look at the Table \@ref(tab:association-magnitude-table), estimated `PPER` in this example is almost perfect, indicating great practical strength of the association between YoYoIR1 and MAS tests.
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/p-equivalent-1.png" alt="(ref:p-equivalent-caption)" width="90%" />
+<img src="generated_figures/p-equivalent-1.png" alt="(ref:p-equivalent-caption)" width="90%" />
 <p class="caption">(\#fig:p-equivalent)(ref:p-equivalent-caption)</p>
 </div>
 (ref:p-equivalent-caption) **Residuals of the linear regression model predicting MAS from YoYoIR1 test. **Proportion of residuals within SESOI band represent `PPER`
@@ -751,7 +751,7 @@ Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based es
 [^PREDICTION_ISSUE]: This is not ideal estimate of the predictive performance of this model as will be explained in the next section on [Prediction]. 
 
 <div class="figure" style="text-align: center">
-<img src="02-Description_files/figure-html/p-equivalent-for-yoyo-1.png" alt="(ref:p-equivalent-for-yoyo-caption)" width="90%" />
+<img src="generated_figures/p-equivalent-for-yoyo-1.png" alt="(ref:p-equivalent-for-yoyo-caption)" width="90%" />
 <p class="caption">(\#fig:p-equivalent-for-yoyo)(ref:p-equivalent-for-yoyo-caption)</p>
 </div>
 (ref:p-equivalent-for-yoyo-caption) **Linear regression model estimating association between YoYoIR1 and MAS tests where YoYoIR1 is now the target variable. A.** Scatterplot with SESOI depicted as grey band around linear regression line. **B.** Residual plot, where the difference between YoYoIR1 and linear regression line (model estimate) is plotted against MAS variable. SESOI is represented with the grey band. Residuals within SESOI band are of no practical difference. Proportion of residuals within SESOI band represent `PPER`

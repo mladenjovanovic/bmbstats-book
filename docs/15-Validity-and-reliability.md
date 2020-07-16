@@ -84,7 +84,7 @@ ggplot(
   geom_point()
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
 
 For the sake of this example, let's assume that SESOI is equal to ±2.5cm (for the criterion score). We are interested in few things: (1) re-create the DGP components, or (2) can we predict the true score from the criterion score (which implies flipping predictor and outcome variables). Most validity research papers in the sports science are concerned with with describing or explaining the validity by trying to re-create the DGP components, while not many are concerned with predictive performance of the model. Let's deal with the descriptive (i.e explanatory) tasks first. 
 
@@ -104,7 +104,7 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
 
 Panel A in the previous figure depicts simple scatter plot with added *identity line* (dashed line), SESOI band around identity line, and linear regression model (blue line; this could be changed using the `control = bmbstats::plot_contron()` parameter). Panel B depicts the difference between criterion and true score (oy y-axis) and their average (on the x-axis). Using SESOI of ±2.5cm, we can conclude that all the differences fall within the SESOI band, confirming that the criterion measure has outstanding practical validity characteristic. 
 
@@ -193,7 +193,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
 
 The linear regression parameters are used as estimates of the measurement error:
 
@@ -351,7 +351,7 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
 
 Let's write the OLP validity estimators and check the output. OLP regression is implemented in the `bmbstats::OLP_regression` function.
 
@@ -543,7 +543,7 @@ ggplot(
   geom_point()
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
 
 To re-create DGP for the practical measure, we need to use true score as the predictor (since that is how we have generated the practical scores). Let's use the simple linear regression method to do so:
 
@@ -557,7 +557,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
 
 And let's estimate the 95% bootstrap confidence intervals:
 
@@ -597,7 +597,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
 
 And let's estimate the bootstrap 95% CIs:
 
@@ -714,7 +714,7 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
 
 To understand how these methods and how their estimates behave when there is random error in the predictor variable (x-value; criterion in this case), let's create a quick simulation (see also the SIMEX procedure explained in the [What to do when we know the error?] section of the [Measurement Error] chapter). The DGP parameters of the practical measure will stay the same, but we will change the random error for the criterion score from 0 (i.e. making it essentially the true score), to double th random error of the practical score. 
 
@@ -870,7 +870,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
 
 Red dashed horizontal line on the graph indicate the true DGP parameter value, which we want to estimate. Thin black lines (spaghetti anyone?) indicate simulation results across different levels of random error in the criterion measure. These black lines are summarized with `mean` (thick white line) ± `SD` (blue ribbon). 
 
@@ -1020,7 +1020,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" />
 
 Using the simple linear regression, we managed to adjust the bias of the slope estimate, although variance still increases with increasing criterion random error (which will probably affect the Type I error rates). Adjustment didn't help the OLP estimate slope. Adjusting `RSE` seems to remove the bias for both simple linear regression and OLP, but simulation variance keeps increasing with increase in criterion random error. 
 
@@ -1080,7 +1080,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" />
 
 `SDC`, or *Level of Agreement* used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases). 
 
@@ -1235,7 +1235,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
 
 As can be seen from the figure, `RSE` for the simple linear regression model (where criterion is the outcome and practical is the predictor) climbs up as criterion random error increases. When using adjusted `RSE`, up until the point where criterion has lower or equal random error to a practical score, we are able to correctly adjust `RSE` to give us estimation of the model fit using the true score (which is unknown of course, but we have used known criterion random error). 
 
@@ -1286,7 +1286,7 @@ ggplot(
   ggtitle("Criterion measure")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1302,7 +1302,7 @@ ggplot(
   ggtitle("Practical measure")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
 
 Let's check the reproducibility of the criterion measure. Same as with validity analysis, we can use few methods to estimate reproducibility: (1) method of differences (i.e. Bland-Altman), (2) simple linear regression, and (3) OLP regression. When there are more than two trials, there are few options that can be considered, and the simplest it pairwise analysis (i.e. 2-1, 3-2, 4-3  or all combinations; this technique estimates average reproducibility) or use of *ANOVA* or repeated-measures analysis. These will not be considered in this book. 
 
@@ -1320,7 +1320,7 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
 
 To provide estimators we will use functions that we have already written:
 
@@ -1370,7 +1370,7 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" />
 
 We can also use the function we wrote to provide validity analysis using simple linear regression:
 
@@ -1407,7 +1407,7 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1589,7 +1589,7 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
 
 Although all three methods are good in estimating `TE`, only OLP should be used when estimating reproducibility fixed and proportional biases (i.e. intercept and slope; which are simulated to be 0 and 1 respectively, since both criterion measure trials have same fixed and proportional biases against the true score). Again, this recommendation is given under the assumption that the random error involved in two units/trials is the same. 
 
@@ -1609,7 +1609,7 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1693,7 +1693,7 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1722,7 +1722,7 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1820,7 +1820,7 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-64-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-64-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1867,7 +1867,7 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1978,7 +1978,7 @@ plot(
   xlim(-8, 9)
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
 
 Our CIs using sole instrumentation noise (I have used DGP parameter, but in real life we can use `TE` from reproducibility analysis) managed to capture manifested change (i.e. true change plus biological variation). 
 
@@ -2009,7 +2009,7 @@ plot(
   control = plot_control(points_size = 5))
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-70-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="generated_figures/unnamed-chunk-70-1.png" width="90%" style="display: block; margin: auto;" />
 
 Since there is no true change in this DGP, all vertical red lines are aligned at 0. Our CIs in this case represent 95% `SDC` estimated using both biological variation and instrumentation error. 
 
