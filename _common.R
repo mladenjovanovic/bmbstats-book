@@ -14,7 +14,9 @@ knitr::opts_chunk$set(
   fig.show = "hold",
   echo = FALSE,
   warning = FALSE,
-  message = FALSE
+  message = FALSE,
+  size = "tiny",
+  width = 200
 )
 
 # Set colors
