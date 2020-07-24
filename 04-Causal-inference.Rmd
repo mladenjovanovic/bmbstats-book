@@ -1006,7 +1006,7 @@ knitr::kable(
 
 If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
 
-```{r ancova-rct-pdp-ice, fig.cap="(ref:simple-rct-pdp-ice-caption)"}
+```{r ancova-rct-pdp-ice, fig.cap="(ref:ancova-rct-pdp-ice-caption)"}
 plot(model2cv_rct, "pdp+ice", predictor = "Group")
 ```
 
