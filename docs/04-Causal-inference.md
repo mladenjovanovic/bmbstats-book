@@ -2488,8 +2488,8 @@ In the Table \@ref(tab:ancova-rct-counterfactual-group), columns `Post-test_0 (c
 If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
 
 <div class="figure" style="text-align: center">
-<img src="04-Causal-inference_files/figure-html/ancova-rct-pdp-ice-1.png" alt="(ref:simple-rct-pdp-ice-caption)" width="90%" />
-<p class="caption">(\#fig:ancova-rct-pdp-ice)(ref:simple-rct-pdp-ice-caption)</p>
+<img src="04-Causal-inference_files/figure-html/ancova-rct-pdp-ice-1.png" alt="(ref:ancova-rct-pdp-ice-caption)" width="90%" />
+<p class="caption">(\#fig:ancova-rct-pdp-ice)(ref:ancova-rct-pdp-ice-caption)</p>
 </div>
 
 (ref:ancova-rct-pdp-ice-caption) **PDP and ICE plot for Group variable using ANCOVA RCT model**

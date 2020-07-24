@@ -10,7 +10,7 @@ editor_options:
 
 Package `short` [@R-shorts] creates short sprint (<6sec) profiles using the split times or the radar gun data. Mono-exponential equation is used to estimate maximal sprinting speed (MSS), relative acceleration (TAU), and other parameters. These parameters can be used to predict kinematic and kinetics variables and to compare individuals.
 
-## Installation
+## `shorts` Installation
 
 ``` r
 # Install from CRAN
@@ -21,7 +21,7 @@ install.packages("shorts")
 devtools::install_github("mladenjovanovic/shorts")
 ```
 
-## Examples
+## `short` Examples
 
 `shorts` comes with two sample data sets: `split_times` and `radar_gun_data` with N=5 athletes. Let's load them both:
 
@@ -47,13 +47,17 @@ kimberley_profile <- shorts::model_using_splits(
 
 # Parameters
 unlist(kimberley_profile$parameters)
-#>        MSS        TAU        MAC       PMAX 
-#>  8.5911421  0.8113282 10.5889855 22.7428698
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.5911421           0.8113282          10.5889855          22.7428698 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000
 
 # Model performance/fit
 unlist(kimberley_profile$model_fit)
-#>         RSE   R_squared      minErr      maxErr        RMSE 
-#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.02778875
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE 
+#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875 
+#>         MAE        MAPE 
+#>  0.02333342  1.19263116
 ```
 
 `shorts::model_using_splits` returns an object with `parameters`, `model_fit`, `model` returned from `stats::nls` function and `data` used to estimate parameters. Parameters estimated using mono-exponential equation are *maximal sprinting speed* (MSS), and *relative acceleration* (TAU). Additional parameters computed from MSS and TAU are *maximal acceleration* (MAC) and *maximal relative power* (PMAX). 
@@ -194,21 +198,29 @@ mixed_model <- shorts::mixed_model_using_splits(
 # Parameters
 mixed_model$parameters
 #> $fixed
-#>        MSS       TAU      MAC     PMAX
-#> 1 8.064911 0.6551988 12.30911 24.81796
+#>        MSS       TAU      MAC     PMAX time_correction distance_correction
+#> 1 8.064911 0.6551988 12.30911 24.81796               0                   0
 #> 
 #> $random
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.691736 0.8469741 11.44278 27.72510
-#> 2       Jim 7.833622 0.5048535 15.51663 30.38785
-#> 3      John 7.780395 0.7274302 10.69573 20.80424
-#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535
-#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735
+#>     athlete      MSS       TAU      MAC     PMAX time_correction
+#> 1     James 9.691736 0.8469741 11.44278 27.72510               0
+#> 2       Jim 7.833622 0.5048535 15.51663 30.38785               0
+#> 3      John 7.780395 0.7274302 10.69573 20.80424               0
+#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535               0
+#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735               0
+#>   distance_correction
+#> 1                   0
+#> 2                   0
+#> 3                   0
+#> 4                   0
+#> 5                   0
 
 # Model performance/fit
 unlist(mixed_model$model_fit)
-#>         RSE   R_squared      minErr      maxErr        RMSE 
-#>  0.02600213  0.99982036 -0.02934519  0.04964582  0.02139178
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE 
+#>  0.02600213  0.99982036 -0.02934519  0.04964582  0.04964582  0.02139178 
+#>         MAE        MAPE 
+#>  0.01722581  0.90185579
 ```
 
 `shorts::mixed_model_using_splits` return the similar object, but `parameters` contain two elements: `fixed` and `random`. 
@@ -253,13 +265,17 @@ jim_profile <- shorts::model_using_radar(
 
 # Parameters
 unlist(jim_profile$parameters)
-#>        MSS        TAU        MAC       PMAX 
-#>  7.9979331  0.8886595  8.9999977 17.9953449
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           7.9979331           0.8886595           8.9999977          17.9953449 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000
 
 # Model performance/fit
 unlist(jim_profile$model_fit)
-#>         RSE   R_squared      minErr      maxErr        RMSE 
-#>  0.05058726  0.99924408 -0.15099212  0.16415830  0.05050288
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE 
+#>  0.05058726  0.99924408 -0.15099212  0.16415830  0.16415830  0.05050288 
+#>         MAE        MAPE 
+#>  0.03927901         NaN
 ```
 
 The object returned from `shorts::model_using_radar` is same as object returned from `shorts::model_using_splits`. Let's plot Jim's measured velocity and predicted velocity: 
@@ -289,16 +305,22 @@ mixed_model <- shorts::mixed_model_using_radar(
 
 mixed_model$parameters
 #> $fixed
-#>        MSS      TAU     MAC     PMAX
-#> 1 8.301178 1.007782 8.23708 17.09437
+#>        MSS      TAU     MAC     PMAX time_correction distance_correction
+#> 1 8.301178 1.007782 8.23708 17.09437               0                   0
 #> 
 #> $random
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.998556 1.1108457 9.000851 22.49888
-#> 2       Jim 7.997945 0.8886712 8.999892 17.99516
-#> 3      John 8.000051 1.0690357 7.483427 14.96695
-#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102
-#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277
+#>     athlete      MSS       TAU      MAC     PMAX time_correction
+#> 1     James 9.998556 1.1108457 9.000851 22.49888               0
+#> 2       Jim 7.997945 0.8886712 8.999892 17.99516               0
+#> 3      John 8.000051 1.0690357 7.483427 14.96695               0
+#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102               0
+#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277               0
+#>   distance_correction
+#> 1                   0
+#> 2                   0
+#> 3                   0
+#> 4                   0
+#> 5                   0
 
 mixed_model$model_fit
 #> $RSE
@@ -313,8 +335,17 @@ mixed_model$model_fit
 #> $maxErr
 #> [1] 0.198329
 #> 
+#> $maxAbsErr
+#> [1] 0.2191295
+#> 
 #> $RMSE
 #> [1] 0.05156203
+#> 
+#> $MAE
+#> [1] 0.03949473
+#> 
+#> $MAPE
+#> [1] NaN
 ```
 
 Let's plot predicted acceleration over time (0-6sec) for athletes in the `radar_gun_data` data set:
@@ -365,21 +396,29 @@ mixed_model_corrected <- shorts::mixed_model_using_splits(
 # Parameters
 mixed_model$parameters
 #> $fixed
-#>        MSS      TAU     MAC     PMAX
-#> 1 8.301178 1.007782 8.23708 17.09437
+#>        MSS      TAU     MAC     PMAX time_correction distance_correction
+#> 1 8.301178 1.007782 8.23708 17.09437               0                   0
 #> 
 #> $random
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.998556 1.1108457 9.000851 22.49888
-#> 2       Jim 7.997945 0.8886712 8.999892 17.99516
-#> 3      John 8.000051 1.0690357 7.483427 14.96695
-#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102
-#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277
+#>     athlete      MSS       TAU      MAC     PMAX time_correction
+#> 1     James 9.998556 1.1108457 9.000851 22.49888               0
+#> 2       Jim 7.997945 0.8886712 8.999892 17.99516               0
+#> 3      John 8.000051 1.0690357 7.483427 14.96695               0
+#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102               0
+#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277               0
+#>   distance_correction
+#> 1                   0
+#> 2                   0
+#> 3                   0
+#> 4                   0
+#> 5                   0
 
 # Model performance/fit
 unlist(mixed_model$model_fit)
-#>         RSE   R_squared      minErr      maxErr        RMSE 
-#>  0.05164818  0.99942171 -0.21912952  0.19832897  0.05156203
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE 
+#>  0.05164818  0.99942171 -0.21912952  0.19832897  0.21912952  0.05156203 
+#>         MAE        MAPE 
+#>  0.03949473         NaN
 ```
 
 And `time_correction` can also be used in `predict_` and `find_` family of functions:
@@ -418,13 +457,17 @@ kimberley_profile_with_time_correction <- shorts::model_using_splits_with_time_c
 
 # Parameters
 unlist(kimberley_profile_with_time_correction$parameters)
-#>             MSS             TAU             MAC            PMAX time_correction 
-#>       8.9748353       1.2348565       7.2679175      16.3070907       0.2346537
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.9748353           1.2348565           7.2679175          16.3070907 
+#>     time_correction distance_correction 
+#>           0.2346537           0.0000000
 
 # Model performance/fit
 unlist(kimberley_profile_with_time_correction$model_fit)
-#>           RSE     R_squared        minErr        maxErr          RMSE 
-#>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342  0.0007983565
+#>           RSE     R_squared        minErr        maxErr     maxAbsErr 
+#>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342  0.0012094658 
+#>          RMSE           MAE          MAPE 
+#>  0.0007983565  0.0006586035  0.0282352643
 
 
 # Mixed-effect model using `time_correction` as fixed effect only
@@ -440,21 +483,23 @@ mixed_model_with_time_correction <- shorts::mixed_model_using_splits_with_time_c
 # Parameters
 mixed_model_with_time_correction$parameters
 #> $fixed
-#>        MSS       TAU time_correction     MAC     PMAX
-#> 1 8.304014 0.9687348       0.1989677 8.57202 17.79554
+#>        MSS       TAU     MAC     PMAX time_correction distance_correction
+#> 1 8.304014 0.9687348 8.57202 17.79554       0.1989677                   0
 #> 
 #> $random
-#>     athlete       MSS       TAU time_correction       MAC     PMAX
-#> 1     James 10.186327 1.2429367       0.1989677  8.195370 20.87018
-#> 2       Jim  7.946099 0.7643674       0.1989677 10.395655 20.65123
-#> 3      John  7.996262 1.0488272       0.1989677  7.624003 15.24088
-#> 4 Kimberley  8.899472 1.1615147       0.1989677  7.661953 17.04683
-#> 5  Samantha  6.491911 0.6260282       0.1989677 10.369998 16.83028
+#>         MSS       TAU       MAC     PMAX time_correction distance_correction
+#> 1 10.186327 1.2429367  8.195370 20.87018       0.1989677                   0
+#> 2  7.946099 0.7643674 10.395655 20.65123       0.1989677                   0
+#> 3  7.996262 1.0488272  7.624003 15.24088       0.1989677                   0
+#> 4  8.899472 1.1615147  7.661953 17.04683       0.1989677                   0
+#> 5  6.491911 0.6260282 10.369998 16.83028       0.1989677                   0
 
 # Model performance/fit
 unlist(mixed_model_with_time_correction$model_fit)
-#>          RSE    R_squared       minErr       maxErr         RMSE 
-#>  0.005976815  0.999990286 -0.016508275  0.009370607  0.004882226
+#>          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE 
+#>  0.005976815  0.999990286 -0.016508275  0.009370607  0.016508275  0.004882226 
+#>          MAE         MAPE 
+#>  0.003481096  0.186135567
 ```
 
 For more details, please refer to `sprint-corrections` [vignette](https://mladenjovanovic.github.io/shorts/articles/sprint-corrections.html).

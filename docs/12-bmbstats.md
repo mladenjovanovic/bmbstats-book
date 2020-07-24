@@ -15,7 +15,7 @@ In the first part of this book we have covered descriptive, predictive, and caus
 
 Since I strongly believe that the best way to understand statistical analysis is through simulations and smart visualizations, in this part of the book I will show the R code that you can use to reproduce the analysis, but more importantly, to understand the underlying DGP we are trying to explain (or estimate) with the analysis. 
 
-## Installation
+## `bmbstats` Installation
 
 You can install the development version from [GitHub](https://github.com/mladenjovanovic/bmbstats) with:
 
