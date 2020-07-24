@@ -17,7 +17,7 @@ source("_common.R")
 
 Package `short` [@R-shorts] creates short sprint (<6sec) profiles using the split times or the radar gun data. Mono-exponential equation is used to estimate maximal sprinting speed (MSS), relative acceleration (TAU), and other parameters. These parameters can be used to predict kinematic and kinetics variables and to compare individuals.
 
-## Installation
+## `shorts` Installation
 
 ``` r
 # Install from CRAN
@@ -28,7 +28,7 @@ install.packages("shorts")
 devtools::install_github("mladenjovanovic/shorts")
 ```
 
-## Examples
+## `short` Examples
 
 `shorts` comes with two sample data sets: `split_times` and `radar_gun_data` with N=5 athletes. Let's load them both:
 

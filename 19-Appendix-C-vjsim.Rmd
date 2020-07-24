@@ -19,7 +19,7 @@ source("_common.R")
 
 `vjsim` [@R-vjsim] is R package that simulates vertical jump with the aim of teaching basic biomechanical principles, FV profiling, and exploring assumptions of FV optimization models. 
 
-## Installation
+## `vjsim` Installation
 
 You can install the development version from [GitHub](https://github.com/mladenjovanovic/vjsim) with:
 
@@ -30,12 +30,12 @@ devtools::install_github("mladenjovanovic/vjsim")
 require(vjsim)
 ```
 
-## Usage
+## `vjsim` Usage
 
 Please read accompanying vignettes for examples and usage of the `vjsim` package
 
 
-### [Introduction](https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html)
+### [Introduction to vjsim](https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html)
 
 This vignette discusses the basic mechanical representation of the vertical jump system. Please read this to understand the overall setup. Access it by clicking the above link or running the following code:
 
@@ -92,7 +92,7 @@ To run the Shiny app, use the following code, or by clicking on the above link (
 run_simulator()
 ```
 
-## Example
+## `vjsim` Example
 
 `vjsim` comes with an example data (`testing_data`) that can be used to demonstrate the profiling:
 
