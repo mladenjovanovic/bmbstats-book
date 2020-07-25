@@ -12,7 +12,3 @@ bookdown::pdf_book:
   keep_tex: yes
   includes:
       in_header: tex/preamble_nonpar.tex
-bookdown::word_document2:
-    fig_caption: yes
-    keep_md: no
-    toc: yes

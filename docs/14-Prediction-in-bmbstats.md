@@ -50,7 +50,9 @@ ggplot(sinus_data, aes(x = x)) +
   geom_line(aes(y = true_y))
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 This data has *irreducible error* with `SD` equal to 2 (a.u.). Let's use simple linear regression to predict observed $y$, but evaluate model performance using 10 repeats of 5-folds cross-validations:
 
@@ -111,7 +113,9 @@ The above output can be plotted using the `plot` command and `type = "estimators
 plot(model1, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Error bars represent range of estimator values across cross-validation folds, while the dashed line indicate training performance. There estimates can be accessed in the returned object, i.e. `model1$performance` for training, and `model1$cross_validation$performance` for cross-validation. 
 
@@ -190,7 +194,9 @@ model2
 plot(model2, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 ## How to use different prediction model?
 
@@ -261,7 +267,9 @@ model3
 plot(model3, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 ## Example of using tuning parameter
 
@@ -331,7 +339,9 @@ ggplot(poly_perf, aes(x = poly_n)) +
   facet_wrap(~metric, scales = "free_y")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 As can be seen, the best predictive performance is with 3rd polynomial degrees. The figure below depicts `RMSE` estimator for higher resolution image. 
 
@@ -350,7 +360,9 @@ ggplot(
   ylab("RMSE")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 ## Plotting
 
@@ -404,7 +416,9 @@ To plot the residuals, use `type="residuals"` in the `plot` function:
 plot(model4, "residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The following code will plot the training and testing residuals across cross-validation folds:
 
@@ -413,14 +427,18 @@ The following code will plot the training and testing residuals across cross-val
 plot(model4, "training-residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 
 ```r
 plot(model4, "testing-residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 To plot bias-variance error decomposition across cross-validation folds use:
 
@@ -429,7 +447,9 @@ To plot bias-variance error decomposition across cross-validation folds use:
 plot(model4, "bias-variance-index")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The above figure depicts bias-variance for each observation index. To plot against the outcome variable value use:
 
@@ -438,7 +458,9 @@ The above figure depicts bias-variance for each observation index. To plot again
 plot(model4, "bias-variance-observed")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Prediction error (i.e. residuals) can also be plotted as boxes, demonstrating the mean (i.e. bias) and spread (i.e. variance). To plot prediction error again outcome index use:
 
@@ -447,7 +469,9 @@ Prediction error (i.e. residuals) can also be plotted as boxes, demonstrating th
 plot(model4, "prediction-index")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Similar to plotting bias-variance, prediction error distribution (actually, a spread or range) can be plotted against outcome variable value:
 
@@ -456,7 +480,9 @@ Similar to plotting bias-variance, prediction error distribution (actually, a sp
 plot(model4, "prediction-observed")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-20-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 And finally, to plot the performance estimator use:
 
@@ -465,7 +491,9 @@ And finally, to plot the performance estimator use:
 plot(model4, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Each of these plots can be customized using the `control=bmbstats::plot_control` argument and function.
 
@@ -539,7 +567,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 As can be seen from the figure, polynomial fit represents a more predictive model. But we can also perform statistical significance test using the cross-validation performance, for let's say `RMSE` estimator. Since the CV folds are the same (which we achieved by using the same `seed` number), we can do dependent groups analysis. But before, let's plot the CV estimates of the `RMSE`:
 
@@ -590,7 +620,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 And we can finally perform the dependent groups analysis:
 
@@ -644,7 +676,9 @@ rmse_NHST
 plot(rmse_NHST)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 So we can conclude that polynomial model has significantly better performance, using `RMSE` estimator, than Regression Tree model that cannot be explained as a pure (sampling) chance. 
 
@@ -665,7 +699,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 Or their difference:
 
@@ -679,7 +715,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 And we can finally perform the dependent groups analysis:
 
@@ -732,7 +770,9 @@ resid_NHST
 plot(resid_NHST)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 According to Cross-Validation residuals analysis, the two models didn't perform statistically different that can be attributed to chance. 
 
@@ -771,7 +811,9 @@ model4.boot.coef
 plot(model4.boot.coef)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 And here are the model performance estimators and their 95% bootstrap confidence intervals:
 
@@ -813,6 +855,8 @@ model4.boot.perf
 plot(model4.boot.perf)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-38-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
 It is important to remember that these model analysis are trying to answer different questions - one predictive and one inferential. 
