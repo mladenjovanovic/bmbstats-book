@@ -8,7 +8,7 @@ editor_options:
 
 As already stated, using simulations is outstanding teaching tool [@carseyMonteCarloSimulation2013; @hopkinsUnderstandingStatisticsUsing2007], and also very useful for understanding the frequentist inference as well. Figure \@ref(fig:sampling-distribution-of-the-mean) (Panels A and B) depicts hypothetical male population where mean height $\mu$ is 177.8cm and SD ($\sigma$) is 10.16cm. From this population we are randomly *drawing* N=5 (left side panels on Figure \@ref(fig:sampling-distribution-of-the-mean)) and N=20 (right side panels on Figure \@ref(fig:sampling-distribution-of-the-mean)) individuals for which we estimate the `mean` height. Individuals are represented as blue dots (Panels C and D on Figure \@ref(fig:sampling-distribution-of-the-mean)), whereas estimated `mean` height is depicted as orange dot. Now imagine we repeat this sampling 50 times, calculate the mean for every sample, and then draw the distribution of the sampled means (Panels E an F on Figure \@ref(fig:sampling-distribution-of-the-mean)). This distribution is called *sampling distribution of the `sample mean`* and the `SD` of this distribution is referred to as *standard error* or *sampling error*. Since our estimate of interest is the `mean`, standard deviation of the sampling distribution of the mean is called *standard error of the mean* (`SEM`). On Panels E and F in the Figure \@ref(fig:sampling-distribution-of-the-mean), mean of the sampling `means` is indicated by a black dot, and error bars represent `SEM`.     
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/sampling-distribution-of-the-mean-1} 
 
@@ -44,7 +44,7 @@ Sampling distributions and equations for standard errors are derived algebraical
 
 Although the sampling distribution of the `mean` looks like a normal distribution, it actually belongs to the *Student's t* distribution, which has fatter tails for smaller samples (Figure \@ref(fig:student-distribution)). Besides `mean` and `SD`, Student's t distribution also has *degrees of freedom* (DF) parameters, which is equal to N-1 for the sample `mean`. Normal distribution is equal to Student's t distribution when DF is infinitely large. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/student-distribution-1} 
 
@@ -89,7 +89,7 @@ Although this sounds mouthful, a simple example will make it clearer. Imagine th
 Figure \@ref(fig:null-hypothesis) contains known population `mean` height as the null-hypothesis and estimated probabilities of observing sample `mean` of 180, 182.5, and 185cm (or +2.2, +4.7, +7.2cm difference) *or larger* for sample sizes N=5, N=10 and N=20. Panel A on Figure \@ref(fig:null-hypothesis) depicts *one-sided* approach for estimating probability of observing these sample `mean` heights. One-sided approach is used when we are certain about the direction of the effect. *Two-sided* approach, on the other hand, calculates probability for the effect of the unknown direction. In this example that would be sample `mean` height difference of ±2.2, ±4.7, ±7.2cm or larger. Two-sided approach is depicted on the Panel B (Figure \@ref(fig:null-hypothesis)).   
 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/null-hypothesis-1} 
 
@@ -149,7 +149,7 @@ It is important to keep in mind that with NHST, we never *accept* any hypothesis
 
 Assuming that alternate-hypothesis is true, probability of rejecting the null-hypothesis is equal to $1-\beta$. This is called *statistical power* and depends on the magnitude of the effect we are aiming to detect (or not-to-reject to correct myself). Figure \@ref(fig:statistical-power) depicts multiple examples of one-sided and two-sided statistical power calculations given the known alpha of 0.05 and null-hypothesis for difference in sample mean height of ±2.5, ±5, and ±7.5cm (+2.5, +5, and +7.5cm for one sided test) for N=5, N=10 and N=20. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/statistical-power-1} 
 
@@ -173,7 +173,7 @@ Rather than performing NHST, uncertainty of the estimated parameter can be repre
 Assuming N=20 samples come from the population where the true `mean` height is equal to 177.8cm and `SD` is equal to 10.16cm, calculated 95% CIs around sample parameter estimate (in this case sample `mean`), in the long run, will capture true population parameter 95% of the time. Figure \@ref(fig:confidence-intervals) depicts first 100 samples out of total of 1,000 taken from the population with calculated 95% CIs. CIs that missed the true population parameter value are depicted in red. Table \@ref(tab:confidence-intervals-summary) contain the summary for this simulation. If this simulation is repeated for many more times, CIs will capture true population parameter 95% of the time, or in other words, have Type I error of 5%.  
 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/confidence-intervals-1} 
 
@@ -213,7 +213,7 @@ $T_{crit}$ can be found in the Table \@ref(tab:student-critical-values), where f
 
 Confidence intervals are great solution for visualizing uncertainties around estimates. Figure \@ref(fig:sample-mean-cis) depicts already used example in Figure \@ref(fig:null-hypothesis) (two-sided and one-sided p-values), but this time 95% CIs around the sample `means` are depicted. Please note that in scenarios where 95% CIs cross the null-hypothesis, NHST will yield p>0.05. This means that null-hypothesis is not rejected and results are not statistically significant. CIs can be thus used to visually inspect and conclude whether or not the null-hypothesis would be rejected or not if NHST is performed. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/sample-mean-cis-1} 
 
@@ -228,7 +228,7 @@ Confidence intervals are great solution for visualizing uncertainties around est
 
 NHST doesn't tell us anything about the magnitudes of the effect. Just because the test is statistically significant (p<0.05), it's doesn't imply practically meaningful effect. Rather than using null-hypothesis of *no effect*, we can perform numerous one-sided NHSTs by using SESOI thresholds to infer practical significance. These are called *minimum effect tests* (METs) and can distinguish between 6 different conclusions: *lower*, *not-higher*, *equivalent*, *not-lower*, *higher*, and *equivocal* effect. Figure \@ref(fig:effect-magnitudes) depicts how SESOI and CIs can be used to distinguish between these 6 magnitude-based conclusions [@barkerInferenceMagnitudesEffects2008; @sainaniMagnitudeBasedInference2019]. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/effect-magnitudes-1} 
 
@@ -255,7 +255,7 @@ Besides testing again null-hypothesis of no-effect, we can use the two one-sided
 
 From estimation perspective, statistical equivalence at the level of alpha=0.05 can be inferred if the 90% (90% not 95%; it is not a typo) CI falls completely within SESOI band.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/tost-1} 
 
@@ -270,7 +270,7 @@ From estimation perspective, statistical equivalence at the level of alpha=0.05 
 
 Two same NHSTs at SESOI thresholds are utilized to test superiority and non-inferiority of the effects. In other words, we want to conclude whether the effect is higher and/or not-lower than SESOI. To achieve this, two one-sided NHSTs are performed to estimate the probability of observing effect in the positive direction (Figure \@ref(fig:superiority-non-inferiority)). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/superiority-non-inferiority-1} 
 
@@ -285,7 +285,7 @@ Two same NHSTs at SESOI thresholds are utilized to test superiority and non-infe
 
 To test the inferiority and non-superiority of the effects, two one-sided NHSTs are performed to estimate the probability of observing effect in the negative direction (Figure \@ref(fig:inferiority-non-superiority)). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/inferiority-non-superiority-1} 
 
@@ -300,7 +300,7 @@ To test the inferiority and non-superiority of the effects, two one-sided NHSTs 
 
 The aforementioned METs provide five p-values: for lower (inferiority), not-higher (non-superiority), equivalent (equivalence), not-lower (non-inferiority), and higher (superiority) effect magnitude. These p-values can be used to make magnitude-based inferences about the effects. Figure \@ref(fig:met-results) depicts already used examples to calculate p-values from METs and the final inference on the magnitude of the effect (see Figure \@ref(fig:effect-magnitudes)).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/met-results-1} 
 
@@ -319,7 +319,7 @@ As explained, CIs doesn't contain any probability distribution information about
 
 Using MBI as a simple descriptive approach to interpret CIs can be rationalized, but making inferences from estimated probabilities is not recommended [@caldwellBasicStatisticalConsiderations2019]. If frequentist approaches are used for magnitude-based statistical inference, METs should be used instead.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{06-Frequentist-perspective_files/figure-latex/mbi-1} 
 

@@ -1,6 +1,8 @@
 my_random_seed <- 1667
 set.seed(my_random_seed)
 
+options("width"=56)
+
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
@@ -16,7 +18,9 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   size = "tiny",
-  width = 200
+  width = 56,
+  fig.pos = 'H',
+  tidy = TRUE
 )
 
 # Set colors

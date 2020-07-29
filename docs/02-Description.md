@@ -15,7 +15,7 @@ To provide further explanation of the descriptive statistics, three common descr
 
 Imagine we carried collection of body height measurements and we obtained N=100 observations using N=50 female and N=50 male subjects. Collected data is visualized in Figure \@ref(fig:common-techniques-to-visualize-independent-groups). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/common-techniques-to-visualize-independent-groups-1} 
 
@@ -106,7 +106,7 @@ One such cost function is *root-mean-square-error* (`RMSE`) (Equation \@ref(eq:r
 
 By using body height data from the female group, we can *search* for a body height estimate that minimizes the `RMSE` (Figure \@ref(fig:sample-mean-as-the-simplest-statistical-model)). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sample-mean-as-the-simplest-statistical-model-1} 
 
@@ -147,13 +147,14 @@ Besides describing groups, we are often interested in comparing them. In order t
 
 \caption{(\#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups)(ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrrrr}
 \toprule
 Difference (cm) & SDdiff (cm) & \% CVdiff & \% Difference & Ratio & Cohen's d & CLES & OVL\\
 \midrule
 12.73 & 12.41 & 97.55 & 7.8 & 1.08 & 1.45 & 0.85 & 0.47\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
@@ -218,12 +219,22 @@ Why `Cohen's d` should be used instead of other effect size estimators can be de
 
 [^percent_change]: `Percent change` is the same estimator as `percent difference`, but applied to difference between the two dependent groups (see section [Comparing dependent groups]).
 
-Table: (\#tab:perc-change-vs-cohensd) **Training intervention effect sizes for YoYoIR1 and 30-15IFT.** Modified from @buchheit3015Intermittent2014
 
-| Test     | Pre-training       | % Change | Cohen's d |
-|:---------|:-------------------|---------:|----------:|
-| YoYoIR1  | 1031 ± 257 m       | 35 %     | 1.2       |
-| 30-15IFT | 17.4 ± 1.1 kmh^-1^ | 7 %      | 1.1       |
+(ref:perc-change-vs-cohensd-caption) **Training intervention effect sizes for YoYoIR1 and 30-15IFT.** Modified from @buchheit3015Intermittent2014
+
+\begin{table}
+
+\caption{(\#tab:perc-change-vs-cohensd)(ref:perc-change-vs-cohensd-caption)}
+\centering
+\begin{tabular}[t]{lllr}
+\toprule
+Test & Pre-training & \% Change & Cohen's d\\
+\midrule
+YoYoIR1 & 1031 ± 257 m & 35 \% & 1.2\\
+30-15IFT & 17.4 ± 1.1 kmh/h & 7 \% & 1.1\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and velocity reached respectively), `percent change` estimator is not a good choice to compare the effect sizes between the two tests[^large_effects]. Since `Cohen's d` is standardized estimator, it should be used when comparing tests or measures that are at different scales. 
 
@@ -231,18 +242,27 @@ Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and ve
 
 After estimating effect sizes, the question that naturally follows up is the question of *magnitude*. In other words - "how big is the effect?". Since `Cohen's d` is standardized estimator, it allows for establishment of qualitative magnitude thresholds. Based on the original work by Cohen [@cohenStatisticalPowerAnalysis1988], Hopkins [@hopkinsNewViewStatistics2006; @hopkinsProgressiveStatisticsStudies2009] suggested the following magnitudes of effect (Table (\@ref(tab:magnitudes-of-effect)). According to the Table (\@ref(tab:magnitudes-of-effect), the body height difference between males and females would be considered *large*, as well as changes in both YoYoIR1 and 30-15IFT. 
 
-Table: (\#tab:magnitudes-of-effect) **Magnitudes of effect**
+(ref:magnitudes-of-effect-caption) **Magnitudes of effect**
 
-| Magnitude of effect |   Trivial   |   Small     |   Moderate    |   Large       |   Very Large   | Nearly Perfect |
-|:--------------------|:-----------:|:-----------:|:-------------:|:-------------:|:--------------:|:--------------:|
-| Cohen's d           |   0 - 0.2   |  0.2 - 0.6  |   0.6 - 1.2   |   1.2 - 2.0   |   2.0 - 4.0    |    > 4.0       |
+\begin{table}
 
+\caption{(\#tab:magnitudes-of-effect)(ref:magnitudes-of-effect-caption)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lllllll}
+\toprule
+Magnitude of effect & Trivial & Small & Moderate & Large & Very Large & Nearly Perfect\\
+\midrule
+Cohen's d & 0 - 0.2 & 0.2 - 0.6 & 0.6 - 1.2 & 1.2 - 2.0 & 2.0 - 4.0 & > 4.0\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 `Cohen's d`, as well as associated magnitudes of effect, are commonly hard to interpret by non-statistically trained professionals (e.g. coaches). @mcgrawCommonLanguageEffect1992 suggested *common language effect size* (`CLES`) estimator instead, which could be more intuitive to understand. `CLES` represents the probability that an observation sampled at random from one group will be greater than an observation sampled at random from other group. For example, if we take random male and random female from our two groups and repeat that 100 times[^simulation_drawing], how many times a male would be taller than a female (Figure \@ref(fig:drawing-random-hundred-pairs))? 
 
 [^simulation_drawing]: In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/drawing-random-hundred-pairs-1} 
 
@@ -271,7 +291,7 @@ Algebraically, `CLES` is then derived assuming normal distribution (where mean o
 
 Since `Cohen's d`, `CLES` and `OVL` are mathematically related, it is possible to convert one to another (assuming normal distribution of the samples and equal `SD` between the two groups for the `OVL` estimation). Figure \@ref(fig:Cohen-CLES-OVL)B depicts relationship between the `Cohen's d`, `CLES`, and `OVL`. Figure \@ref(fig:Cohen-CLES-OVL)C depicts relationship between the `CLES` and `OVL`.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/Cohen-CLES-OVL-1} 
 
@@ -281,16 +301,25 @@ Since `Cohen's d`, `CLES` and `OVL` are mathematically related, it is possible t
 \end{figure}
 (ref:Cohen-CLES-OVL-caption) **Relationship between the `Cohen's d`, `CLES`, and `OVL`.** **A.** Visual display of the samples of varying degrees of separations, and calculated `Cohen's d`, `CLES`, and `OVL`. **B.** Relationship between the `CLES` and `OVL` to the `Cohen's d`. **C.** Relationship between the `CLES` and `OVL`
 
-Table \@ref(tab:magnitudes-of-effect-CLES-OVL) contains `Cohen's d` magnitudes of effect with accompanying estimated `CLES` and `OVL` thresholds.  
+Table \@ref(tab:magnitudes-of-effect-CLES-OVL) contains `Cohen's d` magnitudes of effect with accompanying estimated `CLES` and `OVL` thresholds. 
 
-Table: (\#tab:magnitudes-of-effect-CLES-OVL) **Magnitudes of effect for `CLES` and `OVL` estimated using `Cohen's d`**
+(ref:magnitudes-of-effect-CLES-OVL-caption) **Magnitudes of effect for `CLES` and `OVL` estimated using `Cohen's d`**
 
-| Magnitude of effect |   Trivial   |   Small     |   Moderate    |   Large       |   Very Large   | Nearly Perfect |
-|:--------------------|:-----------:|:-----------:|:-------------:|:-------------:|:--------------:|:--------------:|
-| Cohen's d           |  0.0 - 0.2  |  0.2 - 0.6  |   0.6 - 1.2   |   1.2 - 2.0   |   2.0 - 4.0    |    > 4.0       |
-| CLES                | 0.50 - 0.56 | 0.56 - 0.66 |  0.66 - 0.80  |  0.80 - 0.92  |  0.92 - 1.00   |      1.00      |
-| OVL                 | 1.00 - 0.92 | 0.92 - 0.76 |  0.76 - 0.55  |  0.55 - 0.32  |  0.32 - 0.05   |      0.00      |
-\bigskip
+\begin{table}
+
+\caption{(\#tab:magnitudes-of-effect-CLES-OVL)(ref:magnitudes-of-effect-CLES-OVL-caption)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lllllll}
+\toprule
+Magnitude of effect & Trivial & Small & Moderate & Large & Very Large & Nearly Perfect\\
+\midrule
+Cohen's d & 0 - 0.2 & 0.2 - 0.6 & 0.6 - 1.2 & 1.2 - 2.0 & 2.0 - 4.0 & > 4.0\\
+CLES & 0.50 - 0.56 & 0.56 - 0.66 & 0.66 - 0.80 & 0.80 - 0.92 & 0.92 - 1.00 & 1.00\\
+OVL & 1.00 - 0.92 & 0.92 - 0.76 & 0.76 - 0.55 & 0.55 - 0.32 & 0.32 - 0.05 & 0.00\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 ### The Smallest Effect Size Of Interest
 
@@ -327,7 +356,7 @@ Using brute-force computational method and drawing all pair-wise combinations fr
 
 [^symmetrical_SESOI]: It is assumed here that SESOI is *symmetrical* in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn't necessary needs to be symmetrical in both positive and negative directions.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/pairwise-comparison-1} 
 
@@ -363,13 +392,14 @@ It is common to represent means as *systematic component* or *fixed effect* (e.g
 
 \caption{(\#tab:magnitude-based-estimators-diff)(ref:magnitude-based-estimators-diff-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrrr}
 \toprule
 SESOI lower (cm) & SESOI upper (cm) & Difference to SESOI & SDdiff to SESOI & pLower & pEquivalent & pHigher\\
 \midrule
 -2.5 & 2.5 & 2.55 & 2.48 & 0.11 & 0.09 & 0.79\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 ## Comparing dependent groups
@@ -448,7 +478,7 @@ kurtosis & -0.73 & -0.28 & -1.28\\
 \end{tabular}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pre-post-raincloud-1} 
 
@@ -469,13 +499,14 @@ Table \@ref(tab:change-effect-size) contains the most common effect size estimat
 
 \caption{(\#tab:change-effect-size)(ref:change-effect-size-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrrrr}
 \toprule
 Change (kg) & SDchange (kg) & \% CVchange & \% Change & Ratio & Cohen's d & CLES & OVL\\
 \midrule
 5.53 & 8.05 & 145.46 & 5.75 & 1.06 & 0.64 & 0.65 & 0.75\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
@@ -546,18 +577,19 @@ Magnitude-based effect size estimators involve the use of SESOI and can be found
 
 \caption{(\#tab:change-MB-stats)(ref:change-MB-stats-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrr}
 \toprule
 SESOI (kg) & Change to SESOI & SDchange to SESOI & pLower & pEquivalent & pHigher\\
 \midrule
 ±5 & 0.55 & 0.81 & 0.1 & 0.37 & 0.53\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pair-change-1} 
 
@@ -658,7 +690,7 @@ kurtosis & -0.68 & -0.72\\
 \end{table}
 
 Visual analysis in Figure \@ref(fig:yoyo-mas-simple-scatterplot) depicts the association between these two tests using scatter plot. 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/yoyo-mas-simple-scatterplot-1} 
 
@@ -793,7 +825,7 @@ Intercept (m) & Slope & RSE (m)\\
 
 This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/reverse-linear-1} 
 
@@ -845,7 +877,7 @@ In the case where SESOI of the MAS test is unknown, using known SESOI of the YoY
 
 Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±0.5km/h). Figure \@ref(fig:sesoiscatterplot-mas-yoyo) depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sesoiscatterplot-mas-yoyo-1} 
 
@@ -863,7 +895,7 @@ Magnitude-based estimators of the practically significant strength of the two va
 
 Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Practically significant association between two variables would have `PPER` equal to 1, which indicates that all residuals are within confines of the SESOI. If you look at the Table \@ref(tab:association-magnitude-table), estimated `PPER` in this example is almost perfect, indicating great practical strength of the association between YoYoIR1 and MAS tests.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-1} 
 
@@ -879,20 +911,21 @@ Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Pra
 
 \caption{(\#tab:association-magnitude-table)(ref:association-magnitude-table-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrr}
 \toprule
 SESOI YoYoIR1 (m) & SESOI MAS (km/h) & Sensitivity & RSE & SESOI MAS to RSE & PPER\\
 \midrule
 ±40 & ±0.5 & 0.11 & 0.22 & 4.57 & 0.98\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based estimates from the Table \@ref(tab:association-magnitude-table) indicate that using YoYoIR1 test scores, we are able to *predict*[^PREDICTION_ISSUE] MAS test scores with the error within SESOI. But would that be the case if the we want to predict YoYoIR1 from MAS test scores? Predictive performance of such model is depicted on the Figure \@ref(fig:p-equivalent-for-yoyo) and magnitude-based estimator are enlisted in the Table \@ref(tab:association-magnitude-yoyo-table). 
 
 [^PREDICTION_ISSUE]: This is not ideal estimate of the predictive performance of this model as will be explained in the next section on [Prediction]. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-for-yoyo-1} 
 
@@ -908,13 +941,14 @@ Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based es
 
 \caption{(\#tab:association-magnitude-yoyo-table)(ref:association-magnitude-yoyo-table-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrr}
 \toprule
 SESOI YoYoIR1 (m) & SESOI MAS (km/h) & Sensitivity & RSE & SESOI YoYoIR1 to RSE & PPER\\
 \midrule
 ±40 & ±0.5 & 6.56 & 133.84 & 0.6 & 0.23\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to `Pearson's r`, `R-Squared` and `MIC`, this is not the case and results are same regardless of which variable is predictor and which is target. 

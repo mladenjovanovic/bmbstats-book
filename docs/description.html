@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-25" />
+<meta name="date" content="2020-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -317,7 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
 <li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
 <li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#leave-one-out-cross-validation-loocv"><i class="fa fa-check"></i><b>18.2.4</b> Leave-One-Out Cross-Validation (LOOCV)</a></li>
 </ul></li>
+<li class="chapter" data-level="18.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#shorts-citation"><i class="fa fa-check"></i><b>18.3</b> <code>shorts</code> Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
 <ul>
@@ -370,79 +372,165 @@ Figure 2.1: <strong>Common techniques to visualize independent groups observatio
 <p>Commonly provided descriptive statistics for each group can be found in the Table <a href="description.html#tab:common-descriptive-statistics-or-estimators">2.1</a>. <code>Mean</code>, <code>median</code> and <code>mode</code> are common measures of central tendencies. <em>Standard deviation</em> (<code>SD</code>), <em>median absolute difference</em> (<code>MAD</code>), <em>inter-quartile range</em> (<code>IQR</code>), <code>min</code>, <code>max</code> and <code>range</code> are common measures of spread or dispersion. <em>Percent coefficient of variation</em> (<code>% CV</code>) is also a measure of dispersion, but <em>standardized</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> which allows comparison of variables that are on different scales. <em>Skewness</em> (<code>skew</code>) is usually described as a measure of a symmetry. A perfectly symmetrical data set will have a skewness of 0. <code>Kurtosis</code> measures the tail-heaviness of the distribution. More in depth discussion of descriptive estimators, particularly <em>robust estimators</em> <span class="citation">(Rousselet, Pernet, and Wilcox <a href="#ref-rousseletDifferencesMeansRobust2017" role="doc-biblioref">2017</a>; Wilcox, Peterson, and McNitt-Gray <a href="#ref-wilcoxDataAnalysesWhen2018" role="doc-biblioref">2018</a>; Wilcox and Rousselet <a href="#ref-wilcoxGuideRobustStatistical2017" role="doc-biblioref">2017</a>; Wilcox <a href="#ref-wilcoxIntroductionRobustEstimation2016" role="doc-biblioref">2016</a>)</span> is beyond the topic of this short overview.</p>
 
 <table>
-<caption><span id="tab:common-descriptive-statistics-or-estimators">Table 2.1: </span><strong>Common descriptive statistics or estimators</strong></caption>
+<caption>
+<span id="tab:common-descriptive-statistics-or-estimators">Table 2.1: </span><strong>Common descriptive statistics or estimators</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Estimator</th>
-<th align="right">Male</th>
-<th align="right">Female</th>
+<tr>
+<th style="text-align:left;">
+Estimator
+</th>
+<th style="text-align:right;">
+Male
+</th>
+<th style="text-align:right;">
+Female
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">n</td>
-<td align="right">50.00</td>
-<td align="right">50.00</td>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:right;">
+50.00
+</td>
+<td style="text-align:right;">
+50.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">mean (cm)</td>
-<td align="right">175.90</td>
-<td align="right">163.18</td>
+<tr>
+<td style="text-align:left;">
+mean (cm)
+</td>
+<td style="text-align:right;">
+175.90
+</td>
+<td style="text-align:right;">
+163.18
+</td>
 </tr>
-<tr class="odd">
-<td align="left">SD (cm)</td>
-<td align="right">9.32</td>
-<td align="right">8.20</td>
+<tr>
+<td style="text-align:left;">
+SD (cm)
+</td>
+<td style="text-align:right;">
+9.32
+</td>
+<td style="text-align:right;">
+8.20
+</td>
 </tr>
-<tr class="even">
-<td align="left">% CV</td>
-<td align="right">5.30</td>
-<td align="right">5.02</td>
+<tr>
+<td style="text-align:left;">
+% CV
+</td>
+<td style="text-align:right;">
+5.30
+</td>
+<td style="text-align:right;">
+5.02
+</td>
 </tr>
-<tr class="odd">
-<td align="left">median (cm)</td>
-<td align="right">176.30</td>
-<td align="right">164.00</td>
+<tr>
+<td style="text-align:left;">
+median (cm)
+</td>
+<td style="text-align:right;">
+176.30
+</td>
+<td style="text-align:right;">
+164.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">MAD (cm)</td>
-<td align="right">9.52</td>
-<td align="right">8.86</td>
+<tr>
+<td style="text-align:left;">
+MAD (cm)
+</td>
+<td style="text-align:right;">
+9.52
+</td>
+<td style="text-align:right;">
+8.86
+</td>
 </tr>
-<tr class="odd">
-<td align="left">IQR (cm)</td>
-<td align="right">11.24</td>
-<td align="right">11.67</td>
+<tr>
+<td style="text-align:left;">
+IQR (cm)
+</td>
+<td style="text-align:right;">
+11.24
+</td>
+<td style="text-align:right;">
+11.67
+</td>
 </tr>
-<tr class="even">
-<td align="left">mode (cm)</td>
-<td align="right">176.26</td>
-<td align="right">164.94</td>
+<tr>
+<td style="text-align:left;">
+mode (cm)
+</td>
+<td style="text-align:right;">
+176.26
+</td>
+<td style="text-align:right;">
+164.94
+</td>
 </tr>
-<tr class="odd">
-<td align="left">min (cm)</td>
-<td align="right">154.24</td>
-<td align="right">145.59</td>
+<tr>
+<td style="text-align:left;">
+min (cm)
+</td>
+<td style="text-align:right;">
+154.24
+</td>
+<td style="text-align:right;">
+145.59
+</td>
 </tr>
-<tr class="even">
-<td align="left">max (cm)</td>
-<td align="right">193.90</td>
-<td align="right">181.12</td>
+<tr>
+<td style="text-align:left;">
+max (cm)
+</td>
+<td style="text-align:right;">
+193.90
+</td>
+<td style="text-align:right;">
+181.12
+</td>
 </tr>
-<tr class="odd">
-<td align="left">range (cm)</td>
-<td align="right">39.66</td>
-<td align="right">35.53</td>
+<tr>
+<td style="text-align:left;">
+range (cm)
+</td>
+<td style="text-align:right;">
+39.66
+</td>
+<td style="text-align:right;">
+35.53
+</td>
 </tr>
-<tr class="even">
-<td align="left">skew</td>
-<td align="right">0.08</td>
-<td align="right">0.08</td>
+<tr>
+<td style="text-align:left;">
+skew
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.08
+</td>
 </tr>
-<tr class="odd">
-<td align="left">kurtosis</td>
-<td align="right">-0.53</td>
-<td align="right">-0.69</td>
+<tr>
+<td style="text-align:left;">
+kurtosis
+</td>
+<td style="text-align:right;">
+-0.53
+</td>
+<td style="text-align:right;">
+-0.69
+</td>
 </tr>
 </tbody>
 </table>
@@ -495,30 +583,64 @@ Figure 2.2: <strong>Sample mean as the simplest statistical model.</strong> <str
 <h3><span class="header-section-number">2.1.2</span> Effect Sizes</h3>
 <p>Besides describing groups, we are often interested in comparing them. In order to achieve this task, a collection of estimators termed <em>effect size statistics</em> are utilized. Effect size can be defined in a <em>narrow sense</em> or in a <em>broad sense</em>. Briefly, the narrow sense refers to a family of standardized measures such as <code>Cohen’s d</code>, while the broad sense refers to any measure of interest, standardized or not. The approach to effect size statistics in this book is thus in a broad sense of the definition, in which all group comparison estimators are considered effect sizes statistics. In order to estimate effect sizes, one group needs to be considered <em>baseline</em> or <em>control</em>. The most common effect size statistics can be found in the Table <a href="description.html#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">2.2</a> where female body height is considered baseline and compared with male body height.</p>
 
-<table>
-<caption><span id="tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">Table 2.2: </span><strong>Effect size statistics for estimating differences between two independent groups</strong></caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">Table 2.2: </span><strong>Effect size statistics for estimating differences between two independent groups</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Difference (cm)</th>
-<th align="right">SDdiff (cm)</th>
-<th align="right">% CVdiff</th>
-<th align="right">% Difference</th>
-<th align="right">Ratio</th>
-<th align="right">Cohen’s d</th>
-<th align="right">CLES</th>
-<th align="right">OVL</th>
+<tr>
+<th style="text-align:right;">
+Difference (cm)
+</th>
+<th style="text-align:right;">
+SDdiff (cm)
+</th>
+<th style="text-align:right;">
+% CVdiff
+</th>
+<th style="text-align:right;">
+% Difference
+</th>
+<th style="text-align:right;">
+Ratio
+</th>
+<th style="text-align:right;">
+Cohen’s d
+</th>
+<th style="text-align:right;">
+CLES
+</th>
+<th style="text-align:right;">
+OVL
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">12.73</td>
-<td align="right">12.41</td>
-<td align="right">97.55</td>
-<td align="right">7.8</td>
-<td align="right">1.08</td>
-<td align="right">1.45</td>
-<td align="right">0.85</td>
-<td align="right">0.47</td>
+<tr>
+<td style="text-align:right;">
+12.73
+</td>
+<td style="text-align:right;">
+12.41
+</td>
+<td style="text-align:right;">
+97.55
+</td>
+<td style="text-align:right;">
+7.8
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+1.45
+</td>
+<td style="text-align:right;">
+0.85
+</td>
+<td style="text-align:right;">
+0.47
+</td>
 </tr>
 </tbody>
 </table>
@@ -557,55 +679,113 @@ Figure 2.2: <strong>Sample mean as the simplest statistical model.</strong> <str
   \tag{2.12}
 \end{equation}\]</span></p>
 <p>Why <code>Cohen's d</code> should be used instead of other effect size estimators can be demonstrated by a simple example, coming from a study by <span class="citation">Buchheit and Rabbani (<a href="#ref-buchheit3015Intermittent2014" role="doc-biblioref">2014</a>)</span>. In this study, authors examined the relationship between the performance in the <em>YoYo Intermittent Recovery Test Level 1</em> (YoYoIR1) and the <em>30-15 Intermittent Fitness Test</em> (30-15IFT), and compared the <em>sensitivity</em> of both tests to the training. Although this study used two dependent groups (Pre-training and Post-training), the rationale can be applied to the topic of estimating effect sizes between the two independent groups. Table <a href="description.html#tab:perc-change-vs-cohensd">2.3</a> contains Pre-training results and the effect sizes estimated with <code>percent change</code><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and <code>Cohen's d</code>.</p>
+
 <table>
-<caption><span id="tab:perc-change-vs-cohensd">Table 2.3: </span> <strong>Training intervention effect sizes for YoYoIR1 and 30-15IFT.</strong> Modified from <span class="citation">Buchheit and Rabbani (<a href="#ref-buchheit3015Intermittent2014" role="doc-biblioref">2014</a>)</span></caption>
+<caption>
+<span id="tab:perc-change-vs-cohensd">Table 2.3: </span><strong>Training intervention effect sizes for YoYoIR1 and 30-15IFT.</strong> Modified from <span class="citation">Buchheit and Rabbani (<a href="#ref-buchheit3015Intermittent2014" role="doc-biblioref">2014</a>)</span>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Test</th>
-<th align="left">Pre-training</th>
-<th align="right">% Change</th>
-<th align="right">Cohen’s d</th>
+<tr>
+<th style="text-align:left;">
+Test
+</th>
+<th style="text-align:left;">
+Pre-training
+</th>
+<th style="text-align:left;">
+% Change
+</th>
+<th style="text-align:right;">
+Cohen’s d
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">YoYoIR1</td>
-<td align="left">1031 ± 257 m</td>
-<td align="right">35 %</td>
-<td align="right">1.2</td>
+<tr>
+<td style="text-align:left;">
+YoYoIR1
+</td>
+<td style="text-align:left;">
+1031 ± 257 m
+</td>
+<td style="text-align:left;">
+35 %
+</td>
+<td style="text-align:right;">
+1.2
+</td>
 </tr>
-<tr class="even">
-<td align="left">30-15IFT</td>
-<td align="left">17.4 ± 1.1 kmh<sup>-1</sup></td>
-<td align="right">7 %</td>
-<td align="right">1.1</td>
+<tr>
+<td style="text-align:left;">
+30-15IFT
+</td>
+<td style="text-align:left;">
+17.4 ± 1.1 kmh/h
+</td>
+<td style="text-align:left;">
+7 %
+</td>
+<td style="text-align:right;">
+1.1
+</td>
 </tr>
 </tbody>
 </table>
 <p>Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and velocity reached respectively), <code>percent change</code> estimator is not a good choice to compare the effect sizes between the two tests<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. Since <code>Cohen's d</code> is standardized estimator, it should be used when comparing tests or measures that are at different scales.</p>
 <p>After estimating effect sizes, the question that naturally follows up is the question of <em>magnitude</em>. In other words - “how big is the effect?”. Since <code>Cohen's d</code> is standardized estimator, it allows for establishment of qualitative magnitude thresholds. Based on the original work by Cohen <span class="citation">(Cohen <a href="#ref-cohenStatisticalPowerAnalysis1988" role="doc-biblioref">1988</a>)</span>, Hopkins <span class="citation">(Hopkins <a href="#ref-hopkinsNewViewStatistics2006" role="doc-biblioref">2006</a>; Hopkins et al. <a href="#ref-hopkinsProgressiveStatisticsStudies2009" role="doc-biblioref">2009</a>)</span> suggested the following magnitudes of effect (Table (<a href="description.html#tab:magnitudes-of-effect">2.4</a>). According to the Table (<a href="description.html#tab:magnitudes-of-effect">2.4</a>, the body height difference between males and females would be considered <em>large</em>, as well as changes in both YoYoIR1 and 30-15IFT.</p>
-<table>
-<caption><span id="tab:magnitudes-of-effect">Table 2.4: </span> <strong>Magnitudes of effect</strong></caption>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:magnitudes-of-effect">Table 2.4: </span><strong>Magnitudes of effect</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Magnitude of effect</th>
-<th align="center">Trivial</th>
-<th align="center">Small</th>
-<th align="center">Moderate</th>
-<th align="center">Large</th>
-<th align="center">Very Large</th>
-<th align="center">Nearly Perfect</th>
+<tr>
+<th style="text-align:left;">
+Magnitude of effect
+</th>
+<th style="text-align:left;">
+Trivial
+</th>
+<th style="text-align:left;">
+Small
+</th>
+<th style="text-align:left;">
+Moderate
+</th>
+<th style="text-align:left;">
+Large
+</th>
+<th style="text-align:left;">
+Very Large
+</th>
+<th style="text-align:left;">
+Nearly Perfect
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Cohen’s d</td>
-<td align="center">0 - 0.2</td>
-<td align="center">0.2 - 0.6</td>
-<td align="center">0.6 - 1.2</td>
-<td align="center">1.2 - 2.0</td>
-<td align="center">2.0 - 4.0</td>
-<td align="center">&gt; 4.0</td>
+<tr>
+<td style="text-align:left;">
+Cohen’s d
+</td>
+<td style="text-align:left;">
+0 - 0.2
+</td>
+<td style="text-align:left;">
+0.2 - 0.6
+</td>
+<td style="text-align:left;">
+0.6 - 1.2
+</td>
+<td style="text-align:left;">
+1.2 - 2.0
+</td>
+<td style="text-align:left;">
+2.0 - 4.0
+</td>
+<td style="text-align:left;">
+&gt; 4.0
+</td>
 </tr>
 </tbody>
 </table>
@@ -635,46 +815,105 @@ Figure 2.4: <strong>Relationship between the <code>Cohen's d</code>, <code>CLES<
 </div>
 
 <p>Table <a href="description.html#tab:magnitudes-of-effect-CLES-OVL">2.5</a> contains <code>Cohen's d</code> magnitudes of effect with accompanying estimated <code>CLES</code> and <code>OVL</code> thresholds.</p>
-<table>
-<caption><span id="tab:magnitudes-of-effect-CLES-OVL">Table 2.5: </span> <strong>Magnitudes of effect for <code>CLES</code> and <code>OVL</code> estimated using <code>Cohen's d</code></strong></caption>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:magnitudes-of-effect-CLES-OVL">Table 2.5: </span><strong>Magnitudes of effect for <code>CLES</code> and <code>OVL</code> estimated using <code>Cohen's d</code></strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Magnitude of effect</th>
-<th align="center">Trivial</th>
-<th align="center">Small</th>
-<th align="center">Moderate</th>
-<th align="center">Large</th>
-<th align="center">Very Large</th>
-<th align="center">Nearly Perfect</th>
+<tr>
+<th style="text-align:left;">
+Magnitude of effect
+</th>
+<th style="text-align:left;">
+Trivial
+</th>
+<th style="text-align:left;">
+Small
+</th>
+<th style="text-align:left;">
+Moderate
+</th>
+<th style="text-align:left;">
+Large
+</th>
+<th style="text-align:left;">
+Very Large
+</th>
+<th style="text-align:left;">
+Nearly Perfect
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Cohen’s d</td>
-<td align="center">0.0 - 0.2</td>
-<td align="center">0.2 - 0.6</td>
-<td align="center">0.6 - 1.2</td>
-<td align="center">1.2 - 2.0</td>
-<td align="center">2.0 - 4.0</td>
-<td align="center">&gt; 4.0</td>
+<tr>
+<td style="text-align:left;">
+Cohen’s d
+</td>
+<td style="text-align:left;">
+0 - 0.2
+</td>
+<td style="text-align:left;">
+0.2 - 0.6
+</td>
+<td style="text-align:left;">
+0.6 - 1.2
+</td>
+<td style="text-align:left;">
+1.2 - 2.0
+</td>
+<td style="text-align:left;">
+2.0 - 4.0
+</td>
+<td style="text-align:left;">
+&gt; 4.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">CLES</td>
-<td align="center">0.50 - 0.56</td>
-<td align="center">0.56 - 0.66</td>
-<td align="center">0.66 - 0.80</td>
-<td align="center">0.80 - 0.92</td>
-<td align="center">0.92 - 1.00</td>
-<td align="center">1.00</td>
+<tr>
+<td style="text-align:left;">
+CLES
+</td>
+<td style="text-align:left;">
+0.50 - 0.56
+</td>
+<td style="text-align:left;">
+0.56 - 0.66
+</td>
+<td style="text-align:left;">
+0.66 - 0.80
+</td>
+<td style="text-align:left;">
+0.80 - 0.92
+</td>
+<td style="text-align:left;">
+0.92 - 1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
 </tr>
-<tr class="odd">
-<td align="left">OVL</td>
-<td align="center">1.00 - 0.92</td>
-<td align="center">0.92 - 0.76</td>
-<td align="center">0.76 - 0.55</td>
-<td align="center">0.55 - 0.32</td>
-<td align="center">0.32 - 0.05</td>
-<td align="center">0.00</td>
+<tr>
+<td style="text-align:left;">
+OVL
+</td>
+<td style="text-align:left;">
+1.00 - 0.92
+</td>
+<td style="text-align:left;">
+0.92 - 0.76
+</td>
+<td style="text-align:left;">
+0.76 - 0.55
+</td>
+<td style="text-align:left;">
+0.55 - 0.32
+</td>
+<td style="text-align:left;">
+0.32 - 0.05
+</td>
+<td style="text-align:left;">
+0.00
+</td>
 </tr>
 </tbody>
 </table>
@@ -706,63 +945,110 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <p>Table <a href="description.html#tab:table-magnitude-based-diff">2.6</a> contains estimated probabilities of observing lower, equivalent, and higher differences in height between the randomly selected male and female using brute-force computational method and algebraic method. These estimates answer the following question “If I compare random male and random female from my sample, how probable are lower/equivalent/higher magnitudes of difference in height?”. Asking such a magnitude-based question regarding the random individual difference represents a form of prediction question and predictive task. In this book, such questions are answered with <em>magnitude-based prediction</em> approaches.</p>
 
 <table>
-<caption><span id="tab:table-magnitude-based-diff">Table 2.6: </span><strong>Estimated probabilities of observing lower, equivalent, and higher differences in height</strong></caption>
+<caption>
+<span id="tab:table-magnitude-based-diff">Table 2.6: </span><strong>Estimated probabilities of observing lower, equivalent, and higher differences in height</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Method</th>
-<th align="right">pLower</th>
-<th align="right">pEquivalent</th>
-<th align="right">pHigher</th>
+<tr>
+<th style="text-align:left;">
+Method
+</th>
+<th style="text-align:right;">
+pLower
+</th>
+<th style="text-align:right;">
+pEquivalent
+</th>
+<th style="text-align:right;">
+pHigher
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">brute-force</td>
-<td align="right">0.110</td>
-<td align="right">0.096</td>
-<td align="right">0.794</td>
+<tr>
+<td style="text-align:left;">
+brute-force
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+0.096
+</td>
+<td style="text-align:right;">
+0.794
+</td>
 </tr>
-<tr class="even">
-<td align="left">algebraic</td>
-<td align="right">0.111</td>
-<td align="right">0.095</td>
-<td align="right">0.794</td>
+<tr>
+<td style="text-align:left;">
+algebraic
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+0.095
+</td>
+<td style="text-align:right;">
+0.794
+</td>
 </tr>
 </tbody>
 </table>
 <p>It is common to represent means as <em>systematic component</em> or <em>fixed effect</em> (e.g. <code>mean difference</code>), and variability around the mean (i.e. <code>SDdiff</code>) as <em>stochastic component</em> or <em>random effect</em>. It is unfortunate that the common statistical modeling and analysis, particularly in sport science, takes the stance of approaching and treating between-individual variation as <em>random error</em>. The approach suggested in this book complements <em>group-based</em> or <em>average-based</em> statistics with magnitude-based predictions that aim to help in answering individual-based questions, common to sport practitioners. Table <a href="description.html#tab:magnitude-based-estimators-diff">2.7</a> contains discussed magnitude-based estimators that can complement common effect size statistics (Table <a href="description.html#tab:effect-size-statistics-for-estimating-differences-between-two-independent-groups">2.2</a>) when comparing two independent groups.</p>
 
-<table>
-<caption><span id="tab:magnitude-based-estimators-diff">Table 2.7: </span><strong>Magnitude-based effect size statistics for estimating difference between two independent groups</strong></caption>
-<colgroup>
-<col width="17%" />
-<col width="17%" />
-<col width="20%" />
-<col width="16%" />
-<col width="7%" />
-<col width="12%" />
-<col width="8%" />
-</colgroup>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:magnitude-based-estimators-diff">Table 2.7: </span><strong>Magnitude-based effect size statistics for estimating difference between two independent groups</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="right">SESOI lower (cm)</th>
-<th align="right">SESOI upper (cm)</th>
-<th align="right">Difference to SESOI</th>
-<th align="right">SDdiff to SESOI</th>
-<th align="right">pLower</th>
-<th align="right">pEquivalent</th>
-<th align="right">pHigher</th>
+<tr>
+<th style="text-align:right;">
+SESOI lower (cm)
+</th>
+<th style="text-align:right;">
+SESOI upper (cm)
+</th>
+<th style="text-align:right;">
+Difference to SESOI
+</th>
+<th style="text-align:right;">
+SDdiff to SESOI
+</th>
+<th style="text-align:right;">
+pLower
+</th>
+<th style="text-align:right;">
+pEquivalent
+</th>
+<th style="text-align:right;">
+pHigher
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">-2.5</td>
-<td align="right">2.5</td>
-<td align="right">2.55</td>
-<td align="right">2.48</td>
-<td align="right">0.11</td>
-<td align="right">0.09</td>
-<td align="right">0.79</td>
+<tr>
+<td style="text-align:right;">
+-2.5
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+2.48
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.79
+</td>
 </tr>
 </tbody>
 </table>
@@ -773,135 +1059,305 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <p>As an example of dependent or paired groups descriptive analysis, let’s consider the simple <em>Pre-test</em> and <em>Post-test</em> design. We have given training intervention to a group of N=20 males involving bench-press training. Training intervention involved performing bench pressing two times a week for 16 weeks. One-repetition-maximum (1RM) in the bench press was performed before (Pre-test) and after (Post-test) training intervention. Table <a href="description.html#tab:bench-press-1RM-pre-post">2.8</a> contains individual Pre-test and Post-test scores, as well as the Change in the bench press 1RM.</p>
 
 <table>
-<caption><span id="tab:bench-press-1RM-pre-post">Table 2.8: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong></caption>
+<caption>
+<span id="tab:bench-press-1RM-pre-post">Table 2.8: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">Pre-test (kg)</th>
-<th align="right">Post-test (kg)</th>
-<th align="right">Change (kg)</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+Pre-test (kg)
+</th>
+<th style="text-align:right;">
+Post-test (kg)
+</th>
+<th style="text-align:right;">
+Change (kg)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">111.80</td>
-<td align="right">121.42</td>
-<td align="right">9.62</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+111.80
+</td>
+<td style="text-align:right;">
+121.42
+</td>
+<td style="text-align:right;">
+9.62
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">95.95</td>
-<td align="right">102.13</td>
-<td align="right">6.18</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+95.95
+</td>
+<td style="text-align:right;">
+102.13
+</td>
+<td style="text-align:right;">
+6.18
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">105.87</td>
-<td align="right">125.56</td>
-<td align="right">19.69</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+105.87
+</td>
+<td style="text-align:right;">
+125.56
+</td>
+<td style="text-align:right;">
+19.69
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">98.79</td>
-<td align="right">109.67</td>
-<td align="right">10.87</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+98.79
+</td>
+<td style="text-align:right;">
+109.67
+</td>
+<td style="text-align:right;">
+10.87
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">95.81</td>
-<td align="right">108.11</td>
-<td align="right">12.30</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+95.81
+</td>
+<td style="text-align:right;">
+108.11
+</td>
+<td style="text-align:right;">
+12.30
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">95.27</td>
-<td align="right">92.67</td>
-<td align="right">-2.60</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+95.27
+</td>
+<td style="text-align:right;">
+92.67
+</td>
+<td style="text-align:right;">
+-2.60
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">97.75</td>
-<td align="right">106.03</td>
-<td align="right">8.28</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+97.75
+</td>
+<td style="text-align:right;">
+106.03
+</td>
+<td style="text-align:right;">
+8.28
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">106.50</td>
-<td align="right">109.51</td>
-<td align="right">3.01</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+106.50
+</td>
+<td style="text-align:right;">
+109.51
+</td>
+<td style="text-align:right;">
+3.01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">80.62</td>
-<td align="right">95.96</td>
-<td align="right">15.34</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+80.62
+</td>
+<td style="text-align:right;">
+95.96
+</td>
+<td style="text-align:right;">
+15.34
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">100.40</td>
-<td align="right">94.30</td>
-<td align="right">-6.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+100.40
+</td>
+<td style="text-align:right;">
+94.30
+</td>
+<td style="text-align:right;">
+-6.11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">82.71</td>
-<td align="right">78.91</td>
-<td align="right">-3.80</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+82.71
+</td>
+<td style="text-align:right;">
+78.91
+</td>
+<td style="text-align:right;">
+-3.80
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">102.89</td>
-<td align="right">93.98</td>
-<td align="right">-8.91</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+102.89
+</td>
+<td style="text-align:right;">
+93.98
+</td>
+<td style="text-align:right;">
+-8.91
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">91.34</td>
-<td align="right">105.21</td>
-<td align="right">13.87</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+91.34
+</td>
+<td style="text-align:right;">
+105.21
+</td>
+<td style="text-align:right;">
+13.87
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">111.14</td>
-<td align="right">108.07</td>
-<td align="right">-3.07</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+111.14
+</td>
+<td style="text-align:right;">
+108.07
+</td>
+<td style="text-align:right;">
+-3.07
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">95.13</td>
-<td align="right">96.01</td>
-<td align="right">0.88</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+95.13
+</td>
+<td style="text-align:right;">
+96.01
+</td>
+<td style="text-align:right;">
+0.88
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">109.12</td>
-<td align="right">112.12</td>
-<td align="right">3.00</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+109.12
+</td>
+<td style="text-align:right;">
+112.12
+</td>
+<td style="text-align:right;">
+3.00
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">91.87</td>
-<td align="right">103.41</td>
-<td align="right">11.54</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+91.87
+</td>
+<td style="text-align:right;">
+103.41
+</td>
+<td style="text-align:right;">
+11.54
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">92.16</td>
-<td align="right">103.93</td>
-<td align="right">11.77</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+92.16
+</td>
+<td style="text-align:right;">
+103.93
+</td>
+<td style="text-align:right;">
+11.77
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">108.88</td>
-<td align="right">119.72</td>
-<td align="right">10.84</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+108.88
+</td>
+<td style="text-align:right;">
+119.72
+</td>
+<td style="text-align:right;">
+10.84
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">97.94</td>
-<td align="right">95.91</td>
-<td align="right">-2.03</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+97.94
+</td>
+<td style="text-align:right;">
+95.91
+</td>
+<td style="text-align:right;">
+-2.03
+</td>
 </tr>
 </tbody>
 </table>
@@ -911,93 +1367,207 @@ Figure 2.5: <strong>Pairwise comparison of males and females to estimate probabi
 <p>The simplest analysis involve descriptive statistics assuming groups as independent. Table <a href="description.html#tab:bench-press-data-independent-summary">2.9</a> contains descriptive statistics applied to Pre-test, Post-test and Change scores as independent. Figure <a href="description.html#fig:bench-press-pre-post-raincloud">2.6</a> visualizes the scores using three raincloud plots.</p>
 
 <table>
-<caption><span id="tab:bench-press-data-independent-summary">Table 2.9: </span><strong>Descriptive analysis of the Pre-test, Post-test, and Change as independent samples</strong></caption>
+<caption>
+<span id="tab:bench-press-data-independent-summary">Table 2.9: </span><strong>Descriptive analysis of the Pre-test, Post-test, and Change as independent samples</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Estimator</th>
-<th align="right">Pre-test</th>
-<th align="right">Post-test</th>
-<th align="right">Change</th>
+<tr>
+<th style="text-align:left;">
+Estimator
+</th>
+<th style="text-align:right;">
+Pre-test
+</th>
+<th style="text-align:right;">
+Post-test
+</th>
+<th style="text-align:right;">
+Change
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">n</td>
-<td align="right">20.00</td>
-<td align="right">20.00</td>
-<td align="right">20.00</td>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">mean (kg)</td>
-<td align="right">98.60</td>
-<td align="right">104.13</td>
-<td align="right">5.53</td>
+<tr>
+<td style="text-align:left;">
+mean (kg)
+</td>
+<td style="text-align:right;">
+98.60
+</td>
+<td style="text-align:right;">
+104.13
+</td>
+<td style="text-align:right;">
+5.53
+</td>
 </tr>
-<tr class="odd">
-<td align="left">SD (kg)</td>
-<td align="right">8.70</td>
-<td align="right">11.08</td>
-<td align="right">8.05</td>
+<tr>
+<td style="text-align:left;">
+SD (kg)
+</td>
+<td style="text-align:right;">
+8.70
+</td>
+<td style="text-align:right;">
+11.08
+</td>
+<td style="text-align:right;">
+8.05
+</td>
 </tr>
-<tr class="even">
-<td align="left">% CV</td>
-<td align="right">8.83</td>
-<td align="right">10.64</td>
-<td align="right">145.46</td>
+<tr>
+<td style="text-align:left;">
+% CV
+</td>
+<td style="text-align:right;">
+8.83
+</td>
+<td style="text-align:right;">
+10.64
+</td>
+<td style="text-align:right;">
+145.46
+</td>
 </tr>
-<tr class="odd">
-<td align="left">median (kg)</td>
-<td align="right">97.84</td>
-<td align="right">104.57</td>
-<td align="right">7.23</td>
+<tr>
+<td style="text-align:left;">
+median (kg)
+</td>
+<td style="text-align:right;">
+97.84
+</td>
+<td style="text-align:right;">
+104.57
+</td>
+<td style="text-align:right;">
+7.23
+</td>
 </tr>
-<tr class="even">
-<td align="left">MAD (kg)</td>
-<td align="right">8.64</td>
-<td align="right">11.94</td>
-<td align="right">8.46</td>
+<tr>
+<td style="text-align:left;">
+MAD (kg)
+</td>
+<td style="text-align:right;">
+8.64
+</td>
+<td style="text-align:right;">
+11.94
+</td>
+<td style="text-align:right;">
+8.46
+</td>
 </tr>
-<tr class="odd">
-<td align="left">IQR (kg)</td>
-<td align="right">11.64</td>
-<td align="right">13.60</td>
-<td align="right">13.77</td>
+<tr>
+<td style="text-align:left;">
+IQR (kg)
+</td>
+<td style="text-align:right;">
+11.64
+</td>
+<td style="text-align:right;">
+13.60
+</td>
+<td style="text-align:right;">
+13.77
+</td>
 </tr>
-<tr class="even">
-<td align="left">mode (kg)</td>
-<td align="right">96.49</td>
-<td align="right">105.76</td>
-<td align="right">10.78</td>
+<tr>
+<td style="text-align:left;">
+mode (kg)
+</td>
+<td style="text-align:right;">
+96.49
+</td>
+<td style="text-align:right;">
+105.76
+</td>
+<td style="text-align:right;">
+10.78
+</td>
 </tr>
-<tr class="odd">
-<td align="left">min (kg)</td>
-<td align="right">80.62</td>
-<td align="right">78.91</td>
-<td align="right">-8.91</td>
+<tr>
+<td style="text-align:left;">
+min (kg)
+</td>
+<td style="text-align:right;">
+80.62
+</td>
+<td style="text-align:right;">
+78.91
+</td>
+<td style="text-align:right;">
+-8.91
+</td>
 </tr>
-<tr class="even">
-<td align="left">max (kg)</td>
-<td align="right">111.80</td>
-<td align="right">125.56</td>
-<td align="right">19.69</td>
+<tr>
+<td style="text-align:left;">
+max (kg)
+</td>
+<td style="text-align:right;">
+111.80
+</td>
+<td style="text-align:right;">
+125.56
+</td>
+<td style="text-align:right;">
+19.69
+</td>
 </tr>
-<tr class="odd">
-<td align="left">range (kg)</td>
-<td align="right">31.18</td>
-<td align="right">46.64</td>
-<td align="right">28.60</td>
+<tr>
+<td style="text-align:left;">
+range (kg)
+</td>
+<td style="text-align:right;">
+31.18
+</td>
+<td style="text-align:right;">
+46.64
+</td>
+<td style="text-align:right;">
+28.60
+</td>
 </tr>
-<tr class="even">
-<td align="left">skew</td>
-<td align="right">-0.26</td>
-<td align="right">-0.05</td>
-<td align="right">-0.16</td>
+<tr>
+<td style="text-align:left;">
+skew
+</td>
+<td style="text-align:right;">
+-0.26
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+-0.16
+</td>
 </tr>
-<tr class="odd">
-<td align="left">kurtosis</td>
-<td align="right">-0.73</td>
-<td align="right">-0.28</td>
-<td align="right">-1.28</td>
+<tr>
+<td style="text-align:left;">
+kurtosis
+</td>
+<td style="text-align:right;">
+-0.73
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+-1.28
+</td>
 </tr>
 </tbody>
 </table>
@@ -1013,30 +1583,64 @@ Figure 2.6: <strong>Raincloud plots of the Pre-test, Post-test and Change scores
 <h3><span class="header-section-number">2.2.2</span> Effect Sizes</h3>
 <p>Table <a href="description.html#tab:change-effect-size">2.10</a> contains the most common effect size estimators utilized when describing change in the Pre-Post paired design. The terminology utilized in this book differentiates between the <em>difference</em> which is used in independent groups and the <em>change</em> which is used in paired or dependent groups</p>
 
-<table>
-<caption><span id="tab:change-effect-size">Table 2.10: </span><strong>Effect size statistics for estimating change in two dependent groups</strong></caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:change-effect-size">Table 2.10: </span><strong>Effect size statistics for estimating change in two dependent groups</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Change (kg)</th>
-<th align="right">SDchange (kg)</th>
-<th align="right">% CVchange</th>
-<th align="right">% Change</th>
-<th align="right">Ratio</th>
-<th align="right">Cohen’s d</th>
-<th align="right">CLES</th>
-<th align="right">OVL</th>
+<tr>
+<th style="text-align:right;">
+Change (kg)
+</th>
+<th style="text-align:right;">
+SDchange (kg)
+</th>
+<th style="text-align:right;">
+% CVchange
+</th>
+<th style="text-align:right;">
+% Change
+</th>
+<th style="text-align:right;">
+Ratio
+</th>
+<th style="text-align:right;">
+Cohen’s d
+</th>
+<th style="text-align:right;">
+CLES
+</th>
+<th style="text-align:right;">
+OVL
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">5.53</td>
-<td align="right">8.05</td>
-<td align="right">145.46</td>
-<td align="right">5.75</td>
-<td align="right">1.06</td>
-<td align="right">0.64</td>
-<td align="right">0.65</td>
-<td align="right">0.75</td>
+<tr>
+<td style="text-align:right;">
+5.53
+</td>
+<td style="text-align:right;">
+8.05
+</td>
+<td style="text-align:right;">
+145.46
+</td>
+<td style="text-align:right;">
+5.75
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+0.64
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0.75
+</td>
 </tr>
 </tbody>
 </table>
@@ -1077,26 +1681,52 @@ Figure 2.6: <strong>Raincloud plots of the Pre-test, Post-test and Change scores
 <p><code>CLES</code> for the paired groups represents probability of observing positive change. <code>OVL</code>, equally to the independent groups, represents overlap between the Pre-test and Post-test scores.</p>
 <p>Magnitude-based effect size estimators involve the use of SESOI and can be found on Table <a href="description.html#tab:change-MB-stats">2.11</a>. Similarly to magnitude-based effect size estimators with the independent groups, magnitude-based effect size estimators with the paired group involve <code>Change to SESOI</code>, <code>SDchange to SESOI</code> as well as proportions of lower (<code>pLower</code>), equivalent (<code>pEquivalent</code>) and higher (<code>pHigher</code>) change scores.</p>
 
-<table>
-<caption><span id="tab:change-MB-stats">Table 2.11: </span><strong>Magnitude-based effect size statistics for estimating change between two dependent groups</strong></caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:change-MB-stats">Table 2.11: </span><strong>Magnitude-based effect size statistics for estimating change between two dependent groups</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">SESOI (kg)</th>
-<th align="right">Change to SESOI</th>
-<th align="right">SDchange to SESOI</th>
-<th align="right">pLower</th>
-<th align="right">pEquivalent</th>
-<th align="right">pHigher</th>
+<tr>
+<th style="text-align:left;">
+SESOI (kg)
+</th>
+<th style="text-align:right;">
+Change to SESOI
+</th>
+<th style="text-align:right;">
+SDchange to SESOI
+</th>
+<th style="text-align:right;">
+pLower
+</th>
+<th style="text-align:right;">
+pEquivalent
+</th>
+<th style="text-align:right;">
+pHigher
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">±5</td>
-<td align="right">0.55</td>
-<td align="right">0.81</td>
-<td align="right">0.1</td>
-<td align="right">0.37</td>
-<td align="right">0.53</td>
+<tr>
+<td style="text-align:left;">
+±5
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.53
+</td>
 </tr>
 </tbody>
 </table>
@@ -1117,243 +1747,517 @@ Figure 2.7: <strong>Visual analysis of the dependent groups scores using SESOI. 
 <p>Let’s assume we tested N=30 female soccer athletes by using two tests: (1) YoYoIR1 test (expressed in meters), and (2) <em>maximum aerobic speed</em> (MAS) test (expressed in km/h)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. Variables in this example represent observations in each test (Table <a href="description.html#tab:yoyo-mas-results">2.12</a>).</p>
 
 <table>
-<caption><span id="tab:yoyo-mas-results">Table 2.12: </span><strong>Results of YoYoIR1 and MAS tests for N=30 female soccer athletes</strong></caption>
+<caption>
+<span id="tab:yoyo-mas-results">Table 2.12: </span><strong>Results of YoYoIR1 and MAS tests for N=30 female soccer athletes</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">YoYoIR1 (m)</th>
-<th align="right">MAS (km/h)</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+YoYoIR1 (m)
+</th>
+<th style="text-align:right;">
+MAS (km/h)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">1640</td>
-<td align="right">15.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+1640
+</td>
+<td style="text-align:right;">
+15.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">1080</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+1080
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">1440</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+1440
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">1200</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+1200
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">960</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+960
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">1120</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+1120
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">1000</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">1440</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+1440
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">640</td>
-<td align="right">14.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+640
+</td>
+<td style="text-align:right;">
+14.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">1360</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+1360
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">760</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+760
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">1240</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+1240
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">1000</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">1600</td>
-<td align="right">15.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+1600
+</td>
+<td style="text-align:right;">
+15.5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">1160</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+1160
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">1520</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+1520
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">1000</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">1000</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">1480</td>
-<td align="right">15.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+1480
+</td>
+<td style="text-align:right;">
+15.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">1280</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+1280
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 21</td>
-<td align="right">1200</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 21
+</td>
+<td style="text-align:right;">
+1200
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 22</td>
-<td align="right">1200</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 22
+</td>
+<td style="text-align:right;">
+1200
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 23</td>
-<td align="right">1200</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 23
+</td>
+<td style="text-align:right;">
+1200
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 24</td>
-<td align="right">1120</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 24
+</td>
+<td style="text-align:right;">
+1120
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 25</td>
-<td align="right">1560</td>
-<td align="right">15.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 25
+</td>
+<td style="text-align:right;">
+1560
+</td>
+<td style="text-align:right;">
+15.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 26</td>
-<td align="right">1120</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 26
+</td>
+<td style="text-align:right;">
+1120
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 27</td>
-<td align="right">1640</td>
-<td align="right">15.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 27
+</td>
+<td style="text-align:right;">
+1640
+</td>
+<td style="text-align:right;">
+15.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 28</td>
-<td align="right">1280</td>
-<td align="right">15.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 28
+</td>
+<td style="text-align:right;">
+1280
+</td>
+<td style="text-align:right;">
+15.0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 29</td>
-<td align="right">1040</td>
-<td align="right">14.5</td>
+<tr>
+<td style="text-align:left;">
+Athlete 29
+</td>
+<td style="text-align:right;">
+1040
+</td>
+<td style="text-align:right;">
+14.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 30</td>
-<td align="right">880</td>
-<td align="right">14.0</td>
+<tr>
+<td style="text-align:left;">
+Athlete 30
+</td>
+<td style="text-align:right;">
+880
+</td>
+<td style="text-align:right;">
+14.0
+</td>
 </tr>
 </tbody>
 </table>
 <p>Descriptive statistics for YoYoIR1 and MAS test results can be found in the Table <a href="description.html#tab:yoyo-mas-descriptive-stats">2.13</a>.</p>
 
 <table>
-<caption><span id="tab:yoyo-mas-descriptive-stats">Table 2.13: </span><strong>Descriptive statistics for YoYoIR1 and MAS test results</strong></caption>
+<caption>
+<span id="tab:yoyo-mas-descriptive-stats">Table 2.13: </span><strong>Descriptive statistics for YoYoIR1 and MAS test results</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Estimator</th>
-<th align="right">YoYoIR1</th>
-<th align="right">MAS</th>
+<tr>
+<th style="text-align:left;">
+Estimator
+</th>
+<th style="text-align:right;">
+YoYoIR1
+</th>
+<th style="text-align:right;">
+MAS
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">n</td>
-<td align="right">30.00</td>
-<td align="right">30.00</td>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:right;">
+30.00
+</td>
+<td style="text-align:right;">
+30.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">mean</td>
-<td align="right">1205.33</td>
-<td align="right">14.85</td>
+<tr>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+1205.33
+</td>
+<td style="text-align:right;">
+14.85
+</td>
 </tr>
-<tr class="odd">
-<td align="left">SD</td>
-<td align="right">255.96</td>
-<td align="right">0.42</td>
+<tr>
+<td style="text-align:left;">
+SD
+</td>
+<td style="text-align:right;">
+255.96
+</td>
+<td style="text-align:right;">
+0.42
+</td>
 </tr>
-<tr class="even">
-<td align="left">% CV</td>
-<td align="right">21.24</td>
-<td align="right">2.82</td>
+<tr>
+<td style="text-align:left;">
+% CV
+</td>
+<td style="text-align:right;">
+21.24
+</td>
+<td style="text-align:right;">
+2.82
+</td>
 </tr>
-<tr class="odd">
-<td align="left">median</td>
-<td align="right">1200.00</td>
-<td align="right">15.00</td>
+<tr>
+<td style="text-align:left;">
+median
+</td>
+<td style="text-align:right;">
+1200.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">MAD</td>
-<td align="right">296.52</td>
-<td align="right">0.74</td>
+<tr>
+<td style="text-align:left;">
+MAD
+</td>
+<td style="text-align:right;">
+296.52
+</td>
+<td style="text-align:right;">
+0.74
+</td>
 </tr>
-<tr class="odd">
-<td align="left">IQR</td>
-<td align="right">410.00</td>
-<td align="right">0.50</td>
+<tr>
+<td style="text-align:left;">
+IQR
+</td>
+<td style="text-align:right;">
+410.00
+</td>
+<td style="text-align:right;">
+0.50
+</td>
 </tr>
-<tr class="even">
-<td align="left">mode</td>
-<td align="right">1131.68</td>
-<td align="right">15.00</td>
+<tr>
+<td style="text-align:left;">
+mode
+</td>
+<td style="text-align:right;">
+1131.68
+</td>
+<td style="text-align:right;">
+15.00
+</td>
 </tr>
-<tr class="odd">
-<td align="left">min</td>
-<td align="right">640.00</td>
-<td align="right">14.00</td>
+<tr>
+<td style="text-align:left;">
+min
+</td>
+<td style="text-align:right;">
+640.00
+</td>
+<td style="text-align:right;">
+14.00
+</td>
 </tr>
-<tr class="even">
-<td align="left">max</td>
-<td align="right">1640.00</td>
-<td align="right">15.50</td>
+<tr>
+<td style="text-align:left;">
+max
+</td>
+<td style="text-align:right;">
+1640.00
+</td>
+<td style="text-align:right;">
+15.50
+</td>
 </tr>
-<tr class="odd">
-<td align="left">range</td>
-<td align="right">1000.00</td>
-<td align="right">1.50</td>
+<tr>
+<td style="text-align:left;">
+range
+</td>
+<td style="text-align:right;">
+1000.00
+</td>
+<td style="text-align:right;">
+1.50
+</td>
 </tr>
-<tr class="even">
-<td align="left">skew</td>
-<td align="right">-0.02</td>
-<td align="right">-0.11</td>
+<tr>
+<td style="text-align:left;">
+skew
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+-0.11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">kurtosis</td>
-<td align="right">-0.68</td>
-<td align="right">-0.72</td>
+<tr>
+<td style="text-align:left;">
+kurtosis
+</td>
+<td style="text-align:right;">
+-0.68
+</td>
+<td style="text-align:right;">
+-0.72
+</td>
 </tr>
 </tbody>
 </table>
@@ -1368,19 +2272,33 @@ Figure 2.8: <strong>Scatter plot between two variables. </strong>Dashed line rep
 <p>Table <a href="description.html#tab:common-estimators-association">2.14</a> contains common estimators of the association between two variables. All estimators except <em>maximum information coefficient</em> (<code>MIC</code>) <span class="citation">(Albanese et al. <a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">2012</a><a href="#ref-albaneseMinervaMinepyEngine2012" role="doc-biblioref">b</a>; Reshef et al. <a href="#ref-reshefDetectingNovelAssociations2011" role="doc-biblioref">2011</a>)</span> assumes linear relationship between two variables. It is thus important to visually analyze the association (see Figure <a href="description.html#fig:yoyo-mas-simple-scatterplot">2.8</a>) before trusting numerical estimators.</p>
 
 <table>
-<caption><span id="tab:common-estimators-association">Table 2.14: </span><strong>Common estimators of the association between two variables</strong></caption>
+<caption>
+<span id="tab:common-estimators-association">Table 2.14: </span><strong>Common estimators of the association between two variables</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Pearson r</th>
-<th align="right">R-squared</th>
-<th align="right">MIC</th>
+<tr>
+<th style="text-align:right;">
+Pearson r
+</th>
+<th style="text-align:right;">
+R-squared
+</th>
+<th style="text-align:right;">
+MIC
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">0.86</td>
-<td align="right">0.74</td>
-<td align="right">0.55</td>
+<tr>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.55
+</td>
 </tr>
 </tbody>
 </table>
@@ -1413,19 +2331,33 @@ Figure 2.8: <strong>Scatter plot between two variables. </strong>Dashed line rep
 \end{equation}\]</span></p>
 
 <table>
-<caption><span id="tab:linear-reg-estimates">Table 2.15: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when MAS is the target variable an YoYoIR1 is the predictor</caption>
+<caption>
+<span id="tab:linear-reg-estimates">Table 2.15: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when MAS is the target variable an YoYoIR1 is the predictor
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Intercept (km/h)</th>
-<th align="right">Slope</th>
-<th align="right">RSE (km/h)</th>
+<tr>
+<th style="text-align:right;">
+Intercept (km/h)
+</th>
+<th style="text-align:right;">
+Slope
+</th>
+<th style="text-align:right;">
+RSE (km/h)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">13.16</td>
-<td align="right">0.0014</td>
-<td align="right">0.22</td>
+<tr>
+<td style="text-align:right;">
+13.16
+</td>
+<td style="text-align:right;">
+0.0014
+</td>
+<td style="text-align:right;">
+0.22
+</td>
 </tr>
 </tbody>
 </table>
@@ -1448,19 +2380,33 @@ Figure 2.8: <strong>Scatter plot between two variables. </strong>Dashed line rep
 <p>It can be seen that the reverse parameters from <a href="description.html#eq:rse-equation">(2.25)</a> differ from the parameters in the Table <a href="description.html#tab:reverse-estimates-table">2.16</a> which are estimated using YoYoIR1 as the target variable an MAS as the predictor variable.</p>
 
 <table>
-<caption><span id="tab:reverse-estimates-table">Table 2.16: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when YoYoIR1 is the target variable an MAS is the predictor</caption>
+<caption>
+<span id="tab:reverse-estimates-table">Table 2.16: </span>Linear regression estimates for <code>intercept</code>, <code>slope coefficient</code>, and <code>RSE</code> when YoYoIR1 is the target variable an MAS is the predictor
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Intercept (m)</th>
-<th align="right">Slope</th>
-<th align="right">RSE (m)</th>
+<tr>
+<th style="text-align:right;">
+Intercept (m)
+</th>
+<th style="text-align:right;">
+Slope
+</th>
+<th style="text-align:right;">
+RSE (m)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">-6589.82</td>
-<td align="right">524.93</td>
-<td align="right">133.84</td>
+<tr>
+<td style="text-align:right;">
+-6589.82
+</td>
+<td style="text-align:right;">
+524.93
+</td>
+<td style="text-align:right;">
+133.84
+</td>
 </tr>
 </tbody>
 </table>
@@ -1520,26 +2466,52 @@ Figure 2.11: <strong>Residuals of the linear regression model predicting MAS fro
 </div>
 
 
-<table>
-<caption><span id="tab:association-magnitude-table">Table 2.17: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. MAS is the target variable, and YoYoIR1 is the predictor</caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:association-magnitude-table">Table 2.17: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. MAS is the target variable, and YoYoIR1 is the predictor
+</caption>
 <thead>
-<tr class="header">
-<th align="left">SESOI YoYoIR1 (m)</th>
-<th align="left">SESOI MAS (km/h)</th>
-<th align="right">Sensitivity</th>
-<th align="right">RSE</th>
-<th align="right">SESOI MAS to RSE</th>
-<th align="right">PPER</th>
+<tr>
+<th style="text-align:left;">
+SESOI YoYoIR1 (m)
+</th>
+<th style="text-align:left;">
+SESOI MAS (km/h)
+</th>
+<th style="text-align:right;">
+Sensitivity
+</th>
+<th style="text-align:right;">
+RSE
+</th>
+<th style="text-align:right;">
+SESOI MAS to RSE
+</th>
+<th style="text-align:right;">
+PPER
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">±40</td>
-<td align="left">±0.5</td>
-<td align="right">0.11</td>
-<td align="right">0.22</td>
-<td align="right">4.57</td>
-<td align="right">0.98</td>
+<tr>
+<td style="text-align:left;">
+±40
+</td>
+<td style="text-align:left;">
+±0.5
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+4.57
+</td>
+<td style="text-align:right;">
+0.98
+</td>
 </tr>
 </tbody>
 </table>
@@ -1552,26 +2524,52 @@ Figure 2.12: <strong>Linear regression model estimating association between YoYo
 </div>
 
 
-<table>
-<caption><span id="tab:association-magnitude-yoyo-table">Table 2.18: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. YoYoIR1 is the target variable, and MAS is the predictor</caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:association-magnitude-yoyo-table">Table 2.18: </span><strong>Magnitude-based estimators of the association between two variables.</strong> Association is estimated using linear regression model. YoYoIR1 is the target variable, and MAS is the predictor
+</caption>
 <thead>
-<tr class="header">
-<th align="left">SESOI YoYoIR1 (m)</th>
-<th align="left">SESOI MAS (km/h)</th>
-<th align="right">Sensitivity</th>
-<th align="right">RSE</th>
-<th align="right">SESOI YoYoIR1 to RSE</th>
-<th align="right">PPER</th>
+<tr>
+<th style="text-align:left;">
+SESOI YoYoIR1 (m)
+</th>
+<th style="text-align:left;">
+SESOI MAS (km/h)
+</th>
+<th style="text-align:right;">
+Sensitivity
+</th>
+<th style="text-align:right;">
+RSE
+</th>
+<th style="text-align:right;">
+SESOI YoYoIR1 to RSE
+</th>
+<th style="text-align:right;">
+PPER
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">±40</td>
-<td align="left">±0.5</td>
-<td align="right">6.56</td>
-<td align="right">133.84</td>
-<td align="right">0.6</td>
-<td align="right">0.23</td>
+<tr>
+<td style="text-align:left;">
+±40
+</td>
+<td style="text-align:left;">
+±0.5
+</td>
+<td style="text-align:right;">
+6.56
+</td>
+<td style="text-align:right;">
+133.84
+</td>
+<td style="text-align:right;">
+0.6
+</td>
+<td style="text-align:right;">
+0.23
+</td>
 </tr>
 </tbody>
 </table>
@@ -1751,7 +2749,7 @@ Figure 2.12: <strong>Linear regression model estimating association between YoYo
 <script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/02-Description.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": null,"toc": {"collapse": "subsection"}});
+gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/02-Description.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": ["bmbstats-book.pdf"],"toc": {"collapse": "subsection"}});
 });
 </script>
 

@@ -30,33 +30,29 @@ practical_random <- 1
 
 set.seed(1667)
 
-agreement_data <- tibble(
-  Athlete = paste(
-    "Athlete",
-    str_pad(
-      string = seq(1, n_subjects),
-      width = 2,
-      pad = "0"
-    )
-  ),
-  True_score = rnorm(n_subjects, 45, 5),
-  Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
-  Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
-)
+agreement_data <- tibble(Athlete = paste("Athlete", str_pad(string = seq(1, 
+    n_subjects), width = 2, pad = "0")), True_score = rnorm(n_subjects, 
+    45, 5), Criterion_score.trial1 = 0 + (True_score * 1) + 
+    rnorm(n_subjects, 0, criterion_random), Criterion_score.trial2 = 0 + 
+    (True_score * 1) + rnorm(n_subjects, 0, criterion_random), 
+    Practical_score.trial1 = practical_fixed + (True_score * 
+        practical_proportional) + rnorm(n_subjects, 0, practical_random), 
+    Practical_score.trial2 = practical_fixed + (True_score * 
+        practical_proportional) + rnorm(n_subjects, 0, practical_random))
 
 head(agreement_data)
 #> # A tibble: 6 x 6
-#>   Athlete True_score Criterion_score~ Criterion_score~ Practical_score~
-#>   <chr>        <dbl>            <dbl>            <dbl>            <dbl>
-#> 1 Athlet~       52.9             52.9             52.9             60.2
-#> 2 Athlet~       42.4             42.3             42.2             48.7
-#> 3 Athlet~       49.2             49.1             49.5             56.0
-#> 4 Athlet~       44.8             44.7             44.8             51.5
-#> 5 Athlet~       40.0             40.4             40.1             45.7
-#> 6 Athlet~       42.6             42.5             42.2             49.7
-#> # ... with 1 more variable: Practical_score.trial2 <dbl>
+#>   Athlete True_score Criterion_score~ Criterion_score~
+#>   <chr>        <dbl>            <dbl>            <dbl>
+#> 1 Athlet~       52.9             52.9             52.9
+#> 2 Athlet~       42.4             42.3             42.2
+#> 3 Athlet~       49.2             49.1             49.5
+#> 4 Athlet~       44.8             44.7             44.8
+#> 5 Athlet~       40.0             40.4             40.1
+#> 6 Athlet~       42.6             42.5             42.2
+#> # ... with 2 more variables:
+#> #   Practical_score.trial1 <dbl>,
+#> #   Practical_score.trial2 <dbl>
 ```
 
 The assumption of the above DGP is that true score stays unchanged for trial 1 and trial 2. Thus, the only thing that creates variance in the criterion and practical measures is the random error component of the measurement error. 
@@ -73,15 +69,8 @@ To *re-create* DGP parameters for the criterion measure, we will use the true sc
 
 
 ```r
-ggplot(
-  agreement_data,
-  aes(
-    x = True_score,
-    y = Criterion_score.trial1
-  )
-) +
-  theme_cowplot(8) +
-  geom_point()
+ggplot(agreement_data, aes(x = True_score, y = Criterion_score.trial1)) + 
+    theme_cowplot(8) + geom_point()
 ```
 
 
@@ -96,14 +85,10 @@ Using the `bmbstats::plot_pair_BA` function we can generate Bland-Altman plot fo
 
 
 ```r
-bmbstats::plot_pair_BA(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Criterion Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_BA(predictor = agreement_data$True_score, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "True Score", 
+    outcome_label = "Criterion Score", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -116,42 +101,30 @@ How do we re-create the DGP parameters? Well, using Bland-Altman method, both fi
 
 
 ```r
-differences_method <- function(data,
-                               criterion,
-                               practical,
-                               SESOI_lower = 0,
-                               SESOI_upper = 0,
-                               na.rm = FALSE) {
-  practical_obs <- data[[practical]]
-  criterion_obs <- data[[criterion]]
-
-  SESOI_range <- SESOI_upper - SESOI_lower
-
-  diff <- criterion_obs - practical_obs
-
-  n_obs <- length(diff)
-
-  mean_diff <- mean(diff, na.rm = na.rm)
-  sd_diff <- sd(diff, na.rm = na.rm)
-
-  PPER <- stats::pt((SESOI_upper - mean_diff) / sd_diff, df = n_obs - 1) -
-    stats::pt((SESOI_lower - mean_diff) / sd_diff, df = n_obs - 1)
-
-  c(
-    "Mean diff" = mean_diff,
-    "SD diff" = sd_diff,
-    PPER = PPER
-  )
+differences_method <- function(data, criterion, practical, 
+    SESOI_lower = 0, SESOI_upper = 0, na.rm = FALSE) {
+    practical_obs <- data[[practical]]
+    criterion_obs <- data[[criterion]]
+    
+    SESOI_range <- SESOI_upper - SESOI_lower
+    
+    diff <- criterion_obs - practical_obs
+    
+    n_obs <- length(diff)
+    
+    mean_diff <- mean(diff, na.rm = na.rm)
+    sd_diff <- sd(diff, na.rm = na.rm)
+    
+    PPER <- stats::pt((SESOI_upper - mean_diff)/sd_diff, 
+        df = n_obs - 1) - stats::pt((SESOI_lower - mean_diff)/sd_diff, 
+        df = n_obs - 1)
+    
+    c(`Mean diff` = mean_diff, `SD diff` = sd_diff, PPER = PPER)
 }
 
 # Run the analysis
-differences_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+differences_method(data = agreement_data, criterion = "Criterion_score.trial1", 
+    practical = "True_score", SESOI_lower = -2.5, SESOI_upper = 2.5)
 #>   Mean diff     SD diff        PPER 
 #> -0.07726199  0.26125825  0.99999999
 ```
@@ -160,15 +133,10 @@ We do know that the random error for the criterion score is 0.3cm since we have 
 
 
 ```r
-difference_validity <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = differences_method,
-  control = model_control(seed = 1667)
-)
+difference_validity <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Criterion_score.trial1", practical = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = differences_method, 
+    control = model_control(seed = 1667))
 
 difference_validity
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -187,14 +155,10 @@ Another approach involves using simple linear regression method, where `RSE` is 
 
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Criterion Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_lm(predictor = agreement_data$True_score, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "True Score", 
+    outcome_label = "Criterion Score", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -205,47 +169,34 @@ The linear regression parameters are used as estimates of the measurement error:
 
 
 ```r
-lm_method <- function(data,
-                      criterion,
-                      practical,
-                      SESOI_lower = 0,
-                      SESOI_upper = 0,
-                      na.rm = FALSE) {
-  practical_obs <- data[[practical]]
-  criterion_obs <- data[[criterion]]
-
-  SESOI_range <- SESOI_upper - SESOI_lower
-
-  lm_model <- lm(criterion_obs ~ practical_obs)
-
-  n_obs <- length(criterion_obs)
-
-  intercept <- coef(lm_model)[[1]]
-  slope <- coef(lm_model)[[2]]
-  rse <- summary(lm_model)$sigma
-
-  # This is very close to 0, but will use it nonetheless
-  mean_diff <- mean(residuals(lm_model))
-
-  PPER <- stats::pt((SESOI_upper - mean_diff) / rse, df = n_obs - 1) -
-    stats::pt((SESOI_lower - mean_diff) / rse, df = n_obs - 1)
-
-  c(
-    "Intercept" = intercept,
-    "Slope" = slope,
-    "RSE" = rse,
-    PPER = PPER
-  )
+lm_method <- function(data, criterion, practical, SESOI_lower = 0, 
+    SESOI_upper = 0, na.rm = FALSE) {
+    practical_obs <- data[[practical]]
+    criterion_obs <- data[[criterion]]
+    
+    SESOI_range <- SESOI_upper - SESOI_lower
+    
+    lm_model <- lm(criterion_obs ~ practical_obs)
+    
+    n_obs <- length(criterion_obs)
+    
+    intercept <- coef(lm_model)[[1]]
+    slope <- coef(lm_model)[[2]]
+    rse <- summary(lm_model)$sigma
+    
+    # This is very close to 0, but will use it nonetheless
+    mean_diff <- mean(residuals(lm_model))
+    
+    PPER <- stats::pt((SESOI_upper - mean_diff)/rse, df = n_obs - 
+        1) - stats::pt((SESOI_lower - mean_diff)/rse, df = n_obs - 
+        1)
+    
+    c(Intercept = intercept, Slope = slope, RSE = rse, PPER = PPER)
 }
 
 # Run the analysis
-lm_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+lm_method(data = agreement_data, criterion = "Criterion_score.trial1", 
+    practical = "True_score", SESOI_lower = -2.5, SESOI_upper = 2.5)
 #>  Intercept      Slope        RSE       PPER 
 #> -0.4518909  1.0084198  0.2643645  1.0000000
 ```
@@ -254,15 +205,10 @@ We will use `bmbstats::validity_analysis` to get 95% CIs around the estimates:
 
 
 ```r
-lm_validity <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = lm_method,
-  control = model_control(seed = 1667)
-)
+lm_validity <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Criterion_score.trial1", practical = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = lm_method, 
+    control = model_control(seed = 1667))
 
 lm_validity
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -280,12 +226,8 @@ We can also perform NHST for fixed and proportional bias, and random error (`RSE
 
 
 ```r
-bmbstats::bootstrap_NHST(
-  lm_validity,
-  estimator = "Intercept",
-  null_hypothesis = 0,
-  test = "two.sided"
-)
+bmbstats::bootstrap_NHST(lm_validity, estimator = "Intercept", 
+    null_hypothesis = 0, test = "two.sided")
 #> Null-hypothesis significance test for the `Intercept` estimator
 #> Bootstrap result: Intercept=-0.452, 95% CI [-1.076, 0.834]
 #> H0=0, test: two.sided
@@ -294,12 +236,8 @@ bmbstats::bootstrap_NHST(
 
 
 ```r
-bmbstats::bootstrap_NHST(
-  lm_validity,
-  estimator = "Slope",
-  null_hypothesis = 1,
-  test = "two.sided"
-)
+bmbstats::bootstrap_NHST(lm_validity, estimator = "Slope", 
+    null_hypothesis = 1, test = "two.sided")
 #> Null-hypothesis significance test for the `Slope` estimator
 #> Bootstrap result: Slope=1.008, 95% CI [0.983, 1.022]
 #> H0=1, test: two.sided
@@ -308,12 +246,8 @@ bmbstats::bootstrap_NHST(
 
 
 ```r
-bmbstats::bootstrap_NHST(
-  lm_validity,
-  estimator = "RSE",
-  null_hypothesis = criterion_random,
-  test = "two.sided"
-)
+bmbstats::bootstrap_NHST(lm_validity, estimator = "RSE", 
+    null_hypothesis = criterion_random, test = "two.sided")
 #> Null-hypothesis significance test for the `RSE` estimator
 #> Bootstrap result: RSE=0.264, 95% CI [0.186, 0.358]
 #> H0=0.3, test: two.sided
@@ -324,10 +258,8 @@ Please notice the similarity between `SD diff` from the method of differences an
 
 
 ```r
-rbind(
-  difference_validity$estimators[2, ],
-  lm_validity$estimators[3, ]
-)
+rbind(difference_validity$estimators[2, ], lm_validity$estimators[3, 
+    ])
 #>   estimator     value     lower     upper
 #> 2   SD diff 0.2612583 0.1964889 0.3457962
 #> 3       RSE 0.2643645 0.1859689 0.3575745
@@ -347,14 +279,10 @@ To plot OLP regression, use `bmbstats::plot_pair_OLP` function. The OLP regressi
 
 
 ```r
-bmbstats::plot_pair_OLP(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Criterion Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_OLP(predictor = agreement_data$True_score, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "True Score", 
+    outcome_label = "Criterion Score", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -365,47 +293,31 @@ Let's write the OLP validity estimators and check the output. OLP regression is 
 
 
 ```r
-olp_method <- function(data,
-                      criterion,
-                      practical,
-                      SESOI_lower = 0,
-                      SESOI_upper = 0,
-                      na.rm = FALSE) {
-  practical_obs <- data[[practical]]
-  criterion_obs <- data[[criterion]]
-
-  SESOI_range <- SESOI_upper - SESOI_lower
-
-  olp_model <- bmbstats::OLP_regression(
-    outcome = criterion_obs,
-    predictor = practical_obs,
-    na.rm = na.rm)
-
-  n_obs <- length(criterion_obs)
-
-  intercept <- olp_model$intercept
-  slope <- olp_model$slope
-  rse <- olp_model$rse
-
-  PPER <- stats::pt((SESOI_upper) / rse, df = n_obs - 1) -
-    stats::pt((SESOI_lower) / rse, df = n_obs - 1)
-
-  c(
-    "Intercept" = intercept,
-    "Slope" = slope,
-    "RSE" = rse,
-    PPER = PPER
-  )
+olp_method <- function(data, criterion, practical, SESOI_lower = 0, 
+    SESOI_upper = 0, na.rm = FALSE) {
+    practical_obs <- data[[practical]]
+    criterion_obs <- data[[criterion]]
+    
+    SESOI_range <- SESOI_upper - SESOI_lower
+    
+    olp_model <- bmbstats::OLP_regression(outcome = criterion_obs, 
+        predictor = practical_obs, na.rm = na.rm)
+    
+    n_obs <- length(criterion_obs)
+    
+    intercept <- olp_model$intercept
+    slope <- olp_model$slope
+    rse <- olp_model$rse
+    
+    PPER <- stats::pt((SESOI_upper)/rse, df = n_obs - 1) - 
+        stats::pt((SESOI_lower)/rse, df = n_obs - 1)
+    
+    c(Intercept = intercept, Slope = slope, RSE = rse, PPER = PPER)
 }
 
 
-olp_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+olp_method(data = agreement_data, criterion = "Criterion_score.trial1", 
+    practical = "True_score", SESOI_lower = -2.5, SESOI_upper = 2.5)
 #>  Intercept      Slope        RSE       PPER 
 #> -0.5024828  1.0095568  0.2644390  1.0000000
 ```
@@ -414,15 +326,10 @@ To estimate 95% CIs for these estimators, use the *default* `bmbstats::validity_
 
 
 ```r
-olp_validity <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = olp_method,
-  control = model_control(seed = 1667)
-)
+olp_validity <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Criterion_score.trial1", practical = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = olp_method, 
+    control = model_control(seed = 1667))
 
 olp_validity
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -442,15 +349,10 @@ But in the real life (as we will soon see when using criterion and practical mea
 
 
 ```r
-difference_validity_flip <- bmbstats::validity_analysis(
-  data = agreement_data,
-  practical = "Criterion_score.trial1",
-  criterion = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = differences_method,
-  control = model_control(seed = 1667)
-)
+difference_validity_flip <- bmbstats::validity_analysis(data = agreement_data, 
+    practical = "Criterion_score.trial1", criterion = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = differences_method, 
+    control = model_control(seed = 1667))
 
 difference_validity_flip
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -463,15 +365,10 @@ difference_validity_flip
 
 
 ```r
-lm_validity_flip <- bmbstats::validity_analysis(
-  data = agreement_data,
-  practical = "Criterion_score.trial1",
-  criterion = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = lm_method,
-  control = model_control(seed = 1667)
-)
+lm_validity_flip <- bmbstats::validity_analysis(data = agreement_data, 
+    practical = "Criterion_score.trial1", criterion = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = lm_method, 
+    control = model_control(seed = 1667))
 
 lm_validity_flip
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -485,15 +382,10 @@ lm_validity_flip
 
 
 ```r
-olp_validity_flip <- bmbstats::validity_analysis(
-  data = agreement_data,
-  practical = "Criterion_score.trial1",
-  criterion = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  estimator_function = olp_method,
-  control = model_control(seed = 1667)
-)
+olp_validity_flip <- bmbstats::validity_analysis(data = agreement_data, 
+    practical = "Criterion_score.trial1", criterion = "True_score", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, estimator_function = olp_method, 
+    control = model_control(seed = 1667))
 
 olp_validity_flip
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -509,23 +401,30 @@ Let's combine the result for the random error estimates so we can compare them a
 
 
 ```r
-rand_err_estimates <- rbind(
-  data.frame(outcome = "Criterion", method = "Difference", difference_validity$estimators[2, ]),
-  data.frame(outcome = "True", method = "Difference", difference_validity_flip$estimators[2, ]),
-  data.frame(outcome = "Criterion", method = "lm", lm_validity$estimators[3, ]),
-  data.frame(outcome = "True", method = "lm", lm_validity_flip$estimators[3, ]),
-  data.frame(outcome = "Criterion", method = "olp", olp_validity$estimators[3, ]),
-  data.frame(outcome = "True", method = "olp", olp_validity_flip$estimators[3, ])
-)
+rand_err_estimates <- rbind(data.frame(outcome = "Criterion", 
+    method = "Difference", difference_validity$estimators[2, 
+        ]), data.frame(outcome = "True", method = "Difference", 
+    difference_validity_flip$estimators[2, ]), data.frame(outcome = "Criterion", 
+    method = "lm", lm_validity$estimators[3, ]), data.frame(outcome = "True", 
+    method = "lm", lm_validity_flip$estimators[3, ]), data.frame(outcome = "Criterion", 
+    method = "olp", olp_validity$estimators[3, ]), data.frame(outcome = "True", 
+    method = "olp", olp_validity_flip$estimators[3, ]))
 
 print(rand_err_estimates, row.names = FALSE)
-#>    outcome     method estimator     value     lower     upper
-#>  Criterion Difference   SD diff 0.2612583 0.1964889 0.3457962
-#>       True Difference   SD diff 0.2612583 0.1964889 0.3457962
-#>  Criterion         lm       RSE 0.2643645 0.1859689 0.3575745
-#>       True         lm       RSE 0.2618619 0.1813661 0.3559808
-#>  Criterion        olp       RSE 0.2644390 0.1859924 0.3579299
-#>       True        olp       RSE 0.2619357 0.1812142 0.3560398
+#>    outcome     method estimator     value     lower
+#>  Criterion Difference   SD diff 0.2612583 0.1964889
+#>       True Difference   SD diff 0.2612583 0.1964889
+#>  Criterion         lm       RSE 0.2643645 0.1859689
+#>       True         lm       RSE 0.2618619 0.1813661
+#>  Criterion        olp       RSE 0.2644390 0.1859924
+#>       True        olp       RSE 0.2619357 0.1812142
+#>      upper
+#>  0.3457962
+#>  0.3457962
+#>  0.3575745
+#>  0.3559808
+#>  0.3579299
+#>  0.3560398
 ```
 
 As can be seen from the table, the estimates for the random error component of the criterion measure are very similar (although `SD diff` is smaller due dividing by $N-1$, while `RSE` uses $N-k-1$, where k is number of predictors, thus we get $N-2$) regardless of the method and which variable is the predictor and which is outcome. But this is the case since true score is the *true score* without measurement error. Let's see what happens in the *real-world*.
@@ -541,15 +440,8 @@ Let's check if we can re-create DGP parameters for the practical measure (which 
 
 
 ```r
-ggplot(
-  agreement_data,
-  aes(
-    x = True_score,
-    y = Practical_score.trial1
-  )
-) +
-  theme_cowplot(8) +
-  geom_point()
+ggplot(agreement_data, aes(x = True_score, y = Practical_score.trial1)) + 
+    theme_cowplot(8) + geom_point()
 ```
 
 
@@ -560,12 +452,9 @@ To re-create DGP for the practical measure, we need to use true score as the pre
 
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$True_score,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "True Score",
-  outcome_label = "Practical Score"
-)
+bmbstats::plot_pair_lm(predictor = agreement_data$True_score, 
+    outcome = agreement_data$Practical_score.trial1, predictor_label = "True Score", 
+    outcome_label = "Practical Score")
 ```
 
 
@@ -576,15 +465,10 @@ And let's estimate the 95% bootstrap confidence intervals:
 
 
 ```r
-lm_validity_practical <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Practical_score.trial1",
-  practical = "True_score",
-  SESOI_lower = NA,
-  SESOI_upper = NA,
-  estimator_function = lm_method,
-  control = model_control(seed = 1667)
-)
+lm_validity_practical <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Practical_score.trial1", practical = "True_score", 
+    SESOI_lower = NA, SESOI_upper = NA, estimator_function = lm_method, 
+    control = model_control(seed = 1667))
 
 lm_validity_practical
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -602,12 +486,9 @@ Unfortunately, we have to use the criterion measure, since we do not know the tr
 
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$Criterion_score.trial1,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "Criterion Score",
-  outcome_label = "Practical Score"
-)
+bmbstats::plot_pair_lm(predictor = agreement_data$Criterion_score.trial1, 
+    outcome = agreement_data$Practical_score.trial1, predictor_label = "Criterion Score", 
+    outcome_label = "Practical Score")
 ```
 
 
@@ -618,15 +499,10 @@ And let's estimate the bootstrap 95% CIs:
 
 
 ```r
-lm_validity_practical_criterion <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Practical_score.trial1",
-  practical = "Criterion_score.trial1",
-  SESOI_lower = NA,
-  SESOI_upper = NA,
-  estimator_function = lm_method,
-  control = model_control(seed = 1667)
-)
+lm_validity_practical_criterion <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Practical_score.trial1", practical = "Criterion_score.trial1", 
+    SESOI_lower = NA, SESOI_upper = NA, estimator_function = lm_method, 
+    control = model_control(seed = 1667))
 
 lm_validity_practical_criterion
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -642,15 +518,10 @@ Since criterion measure (in this case used as predictor, or x-variable) also con
 
 
 ```r
-olp_validity_practical_criterion <- bmbstats::validity_analysis(
-  data = agreement_data,
-  criterion = "Practical_score.trial1",
-  practical = "Criterion_score.trial1",
-  SESOI_lower = NA,
-  SESOI_upper = NA,
-  estimator_function = olp_method,
-  control = model_control(seed = 1667)
-)
+olp_validity_practical_criterion <- bmbstats::validity_analysis(data = agreement_data, 
+    criterion = "Practical_score.trial1", practical = "Criterion_score.trial1", 
+    SESOI_lower = NA, SESOI_upper = NA, estimator_function = olp_method, 
+    control = model_control(seed = 1667))
 
 olp_validity_practical_criterion
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -666,28 +537,19 @@ Let's combine the three approaches so we can compare them more easily with the t
 
 
 ```r
-practical_estimators <- rbind(
-  data.frame(
-    method = "DGP",
-    estimator = c("Intercept", "Slope", "RSE"),
-    value = c(practical_fixed, practical_proportional, practical_random),
-    lower = NA,
-    upper = NA
-  ),
-  data.frame(method = "True lm", lm_validity_practical$estimators[1:3, ]),
-  data.frame(method = "Criterion lm", lm_validity_practical_criterion$estimators[1:3, ]),
-  data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[1:3, ])
-)
+practical_estimators <- rbind(data.frame(method = "DGP", 
+    estimator = c("Intercept", "Slope", "RSE"), value = c(practical_fixed, 
+        practical_proportional, practical_random), lower = NA, 
+    upper = NA), data.frame(method = "True lm", lm_validity_practical$estimators[1:3, 
+    ]), data.frame(method = "Criterion lm", lm_validity_practical_criterion$estimators[1:3, 
+    ]), data.frame(method = "Criterion olp", olp_validity_practical_criterion$estimators[1:3, 
+    ]))
 
-practical_estimators$method <- factor(
-  practical_estimators$method,
-  levels = rev(c("DGP", "True lm", "Criterion lm", "Criterion olp"))
-)
+practical_estimators$method <- factor(practical_estimators$method, 
+    levels = rev(c("DGP", "True lm", "Criterion lm", "Criterion olp")))
 
-practical_estimators$estimator <- factor(
-  practical_estimators$estimator,
-  levels = c("Intercept", "Slope", "RSE")
-)
+practical_estimators$estimator <- factor(practical_estimators$estimator, 
+    levels = c("Intercept", "Slope", "RSE"))
 
 print(practical_estimators, row.names = FALSE)
 #>         method estimator     value      lower    upper
@@ -709,24 +571,12 @@ Or plot for even more easier comparison (red vertical dashed line represent the 
 
 
 ```r
-ggplot(
-  data = filter(practical_estimators, method != "DGP"),
-  aes(y = method, x = value)
-) +
-  theme_bw(8) +
-  geom_errorbarh(aes(xmax = upper, xmin = lower),
-    color = "black",
-    height = 0
-  ) +
-  geom_vline(
-    data = filter(practical_estimators, method == "DGP"),
-    aes(xintercept = value),
-    linetype = "dashed", color = "red"
-  ) +
-  geom_point() +
-  xlab("") +
-  ylab("") +
-  facet_wrap(~estimator, scales = "free_x")
+ggplot(data = filter(practical_estimators, method != "DGP"), 
+    aes(y = method, x = value)) + theme_bw(8) + geom_errorbarh(aes(xmax = upper, 
+    xmin = lower), color = "black", height = 0) + geom_vline(data = filter(practical_estimators, 
+    method == "DGP"), aes(xintercept = value), linetype = "dashed", 
+    color = "red") + geom_point() + xlab("") + ylab("") + 
+    facet_wrap(~estimator, scales = "free_x")
 ```
 
 
@@ -737,41 +587,47 @@ To understand how these methods and how their estimates behave when there is ran
 
 
 ```r
-simulation_df <- expand.grid(
-  simulation = seq(1, 500),
-  criterion_random_error = seq(0, 2 * practical_random, length.out = 10)
-)
+simulation_df <- expand.grid(simulation = seq(1, 500), criterion_random_error = seq(0, 
+    2 * practical_random, length.out = 10))
 
-simulation_df <- simulation_df %>%
-  pmap_dfr(function(...) {
+simulation_df <- simulation_df %>% pmap_dfr(function(...) {
     current <- tibble(...)
-
-    agreement_data <- tibble(
-      True_score = rnorm(n_subjects, 45, 5),
-      Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
-      Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
-      Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
-      Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
-    )
+    
+    agreement_data <- tibble(True_score = rnorm(n_subjects, 
+        45, 5), Criterion_score.trial1 = 0 + (True_score * 
+        1) + rnorm(n_subjects, 0, current$criterion_random_error), 
+        Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 
+            0, current$criterion_random_error), Practical_score.trial1 = practical_fixed + 
+            (True_score * practical_proportional) + rnorm(n_subjects, 
+            0, practical_random), Practical_score.trial2 = practical_fixed + 
+            (True_score * practical_proportional) + rnorm(n_subjects, 
+            0, practical_random))
     
     cbind(current, agreement_data)
-  })
+})
 
 head(simulation_df)
-#>   simulation criterion_random_error True_score Criterion_score.trial1
-#> 1          1                      0   41.44284               41.44284
-#> 2          1                      0   42.76338               42.76338
-#> 3          1                      0   39.33558               39.33558
-#> 4          1                      0   54.14657               54.14657
-#> 5          1                      0   42.17742               42.17742
-#> 6          1                      0   50.57845               50.57845
-#>   Criterion_score.trial2 Practical_score.trial1 Practical_score.trial2
-#> 1               41.44284               47.36111               47.05610
-#> 2               42.76338               49.30239               47.59944
-#> 3               39.33558               46.81175               45.48609
-#> 4               54.14657               62.99236               62.44907
-#> 5               42.17742               49.52856               49.12834
-#> 6               50.57845               56.14485               59.70339
+#>   simulation criterion_random_error True_score
+#> 1          1                      0   41.44284
+#> 2          1                      0   42.76338
+#> 3          1                      0   39.33558
+#> 4          1                      0   54.14657
+#> 5          1                      0   42.17742
+#> 6          1                      0   50.57845
+#>   Criterion_score.trial1 Criterion_score.trial2
+#> 1               41.44284               41.44284
+#> 2               42.76338               42.76338
+#> 3               39.33558               39.33558
+#> 4               54.14657               54.14657
+#> 5               42.17742               42.17742
+#> 6               50.57845               50.57845
+#>   Practical_score.trial1 Practical_score.trial2
+#> 1               47.36111               47.05610
+#> 2               49.30239               47.59944
+#> 3               46.81175               45.48609
+#> 4               62.99236               62.44907
+#> 5               49.52856               49.12834
+#> 6               56.14485               59.70339
 ```
 
 Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, slope, and random error) using simple linear regression and OLP regression using criterion as predictor and practical as the outcome variables. 
@@ -779,112 +635,72 @@ Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, s
 
 ```r
 estimation_wrapper <- function(data) {
-  lm_true <- lm_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "True_score",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  lm_criterion <- lm_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  olp_criterion <- olp_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  data.frame(
-    simulation = data$simulation[1],
-    criterion_random_error = data$criterion_random_error[1],
-    method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
-    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2]),
-    RSE = c(lm_true[3], lm_criterion[3], olp_criterion[3])
-  )
+    lm_true <- lm_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "True_score", SESOI_lower = NA, SESOI_upper = NA)
+    
+    lm_criterion <- lm_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    olp_criterion <- olp_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    data.frame(simulation = data$simulation[1], criterion_random_error = data$criterion_random_error[1], 
+        method = c("True lm", "Criterion lm", "Criterion olp"), 
+        Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]), 
+        Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2]), 
+        RSE = c(lm_true[3], lm_criterion[3], olp_criterion[3]))
 }
 
-simulation_results <- simulation_df %>%
-  group_by(simulation, criterion_random_error) %>%
-  do(estimation_wrapper(.))
+simulation_results <- simulation_df %>% group_by(simulation, 
+    criterion_random_error) %>% do(estimation_wrapper(.))
 
 
 head(simulation_results)
 #> # A tibble: 6 x 6
 #> # Groups:   simulation, criterion_random_error [2]
-#>   simulation criterion_random_error method        Intercept Slope   RSE
-#>        <int>                  <dbl> <chr>             <dbl> <dbl> <dbl>
-#> 1          1                  0     True lm          3.35    1.08 0.949
-#> 2          1                  0     Criterion lm     3.35    1.08 0.949
-#> 3          1                  0     Criterion olp    2.83    1.09 0.952
-#> 4          1                  0.222 True lm         -0.0301  1.14 1.19 
-#> 5          1                  0.222 Criterion lm    -0.717   1.16 1.15 
-#> 6          1                  0.222 Criterion olp   -1.38    1.17 1.15
+#>   simulation criterion_rando~ method Intercept Slope
+#>        <int>            <dbl> <chr>      <dbl> <dbl>
+#> 1          1            0     True ~    3.35    1.08
+#> 2          1            0     Crite~    3.35    1.08
+#> 3          1            0     Crite~    2.83    1.09
+#> 4          1            0.222 True ~   -0.0301  1.14
+#> 5          1            0.222 Crite~   -0.717   1.16
+#> 6          1            0.222 Crite~   -1.38    1.17
+#> # ... with 1 more variable: RSE <dbl>
 ```
 
 And now we can plot the results:
 
 
 ```r
-simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+simulation_results_long <- gather(simulation_results, "key", 
+    "value", -(1:3))
 
 # Join the true DGP values for plotting
-simulation_results_long <- left_join(
-  simulation_results_long,
-  data.frame(
-    key = c("Intercept", "Slope", "RSE"),
-    DGP = c(practical_fixed, practical_proportional, practical_random)
-  ),
-  by = "key"
-)
+simulation_results_long <- left_join(simulation_results_long, 
+    data.frame(key = c("Intercept", "Slope", "RSE"), DGP = c(practical_fixed, 
+        practical_proportional, practical_random)), by = "key")
 
-simulation_results_long$key <- factor(
-  simulation_results_long$key,
-  levels = c("Intercept", "Slope", "RSE")
-)
+simulation_results_long$key <- factor(simulation_results_long$key, 
+    levels = c("Intercept", "Slope", "RSE"))
 
-simulation_results_long$method <- factor(
-  simulation_results_long$method,
-  levels = c("True lm", "Criterion lm", "Criterion olp")
-)
+simulation_results_long$method <- factor(simulation_results_long$method, 
+    levels = c("True lm", "Criterion lm", "Criterion olp"))
 
-simulation_results_long_avg <- simulation_results_long %>%
-  group_by(method, criterion_random_error, key) %>%
-  summarise(
-    mean = mean(value),
-    upper = mean + (sd(value)),
-    lower = mean - (sd(value))
-  )
+simulation_results_long_avg <- simulation_results_long %>% 
+    group_by(method, criterion_random_error, key) %>% summarise(mean = mean(value), 
+    upper = mean + (sd(value)), lower = mean - (sd(value)))
 
-ggplot(
-  simulation_results_long,
-  aes(x = criterion_random_error, y = value, group = simulation)
-) +
-  theme_cowplot(8) +
-  geom_line(alpha = 0.02) +
-  geom_ribbon(
-    data = simulation_results_long_avg,
-    aes(y = mean, ymin = lower, ymax = upper, group = 1),
-    alpha = 0.3, fill = "blue"
-  ) +
-  geom_line(
-    data = simulation_results_long_avg,
-    color = "white",
-    aes(y = mean, group = 1),
-    size = 1) +
-  facet_grid(key ~ method, scales = "free") +
-  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
-  ylab(NULL) +
-  xlab("Criterion random error")
+ggplot(simulation_results_long, aes(x = criterion_random_error, 
+    y = value, group = simulation)) + theme_cowplot(8) + 
+    geom_line(alpha = 0.02) + geom_ribbon(data = simulation_results_long_avg, 
+    aes(y = mean, ymin = lower, ymax = upper, group = 1), 
+    alpha = 0.3, fill = "blue") + geom_line(data = simulation_results_long_avg, 
+    color = "white", aes(y = mean, group = 1), size = 1) + 
+    facet_grid(key ~ method, scales = "free") + geom_hline(aes(yintercept = DGP), 
+    linetype = "dashed", color = "red") + ylab(NULL) + xlab("Criterion random error")
 ```
 
 
@@ -903,11 +719,8 @@ What can we do? Well, if we know the random error involved in the criterion scor
 
 ```r
 adjust_RSE <- function(est_RSE, known_error) {
-  ifelse(
-    est_RSE > known_error,
-    sqrt(est_RSE^2 - known_error^2),
-    -sqrt(known_error^2 - est_RSE^2)
-  )
+    ifelse(est_RSE > known_error, sqrt(est_RSE^2 - known_error^2), 
+        -sqrt(known_error^2 - est_RSE^2))
 }
 ```
 
@@ -916,127 +729,81 @@ Let's summarize our simulation using adjusted slope and `RSE`:
 
 ```r
 estimation_wrapper <- function(data) {
-  
-  # Used for slope adjustment
-  sd_predictor <- sd(data$Criterion_score.trial1)
-  criterion_random_error <- data$criterion_random_error[1]
-  
-  slope_adj <- (sd_predictor^2 + criterion_random_error^2)/sd_predictor^2
-  
-  lm_true <- lm_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "True_score",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  lm_criterion <- lm_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  olp_criterion <- olp_method(
-    data = data,
-    criterion = "Practical_score.trial1",
-    practical = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  data.frame(
-    simulation = data$simulation[1],
-    criterion_random_error = data$criterion_random_error[1],
-    method = c("True lm", "Criterion lm", "Criterion olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]),
-    Slope = c(
-      lm_true[2],
-      lm_criterion[2] * slope_adj,
-      olp_criterion[2] * slope_adj
-      ),
-    RSE = c(
-      lm_true[3],
-      adjust_RSE(lm_criterion[3], criterion_random_error),
-      adjust_RSE(olp_criterion[3], criterion_random_error)
-      )
-  )
+    
+    # Used for slope adjustment
+    sd_predictor <- sd(data$Criterion_score.trial1)
+    criterion_random_error <- data$criterion_random_error[1]
+    
+    slope_adj <- (sd_predictor^2 + criterion_random_error^2)/sd_predictor^2
+    
+    lm_true <- lm_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "True_score", SESOI_lower = NA, SESOI_upper = NA)
+    
+    lm_criterion <- lm_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    olp_criterion <- olp_method(data = data, criterion = "Practical_score.trial1", 
+        practical = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    data.frame(simulation = data$simulation[1], criterion_random_error = data$criterion_random_error[1], 
+        method = c("True lm", "Criterion lm", "Criterion olp"), 
+        Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1]), 
+        Slope = c(lm_true[2], lm_criterion[2] * slope_adj, 
+            olp_criterion[2] * slope_adj), RSE = c(lm_true[3], 
+            adjust_RSE(lm_criterion[3], criterion_random_error), 
+            adjust_RSE(olp_criterion[3], criterion_random_error)))
 }
 
-simulation_results <- simulation_df %>%
-  group_by(simulation, criterion_random_error) %>%
-  do(estimation_wrapper(.))
+simulation_results <- simulation_df %>% group_by(simulation, 
+    criterion_random_error) %>% do(estimation_wrapper(.))
 
 
 head(simulation_results)
 #> # A tibble: 6 x 6
 #> # Groups:   simulation, criterion_random_error [2]
-#>   simulation criterion_random_error method        Intercept Slope   RSE
-#>        <int>                  <dbl> <chr>             <dbl> <dbl> <dbl>
-#> 1          1                  0     True lm          3.35    1.08 0.949
-#> 2          1                  0     Criterion lm     3.35    1.08 0.949
-#> 3          1                  0     Criterion olp    2.83    1.09 0.952
-#> 4          1                  0.222 True lm         -0.0301  1.14 1.19 
-#> 5          1                  0.222 Criterion lm    -0.717   1.16 1.13 
-#> 6          1                  0.222 Criterion olp   -1.38    1.17 1.13
+#>   simulation criterion_rando~ method Intercept Slope
+#>        <int>            <dbl> <chr>      <dbl> <dbl>
+#> 1          1            0     True ~    3.35    1.08
+#> 2          1            0     Crite~    3.35    1.08
+#> 3          1            0     Crite~    2.83    1.09
+#> 4          1            0.222 True ~   -0.0301  1.14
+#> 5          1            0.222 Crite~   -0.717   1.16
+#> 6          1            0.222 Crite~   -1.38    1.17
+#> # ... with 1 more variable: RSE <dbl>
 ```
 
 And we can plot the results of adjusted slope and `RSE`:
 
 
 ```r
-simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+simulation_results_long <- gather(simulation_results, "key", 
+    "value", -(1:3))
 
 # Join the true DGP values for plotting
-simulation_results_long <- left_join(
-  simulation_results_long,
-  data.frame(
-    key = c("Intercept", "Slope", "RSE"),
-    DGP = c(practical_fixed, practical_proportional, practical_random)
-  ),
-  by = "key"
-)
+simulation_results_long <- left_join(simulation_results_long, 
+    data.frame(key = c("Intercept", "Slope", "RSE"), DGP = c(practical_fixed, 
+        practical_proportional, practical_random)), by = "key")
 
-simulation_results_long$key <- factor(
-  simulation_results_long$key,
-  levels = c("Intercept", "Slope", "RSE")
-)
+simulation_results_long$key <- factor(simulation_results_long$key, 
+    levels = c("Intercept", "Slope", "RSE"))
 
-simulation_results_long$method <- factor(
-  simulation_results_long$method,
-  levels = c("True lm", "Criterion lm", "Criterion olp")
-)
+simulation_results_long$method <- factor(simulation_results_long$method, 
+    levels = c("True lm", "Criterion lm", "Criterion olp"))
 
-simulation_results_long_avg <- simulation_results_long %>%
-  group_by(method, criterion_random_error, key) %>%
-  summarise(
-    mean = mean(value),
-    upper = mean + (sd(value)),
-    lower = mean - (sd(value))
-  )
+simulation_results_long_avg <- simulation_results_long %>% 
+    group_by(method, criterion_random_error, key) %>% summarise(mean = mean(value), 
+    upper = mean + (sd(value)), lower = mean - (sd(value)))
 
-ggplot(
-  simulation_results_long,
-  aes(x = criterion_random_error, y = value, group = simulation)
-) +
-  theme_cowplot(8) +
-  geom_line(alpha = 0.02) +
-  geom_ribbon(
-    data = simulation_results_long_avg,
-    aes(y = mean, ymin = lower, ymax = upper, group = 1),
-    alpha = 0.3, fill = "blue"
-  ) +
-  geom_line(
-    data = simulation_results_long_avg,
-    color = "white",
-    aes(y = mean, group = 1),
-    size = 1) +
-  facet_grid(key ~ method, scales = "free") +
-  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
-  ylab(NULL) +
-  xlab("Criterion random error")
+ggplot(simulation_results_long, aes(x = criterion_random_error, 
+    y = value, group = simulation)) + theme_cowplot(8) + 
+    geom_line(alpha = 0.02) + geom_ribbon(data = simulation_results_long_avg, 
+    aes(y = mean, ymin = lower, ymax = upper, group = 1), 
+    alpha = 0.3, fill = "blue") + geom_line(data = simulation_results_long_avg, 
+    color = "white", aes(y = mean, group = 1), size = 1) + 
+    facet_grid(key ~ method, scales = "free") + geom_hline(aes(yintercept = DGP), 
+    linetype = "dashed", color = "red") + ylab(NULL) + xlab("Criterion random error")
 ```
 
 
@@ -1057,14 +824,9 @@ In our case, we are interested in predicting criterion measure from practical me
 
 
 ```r
-lm_criterion_validity <- bmbstats::validity_analysis(
-  data = agreement_data,
-  practical = "Practical_score.trial1",
-  criterion = "Criterion_score.trial1",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  control = model_control(seed = 1667)
-)
+lm_criterion_validity <- bmbstats::validity_analysis(data = agreement_data, 
+    practical = "Practical_score.trial1", criterion = "Criterion_score.trial1", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
@@ -1091,14 +853,10 @@ This is better seen and understood using the residual graph on the panel B below
 
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$Practical_score.trial1,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "Practical Score",
-  outcome_label = "Criterion Score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_lm(predictor = agreement_data$Practical_score.trial1, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "Practical Score", 
+    outcome_label = "Criterion Score", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -1111,39 +869,46 @@ bmbstats::plot_pair_lm(
 
 
 ```r
-lm_predictive_validity <- bmbstats::cv_model(
-  Criterion_score.trial1~Practical_score.trial1,
-  data = agreement_data,
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  control = model_control(cv_folds = 5, cv_repeats = 10)
-)
+lm_predictive_validity <- bmbstats::cv_model(Criterion_score.trial1 ~ 
+    Practical_score.trial1, data = agreement_data, SESOI_lower = -2.5, 
+    SESOI_upper = 2.5, control = model_control(cv_folds = 5, 
+        cv_repeats = 10))
 
 lm_predictive_validity
 #> Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean
-#>            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363
-#>            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212
-#>           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710
-#>           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067
-#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136
-#>      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772
-#>         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158
-#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816
-#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462
-#>          SD        min        max
-#>  0.52102607 -1.0035037  1.0131942
-#>  0.21891902  0.2938133  1.4283624
-#>  0.23117615  0.4147218  1.5060507
-#>  0.05265932  0.6919549  0.9885303
-#>  1.61587442  3.3199413 12.0562748
-#>  0.56589940 -2.5312392  0.9953966
-#>  0.40660854 -1.3641311  0.4769940
-#>  0.71495843 -0.2737126  2.3455653
-#>  0.43907222  0.7468639  2.3455653
+#>         metric      training training.pooled
+#>            MBE  1.882940e-14   -3.925753e-15
+#>            MAE  7.209755e-01    7.106871e-01
+#>           RMSE  8.310824e-01    8.191433e-01
+#>           PPER  9.914445e-01    9.976365e-01
+#>  SESOI to RMSE  6.016250e+00    6.103938e+00
+#>      R-squared  9.752786e-01    9.759837e-01
+#>         MinErr -1.085374e+00   -1.302228e+00
+#>         MaxErr  1.792261e+00    1.901850e+00
+#>      MaxAbsErr  1.792261e+00    1.901850e+00
+#>  testing.pooled        mean         SD        min
+#>      0.02821925  0.01349363 0.52102607 -1.0035037
+#>      0.80067569  0.79019212 0.21891902  0.2938133
+#>      0.94237977  0.90134710 0.23117615  0.4147218
+#>      0.99121033  0.91768067 0.05265932  0.6919549
+#>      5.30571663  5.92631136 1.61587442  3.3199413
+#>      0.96824238  0.83850772 0.56589940 -2.5312392
+#>     -1.36413113 -0.87328158 0.40660854 -1.3641311
+#>      2.34556533  0.99120816 0.71495843 -0.2737126
+#>      2.34556533  1.33156462 0.43907222  0.7468639
+#>         max
+#>   1.0131942
+#>   1.4283624
+#>   1.5060507
+#>   0.9885303
+#>  12.0562748
+#>   0.9953966
+#>   0.4769940
+#>   2.3455653
+#>   2.3455653
 ```
 
 If we check `MaxAbsErr` we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing `RMSE` (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% `SDC` multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice. 
@@ -1155,107 +920,72 @@ Let's use our simulated data to check what happens to intercept, slope, and `RSE
 
 ```r
 estimation_wrapper <- function(data) {
-  lm_true <- lm_method(
-    data = data,
-    practical = "Practical_score.trial1",
-    criterion = "True_score",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  lm_criterion <- lm_method(
-    data = data,
-    practical = "Practical_score.trial1",
-    criterion = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-
-  olp_criterion <- olp_method(
-    data = data,
-    practical = "Practical_score.trial1",
-    criterion = "Criterion_score.trial1",
-    SESOI_lower = NA,
-    SESOI_upper = NA
-  )
-  
-  data.frame(
-    simulation = data$simulation[1],
-    criterion_random_error = data$criterion_random_error[1],
-    method = c("True lm", "Criterion lm", "Criterion olp",  "Adjusted lm", "Adjusted olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1], lm_criterion[1], olp_criterion[1]),
-    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2], lm_criterion[2], olp_criterion[2]),
-    RSE = c(
-      lm_true[3],
-      lm_criterion[3],
-      olp_criterion[3],
-      adjust_RSE(lm_criterion[3], data$criterion_random_error[1]),
-      adjust_RSE(olp_criterion[3], data$criterion_random_error[1])
-      )
-  )
+    lm_true <- lm_method(data = data, practical = "Practical_score.trial1", 
+        criterion = "True_score", SESOI_lower = NA, SESOI_upper = NA)
+    
+    lm_criterion <- lm_method(data = data, practical = "Practical_score.trial1", 
+        criterion = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    olp_criterion <- olp_method(data = data, practical = "Practical_score.trial1", 
+        criterion = "Criterion_score.trial1", SESOI_lower = NA, 
+        SESOI_upper = NA)
+    
+    data.frame(simulation = data$simulation[1], criterion_random_error = data$criterion_random_error[1], 
+        method = c("True lm", "Criterion lm", "Criterion olp", 
+            "Adjusted lm", "Adjusted olp"), Intercept = c(lm_true[1], 
+            lm_criterion[1], olp_criterion[1], lm_criterion[1], 
+            olp_criterion[1]), Slope = c(lm_true[2], lm_criterion[2], 
+            olp_criterion[2], lm_criterion[2], olp_criterion[2]), 
+        RSE = c(lm_true[3], lm_criterion[3], olp_criterion[3], 
+            adjust_RSE(lm_criterion[3], data$criterion_random_error[1]), 
+            adjust_RSE(olp_criterion[3], data$criterion_random_error[1])))
 }
 
-simulation_results <- simulation_df %>%
-  group_by(simulation, criterion_random_error) %>%
-  do(estimation_wrapper(.))
+simulation_results <- simulation_df %>% group_by(simulation, 
+    criterion_random_error) %>% do(estimation_wrapper(.))
 
 
 head(simulation_results)
 #> # A tibble: 6 x 6
 #> # Groups:   simulation, criterion_random_error [2]
-#>   simulation criterion_random_error method        Intercept Slope   RSE
-#>        <int>                  <dbl> <chr>             <dbl> <dbl> <dbl>
-#> 1          1                  0     True lm           -2.10 0.909 0.873
-#> 2          1                  0     Criterion lm      -2.10 0.909 0.873
-#> 3          1                  0     Criterion olp     -2.60 0.920 0.875
-#> 4          1                  0     Adjusted lm       -2.10 0.909 0.873
-#> 5          1                  0     Adjusted olp      -2.60 0.920 0.875
-#> 6          1                  0.222 True lm            1.24 0.852 1.03
+#>   simulation criterion_rando~ method Intercept Slope
+#>        <int>            <dbl> <chr>      <dbl> <dbl>
+#> 1          1            0     True ~     -2.10 0.909
+#> 2          1            0     Crite~     -2.10 0.909
+#> 3          1            0     Crite~     -2.60 0.920
+#> 4          1            0     Adjus~     -2.10 0.909
+#> 5          1            0     Adjus~     -2.60 0.920
+#> 6          1            0.222 True ~      1.24 0.852
+#> # ... with 1 more variable: RSE <dbl>
 ```
 
 And plot the results again:
 
 
 ```r
-simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+simulation_results_long <- gather(simulation_results, "key", 
+    "value", -(1:3))
 
-simulation_results_long$key <- factor(
-  simulation_results_long$key,
-  levels = c("Intercept", "Slope", "RSE")
-)
+simulation_results_long$key <- factor(simulation_results_long$key, 
+    levels = c("Intercept", "Slope", "RSE"))
 
-simulation_results_long$method <- factor(
-  simulation_results_long$method,
-  levels = c("True lm", "Criterion lm", "Criterion olp", "Adjusted lm", "Adjusted olp")
-)
+simulation_results_long$method <- factor(simulation_results_long$method, 
+    levels = c("True lm", "Criterion lm", "Criterion olp", 
+        "Adjusted lm", "Adjusted olp"))
 
-simulation_results_long_avg <- simulation_results_long %>%
-  group_by(method, criterion_random_error, key) %>%
-  summarise(
-    mean = mean(value),
-    upper = mean + (sd(value)),
-    lower = mean - (sd(value))
-  )
+simulation_results_long_avg <- simulation_results_long %>% 
+    group_by(method, criterion_random_error, key) %>% summarise(mean = mean(value), 
+    upper = mean + (sd(value)), lower = mean - (sd(value)))
 
-ggplot(
-  simulation_results_long,
-  aes(x = criterion_random_error, y = value, group = simulation)
-) +
-  theme_cowplot(8) +
-  geom_line(alpha = 0.02) +
-  geom_ribbon(
-    data = simulation_results_long_avg,
-    aes(y = mean, ymin = lower, ymax = upper, group = 1),
-    alpha = 0.3, fill = "blue"
-  ) +
-  geom_line(
-    data = simulation_results_long_avg,
-    color = "white",
-    aes(y = mean, group = 1),
-    size = 1) +
-  facet_grid(key ~ method, scales = "free") +
-  ylab(NULL) +
-  xlab("Criterion random error")
+ggplot(simulation_results_long, aes(x = criterion_random_error, 
+    y = value, group = simulation)) + theme_cowplot(8) + 
+    geom_line(alpha = 0.02) + geom_ribbon(data = simulation_results_long_avg, 
+    aes(y = mean, ymin = lower, ymax = upper, group = 1), 
+    alpha = 0.3, fill = "blue") + geom_line(data = simulation_results_long_avg, 
+    color = "white", aes(y = mean, group = 1), size = 1) + 
+    facet_grid(key ~ method, scales = "free") + ylab(NULL) + 
+    xlab("Criterion random error")
 ```
 
 
@@ -1300,16 +1030,8 @@ For the purpose of this example, let's assume that true score is measured with t
 
 
 ```r
-ggplot(
-  agreement_data,
-  aes(
-    x = Criterion_score.trial2,
-    y = Criterion_score.trial1
-  )
-) +
-  theme_cowplot(8) +
-  geom_point() +
-  ggtitle("Criterion measure")
+ggplot(agreement_data, aes(x = Criterion_score.trial2, y = Criterion_score.trial1)) + 
+    theme_cowplot(8) + geom_point() + ggtitle("Criterion measure")
 ```
 
 
@@ -1318,16 +1040,8 @@ ggplot(
 
 
 ```r
-ggplot(
-  agreement_data,
-  aes(
-    x = Practical_score.trial2,
-    y = Practical_score.trial1
-  )
-) +
-  theme_cowplot(8) +
-  geom_point() +
-  ggtitle("Practical measure")
+ggplot(agreement_data, aes(x = Practical_score.trial2, y = Practical_score.trial1)) + 
+    theme_cowplot(8) + geom_point() + ggtitle("Practical measure")
 ```
 
 
@@ -1340,14 +1054,10 @@ We can use the functions that we have written already for the validity analysis.
 
 
 ```r
-bmbstats::plot_pair_BA(
-  predictor = agreement_data$Criterion_score.trial2,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "Criterion Score Trial1",
-  outcome_label = "Criterion Score Trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_BA(predictor = agreement_data$Criterion_score.trial2, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "Criterion Score Trial1", 
+    outcome_label = "Criterion Score Trial2", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -1358,13 +1068,9 @@ To provide estimators we will use functions that we have already written:
 
 
 ```r
-diff_reporoducibility <- differences_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+diff_reporoducibility <- differences_method(data = agreement_data, 
+    criterion = "Criterion_score.trial1", practical = "Criterion_score.trial2", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5)
 
 diff_reporoducibility
 #>  Mean diff    SD diff       PPER 
@@ -1377,13 +1083,8 @@ Estimated `TE` is equal to 0.22. If we repeat the validity analysis of the crite
 
 
 ```r
-differences_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "True_score",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+differences_method(data = agreement_data, criterion = "Criterion_score.trial1", 
+    practical = "True_score", SESOI_lower = -2.5, SESOI_upper = 2.5)
 #>   Mean diff     SD diff        PPER 
 #> -0.07726199  0.26125825  0.99999999
 ```
@@ -1392,14 +1093,10 @@ The next approach is to use simple linear regression:
 
 
 ```r
-bmbstats::plot_pair_lm(
-  predictor = agreement_data$Criterion_score.trial2,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "Criterion Score Trial1",
-  outcome_label = "Criterion Score Trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_lm(predictor = agreement_data$Criterion_score.trial2, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "Criterion Score Trial1", 
+    outcome_label = "Criterion Score Trial2", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -1410,13 +1107,9 @@ We can also use the function we wrote to provide validity analysis using simple 
 
 
 ```r
-lm_reporoducibility <- lm_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+lm_reporoducibility <- lm_method(data = agreement_data, criterion = "Criterion_score.trial1", 
+    practical = "Criterion_score.trial2", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 
 lm_reporoducibility
 #>  Intercept      Slope        RSE       PPER 
@@ -1431,14 +1124,10 @@ Let's perform the OLP reproducibility plot and analysis using the function we ha
 
 
 ```r
-bmbstats::plot_pair_OLP(
-  predictor = agreement_data$Criterion_score.trial2,
-  outcome = agreement_data$Criterion_score.trial1,
-  predictor_label = "Criterion Score Trial1",
-  outcome_label = "Criterion Score Trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_OLP(predictor = agreement_data$Criterion_score.trial2, 
+    outcome = agreement_data$Criterion_score.trial1, predictor_label = "Criterion Score Trial1", 
+    outcome_label = "Criterion Score Trial2", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -1447,13 +1136,9 @@ bmbstats::plot_pair_OLP(
 
 
 ```r
-olp_reporoducibility <- olp_method(
-  data = agreement_data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+olp_reporoducibility <- olp_method(data = agreement_data, 
+    criterion = "Criterion_score.trial1", practical = "Criterion_score.trial2", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5)
 
 olp_reporoducibility
 #>  Intercept      Slope        RSE       PPER 
@@ -1464,31 +1149,24 @@ In `bmbstats`, reliability is estimated using `bmbstats::reliability_analysis` t
 
 
 ```r
-bmbstats::reliability_estimators(
-  data = agreement_data,
-  trial1 = "Criterion_score.trial1",
-  trial2 = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE 
-#>   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774 
-#>  Pearson's r    R Squared SESOI to RSE         PPER           TE          SDC 
-#>    0.9984753    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761
+bmbstats::reliability_estimators(data = agreement_data, trial1 = "Criterion_score.trial1", 
+    trial2 = "Criterion_score.trial2", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
+#>  SESOI lower  SESOI upper  SESOI range    Intercept 
+#>   -2.5000000    2.5000000    5.0000000   -0.4982932 
+#>        Slope          RSE  Pearson's r    R Squared 
+#>    1.0124861    0.3076774    0.9984753    0.9969529 
+#> SESOI to RSE         PPER           TE          SDC 
+#>   16.2507895    0.9999999    0.2175607    0.6439761
 ```
 
 `bmbstats::reliability_estimators` provides additional estimators, including `TE` and `SDC`. To get 95% bootstrap confidence intervals, use:
 
 
 ```r
-criterion_reproducibility <- bmbstats::reliability_analysis(
-  data = agreement_data,
-  trial1 = "Criterion_score.trial1",
-  trial2 = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  control = model_control(seed = 1667)
-)
+criterion_reproducibility <- bmbstats::reliability_analysis(data = agreement_data, 
+    trial1 = "Criterion_score.trial1", trial2 = "Criterion_score.trial2", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
@@ -1517,112 +1195,74 @@ Since we already have generated simulated data, let's check how estimated `TE` b
 
 ```r
 estimation_wrapper <- function(data) {
-  diff_reporoducibility <- differences_method(
-  data = data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-
-  lm_reporoducibility <- lm_method(
-  data = data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-
-  olp_reporoducibility <- olp_method(
-  data = data,
-  criterion = "Criterion_score.trial1",
-  practical = "Criterion_score.trial2",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
-  
-  data.frame(
-    simulation = data$simulation[1],
-    criterion_random_error = data$criterion_random_error[1],
-    method = c("diff", "lm", "olp"),
-    Intercept = c(diff_reporoducibility[1], lm_reporoducibility[1], olp_reporoducibility[1]),
-    Slope = c(NA, lm_reporoducibility[2], olp_reporoducibility[2]),
-    TE = c(diff_reporoducibility[2], lm_reporoducibility[3], olp_reporoducibility[3]) / sqrt(2)
-  )
+    diff_reporoducibility <- differences_method(data = data, 
+        criterion = "Criterion_score.trial1", practical = "Criterion_score.trial2", 
+        SESOI_lower = -2.5, SESOI_upper = 2.5)
+    
+    lm_reporoducibility <- lm_method(data = data, criterion = "Criterion_score.trial1", 
+        practical = "Criterion_score.trial2", SESOI_lower = -2.5, 
+        SESOI_upper = 2.5)
+    
+    olp_reporoducibility <- olp_method(data = data, criterion = "Criterion_score.trial1", 
+        practical = "Criterion_score.trial2", SESOI_lower = -2.5, 
+        SESOI_upper = 2.5)
+    
+    data.frame(simulation = data$simulation[1], criterion_random_error = data$criterion_random_error[1], 
+        method = c("diff", "lm", "olp"), Intercept = c(diff_reporoducibility[1], 
+            lm_reporoducibility[1], olp_reporoducibility[1]), 
+        Slope = c(NA, lm_reporoducibility[2], olp_reporoducibility[2]), 
+        TE = c(diff_reporoducibility[2], lm_reporoducibility[3], 
+            olp_reporoducibility[3])/sqrt(2))
 }
 
-simulation_results <- simulation_df %>%
-  group_by(simulation, criterion_random_error) %>%
-  do(estimation_wrapper(.))
+simulation_results <- simulation_df %>% group_by(simulation, 
+    criterion_random_error) %>% do(estimation_wrapper(.))
 
 
 head(simulation_results)
 #> # A tibble: 6 x 6
 #> # Groups:   simulation, criterion_random_error [2]
-#>   simulation criterion_random_error method Intercept  Slope       TE
-#>        <int>                  <dbl> <chr>      <dbl>  <dbl>    <dbl>
-#> 1          1                  0     diff    0.       NA     0.      
-#> 2          1                  0     lm     -1.27e-14  1.    3.40e-16
-#> 3          1                  0     olp     0.        1     0.      
-#> 4          1                  0.222 diff   -8.06e- 2 NA     2.52e- 1
-#> 5          1                  0.222 lm      1.12e+ 0  0.974 2.30e- 1
-#> 6          1                  0.222 olp     1.06e+ 0  0.975 2.30e- 1
+#>   simulation criterion_rando~ method Intercept  Slope
+#>        <int>            <dbl> <chr>      <dbl>  <dbl>
+#> 1          1            0     diff    0.       NA    
+#> 2          1            0     lm     -1.27e-14  1.   
+#> 3          1            0     olp     0.        1    
+#> 4          1            0.222 diff   -8.06e- 2 NA    
+#> 5          1            0.222 lm      1.12e+ 0  0.974
+#> 6          1            0.222 olp     1.06e+ 0  0.975
+#> # ... with 1 more variable: TE <dbl>
 ```
 
 And we can finally plot the results: 
 
 
 ```r
-simulation_results_long <- gather(simulation_results, "key", "value", -(1:3))
+simulation_results_long <- gather(simulation_results, "key", 
+    "value", -(1:3))
 
 # Join the true DGP values for plotting
-simulation_results_long <- left_join(
-  simulation_results_long,
-  data.frame(
-    key = c("Intercept", "Slope", "TE"),
-    DGP = c(0, 1, NA)
-  ),
-  by = "key"
-)
+simulation_results_long <- left_join(simulation_results_long, 
+    data.frame(key = c("Intercept", "Slope", "TE"), DGP = c(0, 
+        1, NA)), by = "key")
 
-simulation_results_long$key <- factor(
-  simulation_results_long$key,
-  levels = c("Intercept", "Slope", "TE")
-)
+simulation_results_long$key <- factor(simulation_results_long$key, 
+    levels = c("Intercept", "Slope", "TE"))
 
-simulation_results_long$method <- factor(
-  simulation_results_long$method,
-  levels = c("diff", "lm", "olp")
-)
+simulation_results_long$method <- factor(simulation_results_long$method, 
+    levels = c("diff", "lm", "olp"))
 
-simulation_results_long_avg <- simulation_results_long %>%
-  group_by(method, criterion_random_error, key) %>%
-  summarise(
-    mean = mean(value),
-    upper = mean + (sd(value)),
-    lower = mean - (sd(value))
-  )
+simulation_results_long_avg <- simulation_results_long %>% 
+    group_by(method, criterion_random_error, key) %>% summarise(mean = mean(value), 
+    upper = mean + (sd(value)), lower = mean - (sd(value)))
 
-ggplot(
-  simulation_results_long,
-  aes(x = criterion_random_error, y = value, group = simulation)
-) +
-  theme_cowplot(8) +
-  geom_line(alpha = 0.02) +
-  geom_ribbon(
-    data = simulation_results_long_avg,
-    aes(y = mean, ymin = lower, ymax = upper, group = 1),
-    alpha = 0.3, fill = "blue"
-  ) +
-  geom_line(
-    data = simulation_results_long_avg,
-    color = "white",
-    aes(y = mean, group = 1),
-    size = 1) +
-  facet_grid(key ~ method, scales = "free") +
-  geom_hline(aes(yintercept = DGP), linetype = "dashed", color = "red") +
-  ylab(NULL) +
-  xlab("Criterion random error")
+ggplot(simulation_results_long, aes(x = criterion_random_error, 
+    y = value, group = simulation)) + theme_cowplot(8) + 
+    geom_line(alpha = 0.02) + geom_ribbon(data = simulation_results_long_avg, 
+    aes(y = mean, ymin = lower, ymax = upper, group = 1), 
+    alpha = 0.3, fill = "blue") + geom_line(data = simulation_results_long_avg, 
+    color = "white", aes(y = mean, group = 1), size = 1) + 
+    facet_grid(key ~ method, scales = "free") + geom_hline(aes(yintercept = DGP), 
+    linetype = "dashed", color = "red") + ylab(NULL) + xlab("Criterion random error")
 ```
 
 
@@ -1637,14 +1277,10 @@ Let's quickly perform the reproducibility of the practical measure as well. SESO
 
 
 ```r
-bmbstats::plot_pair_OLP(
-  predictor = agreement_data$Practical_score.trial2,
-  outcome = agreement_data$Practical_score.trial1,
-  predictor_label = "Practical Score Trial1",
-  outcome_label = "Practical Score Trial2",
-  SESOI_lower = -2.5 * practical_proportional,
-  SESOI_upper = 2.5 * practical_proportional
-)
+bmbstats::plot_pair_OLP(predictor = agreement_data$Practical_score.trial2, 
+    outcome = agreement_data$Practical_score.trial1, predictor_label = "Practical Score Trial1", 
+    outcome_label = "Practical Score Trial2", SESOI_lower = -2.5 * 
+        practical_proportional, SESOI_upper = 2.5 * practical_proportional)
 ```
 
 
@@ -1653,14 +1289,10 @@ bmbstats::plot_pair_OLP(
 
 
 ```r
-practical_reproducibility <- bmbstats::reliability_analysis(
-  data = agreement_data,
-  trial1 = "Practical_score.trial1",
-  trial2 = "Practical_score.trial2",
-  SESOI_lower = -2.5 * practical_proportional,
-  SESOI_upper = 2.5 * practical_proportional,
-  control = model_control(seed = 1667)
-)
+practical_reproducibility <- bmbstats::reliability_analysis(data = agreement_data, 
+    trial1 = "Practical_score.trial1", trial2 = "Practical_score.trial2", 
+    SESOI_lower = -2.5 * practical_proportional, SESOI_upper = 2.5 * 
+        practical_proportional, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.75 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5.5 \n Cannot calculate confidence intervals"
 
@@ -1692,45 +1324,34 @@ To demonstrate this, let's consider the following example. We will have three de
 
 
 ```r
-reproducibility_data <- tibble(
-  Athlete = paste(
-    "Athlete",
-    str_pad(
-      string = seq(1, n_subjects),
-      width = 2,
-      pad = "0"
-    )
-  ),
-  True_score = rnorm(n_subjects, 45, 5),
-  Criterion_score_A = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Criterion_score_B = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Criterion_score_C = 2.5 + (True_score * 1.5) + rnorm(n_subjects, 0, criterion_random)
-)
+reproducibility_data <- tibble(Athlete = paste("Athlete", 
+    str_pad(string = seq(1, n_subjects), width = 2, pad = "0")), 
+    True_score = rnorm(n_subjects, 45, 5), Criterion_score_A = 0 + 
+        (True_score * 1) + rnorm(n_subjects, 0, criterion_random), 
+    Criterion_score_B = 0 + (True_score * 1) + rnorm(n_subjects, 
+        0, criterion_random), Criterion_score_C = 2.5 + (True_score * 
+        1.5) + rnorm(n_subjects, 0, criterion_random))
 
 head(reproducibility_data)
 #> # A tibble: 6 x 5
-#>   Athlete    True_score Criterion_score_A Criterion_score_B Criterion_score_C
-#>   <chr>           <dbl>             <dbl>             <dbl>             <dbl>
-#> 1 Athlete 01       41.4              41.4              41.3              64.4
-#> 2 Athlete 02       42.8              42.8              42.3              66.5
-#> 3 Athlete 03       39.3              39.8              39.4              61.3
-#> 4 Athlete 04       54.1              54.6              54.4              83.5
-#> 5 Athlete 05       42.2              42.5              42.4              66.0
-#> 6 Athlete 06       50.6              50.1              51.2              78.3
+#>   Athlete True_score Criterion_score~ Criterion_score~
+#>   <chr>        <dbl>            <dbl>            <dbl>
+#> 1 Athlet~       41.4             41.4             41.3
+#> 2 Athlet~       42.8             42.8             42.3
+#> 3 Athlet~       39.3             39.8             39.4
+#> 4 Athlet~       54.1             54.6             54.4
+#> 5 Athlet~       42.2             42.5             42.4
+#> 6 Athlet~       50.6             50.1             51.2
+#> # ... with 1 more variable: Criterion_score_C <dbl>
 ```
 
 Rather than using simple linear regression or OLP for plotting the residuals (i.e. calibrating the predictor), we will use the *raw* values using Bland-Altman plot. Here is the plot and the analysis using method of differences:
 
 
 ```r
-bmbstats::plot_pair_BA(
-  predictor = reproducibility_data$Criterion_score_B,
-  outcome = reproducibility_data$Criterion_score_A,
-  predictor_label = "Unit B",
-  outcome_label = "Unit A",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_BA(predictor = reproducibility_data$Criterion_score_B, 
+    outcome = reproducibility_data$Criterion_score_A, predictor_label = "Unit B", 
+    outcome_label = "Unit A", SESOI_lower = -2.5, SESOI_upper = 2.5)
 ```
 
 
@@ -1739,13 +1360,9 @@ bmbstats::plot_pair_BA(
 
 
 ```r
-differences_method(
-  data = reproducibility_data,
-  criterion = "Criterion_score_A",
-  practical = "Criterion_score_B",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+differences_method(data = reproducibility_data, criterion = "Criterion_score_A", 
+    practical = "Criterion_score_B", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 #>  Mean diff    SD diff       PPER 
 #> 0.03513462 0.40651806 0.99999335
 ```
@@ -1754,14 +1371,9 @@ As can be seen from the analysis, `PPER` for these two devices is excellent (and
 
 
 ```r
-bmbstats::plot_pair_BA(
-  predictor = reproducibility_data$Criterion_score_C,
-  outcome = reproducibility_data$Criterion_score_A,
-  predictor_label = "Unit C",
-  outcome_label = "Unit A",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_BA(predictor = reproducibility_data$Criterion_score_C, 
+    outcome = reproducibility_data$Criterion_score_A, predictor_label = "Unit C", 
+    outcome_label = "Unit A", SESOI_lower = -2.5, SESOI_upper = 2.5)
 ```
 
 
@@ -1770,13 +1382,9 @@ bmbstats::plot_pair_BA(
 
 
 ```r
-differences_method(
-  data = reproducibility_data,
-  criterion = "Criterion_score_A",
-  practical = "Criterion_score_C",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+differences_method(data = reproducibility_data, criterion = "Criterion_score_A", 
+    practical = "Criterion_score_C", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 #>     Mean diff       SD diff          PPER 
 #> -2.415796e+01  2.939988e+00  2.664952e-07
 ```
@@ -1836,17 +1444,21 @@ repeatability_data <- tibble(
 
 head(repeatability_data)
 #> # A tibble: 6 x 10
-#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor~
-#>   <chr>            <dbl>       <dbl>           <dbl>            <dbl>
-#> 1 Athlet~           52.9           0            52.9             52.9
-#> 2 Athlet~           42.4           0            42.4             42.3
-#> 3 Athlet~           49.2           0            49.2             48.9
-#> 4 Athlet~           44.8           0            44.8             44.1
-#> 5 Athlet~           40.0           0            40.0             42.7
-#> 6 Athlet~           42.6           0            42.6             41.7
-#> # ... with 5 more variables: Manifested_score.Post <dbl>,
-#> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
-#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
+#>   Athlete True_score.Pre True_change True_score.Post
+#>   <chr>            <dbl>       <dbl>           <dbl>
+#> 1 Athlet~           52.9           0            52.9
+#> 2 Athlet~           42.4           0            42.4
+#> 3 Athlet~           49.2           0            49.2
+#> 4 Athlet~           44.8           0            44.8
+#> 5 Athlet~           40.0           0            40.0
+#> 6 Athlet~           42.6           0            42.6
+#> # ... with 6 more variables:
+#> #   Manifested_score.Pre <dbl>,
+#> #   Manifested_score.Post <dbl>,
+#> #   Manifested_score.Change <dbl>,
+#> #   Measured_score.Pre <dbl>,
+#> #   Measured_score.Post <dbl>,
+#> #   Measured_score.Change <dbl>
 ```
 
 As can be see in the DGP, we have three components: (1) true score, that doesn't change from Pre-test to Post-test, (2) manifested score, that doesn't have systematic effect (i.e. expected or `mean` is equal to 0) but is affected by random biological noise, and (3) measured score that is affected by both biological noise and instrumentation error (vertical jump was measured using the practical measure). 
@@ -1855,14 +1467,10 @@ Let's estimate reliability using each of these scores. Here is the reliability o
 
 
 ```r
-bmbstats::plot_pair_OLP(
-  predictor = repeatability_data$Manifested_score.Pre,
-  outcome = repeatability_data$Manifested_score.Post,
-  predictor_label = "Manifested Score Pre-test",
-  outcome_label = "Manifested Score Post-test",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5
-)
+bmbstats::plot_pair_OLP(predictor = repeatability_data$Manifested_score.Pre, 
+    outcome = repeatability_data$Manifested_score.Post, predictor_label = "Manifested Score Pre-test", 
+    outcome_label = "Manifested Score Post-test", SESOI_lower = -2.5, 
+    SESOI_upper = 2.5)
 ```
 
 
@@ -1871,14 +1479,9 @@ bmbstats::plot_pair_OLP(
 
 
 ```r
-manifested_reliability <- bmbstats::reliability_analysis(
-  data = repeatability_data,
-  trial1 = "Manifested_score.Pre",
-  trial2 = "Manifested_score.Post",
-  SESOI_lower = -2.5,
-  SESOI_upper = 2.5,
-  control = model_control(seed = 1667)
-)
+manifested_reliability <- bmbstats::reliability_analysis(data = repeatability_data, 
+    trial1 = "Manifested_score.Pre", trial2 = "Manifested_score.Post", 
+    SESOI_lower = -2.5, SESOI_upper = 2.5, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
@@ -1904,14 +1507,10 @@ Unfortunately, we do not know this manifested score, as we do not know the true 
 
 
 ```r
-bmbstats::plot_pair_OLP(
-  predictor = repeatability_data$Measured_score.Pre,
-  outcome = repeatability_data$Measured_score.Post,
-  predictor_label = "Measured Score Pre-test",
-  outcome_label = "Measured Score Post-test",
-  SESOI_lower = - 2.5 * practical_proportional,
-  SESOI_upper = 2.5 * practical_proportional
-)
+bmbstats::plot_pair_OLP(predictor = repeatability_data$Measured_score.Pre, 
+    outcome = repeatability_data$Measured_score.Post, predictor_label = "Measured Score Pre-test", 
+    outcome_label = "Measured Score Post-test", SESOI_lower = -2.5 * 
+        practical_proportional, SESOI_upper = 2.5 * practical_proportional)
 ```
 
 
@@ -1920,14 +1519,10 @@ bmbstats::plot_pair_OLP(
 
 
 ```r
-measured_reliability <- bmbstats::reliability_analysis(
-  data = repeatability_data,
-  trial1 = "Measured_score.Pre",
-  trial2 = "Measured_score.Post",
-  SESOI_lower = -2.5 * practical_proportional,
-  SESOI_upper = 2.5 * practical_proportional,
-  control = model_control(seed = 1667)
-)
+measured_reliability <- bmbstats::reliability_analysis(data = repeatability_data, 
+    trial1 = "Measured_score.Pre", trial2 = "Measured_score.Post", 
+    SESOI_lower = -2.5 * practical_proportional, SESOI_upper = 2.5 * 
+        practical_proportional, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.75 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5.5 \n Cannot calculate confidence intervals"
 
@@ -1984,19 +1579,25 @@ repeatability_data <- repeatability_data %>%
 
 head(repeatability_data)
 #> # A tibble: 6 x 16
-#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor~
-#>   <chr>            <dbl>       <dbl>           <dbl>            <dbl>
-#> 1 Athlet~           52.9           0            52.9             52.9
-#> 2 Athlet~           42.4           0            42.4             42.3
-#> 3 Athlet~           49.2           0            49.2             48.9
-#> 4 Athlet~           44.8           0            44.8             44.1
-#> 5 Athlet~           40.0           0            40.0             42.7
-#> 6 Athlet~           42.6           0            42.6             41.7
-#> # ... with 11 more variables: Manifested_score.Post <dbl>,
-#> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
-#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>,
-#> #   True_score_measured.Pre <dbl>, True_score_measured.Post <dbl>,
-#> #   True_score_measured.Change <dbl>, Manifested_score_measured.Pre <dbl>,
+#>   Athlete True_score.Pre True_change True_score.Post
+#>   <chr>            <dbl>       <dbl>           <dbl>
+#> 1 Athlet~           52.9           0            52.9
+#> 2 Athlet~           42.4           0            42.4
+#> 3 Athlet~           49.2           0            49.2
+#> 4 Athlet~           44.8           0            44.8
+#> 5 Athlet~           40.0           0            40.0
+#> 6 Athlet~           42.6           0            42.6
+#> # ... with 12 more variables:
+#> #   Manifested_score.Pre <dbl>,
+#> #   Manifested_score.Post <dbl>,
+#> #   Manifested_score.Change <dbl>,
+#> #   Measured_score.Pre <dbl>,
+#> #   Measured_score.Post <dbl>,
+#> #   Measured_score.Change <dbl>,
+#> #   True_score_measured.Pre <dbl>,
+#> #   True_score_measured.Post <dbl>,
+#> #   True_score_measured.Change <dbl>,
+#> #   Manifested_score_measured.Pre <dbl>,
 #> #   Manifested_score_measured.Post <dbl>,
 #> #   Manifested_score_measured.Change <dbl>
 ```
@@ -2072,14 +1673,10 @@ To get biological noise, as it would be measured with the practical measure, let
 
 
 ```r
-manifested_measured_reliability <- bmbstats::reliability_analysis(
-  data = repeatability_data,
-  trial1 = "Manifested_score_measured.Pre",
-  trial2 = "Manifested_score_measured.Post",
-  SESOI_lower = -2.5 * practical_proportional,
-  SESOI_upper = 2.5 * practical_proportional,
-  control = model_control(seed = 1667)
-)
+manifested_measured_reliability <- bmbstats::reliability_analysis(data = repeatability_data, 
+    trial1 = "Manifested_score_measured.Pre", trial2 = "Manifested_score_measured.Post", 
+    SESOI_lower = -2.5 * practical_proportional, SESOI_upper = 2.5 * 
+        practical_proportional, control = model_control(seed = 1667))
 #> [1] "All values of t are equal to  2.75 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5.5 \n Cannot calculate confidence intervals"
 

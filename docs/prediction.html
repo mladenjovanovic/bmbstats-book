@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-25" />
+<meta name="date" content="2020-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -317,7 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
 <li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
 <li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#leave-one-out-cross-validation-loocv"><i class="fa fa-check"></i><b>18.2.4</b> Leave-One-Out Cross-Validation (LOOCV)</a></li>
 </ul></li>
+<li class="chapter" data-level="18.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#shorts-citation"><i class="fa fa-check"></i><b>18.3</b> <code>shorts</code> Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
 <ul>
@@ -1623,7 +1625,7 @@ y_predicted
 <p>Since we know that the stochastic error in the DGP is normally distributed with SD=2cm, expected irreducible error should be around 4cm (this is because <code>MSE</code> is mean squared error, and <code>RMSE</code>, which is equivalent to <code>SD</code>, is calculated by doing square root of <code>MSE</code>). This might not be exactly 4cm due <em>sampling error</em> which is the topic of <a href="statistical-inference.html#statistical-inference">Statistical inference</a> section.</p>
 <p>As explained in Equation <a href="prediction.html#eq:reducible-irreducible">(3.4)</a>, <span class="math inline">\(Prediction \: error\)</span> is equal to sum of <span class="math inline">\(Bias^2\)</span>, <span class="math inline">\(Variance\)</span> and <span class="math inline">\(Irreducible \: error\)</span>. Table contains estimated aforementioned errors using all 200 simulations for 2nd degree polynomial linear regression.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:example-error-decomposition">Table 3.6: </span><strong>Calculated errors for all 200 simulations for 2nd degree polynomial linear regression</strong>
 </caption>
@@ -1705,7 +1707,7 @@ Figure 3.7: <strong>Bias and Variance error decomposition. </strong><span class=
 <p>Continuing with the squat jump height and relative squat 1RM example, one can assume that the SESOI in the squat jump is ±1cm. For the sake of example, we can <em>feature engineer</em> <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>, <a href="#ref-kuhnFeatureEngineeringSelection2019" role="doc-biblioref">2019</a>)</span> relative squat 1RM variable to include all 20 degree polynomials. This way, we have created 20 predictor variables. To avoid overfitting, <em>elastic-net model</em> <span class="citation">(Friedman, Hastie, and Tibshirani <a href="#ref-friedmanRegularizationPathsGeneralized2010" role="doc-biblioref">2010</a>)</span> implemented in the <em>caret</em> R package <span class="citation">(Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>; Kuhn et al. <a href="#ref-kuhnCaretClassificationRegression2018" role="doc-biblioref">2018</a>)</span> is utilized, as well as repeated cross-validation involving 3 splits repeated 10 times. Predictive model performance is evaluated by using <code>cvRMSE</code>, together with magnitude-based performance estimators (<code>SESOI to cvRMSE</code> and <code>cvPPER</code>).</p>
 <p>Elastic-net model represents regression method that linearly combines the <em>L1</em> and <em>L2</em> penalties of the lasso and ridge methods, or <em>alpha</em> and <em>lambda</em> tuning parameters <span class="citation">(Friedman, Hastie, and Tibshirani <a href="#ref-friedmanRegularizationPathsGeneralized2010" role="doc-biblioref">2010</a>; James et al. <a href="#ref-jamesIntroductionStatisticalLearning2017" role="doc-biblioref">2017</a>; Kuhn and Johnson <a href="#ref-kuhnAppliedPredictiveModeling2018" role="doc-biblioref">2018</a>)</span>. Total of nine combinations of tuning parameters is evaluated using aforementioned repeated cross-validation, and the model with minimal <code>cvRMSE</code> is selected as the best one. Performance metrics of the best model are further reported. Table <a href="prediction.html#tab:predictive-metrics-mag-based">3.7</a> contains cross-validated best model performance metrics together with model performance on the training data set.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:predictive-metrics-mag-based">Table 3.7: </span><strong>Common predictive metrics and magnitude-based predictive metrics. </strong>Metrics starting with <strong>cv</strong> indicate cross-validated performance metrics. Metrics without <strong>cv</strong> indicate performance metrics on the training data set, which is often more optimistic
 </caption>
@@ -2465,7 +2467,7 @@ Figure 3.14: <strong>Testing prediction residuals across cross-validation folds 
 
 <p>Cross-validated, <em>pooled</em>, and full training data set predictive performance metrics can be found in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>. Please note that the <em>pooled</em> predictive performance metrics are in the column <code>testing.pooled</code>.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:mas-yoyo-cv-performance-summary">Table 3.10: </span><strong>Predictive performance summary</strong>
 </caption>
@@ -2758,7 +2760,7 @@ Figure 3.16: <strong>Scatter plot for simple linear regression between YoYoIR1 a
 
 <p>Predictive performance metrics can be found in the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>. As already expected, predicting YoYoIR1 from the MAS score, <strong>given</strong> the data collected, SESOI and linear regression model is not precise enough to be practically useful. Please note that the <code>R-squared</code> is very close to <code>R-squared</code> from the Table <a href="prediction.html#tab:mas-yoyo-cv-performance-summary">3.10</a>, but the <code>PPER</code> is much worse. Another reason to complement contemporary estimators with magnitude-based ones.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:yoyo-mas-cv-performance-summary">Table 3.11: </span><strong>Predictive performance summary</strong>
 </caption>
@@ -3209,7 +3211,7 @@ MaxAbsErr
 <script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/03-Prediction.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": null,"toc": {"collapse": "subsection"}});
+gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/03-Prediction.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": ["bmbstats-book.pdf"],"toc": {"collapse": "subsection"}});
 });
 </script>
 

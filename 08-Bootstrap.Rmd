@@ -21,7 +21,7 @@ require(bayestestR)
 require(ggridges)
 require(ggstance)
 require(boot)
-
+require(kableExtra)
 
 population_mean <- 177.8
 population_sd <- 10.16
@@ -78,7 +78,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:bootstrap-example-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 If we repeat this procedure 10,000 times, we can visualize bootstrap distribution of the estimators (Figure \@ref(fig:bootstrap-distribution)). 

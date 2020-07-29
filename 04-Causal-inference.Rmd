@@ -50,7 +50,8 @@ knitr::kable(
   table_four_kinds_of_causation,
   booktabs = TRUE,
   caption = "(ref:four-causes-table-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Although the causal inference is a broad area of research, philosophical discussion and conflicts, there are a few key concepts that need to be introduced to get the big picture and understand the basics behind the aims of causal inference. Let’s start with an example involving the aforementioned question whether playing basketball makes one taller.
@@ -142,7 +143,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 0,
   caption = "(ref:basketball-counterfactuals-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a *proxy* to reveal what might have happened *on average* to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the *true* systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table \@ref(tab:table-counterfactuals-simulated)). Individual causal effect in this case is the difference between two potential outcomes: $Height_{1}$ and $Height_{0}$. 
@@ -165,7 +167,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = c(0, 0, 0, 0, 0, 2),
   caption = "(ref:table-counterfactuals-simulated-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 From Table \@ref(tab:table-counterfactuals-simulated), we can state that the mean difference between the groups consists of two components: *average causal effect* and the *selection bias* [@angristMasteringMetricsPath2015] (Equation \@ref(eq:mean-causal-effect)).
@@ -341,7 +344,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-vj-data-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Descriptive summary statistics for Treatment and Control groups are enlisted in the Table \@ref(tab:rct-summary), and visually depicted in the Figure \@ref(fig:rct-groups). 
@@ -590,7 +594,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-te-estimates-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 `Cohen's d` in the Table \@ref(tab:rct-te-estimates) is calculated by using the Equation \@ref(eq:te-nte-cohen) and it estimates standardized difference between change scores in Treatment and the Control groups.
@@ -678,7 +683,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:te-effects-estimates-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; *generalizations* beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to `r round(treatment_effects[1],2)`cm, with `r round(treatment_effects[6]*100,0)`, `r round(treatment_effects[7]*100,0)`, and `r round(treatment_effects[8]*100,0)`% of athletes having lower, trivial and higher improvements. 
@@ -712,7 +718,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:dummy-coded-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Estimated parameters for this linear model are enlisted in the Table \@ref(tab:simple-rct-model-coef)
@@ -876,7 +883,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:ancova-rct-model-perf-metrics-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 From the Table \@ref(tab:ancova-rct-model-perf-metrics) we can conclude, that although we have *explained* the causal (or treatment) effects, predicting individual Post-test is not practically meaningful since the prediction error is too large (compared to SESOI). The take-home message is that high *explanatory power* of the model doesn't doesn't automatically yield high predictive power [@shmueliExplainPredict2010]. The selection of statistical analysis is thus related to the question asked. In my opinion, it would be insightful to complement causal estimates with prediction estimates. With the example above, we can predict the direction of the effect (using expected systematic change of `r round(treatment_effects[1],2)`cm and proportions of `r round(treatment_effects[6]*100,0)`, `r round(treatment_effects[7]*100,0)`, and `r round(treatment_effects[8]*100,0)`% for lower, trivial and higher change magnitudes), but we are unable to predict individual Post-test (or changes scores) within acceptable practical precision (using SESOI as an anchor). In other words, we know that the effect will be `r round(treatment_effects[8]*100,0)`% beneficial (i.e. higher than SESOI), but we are not able to predict individual responses.
@@ -891,7 +899,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:simple-rct-model-perf-metrics-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 ### Analysis of the individual residuals: responders vs non-responders
@@ -1001,7 +1010,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:ancova-rct-counterfactual-group-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
@@ -1047,7 +1057,8 @@ tbl <- knitr::kable(
 )
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -1074,7 +1085,8 @@ tbl <- knitr::kable(
 )
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -1165,7 +1177,8 @@ tbl <- knitr::kable(
 )
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -1269,7 +1282,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:rct-interaction-model-coef-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 If we check the estimated coefficient for the group Treatment in the Table \@ref(tab:rct-interaction-model-coef), which is equal to `r round(coef(model3)[[2]],2)`, can we conclude that this is the whole effect of treatment (i.e. plyometric treatment)? Luckily no! This coefficient represents *direct treatment effect*, but there are *indirect treatment effects* due to Squat 1RM and interaction between Squat 1RM and Group. This also assumes that we have not introduced bias in treatment effect estimation by *adjusting* (or by *not adjusting*) for covariates that we should not adjust for (or *vice versa*; for great applied paper please refer to @lubkeWhyWeShould2020). 
@@ -1298,7 +1312,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:interaction-rct-model-perf-metrics-caption)"
-) 
+)  %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 As expected, predictive performance metrics are now much better. Let's inspect the athlete's residuals (Figure \@ref(fig:interaction-rct-subj-resid)).

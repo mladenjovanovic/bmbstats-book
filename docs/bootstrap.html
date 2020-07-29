@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-25" />
+<meta name="date" content="2020-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -317,7 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
 <li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
 <li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#leave-one-out-cross-validation-loocv"><i class="fa fa-check"></i><b>18.2.4</b> Leave-One-Out Cross-Validation (LOOCV)</a></li>
 </ul></li>
+<li class="chapter" data-level="18.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#shorts-citation"><i class="fa fa-check"></i><b>18.3</b> <code>shorts</code> Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
 <ul>
@@ -359,164 +361,386 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Bootstrap</em> comes for the rescue <span class="citation">(Canty and Ripley <a href="#ref-cantyBootBootstrapSPlus2017" role="doc-biblioref">2017</a>; A. C. Davison and Hinkley <a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">1997</a><a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">b</a>; Efron and Hastie <a href="#ref-efronComputerAgeStatistical2016" role="doc-biblioref">2016</a>; Hesterberg <a href="#ref-hesterbergWhatTeachersShould2015" role="doc-biblioref">2015</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>. Bootstrap is very simple and intuitive technique that is very easy to carry out. Let’s take an example to demonstrate simplicity of the bootstrap. Continuing with the height example, let’s assume that the following sample is collected for N=10 individuals: 167, 175, 175, 176, 177, 181, 188, 190, 197, 211cm. We are interested in estimating the true <code>mean</code> in the population, <code>SD</code> in the population, and proportion of individuals taller than 185cm (<code>prop185</code>; using algebraic method and estimated <code>SD</code>). The first step, as explained in the <a href="description.html#description">Description</a> section of this book, is to estimate those parameters using sample. But how do we estimate the uncertainty around the sample estimates?</p>
 <p>Bootstrap involves <em>resampling</em> from the sample itself and then recalculating estimates of interest. If we have N=10 observations in the collected sample, for each bootstrap resample we are going to draw 10x1 observations. Some observations might be drawn multiple times, while some might not be drawn at all. This is then repeated numerous times, e.g., 2,000-10,000 times and for each bootstrap resample the estimators of interest are estimated. Table <a href="bootstrap.html#tab:bootstrap-example">8.1</a> contains 10 bootstrap resamples with calculated estimators of interest. Bootstrap resample of number 0 represents the original sample.</p>
 
-<table>
-<caption><span id="tab:bootstrap-example">Table 8.1: </span><strong>Bootstrap resamples</strong></caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:bootstrap-example">Table 8.1: </span><strong>Bootstrap resamples</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Boot resample</th>
-<th align="left">Observations</th>
-<th align="right">mean</th>
-<th align="right">SD</th>
-<th align="right">prop185</th>
+<tr>
+<th style="text-align:right;">
+Boot resample
+</th>
+<th style="text-align:left;">
+Observations
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+prop185
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">0</td>
-<td align="left">167 175 175 176 177 181 188 190 197 211</td>
-<td align="right">183.7</td>
-<td align="right">13.00</td>
-<td align="right">0.46</td>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+167 175 175 176 177 181 188 190 197 211
+</td>
+<td style="text-align:right;">
+183.7
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+0.46
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="left">167 167 167 177 188 188 188 188 197 197</td>
-<td align="right">182.4</td>
-<td align="right">11.98</td>
-<td align="right">0.41</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+167 167 167 177 188 188 188 188 197 197
+</td>
+<td style="text-align:right;">
+182.4
+</td>
+<td style="text-align:right;">
+11.98
+</td>
+<td style="text-align:right;">
+0.41
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="left">175 175 175 181 181 181 181 190 197 197</td>
-<td align="right">183.3</td>
-<td align="right">8.49</td>
-<td align="right">0.42</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+175 175 175 181 181 181 181 190 197 197
+</td>
+<td style="text-align:right;">
+183.3
+</td>
+<td style="text-align:right;">
+8.49
+</td>
+<td style="text-align:right;">
+0.42
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="left">175 175 177 177 181 181 188 188 188 190</td>
-<td align="right">182.0</td>
-<td align="right">5.98</td>
-<td align="right">0.31</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+175 175 177 177 181 181 188 188 188 190
+</td>
+<td style="text-align:right;">
+182.0
+</td>
+<td style="text-align:right;">
+5.98
+</td>
+<td style="text-align:right;">
+0.31
+</td>
 </tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="left">167 181 181 181 181 188 188 197 197 197</td>
-<td align="right">185.8</td>
-<td align="right">9.61</td>
-<td align="right">0.53</td>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+167 181 181 181 181 188 188 197 197 197
+</td>
+<td style="text-align:right;">
+185.8
+</td>
+<td style="text-align:right;">
+9.61
+</td>
+<td style="text-align:right;">
+0.53
+</td>
 </tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="left">167 176 176 177 181 188 190 190 211 211</td>
-<td align="right">186.7</td>
-<td align="right">14.71</td>
-<td align="right">0.55</td>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+167 176 176 177 181 188 190 190 211 211
+</td>
+<td style="text-align:right;">
+186.7
+</td>
+<td style="text-align:right;">
+14.71
+</td>
+<td style="text-align:right;">
+0.55
+</td>
 </tr>
-<tr class="odd">
-<td align="right">6</td>
-<td align="left">167 167 167 175 177 177 188 188 190 211</td>
-<td align="right">180.7</td>
-<td align="right">13.88</td>
-<td align="right">0.38</td>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+167 167 167 175 177 177 188 188 190 211
+</td>
+<td style="text-align:right;">
+180.7
+</td>
+<td style="text-align:right;">
+13.88
+</td>
+<td style="text-align:right;">
+0.38
+</td>
 </tr>
-<tr class="even">
-<td align="right">7</td>
-<td align="left">175 175 175 176 177 177 181 181 188 190</td>
-<td align="right">179.5</td>
-<td align="right">5.50</td>
-<td align="right">0.16</td>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 177 181 181 188 190
+</td>
+<td style="text-align:right;">
+179.5
+</td>
+<td style="text-align:right;">
+5.50
+</td>
+<td style="text-align:right;">
+0.16
+</td>
 </tr>
-<tr class="odd">
-<td align="right">8</td>
-<td align="left">175 175 175 176 177 181 188 190 190 190</td>
-<td align="right">181.7</td>
-<td align="right">6.96</td>
-<td align="right">0.32</td>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 181 188 190 190 190
+</td>
+<td style="text-align:right;">
+181.7
+</td>
+<td style="text-align:right;">
+6.96
+</td>
+<td style="text-align:right;">
+0.32
+</td>
 </tr>
-<tr class="even">
-<td align="right">9</td>
-<td align="left">176 176 177 181 190 190 190 190 197 211</td>
-<td align="right">187.8</td>
-<td align="right">10.97</td>
-<td align="right">0.60</td>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+176 176 177 181 190 190 190 190 197 211
+</td>
+<td style="text-align:right;">
+187.8
+</td>
+<td style="text-align:right;">
+10.97
+</td>
+<td style="text-align:right;">
+0.60
+</td>
 </tr>
-<tr class="odd">
-<td align="right">10</td>
-<td align="left">167 167 175 175 175 176 176 177 177 188</td>
-<td align="right">175.3</td>
-<td align="right">5.83</td>
-<td align="right">0.05</td>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+167 167 175 175 175 176 176 177 177 188
+</td>
+<td style="text-align:right;">
+175.3
+</td>
+<td style="text-align:right;">
+5.83
+</td>
+<td style="text-align:right;">
+0.05
+</td>
 </tr>
-<tr class="even">
-<td align="right">11</td>
-<td align="left">175 177 181 181 181 188 190 197 197 211</td>
-<td align="right">187.8</td>
-<td align="right">11.21</td>
-<td align="right">0.60</td>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+175 177 181 181 181 188 190 197 197 211
+</td>
+<td style="text-align:right;">
+187.8
+</td>
+<td style="text-align:right;">
+11.21
+</td>
+<td style="text-align:right;">
+0.60
+</td>
 </tr>
-<tr class="odd">
-<td align="right">12</td>
-<td align="left">175 175 175 176 176 177 181 188 190 211</td>
-<td align="right">182.4</td>
-<td align="right">11.47</td>
-<td align="right">0.41</td>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+175 175 175 176 176 177 181 188 190 211
+</td>
+<td style="text-align:right;">
+182.4
+</td>
+<td style="text-align:right;">
+11.47
+</td>
+<td style="text-align:right;">
+0.41
+</td>
 </tr>
-<tr class="even">
-<td align="right">13</td>
-<td align="left">175 175 177 181 181 188 190 190 211 211</td>
-<td align="right">187.9</td>
-<td align="right">13.43</td>
-<td align="right">0.59</td>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+175 175 177 181 181 188 190 190 211 211
+</td>
+<td style="text-align:right;">
+187.9
+</td>
+<td style="text-align:right;">
+13.43
+</td>
+<td style="text-align:right;">
+0.59
+</td>
 </tr>
-<tr class="odd">
-<td align="right">14</td>
-<td align="left">167 175 175 176 177 177 188 190 211 211</td>
-<td align="right">184.7</td>
-<td align="right">15.34</td>
-<td align="right">0.49</td>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+167 175 175 176 177 177 188 190 211 211
+</td>
+<td style="text-align:right;">
+184.7
+</td>
+<td style="text-align:right;">
+15.34
+</td>
+<td style="text-align:right;">
+0.49
+</td>
 </tr>
-<tr class="even">
-<td align="right">15</td>
-<td align="left">175 177 177 181 181 188 188 190 211 211</td>
-<td align="right">187.9</td>
-<td align="right">13.21</td>
-<td align="right">0.59</td>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+175 177 177 181 181 188 188 190 211 211
+</td>
+<td style="text-align:right;">
+187.9
+</td>
+<td style="text-align:right;">
+13.21
+</td>
+<td style="text-align:right;">
+0.59
+</td>
 </tr>
-<tr class="odd">
-<td align="right">16</td>
-<td align="left">167 175 175 175 177 177 181 188 190 197</td>
-<td align="right">180.2</td>
-<td align="right">8.92</td>
-<td align="right">0.30</td>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+167 175 175 175 177 177 181 188 190 197
+</td>
+<td style="text-align:right;">
+180.2
+</td>
+<td style="text-align:right;">
+8.92
+</td>
+<td style="text-align:right;">
+0.30
+</td>
 </tr>
-<tr class="even">
-<td align="right">17</td>
-<td align="left">175 175 175 176 177 177 181 190 190 197</td>
-<td align="right">181.3</td>
-<td align="right">8.04</td>
-<td align="right">0.32</td>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+175 175 175 176 177 177 181 190 190 197
+</td>
+<td style="text-align:right;">
+181.3
+</td>
+<td style="text-align:right;">
+8.04
+</td>
+<td style="text-align:right;">
+0.32
+</td>
 </tr>
-<tr class="odd">
-<td align="right">18</td>
-<td align="left">167 175 175 175 176 177 177 188 188 188</td>
-<td align="right">178.6</td>
-<td align="right">7.07</td>
-<td align="right">0.18</td>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+167 175 175 175 176 177 177 188 188 188
+</td>
+<td style="text-align:right;">
+178.6
+</td>
+<td style="text-align:right;">
+7.07
+</td>
+<td style="text-align:right;">
+0.18
+</td>
 </tr>
-<tr class="even">
-<td align="right">19</td>
-<td align="left">167 167 175 177 181 188 190 197 197 211</td>
-<td align="right">185.0</td>
-<td align="right">14.24</td>
-<td align="right">0.50</td>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+167 167 175 177 181 188 190 197 197 211
+</td>
+<td style="text-align:right;">
+185.0
+</td>
+<td style="text-align:right;">
+14.24
+</td>
+<td style="text-align:right;">
+0.50
+</td>
 </tr>
-<tr class="odd">
-<td align="right">20</td>
-<td align="left">167 167 175 175 176 176 177 181 197 211</td>
-<td align="right">180.2</td>
-<td align="right">13.66</td>
-<td align="right">0.36</td>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+167 167 175 175 176 176 177 181 197 211
+</td>
+<td style="text-align:right;">
+180.2
+</td>
+<td style="text-align:right;">
+13.66
+</td>
+<td style="text-align:right;">
+0.36
+</td>
 </tr>
 </tbody>
 </table>
@@ -537,19 +761,19 @@ Figure 8.1: <strong>Bootstrap distribution of the estimators using 10,000 resamp
 <h2><span class="header-section-number">8.1</span> Summarizing bootstrap distribution</h2>
 <p>Bootstrap allows for both estimation and hypothesis testing. When it comes to estimations, point estimate of the bootstrap distribution is the sample parameter estimate. Confidence intervals around sample estimate are usually calculated using percentile approach (or ETI), or other approaches such as <em>adjusted bootstrap percentile</em> (BCa) <span class="citation">(Canty and Ripley <a href="#ref-cantyBootBootstrapSPlus2017" role="doc-biblioref">2017</a>; A. C. Davison and Hinkley <a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">1997</a><a href="#ref-davisonBootstrapMethodsTheir1997" role="doc-biblioref">b</a>; Efron and Hastie <a href="#ref-efronComputerAgeStatistical2016" role="doc-biblioref">2016</a>; Hesterberg <a href="#ref-hesterbergWhatTeachersShould2015" role="doc-biblioref">2015</a>; Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>, or even HDI as used with Bayesian posterior distributions. In this book I will utilize BCa intervals unless otherwise stated.</p>
 <p>Hypothesis testing using the bootstrap distribution is possible through calculated p-value <span class="citation">(Guillaume A Rousselet, Pernet, and Wilcox <a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPercentileBootstrapTeaser2019" role="doc-biblioref">b</a>, <a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">2019</a><a href="#ref-rousseletPracticalIntroductionBootstrap2019" role="doc-biblioref">a</a>)</span>. This not only allows for bootstrap NHST, but also all other MET, as well as MBI estimates (which assumes Bayesian interpretation of the bootstrap distributions). This is simply done by counting bootstrap sample estimates that are below or above particular threshold (i.e. null-hypothesis or SESOI). The R code <span class="citation">(R Core Team <a href="#ref-rcoreteamLanguageEnvironmentStatistical2018" role="doc-biblioref">2018</a>; RStudio Team <a href="#ref-rstudioteamRStudioIntegratedDevelopment2016" role="doc-biblioref">2016</a>)</span> below demonstrates how two-way NHST can be performed as well as probability of lower, equivalent, and higher effect given the SESOI thresholds.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bootstrap.html#cb1-1"></a>null_hypothesis &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># Value for the null</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bootstrap.html#cb1-1"></a>null_hypothesis &lt;-<span class="st"> </span><span class="dv">0</span>  <span class="co"># Value for the null</span></span>
 <span id="cb1-2"><a href="bootstrap.html#cb1-2"></a></span>
-<span id="cb1-3"><a href="bootstrap.html#cb1-3"></a>SESOI_lower &lt;-<span class="st"> </span><span class="dv">-1</span> <span class="co"># threshold for the &#39;lower&#39; effect magnitude</span></span>
-<span id="cb1-4"><a href="bootstrap.html#cb1-4"></a>SESOI_upper &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># threshold for the &#39;upper&#39; effect magnitude</span></span>
+<span id="cb1-3"><a href="bootstrap.html#cb1-3"></a>SESOI_lower &lt;-<span class="st"> </span><span class="dv">-1</span>  <span class="co"># threshold for the &#39;lower&#39; effect magnitude</span></span>
+<span id="cb1-4"><a href="bootstrap.html#cb1-4"></a>SESOI_upper &lt;-<span class="st"> </span><span class="dv">1</span>  <span class="co"># threshold for the &#39;upper&#39; effect magnitude</span></span>
 <span id="cb1-5"><a href="bootstrap.html#cb1-5"></a></span>
-<span id="cb1-6"><a href="bootstrap.html#cb1-6"></a><span class="co"># Calculation of the p-value</span></span>
-<span id="cb1-7"><a href="bootstrap.html#cb1-7"></a><span class="co"># where boot.estimator is the boostrap resample values for the estimator</span></span>
-<span id="cb1-8"><a href="bootstrap.html#cb1-8"></a><span class="co"># of interest</span></span>
-<span id="cb1-9"><a href="bootstrap.html#cb1-9"></a>p_value &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&gt;</span><span class="st"> </span>null_hypothesis)</span>
-<span id="cb1-10"><a href="bootstrap.html#cb1-10"></a>p_value &lt;-<span class="st"> </span>p_value <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">==</span><span class="st"> </span>null_hypothesis)</span>
-<span id="cb1-11"><a href="bootstrap.html#cb1-11"></a>p_value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">min</span>(<span class="kw">c</span>(p_value, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_value)) <span class="co"># Two-way p-value</span></span>
-<span id="cb1-12"><a href="bootstrap.html#cb1-12"></a></span>
-<span id="cb1-13"><a href="bootstrap.html#cb1-13"></a><span class="co"># Calculate probability of lower, equivalent and higher effect magnitude</span></span>
+<span id="cb1-6"><a href="bootstrap.html#cb1-6"></a><span class="co"># Calculation of the p-value where boot.estimator is the</span></span>
+<span id="cb1-7"><a href="bootstrap.html#cb1-7"></a><span class="co"># boostrap resample values for the estimator of interest</span></span>
+<span id="cb1-8"><a href="bootstrap.html#cb1-8"></a>p_value &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&gt;</span><span class="st"> </span>null_hypothesis)</span>
+<span id="cb1-9"><a href="bootstrap.html#cb1-9"></a>p_value &lt;-<span class="st"> </span>p_value <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">==</span><span class="st"> </span>null_hypothesis)</span>
+<span id="cb1-10"><a href="bootstrap.html#cb1-10"></a>p_value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">min</span>(<span class="kw">c</span>(p_value, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_value))  <span class="co"># Two-way p-value</span></span>
+<span id="cb1-11"><a href="bootstrap.html#cb1-11"></a></span>
+<span id="cb1-12"><a href="bootstrap.html#cb1-12"></a><span class="co"># Calculate probability of lower, equivalent and higher</span></span>
+<span id="cb1-13"><a href="bootstrap.html#cb1-13"></a><span class="co"># effect magnitude</span></span>
 <span id="cb1-14"><a href="bootstrap.html#cb1-14"></a>lower &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&lt;</span><span class="st"> </span>SESOI_lower)</span>
 <span id="cb1-15"><a href="bootstrap.html#cb1-15"></a>higher &lt;-<span class="st"> </span><span class="kw">mean</span>(boot.estimator <span class="op">&gt;</span><span class="st"> </span>SESOI_upper)</span>
 <span id="cb1-16"><a href="bootstrap.html#cb1-16"></a>equivalent &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(lower <span class="op">+</span><span class="st"> </span>higher)</span></code></pre></div>
@@ -566,33 +790,67 @@ Figure 8.2: <strong>Bootstrap <span class="math inline">\(95\%\)</span>confidenc
 
 
 <table>
-<caption><span id="tab:bootstrap-type-i-summary">Table 8.2: </span><strong>Bootstrap Type I errors</strong></caption>
+<caption>
+<span id="tab:bootstrap-type-i-summary">Table 8.2: </span><strong>Bootstrap Type I errors</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">parameter</th>
-<th align="right">Sample</th>
-<th align="right">Correct %</th>
-<th align="right">Type I Errors %</th>
+<tr>
+<th style="text-align:left;">
+parameter
+</th>
+<th style="text-align:right;">
+Sample
+</th>
+<th style="text-align:right;">
+Correct %
+</th>
+<th style="text-align:right;">
+Type I Errors %
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">mean</td>
-<td align="right">1000</td>
-<td align="right">92.7</td>
-<td align="right">7.3</td>
+<tr>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+92.7
+</td>
+<td style="text-align:right;">
+7.3
+</td>
 </tr>
-<tr class="even">
-<td align="left">sd</td>
-<td align="right">1000</td>
-<td align="right">89.9</td>
-<td align="right">10.1</td>
+<tr>
+<td style="text-align:left;">
+sd
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+89.9
+</td>
+<td style="text-align:right;">
+10.1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">prop185</td>
-<td align="right">1000</td>
-<td align="right">93.1</td>
-<td align="right">6.9</td>
+<tr>
+<td style="text-align:left;">
+prop185
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+93.1
+</td>
+<td style="text-align:right;">
+6.9
+</td>
 </tr>
 </tbody>
 </table>
@@ -661,7 +919,7 @@ Figure 8.2: <strong>Bootstrap <span class="math inline">\(95\%\)</span>confidenc
 <script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/08-Bootstrap.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": null,"toc": {"collapse": "subsection"}});
+gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/08-Bootstrap.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": ["bmbstats-book.pdf"],"toc": {"collapse": "subsection"}});
 });
 </script>
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-25" />
+<meta name="date" content="2020-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -317,7 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
 <li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
 <li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#leave-one-out-cross-validation-loocv"><i class="fa fa-check"></i><b>18.2.4</b> Leave-One-Out Cross-Validation (LOOCV)</a></li>
 </ul></li>
+<li class="chapter" data-level="18.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#shorts-citation"><i class="fa fa-check"></i><b>18.3</b> <code>shorts</code> Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
 <ul>
@@ -368,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Table <a href="causal-inference.html#tab:four-causes-table">4.1</a> contains summary of the above necessary and sufficient causality. In all four types of causation, the concept of counterfactual reasoning is invoked.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:four-causes-table">Table 4.1: </span><strong>Four kinds of causation</strong>
 </caption>
@@ -843,7 +845,7 @@ Difference
 <h2><span class="header-section-number">4.3</span> Potential outcomes or counterfactuals</h2>
 <p>To explain why this is the case, we need to imagine <em>alternate counterfactual reality</em>. What is needed are two potential outcomes: <span class="math inline">\(Height_{0}\)</span>, which represents height of the person if one doesn’t train basketball, and <span class="math inline">\(Height_{1}\)</span> which represents height of the person if basketball is being played (Table <a href="causal-inference.html#tab:basketball-counterfactuals">4.4</a>). As can be guessed, the Basketball group has known <span class="math inline">\(Height_{1}\)</span>, but unknown <span class="math inline">\(Height_{0}\)</span> and <em>vice versa</em> for the Control group.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:basketball-counterfactuals">Table 4.4: </span><strong>Counterfactuals of potential outcomes that are unknown</strong>
 </caption>
@@ -1474,7 +1476,7 @@ Control
 </table>
 <p>Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a <em>proxy</em> to reveal what might have happened <em>on average</em> to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the <em>true</em> systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table <a href="causal-inference.html#tab:table-counterfactuals-simulated">4.5</a>). Individual causal effect in this case is the difference between two potential outcomes: <span class="math inline">\(Height_{1}\)</span> and <span class="math inline">\(Height_{0}\)</span>.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:table-counterfactuals-simulated">Table 4.5: </span><strong>Simulated causal effects and known counterfactuals</strong>
 </caption>
@@ -2542,7 +2544,7 @@ Difference
 <h2><span class="header-section-number">4.6</span> Example of randomized control trial</h2>
 <p>Let’s consider the following example. We are interested in estimating causal effect of the plyometric training on the vertical jump height. To estimate causal effect, <em>randomized control trial</em> (RCT) is utilized. RCT utilizes two groups: Treatment (N=15) and Control (N=15), measured two times: Pre-test and Post-test. Treatment group received plyometric training over the course of three months, while Control group continued with <em>normal</em> training. The results of RCT study can be found in the Table <a href="causal-inference.html#tab:rct-vj-data">4.8</a>. To estimate practical significance of the treatment effect, SESOI of ±2.5cm is selected to indicate minimal change of the practical value. It is important to have “well defined interventions” <span class="citation">(Hernán <a href="#ref-hernanCWordScientificEuphemisms2018" role="doc-biblioref">2018</a>, <a href="#ref-hernanDoesWaterKill2016" role="doc-biblioref">2016</a>; Hernán and Taubman <a href="#ref-hernanDoesObesityShorten2008" role="doc-biblioref">2008</a>)</span>, thus the question that should be answered is as follows: “Does plyometric training added to normal training improves vertical jump height over period of three months?”</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:rct-vj-data">Table 4.8: </span><strong>Randomized control trial data</strong>
 </caption>
@@ -3314,7 +3316,7 @@ Figure 4.3: <strong>Treatment and Non-treatment effects of intervention.</strong
 <p>From the Equation <a href="causal-inference.html#eq:te-and-nte-equation">(4.2)</a>, the differences between the changes in Treatment and Control groups can be interpreted as the estimate of the causal effect of the treatment. More precisely, average causal effect or expected causal effect represent systematic treatment effect. This is estimated using difference between <code>mean</code> Treatment change and <code>mean</code> Control change.</p>
 <p>Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> contains descriptive statistics of the change score differences. Panel C in the Figure <a href="causal-inference.html#fig:rct-paired-change">4.2</a> depicts distribution of the change scores and reflect the calculus in the Table <a href="causal-inference.html#tab:rct-te-estimates">4.11</a> graphically.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:rct-te-estimates">Table 4.11: </span><strong>Descriptive statistics of the change score differences</strong>
 </caption>
@@ -3406,7 +3408,7 @@ Figure 4.4: <strong>Graphical representation of the causal Treatment effect.</st
 
 <p>Using SESOI, one can also estimate the proportion of lower, equivalent and higher changes (responses) caused by treatment. The estimates of the causal treatment effects, with accompanying proportions of responses are enlisted in the Table <a href="causal-inference.html#tab:te-effects-estimates">4.12</a>.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:te-effects-estimates">Table 4.12: </span><strong>Estimates of the causal treatment effects</strong>
 </caption>
@@ -3480,7 +3482,7 @@ pHigher
 <p>According to <a href="https://www.fharrell.com/post/errmed/#change">Frank Harrell</a>, the use of change scores in the RCT analysis is problematic. Although this model definition (Equation <a href="causal-inference.html#eq:simple-rct-change-regression">(4.6)</a>) will give us exactly the same results as obtained in the previous section, the use of change scores should be avoided. Thus, look at this example as <em>training vehicle</em>. After this initial discussion, valid model representation will be used.</p>
 <p>Since Group column is a string, how is Group column represented in the model? Group column needs to be <em>dummy-coded</em>, using 0 for Control and 1 for Treatment (see Table <a href="causal-inference.html#tab:dummy-coded">4.13</a>).</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:dummy-coded">Table 4.13: </span><strong>Dummy coding of the Group column to be used in linear regression model</strong>
 </caption>
@@ -4118,7 +4120,7 @@ Figure 4.8: <strong>Model residuals using ANCOVA RCT model. </strong>Grey band r
 <p><code>SD</code> of the residuals for the Control group is equal to 1.43cm and for Treatment group is equal to 4.64cm. Please note the similarities with simple RCT model (i.e. using Change score as outcome and Group as predictor).</p>
 <p>As explained in the <a href="prediction.html#prediction">Prediction</a> section, this model can be cross-validated. Predictive performance metrics using 10 repeats of 3 folds cross-validation are enlisted in the Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a>. Since our RCT data has two groups (i.e. Control and Treatment), cross-validation needs to be <em>stratified</em>. This makes sure that each group has their own cross-validation folds, and that testing data size for each group is proportional to the group size. This avoids scenarios where most training or testing data comes from a single group (which is more probable if one group is larger).</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:ancova-rct-model-perf-metrics">Table 4.16: </span><strong>Cross-validated predictive performance metrics for the ANCOVA RCT model</strong>
 </caption>
@@ -4390,7 +4392,7 @@ MaxAbsErr
 <p>From the Table <a href="causal-inference.html#tab:ancova-rct-model-perf-metrics">4.16</a> we can conclude, that although we have <em>explained</em> the causal (or treatment) effects, predicting individual Post-test is not practically meaningful since the prediction error is too large (compared to SESOI). The take-home message is that high <em>explanatory power</em> of the model doesn’t doesn’t automatically yield high predictive power <span class="citation">(Shmueli <a href="#ref-shmueliExplainPredict2010" role="doc-biblioref">2010</a>)</span>. The selection of statistical analysis is thus related to the question asked. In my opinion, it would be insightful to complement causal estimates with prediction estimates. With the example above, we can predict the direction of the effect (using expected systematic change of 7.9cm and proportions of 1, 11, and 88% for lower, trivial and higher change magnitudes), but we are unable to predict individual Post-test (or changes scores) within acceptable practical precision (using SESOI as an anchor). In other words, we know that the effect will be 88% beneficial (i.e. higher than SESOI), but we are not able to predict individual responses.</p>
 <p>For the sake of completeness, Table <a href="causal-inference.html#tab:simple-rct-model-perf-metrics">4.17</a> contains performance metrics for the simple RCT model.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:simple-rct-model-perf-metrics">Table 4.17: </span><strong>Cross-validated predictive performance metrics for the simple RCT model</strong>
 </caption>
@@ -4705,7 +4707,7 @@ Figure 4.12: <strong>Bias-variance across 10 times repeated 3-fold cross-validat
 <p>To explain how this is done, let’s again consider the Table <a href="causal-inference.html#tab:dummy-coded">4.13</a>. Changing the Group column (in this case <code>groupTreatment</code>) for every observation (athletes in this case) while keeping all other variables (i.e. columns) the same, we can get a glimpse into causal effects of the treatment (assuming the model and the data are valid for such an inference). The prediction model utilized is ANCOVA RCT model.</p>
 <p>In the Table <a href="causal-inference.html#tab:ancova-rct-counterfactual-group">4.18</a>, columns <code>Post-test_0 (cm)</code> and <code>Post-test_1 (cm)</code> indicate these counterfactual changes for which we are interested how the model predicts. These predictions are in the columns <code>Post-test_0 (cm)</code> and <code>Post-test_1 (cm)</code>.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:ancova-rct-counterfactual-group">Table 4.18: </span><strong>Counterfactual table used to check how the model predicts when Group changes</strong>
 </caption>
@@ -7844,7 +7846,7 @@ Figure 4.17: <strong>Relationship between predictors. A. </strong> Relationship 
 \end{equation}\]</span></p>
 <p>Estimated parameters for this linear model with interaction are enlisted in the Table <a href="causal-inference.html#tab:rct-interaction-model-coef">4.22</a>.</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:rct-interaction-model-coef">Table 4.22: </span><strong>Estimated linear regression parameters for the RCT model with interaction between Group and Squat 1RM</strong>
 </caption>
@@ -7898,7 +7900,7 @@ Figure 4.18: <strong>Residuals of the linear regression RCT model with interacti
 
 <p>As opposed to the Figures <a href="causal-inference.html#fig:simple-rct-model-ba">4.6</a> and <a href="causal-inference.html#fig:ancova-rct-model-ba">4.8</a>, we can quickly see that this model have almost all residuals in the SESOI band. Table <a href="causal-inference.html#tab:interaction-rct-model-perf-metrics">4.23</a> contains cross-validated model performance (using the same 10 repeats of 3 folds cross-validation splits as used in the simple and ANCOVA RCT models).</p>
 
-<table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:interaction-rct-model-perf-metrics">Table 4.23: </span><strong>Cross-validated predictive performance metrics for the RCT model with interaction</strong>
 </caption>
@@ -8555,7 +8557,7 @@ The main critique of Judea Pearl regarding the use of predictive models and tech
 <script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/04-Causal-inference.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": null,"toc": {"collapse": "subsection"}});
+gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/04-Causal-inference.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": ["bmbstats-book.pdf"],"toc": {"collapse": "subsection"}});
 });
 </script>
 

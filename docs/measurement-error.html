@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-07-25" />
+<meta name="date" content="2020-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -317,7 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.1" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-split-times"><i class="fa fa-check"></i><b>18.2.1</b> Profiling using split times</a></li>
 <li class="chapter" data-level="18.2.2" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#profiling-using-radar-gun-data"><i class="fa fa-check"></i><b>18.2.2</b> Profiling using radar gun data</a></li>
 <li class="chapter" data-level="18.2.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#using-corrections"><i class="fa fa-check"></i><b>18.2.3</b> Using corrections</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#leave-one-out-cross-validation-loocv"><i class="fa fa-check"></i><b>18.2.4</b> Leave-One-Out Cross-Validation (LOOCV)</a></li>
 </ul></li>
+<li class="chapter" data-level="18.3" data-path="appendix-b-shorts-package.html"><a href="appendix-b-shorts-package.html#shorts-citation"><i class="fa fa-check"></i><b>18.3</b> <code>shorts</code> Citation</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="appendix-c-vjsim-package.html"><a href="appendix-c-vjsim-package.html"><i class="fa fa-check"></i><b>19</b> Appendix C: <code>vjsim</code> package</a>
 <ul>
@@ -382,199 +384,495 @@ Figure 10.1: <strong>Measurement error components</strong>
 \end{equation}\]</span></p>
 <p>Table <a href="measurement-error.html#tab:bodyweight-data">10.1</a> contains the simulated sample for N=20 athletes and 5 trials.</p>
 
-<table>
-<caption><span id="tab:bodyweight-data">Table 10.1: </span><strong>Simulated 5 trials from known true score and measurement error</strong></caption>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:bodyweight-data">Table 10.1: </span><strong>Simulated 5 trials from known true score and measurement error</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">TS (kg)</th>
-<th align="right">OS 1 (kg)</th>
-<th align="right">OS 2 (kg)</th>
-<th align="right">OS 3 (kg)</th>
-<th align="right">OS 4 (kg)</th>
-<th align="right">OS 5 (kg)</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+TS (kg)
+</th>
+<th style="text-align:right;">
+OS 1 (kg)
+</th>
+<th style="text-align:right;">
+OS 2 (kg)
+</th>
+<th style="text-align:right;">
+OS 3 (kg)
+</th>
+<th style="text-align:right;">
+OS 4 (kg)
+</th>
+<th style="text-align:right;">
+OS 5 (kg)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">77.93</td>
-<td align="right">79.47</td>
-<td align="right">79.37</td>
-<td align="right">79.25</td>
-<td align="right">80.38</td>
-<td align="right">79.46</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+77.93
+</td>
+<td style="text-align:right;">
+79.47
+</td>
+<td style="text-align:right;">
+79.37
+</td>
+<td style="text-align:right;">
+79.25
+</td>
+<td style="text-align:right;">
+80.38
+</td>
+<td style="text-align:right;">
+79.46
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">76.11</td>
-<td align="right">77.83</td>
-<td align="right">77.71</td>
-<td align="right">77.36</td>
-<td align="right">78.32</td>
-<td align="right">76.78</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+76.11
+</td>
+<td style="text-align:right;">
+77.83
+</td>
+<td style="text-align:right;">
+77.71
+</td>
+<td style="text-align:right;">
+77.36
+</td>
+<td style="text-align:right;">
+78.32
+</td>
+<td style="text-align:right;">
+76.78
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">77.04</td>
-<td align="right">78.65</td>
-<td align="right">78.30</td>
-<td align="right">78.48</td>
-<td align="right">78.30</td>
-<td align="right">78.55</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+77.04
+</td>
+<td style="text-align:right;">
+78.65
+</td>
+<td style="text-align:right;">
+78.30
+</td>
+<td style="text-align:right;">
+78.48
+</td>
+<td style="text-align:right;">
+78.30
+</td>
+<td style="text-align:right;">
+78.55
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">54.96</td>
-<td align="right">56.58</td>
-<td align="right">56.36</td>
-<td align="right">56.05</td>
-<td align="right">56.20</td>
-<td align="right">56.45</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+54.96
+</td>
+<td style="text-align:right;">
+56.58
+</td>
+<td style="text-align:right;">
+56.36
+</td>
+<td style="text-align:right;">
+56.05
+</td>
+<td style="text-align:right;">
+56.20
+</td>
+<td style="text-align:right;">
+56.45
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">84.03</td>
-<td align="right">85.53</td>
-<td align="right">85.44</td>
-<td align="right">86.10</td>
-<td align="right">85.96</td>
-<td align="right">85.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+84.03
+</td>
+<td style="text-align:right;">
+85.53
+</td>
+<td style="text-align:right;">
+85.44
+</td>
+<td style="text-align:right;">
+86.10
+</td>
+<td style="text-align:right;">
+85.96
+</td>
+<td style="text-align:right;">
+85.11
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">61.32</td>
-<td align="right">61.84</td>
-<td align="right">63.05</td>
-<td align="right">63.52</td>
-<td align="right">63.73</td>
-<td align="right">62.43</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+61.32
+</td>
+<td style="text-align:right;">
+61.84
+</td>
+<td style="text-align:right;">
+63.05
+</td>
+<td style="text-align:right;">
+63.52
+</td>
+<td style="text-align:right;">
+63.73
+</td>
+<td style="text-align:right;">
+62.43
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">68.62</td>
-<td align="right">70.26</td>
-<td align="right">69.82</td>
-<td align="right">70.34</td>
-<td align="right">70.45</td>
-<td align="right">70.84</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+68.62
+</td>
+<td style="text-align:right;">
+70.26
+</td>
+<td style="text-align:right;">
+69.82
+</td>
+<td style="text-align:right;">
+70.34
+</td>
+<td style="text-align:right;">
+70.45
+</td>
+<td style="text-align:right;">
+70.84
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">61.06</td>
-<td align="right">62.03</td>
-<td align="right">62.91</td>
-<td align="right">62.93</td>
-<td align="right">62.15</td>
-<td align="right">62.40</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+61.06
+</td>
+<td style="text-align:right;">
+62.03
+</td>
+<td style="text-align:right;">
+62.91
+</td>
+<td style="text-align:right;">
+62.93
+</td>
+<td style="text-align:right;">
+62.15
+</td>
+<td style="text-align:right;">
+62.40
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">80.46</td>
-<td align="right">81.34</td>
-<td align="right">83.04</td>
-<td align="right">82.57</td>
-<td align="right">82.60</td>
-<td align="right">82.33</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+80.46
+</td>
+<td style="text-align:right;">
+81.34
+</td>
+<td style="text-align:right;">
+83.04
+</td>
+<td style="text-align:right;">
+82.57
+</td>
+<td style="text-align:right;">
+82.60
+</td>
+<td style="text-align:right;">
+82.33
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">91.14</td>
-<td align="right">94.02</td>
-<td align="right">93.47</td>
-<td align="right">93.28</td>
-<td align="right">93.40</td>
-<td align="right">93.51</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+91.14
+</td>
+<td style="text-align:right;">
+94.02
+</td>
+<td style="text-align:right;">
+93.47
+</td>
+<td style="text-align:right;">
+93.28
+</td>
+<td style="text-align:right;">
+93.40
+</td>
+<td style="text-align:right;">
+93.51
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">79.98</td>
-<td align="right">81.89</td>
-<td align="right">82.13</td>
-<td align="right">81.13</td>
-<td align="right">81.57</td>
-<td align="right">81.94</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+79.98
+</td>
+<td style="text-align:right;">
+81.89
+</td>
+<td style="text-align:right;">
+82.13
+</td>
+<td style="text-align:right;">
+81.13
+</td>
+<td style="text-align:right;">
+81.57
+</td>
+<td style="text-align:right;">
+81.94
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">67.07</td>
-<td align="right">69.54</td>
-<td align="right">68.32</td>
-<td align="right">68.29</td>
-<td align="right">69.23</td>
-<td align="right">67.72</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+67.07
+</td>
+<td style="text-align:right;">
+69.54
+</td>
+<td style="text-align:right;">
+68.32
+</td>
+<td style="text-align:right;">
+68.29
+</td>
+<td style="text-align:right;">
+69.23
+</td>
+<td style="text-align:right;">
+67.72
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">79.41</td>
-<td align="right">80.66</td>
-<td align="right">80.81</td>
-<td align="right">81.17</td>
-<td align="right">80.56</td>
-<td align="right">80.92</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+79.41
+</td>
+<td style="text-align:right;">
+80.66
+</td>
+<td style="text-align:right;">
+80.81
+</td>
+<td style="text-align:right;">
+81.17
+</td>
+<td style="text-align:right;">
+80.56
+</td>
+<td style="text-align:right;">
+80.92
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">69.54</td>
-<td align="right">71.14</td>
-<td align="right">72.34</td>
-<td align="right">70.16</td>
-<td align="right">72.01</td>
-<td align="right">71.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+69.54
+</td>
+<td style="text-align:right;">
+71.14
+</td>
+<td style="text-align:right;">
+72.34
+</td>
+<td style="text-align:right;">
+70.16
+</td>
+<td style="text-align:right;">
+72.01
+</td>
+<td style="text-align:right;">
+71.11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">76.01</td>
-<td align="right">77.42</td>
-<td align="right">77.41</td>
-<td align="right">78.32</td>
-<td align="right">78.22</td>
-<td align="right">77.61</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+76.01
+</td>
+<td style="text-align:right;">
+77.42
+</td>
+<td style="text-align:right;">
+77.41
+</td>
+<td style="text-align:right;">
+78.32
+</td>
+<td style="text-align:right;">
+78.22
+</td>
+<td style="text-align:right;">
+77.61
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">68.31</td>
-<td align="right">70.11</td>
-<td align="right">70.05</td>
-<td align="right">70.17</td>
-<td align="right">69.02</td>
-<td align="right">70.06</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+68.31
+</td>
+<td style="text-align:right;">
+70.11
+</td>
+<td style="text-align:right;">
+70.05
+</td>
+<td style="text-align:right;">
+70.17
+</td>
+<td style="text-align:right;">
+69.02
+</td>
+<td style="text-align:right;">
+70.06
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">58.53</td>
-<td align="right">60.04</td>
-<td align="right">60.56</td>
-<td align="right">59.69</td>
-<td align="right">59.72</td>
-<td align="right">60.69</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+58.53
+</td>
+<td style="text-align:right;">
+60.04
+</td>
+<td style="text-align:right;">
+60.56
+</td>
+<td style="text-align:right;">
+59.69
+</td>
+<td style="text-align:right;">
+59.72
+</td>
+<td style="text-align:right;">
+60.69
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">81.64</td>
-<td align="right">82.61</td>
-<td align="right">83.30</td>
-<td align="right">83.66</td>
-<td align="right">82.87</td>
-<td align="right">82.60</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+81.64
+</td>
+<td style="text-align:right;">
+82.61
+</td>
+<td style="text-align:right;">
+83.30
+</td>
+<td style="text-align:right;">
+83.66
+</td>
+<td style="text-align:right;">
+82.87
+</td>
+<td style="text-align:right;">
+82.60
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">55.03</td>
-<td align="right">56.70</td>
-<td align="right">56.35</td>
-<td align="right">56.90</td>
-<td align="right">56.48</td>
-<td align="right">56.37</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+55.03
+</td>
+<td style="text-align:right;">
+56.70
+</td>
+<td style="text-align:right;">
+56.35
+</td>
+<td style="text-align:right;">
+56.90
+</td>
+<td style="text-align:right;">
+56.48
+</td>
+<td style="text-align:right;">
+56.37
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">65.03</td>
-<td align="right">66.33</td>
-<td align="right">66.44</td>
-<td align="right">67.29</td>
-<td align="right">67.28</td>
-<td align="right">66.82</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+65.03
+</td>
+<td style="text-align:right;">
+66.33
+</td>
+<td style="text-align:right;">
+66.44
+</td>
+<td style="text-align:right;">
+67.29
+</td>
+<td style="text-align:right;">
+67.28
+</td>
+<td style="text-align:right;">
+66.82
+</td>
 </tr>
 </tbody>
 </table>
@@ -582,114 +880,242 @@ Figure 10.1: <strong>Measurement error components</strong>
 <p>What is left to be estimated is the <code>SD</code> of the random error, which is often referred to as <em>typical error</em> (<code>TE</code>) of the test, or <em>standard error of the measurement</em> (<code>SEM</code>)<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>. <code>TE</code> is estimated using individual <code>SD</code> of the OS in the five trials (Table <a href="measurement-error.html#tab:individual-error">10.2</a>).</p>
 
 <table>
-<caption><span id="tab:individual-error">Table 10.2: </span><strong>Individual <code>mean</code> and <code>SD</code> from five trials</strong></caption>
+<caption>
+<span id="tab:individual-error">Table 10.2: </span><strong>Individual <code>mean</code> and <code>SD</code> from five trials</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">Mean</th>
-<th align="right">SD</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">79.59</td>
-<td align="right">0.45</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+79.59
+</td>
+<td style="text-align:right;">
+0.45
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">77.60</td>
-<td align="right">0.57</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+77.60
+</td>
+<td style="text-align:right;">
+0.57
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">78.46</td>
-<td align="right">0.16</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+78.46
+</td>
+<td style="text-align:right;">
+0.16
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">56.33</td>
-<td align="right">0.21</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+56.33
+</td>
+<td style="text-align:right;">
+0.21
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">85.63</td>
-<td align="right">0.40</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+85.63
+</td>
+<td style="text-align:right;">
+0.40
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">62.91</td>
-<td align="right">0.78</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+62.91
+</td>
+<td style="text-align:right;">
+0.78
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">70.34</td>
-<td align="right">0.37</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+70.34
+</td>
+<td style="text-align:right;">
+0.37
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">62.48</td>
-<td align="right">0.42</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+62.48
+</td>
+<td style="text-align:right;">
+0.42
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">82.38</td>
-<td align="right">0.63</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+82.38
+</td>
+<td style="text-align:right;">
+0.63
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">93.54</td>
-<td align="right">0.28</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+93.54
+</td>
+<td style="text-align:right;">
+0.28
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">81.73</td>
-<td align="right">0.39</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+81.73
+</td>
+<td style="text-align:right;">
+0.39
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">68.62</td>
-<td align="right">0.75</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+68.62
+</td>
+<td style="text-align:right;">
+0.75
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">80.82</td>
-<td align="right">0.24</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+80.82
+</td>
+<td style="text-align:right;">
+0.24
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">71.35</td>
-<td align="right">0.86</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+71.35
+</td>
+<td style="text-align:right;">
+0.86
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">77.80</td>
-<td align="right">0.44</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+77.80
+</td>
+<td style="text-align:right;">
+0.44
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">69.88</td>
-<td align="right">0.49</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+69.88
+</td>
+<td style="text-align:right;">
+0.49
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">60.14</td>
-<td align="right">0.47</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+60.14
+</td>
+<td style="text-align:right;">
+0.47
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">83.01</td>
-<td align="right">0.46</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+83.01
+</td>
+<td style="text-align:right;">
+0.46
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">56.56</td>
-<td align="right">0.24</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+56.56
+</td>
+<td style="text-align:right;">
+0.24
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">66.83</td>
-<td align="right">0.45</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+66.83
+</td>
+<td style="text-align:right;">
+0.45
+</td>
 </tr>
 </tbody>
 </table>
@@ -697,135 +1123,305 @@ Figure 10.1: <strong>Measurement error components</strong>
 <p>Unfortunately, this method of estimating <code>TE</code> is not always practically feasible. <code>TE</code> is usually estimated with two trials (OS1 and OS2; see Table <a href="measurement-error.html#tab:two-observations">10.3</a>), by using <code>SD</code> of the difference scores (<span class="math inline">\(SD_{diff}\)</span>) across athletes <span class="citation">(Hopkins <a href="#ref-hopkinsMeasuresReliabilitySports2000" role="doc-biblioref">2000</a>; Swinton et al. <a href="#ref-swintonStatisticalFrameworkInterpret2018" role="doc-biblioref">2018</a>)</span>.</p>
 
 <table>
-<caption><span id="tab:two-observations">Table 10.3: </span><strong>Estimating Typical Error using <code>SD</code> of the difference scores</strong></caption>
+<caption>
+<span id="tab:two-observations">Table 10.3: </span><strong>Estimating Typical Error using <code>SD</code> of the difference scores</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">OS 1 (kg)</th>
-<th align="right">OS 2 (kg)</th>
-<th align="right">Difference OS 2-1 (kg)</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+OS 1 (kg)
+</th>
+<th style="text-align:right;">
+OS 2 (kg)
+</th>
+<th style="text-align:right;">
+Difference OS 2-1 (kg)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">79.47</td>
-<td align="right">79.37</td>
-<td align="right">-0.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+79.47
+</td>
+<td style="text-align:right;">
+79.37
+</td>
+<td style="text-align:right;">
+-0.11
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">77.83</td>
-<td align="right">77.71</td>
-<td align="right">-0.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+77.83
+</td>
+<td style="text-align:right;">
+77.71
+</td>
+<td style="text-align:right;">
+-0.11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">78.65</td>
-<td align="right">78.30</td>
-<td align="right">-0.35</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+78.65
+</td>
+<td style="text-align:right;">
+78.30
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">56.58</td>
-<td align="right">56.36</td>
-<td align="right">-0.23</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+56.58
+</td>
+<td style="text-align:right;">
+56.36
+</td>
+<td style="text-align:right;">
+-0.23
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">85.53</td>
-<td align="right">85.44</td>
-<td align="right">-0.09</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+85.53
+</td>
+<td style="text-align:right;">
+85.44
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">61.84</td>
-<td align="right">63.05</td>
-<td align="right">1.22</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+61.84
+</td>
+<td style="text-align:right;">
+63.05
+</td>
+<td style="text-align:right;">
+1.22
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">70.26</td>
-<td align="right">69.82</td>
-<td align="right">-0.44</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+70.26
+</td>
+<td style="text-align:right;">
+69.82
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">62.03</td>
-<td align="right">62.91</td>
-<td align="right">0.88</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+62.03
+</td>
+<td style="text-align:right;">
+62.91
+</td>
+<td style="text-align:right;">
+0.88
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">81.34</td>
-<td align="right">83.04</td>
-<td align="right">1.70</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+81.34
+</td>
+<td style="text-align:right;">
+83.04
+</td>
+<td style="text-align:right;">
+1.70
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">94.02</td>
-<td align="right">93.47</td>
-<td align="right">-0.55</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+94.02
+</td>
+<td style="text-align:right;">
+93.47
+</td>
+<td style="text-align:right;">
+-0.55
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">81.89</td>
-<td align="right">82.13</td>
-<td align="right">0.24</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+81.89
+</td>
+<td style="text-align:right;">
+82.13
+</td>
+<td style="text-align:right;">
+0.24
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">69.54</td>
-<td align="right">68.32</td>
-<td align="right">-1.22</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+69.54
+</td>
+<td style="text-align:right;">
+68.32
+</td>
+<td style="text-align:right;">
+-1.22
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">80.66</td>
-<td align="right">80.81</td>
-<td align="right">0.15</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+80.66
+</td>
+<td style="text-align:right;">
+80.81
+</td>
+<td style="text-align:right;">
+0.15
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">71.14</td>
-<td align="right">72.34</td>
-<td align="right">1.21</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+71.14
+</td>
+<td style="text-align:right;">
+72.34
+</td>
+<td style="text-align:right;">
+1.21
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">77.42</td>
-<td align="right">77.41</td>
-<td align="right">-0.01</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+77.42
+</td>
+<td style="text-align:right;">
+77.41
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">70.11</td>
-<td align="right">70.05</td>
-<td align="right">-0.06</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+70.11
+</td>
+<td style="text-align:right;">
+70.05
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">60.04</td>
-<td align="right">60.56</td>
-<td align="right">0.52</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+60.04
+</td>
+<td style="text-align:right;">
+60.56
+</td>
+<td style="text-align:right;">
+0.52
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">82.61</td>
-<td align="right">83.30</td>
-<td align="right">0.70</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+82.61
+</td>
+<td style="text-align:right;">
+83.30
+</td>
+<td style="text-align:right;">
+0.70
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">56.70</td>
-<td align="right">56.35</td>
-<td align="right">-0.35</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+56.70
+</td>
+<td style="text-align:right;">
+56.35
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">66.33</td>
-<td align="right">66.44</td>
-<td align="right">0.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+66.33
+</td>
+<td style="text-align:right;">
+66.44
+</td>
+<td style="text-align:right;">
+0.11
+</td>
 </tr>
 </tbody>
 </table>
@@ -892,135 +1488,305 @@ Figure 10.4: <strong>Ordinary least squares regression (OLP) between Trial 1 (OS
 <p>In order to showcase the interpretation of the individual changes by using SESOI and <code>SDC</code> (named <em>observed outcome approach</em> in <a href="causal-inference.html#analysis-of-the-individual-residuals-responders-vs-non-responders">Analysis of the individual residuals: responders vs non-responders</a> section), let’s consider bench press example from the <a href="description.html#comparing-dependent-groups">Comparing dependent groups</a> (repeated in the Table <a href="measurement-error.html#tab:bench-press-1RM-pre-post-repeated">10.4</a>).</p>
 
 <table>
-<caption><span id="tab:bench-press-1RM-pre-post-repeated">Table 10.4: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong></caption>
+<caption>
+<span id="tab:bench-press-1RM-pre-post-repeated">Table 10.4: </span><strong>Individual Pre and Post scores, as well as Change in the bench press 1RM</strong>
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Athlete</th>
-<th align="right">Pre-test (kg)</th>
-<th align="right">Post-test (kg)</th>
-<th align="right">Change (kg)</th>
+<tr>
+<th style="text-align:left;">
+Athlete
+</th>
+<th style="text-align:right;">
+Pre-test (kg)
+</th>
+<th style="text-align:right;">
+Post-test (kg)
+</th>
+<th style="text-align:right;">
+Change (kg)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Athlete 01</td>
-<td align="right">111.80</td>
-<td align="right">121.42</td>
-<td align="right">9.62</td>
+<tr>
+<td style="text-align:left;">
+Athlete 01
+</td>
+<td style="text-align:right;">
+111.80
+</td>
+<td style="text-align:right;">
+121.42
+</td>
+<td style="text-align:right;">
+9.62
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 02</td>
-<td align="right">95.95</td>
-<td align="right">102.13</td>
-<td align="right">6.18</td>
+<tr>
+<td style="text-align:left;">
+Athlete 02
+</td>
+<td style="text-align:right;">
+95.95
+</td>
+<td style="text-align:right;">
+102.13
+</td>
+<td style="text-align:right;">
+6.18
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 03</td>
-<td align="right">105.87</td>
-<td align="right">125.56</td>
-<td align="right">19.69</td>
+<tr>
+<td style="text-align:left;">
+Athlete 03
+</td>
+<td style="text-align:right;">
+105.87
+</td>
+<td style="text-align:right;">
+125.56
+</td>
+<td style="text-align:right;">
+19.69
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 04</td>
-<td align="right">98.79</td>
-<td align="right">109.67</td>
-<td align="right">10.87</td>
+<tr>
+<td style="text-align:left;">
+Athlete 04
+</td>
+<td style="text-align:right;">
+98.79
+</td>
+<td style="text-align:right;">
+109.67
+</td>
+<td style="text-align:right;">
+10.87
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 05</td>
-<td align="right">95.81</td>
-<td align="right">108.11</td>
-<td align="right">12.30</td>
+<tr>
+<td style="text-align:left;">
+Athlete 05
+</td>
+<td style="text-align:right;">
+95.81
+</td>
+<td style="text-align:right;">
+108.11
+</td>
+<td style="text-align:right;">
+12.30
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 06</td>
-<td align="right">95.27</td>
-<td align="right">92.67</td>
-<td align="right">-2.60</td>
+<tr>
+<td style="text-align:left;">
+Athlete 06
+</td>
+<td style="text-align:right;">
+95.27
+</td>
+<td style="text-align:right;">
+92.67
+</td>
+<td style="text-align:right;">
+-2.60
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 07</td>
-<td align="right">97.75</td>
-<td align="right">106.03</td>
-<td align="right">8.28</td>
+<tr>
+<td style="text-align:left;">
+Athlete 07
+</td>
+<td style="text-align:right;">
+97.75
+</td>
+<td style="text-align:right;">
+106.03
+</td>
+<td style="text-align:right;">
+8.28
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 08</td>
-<td align="right">106.50</td>
-<td align="right">109.51</td>
-<td align="right">3.01</td>
+<tr>
+<td style="text-align:left;">
+Athlete 08
+</td>
+<td style="text-align:right;">
+106.50
+</td>
+<td style="text-align:right;">
+109.51
+</td>
+<td style="text-align:right;">
+3.01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 09</td>
-<td align="right">80.62</td>
-<td align="right">95.96</td>
-<td align="right">15.34</td>
+<tr>
+<td style="text-align:left;">
+Athlete 09
+</td>
+<td style="text-align:right;">
+80.62
+</td>
+<td style="text-align:right;">
+95.96
+</td>
+<td style="text-align:right;">
+15.34
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 10</td>
-<td align="right">100.40</td>
-<td align="right">94.30</td>
-<td align="right">-6.11</td>
+<tr>
+<td style="text-align:left;">
+Athlete 10
+</td>
+<td style="text-align:right;">
+100.40
+</td>
+<td style="text-align:right;">
+94.30
+</td>
+<td style="text-align:right;">
+-6.11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 11</td>
-<td align="right">82.71</td>
-<td align="right">78.91</td>
-<td align="right">-3.80</td>
+<tr>
+<td style="text-align:left;">
+Athlete 11
+</td>
+<td style="text-align:right;">
+82.71
+</td>
+<td style="text-align:right;">
+78.91
+</td>
+<td style="text-align:right;">
+-3.80
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 12</td>
-<td align="right">102.89</td>
-<td align="right">93.98</td>
-<td align="right">-8.91</td>
+<tr>
+<td style="text-align:left;">
+Athlete 12
+</td>
+<td style="text-align:right;">
+102.89
+</td>
+<td style="text-align:right;">
+93.98
+</td>
+<td style="text-align:right;">
+-8.91
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 13</td>
-<td align="right">91.34</td>
-<td align="right">105.21</td>
-<td align="right">13.87</td>
+<tr>
+<td style="text-align:left;">
+Athlete 13
+</td>
+<td style="text-align:right;">
+91.34
+</td>
+<td style="text-align:right;">
+105.21
+</td>
+<td style="text-align:right;">
+13.87
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 14</td>
-<td align="right">111.14</td>
-<td align="right">108.07</td>
-<td align="right">-3.07</td>
+<tr>
+<td style="text-align:left;">
+Athlete 14
+</td>
+<td style="text-align:right;">
+111.14
+</td>
+<td style="text-align:right;">
+108.07
+</td>
+<td style="text-align:right;">
+-3.07
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 15</td>
-<td align="right">95.13</td>
-<td align="right">96.01</td>
-<td align="right">0.88</td>
+<tr>
+<td style="text-align:left;">
+Athlete 15
+</td>
+<td style="text-align:right;">
+95.13
+</td>
+<td style="text-align:right;">
+96.01
+</td>
+<td style="text-align:right;">
+0.88
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 16</td>
-<td align="right">109.12</td>
-<td align="right">112.12</td>
-<td align="right">3.00</td>
+<tr>
+<td style="text-align:left;">
+Athlete 16
+</td>
+<td style="text-align:right;">
+109.12
+</td>
+<td style="text-align:right;">
+112.12
+</td>
+<td style="text-align:right;">
+3.00
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 17</td>
-<td align="right">91.87</td>
-<td align="right">103.41</td>
-<td align="right">11.54</td>
+<tr>
+<td style="text-align:left;">
+Athlete 17
+</td>
+<td style="text-align:right;">
+91.87
+</td>
+<td style="text-align:right;">
+103.41
+</td>
+<td style="text-align:right;">
+11.54
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 18</td>
-<td align="right">92.16</td>
-<td align="right">103.93</td>
-<td align="right">11.77</td>
+<tr>
+<td style="text-align:left;">
+Athlete 18
+</td>
+<td style="text-align:right;">
+92.16
+</td>
+<td style="text-align:right;">
+103.93
+</td>
+<td style="text-align:right;">
+11.77
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Athlete 19</td>
-<td align="right">108.88</td>
-<td align="right">119.72</td>
-<td align="right">10.84</td>
+<tr>
+<td style="text-align:left;">
+Athlete 19
+</td>
+<td style="text-align:right;">
+108.88
+</td>
+<td style="text-align:right;">
+119.72
+</td>
+<td style="text-align:right;">
+10.84
+</td>
 </tr>
-<tr class="even">
-<td align="left">Athlete 20</td>
-<td align="right">97.94</td>
-<td align="right">95.91</td>
-<td align="right">-2.03</td>
+<tr>
+<td style="text-align:left;">
+Athlete 20
+</td>
+<td style="text-align:right;">
+97.94
+</td>
+<td style="text-align:right;">
+95.91
+</td>
+<td style="text-align:right;">
+-2.03
+</td>
 </tr>
 </tbody>
 </table>
@@ -1213,7 +1979,7 @@ Figure 10.11: <strong>Circular Performance Model.</strong> Extended Classical Te
 <script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/10-Measurement-error.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": null,"toc": {"collapse": "subsection"}});
+gitbook.start({"sharing": true,"fontsettings": {"theme": "white","family": "sans","size": 2},"edit": {"link": "https://github.com/mladenjovanovic/bmbstats-book/10-Measurement-error.Rmd","text": "Edit"},"history": {"link": null,"text": null},"view": {"link": null,"text": null},"download": ["bmbstats-book.pdf"],"toc": {"collapse": "subsection"}});
 });
 </script>
 

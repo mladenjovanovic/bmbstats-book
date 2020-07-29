@@ -53,7 +53,7 @@ The objective of causal inference or explanatory modeling is to estimate the $f(
 
 To demonstrate a concept of overfitting, we are going to generate two samples (N=35 observations) from the DGP with BS ranging from 0.8 to 2.5. These samples are *training* and *testing* sample (Figure \@ref(fig:bs-sj-training-testing)). Training sample is used to *train* the prediction model, while *testing* sample will be used as a *holdout* sample for evaluating model performance on the *unseen* data.  
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/bs-sj-training-testing-1} 
 
@@ -79,7 +79,7 @@ Model used to predict SJ from BS will be *polynomial linear regression*. Equatio
 
 Increasing polynomial degrees increases the *flexibility* of the polynomial regression model, and thus can represent *tuning parameter* that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure \@ref(fig:poly-fit-model) contains model performance on the training data for polynomial degrees ranging from 1 to 20.  
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/poly-fit-model-1} 
 
@@ -91,7 +91,7 @@ Increasing polynomial degrees increases the *flexibility* of the polynomial regr
 
 As can be seen from the Figure \@ref(fig:poly-fit-model), the more flexible the model (or the higher the polynomial degree) the better it fits the data. But how do these models perform on the unseen, testing data sample? In order to quantify model performance, `RMSE` metric is used. Figure \@ref(fig:testing-training-poly-errors) demonstrates performance of the polynomial regression model on the training and testing data sample across different polynomial degrees.  
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/testing-training-poly-errors-1} 
 
@@ -109,7 +109,7 @@ The take home message is that predictive performance on the training data can be
 
 In order to evaluate predictive performance of the model, researchers usually remove some percent of data to be used as a testing or holdout sample. Unfortunately, this is not always possible (although it is recommended, particularly to evaluate final model performance, especially when there are multiple models and model tuning). One solution to these problems is *cross-validation* technique [@jamesIntroductionStatisticalLearning2017; @kuhnAppliedPredictiveModeling2018; @yarkoniChoosingPredictionExplanation2017]. There are numerous variations of the cross-validation, but the simplest one is *n-fold* cross validation (Figure 15). N-fold cross validation involve splitting the data into 5 to 10 equal folds and using one fold as a testing or hold-out sample while performing model training on the other folds. This is repeated over N-iteration (in this case 5 to 10) and the model performance is averaged to get *cross-validated model performance*.   
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{figures/cross-validation} 
 
@@ -172,7 +172,7 @@ The are, of course, other loss and cost functions that could be used. For exampl
 
 [^HUBER_RIDGE]: Although I've used the term *loss* here, these loss functions are also aggregated using `sum` or `mean` to create `Huber cost` or `Ridge cost`. `Huber loss` is a combination of absolute and quadratic losses and it's property is better *robustness* to outliers.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/loss-function-metrics-example-1} 
 
@@ -195,6 +195,7 @@ Estimates for `MBE`, `MAE`, `MSE`[^MSE_REMOVED], and `RMSE` represent *training 
 
 \caption{(\#tab:mean-cross-validation)(ref:mean-cross-validation-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rlrlrrrrr}
 \toprule
 Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & MinErr & MaxErr\\
@@ -203,7 +204,7 @@ Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & MinErr & Max
 2 & 15  19  --  28  --  57  --  88  --  97 & 50.67 & --  --  28  --  30  --  71  --  95  -- & -5.33 & 27.00 & 28.81 & -44.33 & 22.67\\
 3 & --  --  28  28  30  57  71  --  95  97 & 58.00 & 15  19  --  --  --  --  --  88  --  -- & 17.33 & 37.33 & 37.73 & -30.00 & 43.00\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Since this is a small sample, we can repeat cross-validation few times. This is called *repeated cross-validation*. Let's repeat 3-folds cross-validation for 5 repeats (Table \@ref(tab:repeated-cross-validation)).
@@ -214,6 +215,7 @@ Since this is a small sample, we can repeat cross-validation few times. This is 
 
 \caption{(\#tab:repeated-cross-validation)(ref:repeated-cross-validation-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrlrlrrrrr}
 \toprule
 Repeat & Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & MinErr & MaxErr\\
@@ -236,7 +238,7 @@ Repeat & Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & Min
 5 & 2 & 15  --  28  28  30  --  71  88  95  -- & 50.71 & --  19  --  --  --  57  --  --  --  97 & -6.95 & 28.10 & 32.60 & -46.29 & 31.71\\
 5 & 3 & --  19  28  --  30  57  71  --  --  97 & 50.33 & 15  --  --  28  --  --  --  88  95  -- & -6.17 & 35.00 & 35.92 & -44.67 & 35.33\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 To calculate cross-validated prediction performance metrics, average of testing `MBE`, `MAE`, `RMSE`, `MinErr`, and `MaxErr` is calculated and reported as `cvMBE`, `cvMAE`, `cvRMSE`, `cvMinErr`, and `cvMaxErr` (Table \@ref(tab:cv-performance-metrics)). Prediction performance metrics don't need to be averaged across cross-validation samples and can be instead estimated by *binding* (or *pooling*) all cross-validated samples together (i.e. target variable and predicted target variable). More about this at the end of this chapter in [Practical example: MAS and YoYoIR1 prediction] section. 
@@ -278,7 +280,7 @@ Prediction error can be *decomposed* into two components, *reducible* and *irred
  
 $Bias^2$ represents constant or systematic error, which is introduced by approximating a real-life problem, which may be extremely complicated, by a much simpler model [@jamesIntroductionStatisticalLearning2017]. $Variance$ represents variable or random error, and refers to the amount by which model parameters would change if we estimated it by using a different training data set [@jamesIntroductionStatisticalLearning2017]. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{figures/bias-variance} 
 
@@ -374,20 +376,21 @@ As explained in Equation \@ref(eq:reducible-irreducible), $Prediction \: error$ 
 
 \caption{(\#tab:example-error-decomposition)(ref:example-error-decomposition-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrrr}
 \toprule
 model & x & y\_true & Prediction error & Bias\textasciicircum{}2 & Variance & Irreducible error\\
 \midrule
 2 & 1.75 & 55.83 & 5.17 & 0.09 & 0.21 & 4.87\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 This decomposition of errors is one useful mathematical property when using squared erors that I alluded to in the [Cross-Validation] section when discussing prediction error metrics.
 
 If we perfrom this analysis for each degree of polynomial fit, we will estimate prediction error, as well as $Bias^2$ and $Variance$ across model complexity (i.e. polynomial degrees). This is visualized in the Figure \@ref(fig:bias-variance-simulation). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/bias-variance-simulation-1} 
 
@@ -435,20 +438,21 @@ Elastic-net model represents regression method that linearly combines the *L1* a
 
 \caption{(\#tab:predictive-metrics-mag-based)(ref:predictive-metrics-mag-based-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrr}
 \toprule
 SESOI (cm) & cvRMSE (cm) & SESOI to cvRMSE & cvPPER & RMSE (cm) & SESOI to RMSE & PPER\\
 \midrule
 ±1 & 2.19 & 0.91 & 0.33 & 1.99 & 1.01 & 0.38\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predictive model performance. Reported `SESOI to cvRMSE` (0.91) as well as `cvPPER` (0.33) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn't produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized. 
 
 Model performance can be visualized using the training data set (Figure \@ref(fig:elastic-net-prediction)). `PPER` estimator, for both cross-validate estimate and training data performance estimate, utilized `SD` of the residuals and provided SESOI. Grey band on panels A and B on Figure \@ref(fig:elastic-net-prediction) represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/elastic-net-prediction-1} 
 
@@ -472,7 +476,7 @@ Let's first estimate predictive performance when predicting MAS scores from the 
 
 Figure \@ref(fig:mas-yoyo-ba) consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts $y_{predicted}$ (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals $y_residual = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. The data points represent model performance on the full training data set.  
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-ba-1} 
 
@@ -490,13 +494,14 @@ Predictive performance for the full training data set is enlisted in the Table \
 
 \caption{(\#tab:mas-yoyo-training-performance)(ref:mas-yoyo-training-performance-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrrrrr}
 \toprule
 MBE & MAE & RMSE & PPER & SESOI.to.RMSE & R.squared & MinErr & MaxErr & MaxAbsErr\\
 \midrule
 0 & 0.17 & 0.21 & 0.97 & 4.73 & 0.74 & -0.44 & 0.39 & 0.44\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 But as already explained, these are not predictive performance estimators for the unseen data. To estimate how the model performs on the unseen data (i.e. unseen athletes in this case), cross-validation is performed using 3 folds and 5 repeats. Estimated predictive performance for every cross-validation sample is enlisted in the Table \@ref(tab:mas-yoyo-cv-performance).
@@ -507,6 +512,7 @@ But as already explained, these are not predictive performance estimators for th
 
 \caption{(\#tab:mas-yoyo-cv-performance)(ref:mas-yoyo-cv-performance-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrrrrrrr}
 \toprule
   & fold & MBE & MAE & RMSE & PPER & SESOI to RMSE & R-squared & MinErr & MaxErr & MaxAbsErr\\
@@ -529,12 +535,12 @@ But as already explained, these are not predictive performance estimators for th
 14 & Fold3.Rep4 & 0.21 & 0.23 & 0.28 & 0.91 & 3.57 & 0.83 & -0.06 & 0.53 & 0.53\\
 15 & Fold3.Rep5 & -0.01 & 0.17 & 0.19 & 0.97 & 5.29 & 0.82 & -0.32 & 0.34 & 0.34\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 As explained in [Cross-Validation] section, to calculate overall cross-validated performance, the `mean` is calculated for the performance metrics in the Table \@ref(tab:mas-yoyo-cv-performance). Besides reporting the `mean` as the summary for predictive performances across cross-validated samples, `SD`, `min`, and `max` can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to *bind* or *pool* all $y_{observed}$ and $y_{predicted}$ scores from the test samples together and then calculate *overall* predictive performance metrics. These pooled cross_validated $y_{observed}$ and $y_{predicted}$ can also be visualized using the residuals plot (Panel C in Figure \@ref(fig:mas-yoyo-ba-cross-validated)). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-ba-cross-validated-1} 
 
@@ -549,7 +555,7 @@ As can be seen from the panels B and C in Figure \@ref(fig:mas-yoyo-ba-cross-val
 
 But these can be useful diagnostic tools for checking where the model fails (e.g. what particular observation might be problematic or outlier, as well how does $Bias^2$ and $Variance$ changes across $y_{observed}$ continuum). These two concepts are depicted on Figure \@ref(fig:mas-yoyo-bias-variance-index) and Figure \@ref(fig:mas-yoyo-bias-variance-y-obs). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-variance-index-1} 
 
@@ -559,7 +565,7 @@ But these can be useful diagnostic tools for checking where the model fails (e.g
 \end{figure}
 (ref:mas-yoyo-bias-variance-index-caption) **Prediction error ($MSE$), $Bias^2$, and $Variance$ across repeated cross-validated testing data. **X-axis on the panels represents observation *index*, as in $y_{i, observed}$
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-variance-y-obs-1} 
 
@@ -571,7 +577,7 @@ But these can be useful diagnostic tools for checking where the model fails (e.g
 
 Since $Bias$ and $Variance$ represent a quantitative summary of the residuals across cross-validations, the residuals and predicted observations across cross-validation testing folds can be visualized in more details as depicted on Figures \@ref(fig:mas-yoyo-bias-cv-prediction-index) and \@ref(fig:mas-yoyo-bias-cv-prediction-observation). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-cv-prediction-index-1} 
 
@@ -582,7 +588,7 @@ Since $Bias$ and $Variance$ represent a quantitative summary of the residuals ac
 
 (ref:mas-yoyo-bias-cv-prediction-index-caption) **Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation.** Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents $Variance$, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents $Bias$. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-cv-prediction-observation-1} 
 
@@ -601,6 +607,7 @@ Cross-validated, *pooled*, and full training data set predictive performance met
 
 \caption{(\#tab:mas-yoyo-cv-performance-summary)(ref:mas-yoyo-cv-performance-summary-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
 metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
@@ -616,12 +623,12 @@ MinErr & -0.44 & -0.49 & -0.51 & -0.33 & 0.13 & -0.51 & -0.06\\
 MaxErr & 0.39 & 0.42 & 0.53 & 0.35 & 0.10 & 0.15 & 0.53\\
 MaxAbsErr & 0.44 & 0.49 & 0.53 & 0.41 & 0.09 & 0.22 & 0.53\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Summary from the Table \@ref(tab:mas-yoyo-cv-performance-summary) as well as the individual cross-validated sample predictive performance from the Table \@ref(tab:mas-yoyo-cv-performance) are visually represented in the Figure \@ref(fig:mas-yoyo-cv-graphical)). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-cv-graphical-1} 
 
@@ -643,7 +650,7 @@ As shown in [Describing relationship between two variables], predicting YoYoIR1 
 
 Figure \@ref(fig:yoyo-mas-ba) depicts modified Bland-Altman plot for predictions using the full training data set. Visual inspection demonstrates that many points are outside of SESOI band, indicating poor practically significant (or useful) predictions. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/yoyo-mas-ba-1} 
 
@@ -661,6 +668,7 @@ Predictive performance metrics can be found in the Table \@ref(tab:mas-yoyo-cv-p
 
 \caption{(\#tab:yoyo-mas-cv-performance-summary)(ref:yoyo-mas-cv-performance-summary-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
 metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
@@ -676,7 +684,7 @@ MinErr & -235.93 & -261.63 & -253.04 & -193.59 & 43.68 & -253.04 & -76.70\\
 MaxErr & 284.07 & 309.00 & 323.53 & 225.37 & 89.69 & 51.02 & 323.53\\
 MaxAbsErr & 284.07 & 309.00 & 323.53 & 260.89 & 44.88 & 158.47 & 323.53\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 In the second part of this book, we will get back to this example and estimate predictive performance using different models besides linear regression (like baseline prediction and *regression trees*)

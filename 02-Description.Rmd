@@ -16,6 +16,7 @@ require(cowplot)
 require(ggridges)
 require(psych)
 require(minerva)
+require(kableExtra)
 
 # Run common script
 source("_common.R")
@@ -425,7 +426,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:effect-size-statistics-for-estimating-differences-between-two-independent-groups-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 `Difference`, or `mean difference` (`mean diff`) is calculated by subtracting group `means`. Using body height as an example, the `mean diff` between males and females is calculated by using the following equation \@ref(eq:mean-difference-equation):
@@ -490,12 +492,24 @@ Why `Cohen's d` should be used instead of other effect size estimators can be de
 
 [^percent_change]: `Percent change` is the same estimator as `percent difference`, but applied to difference between the two dependent groups (see section [Comparing dependent groups]).
 
-Table: (\#tab:perc-change-vs-cohensd) **Training intervention effect sizes for YoYoIR1 and 30-15IFT.** Modified from @buchheit3015Intermittent2014
 
-| Test     | Pre-training       | % Change | Cohen's d |
-|:---------|:-------------------|---------:|----------:|
-| YoYoIR1  | 1031 ± 257 m       | 35 %     | 1.2       |
-| 30-15IFT | 17.4 ± 1.1 kmh^-1^ | 7 %      | 1.1       |
+(ref:perc-change-vs-cohensd-caption) **Training intervention effect sizes for YoYoIR1 and 30-15IFT.** Modified from @buchheit3015Intermittent2014
+
+```{r perc-change-vs-cohensd}
+change_vs_cohen <- tribble(
+  ~Test, ~`Pre-training`, ~`% Change`, ~`Cohen's d`,
+  "YoYoIR1", " 1031 ± 257 m", "35 %", 1.2,
+  "30-15IFT", "17.4 ± 1.1 kmh/h", "7 %", 1.1
+)
+
+
+knitr::kable(
+  change_vs_cohen,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:perc-change-vs-cohensd-caption)"
+)
+```
 
 Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and velocity reached respectively), `percent change` estimator is not a good choice to compare the effect sizes between the two tests[^large_effects]. Since `Cohen's d` is standardized estimator, it should be used when comparing tests or measures that are at different scales. 
 
@@ -503,12 +517,23 @@ Since YoYoIR1 and 30-15IFT utilize different scales (total meters covered and ve
 
 After estimating effect sizes, the question that naturally follows up is the question of *magnitude*. In other words - "how big is the effect?". Since `Cohen's d` is standardized estimator, it allows for establishment of qualitative magnitude thresholds. Based on the original work by Cohen [@cohenStatisticalPowerAnalysis1988], Hopkins [@hopkinsNewViewStatistics2006; @hopkinsProgressiveStatisticsStudies2009] suggested the following magnitudes of effect (Table (\@ref(tab:magnitudes-of-effect)). According to the Table (\@ref(tab:magnitudes-of-effect), the body height difference between males and females would be considered *large*, as well as changes in both YoYoIR1 and 30-15IFT. 
 
-Table: (\#tab:magnitudes-of-effect) **Magnitudes of effect**
+(ref:magnitudes-of-effect-caption) **Magnitudes of effect**
 
-| Magnitude of effect |   Trivial   |   Small     |   Moderate    |   Large       |   Very Large   | Nearly Perfect |
-|:--------------------|:-----------:|:-----------:|:-------------:|:-------------:|:--------------:|:--------------:|
-| Cohen's d           |   0 - 0.2   |  0.2 - 0.6  |   0.6 - 1.2   |   1.2 - 2.0   |   2.0 - 4.0    |    > 4.0       |
+```{r magnitudes-of-effect}
+magnitude_of_effect <- tribble(
+  ~`Magnitude of effect`, ~`Trivial`, ~`Small`, ~`Moderate`, ~`Large`, ~`Very Large`, ~`Nearly Perfect`,
+  "Cohen's d", "0 - 0.2", "0.2 - 0.6", "0.6 - 1.2", "1.2 - 2.0", "2.0 - 4.0", "> 4.0"
+)
 
+
+knitr::kable(
+  magnitude_of_effect,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:magnitudes-of-effect-caption)"
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
+```
 
 `Cohen's d`, as well as associated magnitudes of effect, are commonly hard to interpret by non-statistically trained professionals (e.g. coaches). @mcgrawCommonLanguageEffect1992 suggested *common language effect size* (`CLES`) estimator instead, which could be more intuitive to understand. `CLES` represents the probability that an observation sampled at random from one group will be greater than an observation sampled at random from other group. For example, if we take random male and random female from our two groups and repeat that 100 times[^simulation_drawing], how many times a male would be taller than a female (Figure \@ref(fig:drawing-random-hundred-pairs))? 
 
@@ -731,16 +756,27 @@ plot_grid(distr_gg, right_plot,
 ```
 (ref:Cohen-CLES-OVL-caption) **Relationship between the `Cohen's d`, `CLES`, and `OVL`.** **A.** Visual display of the samples of varying degrees of separations, and calculated `Cohen's d`, `CLES`, and `OVL`. **B.** Relationship between the `CLES` and `OVL` to the `Cohen's d`. **C.** Relationship between the `CLES` and `OVL`
 
-Table \@ref(tab:magnitudes-of-effect-CLES-OVL) contains `Cohen's d` magnitudes of effect with accompanying estimated `CLES` and `OVL` thresholds.  
+Table \@ref(tab:magnitudes-of-effect-CLES-OVL) contains `Cohen's d` magnitudes of effect with accompanying estimated `CLES` and `OVL` thresholds. 
 
-Table: (\#tab:magnitudes-of-effect-CLES-OVL) **Magnitudes of effect for `CLES` and `OVL` estimated using `Cohen's d`**
+(ref:magnitudes-of-effect-CLES-OVL-caption) **Magnitudes of effect for `CLES` and `OVL` estimated using `Cohen's d`**
 
-| Magnitude of effect |   Trivial   |   Small     |   Moderate    |   Large       |   Very Large   | Nearly Perfect |
-|:--------------------|:-----------:|:-----------:|:-------------:|:-------------:|:--------------:|:--------------:|
-| Cohen's d           |  0.0 - 0.2  |  0.2 - 0.6  |   0.6 - 1.2   |   1.2 - 2.0   |   2.0 - 4.0    |    > 4.0       |
-| CLES                | 0.50 - 0.56 | 0.56 - 0.66 |  0.66 - 0.80  |  0.80 - 0.92  |  0.92 - 1.00   |      1.00      |
-| OVL                 | 1.00 - 0.92 | 0.92 - 0.76 |  0.76 - 0.55  |  0.55 - 0.32  |  0.32 - 0.05   |      0.00      |
-\bigskip
+```{r magnitudes-of-effect-CLES-OVL}
+magnitude_of_effect <- tribble(
+  ~`Magnitude of effect`, ~`Trivial`, ~`Small`, ~`Moderate`, ~`Large`, ~`Very Large`, ~`Nearly Perfect`,
+  "Cohen's d", "0 - 0.2", "0.2 - 0.6", "0.6 - 1.2", "1.2 - 2.0", "2.0 - 4.0", "> 4.0",
+  "CLES", "0.50 - 0.56", "0.56 - 0.66", "0.66 - 0.80", "0.80 - 0.92", "0.92 - 1.00", "1.00",
+  "OVL",  "1.00 - 0.92", "0.92 - 0.76",  "0.76 - 0.55",  "0.55 - 0.32", "0.32 - 0.05", "0.00"
+)
+
+
+knitr::kable(
+  magnitude_of_effect,
+  booktabs = TRUE,
+  digits = 2,
+  caption = "(ref:magnitudes-of-effect-CLES-OVL-caption)"
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
+```
 
 ### The Smallest Effect Size Of Interest
 
@@ -941,7 +977,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:magnitude-based-estimators-diff-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 ## Comparing dependent groups
@@ -1174,7 +1211,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:change-effect-size-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 `Change`, or `mean change` is calculated by taking average of the change score (Equation \@ref(eq:mean-change-equation)). Change score is simple difference between Pre-test and Post-test.
@@ -1247,7 +1285,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:change-MB-stats-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
@@ -1689,7 +1728,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:association-magnitude-table-caption)" 
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based estimates from the Table \@ref(tab:association-magnitude-table) indicate that using YoYoIR1 test scores, we are able to *predict*[^PREDICTION_ISSUE] MAS test scores with the error within SESOI. But would that be the case if the we want to predict YoYoIR1 from MAS test scores? Predictive performance of such model is depicted on the Figure \@ref(fig:p-equivalent-for-yoyo) and magnitude-based estimator are enlisted in the Table \@ref(tab:association-magnitude-yoyo-table). 
@@ -1740,7 +1780,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:association-magnitude-yoyo-table-caption)" 
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 As clearly indicated with this example, when estimating practical association between two variables, it is very important which variable is the target and which is predictor. When it comes to `Pearson's r`, `R-Squared` and `MIC`, this is not the case and results are same regardless of which variable is predictor and which is target. 

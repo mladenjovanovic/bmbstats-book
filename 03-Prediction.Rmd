@@ -440,10 +440,11 @@ tbl <- knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:mean-cross-validation-caption)"
-)
+) 
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -462,7 +463,8 @@ tbl <- knitr::kable(
 )
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -653,7 +655,8 @@ knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:example-error-decomposition-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 This decomposition of errors is one useful mathematical property when using squared erors that I alluded to in the [Cross-Validation] section when discussing prediction error metrics.
@@ -844,7 +847,8 @@ knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:predictive-metrics-mag-based-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predictive model performance. Reported `SESOI to cvRMSE` (`r round(table_predictive_metricts[3], 2)`) as well as `cvPPER` (`r round(table_predictive_metricts$cvPPER ,2)`) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn't produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized. 
@@ -968,10 +972,11 @@ tbl <- knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:mas-yoyo-training-performance-caption)"
-) 
+)
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -994,7 +999,8 @@ tbl <- knitr::kable(
 )
 
 if((!knitr::is_html_output())) {
-  tbl
+  tbl %>% 
+  kable_styling(latex_options = c("scale_down"))
 } else {
   kable_styling(tbl, font_size = 10)
 }
@@ -1057,7 +1063,8 @@ knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:mas-yoyo-cv-performance-summary-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 Summary from the Table \@ref(tab:mas-yoyo-cv-performance-summary) as well as the individual cross-validated sample predictive performance from the Table \@ref(tab:mas-yoyo-cv-performance) are visually represented in the Figure \@ref(fig:mas-yoyo-cv-graphical)). 
@@ -1116,7 +1123,8 @@ knitr::kable(
   booktabs = TRUE,
   row.names = FALSE,
   caption = "(ref:yoyo-mas-cv-performance-summary-caption)"
-)
+)%>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 In the second part of this book, we will get back to this example and estimate predictive performance using different models besides linear regression (like baseline prediction and *regression trees*)

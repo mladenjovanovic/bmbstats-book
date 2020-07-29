@@ -7,6 +7,8 @@ documentclass: book
 bibliography: ["citations/references.bib", "citations/r-references.bib"]
 biblio-style: apalike
 link-citations: yes
+links-as-notes: true
+linkcolor: Blue
 github-repo: mladenjovanovic/bmbstats-book
 url: mladenjovanovic.github.io/bmbstats-book
 twitter-handle: physical_prep

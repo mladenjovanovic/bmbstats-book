@@ -17,6 +17,7 @@ source("_common.R")
 require(tidyverse)
 require(cowplot)
 require(ggridges)
+require(kableExtra)
 
 equivalent_color <- user_grey
 equivalent_color_transparent <- user_grey_transparent
@@ -91,7 +92,8 @@ knitr::kable(
   booktabs = TRUE,
   digits = 2,
   caption = "(ref:bodyweight-data-caption)"
-)
+) %>% 
+  kable_styling(latex_options = c("scale_down"))
 ```
 
 The objective of the analysis is to estimate DGP parameters of the measurement error (the proportional bias, fixed bias, and the `SD` of the random error). Unfortunately, since TS is unknown, we are unable to estimate proportional bias and fixed bias. To overcome this problem, we usually compare OS to some *gold standard* (or *criterion*) measure which can serve as proxy to TS. These issues are covered in much more detail in the second part of this book in the [Validity and Reliability] chapter. 

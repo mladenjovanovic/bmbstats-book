@@ -27,6 +27,7 @@ Table \@ref(tab:four-causes-table) contains summary of the above necessary and s
 
 \caption{(\#tab:four-causes-table)(ref:four-causes-table-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lllll}
 \toprule
 Cause & Necessary & Sufficient & Neither & Both\\
@@ -34,7 +35,7 @@ Cause & Necessary & Sufficient & Neither & Both\\
 A happens & B might happen & B always happen & B might happen & B always happen\\
 A doesn't happen & B never happens & B might happen & B might happen & B never happens\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Although the causal inference is a broad area of research, philosophical discussion and conflicts, there are a few key concepts that need to be introduced to get the big picture and understand the basics behind the aims of causal inference. Let’s start with an example involving the aforementioned question whether playing basketball makes one taller.
@@ -123,6 +124,7 @@ To explain why this is the case, we need to imagine *alternate counterfactual re
 
 \caption{(\#tab:basketball-counterfactuals)(ref:basketball-counterfactuals-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrl}
 \toprule
 Athlete & Treatment & Height\_0 (cm) & Height\_1 (cm) & Height (cm) & Causal Effect (cm)\\
@@ -163,7 +165,7 @@ Athlete 16 & Control & 165 & ??? & 165 & ???\\
 Athlete 10 & Control & 165 & ??? & 165 & ???\\
 Athlete 22 & Control & 163 & ??? & 163 & ???\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Unfortunately, these potential outcomes are unknown, and thus individual causal effects are unknown as well. We just do not know what might have happened to individual outcomes in counterfactual world (i.e. alternate reality). A good control group serves as a *proxy* to reveal what might have happened *on average* to the treated group in the counterfactual world where they are not treated. Since the basketball data is simulated, the exact DGP is known (the *true* systematic or main causal effect of playing basketball on height is exactly zero), which again demonstrates the use of simulations as a great learning tool, in this case understanding the underlying causal mechanisms (Table \@ref(tab:table-counterfactuals-simulated)). Individual causal effect in this case is the difference between two potential outcomes: $Height_{1}$ and $Height_{0}$. 
@@ -174,6 +176,7 @@ Unfortunately, these potential outcomes are unknown, and thus individual causal 
 
 \caption{(\#tab:table-counterfactuals-simulated)(ref:table-counterfactuals-simulated-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrr}
 \toprule
 Athlete & Treatment & Height\_0 (cm) & Height\_1 (cm) & Height (cm) & Causal Effect (cm)\\
@@ -214,7 +217,7 @@ Athlete 16 & Control & 165 & 165 & 165 & -0.01\\
 Athlete 10 & Control & 165 & 164 & 165 & -0.81\\
 Athlete 22 & Control & 163 & 163 & 163 & 0.00\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 From Table \@ref(tab:table-counterfactuals-simulated), we can state that the mean difference between the groups consists of two components: *average causal effect* and the *selection bias* [@angristMasteringMetricsPath2015] (Equation \@ref(eq:mean-causal-effect)).
@@ -339,6 +342,7 @@ Let's consider the following example. We are interested in estimating causal eff
 
 \caption{(\#tab:rct-vj-data)(ref:rct-vj-data-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrr}
 \toprule
 Athlete & Group & Pre-test (cm) & Post-test (cm) & Change (cm)\\
@@ -379,7 +383,7 @@ Athlete 09 & Treatment & 47.61 & 45.62 & -1.57\\
 Athlete 20 & Control & 38.94 & 36.97 & -1.72\\
 Athlete 10 & Control & 36.77 & 34.15 & -2.26\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Descriptive summary statistics for Treatment and Control groups are enlisted in the Table \@ref(tab:rct-summary), and visually depicted in the Figure \@ref(fig:rct-groups). 
@@ -400,7 +404,7 @@ Control & 41.97 ± 3.87 & 41.52 ± 4.49 & -0.61 ± 0.83\\
 \end{tabular}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-groups-1} 
 
@@ -442,7 +446,7 @@ pHigher & 0.01 & 0.83\\
 
 Figure \@ref(fig:rct-paired-change) depicts same information as Figure \@ref(fig:rct-groups) but organized differently and conveying different comparison.  
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-paired-change-1} 
 
@@ -454,7 +458,7 @@ Figure \@ref(fig:rct-paired-change) depicts same information as Figure \@ref(fig
 
 But we are not that interested in independent analysis of Treatment and Control groups, but rather on their differences and understanding of the causal effect of the treatment (i.e. understanding and estimating parameters of the underlying DGP). As stated, treatment effect consists of two components: systematic component or main effect (i.e. expected or average causal effect), and stochastic component or random effect (i.e. that varies between individuals) (see Figure \@ref(fig:te-and-nte-diagram)). As already explained, Control group serves as a proxy to what might have happened to the Treatment group in the counterfactual world, and thus allows for casual interpretation of the treatment effect. There are two effects at play with this RCT design: *treatment effect* and *non-treatment effect*. The latter captures all effects not directly controlled by a treatment, but assumes it affects both groups equally (Figure \@ref(fig:te-and-nte-diagram)). For example, if we are treating kids for longer period of time, non-treatment effect might be related to the growth and associated effects. Another non-treatment effect is *measurement error* (discussed in more details in [Measurement Error] section). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{figures/treatment-and-non-treatment-effects} 
 
@@ -492,13 +496,14 @@ Table \@ref(tab:rct-te-estimates) contains descriptive statistics of the change 
 
 \caption{(\#tab:rct-te-estimates)(ref:rct-te-estimates-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrr}
 \toprule
 Mean difference (cm) & Cohen's d & Difference to SESOI & pLower diff & pEquivalent diff & pHigher diff\\
 \midrule
 7.9 & 9.56 & 1.58 & -0.03 & -0.79 & 0.82\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 `Cohen's d` in the Table \@ref(tab:rct-te-estimates) is calculated by using the Equation \@ref(eq:te-nte-cohen) and it estimates standardized difference between change scores in Treatment and the Control groups.
@@ -552,7 +557,7 @@ Thus, the estimated parameters of the causal treatment effects in the underlying
 
 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/te-effects-1} 
 
@@ -571,13 +576,14 @@ Using SESOI, one can also estimate the proportion of lower, equivalent and highe
 
 \caption{(\#tab:te-effects-estimates)(ref:te-effects-estimates-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrlrrrrr}
 \toprule
 Average causal effect (cm) & Random effect (cm) & SESOI (cm) & Average causal effect to SESOI & SESOI to random effect & pLower & pEquivalent & pHigher\\
 \midrule
 7.9 & 4.57 & ±2.5 & 1.58 & 1.09 & 0.01 & 0.11 & 0.88\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Therefore, we can conclude that plyometric training over three months period, on top of the normal training, cause improvements in vertical jump height (in the sample collected; *generalizations* beyond sample are discussed in the [Statistical inference] section). The expected improvement (i.e. average causal effect or systematic effect) is equal to 7.9cm, with 1, 11, and 88% of athletes having lower, trivial and higher improvements. 
@@ -605,6 +611,7 @@ Since Group column is a string, how is Group column represented in the model? Gr
 
 \caption{(\#tab:dummy-coded)(ref:dummy-coded-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrr}
 \toprule
 Athlete & groupTreatment & Pre-test (cm) & Post-test (cm) & Change (cm)\\
@@ -645,7 +652,7 @@ Athlete 07 & 1 & 41.03 & 45.41 & 3.42\\
 Athlete 11 & 1 & 45.27 & 46.72 & 1.82\\
 Athlete 09 & 1 & 47.61 & 45.62 & -1.57\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Estimated parameters for this linear model are enlisted in the Table \@ref(tab:simple-rct-model-coef)
@@ -669,7 +676,7 @@ Intercept in the Table \@ref(tab:simple-rct-model-coef) represents the `mean` Ch
 
 Figure \@ref(fig:simple-rct-model) depicts this model graphically. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/simple-rct-model-1} 
 
@@ -682,7 +689,7 @@ Figure \@ref(fig:simple-rct-model) depicts this model graphically.
 
 Model residuals are depicted on Figure \@ref(fig:simple-rct-model-ba). Please note the *clusters* of the data-points which indicate groups (they are color-coded). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/simple-rct-model-ba-1} 
 
@@ -697,7 +704,7 @@ Model residuals are depicted on Figure \@ref(fig:simple-rct-model-ba). Please no
 
 As alluded in the introduction of this section, RCT analysis using change scores should be avoided. Valid way to analyze the RCT in this case is to use Post-test as the outcome, and Pre-test and Group as predictors. This can be easily understood graphically (Figure \@ref(fig:ancova-rct-model)). On Figure \@ref(fig:ancova-rct-model) each group (i.e. Control and Treatment) is modeled separately. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-model-1} 
 
@@ -735,7 +742,7 @@ Intercept & groupTreatment & Pre-test\\
 
 Model residuals are depicted on Figure \@ref(fig:ancova-rct-model-ba). Please note the *clusters* of the data-points which indicate groups. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-model-ba-1} 
 
@@ -756,6 +763,7 @@ As explained in the [Prediction] section, this model can be cross-validated. Pre
 
 \caption{(\#tab:ancova-rct-model-perf-metrics)(ref:ancova-rct-model-perf-metrics-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
 metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
@@ -771,7 +779,7 @@ MinErr & -7.08 & -7.80 & -8.83 & -6.14 & 2.23 & -8.83 & -1.65\\
 MaxErr & 8.80 & 9.93 & 10.75 & 5.95 & 2.87 & 1.35 & 10.75\\
 MaxAbsErr & 8.80 & 9.93 & 10.75 & 7.91 & 1.59 & 3.78 & 10.75\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 From the Table \@ref(tab:ancova-rct-model-perf-metrics) we can conclude, that although we have *explained* the causal (or treatment) effects, predicting individual Post-test is not practically meaningful since the prediction error is too large (compared to SESOI). The take-home message is that high *explanatory power* of the model doesn't doesn't automatically yield high predictive power [@shmueliExplainPredict2010]. The selection of statistical analysis is thus related to the question asked. In my opinion, it would be insightful to complement causal estimates with prediction estimates. With the example above, we can predict the direction of the effect (using expected systematic change of 7.9cm and proportions of 1, 11, and 88% for lower, trivial and higher change magnitudes), but we are unable to predict individual Post-test (or changes scores) within acceptable practical precision (using SESOI as an anchor). In other words, we know that the effect will be 88% beneficial (i.e. higher than SESOI), but we are not able to predict individual responses.
@@ -784,6 +792,7 @@ For the sake of completeness, Table \@ref(tab:simple-rct-model-perf-metrics) con
 
 \caption{(\#tab:simple-rct-model-perf-metrics)(ref:simple-rct-model-perf-metrics-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
 metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
@@ -799,14 +808,14 @@ MinErr & -7.64 & -8.73 & -9.10 & -5.97 & 2.10 & -9.10 & -1.40\\
 MaxErr & 8.86 & 9.84 & 10.33 & 5.67 & 3.05 & 0.59 & 10.33\\
 MaxAbsErr & 8.86 & 9.84 & 10.33 & 7.69 & 1.62 & 3.78 & 10.33\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 ### Analysis of the individual residuals: responders vs non-responders
 
 One particular use of the predictive analysis is in the identification of responders and non-responders to the treatment [@heckstedenIndividualResponseExercise2015; @heckstedenRepeatedTestingAssessment2018; @hopkinsIndividualResponsesMade2015; @swintonStatisticalFrameworkInterpret2018]. Common approach used in sport science [@hopkinsHowInterpretChanges2004], that I will name *observed outcome approach* (further discussed in [Measurement error] chapter and second part of this book), uses known SESOI and *measurement error* to estimate probability of lower, equivalent, and higher changes. In RCT, random non-treatment effect can be assumed to be due to measurement error. Figure \@ref(fig:rct-responders) depicts individual *adjusted change* (by deducting mean Control group change from observed change) with error bars representing *smallest detectable change* (`SDC`). `SDC` is calculated by multiplying Control group change `SD` by 1.96 (to get upper and lower change levels containing 95% of change distribution). This thus represent our *uncertainty* in true treatment effect (using Control group as source of information about random effects). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-responders-1} 
 
@@ -821,7 +830,7 @@ Using this approach, we can classify athletes with high probability of higher ch
 
 Another approach, that I have termed *residuals approach* or *model-based approach* can be used to help identifying *outliers* to intervention. To explain this approach, let's plot athletes' residuals ($\hat{y_i} - y_i$) against observed Post-test ($y_i$) (Figure \@ref(fig:ancova-rct-subj-resid)) using ANCOVA RCT model.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-subj-resid-1} 
 
@@ -834,7 +843,7 @@ Another approach, that I have termed *residuals approach* or *model-based approa
 
 If we visualize simple model of RCT, using Change score as outcome and Group as predictor (see Figure \@ref(fig:simple-rct-model)), the predictions for athletes in each group are identical (i.e. the average change). This is depicted in Figure (Figure \@ref(fig:simple-rct-subj-resid)).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/simple-rct-subj-resid-1} 
 
@@ -851,7 +860,7 @@ Residuals approach uses observed scores and model predictions to indicate indivi
 
 Besides analyzing residuals in the training data-set, we can also check how model predicts for each individual within cross-validation using Bias-Variance decomposition (see [Bias-Variance decomposition and trade-off] section). Figure \@ref(fig:ancova-rct-subj-bias-var) depicts prediction error (decomposed to Bias and Variance) for each athlete using ANCOVA RCT model. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-subj-bias-var-1} 
 
@@ -880,6 +889,7 @@ In the Table \@ref(tab:ancova-rct-counterfactual-group), columns `Post-test_0 (c
 
 \caption{(\#tab:ancova-rct-counterfactual-group)(ref:ancova-rct-counterfactual-group-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrrr}
 \toprule
 Athlete & groupTreatment & Pre-test (cm) & Post-test (cm) & Change (cm) & groupTreatment\_0 & Post-test\_0 (cm) & groupTreatment\_1 & Post-test\_1 (cm)\\
@@ -920,12 +930,12 @@ Athlete 07 & 1 & 41.03 & 45.41 & 3.42 & 0 & 40.67 & 1 & 48.52\\
 Athlete 11 & 1 & 45.27 & 46.72 & 1.82 & 0 & 44.47 & 1 & 52.31\\
 Athlete 09 & 1 & 47.61 & 45.62 & -1.57 & 0 & 46.57 & 1 & 54.42\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 If we depict these changes in the Group for every athlete, we will get the ICE graph. Average of these predictions gives us the PDP graph. Figure \@ref(fig:ancova-rct-pdp-ice) depicts PDP and ICE for the Group variable. We will get back to this graph in the [Direct and indirect effect, covariates and then some] section. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-pdp-ice-1} 
 
@@ -938,7 +948,7 @@ If we depict these changes in the Group for every athlete, we will get the ICE g
 
 Besides PDP and ICE plot, we can also create a counterfactual plot for each athlete. For example, for the athletes in the Treatment group, we are interested how would the predicted Post-test *change* (given model used) if they are in the Control group and *vice versa* for the athletes from the Control group. This is done by *flipping* "Treatment" and "Control" in the Group column and predicting Post-test using the trained model. Figure \@ref(fig:ancova-rct-counterfactual-effects) depicts this visually for each athlete. Arrows represents predicted Change when *flipping* the Group variable. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/ancova-rct-counterfactual-effects-1} 
 
@@ -964,6 +974,7 @@ Since ANCOVA RCT model is used, which predicts average Group effect for every pa
 
 \caption{(\#tab:ancova-rct-pITE)(ref:ancova-rct-pITE-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llrrrlrrl}
 \toprule
 subject & group & observed & predicted & residual & magnitude & counterfactual & pITE & pITE\_magnitude\\
@@ -1004,7 +1015,7 @@ Athlete 07 & Treatment & 45.41 & 48.52 & 3.11 & Higher & 40.67 & -7.85 & Lower\\
 Athlete 11 & Treatment & 46.72 & 52.31 & 5.59 & Higher & 44.47 & -7.85 & Lower\\
 Athlete 09 & Treatment & 45.62 & 54.42 & 8.80 & Higher & 46.57 & -7.85 & Lower\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 PDP and  ICE plots, as well as individual treatment effects plots (and estimates) can be very valuable tool in visualizing the causal effects, which are appropriate in this case since we are analyzing RCT data. But we need to be very wary when using them with the observational data and giving them causal interpretation. 
@@ -1023,6 +1034,7 @@ To explain these concepts, let's assume that that besides Pre-test and Post-test
 
 \caption{(\#tab:rct-data-with-squat)(ref:rct-data-with-squat-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrlrrr}
 \toprule
 Athlete & Squat 1RM & Group & Pre-test (cm) & Post-test (cm) & Change (cm)\\
@@ -1063,14 +1075,14 @@ Athlete 07 & 1.21 & Treatment & 41.03 & 45.41 & 3.42\\
 Athlete 11 & 0.86 & Treatment & 45.27 & 46.72 & 1.82\\
 Athlete 09 & 0.69 & Treatment & 47.61 & 45.62 & -1.57\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 (ref:rct-data-with-squat-caption) **Randomized control trial data but now with 1RM strength covariate**
 
 Since the individual are randomized into Treatment and Control groups, we expect that there is no difference between Squat 1RM betweem them. Figure \@ref(fig:rct-squat) demonstrates that there is no difference between groups.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-squat-1} 
 
@@ -1083,7 +1095,7 @@ Since the individual are randomized into Treatment and Control groups, we expect
 
 Before modeling this RCT data, let's check visually the relationship between Pre-test and Change (panel A), Squat 1RM and Change (panel B), and Pre-test and Squat 1RM (panel C) (Figure \@ref(fig:rct-change-relationships)).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-change-relationships-1} 
 
@@ -1104,6 +1116,7 @@ What does interaction mean? If we check the panel C in the Figure \@ref(fig:rct-
 
 \caption{(\#tab:rct-interaction)(ref:rct-interaction-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrr}
 \toprule
 Athlete & groupTreatment & Squat 1RM & groupTreatment:Squat 1RM & Pre-test (cm) & Change (cm)\\
@@ -1144,13 +1157,13 @@ Athlete 07 & 1 & 1.21 & 1.21 & 41.03 & 3.42\\
 Athlete 11 & 1 & 0.86 & 0.86 & 45.27 & 1.82\\
 Athlete 09 & 1 & 0.69 & 0.69 & 47.61 & -1.57\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 But as already alluded, the use of Change scores should be avoided. Let's see this exact graphs, but using Post-test (Figure \@ref(fig:rct-post-test-relationships)) as our variable of interest (i.e. outcome variable). 
 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-post-test-relationships-1} 
 
@@ -1178,20 +1191,21 @@ Estimated parameters for this linear model with interaction are enlisted in the 
 
 \caption{(\#tab:rct-interaction-model-coef)(ref:rct-interaction-model-coef-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrr}
 \toprule
 Intercept & groupTreatment & Pre-test & Squat 1RM & Group:Squat 1RM\\
 \midrule
 -5.21 & -8.03 & 1.1 & 0.26 & 10.82\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 If we check the estimated coefficient for the group Treatment in the Table \@ref(tab:rct-interaction-model-coef), which is equal to -8.03, can we conclude that this is the whole effect of treatment (i.e. plyometric treatment)? Luckily no! This coefficient represents *direct treatment effect*, but there are *indirect treatment effects* due to Squat 1RM and interaction between Squat 1RM and Group. This also assumes that we have not introduced bias in treatment effect estimation by *adjusting* (or by *not adjusting*) for covariates that we should not adjust for (or *vice versa*; for great applied paper please refer to @lubkeWhyWeShould2020). 
 
 Figure \@ref(fig:rct-interaction-resid) depicts residuals of the RCT model with interactions. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/rct-interaction-resid-1} 
 
@@ -1210,6 +1224,7 @@ As opposed to the Figures \@ref(fig:simple-rct-model-ba) and \@ref(fig:ancova-rc
 
 \caption{(\#tab:interaction-rct-model-perf-metrics)(ref:interaction-rct-model-perf-metrics-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
 metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
@@ -1225,12 +1240,12 @@ MinErr & -2.12 & -2.40 & -2.72 & -1.90 & 0.58 & -2.72 & -0.76\\
 MaxErr & 1.97 & 2.12 & 3.15 & 2.27 & 0.80 & 0.32 & 3.15\\
 MaxAbsErr & 2.12 & 2.40 & 3.15 & 2.57 & 0.42 & 1.65 & 3.15\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 As expected, predictive performance metrics are now much better. Let's inspect the athlete's residuals (Figure \@ref(fig:interaction-rct-subj-resid)).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/interaction-rct-subj-resid-1} 
 
@@ -1245,7 +1260,7 @@ If we compare residuals from the simple model (Figure \@ref(fig:simple-rct-subj-
 
 Figure \@ref(fig:interaction-rct-subj-bias-var) depicts prediction errors during cross-validation for each athlete. This analysis, together with the Figure \@ref(fig:interaction-rct-subj-resid), can be used to detect athletes that are *troublesome* for the predictive model, and thus bear some further inspection. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/interaction-rct-subj-bias-var-1} 
 
@@ -1258,7 +1273,7 @@ Figure \@ref(fig:interaction-rct-subj-bias-var) depicts prediction errors during
 
 Interpreting and understanding *direct* and *indirect* effects can be quite difficult, especially when causal structure becomes complex. Visualization techniques such as already mentioned PDP and ICE graphs can be utilized to understand the causal mechanism [@zhaoCausalInterpretationsBlackBox2019; @goldsteinPeekingBlackBox2013]. These techniques can also be implemented in observational studies, but with considerable domain knowledge and assumptions needed [@zhaoCausalInterpretationsBlackBox2019]. Although predictive analysis, particularly those using *black box* machine learning models, has been criticized to lack causal interpretation [@hernanSecondChanceGet2019; @pearlBookWhyNew2018; @pearlSevenToolsCausal2019], they can complement causal (or explanatory) analysis [@breimanStatisticalModelingTwo2001; @shmueliExplainPredict2010; @yarkoniChoosingPredictionExplanation2017]. Figure \@ref(fig:pdp-ice-interaction-rct) depicts PDP and ICE plots for Group and Strength 1RM predictors. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/pdp-ice-interaction-rct-1} 
 
@@ -1271,7 +1286,7 @@ Interpreting and understanding *direct* and *indirect* effects can be quite diff
 
 Since this is RCT, we can give causal interpretation to PDP and ICE plot, particularly panel B in the Figure \@ref(fig:pdp-ice-interaction-rct). According to this analysis (given the data and the model), if one increase Squat 1RM, the effect of treatment (i.e. plyometric training) will be higher. This can be further analyzed using each athlete. The question we would like to answer (given the data collected and the model) is "How would particular athlete respond to the treatment if his strength was higher or lower?". Figure \@ref(fig:individual-ice) shows ICE plots in separate facets. This gives us the ability to analyze (given the data and the model) how would each athlete respond if his or her Squat 1RM changed. 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/individual-ice-1} 
 
@@ -1284,7 +1299,7 @@ Since this is RCT, we can give causal interpretation to PDP and ICE plot, partic
 
 Figure \@ref(fig:interaction-rct-counterfactual-effects) depicts predicted ITE (i.e. what would happen if Groups *flipped* and everything else being equal). If we compare Figure \@ref(fig:interaction-rct-counterfactual-effects) with Figure \@ref(fig:ancova-rct-counterfactual-effects), we can quickly see that the ITEs differ and are not equal for every individual. If we calculate the `mean` of the ITEs (i.e. arrow lengths), we will get an estimate of `ATE`. `SD` of ITEs will give us estimate how variable the treatment effects are, or estimate of `VTE`. Since these are predicted with the model, I've used the terms `pATE` and `pVTE` indicating that they are estimated with the predictive model.   
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{04-Causal-inference_files/figure-latex/interaction-rct-counterfactual-effects-1} 
 

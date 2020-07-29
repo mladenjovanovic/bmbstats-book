@@ -19,6 +19,7 @@ Bootstrap involves *resampling* from the sample itself and then recalculating es
 
 \caption{(\#tab:bootstrap-example)(ref:bootstrap-example-caption)}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rlrrr}
 \toprule
 Boot resample & Observations & mean & SD & prop185\\
@@ -49,12 +50,12 @@ Boot resample & Observations & mean & SD & prop185\\
 \addlinespace
 20 & 167 167 175 175 176 176 177 181 197 211 & 180.2 & 13.66 & 0.36\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 If we repeat this procedure 10,000 times, we can visualize bootstrap distribution of the estimators (Figure \@ref(fig:bootstrap-distribution)). 
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{08-Bootstrap_files/figure-latex/bootstrap-distribution-1} 
 
@@ -79,19 +80,19 @@ Hypothesis testing using the bootstrap distribution is possible through calculat
 
 
 ```r
-null_hypothesis <- 0 # Value for the null
+null_hypothesis <- 0  # Value for the null
 
-SESOI_lower <- -1 # threshold for the 'lower' effect magnitude
-SESOI_upper <- 1 # threshold for the 'upper' effect magnitude
+SESOI_lower <- -1  # threshold for the 'lower' effect magnitude
+SESOI_upper <- 1  # threshold for the 'upper' effect magnitude
 
-# Calculation of the p-value
-# where boot.estimator is the boostrap resample values for the estimator
-# of interest
+# Calculation of the p-value where boot.estimator is the
+# boostrap resample values for the estimator of interest
 p_value <- mean(boot.estimator > null_hypothesis)
 p_value <- p_value + 0.5 * mean(boot.estimator == null_hypothesis)
-p_value <- 2 * min(c(p_value, 1 - p_value)) # Two-way p-value
+p_value <- 2 * min(c(p_value, 1 - p_value))  # Two-way p-value
 
-# Calculate probability of lower, equivalent and higher effect magnitude
+# Calculate probability of lower, equivalent and higher
+# effect magnitude
 lower <- mean(boot.estimator < SESOI_lower)
 higher <- mean(boot.estimator > SESOI_upper)
 equivalent <- 1 - (lower + higher)
@@ -101,7 +102,7 @@ equivalent <- 1 - (lower + higher)
 
 As we already did with the frequentist and Bayesian inference, let's get estimates of Type I errors for bootstrap method (10,000 bootstrap resamples) by drawing 1,000 samples of N=20 observations from the population where the true `mean` height is equal to 177.8cm and `SD` is equal to 10.16cm. Besides estimating Type I error for the sample `mean`, we can also estimate Type I errors for sample `SD` and `prop185`, since the true population values are known. In the case of `prop185`, the true population value is equal to 0.24. Type I error is committed when the the 95% bootstrap CIs of the sample estimate don't cross the true value in the population. Figure \@ref(fig:bootstrap-type-i) depicts the first 100 samples out of the total of 1,000, taken from the population with calculated 95% bootstrap CIs. CIs that missed the true population parameter value are depicted in red. Table \@ref(tab:bootstrap-type-i-summary) contains the summary for this simulation.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{08-Bootstrap_files/figure-latex/bootstrap-type-i-1} 
 
