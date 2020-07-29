@@ -11747,380 +11747,547 @@ Package \texttt{short} (Jovanovic \protect\hyperlink{ref-R-shorts}{2020}) create
 
 \texttt{shorts} comes with two sample data sets: \texttt{split\_times} and \texttt{radar\_gun\_data} with N=5 athletes. Let's load them both:
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(shorts)}
+\KeywordTok{require}\NormalTok{(tidyverse)}
+
+\KeywordTok{data}\NormalTok{(}\StringTok{"split\_times"}\NormalTok{, }\StringTok{"radar\_gun\_data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{profiling-using-split-times}{%
 \subsection{Profiling using split times}\label{profiling-using-split-times}}
 
 To model sprint performance using split times, distance will be used as predictor and time as target. Since \texttt{split\_times} contains data for multiple athletes, let's extract only one athlete and model it using \texttt{shorts::model\_using\_splits} function.
 
-\begin{verbatim}
-#> # A tibble: 6 x 4
-#>   athlete   bodyweight distance     time
-#>   <chr>          <dbl>    <dbl> <I<dbl>>
-#> 1 Kimberley         55        5     1.16
-#> 2 Kimberley         55       10     1.89
-#> 3 Kimberley         55       15     2.54
-#> 4 Kimberley         55       20     3.15
-#> 5 Kimberley         55       30     4.31
-#> 6 Kimberley         55       40     5.44
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_data <{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(split\_times, athlete }\OperatorTok{==}\StringTok{ "Kimberley"}\NormalTok{)}
+
+\NormalTok{kimberley\_data}
+\CommentTok{\#> \# A tibble: 6 x 4}
+\CommentTok{\#>   athlete   bodyweight distance     time}
+\CommentTok{\#>   <chr>          <dbl>    <dbl> <I<dbl>>}
+\CommentTok{\#> 1 Kimberley         55        5     1.16}
+\CommentTok{\#> 2 Kimberley         55       10     1.89}
+\CommentTok{\#> 3 Kimberley         55       15     2.54}
+\CommentTok{\#> 4 Kimberley         55       20     3.15}
+\CommentTok{\#> 5 Kimberley         55       30     4.31}
+\CommentTok{\#> 6 Kimberley         55       40     5.44}
+\end{Highlighting}
+\end{Shaded}
 
 \texttt{shorts::model\_using\_splits} returns an object with \texttt{parameters}, \texttt{model\_fit}, \texttt{model} returned from \texttt{stats::nls} function and \texttt{data} used to estimate parameters. Parameters estimated using mono-exponential equation are \emph{maximal sprinting speed} (MSS), and \emph{relative acceleration} (TAU). Additional parameters computed from MSS and TAU are \emph{maximal acceleration} (MAC) and \emph{maximal relative power} (PMAX).
 
-\begin{verbatim}
-#> Estimated model parameters
-#> --------------------------
-#>                 MSS                 TAU 
-#>           8.5911421           0.8113282 
-#>                 MAC                PMAX 
-#>          10.5889855          22.7428698 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.03403413  0.99965531 -0.02699169  0.05293444 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.05293444  0.02778875  0.02333342  1.19263116
-#> 
-#> Formula: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS * 
-#>     TAU) - 1))) + distance/MSS + TAU
-#> 
-#> Parameters:
-#>     Estimate Std. Error t value Pr(>|t|)    
-#> MSS  8.59114    0.12251   70.13 2.48e-07 ***
-#> TAU  0.81133    0.04581   17.71 5.97e-05 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Residual standard error: 0.03403 on 4 degrees of freedom
-#> 
-#> Number of iterations to convergence: 4 
-#> Achieved convergence tolerance: 4.058e-06
-#>                 MSS                 TAU 
-#>           8.5911421           0.8113282 
-#>                 MAC                PMAX 
-#>          10.5889855          22.7428698 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_profile <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{model\_using\_splits}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{distance, }
+    \DataTypeTok{time =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{time)}
+
+\NormalTok{kimberley\_profile}
+\CommentTok{\#> Estimated model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.5911421           0.8113282 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          10.5889855          22.7428698 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.05293444  0.02778875  0.02333342  1.19263116}
+
+\KeywordTok{summary}\NormalTok{(kimberley\_profile)}
+\CommentTok{\#> }
+\CommentTok{\#> Formula: corrected\_time \textasciitilde{} TAU * I(LambertW::W({-}exp(1)\^{}({-}distance/(MSS * }
+\CommentTok{\#>     TAU) {-} 1))) + distance/MSS + TAU}
+\CommentTok{\#> }
+\CommentTok{\#> Parameters:}
+\CommentTok{\#>     Estimate Std. Error t value Pr(>|t|)    }
+\CommentTok{\#> MSS  8.59114    0.12251   70.13 2.48e{-}07 ***}
+\CommentTok{\#> TAU  0.81133    0.04581   17.71 5.97e{-}05 ***}
+\CommentTok{\#> {-}{-}{-}}
+\CommentTok{\#> Signif. codes:  }
+\CommentTok{\#> 0 \textquotesingle{}***\textquotesingle{} 0.001 \textquotesingle{}**\textquotesingle{} 0.01 \textquotesingle{}*\textquotesingle{} 0.05 \textquotesingle{}.\textquotesingle{} 0.1 \textquotesingle{} \textquotesingle{} 1}
+\CommentTok{\#> }
+\CommentTok{\#> Residual standard error: 0.03403 on 4 degrees of freedom}
+\CommentTok{\#> }
+\CommentTok{\#> Number of iterations to convergence: 4 }
+\CommentTok{\#> Achieved convergence tolerance: 4.058e{-}06}
+
+\KeywordTok{coef}\NormalTok{(kimberley\_profile)}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.5911421           0.8113282 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          10.5889855          22.7428698 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000}
+\end{Highlighting}
+\end{Shaded}
 
 To return the predicted outcome (in this case time variable), use \texttt{predict} function:
 
-\begin{verbatim}
-#> [1] 1.210934 1.897021 2.521028 3.122008 4.299243
-#> [6] 5.466325
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(kimberley\_profile)}
+\CommentTok{\#> [1] 1.210934 1.897021 2.521028 3.122008 4.299243}
+\CommentTok{\#> [6] 5.466325}
+\end{Highlighting}
+\end{Shaded}
 
 If you are interested in calculating average split velocity, use \texttt{shorts::format\_splits}
 
-\begin{verbatim}
-#>   split split_distance_start split_distance_stop
-#> 1     1                    0                   5
-#> 2     2                    5                  10
-#> 3     3                   10                  15
-#> 4     4                   15                  20
-#> 5     5                   20                  30
-#> 6     6                   30                  40
-#>   split_distance split_time_start split_time_stop
-#> 1              5                0           1.158
-#> 2              5            1.158           1.893
-#> 3              5            1.893           2.541
-#> 4              5            2.541           3.149
-#> 5             10            3.149           4.313
-#> 6             10            4.313           5.444
-#>   split_time split_mean_velocity
-#> 1      1.158        4.317789....
-#> 2      0.735        6.802721....
-#> 3      0.648        7.716049....
-#> 4      0.608        8.223684....
-#> 5      1.164        8.591065....
-#> 6      1.131        8.841732....
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shorts}\OperatorTok{::}\KeywordTok{format\_splits}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{distance, }
+    \DataTypeTok{time =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{time)}
+\CommentTok{\#>   split split\_distance\_start split\_distance\_stop}
+\CommentTok{\#> 1     1                    0                   5}
+\CommentTok{\#> 2     2                    5                  10}
+\CommentTok{\#> 3     3                   10                  15}
+\CommentTok{\#> 4     4                   15                  20}
+\CommentTok{\#> 5     5                   20                  30}
+\CommentTok{\#> 6     6                   30                  40}
+\CommentTok{\#>   split\_distance split\_time\_start split\_time\_stop}
+\CommentTok{\#> 1              5                0           1.158}
+\CommentTok{\#> 2              5            1.158           1.893}
+\CommentTok{\#> 3              5            1.893           2.541}
+\CommentTok{\#> 4              5            2.541           3.149}
+\CommentTok{\#> 5             10            3.149           4.313}
+\CommentTok{\#> 6             10            4.313           5.444}
+\CommentTok{\#>   split\_time split\_mean\_velocity}
+\CommentTok{\#> 1      1.158        4.317789....}
+\CommentTok{\#> 2      0.735        6.802721....}
+\CommentTok{\#> 3      0.648        7.716049....}
+\CommentTok{\#> 4      0.608        8.223684....}
+\CommentTok{\#> 5      1.164        8.591065....}
+\CommentTok{\#> 6      1.131        8.841732....}
+\end{Highlighting}
+\end{Shaded}
 
 Let's plot observed vs fitted split times. For this we can use \texttt{data} returned from \texttt{shorts::model\_using\_splits} since it contains \texttt{pred\_time} column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(kimberley\_profile}\OperatorTok{$}\NormalTok{data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ distance)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ time)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred\_time)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Distance (m)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Time (s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 To plot predicted velocity, acceleration, and relative power over distance, use \texttt{shorts:predict\_}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_pred <{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{distance =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{1000}\NormalTok{),}
+  
+  \CommentTok{\# Velocity}
+  \DataTypeTok{pred\_velocity =}\NormalTok{ shorts}\OperatorTok{::}\KeywordTok{predict\_velocity\_at\_distance}\NormalTok{(}
+\NormalTok{    distance,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU),}
+  
+  \CommentTok{\# Acceleration}
+  \DataTypeTok{pred\_acceleration =}\NormalTok{ shorts}\OperatorTok{::}\KeywordTok{predict\_acceleration\_at\_distance}\NormalTok{(}
+\NormalTok{    distance,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU),}
+  
+  \CommentTok{\# Power}
+  \DataTypeTok{pred\_power =}\NormalTok{ shorts}\OperatorTok{::}\KeywordTok{predict\_relative\_power\_at\_distance}\NormalTok{(}
+\NormalTok{    distance,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS,}
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU),}
+\NormalTok{)}
+
+\CommentTok{\# Convert to long}
+\NormalTok{kimberley\_pred <{-}}\StringTok{ }\KeywordTok{gather}\NormalTok{(kimberley\_pred, }\StringTok{"metric"}\NormalTok{, }\StringTok{"value"}\NormalTok{, }\OperatorTok{{-}}\NormalTok{distance)}
+
+\KeywordTok{ggplot}\NormalTok{(kimberley\_pred, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ distance, }\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\NormalTok{metric, }\DataTypeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Distance (m)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 To do prediction simpler, use \texttt{shorts::predict\_kinematics} function. This will provide kinematics for 0-6s sprint using 100Hz.
 
-\begin{verbatim}
-#>   time     distance  velocity acceleration    power
-#> 1 0.00 0.0000000000 0.0000000    10.588986 0.000000
-#> 2 0.01 0.0005272807 0.1052400    10.459272 1.100733
-#> 3 0.02 0.0021005019 0.2091907    10.331148 2.161181
-#> 4 0.03 0.0047068510 0.3118682    10.204593 3.182488
-#> 5 0.04 0.0083336724 0.4132878    10.079589 4.165771
-#> 6 0.05 0.0129684654 0.5134650     9.956116 5.112117
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predicted\_kinematics <{-}}\StringTok{ }\KeywordTok{predict\_kinematics}\NormalTok{(kimberley\_profile)}
+\KeywordTok{head}\NormalTok{(predicted\_kinematics)}
+\CommentTok{\#>   time     distance  velocity acceleration    power}
+\CommentTok{\#> 1 0.00 0.0000000000 0.0000000    10.588986 0.000000}
+\CommentTok{\#> 2 0.01 0.0005272807 0.1052400    10.459272 1.100733}
+\CommentTok{\#> 3 0.02 0.0021005019 0.2091907    10.331148 2.161181}
+\CommentTok{\#> 4 0.03 0.0047068510 0.3118682    10.204593 3.182488}
+\CommentTok{\#> 5 0.04 0.0083336724 0.4132878    10.079589 4.165771}
+\CommentTok{\#> 6 0.05 0.0129684654 0.5134650     9.956116 5.112117}
+\end{Highlighting}
+\end{Shaded}
 
 To get model residuals, use \texttt{residuals} function:
 
-\begin{verbatim}
-#> [1]  0.052934436  0.004021074 -0.019971823 -0.026991691
-#> [5] -0.013756850  0.022324628
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{residuals}\NormalTok{(kimberley\_profile)}
+\CommentTok{\#> [1]  0.052934436  0.004021074 {-}0.019971823 {-}0.026991691}
+\CommentTok{\#> [5] {-}0.013756850  0.022324628}
+\end{Highlighting}
+\end{Shaded}
 
 Package \texttt{shorts} comes with \texttt{find\_} family of functions that allow finding peak power and it's location, as well as \emph{critical distance} over which velocity, acceleration, or power drops below certain threshold:
 
-\begin{verbatim}
-#> $max_power
-#> [1] 22.74287
-#> 
-#> $distance
-#> [1] 1.346271
-#> $lower
-#> [1] 0.08295615
-#> 
-#> $upper
-#> [1] 7.441024
-#> [1] 1.346279
-#> [1] 14.25922
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Peak power and location}
+\NormalTok{shorts}\OperatorTok{::}\KeywordTok{find\_max\_power\_distance}\NormalTok{(kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS, }
+\NormalTok{    kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU)}
+\CommentTok{\#> $max\_power}
+\CommentTok{\#> [1] 22.74287}
+\CommentTok{\#> }
+\CommentTok{\#> $distance}
+\CommentTok{\#> [1] 1.346271}
+
+\CommentTok{\# Distance over which power is over 50\%}
+\NormalTok{shorts}\OperatorTok{::}\KeywordTok{find\_power\_critical\_distance}\NormalTok{(}\DataTypeTok{MSS =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS, }
+    \DataTypeTok{TAU =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU, }\DataTypeTok{percent =} \FloatTok{0.5}\NormalTok{)}
+\CommentTok{\#> $lower}
+\CommentTok{\#> [1] 0.08295615}
+\CommentTok{\#> }
+\CommentTok{\#> $upper}
+\CommentTok{\#> [1] 7.441024}
+
+\CommentTok{\# Distance over which acceleration is under 50\%}
+\NormalTok{shorts}\OperatorTok{::}\KeywordTok{find\_acceleration\_critical\_distance}\NormalTok{(}\DataTypeTok{MSS =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS, }
+    \DataTypeTok{TAU =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU, }\DataTypeTok{percent =} \FloatTok{0.5}\NormalTok{)}
+\CommentTok{\#> [1] 1.346279}
+
+\CommentTok{\# Distance over which velocity is over 95\%}
+\NormalTok{shorts}\OperatorTok{::}\KeywordTok{find\_velocity\_critical\_distance}\NormalTok{(}\DataTypeTok{MSS =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS, }
+    \DataTypeTok{TAU =}\NormalTok{ kimberley\_profile}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU, }\DataTypeTok{percent =} \FloatTok{0.95}\NormalTok{)}
+\CommentTok{\#> [1] 14.25922}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{mixed-effect-models}{%
 \subsubsection{Mixed-effect models}\label{mixed-effect-models}}
 
 Each individual can be modeled separately, or we can perform \emph{non-linear mixed model} using \texttt{nlme} function from \emph{nlme} package (Pinheiro \emph{et al.}, 2019). This is done using \texttt{shorts::mixed\_model\_using\_splits}:
 
-\begin{verbatim}
-#> Estimated fixed model parameters
-#> --------------------------------
-#>                 MSS                 TAU 
-#>           8.0649112           0.6551988 
-#>                 MAC                PMAX 
-#>          12.3091052          24.8179600 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> Estimated frandom model parameters
-#> ----------------------------------
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.691736 0.8469741 11.44278 27.72510
-#> 2       Jim 7.833622 0.5048535 15.51663 30.38785
-#> 3      John 7.780395 0.7274302 10.69573 20.80424
-#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535
-#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735
-#>   time_correction distance_correction
-#> 1               0                   0
-#> 2               0                   0
-#> 3               0                   0
-#> 4               0                   0
-#> 5               0                   0
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.02600213  0.99982036 -0.02934519  0.04964582 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.04964582  0.02139178  0.01722581  0.90185579
-#> Nonlinear mixed-effects model fit by maximum likelihood
-#>   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU 
-#>  Data: train 
-#>         AIC       BIC  logLik
-#>   -75.06719 -66.66001 43.5336
-#> 
-#> Random effects:
-#>  Formula: list(MSS ~ 1, TAU ~ 1)
-#>  Level: athlete
-#>  Structure: General positive-definite, Log-Cholesky parametrization
-#>          StdDev     Corr 
-#> MSS      1.06581655 MSS  
-#> TAU      0.17821114 0.877
-#> Residual 0.02600213      
-#> 
-#> Fixed effects: MSS + TAU ~ 1 
-#>        Value Std.Error DF   t-value p-value
-#> MSS 8.064911 0.4949104 24 16.295699       0
-#> TAU 0.655199 0.0837593 24  7.822404       0
-#>  Correlation: 
-#>     MSS  
-#> TAU 0.874
-#> 
-#> Standardized Within-Group Residuals:
-#>        Min         Q1        Med         Q3        Max 
-#> -1.9092981 -0.6050683  0.1536529  0.5226467  1.1285687 
-#> 
-#> Number of Observations: 30
-#> Number of Groups: 5
-#> $fixed
-#>                 MSS                 TAU 
-#>           8.0649112           0.6551988 
-#>                 MAC                PMAX 
-#>          12.3091052          24.8179600 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> $random
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.691736 0.8469741 11.44278 27.72510
-#> 2       Jim 7.833622 0.5048535 15.51663 30.38785
-#> 3      John 7.780395 0.7274302 10.69573 20.80424
-#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535
-#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735
-#>   time_correction distance_correction
-#> 1               0                   0
-#> 2               0                   0
-#> 3               0                   0
-#> 4               0                   0
-#> 5               0                   0
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mixed\_model <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{mixed\_model\_using\_splits}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ split\_times, }
+    \DataTypeTok{distance =} \StringTok{"distance"}\NormalTok{, }\DataTypeTok{time =} \StringTok{"time"}\NormalTok{, }\DataTypeTok{athlete =} \StringTok{"athlete"}\NormalTok{)}
+
+\NormalTok{mixed\_model}
+\CommentTok{\#> Estimated fixed model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.0649112           0.6551988 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          12.3091052          24.8179600 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Estimated frandom model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>     athlete      MSS       TAU      MAC     PMAX}
+\CommentTok{\#> 1     James 9.691736 0.8469741 11.44278 27.72510}
+\CommentTok{\#> 2       Jim 7.833622 0.5048535 15.51663 30.38785}
+\CommentTok{\#> 3      John 7.780395 0.7274302 10.69573 20.80424}
+\CommentTok{\#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535}
+\CommentTok{\#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1               0                   0}
+\CommentTok{\#> 2               0                   0}
+\CommentTok{\#> 3               0                   0}
+\CommentTok{\#> 4               0                   0}
+\CommentTok{\#> 5               0                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.02600213  0.99982036 {-}0.02934519  0.04964582 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.04964582  0.02139178  0.01722581  0.90185579}
+
+\KeywordTok{summary}\NormalTok{(mixed\_model)}
+\CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
+\CommentTok{\#>   Model: corrected\_time \textasciitilde{} TAU * I(LambertW::W({-}exp(1)\^{}({-}distance/(MSS *      TAU) {-} 1))) + distance/MSS + TAU }
+\CommentTok{\#>  Data: train }
+\CommentTok{\#>         AIC       BIC  logLik}
+\CommentTok{\#>   {-}75.06719 {-}66.66001 43.5336}
+\CommentTok{\#> }
+\CommentTok{\#> Random effects:}
+\CommentTok{\#>  Formula: list(MSS \textasciitilde{} 1, TAU \textasciitilde{} 1)}
+\CommentTok{\#>  Level: athlete}
+\CommentTok{\#>  Structure: General positive{-}definite, Log{-}Cholesky parametrization}
+\CommentTok{\#>          StdDev     Corr }
+\CommentTok{\#> MSS      1.06581655 MSS  }
+\CommentTok{\#> TAU      0.17821114 0.877}
+\CommentTok{\#> Residual 0.02600213      }
+\CommentTok{\#> }
+\CommentTok{\#> Fixed effects: MSS + TAU \textasciitilde{} 1 }
+\CommentTok{\#>        Value Std.Error DF   t{-}value p{-}value}
+\CommentTok{\#> MSS 8.064911 0.4949104 24 16.295699       0}
+\CommentTok{\#> TAU 0.655199 0.0837593 24  7.822404       0}
+\CommentTok{\#>  Correlation: }
+\CommentTok{\#>     MSS  }
+\CommentTok{\#> TAU 0.874}
+\CommentTok{\#> }
+\CommentTok{\#> Standardized Within{-}Group Residuals:}
+\CommentTok{\#>        Min         Q1        Med         Q3        Max }
+\CommentTok{\#> {-}1.9092981 {-}0.6050683  0.1536529  0.5226467  1.1285687 }
+\CommentTok{\#> }
+\CommentTok{\#> Number of Observations: 30}
+\CommentTok{\#> Number of Groups: 5}
+
+\KeywordTok{coef}\NormalTok{(mixed\_model)}
+\CommentTok{\#> $fixed}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.0649112           0.6551988 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          12.3091052          24.8179600 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> $random}
+\CommentTok{\#>     athlete      MSS       TAU      MAC     PMAX}
+\CommentTok{\#> 1     James 9.691736 0.8469741 11.44278 27.72510}
+\CommentTok{\#> 2       Jim 7.833622 0.5048535 15.51663 30.38785}
+\CommentTok{\#> 3      John 7.780395 0.7274302 10.69573 20.80424}
+\CommentTok{\#> 4 Kimberley 8.569518 0.8022235 10.68221 22.88535}
+\CommentTok{\#> 5  Samantha 6.449284 0.3945129 16.34746 26.35735}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1               0                   0}
+\CommentTok{\#> 2               0                   0}
+\CommentTok{\#> 3               0                   0}
+\CommentTok{\#> 4               0                   0}
+\CommentTok{\#> 5               0                   0}
+\end{Highlighting}
+\end{Shaded}
 
 \texttt{shorts::mixed\_model\_using\_splits} return the similar object, but \texttt{parameters} contain two elements: \texttt{fixed} and \texttt{random}.
 
 Let's plot predicted velocity over distance for athletes in the \texttt{split\_times} data set:
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{velocity\_over\_distance <{-}}\StringTok{ }\KeywordTok{merge}\NormalTok{(mixed\_model}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{random, }
+    \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{distance =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{1000}\NormalTok{)))}
+
+\NormalTok{velocity\_over\_distance}\OperatorTok{$}\NormalTok{pred\_velocity <{-}}\StringTok{ }\KeywordTok{with}\NormalTok{(velocity\_over\_distance, }
+\NormalTok{    shorts}\OperatorTok{::}\KeywordTok{predict\_velocity\_at\_distance}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ distance, }
+        \DataTypeTok{MSS =}\NormalTok{ MSS, }\DataTypeTok{TAU =}\NormalTok{ TAU))}
+
+\KeywordTok{ggplot}\NormalTok{(velocity\_over\_distance, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ distance, }\DataTypeTok{y =}\NormalTok{ pred\_velocity, }
+    \DataTypeTok{color =}\NormalTok{ athlete)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Distance (m)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Predicted velocity (m/s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 To modify random effects, which are by default \texttt{MSS} and \texttt{TAU} (\texttt{MSS\ +\ TAU\ \textasciitilde{}\ 1}), use the \texttt{random} parameter. For example, we can assume same \texttt{TAU} for all athletes and only use \texttt{MSS} as random effect:
 
-\begin{verbatim}
-#> Estimated fixed model parameters
-#> --------------------------------
-#>                 MSS                 TAU 
-#>           7.9366665           0.6277251 
-#>                 MAC                PMAX 
-#>          12.6435385          25.0868872 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> Estimated frandom model parameters
-#> ----------------------------------
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.021822 0.6277251 14.37225 32.41597
-#> 2       Jim 8.111530 0.6277251 12.92211 26.20451
-#> 3      John 7.576142 0.6277251 12.06920 22.85950
-#> 4 Kimberley 8.144414 0.6277251 12.97449 26.41741
-#> 5  Samantha 6.829424 0.6277251 10.87964 18.57542
-#>   time_correction distance_correction
-#> 1               0                   0
-#> 2               0                   0
-#> 3               0                   0
-#> 4               0                   0
-#> 5               0                   0
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.07635631  0.99801628 -0.10228573  0.15987989 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.15987989  0.06979851  0.05845303  2.68555639
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mixed\_model <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{mixed\_model\_using\_splits}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ split\_times, }
+    \DataTypeTok{distance =} \StringTok{"distance"}\NormalTok{, }\DataTypeTok{time =} \StringTok{"time"}\NormalTok{, }\DataTypeTok{athlete =} \StringTok{"athlete"}\NormalTok{, }
+    \DataTypeTok{random =}\NormalTok{ MSS }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{mixed\_model}
+\CommentTok{\#> Estimated fixed model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           7.9366665           0.6277251 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          12.6435385          25.0868872 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Estimated frandom model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>     athlete      MSS       TAU      MAC     PMAX}
+\CommentTok{\#> 1     James 9.021822 0.6277251 14.37225 32.41597}
+\CommentTok{\#> 2       Jim 8.111530 0.6277251 12.92211 26.20451}
+\CommentTok{\#> 3      John 7.576142 0.6277251 12.06920 22.85950}
+\CommentTok{\#> 4 Kimberley 8.144414 0.6277251 12.97449 26.41741}
+\CommentTok{\#> 5  Samantha 6.829424 0.6277251 10.87964 18.57542}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1               0                   0}
+\CommentTok{\#> 2               0                   0}
+\CommentTok{\#> 3               0                   0}
+\CommentTok{\#> 4               0                   0}
+\CommentTok{\#> 5               0                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.07635631  0.99801628 {-}0.10228573  0.15987989 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.15987989  0.06979851  0.05845303  2.68555639}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{profiling-using-radar-gun-data}{%
 \subsection{Profiling using radar gun data}\label{profiling-using-radar-gun-data}}
 
 The radar gun data is modeled using measured velocity as target variable and time as predictor. Individual analysis is performed using \texttt{shorts::model\_using\_radar} function. Let's do analysis for Jim:
 
-\begin{verbatim}
-#> Estimated model parameters
-#> --------------------------
-#>                 MSS                 TAU 
-#>           7.9979331           0.8886595 
-#>                 MAC                PMAX 
-#>           8.9999977          17.9953449 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.05058726  0.99924408 -0.15099212  0.16415830 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.16415830  0.05050288  0.03927901         NaN
-#> 
-#> Formula: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU))
-#> 
-#> Parameters:
-#>     Estimate Std. Error t value Pr(>|t|)    
-#> MSS 7.997933   0.003069  2606.3   <2e-16 ***
-#> TAU 0.888659   0.001564   568.2   <2e-16 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Residual standard error: 0.05059 on 598 degrees of freedom
-#> 
-#> Number of iterations to convergence: 3 
-#> Achieved convergence tolerance: 9.313e-07
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jim\_data <{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(radar\_gun\_data, athlete }\OperatorTok{==}\StringTok{ "Jim"}\NormalTok{)}
+
+\NormalTok{jim\_profile <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{model\_using\_radar}\NormalTok{(}\DataTypeTok{time =}\NormalTok{ jim\_data}\OperatorTok{$}\NormalTok{time, }
+    \DataTypeTok{velocity =}\NormalTok{ jim\_data}\OperatorTok{$}\NormalTok{velocity)}
+
+\NormalTok{jim\_profile}
+\CommentTok{\#> Estimated model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           7.9979331           0.8886595 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>           8.9999977          17.9953449 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.05058726  0.99924408 {-}0.15099212  0.16415830 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.16415830  0.05050288  0.03927901         NaN}
+
+\KeywordTok{summary}\NormalTok{(jim\_profile)}
+\CommentTok{\#> }
+\CommentTok{\#> Formula: velocity \textasciitilde{} MSS * (1 {-} exp(1)\^{}({-}(corrected\_time)/TAU))}
+\CommentTok{\#> }
+\CommentTok{\#> Parameters:}
+\CommentTok{\#>     Estimate Std. Error t value Pr(>|t|)    }
+\CommentTok{\#> MSS 7.997933   0.003069  2606.3   <2e{-}16 ***}
+\CommentTok{\#> TAU 0.888659   0.001564   568.2   <2e{-}16 ***}
+\CommentTok{\#> {-}{-}{-}}
+\CommentTok{\#> Signif. codes:  }
+\CommentTok{\#> 0 \textquotesingle{}***\textquotesingle{} 0.001 \textquotesingle{}**\textquotesingle{} 0.01 \textquotesingle{}*\textquotesingle{} 0.05 \textquotesingle{}.\textquotesingle{} 0.1 \textquotesingle{} \textquotesingle{} 1}
+\CommentTok{\#> }
+\CommentTok{\#> Residual standard error: 0.05059 on 598 degrees of freedom}
+\CommentTok{\#> }
+\CommentTok{\#> Number of iterations to convergence: 3 }
+\CommentTok{\#> Achieved convergence tolerance: 9.313e{-}07}
+\end{Highlighting}
+\end{Shaded}
 
 The object returned from \texttt{shorts::model\_using\_radar} is same as object returned from \texttt{shorts::model\_using\_splits}. Let's plot Jim's measured velocity and predicted velocity:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(jim\_profile}\OperatorTok{$}\NormalTok{data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ velocity), }
+    \DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred\_velocity), }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }
+    \DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Time (s)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Velocity (m/s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Radar gun data can be modeled individually or using \emph{non-linear mixed model} implemented in \texttt{shorts::mixed\_model\_using\_radar}:
 
-\begin{verbatim}
-#> Estimated fixed model parameters
-#> --------------------------------
-#>                 MSS                 TAU 
-#>            8.301178            1.007782 
-#>                 MAC                PMAX 
-#>            8.237080           17.094367 
-#>     time_correction distance_correction 
-#>            0.000000            0.000000 
-#> 
-#> Estimated frandom model parameters
-#> ----------------------------------
-#>     athlete      MSS       TAU      MAC     PMAX
-#> 1     James 9.998556 1.1108457 9.000851 22.49888
-#> 2       Jim 7.997945 0.8886712 8.999892 17.99516
-#> 3      John 8.000051 1.0690357 7.483427 14.96695
-#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102
-#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277
-#>   time_correction distance_correction
-#> 1               0                   0
-#> 2               0                   0
-#> 3               0                   0
-#> 4               0                   0
-#> 5               0                   0
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.05164818  0.99942171 -0.21912952  0.19832897 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.21912952  0.05156203  0.03949473         NaN
-#> Nonlinear mixed-effects model fit by maximum likelihood
-#>   Model: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU)) 
-#>  Data: train 
-#>         AIC       BIC   logLik
-#>   -9150.177 -9114.139 4581.089
-#> 
-#> Random effects:
-#>  Formula: list(MSS ~ 1, TAU ~ 1)
-#>  Level: athlete
-#>  Structure: General positive-definite, Log-Cholesky parametrization
-#>          StdDev     Corr 
-#> MSS      1.16535852 MSS  
-#> TAU      0.20497379 0.811
-#> Residual 0.05164818      
-#> 
-#> Fixed effects: MSS + TAU ~ 1 
-#>        Value Std.Error   DF  t-value p-value
-#> MSS 8.301178 0.5213403 2994 15.92276       0
-#> TAU 1.007782 0.0917011 2994 10.98986       0
-#>  Correlation: 
-#>     MSS  
-#> TAU 0.811
-#> 
-#> Standardized Within-Group Residuals:
-#>           Min            Q1           Med            Q3 
-#> -3.8399995748 -0.5932967650 -0.0002562518  0.6111624765 
-#>           Max 
-#>  4.2427350284 
-#> 
-#> Number of Observations: 3000
-#> Number of Groups: 5
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mixed\_model <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{mixed\_model\_using\_radar}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ radar\_gun\_data, }
+    \DataTypeTok{time =} \StringTok{"time"}\NormalTok{, }\DataTypeTok{velocity =} \StringTok{"velocity"}\NormalTok{, }\DataTypeTok{athlete =} \StringTok{"athlete"}\NormalTok{)}
+
+\NormalTok{mixed\_model}
+\CommentTok{\#> Estimated fixed model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>            8.301178            1.007782 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>            8.237080           17.094367 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>            0.000000            0.000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Estimated frandom model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>     athlete      MSS       TAU      MAC     PMAX}
+\CommentTok{\#> 1     James 9.998556 1.1108457 9.000851 22.49888}
+\CommentTok{\#> 2       Jim 7.997945 0.8886712 8.999892 17.99516}
+\CommentTok{\#> 3      John 8.000051 1.0690357 7.483427 14.96695}
+\CommentTok{\#> 4 Kimberley 9.005500 1.2855706 7.005061 15.77102}
+\CommentTok{\#> 5  Samantha 6.503839 0.6847851 9.497635 15.44277}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1               0                   0}
+\CommentTok{\#> 2               0                   0}
+\CommentTok{\#> 3               0                   0}
+\CommentTok{\#> 4               0                   0}
+\CommentTok{\#> 5               0                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.05164818  0.99942171 {-}0.21912952  0.19832897 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.21912952  0.05156203  0.03949473         NaN}
+
+\KeywordTok{summary}\NormalTok{(mixed\_model)}
+\CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
+\CommentTok{\#>   Model: velocity \textasciitilde{} MSS * (1 {-} exp(1)\^{}({-}(corrected\_time)/TAU)) }
+\CommentTok{\#>  Data: train }
+\CommentTok{\#>         AIC       BIC   logLik}
+\CommentTok{\#>   {-}9150.177 {-}9114.139 4581.089}
+\CommentTok{\#> }
+\CommentTok{\#> Random effects:}
+\CommentTok{\#>  Formula: list(MSS \textasciitilde{} 1, TAU \textasciitilde{} 1)}
+\CommentTok{\#>  Level: athlete}
+\CommentTok{\#>  Structure: General positive{-}definite, Log{-}Cholesky parametrization}
+\CommentTok{\#>          StdDev     Corr }
+\CommentTok{\#> MSS      1.16535852 MSS  }
+\CommentTok{\#> TAU      0.20497379 0.811}
+\CommentTok{\#> Residual 0.05164818      }
+\CommentTok{\#> }
+\CommentTok{\#> Fixed effects: MSS + TAU \textasciitilde{} 1 }
+\CommentTok{\#>        Value Std.Error   DF  t{-}value p{-}value}
+\CommentTok{\#> MSS 8.301178 0.5213403 2994 15.92276       0}
+\CommentTok{\#> TAU 1.007782 0.0917011 2994 10.98986       0}
+\CommentTok{\#>  Correlation: }
+\CommentTok{\#>     MSS  }
+\CommentTok{\#> TAU 0.811}
+\CommentTok{\#> }
+\CommentTok{\#> Standardized Within{-}Group Residuals:}
+\CommentTok{\#>           Min            Q1           Med            Q3 }
+\CommentTok{\#> {-}3.8399995748 {-}0.5932967650 {-}0.0002562518  0.6111624765 }
+\CommentTok{\#>           Max }
+\CommentTok{\#>  4.2427350284 }
+\CommentTok{\#> }
+\CommentTok{\#> Number of Observations: 3000}
+\CommentTok{\#> Number of Groups: 5}
+\end{Highlighting}
+\end{Shaded}
 
 Let's plot predicted acceleration over time (0-6sec) for athletes in the \texttt{radar\_gun\_data} data set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_predictions <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{predict\_kinematics}\NormalTok{(mixed\_model)}
+
+\KeywordTok{ggplot}\NormalTok{(model\_predictions, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time, }\DataTypeTok{y =}\NormalTok{ acceleration, }
+    \DataTypeTok{color =}\NormalTok{ athlete)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Time (s)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Predicted acceleration (m/s\^{}2)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
@@ -12137,121 +12304,160 @@ You have probably noticed that estimated MSS and TAU were a bit too high for spl
 
 Here I will provide quick summary. Often, this bias in estimates is dealt with by using heuristic rule of thumb of adding \texttt{time\_correction} to split times (e.g.~from 0.3-0.5sec; see more in Haugen \emph{et al.}, 2012). This functionality is available in all covered \texttt{shorts} functions:
 
-\begin{verbatim}
-#> Estimated fixed model parameters
-#> --------------------------------
-#>                 MSS                 TAU 
-#>            8.474621            1.154940 
-#>                 MAC                PMAX 
-#>            7.337715           15.546088 
-#>     time_correction distance_correction 
-#>            0.300000            0.000000 
-#> 
-#> Estimated frandom model parameters
-#> ----------------------------------
-#>     athlete       MSS       TAU      MAC     PMAX
-#> 1     James 10.549314 1.4953619 7.054689 18.60553
-#> 2       Jim  8.048378 0.9216038 8.733012 17.57165
-#> 3      John  8.130968 1.2295728 6.612839 13.44220
-#> 4 Kimberley  9.114979 1.3721302 6.642940 15.13756
-#> 5  Samantha  6.529465 0.7560310 8.636504 14.09794
-#>   time_correction distance_correction
-#> 1             0.3                   0
-#> 2             0.3                   0
-#> 3             0.3                   0
-#> 4             0.3                   0
-#> 5             0.3                   0
-#> 
-#> Model fit estimators
-#> --------------------
-#>          RSE    R_squared       minErr       maxErr 
-#>  0.015195052  0.999941466 -0.041155421  0.020298042 
-#>    maxAbsErr         RMSE          MAE         MAPE 
-#>  0.041155421  0.012443740  0.009087699  0.496822694
-#> Nonlinear mixed-effects model fit by maximum likelihood
-#>   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU 
-#>  Data: train 
-#>         AIC       BIC   logLik
-#>   -96.92355 -88.51636 54.46177
-#> 
-#> Random effects:
-#>  Formula: list(MSS ~ 1, TAU ~ 1)
-#>  Level: athlete
-#>  Structure: General positive-definite, Log-Cholesky parametrization
-#>          StdDev     Corr 
-#> MSS      1.32853982 MSS  
-#> TAU      0.27791928 0.924
-#> Residual 0.01519505      
-#> 
-#> Fixed effects: MSS + TAU ~ 1 
-#>        Value Std.Error DF   t-value p-value
-#> MSS 8.474621 0.6159646 24 13.758292       0
-#> TAU 1.154940 0.1293310 24  8.930112       0
-#>  Correlation: 
-#>     MSS  
-#> TAU 0.923
-#> 
-#> Standardized Within-Group Residuals:
-#>        Min         Q1        Med         Q3        Max 
-#> -1.3358323 -0.4066588 -0.1325837  0.3284514  2.7084751 
-#> 
-#> Number of Observations: 30
-#> Number of Groups: 5
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mixed\_model\_corrected <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{mixed\_model\_using\_splits}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ split\_times, }
+    \DataTypeTok{distance =} \StringTok{"distance"}\NormalTok{, }\DataTypeTok{time =} \StringTok{"time"}\NormalTok{, }\DataTypeTok{athlete =} \StringTok{"athlete"}\NormalTok{, }
+    \DataTypeTok{time\_correction =} \FloatTok{0.3}\NormalTok{)}
+
+\NormalTok{mixed\_model\_corrected}
+\CommentTok{\#> Estimated fixed model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>            8.474621            1.154940 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>            7.337715           15.546088 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>            0.300000            0.000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Estimated frandom model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>     athlete       MSS       TAU      MAC     PMAX}
+\CommentTok{\#> 1     James 10.549314 1.4953619 7.054689 18.60553}
+\CommentTok{\#> 2       Jim  8.048378 0.9216038 8.733012 17.57165}
+\CommentTok{\#> 3      John  8.130968 1.2295728 6.612839 13.44220}
+\CommentTok{\#> 4 Kimberley  9.114979 1.3721302 6.642940 15.13756}
+\CommentTok{\#> 5  Samantha  6.529465 0.7560310 8.636504 14.09794}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1             0.3                   0}
+\CommentTok{\#> 2             0.3                   0}
+\CommentTok{\#> 3             0.3                   0}
+\CommentTok{\#> 4             0.3                   0}
+\CommentTok{\#> 5             0.3                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>          RSE    R\_squared       minErr       maxErr }
+\CommentTok{\#>  0.015195052  0.999941466 {-}0.041155421  0.020298042 }
+\CommentTok{\#>    maxAbsErr         RMSE          MAE         MAPE }
+\CommentTok{\#>  0.041155421  0.012443740  0.009087699  0.496822694}
+
+\KeywordTok{summary}\NormalTok{(mixed\_model\_corrected)}
+\CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
+\CommentTok{\#>   Model: corrected\_time \textasciitilde{} TAU * I(LambertW::W({-}exp(1)\^{}({-}distance/(MSS *      TAU) {-} 1))) + distance/MSS + TAU }
+\CommentTok{\#>  Data: train }
+\CommentTok{\#>         AIC       BIC   logLik}
+\CommentTok{\#>   {-}96.92355 {-}88.51636 54.46177}
+\CommentTok{\#> }
+\CommentTok{\#> Random effects:}
+\CommentTok{\#>  Formula: list(MSS \textasciitilde{} 1, TAU \textasciitilde{} 1)}
+\CommentTok{\#>  Level: athlete}
+\CommentTok{\#>  Structure: General positive{-}definite, Log{-}Cholesky parametrization}
+\CommentTok{\#>          StdDev     Corr }
+\CommentTok{\#> MSS      1.32853982 MSS  }
+\CommentTok{\#> TAU      0.27791928 0.924}
+\CommentTok{\#> Residual 0.01519505      }
+\CommentTok{\#> }
+\CommentTok{\#> Fixed effects: MSS + TAU \textasciitilde{} 1 }
+\CommentTok{\#>        Value Std.Error DF   t{-}value p{-}value}
+\CommentTok{\#> MSS 8.474621 0.6159646 24 13.758292       0}
+\CommentTok{\#> TAU 1.154940 0.1293310 24  8.930112       0}
+\CommentTok{\#>  Correlation: }
+\CommentTok{\#>     MSS  }
+\CommentTok{\#> TAU 0.923}
+\CommentTok{\#> }
+\CommentTok{\#> Standardized Within{-}Group Residuals:}
+\CommentTok{\#>        Min         Q1        Med         Q3        Max }
+\CommentTok{\#> {-}1.3358323 {-}0.4066588 {-}0.1325837  0.3284514  2.7084751 }
+\CommentTok{\#> }
+\CommentTok{\#> Number of Observations: 30}
+\CommentTok{\#> Number of Groups: 5}
+\end{Highlighting}
+\end{Shaded}
 
 And \texttt{time\_correction} can also be used in \texttt{predict\_} and \texttt{find\_} family of functions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{velocity\_over\_distance\_corrected <{-}}\StringTok{ }\KeywordTok{merge}\NormalTok{(mixed\_model\_corrected}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{random, }
+    \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{distance =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{1000}\NormalTok{)))}
+
+\NormalTok{velocity\_over\_distance\_corrected}\OperatorTok{$}\NormalTok{pred\_velocity <{-}}\StringTok{ }\KeywordTok{with}\NormalTok{(velocity\_over\_distance, }
+\NormalTok{    shorts}\OperatorTok{::}\KeywordTok{predict\_velocity\_at\_distance}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ distance, }
+        \DataTypeTok{MSS =}\NormalTok{ MSS, }\DataTypeTok{TAU =}\NormalTok{ TAU, }\DataTypeTok{time\_correction =} \FloatTok{0.3}\NormalTok{))}
+
+\KeywordTok{ggplot}\NormalTok{(velocity\_over\_distance\_corrected, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ distance, }
+    \DataTypeTok{y =}\NormalTok{ pred\_velocity, }\DataTypeTok{color =}\NormalTok{ athlete)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Distance (m)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Predicted velocity (m/s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Instead of providing for \texttt{time\_correction}, this parameter can be estimated using \texttt{shorts::model\_using\_splits\_with\_time\_correction} and \texttt{shorts::mixed\_model\_using\_splits\_with\_time\_correction}:
 
-\begin{verbatim}
-#> Estimated model parameters
-#> --------------------------
-#>                 MSS                 TAU 
-#>           8.9748353           1.2348565 
-#>                 MAC                PMAX 
-#>           7.2679175          16.3070907 
-#>     time_correction distance_correction 
-#>           0.2346537           0.0000000 
-#> 
-#> Model fit estimators
-#> --------------------
-#>           RSE     R_squared        minErr        maxErr 
-#>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342 
-#>     maxAbsErr          RMSE           MAE          MAPE 
-#>  0.0012094658  0.0007983565  0.0006586035  0.0282352643
-#> Estimated fixed model parameters
-#> --------------------------------
-#>                 MSS                 TAU 
-#>           8.3040140           0.9687348 
-#>                 MAC                PMAX 
-#>           8.5720197          17.7955429 
-#>     time_correction distance_correction 
-#>           0.1989677           0.0000000 
-#> 
-#> Estimated frandom model parameters
-#> ----------------------------------
-#>     athlete       MSS       TAU       MAC     PMAX
-#> 1     James 10.186327 1.2429367  8.195370 20.87018
-#> 2       Jim  7.946099 0.7643674 10.395655 20.65123
-#> 3      John  7.996262 1.0488272  7.624003 15.24088
-#> 4 Kimberley  8.899472 1.1615147  7.661953 17.04683
-#> 5  Samantha  6.491911 0.6260282 10.369998 16.83028
-#>   time_correction distance_correction
-#> 1       0.1989677                   0
-#> 2       0.1989677                   0
-#> 3       0.1989677                   0
-#> 4       0.1989677                   0
-#> 5       0.1989677                   0
-#> 
-#> Model fit estimators
-#> --------------------
-#>          RSE    R_squared       minErr       maxErr 
-#>  0.005976815  0.999990286 -0.016508275  0.009370607 
-#>    maxAbsErr         RMSE          MAE         MAPE 
-#>  0.016508275  0.004882226  0.003481096  0.186135567
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_profile\_with\_time\_correction <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{model\_using\_splits\_with\_time\_correction}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{distance, }
+    \DataTypeTok{time =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{time)}
+
+\NormalTok{kimberley\_profile\_with\_time\_correction}
+\CommentTok{\#> Estimated model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.9748353           1.2348565 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>           7.2679175          16.3070907 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.2346537           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>           RSE     R\_squared        minErr        maxErr }
+\CommentTok{\#>  0.0011290466  0.9999996942 {-}0.0012094658  0.0011807342 }
+\CommentTok{\#>     maxAbsErr          RMSE           MAE          MAPE }
+\CommentTok{\#>  0.0012094658  0.0007983565  0.0006586035  0.0282352643}
+
+\CommentTok{\# Mixed{-}effect model using \textasciigrave{}time\_correction\textasciigrave{} as fixed}
+\CommentTok{\# effect only To use \textasciigrave{}time\_correction\textasciigrave{} as random effects,}
+\CommentTok{\# use random = MSS + TAU + time\_correction \textasciitilde{} 1}
+\NormalTok{mixed\_model\_with\_time\_correction <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{mixed\_model\_using\_splits\_with\_time\_correction}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ split\_times, }
+    \DataTypeTok{distance =} \StringTok{"distance"}\NormalTok{, }\DataTypeTok{time =} \StringTok{"time"}\NormalTok{, }\DataTypeTok{athlete =} \StringTok{"athlete"}\NormalTok{)}
+
+\CommentTok{\# Parameters}
+\NormalTok{mixed\_model\_with\_time\_correction}
+\CommentTok{\#> Estimated fixed model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.3040140           0.9687348 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>           8.5720197          17.7955429 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.1989677           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Estimated frandom model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>     athlete       MSS       TAU       MAC     PMAX}
+\CommentTok{\#> 1     James 10.186327 1.2429367  8.195370 20.87018}
+\CommentTok{\#> 2       Jim  7.946099 0.7643674 10.395655 20.65123}
+\CommentTok{\#> 3      John  7.996262 1.0488272  7.624003 15.24088}
+\CommentTok{\#> 4 Kimberley  8.899472 1.1615147  7.661953 17.04683}
+\CommentTok{\#> 5  Samantha  6.491911 0.6260282 10.369998 16.83028}
+\CommentTok{\#>   time\_correction distance\_correction}
+\CommentTok{\#> 1       0.1989677                   0}
+\CommentTok{\#> 2       0.1989677                   0}
+\CommentTok{\#> 3       0.1989677                   0}
+\CommentTok{\#> 4       0.1989677                   0}
+\CommentTok{\#> 5       0.1989677                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>          RSE    R\_squared       minErr       maxErr }
+\CommentTok{\#>  0.005976815  0.999990286 {-}0.016508275  0.009370607 }
+\CommentTok{\#>    maxAbsErr         RMSE          MAE         MAPE }
+\CommentTok{\#>  0.016508275  0.004882226  0.003481096  0.186135567}
+\end{Highlighting}
+\end{Shaded}
 
 For more details, please refer to \texttt{sprint-corrections} \href{https://mladenjovanovic.github.io/shorts/articles/sprint-corrections.html}{vignette}.
 
@@ -12260,58 +12466,104 @@ For more details, please refer to \texttt{sprint-corrections} \href{https://mlad
 
 \texttt{...model\_using\_splits..} family of functions come with LOOCV feature that is performed by setting the function parameter \texttt{LOOCV\ =\ TRUE}. This feature is very useful for checking model parameters robustness and model predictions on unseen data. LOOCV involve iterative model building and testing by removing observation one by one and making predictions for them. Let's use Kimberly again, but this time perform LOOCV:
 
-\begin{verbatim}
-#> Estimated model parameters
-#> --------------------------
-#>                 MSS                 TAU 
-#>           8.5911421           0.8113282 
-#>                 MAC                PMAX 
-#>          10.5889855          22.7428698 
-#>     time_correction distance_correction 
-#>           0.0000000           0.0000000 
-#> 
-#> Model fit estimators
-#> --------------------
-#>         RSE   R_squared      minErr      maxErr 
-#>  0.03403413  0.99965531 -0.02699169  0.05293444 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.05293444  0.02778875  0.02333342  1.19263116 
-#> 
-#> 
-#> Leave-One-Out Cross-Validation
-#> ------------------------------
-#> Parameters:
-#>        MSS       TAU      MAC     PMAX time_correction
-#> 1 8.693799 0.8561004 10.15512 22.07164               0
-#> 2 8.599598 0.8152654 10.54822 22.67761               0
-#> 3 8.560665 0.7953644 10.76320 23.03504               0
-#> 4 8.571599 0.7972996 10.75079 23.03786               0
-#> 5 8.608051 0.8130138 10.58783 22.78514               0
-#> 6 8.394673 0.7596923 11.05010 23.19049               0
-#>   distance_correction
-#> 1                   0
-#> 2                   0
-#> 3                   0
-#> 4                   0
-#> 5                   0
-#> 6                   0
-#> 
-#> Model fit:
-#>         RSE   R_squared      minErr      maxErr 
-#>          NA  0.99901083 -0.03444984  0.08009048 
-#>   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.08009048  0.04742769  0.03923869  1.72270273
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_profile\_LOOCV <{-}}\StringTok{ }\NormalTok{shorts}\OperatorTok{::}\KeywordTok{model\_using\_splits}\NormalTok{(}\DataTypeTok{distance =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{distance, }
+    \DataTypeTok{time =}\NormalTok{ kimberley\_data}\OperatorTok{$}\NormalTok{time, }\DataTypeTok{LOOCV =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{kimberley\_profile\_LOOCV}
+\CommentTok{\#> Estimated model parameters}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>                 MSS                 TAU }
+\CommentTok{\#>           8.5911421           0.8113282 }
+\CommentTok{\#>                 MAC                PMAX }
+\CommentTok{\#>          10.5889855          22.7428698 }
+\CommentTok{\#>     time\_correction distance\_correction }
+\CommentTok{\#>           0.0000000           0.0000000 }
+\CommentTok{\#> }
+\CommentTok{\#> Model fit estimators}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.05293444  0.02778875  0.02333342  1.19263116 }
+\CommentTok{\#> }
+\CommentTok{\#> }
+\CommentTok{\#> Leave{-}One{-}Out Cross{-}Validation}
+\CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#> Parameters:}
+\CommentTok{\#>        MSS       TAU      MAC     PMAX time\_correction}
+\CommentTok{\#> 1 8.693799 0.8561004 10.15512 22.07164               0}
+\CommentTok{\#> 2 8.599598 0.8152654 10.54822 22.67761               0}
+\CommentTok{\#> 3 8.560665 0.7953644 10.76320 23.03504               0}
+\CommentTok{\#> 4 8.571599 0.7972996 10.75079 23.03786               0}
+\CommentTok{\#> 5 8.608051 0.8130138 10.58783 22.78514               0}
+\CommentTok{\#> 6 8.394673 0.7596923 11.05010 23.19049               0}
+\CommentTok{\#>   distance\_correction}
+\CommentTok{\#> 1                   0}
+\CommentTok{\#> 2                   0}
+\CommentTok{\#> 3                   0}
+\CommentTok{\#> 4                   0}
+\CommentTok{\#> 5                   0}
+\CommentTok{\#> 6                   0}
+\CommentTok{\#> }
+\CommentTok{\#> Model fit:}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr }
+\CommentTok{\#>          NA  0.99901083 {-}0.03444984  0.08009048 }
+\CommentTok{\#>   maxAbsErr        RMSE         MAE        MAPE }
+\CommentTok{\#>  0.08009048  0.04742769  0.03923869  1.72270273}
+\end{Highlighting}
+\end{Shaded}
 
 Box-plot is suitable method for plotting estimated parameters:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LOOCV\_parameters <{-}}\StringTok{ }\KeywordTok{gather}\NormalTok{(kimberley\_profile\_LOOCV}\OperatorTok{$}\NormalTok{LOOCV}\OperatorTok{$}\NormalTok{parameters) }\OperatorTok{\%>\%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{key =} \KeywordTok{factor}\NormalTok{(key, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"MSS"}\NormalTok{, }\StringTok{"TAU"}\NormalTok{, }\StringTok{"MAC"}\NormalTok{, }
+        \StringTok{"PMAX"}\NormalTok{, }\StringTok{"time\_correction"}\NormalTok{, }\StringTok{"distance\_correction"}\NormalTok{)))}
+
+\KeywordTok{ggplot}\NormalTok{(LOOCV\_parameters, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_boxplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\NormalTok{key, }\DataTypeTok{scales =} \StringTok{"free"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\OtherTok{NULL}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks.x =} \KeywordTok{element\_blank}\NormalTok{(), }
+    \DataTypeTok{axis.text.x =} \KeywordTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 Let's plot model LOOCV predictions and training (when using all data set) predictions against observed performance:
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kimberley\_data <{-}}\StringTok{ }\NormalTok{kimberley\_data }\OperatorTok{\%>\%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pred\_time =} \KeywordTok{predict}\NormalTok{(kimberley\_profile\_LOOCV), }
+    \DataTypeTok{LOOCV\_time =}\NormalTok{ kimberley\_profile\_LOOCV}\OperatorTok{$}\NormalTok{LOOCV}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{pred\_time)}
+
+\KeywordTok{ggplot}\NormalTok{(kimberley\_data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ distance)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ time)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred\_time), }
+    \DataTypeTok{color =} \StringTok{"black"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ LOOCV\_time), }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Distance (m)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Time (s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Let's plot predicted velocity using LOOCV estimate parameters to check robustness of the model predictions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_data <{-}}\StringTok{ }\NormalTok{kimberley\_profile\_LOOCV}\OperatorTok{$}\NormalTok{LOOCV}\OperatorTok{$}\NormalTok{parameters }\OperatorTok{\%>\%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{LOOCV =} \KeywordTok{row\_number}\NormalTok{())}
+
+\NormalTok{plot\_data <{-}}\StringTok{ }\KeywordTok{expand\_grid}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{time =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{100}\NormalTok{)), }
+\NormalTok{    plot\_data) }\OperatorTok{\%>\%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{LOOCV\_velocity =} \KeywordTok{predict\_velocity\_at\_time}\NormalTok{(}\DataTypeTok{time =}\NormalTok{ time, }
+    \DataTypeTok{MSS =}\NormalTok{ MSS, }\DataTypeTok{TAU =}\NormalTok{ TAU), }\DataTypeTok{velocity =} \KeywordTok{predict\_velocity\_at\_time}\NormalTok{(}\DataTypeTok{time =}\NormalTok{ time, }
+    \DataTypeTok{MSS =}\NormalTok{ kimberley\_profile\_LOOCV}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{MSS, }\DataTypeTok{TAU =}\NormalTok{ kimberley\_profile\_LOOCV}\OperatorTok{$}\NormalTok{parameters}\OperatorTok{$}\NormalTok{TAU))}
+
+\KeywordTok{ggplot}\NormalTok{(plot\_data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time, }\DataTypeTok{y =}\NormalTok{ LOOCV\_velocity, }\DataTypeTok{group =}\NormalTok{ LOOCV)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ velocity), }
+    \DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Time (sec)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Velocity (m/s)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-24-1} \end{center}
 

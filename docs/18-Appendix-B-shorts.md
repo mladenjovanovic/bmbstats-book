@@ -26,13 +26,22 @@ devtools::install_github("mladenjovanovic/shorts")
 `shorts` comes with two sample data sets: `split_times` and `radar_gun_data` with N=5 athletes. Let's load them both:
 
 
+```r
+require(shorts)
+require(tidyverse)
+
+data("split_times", "radar_gun_data")
+```
 
 ### Profiling using split times 
 
 To model sprint performance using split times, distance will be used as predictor and time as target. Since `split_times` contains data for multiple athletes, let's extract only one athlete and model it using `shorts::model_using_splits` function. 
 
 
-```
+```r
+kimberley_data <- filter(split_times, athlete == "Kimberley")
+
+kimberley_data
 #> # A tibble: 6 x 4
 #>   athlete   bodyweight distance     time
 #>   <chr>          <dbl>    <dbl> <I<dbl>>
@@ -47,7 +56,11 @@ To model sprint performance using split times, distance will be used as predicto
 `shorts::model_using_splits` returns an object with `parameters`, `model_fit`, `model` returned from `stats::nls` function and `data` used to estimate parameters. Parameters estimated using mono-exponential equation are *maximal sprinting speed* (MSS), and *relative acceleration* (TAU). Additional parameters computed from MSS and TAU are *maximal acceleration* (MAC) and *maximal relative power* (PMAX). 
 
 
-```
+```r
+kimberley_profile <- shorts::model_using_splits(distance = kimberley_data$distance, 
+    time = kimberley_data$time)
+
+kimberley_profile
 #> Estimated model parameters
 #> --------------------------
 #>                 MSS                 TAU 
@@ -63,6 +76,8 @@ To model sprint performance using split times, distance will be used as predicto
 #>  0.03403413  0.99965531 -0.02699169  0.05293444 
 #>   maxAbsErr        RMSE         MAE        MAPE 
 #>  0.05293444  0.02778875  0.02333342  1.19263116
+
+summary(kimberley_profile)
 #> 
 #> Formula: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS * 
 #>     TAU) - 1))) + distance/MSS + TAU
@@ -79,6 +94,8 @@ To model sprint performance using split times, distance will be used as predicto
 #> 
 #> Number of iterations to convergence: 4 
 #> Achieved convergence tolerance: 4.058e-06
+
+coef(kimberley_profile)
 #>                 MSS                 TAU 
 #>           8.5911421           0.8113282 
 #>                 MAC                PMAX 
@@ -90,7 +107,8 @@ To model sprint performance using split times, distance will be used as predicto
 To return the predicted outcome (in this case time variable), use `predict` function: 
 
 
-```
+```r
+predict(kimberley_profile)
 #> [1] 1.210934 1.897021 2.521028 3.122008 4.299243
 #> [6] 5.466325
 ```
@@ -98,7 +116,9 @@ To return the predicted outcome (in this case time variable), use `predict` func
 If you are interested in calculating average split velocity, use `shorts::format_splits`
 
 
-```
+```r
+shorts::format_splits(distance = kimberley_data$distance, 
+    time = kimberley_data$time)
 #>   split split_distance_start split_distance_stop
 #> 1     1                    0                   5
 #> 2     2                    5                  10
@@ -125,9 +145,53 @@ If you are interested in calculating average split velocity, use `shorts::format
 Let's plot observed vs fitted split times. For this we can use `data` returned from `shorts::model_using_splits` since it contains `pred_time` column.
 
 
+```r
+ggplot(kimberley_profile$data, aes(x = distance)) + theme_bw() + 
+    geom_point(aes(y = time)) + geom_line(aes(y = pred_time)) + 
+    xlab("Distance (m)") + ylab("Time (s)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 To plot predicted velocity, acceleration, and relative power over distance, use `shorts:predict_`
+
+
+```r
+kimberley_pred <- tibble(
+  distance = seq(0, 40, length.out = 1000),
+  
+  # Velocity
+  pred_velocity = shorts::predict_velocity_at_distance(
+    distance,
+    kimberley_profile$parameters$MSS,
+    kimberley_profile$parameters$TAU),
+  
+  # Acceleration
+  pred_acceleration = shorts::predict_acceleration_at_distance(
+    distance,
+    kimberley_profile$parameters$MSS,
+    kimberley_profile$parameters$TAU),
+  
+  # Power
+  pred_power = shorts::predict_relative_power_at_distance(
+    distance,
+    kimberley_profile$parameters$MSS,
+    kimberley_profile$parameters$TAU),
+)
+
+# Convert to long
+kimberley_pred <- gather(kimberley_pred, "metric", "value", -distance)
+
+ggplot(kimberley_pred, aes(x = distance, y = value)) +
+  theme_bw() +
+  geom_line() +
+  facet_wrap(~metric, scales = "free_y") + 
+  xlab("Distance (m)") +
+  ylab(NULL)
+```
+
 
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-7-1} \end{center}
@@ -135,7 +199,9 @@ To plot predicted velocity, acceleration, and relative power over distance, use 
 To do prediction simpler, use `shorts::predict_kinematics` function. This will provide kinematics for 0-6s sprint using 100Hz. 
 
 
-```
+```r
+predicted_kinematics <- predict_kinematics(kimberley_profile)
+head(predicted_kinematics)
 #>   time     distance  velocity acceleration    power
 #> 1 0.00 0.0000000000 0.0000000    10.588986 0.000000
 #> 2 0.01 0.0005272807 0.1052400    10.459272 1.100733
@@ -148,7 +214,8 @@ To do prediction simpler, use `shorts::predict_kinematics` function. This will p
 To get model residuals, use `residuals` function:
 
 
-```
+```r
+residuals(kimberley_profile)
 #> [1]  0.052934436  0.004021074 -0.019971823 -0.026991691
 #> [5] -0.013756850  0.022324628
 ```
@@ -156,18 +223,33 @@ To get model residuals, use `residuals` function:
 Package `shorts` comes with `find_` family of functions that allow finding peak power and it's location, as well as *critical distance* over which velocity, acceleration, or power drops below certain threshold:
 
 
-```
+```r
+# Peak power and location
+shorts::find_max_power_distance(kimberley_profile$parameters$MSS, 
+    kimberley_profile$parameters$TAU)
 #> $max_power
 #> [1] 22.74287
 #> 
 #> $distance
 #> [1] 1.346271
+
+# Distance over which power is over 50%
+shorts::find_power_critical_distance(MSS = kimberley_profile$parameters$MSS, 
+    TAU = kimberley_profile$parameters$TAU, percent = 0.5)
 #> $lower
 #> [1] 0.08295615
 #> 
 #> $upper
 #> [1] 7.441024
+
+# Distance over which acceleration is under 50%
+shorts::find_acceleration_critical_distance(MSS = kimberley_profile$parameters$MSS, 
+    TAU = kimberley_profile$parameters$TAU, percent = 0.5)
 #> [1] 1.346279
+
+# Distance over which velocity is over 95%
+shorts::find_velocity_critical_distance(MSS = kimberley_profile$parameters$MSS, 
+    TAU = kimberley_profile$parameters$TAU, percent = 0.95)
 #> [1] 14.25922
 ```
 
@@ -176,7 +258,11 @@ Package `shorts` comes with `find_` family of functions that allow finding peak 
 Each individual can be modeled separately, or we can perform *non-linear mixed model* using `nlme` function from *nlme* package (Pinheiro *et al.*, 2019). This is done using `shorts::mixed_model_using_splits`:
 
 
-```
+```r
+mixed_model <- shorts::mixed_model_using_splits(data = split_times, 
+    distance = "distance", time = "time", athlete = "athlete")
+
+mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
 #>                 MSS                 TAU 
@@ -207,6 +293,8 @@ Each individual can be modeled separately, or we can perform *non-linear mixed m
 #>  0.02600213  0.99982036 -0.02934519  0.04964582 
 #>   maxAbsErr        RMSE         MAE        MAPE 
 #>  0.04964582  0.02139178  0.01722581  0.90185579
+
+summary(mixed_model)
 #> Nonlinear mixed-effects model fit by maximum likelihood
 #>   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU 
 #>  Data: train 
@@ -236,6 +324,8 @@ Each individual can be modeled separately, or we can perform *non-linear mixed m
 #> 
 #> Number of Observations: 30
 #> Number of Groups: 5
+
+coef(mixed_model)
 #> $fixed
 #>                 MSS                 TAU 
 #>           8.0649112           0.6551988 
@@ -264,12 +354,32 @@ Each individual can be modeled separately, or we can perform *non-linear mixed m
 Let's plot predicted velocity over distance for athletes in the `split_times` data set:
 
 
+```r
+velocity_over_distance <- merge(mixed_model$parameters$random, 
+    data.frame(distance = seq(0, 40, length.out = 1000)))
+
+velocity_over_distance$pred_velocity <- with(velocity_over_distance, 
+    shorts::predict_velocity_at_distance(distance = distance, 
+        MSS = MSS, TAU = TAU))
+
+ggplot(velocity_over_distance, aes(x = distance, y = pred_velocity, 
+    color = athlete)) + theme_bw() + geom_line() + xlab("Distance (m)") + 
+    ylab("Predicted velocity (m/s)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 To modify random effects, which are by default `MSS` and `TAU` (`MSS + TAU ~ 1`), use the `random` parameter. For example, we can assume same `TAU` for all athletes and only use `MSS` as random effect:
 
 
-```
+```r
+mixed_model <- shorts::mixed_model_using_splits(data = split_times, 
+    distance = "distance", time = "time", athlete = "athlete", 
+    random = MSS ~ 1)
+
+mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
 #>                 MSS                 TAU 
@@ -307,7 +417,13 @@ To modify random effects, which are by default `MSS` and `TAU` (`MSS + TAU ~ 1`)
 The radar gun data is modeled using measured velocity as target variable and time as predictor. Individual analysis is performed using `shorts::model_using_radar` function. Let's do analysis for Jim:
 
 
-```
+```r
+jim_data <- filter(radar_gun_data, athlete == "Jim")
+
+jim_profile <- shorts::model_using_radar(time = jim_data$time, 
+    velocity = jim_data$velocity)
+
+jim_profile
 #> Estimated model parameters
 #> --------------------------
 #>                 MSS                 TAU 
@@ -323,6 +439,8 @@ The radar gun data is modeled using measured velocity as target variable and tim
 #>  0.05058726  0.99924408 -0.15099212  0.16415830 
 #>   maxAbsErr        RMSE         MAE        MAPE 
 #>  0.16415830  0.05050288  0.03927901         NaN
+
+summary(jim_profile)
 #> 
 #> Formula: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU))
 #> 
@@ -343,12 +461,24 @@ The radar gun data is modeled using measured velocity as target variable and tim
 The object returned from `shorts::model_using_radar` is same as object returned from `shorts::model_using_splits`. Let's plot Jim's measured velocity and predicted velocity: 
 
 
+```r
+ggplot(jim_profile$data, aes(x = time)) + theme_bw() + geom_line(aes(y = velocity), 
+    alpha = 0.5) + geom_line(aes(y = pred_velocity), color = "red", 
+    alpha = 0.5) + xlab("Time (s)") + ylab("Velocity (m/s)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Radar gun data can be modeled individually or using *non-linear mixed model* implemented in `shorts::mixed_model_using_radar`:
 
 
-```
+```r
+mixed_model <- shorts::mixed_model_using_radar(data = radar_gun_data, 
+    time = "time", velocity = "velocity", athlete = "athlete")
+
+mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
 #>                 MSS                 TAU 
@@ -379,6 +509,8 @@ Radar gun data can be modeled individually or using *non-linear mixed model* imp
 #>  0.05164818  0.99942171 -0.21912952  0.19832897 
 #>   maxAbsErr        RMSE         MAE        MAPE 
 #>  0.21912952  0.05156203  0.03949473         NaN
+
+summary(mixed_model)
 #> Nonlinear mixed-effects model fit by maximum likelihood
 #>   Model: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU)) 
 #>  Data: train 
@@ -415,6 +547,16 @@ Radar gun data can be modeled individually or using *non-linear mixed model* imp
 Let's plot predicted acceleration over time (0-6sec) for athletes in the `radar_gun_data` data set:
 
 
+```r
+model_predictions <- shorts::predict_kinematics(mixed_model)
+
+ggplot(model_predictions, aes(x = time, y = acceleration, 
+    color = athlete)) + theme_bw() + geom_line() + xlab("Time (s)") + 
+    ylab("Predicted acceleration (m/s^2)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 ### Using corrections
@@ -428,7 +570,12 @@ vignette("sprint-corrections")
 Here I will provide quick summary. Often, this bias in estimates is dealt with by using heuristic rule of thumb of adding `time_correction` to split times (e.g. from 0.3-0.5sec; see more in Haugen *et al.*, 2012). This functionality is available in all covered `shorts` functions: 
 
 
-```
+```r
+mixed_model_corrected <- shorts::mixed_model_using_splits(data = split_times, 
+    distance = "distance", time = "time", athlete = "athlete", 
+    time_correction = 0.3)
+
+mixed_model_corrected
 #> Estimated fixed model parameters
 #> --------------------------------
 #>                 MSS                 TAU 
@@ -459,6 +606,8 @@ Here I will provide quick summary. Often, this bias in estimates is dealt with b
 #>  0.015195052  0.999941466 -0.041155421  0.020298042 
 #>    maxAbsErr         RMSE          MAE         MAPE 
 #>  0.041155421  0.012443740  0.009087699  0.496822694
+
+summary(mixed_model_corrected)
 #> Nonlinear mixed-effects model fit by maximum likelihood
 #>   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU 
 #>  Data: train 
@@ -493,12 +642,31 @@ Here I will provide quick summary. Often, this bias in estimates is dealt with b
 And `time_correction` can also be used in `predict_` and `find_` family of functions:
 
 
+```r
+velocity_over_distance_corrected <- merge(mixed_model_corrected$parameters$random, 
+    data.frame(distance = seq(0, 40, length.out = 1000)))
+
+velocity_over_distance_corrected$pred_velocity <- with(velocity_over_distance, 
+    shorts::predict_velocity_at_distance(distance = distance, 
+        MSS = MSS, TAU = TAU, time_correction = 0.3))
+
+ggplot(velocity_over_distance_corrected, aes(x = distance, 
+    y = pred_velocity, color = athlete)) + theme_bw() + geom_line() + 
+    xlab("Distance (m)") + ylab("Predicted velocity (m/s)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Instead of providing for `time_correction`, this parameter can be estimated using `shorts::model_using_splits_with_time_correction` and `shorts::mixed_model_using_splits_with_time_correction`:
 
 
-```
+```r
+kimberley_profile_with_time_correction <- shorts::model_using_splits_with_time_correction(distance = kimberley_data$distance, 
+    time = kimberley_data$time)
+
+kimberley_profile_with_time_correction
 #> Estimated model parameters
 #> --------------------------
 #>                 MSS                 TAU 
@@ -514,6 +682,15 @@ Instead of providing for `time_correction`, this parameter can be estimated usin
 #>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342 
 #>     maxAbsErr          RMSE           MAE          MAPE 
 #>  0.0012094658  0.0007983565  0.0006586035  0.0282352643
+
+# Mixed-effect model using `time_correction` as fixed
+# effect only To use `time_correction` as random effects,
+# use random = MSS + TAU + time_correction ~ 1
+mixed_model_with_time_correction <- shorts::mixed_model_using_splits_with_time_correction(data = split_times, 
+    distance = "distance", time = "time", athlete = "athlete")
+
+# Parameters
+mixed_model_with_time_correction
 #> Estimated fixed model parameters
 #> --------------------------------
 #>                 MSS                 TAU 
@@ -553,7 +730,11 @@ For more details, please refer to `sprint-corrections` [vignette](https://mladen
 `...model_using_splits..` family of functions come with LOOCV feature that is performed by setting the function parameter `LOOCV = TRUE`. This feature is very useful for checking model parameters robustness and model predictions on unseen data. LOOCV involve iterative model building and testing by removing observation one by one and making predictions for them. Let's use Kimberly again, but this time perform LOOCV:
 
 
-```
+```r
+kimberley_profile_LOOCV <- shorts::model_using_splits(distance = kimberley_data$distance, 
+    time = kimberley_data$time, LOOCV = TRUE)
+
+kimberley_profile_LOOCV
 #> Estimated model parameters
 #> --------------------------
 #>                 MSS                 TAU 
@@ -599,14 +780,54 @@ For more details, please refer to `sprint-corrections` [vignette](https://mladen
 Box-plot is suitable method for plotting estimated parameters: 
 
 
+```r
+LOOCV_parameters <- gather(kimberley_profile_LOOCV$LOOCV$parameters) %>% 
+    mutate(key = factor(key, levels = c("MSS", "TAU", "MAC", 
+        "PMAX", "time_correction", "distance_correction")))
+
+ggplot(LOOCV_parameters, aes(y = value)) + theme_bw() + geom_boxplot() + 
+    facet_wrap(~key, scales = "free") + ylab(NULL) + theme(axis.ticks.x = element_blank(), 
+    axis.text.x = element_blank())
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 Let's plot model LOOCV predictions and training (when using all data set) predictions against observed performance:
 
 
+```r
+kimberley_data <- kimberley_data %>% mutate(pred_time = predict(kimberley_profile_LOOCV), 
+    LOOCV_time = kimberley_profile_LOOCV$LOOCV$data$pred_time)
+
+ggplot(kimberley_data, aes(x = distance)) + theme_bw() + 
+    geom_point(aes(y = time)) + geom_line(aes(y = pred_time), 
+    color = "black") + geom_line(aes(y = LOOCV_time), color = "red") + 
+    xlab("Distance (m)") + ylab("Time (s)")
+```
+
+
+
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Let's plot predicted velocity using LOOCV estimate parameters to check robustness of the model predictions:
+
+
+```r
+plot_data <- kimberley_profile_LOOCV$LOOCV$parameters %>% 
+    mutate(LOOCV = row_number())
+
+plot_data <- expand_grid(data.frame(time = seq(0, 6, length.out = 100)), 
+    plot_data) %>% mutate(LOOCV_velocity = predict_velocity_at_time(time = time, 
+    MSS = MSS, TAU = TAU), velocity = predict_velocity_at_time(time = time, 
+    MSS = kimberley_profile_LOOCV$parameters$MSS, TAU = kimberley_profile_LOOCV$parameters$TAU))
+
+ggplot(plot_data, aes(x = time, y = LOOCV_velocity, group = LOOCV)) + 
+    theme_bw() + geom_line(alpha = 0.8) + geom_line(aes(y = velocity), 
+    color = "red", size = 0.5) + xlab("Time (sec)") + ylab("Velocity (m/s)")
+```
+
 
 
 \begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-24-1} \end{center}
