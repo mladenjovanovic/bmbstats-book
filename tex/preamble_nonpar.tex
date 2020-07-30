@@ -1,21 +1,4 @@
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{framed,color}
 \definecolor{shadecolor}{RGB}{248,248,248}
-
-% \ifxetex
-  % \usepackage{letltxmacro}
-  % \setlength{\XeTeXLinkMargin}{1pt}
-  % \LetLtxMacro\SavedIncludeGraphics\includegraphics
-  % \def\includegraphics#1#{% #1 catches optional stuff (star/opt. arg.)
-    % \IncludeGraphicsAux{#1}%
-  % }%
-  % \newcommand*{\IncludeGraphicsAux}[2]{%
-    % \XeTeXLinkBox{%
-      % \SavedIncludeGraphics#1{#2}%
-    % }%
-  % }%
-% \fi
 
 \newenvironment{rmdblock}[1]
   {\begin{shaded}
@@ -43,3 +26,21 @@
 \newenvironment{rmdtip}
   {\begin{rmdblock}{tip}}
   {\end{rmdblock}}
+
+% to change the paper size and the margins
+\usepackage{geometry}
+\geometry{paperwidth=6in,paperheight=9in,inner=15.9mm,outer=10mm,bottom=20mm,top=20mm}
+
+% to select a general font size
+\usepackage{scrextend}
+\KOMAoptions{fontsize=10pt}
+
+% to change the sectioning layout
+\usepackage{titlesec}
+    \titleformat{\section}[hang]{\bfseries\Large}{\thesection}{1em}{}[]
+    \titleformat{\subsection}[hang]{\bfseries\large}{\thesubsection}{1em}{}[]
+    \titleformat{\subsubsection}[hang]{\bfseries}{\thesubsection}{1em}{}[]
+
+% To reduce the space above and below an equation
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}

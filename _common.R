@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   size = "tiny",
   width = 56,
-  fig.pos = 'H',
+  fig.pos = '!htb',
+  tab.pos = "!htb",
   tidy = TRUE
 )
 

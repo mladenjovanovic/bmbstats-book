@@ -15,7 +15,7 @@ To provide further explanation of the descriptive statistics, three common descr
 
 Imagine we carried collection of body height measurements and we obtained N=100 observations using N=50 female and N=50 male subjects. Collected data is visualized in Figure \@ref(fig:common-techniques-to-visualize-independent-groups). 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/common-techniques-to-visualize-independent-groups-1} 
 
@@ -106,7 +106,7 @@ One such cost function is *root-mean-square-error* (`RMSE`) (Equation \@ref(eq:r
 
 By using body height data from the female group, we can *search* for a body height estimate that minimizes the `RMSE` (Figure \@ref(fig:sample-mean-as-the-simplest-statistical-model)). That body height estimate would be considered the best representative of the sample, and thus the simplest statistical model. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sample-mean-as-the-simplest-statistical-model-1} 
 
@@ -262,7 +262,7 @@ Cohen's d & 0 - 0.2 & 0.2 - 0.6 & 0.6 - 1.2 & 1.2 - 2.0 & 2.0 - 4.0 & > 4.0\\
 
 [^simulation_drawing]: In other words, we are drawing 100 paired samples from the two independent groups. This makes the drawn 100 observations paired or dependent. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/drawing-random-hundred-pairs-1} 
 
@@ -291,7 +291,7 @@ Algebraically, `CLES` is then derived assuming normal distribution (where mean o
 
 Since `Cohen's d`, `CLES` and `OVL` are mathematically related, it is possible to convert one to another (assuming normal distribution of the samples and equal `SD` between the two groups for the `OVL` estimation). Figure \@ref(fig:Cohen-CLES-OVL)B depicts relationship between the `Cohen's d`, `CLES`, and `OVL`. Figure \@ref(fig:Cohen-CLES-OVL)C depicts relationship between the `CLES` and `OVL`.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/Cohen-CLES-OVL-1} 
 
@@ -356,7 +356,7 @@ Using brute-force computational method and drawing all pair-wise combinations fr
 
 [^symmetrical_SESOI]: It is assumed here that SESOI is *symmetrical* in both positive and negative directions. This makes the equivalent difference ranging from -2.5cm to +2.5cm. SESOI doesn't necessary needs to be symmetrical in both positive and negative directions.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/pairwise-comparison-1} 
 
@@ -478,7 +478,7 @@ kurtosis & -0.73 & -0.28 & -1.28\\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pre-post-raincloud-1} 
 
@@ -589,7 +589,7 @@ SESOI (kg) & Change to SESOI & SDchange to SESOI & pLower & pEquivalent & pHighe
 
 Figure \@ref(fig:bench-press-pair-change) depicts visually how proportions of lower, equivalent, and higher change scores are estimated. Same as with two independent groups, these proportions can be estimated using the brute-force method (i.e. simple counting of the change scores withing lower, trivial, and higher zones), or algebraic where `SDchange` is utilized and assumption of the normally distributed change scores is made. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/bench-press-pair-change-1} 
 
@@ -690,7 +690,7 @@ kurtosis & -0.68 & -0.72\\
 \end{table}
 
 Visual analysis in Figure \@ref(fig:yoyo-mas-simple-scatterplot) depicts the association between these two tests using scatter plot. 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/yoyo-mas-simple-scatterplot-1} 
 
@@ -825,7 +825,7 @@ Intercept (m) & Slope & RSE (m)\\
 
 This difference between reversed parameters and correctly estimated can be visually seen as non-identical linear regression lines in the Figure \@ref(fig:reverse-linear). 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/reverse-linear-1} 
 
@@ -877,7 +877,7 @@ In the case where SESOI of the MAS test is unknown, using known SESOI of the YoY
 
 Next magnitude-based question might be related to the practically significant strength of the association between two variables. For example, we would like to know if the residuals are higher or lower than the SESOI in the target variable (i.e. MAS, which is equal to ±0.5km/h). Figure \@ref(fig:sesoiscatterplot-mas-yoyo) depicts scatter plot between two variable (panel A) and residuals (panel B) utilizing SESOI in MAS as the grey area. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/sesoiscatterplot-mas-yoyo-1} 
 
@@ -895,7 +895,7 @@ Magnitude-based estimators of the practically significant strength of the two va
 
 Figure \@ref(fig:p-equivalent) graphically depicts how `PPER` is calculated. Practically significant association between two variables would have `PPER` equal to 1, which indicates that all residuals are within confines of the SESOI. If you look at the Table \@ref(tab:association-magnitude-table), estimated `PPER` in this example is almost perfect, indicating great practical strength of the association between YoYoIR1 and MAS tests.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-1} 
 
@@ -925,7 +925,7 @@ Visual inspection from the Figure \@ref(fig:p-equivalent) and magnitude-based es
 
 [^PREDICTION_ISSUE]: This is not ideal estimate of the predictive performance of this model as will be explained in the next section on [Prediction]. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 
 {\centering \includegraphics[width=0.9\linewidth]{02-Description_files/figure-latex/p-equivalent-for-yoyo-1} 
 
