@@ -1,8 +1,7 @@
 \definecolor{shadecolor}{RGB}{248,248,248}
 
 \newenvironment{rmdblock}[1]
-  {\begin{shaded}
-  \begin{itemize}
+  {\begin{shaded} \begin{itemize}
   \renewcommand{\labelitemi}{
     \raisebox{-.7\height}[0pt][0pt]{
       {\setkeys{Gin}{width=2em,keepaspectratio}\includegraphics{images/icons/#1}}
@@ -29,7 +28,7 @@
 
 % to change the paper size and the margins
 \usepackage{geometry}
-\geometry{paperwidth=6in,paperheight=9in,inner=15.9mm,outer=10mm,bottom=20mm,top=20mm}
+\geometry{paperwidth=6in,paperheight=9in,inner=15.9mm,outer=8mm,bottom=20mm,top=20mm}
 
 % to select a general font size
 \usepackage{scrextend}
@@ -44,3 +43,74 @@
 % To reduce the space above and below an equation
 \setlength{\abovedisplayskip}{0pt}
 \setlength{\belowdisplayskip}{0pt}
+
+% FRONT MATTER material
+\renewcommand{\maketitle}{
+    % FIRST PAGE
+    \thispagestyle{empty}
+    \begin{center}\sffamily
+        {\Large bmbstats}\\[2pt]
+        Bootstrap Magnitude-based Statistics\\
+        For Sports Scientists\\
+        \strut\\
+        MLADEN JOVANOVIĆ
+    \end{center}
+    % EMPTY PAGE
+    \clearpage
+    \thispagestyle{empty}
+    \strut
+    % COVER PAGE
+    \clearpage
+    \thispagestyle{empty}
+    \begin{center}\bfseries\large
+        {\huge bmbstats}\\[3\baselineskip]
+        Bootstrap Magnitude-based Statistics\\
+        For Sports Scientists\\[3\baselineskip]
+        MLADEN JOVANOVIĆ
+    \end{center}
+
+    \vfill
+    \begin{center}
+        Belgrade, Serbia\\
+        2020\\
+        \strut\\
+        For information: www.complementarytraining.net
+    \end{center}
+    % COLOPHON
+    \clearpage
+    \thispagestyle{empty}
+    {\small
+    Jovanović, M.\\
+    Bootstrap Magnitude-based Statistics For Sports Scientists\\
+
+    \vspace{2\baselineskip}
+    ISBN: XXXXXXXXXXXXXXXX\\
+
+    \vspace{2\baselineskip}
+    Copyright \textcopyright\ 2020 Mladen Jovanović\\
+
+    \vspace{2\baselineskip}
+    Cover design by Goran Babić\\
+    Paperback design by Mladen Jovanović\\
+
+    \vspace{2\baselineskip}
+    All rights reserved. This book or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the author except for the use of brief quotations in a book review.\\
+
+    \vspace{2\baselineskip}
+    First Paperback Edition\\
+    For information: www.complementarytraining.net
+    }
+    % DEDICATION
+    \clearpage
+    \thispagestyle{empty}
+    \strut
+    \vspace{\stretch{1}}
+    \begin{center}
+        To my son Nikša
+    \end{center}
+    \vspace{\stretch{2}}
+    \strut
+}
+
+% To change the font size of the code
+\BeforeBeginEnvironment{Highlighting}{\scriptsize}

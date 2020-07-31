@@ -23,9 +23,18 @@ set.seed(1667)
 n_subjects <- 50
 
 # Generate height data
-height_data <- data.frame(Male = rnorm(n = n_subjects, mean = 177.8, 
-    sd = 10.16), Female = rnorm(n = n_subjects, mean = 165.1, 
-    sd = 8.89))
+height_data <- data.frame(
+  Male = rnorm(
+    n = n_subjects,
+    mean = 177.8,
+    sd = 10.16
+  ),
+  Female = rnorm(
+    n = n_subjects,
+    mean = 165.1,
+    sd = 8.89
+  )
+)
 
 head(height_data)
 #>       Male   Female
@@ -45,8 +54,11 @@ The simplest descriptive task is the description of a single group. Let's use he
 
 
 ```r
-bmbstats::plot_raincloud(data = height_data, value = "Female", 
-    control = plot_control(group_colors = "pink"))
+bmbstats::plot_raincloud(
+  data = height_data,
+  value = "Female",
+  control = plot_control(group_colors = "pink")
+)
 ```
 
 
@@ -57,10 +69,18 @@ Functions in `bmbstats` package use `control` parameter to setup graphing or mod
 
 
 ```r
-bmbstats::plot_raincloud(data = height_data, value = "Female", 
-    control = plot_control(group_colors = "grey", cloud_quantile_lines = FALSE, 
-        summary_bar_color = "red", summary_bar_nudge = -0.15, 
-        points_jitter_width = 0.1, points_size = 2))
+bmbstats::plot_raincloud(
+  data = height_data,
+  value = "Female",
+  control = plot_control(
+    group_colors = "grey",
+    cloud_quantile_lines = FALSE,
+    summary_bar_color = "red",
+    summary_bar_nudge = -0.15,
+    points_jitter_width = 0.1,
+    points_size = 2
+  )
+)
 ```
 
 
@@ -71,10 +91,16 @@ One of the core functions in `bmbstats` package is `bmbstats::bmbstats`, around 
 
 
 ```r
-female_analysis <- bmbstats::describe_data(x = height_data$Female, 
-    estimator_function = bmbstats::data_estimators_simple, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+female_analysis <- bmbstats::describe_data(
+  x = height_data$Female,
+  estimator_function = bmbstats::data_estimators_simple,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 
 female_analysis
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
@@ -108,8 +134,13 @@ The figure above depicts distribution of the bootstrap resamples with the error 
 
 
 ```r
-plot(female_analysis, control = plot_control(group_colors = "grey", 
-    summary_bar_color = "red"))
+plot(
+  female_analysis,
+  control = plot_control(
+    group_colors = "grey",
+    summary_bar_color = "red"
+  )
+)
 ```
 
 
@@ -123,12 +154,16 @@ plot(female_analysis, control = plot_control(group_colors = "grey",
 
 ```r
 my_estimators <- function(x, na.rm = FALSE) {
-    x_mean <- mean(x, na.rm = na.rm)
-    x_sd <- sd(x, na.rm = na.rm)
-    
-    x_cv <- (x_sd/x_mean) * 100
-    
-    return(c(mean = x_mean, SD = x_sd, CV = x_cv))
+  x_mean <- mean(x, na.rm = na.rm)
+  x_sd <- sd(x, na.rm = na.rm)
+
+  x_cv <- (x_sd / x_mean) * 100
+
+  return(c(
+    mean = x_mean,
+    SD = x_sd,
+    CV = x_cv
+  ))
 }
 ```
 
@@ -145,9 +180,16 @@ Since we are interested in making statistical inference (by utilizing bootstrap 
 
 
 ```r
-female_analysis_my_est <- bmbstats::describe_data(x = height_data$Female, 
-    estimator_function = my_estimators, control = model_control(seed = 1667, 
-        boot_type = "perc", boot_samples = 1000, confidence = 0.9))
+female_analysis_my_est <- bmbstats::describe_data(
+  x = height_data$Female,
+  estimator_function = my_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 
 female_analysis_my_est
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
@@ -170,9 +212,16 @@ plot(female_analysis_my_est)
 
 
 ```r
-female_analysis_extensive <- bmbstats::describe_data(x = height_data$Female, 
-    estimator_function = bmbstats::data_estimators, control = model_control(seed = 1667, 
-        boot_type = "bca", boot_samples = 2000, confidence = 0.95))
+female_analysis_extensive <- bmbstats::describe_data(
+  x = height_data$Female,
+  estimator_function = bmbstats::data_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "bca",
+    boot_samples = 2000,
+    confidence = 0.95
+  )
+)
 
 female_analysis_extensive
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -205,10 +254,16 @@ Robust estimators is a family of estimators that are *robust* to outliers. Here 
 
 
 ```r
-female_analysis_robust <- bmbstats::describe_data(x = height_data$Female, 
-    estimator_function = bmbstats::data_estimators_robust, 
-    control = model_control(seed = 1667, boot_type = "bca", 
-        boot_samples = 2000, confidence = 0.95))
+female_analysis_robust <- bmbstats::describe_data(
+  x = height_data$Female,
+  estimator_function = bmbstats::data_estimators_robust,
+  control = model_control(
+    seed = 1667,
+    boot_type = "bca",
+    boot_samples = 2000,
+    confidence = 0.95
+  )
+)
 
 female_analysis_robust
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
@@ -237,45 +292,48 @@ To summarize the analysis of the single sample, let's say that I am interested i
 ```r
 # Estimators function
 prop_estimators <- function(x, na.rm = false) {
-    mean_x <- mean(x, na.rm = na.rm)
-    sd_x <- sd(x, na.rm = na.rm)
-    n_x <- length(x)
-    
-    # Use t-distribution to calculate proportion over 180cm
-    prop_t <- 1 - pt((180 - mean_x)/sd_x, df = n_x - 1)
-    
-    # Use normal distribution to calculate proportion over
-    # 180cm
-    prop_norm <- 1 - pnorm(180, mean = mean_x, sd = sd_x)
-    
-    # Use `brute-force` (simple counting) to calculate
-    # proportion over 180cm
-    prop_brute <- sum(x > 180)/n_x
-    
-    return(c(mean = mean_x, SD = sd_x, `Over 180cm proportion (t-distr)` = prop_t, 
-        `Over 180cm proportion (norm-distr)` = prop_norm, 
-        `Over 180cm proportion (brute-force)` = prop_brute))
+  mean_x <- mean(x, na.rm = na.rm)
+  sd_x <- sd(x, na.rm = na.rm)
+  n_x <- length(x)
+
+  # Use t-distribution to calculate proportion over 180cm
+  prop_t <- 1 - pt((180 - mean_x) / sd_x, df = n_x - 1)
+
+  # Use normal distribution to calculate proportion over 180cm
+  prop_norm <- 1 - pnorm(180, mean = mean_x, sd = sd_x)
+
+  # Use `brute-force` (simple counting) to calculate proportion over 180cm
+  prop_brute <- sum(x > 180) / n_x
+
+  return(c(
+    "mean" = mean_x,
+    "SD" = sd_x,
+    "Over 180cm proportion (t-distr)" = prop_t,
+    "Over 180cm proportion (norm-distr)" = prop_norm,
+    "Over 180cm proportion (brute-force)" = prop_brute
+  ))
 }
 
-tall_females <- bmbstats::describe_data(x = height_data$Female, 
-    estimator_function = prop_estimators, control = model_control(seed = 1667, 
-        boot_type = "bca", boot_samples = 2000, confidence = 0.95))
+tall_females <- bmbstats::describe_data(
+  x = height_data$Female,
+  estimator_function = prop_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "bca",
+    boot_samples = 2000,
+    confidence = 0.95
+  )
+)
 
 tall_females
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
 #> 
-#>                            estimator        value
-#>                                 mean 163.17791620
-#>                                   SD   8.19937316
-#>      Over 180cm proportion (t-distr)   0.02278501
-#>   Over 180cm proportion (norm-distr)   0.02010279
-#>  Over 180cm proportion (brute-force)   0.02000000
-#>         lower        upper
-#>  1.609134e+02 165.33255732
-#>  7.017929e+00   9.87473324
-#>  7.860132e-03   0.05965420
-#>  6.171549e-03   0.05644849
-#>  0.000000e+00   0.06000000
+#>                            estimator        value        lower        upper
+#>                                 mean 163.17791620 1.609134e+02 165.33255732
+#>                                   SD   8.19937316 7.017929e+00   9.87473324
+#>      Over 180cm proportion (t-distr)   0.02278501 7.860132e-03   0.05965420
+#>   Over 180cm proportion (norm-distr)   0.02010279 6.171549e-03   0.05644849
+#>  Over 180cm proportion (brute-force)   0.02000000 0.000000e+00   0.06000000
 ```
 
 ```r
@@ -293,17 +351,35 @@ Estimators for each independent group (e.g. males and females) can be visualized
 
 
 ```r
-tall_males <- bmbstats::describe_data(x = height_data$Male, 
-    estimator_function = prop_estimators, control = model_control(seed = 1667, 
-        boot_type = "bca", boot_samples = 2000, confidence = 0.95))
+tall_males <- bmbstats::describe_data(
+  x = height_data$Male,
+  estimator_function = prop_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "bca",
+    boot_samples = 2000,
+    confidence = 0.95
+  )
+)
 
-compare_groups <- rbind(data.frame(group = "females", tall_females$estimators), 
-    data.frame(group = "males", tall_males$estimators))
+compare_groups <- rbind(
+  data.frame(group = "females", tall_females$estimators),
+  data.frame(group = "males", tall_males$estimators)
+)
 
-ggplot(compare_groups, aes(y = group, x = value)) + theme_bw(8) + 
-    geom_errorbarh(aes(xmax = upper, xmin = lower), color = "black", 
-        height = 0) + geom_point() + xlab("") + ylab("") + 
-    facet_wrap(~estimator, scales = "free_x")
+ggplot(
+  compare_groups,
+  aes(y = group, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
 ```
 
 
@@ -315,11 +391,17 @@ Rather than comparing individual group estimates, we can perform independent gro
 
 
 ```r
-height_data_long <- gather(height_data, key = "Gender", value = "Height")
+height_data_long <- gather(
+  height_data,
+  key = "Gender",
+  value = "Height"
+)
 
 # Order factors
-height_data_long$Gender <- factor(height_data_long$Gender, 
-    levels = c("Male", "Female"))
+height_data_long$Gender <- factor(
+  height_data_long$Gender,
+  levels = c("Male", "Female")
+)
 
 head(height_data_long)
 #>   Gender   Height
@@ -335,8 +417,11 @@ And now we can plot the group height distribution:
 
 
 ```r
-bmbstats::plot_raincloud(data = height_data_long, value = "Height", 
-    group = "Gender")
+bmbstats::plot_raincloud(
+  data = height_data_long,
+  value = "Height",
+  group = "Gender"
+)
 ```
 
 
@@ -347,34 +432,32 @@ To perform descriptive analysis of the independent groups, we will use `bmbstats
 
 
 ```r
-independent_groups_estimators(group_a = height_data$Female, 
-    group_b = height_data$Male, SESOI_lower = -2.5, SESOI_upper = 2.5)
-#>        SESOI lower        SESOI upper 
-#>        -2.50000000         2.50000000 
-#>        SESOI range          Mean diff 
-#>         5.00000000        12.72521903 
-#>            SD diff          SD pooled 
-#>        12.41402468         8.77804103 
-#>           %CV diff             % diff 
-#>        97.55450689         7.79837084 
-#>              Ratio          Cohen's d 
-#>         1.07798371         1.44966502 
-#>               CLES                OVL 
-#>         0.84733444         0.46855479 
-#> Mean diff to SESOI   SD diff to SESOI 
-#>         2.54504381         2.48280494 
-#>             pLower        pEquivalent 
-#>         0.11148343         0.09457649 
-#>            pHigher 
-#>         0.79394008
+independent_groups_estimators(
+  group_a = height_data$Female,
+  group_b = height_data$Male,
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
+#>        SESOI lower        SESOI upper        SESOI range          Mean diff            SD diff 
+#>        -2.50000000         2.50000000         5.00000000        12.72521903        12.41402468 
+#>          SD pooled           %CV diff             % diff              Ratio          Cohen's d 
+#>         8.77804103        97.55450689         7.79837084         1.07798371         1.44966502 
+#>               CLES                OVL Mean diff to SESOI   SD diff to SESOI             pLower 
+#>         0.84733444         0.46855479         2.54504381         2.48280494         0.11148343 
+#>        pEquivalent            pHigher 
+#>         0.09457649         0.79394008
 ```
 
 `bmbstats::compare_independent_groups` uses by default the `bmbstats::independent_groups_estimators`, but we can write our own estimators function a bit later:
 
 
 ```r
-males_females_comp <- compare_independent_groups(group_a = height_data$Female, 
-    group_b = height_data$Male, SESOI_lower = -2.5, SESOI_upper = 2.5)
+males_females_comp <- compare_independent_groups(
+  group_a = height_data$Female,
+  group_b = height_data$Male,
+  SESOI_lower = -2.5,
+  SESOI_upper = 2.5
+)
 #> [1] "All values of t are equal to  2.5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 
@@ -413,51 +496,36 @@ You can notice that SESOI threshold doesn't have any bootstrap distribution. Tha
 
 
 ```r
-males_females_comp_est <- compare_independent_groups(group_a = height_data$Female, 
-    group_b = height_data$Male, SESOI_lower = -2.5, SESOI_upper = function(group_a, 
-        group_b, na.rm) {
-        sd(group_a, na.rm = na.rm) * 0.2
-    })
+males_females_comp_est <- compare_independent_groups(
+  group_a = height_data$Female,
+  group_b = height_data$Male,
+  SESOI_lower = -2.5,
+  SESOI_upper = function(group_a, group_b, na.rm) {
+    sd(group_a, na.rm = na.rm) * 0.2
+  }
+)
 
 males_females_comp_est
 #> Bootstrap with 2000 resamples and 95% bca confidence intervals.
 #> 
-#>           estimator       value       lower
-#>         SESOI lower -2.50000000          NA
-#>         SESOI upper  1.63987463  1.40101324
-#>         SESOI range  4.13987463  3.90101324
-#>           Mean diff 12.72521903  9.39979860
-#>             SD diff 12.41402468 11.12171677
-#>           SD pooled  8.77804103  7.86424134
-#>            %CV diff 97.55450689 74.22144558
-#>              % diff  7.79837084  5.72302737
-#>               Ratio  1.07798371  1.05723027
-#>           Cohen's d  1.44966502  1.04057626
-#>                CLES  0.84733444  0.76901630
-#>                 OVL  0.46855479  0.34069164
-#>  Mean diff to SESOI  3.07381749  2.26756237
-#>    SD diff to SESOI  2.99864749  2.72442801
-#>              pLower  0.11148343  0.06178746
-#>         pEquivalent  0.07554712  0.05221579
-#>             pHigher  0.81296945  0.72639255
-#>         upper
-#>            NA
-#>    1.94141198
-#>    4.44141198
-#>   16.07945845
-#>   14.08901524
-#>    9.96243822
-#>  135.97174823
-#>    9.95978160
-#>    1.09959782
-#>    1.90567697
-#>    0.91107613
-#>    0.60291087
-#>    3.95663372
-#>    3.34078108
-#>    0.17758243
-#>    0.09808881
-#>    0.88497505
+#>           estimator       value       lower        upper
+#>         SESOI lower -2.50000000          NA           NA
+#>         SESOI upper  1.63987463  1.40101324   1.94141198
+#>         SESOI range  4.13987463  3.90101324   4.44141198
+#>           Mean diff 12.72521903  9.39979860  16.07945845
+#>             SD diff 12.41402468 11.12171677  14.08901524
+#>           SD pooled  8.77804103  7.86424134   9.96243822
+#>            %CV diff 97.55450689 74.22144558 135.97174823
+#>              % diff  7.79837084  5.72302737   9.95978160
+#>               Ratio  1.07798371  1.05723027   1.09959782
+#>           Cohen's d  1.44966502  1.04057626   1.90567697
+#>                CLES  0.84733444  0.76901630   0.91107613
+#>                 OVL  0.46855479  0.34069164   0.60291087
+#>  Mean diff to SESOI  3.07381749  2.26756237   3.95663372
+#>    SD diff to SESOI  2.99864749  2.72442801   3.34078108
+#>              pLower  0.11148343  0.06178746   0.17758243
+#>         pEquivalent  0.07554712  0.05221579   0.09808881
+#>             pHigher  0.81296945  0.72639255   0.88497505
 ```
 
 ```r
@@ -473,30 +541,48 @@ You can now notice that `SESOI upper` and `SESOI range` have bootstrap distribut
 
 ```r
 # SESOI estimated inside the bootstrap loop
-males_females_comp_inside <- compare_independent_groups(group_a = height_data$Female, 
-    group_b = height_data$Male, SESOI_lower = function(group_a, 
-        group_b, na.rm) {
-        -sd(group_a, na.rm = na.rm) * 0.2
-    }, SESOI_upper = function(group_a, group_b, na.rm) {
-        sd(group_a, na.rm = na.rm) * 0.2
-    }, control = model_control(seed = 1667))
+males_females_comp_inside <- compare_independent_groups(
+  group_a = height_data$Female,
+  group_b = height_data$Male,
+  SESOI_lower = function(group_a, group_b, na.rm) {
+    -sd(group_a, na.rm = na.rm) * 0.2
+  },
+  SESOI_upper = function(group_a, group_b, na.rm) {
+    sd(group_a, na.rm = na.rm) * 0.2
+  },
+  control = model_control(seed = 1667)
+)
 
 # SESOI estimated outside the bootstrap loop
-males_females_comp_outside <- compare_independent_groups(group_a = height_data$Female, 
-    group_b = height_data$Male, SESOI_lower = -sd(height_data$Female) * 
-        0.2, SESOI_upper = sd(height_data$Female) * 0.2, 
-    control = model_control(seed = 1667))
+males_females_comp_outside <- compare_independent_groups(
+  group_a = height_data$Female,
+  group_b = height_data$Male,
+  SESOI_lower = -sd(height_data$Female) * 0.2,
+  SESOI_upper = sd(height_data$Female) * 0.2,
+  control = model_control(seed = 1667)
+)
 #> [1] "All values of t are equal to  1.63987463256618 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  3.27974926513235 \n Cannot calculate confidence intervals"
 
 # Plot the estimators
-compare_analyses <- rbind(data.frame(group = "inside", males_females_comp_inside$estimators), 
-    data.frame(group = "outside", males_females_comp_outside$estimators))
+compare_analyses <- rbind(
+  data.frame(group = "inside", males_females_comp_inside$estimators),
+  data.frame(group = "outside", males_females_comp_outside$estimators)
+)
 
-ggplot(compare_analyses, aes(y = group, x = value)) + theme_bw(8) + 
-    geom_errorbarh(aes(xmax = upper, xmin = lower), color = "black", 
-        height = 0) + geom_point() + xlab("") + ylab("") + 
-    facet_wrap(~estimator, scales = "free_x")
+ggplot(
+  compare_analyses,
+  aes(y = group, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
 ```
 
 
@@ -511,8 +597,12 @@ Is there are statistically significant difference in the `mean` height between m
 
 
 ```r
-males_females_NHST <- bmbstats::bootstrap_NHST(males_females_comp, 
-    estimator = "Mean diff", null_hypothesis = 0, test = "two.sided")
+males_females_NHST <- bmbstats::bootstrap_NHST(
+  males_females_comp,
+  estimator = "Mean diff",
+  null_hypothesis = 0,
+  test = "two.sided"
+)
 
 males_females_NHST
 #> Null-hypothesis significance test for the `Mean diff` estimator
@@ -527,8 +617,12 @@ What if our hypothesis is that males are taller by females by at least 10cm? We 
 
 
 ```r
-males_females_NHST <- bmbstats::bootstrap_NHST(males_females_comp, 
-    estimator = "Mean diff", null_hypothesis = 10, test = "greater")
+males_females_NHST <- bmbstats::bootstrap_NHST(
+  males_females_comp,
+  estimator = "Mean diff",
+  null_hypothesis = 10,
+  test = "greater"
+)
 
 males_females_NHST
 #> Null-hypothesis significance test for the `Mean diff` estimator
@@ -554,8 +648,11 @@ In the above graph, the estimator bootstrap distribution (i.e. `mean difference`
 
 
 ```r
-males_females_NHST <- bmbstats::bootstrap_NHST(males_females_comp, 
-    estimator = "Mean diff", null_hypothesis = 10)
+males_females_NHST <- bmbstats::bootstrap_NHST(
+  males_females_comp,
+  estimator = "Mean diff",
+  null_hypothesis = 10
+)
 
 plot(males_females_NHST)
 ```
@@ -568,9 +665,13 @@ We have already decided that our SESOI in height is 2.5cm. But this SESOI is rel
 
 
 ```r
-males_females_MET <- bmbstats::bootstrap_MET(males_females_comp, 
-    estimator = "Mean diff", SESOI_lower = -10, SESOI_upper = 10, 
-    alpha = 0.05)
+males_females_MET <- bmbstats::bootstrap_MET(
+  males_females_comp,
+  estimator = "Mean diff",
+  SESOI_lower = -10,
+  SESOI_upper = 10,
+  alpha = 0.05
+)
 
 males_females_MET
 #> Minimum effect tests for the `Mean diff` estimator
@@ -624,8 +725,12 @@ To perform MBI, use `bmbstats::bootstrap_MBI` function:
 
 
 ```r
-males_females_MBI <- bmbstats::bootstrap_MBI(males_females_comp, 
-    estimator = "Mean diff", SESOI_lower = -10, SESOI_upper = 10)
+males_females_MBI <- bmbstats::bootstrap_MBI(
+  males_females_comp,
+  estimator = "Mean diff",
+  SESOI_lower = -10,
+  SESOI_upper = 10
+)
 
 males_females_MBI
 #> Magnitude-based inference for the `Mean diff` estimator
@@ -720,40 +825,43 @@ bench_press_data <- tibble(
 
 bench_press_data
 #> # A tibble: 20 x 7
-#>    Athlete `Pre-test (true~ `Change (true)`
-#>    <fct>              <dbl>           <dbl>
-#>  1 Athlet~            111.                0
-#>  2 Athlet~            102.                0
-#>  3 Athlet~             93.4               0
-#>  4 Athlet~             95.4               0
-#>  5 Athlet~            111.                0
-#>  6 Athlet~            110.                0
-#>  7 Athlet~            104.                0
-#>  8 Athlet~             93.7               0
-#>  9 Athlet~             99.6               0
-#> 10 Athlet~            106.                0
-#> 11 Athlet~            102.                0
-#> 12 Athlet~            101.                0
-#> 13 Athlet~             92.9               0
-#> 14 Athlet~             98.2               0
-#> 15 Athlet~             88.3               0
-#> 16 Athlet~            106.                0
-#> 17 Athlet~             95.8               0
-#> 18 Athlet~             92.9               0
-#> 19 Athlet~            103.                0
-#> 20 Athlet~            104.                0
-#> # ... with 4 more variables: `Post-test (true)` <dbl>,
-#> #   `Pre-test (observed)` <dbl>, `Post-test
-#> #   (observed)` <dbl>, `Change (observed)` <dbl>
+#>    Athlete `Pre-test (true~ `Change (true)` `Post-test (tru~ `Pre-test (obse~ `Post-test (obs~
+#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>
+#>  1 Athlet~            111.                0            111.             112.             112. 
+#>  2 Athlet~            102.                0            102.             108.              97.7
+#>  3 Athlet~             93.4               0             93.4             90.8             92.0
+#>  4 Athlet~             95.4               0             95.4             93.2             94.0
+#>  5 Athlet~            111.                0            111.             111.             110. 
+#>  6 Athlet~            110.                0            110.             109.             111. 
+#>  7 Athlet~            104.                0            104.             105.             110. 
+#>  8 Athlet~             93.7               0             93.7             94.5             93.0
+#>  9 Athlet~             99.6               0             99.6            102.              99.8
+#> 10 Athlet~            106.                0            106.             109.             106. 
+#> 11 Athlet~            102.                0            102.             105.             103. 
+#> 12 Athlet~            101.                0            101.             100.             102. 
+#> 13 Athlet~             92.9               0             92.9             90.5             96.2
+#> 14 Athlet~             98.2               0             98.2             96.5            100. 
+#> 15 Athlet~             88.3               0             88.3             89.7             92.5
+#> 16 Athlet~            106.                0            106.             109.             111. 
+#> 17 Athlet~             95.8               0             95.8             98.2             94.1
+#> 18 Athlet~             92.9               0             92.9             90.8             87.9
+#> 19 Athlet~            103.                0            103.             104.             107. 
+#> 20 Athlet~            104.                0            104.             107.             107. 
+#> # ... with 1 more variable: `Change (observed)` <dbl>
 ```
 
 Let's plot the true Pre-test and Post-test scores using a scatter plot and SESOI band of -5 to 5kg:
 
 
 ```r
-plot_pair_changes(group_a = bench_press_data$`Pre-test (true)`, 
-    group_b = bench_press_data$`Post-test (true)`, group_a_label = "True Pre-test", 
-    group_b_label = "True Post-test", SESOI_lower = -5, SESOI_upper = 5)
+plot_pair_changes(
+  group_a = bench_press_data$`Pre-test (true)`,
+  group_b = bench_press_data$`Post-test (true)`,
+  group_a_label = "True Pre-test",
+  group_b_label = "True Post-test",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 ```
 
 
@@ -764,10 +872,14 @@ As can be seen, there is no true change. Let's see what happens when we plot obs
 
 
 ```r
-plot_pair_changes(group_a = bench_press_data$`Pre-test (observed)`, 
-    group_b = bench_press_data$`Post-test (observed)`, group_a_label = "Observed Pre-test", 
-    group_b_label = "Observed Post-test", SESOI_lower = -5, 
-    SESOI_upper = 5)
+plot_pair_changes(
+  group_a = bench_press_data$`Pre-test (observed)`,
+  group_b = bench_press_data$`Post-test (observed)`,
+  group_a_label = "Observed Pre-test",
+  group_b_label = "Observed Post-test",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 ```
 
 
@@ -778,8 +890,12 @@ We can also plot distribution of the Change scores:
 
 
 ```r
-plot_raincloud_SESOI(bench_press_data, value = "Change (observed)", 
-    SESOI_lower = -5, SESOI_upper = 5)
+plot_raincloud_SESOI(
+  bench_press_data,
+  value = "Change (observed)",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 ```
 
 
@@ -808,10 +924,16 @@ Using `bmbstats::describe_data` we can perform bootstrap CIs for the `mean` and 
 
 
 ```r
-obs_change_analysis <- bmbstats::describe_data(x = bench_press_data$`Change (observed)`, 
-    estimator_function = bmbstats::data_estimators_simple, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+obs_change_analysis <- bmbstats::describe_data(
+  x = bench_press_data$`Change (observed)`,
+  estimator_function = bmbstats::data_estimators_simple,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 
 obs_change_analysis
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
@@ -976,40 +1098,43 @@ bench_press_data <- tibble(
 
 bench_press_data
 #> # A tibble: 20 x 7
-#>    Athlete `Pre-test (true~ `Change (true)`
-#>    <fct>              <dbl>           <dbl>
-#>  1 Athlet~            111.           13.8  
-#>  2 Athlet~            102.           34.3  
-#>  3 Athlet~             93.4          -0.428
-#>  4 Athlet~             95.4           1.27 
-#>  5 Athlet~            111.            9.65 
-#>  6 Athlet~            110.            6.41 
-#>  7 Athlet~            104.           13.3  
-#>  8 Athlet~             93.7          13.4  
-#>  9 Athlet~             99.6          19.3  
-#> 10 Athlet~            106.           22.1  
-#> 11 Athlet~            102.           23.1  
-#> 12 Athlet~            101.            5.59 
-#> 13 Athlet~             92.9           0.190
-#> 14 Athlet~             98.2           3.17 
-#> 15 Athlet~             88.3          15.5  
-#> 16 Athlet~            106.           21.1  
-#> 17 Athlet~             95.8          19.6  
-#> 18 Athlet~             92.9           1.54 
-#> 19 Athlet~            103.           14.6  
-#> 20 Athlet~            104.           19.1  
-#> # ... with 4 more variables: `Post-test (true)` <dbl>,
-#> #   `Pre-test (observed)` <dbl>, `Post-test
-#> #   (observed)` <dbl>, `Change (observed)` <dbl>
+#>    Athlete `Pre-test (true~ `Change (true)` `Post-test (tru~ `Pre-test (obse~ `Post-test (obs~
+#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>
+#>  1 Athlet~            111.           13.8              125.             112.             126. 
+#>  2 Athlet~            102.           34.3              136.              97.7            135. 
+#>  3 Athlet~             93.4          -0.428             93.0             92.0             95.0
+#>  4 Athlet~             95.4           1.27              96.7             94.0             95.4
+#>  5 Athlet~            111.            9.65             120.             110.             128. 
+#>  6 Athlet~            110.            6.41             116.             111.             117. 
+#>  7 Athlet~            104.           13.3              118.             110.             116. 
+#>  8 Athlet~             93.7          13.4              107.              93.0            101. 
+#>  9 Athlet~             99.6          19.3              119.              99.8            120. 
+#> 10 Athlet~            106.           22.1              129.             106.             131. 
+#> 11 Athlet~            102.           23.1              125.             103.             128. 
+#> 12 Athlet~            101.            5.59             107.             102.             106. 
+#> 13 Athlet~             92.9           0.190             93.1             96.2             95.6
+#> 14 Athlet~             98.2           3.17             101.             100.             102. 
+#> 15 Athlet~             88.3          15.5              104.              92.5            105. 
+#> 16 Athlet~            106.           21.1              127.             111.             128. 
+#> 17 Athlet~             95.8          19.6              115.              94.1            117. 
+#> 18 Athlet~             92.9           1.54              94.4             87.9            101. 
+#> 19 Athlet~            103.           14.6              117.             107.             113. 
+#> 20 Athlet~            104.           19.1              123.             107.             131. 
+#> # ... with 1 more variable: `Change (observed)` <dbl>
 ```
 
 Let's plot true scores:
 
 
 ```r
-plot_pair_changes(group_a = bench_press_data$`Pre-test (true)`, 
-    group_b = bench_press_data$`Post-test (true)`, group_a_label = "True Pre-test", 
-    group_b_label = "True Post-test", SESOI_lower = -5, SESOI_upper = 5)
+plot_pair_changes(
+  group_a = bench_press_data$`Pre-test (true)`,
+  group_b = bench_press_data$`Post-test (true)`,
+  group_a_label = "True Pre-test",
+  group_b_label = "True Post-test",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 ```
 
 
@@ -1034,10 +1159,16 @@ To get bootstrap CI around these estimate, we can again use `bmbstats::describe_
 
 
 ```r
-true_change_analysis <- bmbstats::describe_data(x = bench_press_data$`Change (true)`, 
-    estimator_function = bmbstats::data_estimators_simple, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+true_change_analysis <- bmbstats::describe_data(
+  x = bench_press_data$`Change (true)`,
+  estimator_function = bmbstats::data_estimators_simple,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 
 true_change_analysis
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
@@ -1051,10 +1182,14 @@ The true DGP parameters (systematic effect of 10kg and random effect of 10kg) ar
 
 
 ```r
-plot_pair_changes(group_a = bench_press_data$`Pre-test (observed)`, 
-    group_b = bench_press_data$`Post-test (observed)`, group_a_label = "Observed Pre-test", 
-    group_b_label = "Observed Post-test", SESOI_lower = -5, 
-    SESOI_upper = 5)
+plot_pair_changes(
+  group_a = bench_press_data$`Pre-test (observed)`,
+  group_b = bench_press_data$`Post-test (observed)`,
+  group_a_label = "Observed Pre-test",
+  group_b_label = "Observed Post-test",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 ```
 
 
@@ -1065,10 +1200,16 @@ The image looks similar to true scores analysis. Let's estimate `mean` and `SD` 
 
 
 ```r
-obs_change_analysis <- bmbstats::describe_data(x = bench_press_data$`Change (observed)`, 
-    estimator_function = bmbstats::data_estimators_simple, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+obs_change_analysis <- bmbstats::describe_data(
+  x = bench_press_data$`Change (observed)`,
+  estimator_function = bmbstats::data_estimators_simple,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 
 obs_change_analysis
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
@@ -1140,51 +1281,42 @@ To perform dependent group comparison, we will use `bmbstats::compare_dependent_
 
 
 ```r
-true_pre_post <- bmbstats::compare_dependent_groups(pre = bench_press_data$`Pre-test (true)`, 
-    post = bench_press_data$`Post-test (true)`, SESOI_lower = -5, 
-    SESOI_upper = 5, estimator_function = bmbstats::dependent_groups_estimators, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+true_pre_post <- bmbstats::compare_dependent_groups(
+  pre = bench_press_data$`Pre-test (true)`,
+  post = bench_press_data$`Post-test (true)`,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::dependent_groups_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  10 \n Cannot calculate confidence intervals"
 
 true_pre_post
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
 #> 
-#>             estimator       value        lower
-#>           SESOI lower -5.00000000 -5.000000000
-#>           SESOI upper  5.00000000           NA
-#>           SESOI range 10.00000000           NA
-#>           Mean change 12.82946286  9.402614340
-#>             SD change  9.32811444  6.781651565
-#>            %CV change 72.70853459 49.485375080
-#>              % change 12.62276799  9.213352403
-#>                 Ratio  1.12622768  1.092133524
-#>             Cohen's d  1.95364779  1.371167791
-#>                  CLES  0.81092721  0.738420828
-#>                   OVL  0.32865634  0.129433313
-#>  Mean change to SESOI  1.28294629  0.940261434
-#>    SD change to SESOI  0.93281144  0.678165157
-#>                pLower  0.03558066  0.007004211
-#>           pEquivalent  0.17027690  0.087087118
-#>               pHigher  0.79414243  0.691105965
-#>        upper
-#>  -5.00000000
-#>           NA
-#>           NA
-#>  16.51981871
-#>  11.06663336
-#>  95.21126362
-#>  16.25417940
-#>   1.16254179
-#>   3.03268427
-#>   0.90342409
-#>   0.49297559
-#>   1.65198187
-#>   1.10666334
-#>   0.06858572
-#>   0.24817063
-#>   0.90546802
+#>             estimator       value        lower       upper
+#>           SESOI lower -5.00000000 -5.000000000 -5.00000000
+#>           SESOI upper  5.00000000           NA          NA
+#>           SESOI range 10.00000000           NA          NA
+#>           Mean change 12.82946286  9.402614340 16.51981871
+#>             SD change  9.32811444  6.781651565 11.06663336
+#>            %CV change 72.70853459 49.485375080 95.21126362
+#>              % change 12.62276799  9.213352403 16.25417940
+#>                 Ratio  1.12622768  1.092133524  1.16254179
+#>             Cohen's d  1.95364779  1.371167791  3.03268427
+#>                  CLES  0.81092721  0.738420828  0.90342409
+#>                   OVL  0.32865634  0.129433313  0.49297559
+#>  Mean change to SESOI  1.28294629  0.940261434  1.65198187
+#>    SD change to SESOI  0.93281144  0.678165157  1.10666334
+#>                pLower  0.03558066  0.007004211  0.06858572
+#>           pEquivalent  0.17027690  0.087087118  0.24817063
+#>               pHigher  0.79414243  0.691105965  0.90546802
 ```
 
 
@@ -1200,51 +1332,42 @@ And now with the observed Pre- and Post- scores:
 
 
 ```r
-obs_pre_post <- bmbstats::compare_dependent_groups(pre = bench_press_data$`Pre-test (observed)`, 
-    post = bench_press_data$`Post-test (observed)`, SESOI_lower = -5, 
-    SESOI_upper = 5, estimator_function = bmbstats::dependent_groups_estimators, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+obs_pre_post <- bmbstats::compare_dependent_groups(
+  pre = bench_press_data$`Pre-test (observed)`,
+  post = bench_press_data$`Post-test (observed)`,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = bmbstats::dependent_groups_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  10 \n Cannot calculate confidence intervals"
 
 obs_pre_post
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
 #> 
-#>             estimator       value       lower
-#>           SESOI lower -5.00000000 -5.00000000
-#>           SESOI upper  5.00000000          NA
-#>           SESOI range 10.00000000          NA
-#>           Mean change 13.26634977  9.82939542
-#>             SD change 10.32696439  7.53316566
-#>            %CV change 77.84329951 55.95245477
-#>              % change 13.07536952  9.64149847
-#>                 Ratio  1.13075370  1.09641498
-#>             Cohen's d  1.73487556  1.23093674
-#>                  CLES  0.80381999  0.73779303
-#>                   OVL  0.38570219  0.18838477
-#>  Mean change to SESOI  1.32663498  0.98293954
-#>    SD change to SESOI  1.03269644  0.75331657
-#>                pLower  0.04648926  0.01380798
-#>           pEquivalent  0.17017990  0.09737292
-#>               pHigher  0.78333084  0.69453555
-#>        upper
-#>  -5.00000000
-#>           NA
-#>           NA
-#>  17.26567091
-#>  12.40584025
-#>  97.95459056
-#>  17.10620410
-#>   1.17106204
-#>   2.63074534
-#>   0.88834207
-#>   0.53824551
-#>   1.72656709
-#>   1.24058402
-#>   0.07714882
-#>   0.23894195
-#>   0.88551971
+#>             estimator       value       lower       upper
+#>           SESOI lower -5.00000000 -5.00000000 -5.00000000
+#>           SESOI upper  5.00000000          NA          NA
+#>           SESOI range 10.00000000          NA          NA
+#>           Mean change 13.26634977  9.82939542 17.26567091
+#>             SD change 10.32696439  7.53316566 12.40584025
+#>            %CV change 77.84329951 55.95245477 97.95459056
+#>              % change 13.07536952  9.64149847 17.10620410
+#>                 Ratio  1.13075370  1.09641498  1.17106204
+#>             Cohen's d  1.73487556  1.23093674  2.63074534
+#>                  CLES  0.80381999  0.73779303  0.88834207
+#>                   OVL  0.38570219  0.18838477  0.53824551
+#>  Mean change to SESOI  1.32663498  0.98293954  1.72656709
+#>    SD change to SESOI  1.03269644  0.75331657  1.24058402
+#>                pLower  0.04648926  0.01380798  0.07714882
+#>           pEquivalent  0.17017990  0.09737292  0.23894195
+#>               pHigher  0.78333084  0.69453555  0.88551971
 ```
 
 
@@ -1261,13 +1384,24 @@ Let's plot the estimated CIs for all the estimators:
 
 ```r
 # Plot the estimators
-compare_analyses <- rbind(data.frame(group = "true", true_pre_post$estimators), 
-    data.frame(group = "observed", obs_pre_post$estimators))
+compare_analyses <- rbind(
+  data.frame(group = "true", true_pre_post$estimators),
+  data.frame(group = "observed", obs_pre_post$estimators)
+)
 
-ggplot(compare_analyses, aes(y = group, x = value)) + theme_bw(8) + 
-    geom_errorbarh(aes(xmax = upper, xmin = lower), color = "black", 
-        height = 0) + geom_point() + xlab("") + ylab("") + 
-    facet_wrap(~estimator, scales = "free_x")
+ggplot(
+  compare_analyses,
+  aes(y = group, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
 ```
 
 
@@ -1278,94 +1412,96 @@ As can be seen on the figure, some estimators (those depending on the `SD`) are 
 
 
 ```r
-adjusted_estimators <- function(pre, post, SESOI_lower = 0, 
-    SESOI_upper = 0, na.rm = FALSE) {
-    SESOI_range <- SESOI_upper - SESOI_lower
-    change <- post - pre
-    
-    mean_change <- mean(change, na.rm = na.rm)
-    sd_change <- stats::sd(change, na.rm = na.rm)
-    
-    # Now we adjust the sd_change with the known measurement
-    # error
-    change_measurement_error <- measurement_error * sqrt(2)
-    
-    sd_change <- sqrt(sd_change^2 - change_measurement_error^2)
-    
-    cv_change <- 100 * sd_change/mean_change
-    perc_change <- mean(change/pre, na.rm = na.rm) * 100
-    ratio <- mean(post/pre, na.rm = na.rm)
-    cohen <- cohens_d(pre, post, paired = TRUE, na.rm = na.rm)
-    cles <- CLES(pre, post, na.rm = na.rm)
-    ovl <- 2 * stats::pnorm(-abs(cohen)/2)
-    
-    change_to_SESOI <- mean_change/SESOI_range
-    sd_change_to_SESOI <- sd_change/SESOI_range
-    
-    # Calculate proportion of scores
-    df <- length(change) - 1
-    higher <- 1 - stats::pt((SESOI_upper - mean_change)/sd_change, 
-        df = df)
-    lower <- stats::pt((SESOI_lower - mean_change)/sd_change, 
-        df = df)
-    equivalent <- 1 - (higher + lower)
-    
-    c(`SESOI lower` = SESOI_lower, `SESOI upper` = SESOI_upper, 
-        `SESOI range` = SESOI_range, `Mean change` = mean_change, 
-        `SD change` = sd_change, `%CV change` = cv_change, 
-        `% change` = perc_change, Ratio = ratio, `Cohen's d` = cohen, 
-        CLES = cles, OVL = ovl, `Mean change to SESOI` = change_to_SESOI, 
-        `SD change to SESOI` = sd_change_to_SESOI, pLower = lower, 
-        pEquivalent = equivalent, pHigher = higher)
+adjusted_estimators <- function(pre,
+                                post,
+                                SESOI_lower = 0,
+                                SESOI_upper = 0,
+                                na.rm = FALSE) {
+  SESOI_range <- SESOI_upper - SESOI_lower
+  change <- post - pre
+
+  mean_change <- mean(change, na.rm = na.rm)
+  sd_change <- stats::sd(change, na.rm = na.rm)
+
+  # Now we adjust the sd_change with the known measurement error
+  change_measurement_error <- measurement_error * sqrt(2)
+
+  sd_change <- sqrt(sd_change^2 - change_measurement_error^2)
+
+  cv_change <- 100 * sd_change / mean_change
+  perc_change <- mean(change / pre, na.rm = na.rm) * 100
+  ratio <- mean(post / pre, na.rm = na.rm)
+  cohen <- cohens_d(pre, post, paired = TRUE, na.rm = na.rm)
+  cles <- CLES(pre, post, na.rm = na.rm)
+  ovl <- 2 * stats::pnorm(-abs(cohen) / 2)
+
+  change_to_SESOI <- mean_change / SESOI_range
+  sd_change_to_SESOI <- sd_change / SESOI_range
+
+  # Calculate proportion of scores
+  df <- length(change) - 1
+  higher <- 1 - stats::pt((SESOI_upper - mean_change) / sd_change, df = df)
+  lower <- stats::pt((SESOI_lower - mean_change) / sd_change, df = df)
+  equivalent <- 1 - (higher + lower)
+
+  c(
+    "SESOI lower" = SESOI_lower,
+    "SESOI upper" = SESOI_upper,
+    "SESOI range" = SESOI_range,
+    "Mean change" = mean_change,
+    "SD change" = sd_change,
+    "%CV change" = cv_change,
+    "% change" = perc_change,
+    "Ratio" = ratio,
+    "Cohen's d" = cohen,
+    "CLES" = cles,
+    "OVL" = ovl,
+    "Mean change to SESOI" = change_to_SESOI,
+    "SD change to SESOI" = sd_change_to_SESOI,
+    "pLower" = lower,
+    "pEquivalent" = equivalent,
+    "pHigher" = higher
+  )
 }
 
 
 # ----------------------------------
-adj_pre_post <- bmbstats::compare_dependent_groups(pre = bench_press_data$`Pre-test (observed)`, 
-    post = bench_press_data$`Post-test (observed)`, SESOI_lower = -5, 
-    SESOI_upper = 5, estimator_function = adjusted_estimators, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+adj_pre_post <- bmbstats::compare_dependent_groups(
+  pre = bench_press_data$`Pre-test (observed)`,
+  post = bench_press_data$`Post-test (observed)`,
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  estimator_function = adjusted_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 #> [1] "All values of t are equal to  5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  10 \n Cannot calculate confidence intervals"
 
 adj_pre_post
 #> Bootstrap with 1000 resamples and 90% perc confidence intervals.
 #> 
-#>             estimator       value        lower
-#>           SESOI lower -5.00000000 -5.000000000
-#>           SESOI upper  5.00000000           NA
-#>           SESOI range 10.00000000           NA
-#>           Mean change 13.26634977  9.829395423
-#>             SD change  9.70289614  6.651960703
-#>            %CV change 73.13915511 50.327816706
-#>              % change 13.07536952  9.641498467
-#>                 Ratio  1.13075370  1.096414985
-#>             Cohen's d  1.73487556  1.230936741
-#>                  CLES  0.80381999  0.737793033
-#>                   OVL  0.38570219  0.188384768
-#>  Mean change to SESOI  1.32663498  0.982939542
-#>    SD change to SESOI  0.97028961  0.665196070
-#>                pLower  0.03758233  0.007977625
-#>           pEquivalent  0.16484497  0.085648118
-#>               pHigher  0.79757270  0.708039046
-#>        upper
-#>  -5.00000000
-#>           NA
-#>           NA
-#>  17.26567091
-#>  11.89137806
-#>  93.01853927
-#>  17.10620410
-#>   1.17106204
-#>   2.63074534
-#>   0.88834207
-#>   0.53824551
-#>   1.72656709
-#>   1.18913781
-#>   0.06801839
-#>   0.23506532
-#>   0.90137633
+#>             estimator       value        lower       upper
+#>           SESOI lower -5.00000000 -5.000000000 -5.00000000
+#>           SESOI upper  5.00000000           NA          NA
+#>           SESOI range 10.00000000           NA          NA
+#>           Mean change 13.26634977  9.829395423 17.26567091
+#>             SD change  9.70289614  6.651960703 11.89137806
+#>            %CV change 73.13915511 50.327816706 93.01853927
+#>              % change 13.07536952  9.641498467 17.10620410
+#>                 Ratio  1.13075370  1.096414985  1.17106204
+#>             Cohen's d  1.73487556  1.230936741  2.63074534
+#>                  CLES  0.80381999  0.737793033  0.88834207
+#>                   OVL  0.38570219  0.188384768  0.53824551
+#>  Mean change to SESOI  1.32663498  0.982939542  1.72656709
+#>    SD change to SESOI  0.97028961  0.665196070  1.18913781
+#>                pLower  0.03758233  0.007977625  0.06801839
+#>           pEquivalent  0.16484497  0.085648118  0.23506532
+#>               pHigher  0.79757270  0.708039046  0.90137633
 ```
 
 Now we can add these estimated CI to the graph and compare it with estimates using true and observed scores:
@@ -1373,14 +1509,25 @@ Now we can add these estimated CI to the graph and compare it with estimates usi
 
 ```r
 # Plot the estimators
-compare_analyses <- rbind(data.frame(group = "true", true_pre_post$estimators), 
-    data.frame(group = "observed", obs_pre_post$estimators), 
-    data.frame(group = "adjusted", adj_pre_post$estimators))
+compare_analyses <- rbind(
+  data.frame(group = "true", true_pre_post$estimators),
+  data.frame(group = "observed", obs_pre_post$estimators),
+  data.frame(group = "adjusted", adj_pre_post$estimators)
+)
 
-ggplot(compare_analyses, aes(y = group, x = value)) + theme_bw(8) + 
-    geom_errorbarh(aes(xmax = upper, xmin = lower), color = "black", 
-        height = 0) + geom_point() + xlab("") + ylab("") + 
-    facet_wrap(~estimator, scales = "free_x")
+ggplot(
+  compare_analyses,
+  aes(y = group, x = value)
+) +
+  theme_bw(8) +
+  geom_errorbarh(aes(xmax = upper, xmin = lower),
+    color = "black",
+    height = 0
+  ) +
+  geom_point() +
+  xlab("") +
+  ylab("") +
+  facet_wrap(~estimator, scales = "free_x")
 ```
 
 
@@ -1399,8 +1546,12 @@ For the sake of example, let's perform NHST using the `mean change` estimator es
 
 
 ```r
-pre_vs_post_NHST <- bmbstats::bootstrap_NHST(obs_pre_post, 
-    estimator = "Mean change", null_hypothesis = 0, test = "two.sided")
+pre_vs_post_NHST <- bmbstats::bootstrap_NHST(
+  obs_pre_post,
+  estimator = "Mean change",
+  null_hypothesis = 0,
+  test = "two.sided"
+)
 
 pre_vs_post_NHST
 #> Null-hypothesis significance test for the `Mean change` estimator
@@ -1422,9 +1573,13 @@ Using SESOI of ±5kg for the `mean change` estimator as well, let's do the METs:
 
 
 ```r
-pre_vs_post_MET <- bmbstats::bootstrap_MET(obs_pre_post, 
-    estimator = "Mean change", SESOI_lower = -5, SESOI_upper = 5, 
-    alpha = 0.05)
+pre_vs_post_MET <- bmbstats::bootstrap_MET(
+  obs_pre_post,
+  estimator = "Mean change",
+  SESOI_lower = -5,
+  SESOI_upper = 5,
+  alpha = 0.05
+)
 
 pre_vs_post_MET
 #> Minimum effect tests for the `Mean change` estimator
@@ -1454,8 +1609,12 @@ And finally MBI:
 
 
 ```r
-pre_vs_post_MBI <- bmbstats::bootstrap_MBI(obs_pre_post, 
-    estimator = "Mean change", SESOI_lower = -5, SESOI_upper = 5)
+pre_vs_post_MBI <- bmbstats::bootstrap_MBI(
+  obs_pre_post,
+  estimator = "Mean change",
+  SESOI_lower = -5,
+  SESOI_upper = 5
+)
 
 pre_vs_post_MBI
 #> Magnitude-based inference for the `Mean change` estimator
@@ -1489,10 +1648,23 @@ set.seed(1667)
 
 n_subjects <- 30
 
-yoyo_mas_data <- tibble(Athlete = paste("Athlete", str_pad(string = seq(1, 
-    n_subjects), width = 2, pad = "0")), YoYoIR1 = rnorm(n = n_subjects, 
-    mean = 1224, sd = 255), MAS = 3.6 * (0.456 * YoYoIR1/1000 + 
-    3.617) + rnorm(n = length(YoYoIR1), 0, 0.2))
+yoyo_mas_data <- tibble(
+  Athlete = paste(
+    "Athlete",
+    str_pad(
+      string = seq(1, n_subjects),
+      width = 2,
+      pad = "0"
+    )
+  ),
+  `YoYoIR1` = rnorm(
+    n = n_subjects,
+    mean = 1224,
+    sd = 255
+  ),
+  `MAS` = 3.6 * (0.456 * `YoYoIR1` / 1000 + 3.617) +
+    rnorm(n = length(`YoYoIR1`), 0, 0.2)
+)
 
 yoyo_mas_data
 #> # A tibble: 30 x 3
@@ -1515,9 +1687,14 @@ Let's create a scatter plot with linear regression model using `bmbstats::plot_p
 
 
 ```r
-bmbstats::plot_pair_lm(predictor = yoyo_mas_data$MAS, outcome = yoyo_mas_data$YoYoIR1, 
-    predictor_label = "MAS", outcome_label = "YoYoIR1", SESOI_lower = -40, 
-    SESOI_upper = 40)
+bmbstats::plot_pair_lm(
+  predictor = yoyo_mas_data$MAS,
+  outcome = yoyo_mas_data$YoYoIR1,
+  predictor_label = "MAS",
+  outcome_label = "YoYoIR1",
+  SESOI_lower = -40,
+  SESOI_upper = 40
+)
 ```
 
 
@@ -1528,11 +1705,19 @@ To get bootstrapped CIs of the estimators, use `bmbstats::describe_relationship`
 
 
 ```r
-boot_relationship <- bmbstats::describe_relationship(predictor = yoyo_mas_data$MAS, 
-    outcome = yoyo_mas_data$YoYoIR1, SESOI_lower = -40, SESOI_upper = 40, 
-    estimator_function = bmbstats::relationship_lm_estimators, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+boot_relationship <- bmbstats::describe_relationship(
+  predictor = yoyo_mas_data$MAS,
+  outcome = yoyo_mas_data$YoYoIR1,
+  SESOI_lower = -40,
+  SESOI_upper = 40,
+  estimator_function = bmbstats::relationship_lm_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 #> [1] "All values of t are equal to  40 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  80 \n Cannot calculate confidence intervals"
 
@@ -1567,11 +1752,19 @@ Magnitude-based estimators `SESOI to RSE` and `PPER` are useful in judging pract
 
 
 ```r
-boot_relationship <- bmbstats::describe_relationship(outcome = yoyo_mas_data$MAS, 
-    predictor = yoyo_mas_data$YoYoIR1, SESOI_lower = -0.5, 
-    SESOI_upper = 0.5, estimator_function = bmbstats::relationship_lm_estimators, 
-    control = model_control(seed = 1667, boot_type = "perc", 
-        boot_samples = 1000, confidence = 0.9))
+boot_relationship <- bmbstats::describe_relationship(
+  outcome = yoyo_mas_data$MAS,
+  predictor = yoyo_mas_data$YoYoIR1,
+  SESOI_lower = -0.5,
+  SESOI_upper = 0.5,
+  estimator_function = bmbstats::relationship_lm_estimators,
+  control = model_control(
+    seed = 1667,
+    boot_type = "perc",
+    boot_samples = 1000,
+    confidence = 0.9
+  )
+)
 #> [1] "All values of t are equal to  0.5 \n Cannot calculate confidence intervals"
 #> [1] "All values of t are equal to  1 \n Cannot calculate confidence intervals"
 

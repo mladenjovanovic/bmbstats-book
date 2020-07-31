@@ -80,19 +80,19 @@ Hypothesis testing using the bootstrap distribution is possible through calculat
 
 
 ```r
-null_hypothesis <- 0  # Value for the null
+null_hypothesis <- 0 # Value for the null
 
-SESOI_lower <- -1  # threshold for the 'lower' effect magnitude
-SESOI_upper <- 1  # threshold for the 'upper' effect magnitude
+SESOI_lower <- -1 # threshold for the 'lower' effect magnitude
+SESOI_upper <- 1 # threshold for the 'upper' effect magnitude
 
-# Calculation of the p-value where boot.estimator is the
-# boostrap resample values for the estimator of interest
+# Calculation of the p-value
+# where boot.estimator is the boostrap resample values for the estimator
+# of interest
 p_value <- mean(boot.estimator > null_hypothesis)
 p_value <- p_value + 0.5 * mean(boot.estimator == null_hypothesis)
-p_value <- 2 * min(c(p_value, 1 - p_value))  # Two-way p-value
+p_value <- 2 * min(c(p_value, 1 - p_value)) # Two-way p-value
 
-# Calculate probability of lower, equivalent and higher
-# effect magnitude
+# Calculate probability of lower, equivalent and higher effect magnitude
 lower <- mean(boot.estimator < SESOI_lower)
 higher <- mean(boot.estimator > SESOI_upper)
 equivalent <- 1 - (lower + higher)

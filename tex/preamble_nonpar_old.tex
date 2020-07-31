@@ -1,0 +1,46 @@
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\newenvironment{rmdblock}[1]
+  {\begin{shaded}
+  \begin{itemize}
+  \renewcommand{\labelitemi}{
+    \raisebox{-.7\height}[0pt][0pt]{
+      {\setkeys{Gin}{width=2em,keepaspectratio}\includegraphics{images/icons/#1}}
+    }
+  }
+  \item
+  }
+  {
+  \end{itemize}
+  \end{shaded}
+  }
+\newenvironment{rmdcaution}
+  {\begin{rmdblock}{caution}}
+  {\end{rmdblock}}
+\newenvironment{rmdinsight}
+  {\begin{rmdblock}{insight}}
+  {\end{rmdblock}}
+\newenvironment{rmdexercise}
+  {\begin{rmdblock}{exercise}}
+  {\end{rmdblock}}
+\newenvironment{rmdtip}
+  {\begin{rmdblock}{tip}}
+  {\end{rmdblock}}
+
+% to change the paper size and the margins
+\usepackage{geometry}
+\geometry{paperwidth=6in,paperheight=9in,inner=15.9mm,outer=10mm,bottom=20mm,top=20mm}
+
+% to select a general font size
+\usepackage{scrextend}
+\KOMAoptions{fontsize=10pt}
+
+% to change the sectioning layout
+\usepackage{titlesec}
+    \titleformat{\section}[hang]{\bfseries\Large}{\thesection}{1em}{}[]
+    \titleformat{\subsection}[hang]{\bfseries\large}{\thesubsection}{1em}{}[]
+    \titleformat{\subsubsection}[hang]{\bfseries}{\thesubsection}{1em}{}[]
+
+% To reduce the space above and below an equation
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}

@@ -84,7 +84,7 @@ vignette("modeling-vjsim")
 ```
 
 
-## [Shiny App](https://athletess.shinyapps.io/shiny-simulator/)
+### [Shiny App](https://athletess.shinyapps.io/shiny-simulator/)
 
 To run the Shiny app, use the following code, or by clicking on the above link (this will take you to the *shinyapps.io*)
 ``` r

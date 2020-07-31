@@ -77,7 +77,7 @@ vignette("modeling-vjsim")
 ```
 
 
-## [Shiny App](https://athletess.shinyapps.io/shiny-simulator/)
+### [Shiny App](https://athletess.shinyapps.io/shiny-simulator/)
 
 To run the Shiny app, use the following code, or by clicking on the above link (this will take you to the *shinyapps.io*)
 ``` r
@@ -97,56 +97,31 @@ require(tidyverse)
 data("testing_data")
 
 testing_data
-#>    athlete bodyweight push_off_distance external_load
-#> 1     John        100              0.45             0
-#> 2     John        100              0.45            20
-#> 3     John        100              0.45            40
-#> 4     John        100              0.45            60
-#> 5     John        100              0.45            80
-#> 6     Jack         85              0.35             0
-#> 7     Jack         85              0.35            20
-#> 8     Jack         85              0.35            40
-#> 9     Jack         85              0.35            60
-#> 10   Peter         95              0.50             0
-#> 11   Peter         95              0.50            20
-#> 12   Peter         95              0.50            40
-#> 13   Peter         95              0.50            60
-#> 14   Peter         95              0.50           100
-#> 15    Jane         55              0.30             0
-#> 16    Jane         55              0.30            10
-#> 17    Jane         55              0.30            20
-#> 18    Jane         55              0.30            30
-#> 19    Jane         55              0.30            40
-#> 20   Chris         75                NA             0
-#> 21   Chris         75                NA            20
-#> 22   Chris         75                NA            40
-#> 23   Chris         75                NA            60
-#> 24   Chris         75                NA            80
-#>    aerial_time
-#> 1    0.5393402
-#> 2    0.4692551
-#> 3    0.4383948
-#> 4    0.3869457
-#> 5    0.3383155
-#> 6    0.4991416
-#> 7    0.4188160
-#> 8    0.3664766
-#> 9    0.2746293
-#> 10   0.6908913
-#> 11   0.5973635
-#> 12   0.5546890
-#> 13   0.4896103
-#> 14   0.4131987
-#> 15   0.4589603
-#> 16   0.4310090
-#> 17   0.3717250
-#> 18   0.3354157
-#> 19   0.3197858
-#> 20   0.4943675
-#> 21   0.4618711
-#> 22   0.4318388
-#> 23   0.4013240
-#> 24   0.3696963
+#>    athlete bodyweight push_off_distance external_load aerial_time
+#> 1     John        100              0.45             0   0.5393402
+#> 2     John        100              0.45            20   0.4692551
+#> 3     John        100              0.45            40   0.4383948
+#> 4     John        100              0.45            60   0.3869457
+#> 5     John        100              0.45            80   0.3383155
+#> 6     Jack         85              0.35             0   0.4991416
+#> 7     Jack         85              0.35            20   0.4188160
+#> 8     Jack         85              0.35            40   0.3664766
+#> 9     Jack         85              0.35            60   0.2746293
+#> 10   Peter         95              0.50             0   0.6908913
+#> 11   Peter         95              0.50            20   0.5973635
+#> 12   Peter         95              0.50            40   0.5546890
+#> 13   Peter         95              0.50            60   0.4896103
+#> 14   Peter         95              0.50           100   0.4131987
+#> 15    Jane         55              0.30             0   0.4589603
+#> 16    Jane         55              0.30            10   0.4310090
+#> 17    Jane         55              0.30            20   0.3717250
+#> 18    Jane         55              0.30            30   0.3354157
+#> 19    Jane         55              0.30            40   0.3197858
+#> 20   Chris         75                NA             0   0.4943675
+#> 21   Chris         75                NA            20   0.4618711
+#> 22   Chris         75                NA            40   0.4318388
+#> 23   Chris         75                NA            60   0.4013240
+#> 24   Chris         75                NA            80   0.3696963
 ```
 
 As can be seen from the above listing, `testing_data` contains data for N=5 athletes. Each athlete performed progressive squat jumps (external load is indicated in `external_load` column; weight are in kg) and the flight time (`aerial_time`) in seconds is measured using the jump mat. Some measuring devices will return *peak velocity* (PV), *take-off velocity* (TOV), or calculated *jump height* (height) which is the most common. 
@@ -160,16 +135,25 @@ We will select Jack and show his *Load-Velocity* (LV) profile using `vsim` funct
 # Filter only Jack's data
 jack_data <- filter(testing_data, athlete == "Jack")
 
-# Make a LV profile Here we have used `with` command to
-# simplify the code If not we need to use:
-# vjsim::make_load_profile( bodyweight =
-# jack_data$bodyweight, external_load =
-# jack_data$external_load, aerial_time =
-# jack_data$aerial_time, plot = TRUE )
+# Make a LV profile
+# Here we have used `with` command to simplify the code
+# If not we need to use:
+#
+# vjsim::make_load_profile(
+#   bodyweight = jack_data$bodyweight,
+#   external_load = jack_data$external_load,
+#   aerial_time = jack_data$aerial_time,
+#   plot = TRUE
+# )
 
-jack_LV_profile <- with(jack_data, vjsim::make_load_profile(bodyweight = bodyweight, 
-    external_load = external_load, aerial_time = aerial_time, 
-    plot = TRUE))
+jack_LV_profile <- with(jack_data,
+ vjsim::make_load_profile(
+   bodyweight = bodyweight,
+   external_load = external_load,
+   aerial_time = aerial_time,
+   plot = TRUE
+ )
+)
 ```
 
 
@@ -209,9 +193,15 @@ To perform optimization *Force-Velocity* (FV) profile using Samozino *et al.* ap
 
 
 ```r
-jack_FV_profile <- with(jack_data, vjsim::make_samozino_profile(bodyweight = bodyweight, 
-    push_off_distance = push_off_distance, external_load = external_load, 
-    aerial_time = aerial_time, plot = TRUE))
+jack_FV_profile <- with(jack_data,
+ vjsim::make_samozino_profile(
+   bodyweight = bodyweight,
+   push_off_distance = push_off_distance,
+   external_load = external_load,
+   aerial_time = aerial_time,
+   plot = TRUE
+ )
+)
 ```
 
 
@@ -310,13 +300,26 @@ In the case that you need to make analysis for multiple athletes, rather than do
 
 ```r
 make_samozino_profile_wrapper <- function(data) {
-    profile <- with(data, vjsim::make_samozino_profile(bodyweight = bodyweight, 
-        push_off_distance = push_off_distance, external_load = external_load, 
-        aerial_time = aerial_time, plot = FALSE))
-    
-    return(data.frame(F0 = profile$F0, V0 = profile$V0, height = profile$height, 
-        optimal_F0 = profile$optimal_F0, optimal_V0 = profile$optimal_V0, 
-        optimal_height = profile$optimal_height, Sfv_perc = profile$Sfv_perc))
+  profile <- with(
+    data,
+    vjsim::make_samozino_profile(
+      bodyweight = bodyweight,
+      push_off_distance = push_off_distance,
+      external_load = external_load,
+      aerial_time = aerial_time,
+      plot = FALSE
+    )
+  )
+
+  return(data.frame(
+    F0 = profile$F0,
+    V0 = profile$V0,
+    height = profile$height,
+    optimal_F0 = profile$optimal_F0,
+    optimal_V0 = profile$optimal_V0,
+    optimal_height = profile$optimal_height,
+    Sfv_perc = profile$Sfv_perc
+  ))
 }
 ```
 
@@ -324,21 +327,20 @@ We can now apply this wrapper function to get FV profile for all athletes in the
 
 
 ```r
-athlete_profiles <- testing_data %>% group_by(athlete) %>% 
-    do(make_samozino_profile_wrapper(.))
+athlete_profiles <- testing_data %>%
+  group_by(athlete) %>%
+  do(make_samozino_profile_wrapper(.))
 
 
 athlete_profiles
 #> # A tibble: 5 x 8
 #> # Groups:   athlete [5]
-#>   athlete    F0    V0 height optimal_F0 optimal_V0
-#>   <fct>   <dbl> <dbl>  <dbl>      <dbl>      <dbl>
-#> 1 John    3373.  2.72  0.351      3495.       2.63
-#> 2 Jack    2236.  4.04  0.304      3390.       2.66
-#> 3 Peter   3772.  3.49  0.562      3964.       3.32
-#> 4 Jane    1961.  2.31  0.259      2011.       2.25
-#> 5 Chris     NA  NA    NA            NA       NA   
-#> # ... with 2 more variables: optimal_height <dbl>,
-#> #   Sfv_perc <dbl>
+#>   athlete    F0    V0 height optimal_F0 optimal_V0 optimal_height Sfv_perc
+#>   <fct>   <dbl> <dbl>  <dbl>      <dbl>      <dbl>          <dbl>    <dbl>
+#> 1 John    3373.  2.72  0.351      3495.       2.63          0.352     93.2
+#> 2 Jack    2236.  4.04  0.304      3390.       2.66          0.361     43.5
+#> 3 Peter   3772.  3.49  0.562      3964.       3.32          0.563     90.5
+#> 4 Jane    1961.  2.31  0.259      2011.       2.25          0.259     95.1
+#> 5 Chris     NA  NA    NA            NA       NA            NA         NA
 ```
 

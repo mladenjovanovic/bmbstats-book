@@ -6,7 +6,7 @@ The mathematical notation to differentiate true population parameters and sample
 
 The difference between the true population parameter and the sample estimate (assuming correctly identified and represented DGP among other issues such as the use of non-biased estimators for example) is due to the *sampling error*, that we will covered shortly. In the simulations, we are certain about the true population parameters, but in *real life* we are *uncertain* about the true parameters and we need to somehow quantify this uncertainty. This is the objective of statistical inference. In other words, with statistical inference we want to generalize from sample to a population, while taking into account uncertainties of the estimates. 
 
-## Two kinds of uncertainty, two kinds of probability, two kinds of statistical inference
+## Two kinds of uncertainty, probability, and statistical inference
 
 In the previous RCT example, by using the Pre-Test score and Group variables, we have estimated predictive performance of the model using Post-test as the target variable. Error (or uncertainty) around individual Post-test score was much bigger than SESOI, which made individual prediction practically useless. This prediction uncertainty decreased as new variables were introduced to the prediction model. With model involving Squat 1RM variable, we have achieved much better predictive performance. This type of uncertainty can be called *epistemic uncertainty* [@ohaganDicingUnknown2004], which is a result of lack of knowledge or incomplete information.
 

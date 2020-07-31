@@ -34,8 +34,11 @@ require(cowplot)
 
 data("bike_score")
 
-banister_model <- dorem(Test_5min_Power ~ BikeScore, bike_score, 
-    method = "banister")
+banister_model <- dorem(
+   Test_5min_Power ~ BikeScore,
+   bike_score,
+   method = "banister"
+)
 
 # Print results
 banister_model
@@ -54,12 +57,8 @@ banister_model
 #> 
 #> Estimated model coefficients are the following:
 #> 
-#>          intercept BikeScore.PTE_gain 
-#>        266.0204779          0.3020749 
-#>  BikeScore.PTE_tau BikeScore.NTE_gain 
-#>         33.6433797          0.3514750 
-#>  BikeScore.NTE_tau 
-#>         24.6056388 
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
+#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 
 #> 
 #> Objective function equal to: 2.1939 
 #> 
@@ -80,23 +79,23 @@ banister_model
 
 # get coefs
 coef(banister_model)
-#>          intercept BikeScore.PTE_gain 
-#>        266.0204779          0.3020749 
-#>  BikeScore.PTE_tau BikeScore.NTE_gain 
-#>         33.6433797          0.3514750 
-#>  BikeScore.NTE_tau 
-#>         24.6056388
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
+#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388
 
 # Get model predictions
 bike_score$pred <- predict(banister_model, bike_score)$.pred
 
 # Plot
-dose <- ggplot(bike_score, aes(x = Day, y = BikeScore)) + 
-    theme_cowplot(10) + geom_bar(stat = "identity") + xlab(NULL)
+dose <- ggplot(bike_score, aes(x = Day, y = BikeScore)) +
+  theme_cowplot(10) +
+  geom_bar(stat = "identity") +
+  xlab(NULL)
 
-response <- ggplot(bike_score, aes(x = Day, y = pred)) + 
-    theme_cowplot(10) + geom_line() + geom_point(aes(y = Test_5min_Power), 
-    color = "red") + ylab("Test 5min Power")
+response <- ggplot(bike_score, aes(x = Day, y = pred)) +
+   theme_cowplot(10) +
+   geom_line() +
+   geom_point(aes(y = Test_5min_Power), color = "red") +
+   ylab("Test 5min Power")
 
 cowplot::plot_grid(dose, response, ncol = 1)
 ```
@@ -140,12 +139,8 @@ banister_model
 #> 
 #> Estimated model coefficients are the following:
 #> 
-#>          intercept BikeScore.PTE_gain 
-#>        266.0204779          0.3020749 
-#>  BikeScore.PTE_tau BikeScore.NTE_gain 
-#>         33.6433797          0.3514750 
-#>  BikeScore.NTE_tau 
-#>         24.6056388 
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
+#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 
 #> 
 #> Objective function equal to: 2.1939 
 #> 
