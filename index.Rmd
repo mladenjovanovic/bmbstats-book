@@ -6,6 +6,7 @@ site: bookdown::bookdown_site
 documentclass: book
 bibliography: ["citations/references.bib", "citations/r-references.bib"]
 biblio-style: apalike
+csl: "citations/journal-of-strength-and-conditioning-research.csl"
 link-citations: yes
 links-as-notes: true
 linkcolor: Blue
@@ -55,9 +56,9 @@ require(boot)
 
 <img src="figures/bmbstats-book-mockup-small.jpg" align="right" alt="Cover image" /></a>
 
-The aim of this book is to provide an overview of the three classes of tasks in the statistical modeling: description, prediction and causal inference [@hernanSecondChanceGet2019]. Statistical inference is often required for all three tasks. Short introduction to frequentist null-hypothesis testing, Bayesian estimation and bootstrap are provided. Special attention is given to the practical significance with the introduction of magnitude-based estimators and statistical inference by using the concept of smallest effect size of interest (SESOI). Measurement error is discussed with the particular aim of interpreting individual change scores. In the second part of this book, common sport science problems are introduced and analyzed with the `bmbstats` package.
+The aim of this book is to provide an overview of the three classes of tasks in the statistical modeling: description, prediction and causal inference [@hernanSecondChanceGet2019]. Statistical inference is often required for all three tasks. Short introduction to frequentist null-hypothesis testing, Bayesian estimation and bootstrap are provided. Special attention is given to the practical significance with the introduction of magnitude-based estimators and statistical inference by using the concept of smallest effect size of interest (SESOI). Measurement error is discussed with the particular aim of interpreting individual change scores. In the second part of this book, common sports science problems are introduced and analyzed with the `bmbstats` package.
 
-This book, as well as the `bmbstats` package are in active opens-source development. Please be free to contribute pull request at GitHub when you spot an issue or have an improvement idea. I am hoping both this book and the `bmbstats` package to be collaborative tools that can help both up-and-coming as well as experienced researchers and sports scientists. 
+This book, as well as the `bmbstats` package are in active open-source development. Please be free to contribute pull request at GitHub when you spot an issue or have an improvement idea. I am hoping both this book and the `bmbstats` package to be collaborative tools that can help both up-and-coming as well as experienced researchers and sports scientists. 
 
 #### bmbstats package {-}
 

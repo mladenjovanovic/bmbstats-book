@@ -432,6 +432,6 @@ ggplot(plot_data, aes(x = time, y = LOOCV_velocity, group = LOOCV)) +
 
 To cite `shorts`, please use the following command to get the BibTex entry:
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 citation("shorts")
 ```

@@ -40,22 +40,31 @@ agreement_data <- tibble(
     )
   ),
   True_score = rnorm(n_subjects, 45, 5),
-  Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, criterion_random),
-  Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
-  Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
+  Criterion_score.trial1 = 0 + (True_score * 1) +
+    rnorm(n_subjects, 0, criterion_random),
+  
+  Criterion_score.trial2 = 0 + (True_score * 1) +
+    rnorm(n_subjects, 0, criterion_random),
+  
+  Practical_score.trial1 = practical_fixed +
+    (True_score * practical_proportional) +
+    rnorm(n_subjects, 0, practical_random),
+  
+  Practical_score.trial2 = practical_fixed +
+    (True_score * practical_proportional) +
+    rnorm(n_subjects, 0, practical_random)
 )
 
 head(agreement_data)
 #> # A tibble: 6 x 6
-#>   Athlete   True_score Criterion_score.tr~ Criterion_score.tr~ Practical_score.t~ Practical_score.t~
-#>   <chr>          <dbl>               <dbl>               <dbl>              <dbl>              <dbl>
-#> 1 Athlete ~       52.9                52.9                52.9               60.2               60.6
-#> 2 Athlete ~       42.4                42.3                42.2               48.7               48.6
-#> 3 Athlete ~       49.2                49.1                49.5               56.0               57.2
-#> 4 Athlete ~       44.8                44.7                44.8               51.5               51.3
-#> 5 Athlete ~       40.0                40.4                40.1               45.7               43.8
-#> 6 Athlete ~       42.6                42.5                42.2               49.7               50.4
+#>   Athlete  True_score Criterion_score.t~ Criterion_score.t~ Practical_score.t~ Practical_score.~
+#>   <chr>         <dbl>              <dbl>              <dbl>              <dbl>             <dbl>
+#> 1 Athlete~       52.9               52.9               52.9               60.2              60.6
+#> 2 Athlete~       42.4               42.3               42.2               48.7              48.6
+#> 3 Athlete~       49.2               49.1               49.5               56.0              57.2
+#> 4 Athlete~       44.8               44.7               44.8               51.5              51.3
+#> 5 Athlete~       40.0               40.4               40.1               45.7              43.8
+#> 6 Athlete~       42.6               42.5               42.2               49.7              50.4
 ```
 
 The assumption of the above DGP is that true score stays unchanged for trial 1 and trial 2. Thus, the only thing that creates variance in the criterion and practical measures is the random error component of the measurement error. 
@@ -337,10 +346,8 @@ rbind(
 Ordinary least product approach calculates the residuals using product between y-residual $y - \hat{y}$ and x-residual $x - \hat{x}$. This method is used more in reliability analysis when we do not know which variable is predictor and which is the outcome or target, but it can be used with the validity analysis as well. OLP method doesn't assume that the x-variable is without random error, which in this example doesn't help since we are using the true score (and the true score is without random error). But it is useful *exactly* for this reason for the real-world analysis when both variables (x and y) have random error involved. Here is a quote from Ludbrook 1997 paper [@ludbrookSPECIALARTICLECOMPARING1997, pp.194]:
 
 >"It is an important assumption of OLS regression that whereas the values of Y in the population that has been sampled are attended by error, those of X are not. Strictly, this can be so only if the X values are categorical: for instance, conditions, treatments or places. However, most statistical theorists follow the advice of Berkson, which is that if the X values have been fixed in advance by the experimenter (e.g. by specifying times, doses or settings of a pump), then they can be regarded for practical purposes as error-free. When X is error-free, Model I regression analysis is the proper form to use. It includes the well-known OLS regression technique as well as modifications of it, such as weighted least squares (WLS) regression.
-
->When both X and Y are free to vary and are attended by error, some statisticians allow that Model I regression analysis may still be used if it is certain, on biological grounds, that Y must depend on X and never the reverse. This is the case, for instance, in dose- or stimulus-response relationships. Even then, the Model I regression line should be used for empirical, rather than explanatory, purposes.
-
->When investigators plan experiments to compare methods of measurement, they must assume that both Y and X will be attended by random error. Moreover, it is impossible to decide which method should be regarded as dependent and which independent and because of this it is wrong to use Model I regression analysis. Instead, one or another form of Model I regression analysis must be used. These are described later."
+When both X and Y are free to vary and are attended by error, some statisticians allow that Model I regression analysis may still be used if it is certain, on biological grounds, that Y must depend on X and never the reverse. This is the case, for instance, in dose- or stimulus-response relationships. Even then, the Model I regression line should be used for empirical, rather than explanatory, purposes.
+When investigators plan experiments to compare methods of measurement, they must assume that both Y and X will be attended by random error. Moreover, it is impossible to decide which method should be regarded as dependent and which independent and because of this it is wrong to use Model I regression analysis. Instead, one or another form of Model I regression analysis must be used. These are described later."
 
 To plot OLP regression, use `bmbstats::plot_pair_OLP` function. The OLP regression, in this case, looks very close to simple linear regression: 
 
@@ -747,10 +754,19 @@ simulation_df <- simulation_df %>%
 
     agreement_data <- tibble(
       True_score = rnorm(n_subjects, 45, 5),
-      Criterion_score.trial1 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
-      Criterion_score.trial2 = 0 + (True_score * 1) + rnorm(n_subjects, 0, current$criterion_random_error),
-      Practical_score.trial1 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random),
-      Practical_score.trial2 = practical_fixed + (True_score * practical_proportional) + rnorm(n_subjects, 0, practical_random)
+      Criterion_score.trial1 = 0 + (True_score * 1) +
+        rnorm(n_subjects, 0, current$criterion_random_error),
+      
+      Criterion_score.trial2 = 0 + (True_score * 1) +
+        rnorm(n_subjects, 0, current$criterion_random_error),
+      
+      Practical_score.trial1 = practical_fixed +
+        (True_score * practical_proportional) +
+        rnorm(n_subjects, 0, practical_random),
+      
+      Practical_score.trial2 = practical_fixed +
+        (True_score * practical_proportional) +
+        rnorm(n_subjects, 0, practical_random)
     )
     
     cbind(current, agreement_data)
@@ -1119,7 +1135,8 @@ lm_predictive_validity <- bmbstats::cv_model(
 )
 
 lm_predictive_validity
-#> Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 2 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -1181,9 +1198,14 @@ estimation_wrapper <- function(data) {
   data.frame(
     simulation = data$simulation[1],
     criterion_random_error = data$criterion_random_error[1],
-    method = c("True lm", "Criterion lm", "Criterion olp",  "Adjusted lm", "Adjusted olp"),
-    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1], lm_criterion[1], olp_criterion[1]),
-    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2], lm_criterion[2], olp_criterion[2]),
+    method = c("True lm", "Criterion lm", "Criterion olp",
+               "Adjusted lm", "Adjusted olp"),
+    
+    Intercept = c(lm_true[1], lm_criterion[1], olp_criterion[1],
+                  lm_criterion[1], olp_criterion[1]),
+    
+    Slope = c(lm_true[2], lm_criterion[2], olp_criterion[2],
+              lm_criterion[2], olp_criterion[2]),
     RSE = c(
       lm_true[3],
       lm_criterion[3],
@@ -1975,9 +1997,14 @@ repeatability_data <- repeatability_data %>%
     True_score_measured.Post = practical_fixed + (True_score.Post * practical_proportional),
     True_score_measured.Change = True_score_measured.Post - True_score_measured.Pre,
     
-    Manifested_score_measured.Pre = practical_fixed + (Manifested_score.Pre * practical_proportional),
-    Manifested_score_measured.Post = practical_fixed + (Manifested_score.Post * practical_proportional),
-    Manifested_score_measured.Change = Manifested_score_measured.Post - Manifested_score_measured.Pre
+    Manifested_score_measured.Pre = practical_fixed +
+      (Manifested_score.Pre * practical_proportional),
+    
+    Manifested_score_measured.Post = practical_fixed + 
+      (Manifested_score.Post * practical_proportional),
+    
+    Manifested_score_measured.Change = Manifested_score_measured.Post -
+      Manifested_score_measured.Pre
   )
 
 head(repeatability_data)

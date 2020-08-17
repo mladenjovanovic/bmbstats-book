@@ -64,10 +64,10 @@ kimberley_profile <- shorts::model_using_splits(
 kimberley_profile
 #> Estimated model parameters
 #> --------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.5911421           0.8113282          10.5889855          22.7428698           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.5911421           0.8113282          10.5889855          22.7428698 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> Model fit estimators
 #> --------------------
@@ -92,10 +92,10 @@ summary(kimberley_profile)
 #> Achieved convergence tolerance: 4.058e-06
 
 coef(kimberley_profile)
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.5911421           0.8113282          10.5889855          22.7428698           0.0000000 
-#> distance_correction 
-#>           0.0000000
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.5911421           0.8113282          10.5889855          22.7428698 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000
 ```
 
 To return the predicted outcome (in this case time variable), use `predict` function: 
@@ -113,20 +113,20 @@ If you are interested in calculating average split velocity, use `shorts::format
 shorts::format_splits(
   distance = kimberley_data$distance,
   time = kimberley_data$time)
-#>   split split_distance_start split_distance_stop split_distance split_time_start split_time_stop
-#> 1     1                    0                   5              5                0           1.158
-#> 2     2                    5                  10              5            1.158           1.893
-#> 3     3                   10                  15              5            1.893           2.541
-#> 4     4                   15                  20              5            2.541           3.149
-#> 5     5                   20                  30             10            3.149           4.313
-#> 6     6                   30                  40             10            4.313           5.444
-#>   split_time split_mean_velocity
-#> 1      1.158        4.317789....
-#> 2      0.735        6.802721....
-#> 3      0.648        7.716049....
-#> 4      0.608        8.223684....
-#> 5      1.164        8.591065....
-#> 6      1.131        8.841732....
+#>   split split_distance_start split_distance_stop split_distance split_time_start
+#> 1     1                    0                   5              5                0
+#> 2     2                    5                  10              5            1.158
+#> 3     3                   10                  15              5            1.893
+#> 4     4                   15                  20              5            2.541
+#> 5     5                   20                  30             10            3.149
+#> 6     6                   30                  40             10            4.313
+#>   split_time_stop split_time split_mean_velocity
+#> 1           1.158      1.158        4.317789....
+#> 2           1.893      0.735        6.802721....
+#> 3           2.541      0.648        7.716049....
+#> 4           3.149      0.608        8.223684....
+#> 5           4.313      1.164        8.591065....
+#> 6           5.444      1.131        8.841732....
 ```
 
 Let's plot observed vs fitted split times. For this we can use `data` returned from `shorts::model_using_splits` since it contains `pred_time` column.
@@ -269,10 +269,10 @@ mixed_model <- shorts::mixed_model_using_splits(
 mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.0649112           0.6551988          12.3091052          24.8179600           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.0649112           0.6551988          12.3091052          24.8179600 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> Estimated frandom model parameters
 #> ----------------------------------
@@ -321,10 +321,10 @@ summary(mixed_model)
 
 coef(mixed_model)
 #> $fixed
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.0649112           0.6551988          12.3091052          24.8179600           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.0649112           0.6551988          12.3091052          24.8179600 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> $random
 #>     athlete      MSS       TAU      MAC     PMAX time_correction distance_correction
@@ -379,10 +379,10 @@ mixed_model <- shorts::mixed_model_using_splits(
 mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           7.9366665           0.6277251          12.6435385          25.0868872           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           7.9366665           0.6277251          12.6435385          25.0868872 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> Estimated frandom model parameters
 #> ----------------------------------
@@ -415,10 +415,10 @@ jim_profile <- shorts::model_using_radar(
 jim_profile
 #> Estimated model parameters
 #> --------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           7.9979331           0.8886595           8.9999977          17.9953449           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           7.9979331           0.8886595           8.9999977          17.9953449 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> Model fit estimators
 #> --------------------
@@ -472,10 +472,10 @@ mixed_model <- shorts::mixed_model_using_radar(
 mixed_model
 #> Estimated fixed model parameters
 #> --------------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>            8.301178            1.007782            8.237080           17.094367            0.000000 
-#> distance_correction 
-#>            0.000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>            8.301178            1.007782            8.237080           17.094367 
+#>     time_correction distance_correction 
+#>            0.000000            0.000000 
 #> 
 #> Estimated frandom model parameters
 #> ----------------------------------
@@ -563,10 +563,10 @@ mixed_model_corrected <- shorts::mixed_model_using_splits(
 mixed_model_corrected
 #> Estimated fixed model parameters
 #> --------------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>            8.474621            1.154940            7.337715           15.546088            0.300000 
-#> distance_correction 
-#>            0.000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>            8.474621            1.154940            7.337715           15.546088 
+#>     time_correction distance_correction 
+#>            0.300000            0.000000 
 #> 
 #> Estimated frandom model parameters
 #> ----------------------------------
@@ -655,17 +655,17 @@ kimberley_profile_with_time_correction <- shorts::model_using_splits_with_time_c
 kimberley_profile_with_time_correction
 #> Estimated model parameters
 #> --------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.9748353           1.2348565           7.2679175          16.3070907           0.2346537 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.9748353           1.2348565           7.2679175          16.3070907 
+#>     time_correction distance_correction 
+#>           0.2346537           0.0000000 
 #> 
 #> Model fit estimators
 #> --------------------
-#>           RSE     R_squared        minErr        maxErr     maxAbsErr          RMSE           MAE 
-#>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342  0.0012094658  0.0007983565  0.0006586035 
-#>          MAPE 
-#>  0.0282352643
+#>           RSE     R_squared        minErr        maxErr     maxAbsErr          RMSE 
+#>  0.0011290466  0.9999996942 -0.0012094658  0.0011807342  0.0012094658  0.0007983565 
+#>           MAE          MAPE 
+#>  0.0006586035  0.0282352643
 
 # Mixed-effect model using `time_correction` as fixed effect only
 # To use `time_correction` as random effects, use random = MSS + TAU + time_correction ~ 1
@@ -680,10 +680,10 @@ mixed_model_with_time_correction <- shorts::mixed_model_using_splits_with_time_c
 mixed_model_with_time_correction
 #> Estimated fixed model parameters
 #> --------------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.3040140           0.9687348           8.5720197          17.7955429           0.1989677 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.3040140           0.9687348           8.5720197          17.7955429 
+#>     time_correction distance_correction 
+#>           0.1989677           0.0000000 
 #> 
 #> Estimated frandom model parameters
 #> ----------------------------------
@@ -718,10 +718,10 @@ kimberley_profile_LOOCV <- shorts::model_using_splits(
 kimberley_profile_LOOCV
 #> Estimated model parameters
 #> --------------------------
-#>                 MSS                 TAU                 MAC                PMAX     time_correction 
-#>           8.5911421           0.8113282          10.5889855          22.7428698           0.0000000 
-#> distance_correction 
-#>           0.0000000 
+#>                 MSS                 TAU                 MAC                PMAX 
+#>           8.5911421           0.8113282          10.5889855          22.7428698 
+#>     time_correction distance_correction 
+#>           0.0000000           0.0000000 
 #> 
 #> Model fit estimators
 #> --------------------
@@ -829,3 +829,6 @@ ggplot(plot_data, aes(x = time, y = LOOCV_velocity, group = LOOCV)) +
 To cite `shorts`, please use the following command to get the BibTex entry:
 
 
+```r
+citation("shorts")
+```

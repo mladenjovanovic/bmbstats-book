@@ -76,7 +76,8 @@ model1 <- bmbstats::cv_model(
 )
 
 model1
-#> Training data consists of 2 predictors and 35 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 2 predictors and 35 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -176,7 +177,8 @@ model2 <- bmbstats::cv_model(
 )
 
 model2
-#> Training data consists of 2 predictors and 35 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 2 predictors and 35 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -233,7 +235,8 @@ model3 <- bmbstats::cv_model(
 )
 
 model3
-#> Training data consists of 2 predictors and 35 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 2 predictors and 35 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -379,7 +382,8 @@ model4 <- bmbstats::cv_model(
 )
 
 model4
-#> Training data consists of 4 predictors and 35 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 4 predictors and 35 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 

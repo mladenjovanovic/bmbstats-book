@@ -66,8 +66,15 @@ RCT_data <- tibble(
   True_score.Pre = rnorm(n_subjects, 45, 5),
 
   # Treatment effect
-  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
-  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+  Treatment_effect = rnorm(
+    n = n_subjects,
+    mean = treatment_systematic,
+    sd = treatment_random),
+  
+  Non_treatment_effect = rnorm(
+    n = n_subjects,
+    mean = non_treatment_systematic,
+    sd = non_treatment_random),
 
   # Calculate the change in true score
   True_score.Change = if_else(
@@ -80,14 +87,24 @@ RCT_data <- tibble(
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
-  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+  Manifested_score.Pre = True_score.Pre +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Post = True_score.Post +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Change = Manifested_score.Post -
+    Manifested_score.Pre,
 
   # Measured score
-  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+  Measured_score.Pre = Manifested_score.Pre + 
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Post = Manifested_score.Post +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Change = Measured_score.Post -
+    Measured_score.Pre
 )
 
 # Make sure that the Group column is a factor
@@ -289,7 +306,9 @@ control_group <- filter(
 )
 
 treatment_responses <- bmbstats::observations_MET(
-  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations = treatment_group$Measured_score.Change -
+    mean(control_group$Measured_score.Change),
+  
   observations_label = treatment_group$Athlete,
 
   # Use control group change as measurement error
@@ -378,7 +397,10 @@ SD_summary <- RCT_data %>%
 SD_summary
 ```
 
-Estimating random treatment effect is thus equal to $\sqrt{SD_{Treatment \;group}^2 - SD_{Control \; group}^2}$: 
+Estimating random treatment effect is thus equal to:
+\begin{equation}
+  \sqrt{SD_{Treatment \;group}^2 - SD_{Control \; group}^2}
+\end{equation}
 
 ```{r echo=TRUE}
 sqrt(SD_summary$`Residual SD`[2]^2 - SD_summary$`Residual SD`[1]^2)
@@ -640,8 +662,15 @@ RCT_data <- tibble(
   True_score.Pre = rnorm(n_subjects, 45, 5),
 
   # Treatment effect
-  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
-  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+  Treatment_effect = rnorm(
+    n = n_subjects,
+    mean = treatment_systematic,
+    sd = treatment_random),
+  
+  Non_treatment_effect = rnorm(
+    n = n_subjects,
+    mean = non_treatment_systematic,
+    sd = non_treatment_random),
 
   # Calculate the change in true score
   True_score.Change = if_else(
@@ -654,14 +683,24 @@ RCT_data <- tibble(
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
-  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+  Manifested_score.Pre = True_score.Pre +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Post = True_score.Post + 
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Change = Manifested_score.Post -
+    Manifested_score.Pre,
 
   # Measured score
-  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+  Measured_score.Pre = Manifested_score.Pre +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Post = Manifested_score.Post +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Change = Measured_score.Post -
+    Measured_score.Pre
 )
 
 RCT_data$Group <- factor(RCT_data$Group)
@@ -804,7 +843,9 @@ Adjusted treatment response would deduct `mean` change from the Control group an
 treatment_responses <- bmbstats::observations_MET(
 
   # Adjustment
-  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations = treatment_group$Measured_score.Change -
+    mean(control_group$Measured_score.Change),
+  
   observations_label = treatment_group$Athlete,
 
   # Use control group change as measurement error
@@ -830,12 +871,13 @@ plot(
   xlim(-10, 28)
 ```
 
+
 ## What goes inside the *measurement error* (or Control group change or residuals `SD`)?
 
-As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to `r round(sd(control_group$Measured_score.Change), 2)`cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
+As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to `r round(sd(control_group$Measured_score.Change), 2)`cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation (BV) and instrumentation noise (IN) affects the change score twice (at Pre- and Post-test) we get the following (where *NTRE* is Non-treatment effect random error):
 
 \begin{equation}
-  SD_{control\;change} = \sqrt{2\times biological\;variation^2 + 2\times instrumentation\;noise^2 + non\;treatment\;random\;effect^2}
+  SD_{control\;change} = \sqrt{2\times BV^2 + 2\times IN^2 + NTRE^2}
 \end{equation}
 
 If we plug our DGP values, we get the following expected `SD` of the Control group change: `r round(sqrt(2*biological_variation^2 + 2*instrumentation_noise^2 + non_treatment_random^2), 2)`cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
@@ -889,9 +931,9 @@ SD_summary_measured <- RCT_data %>%
 SD_summary_measured
 ```
 
-The `SD` of the Control group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm) and 2 x instrumentation noise (0.5cm), which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2), 2)`cm. 
+The `SD` of the Control group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm) and 2 x instrumentation noise (0.5cm), which is around $\sqrt{1^2 + 2 \times 1.5^2 + 2 \times 0.5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2), 2)`cm. 
 
-The `SD` of the Treatment group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm), 2 x instrumentation noise (0.5cm), and additional random treatment effect (5cm) which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2 + 5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2 + 5^2), 2)`cm. 
+The `SD` of the Treatment group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm), 2 x instrumentation noise (0.5cm), and additional random treatment effect (5cm) which is around $\sqrt{1^2 + 2 \times 1.5^2 + 2 \times 0.5^2 + 5^2}$, or `r round(sqrt(1^2 + 2*1.5^2 + 2*0.5^2 + 5^2), 2)`cm. 
 
 Estimated random treatment effects:
 

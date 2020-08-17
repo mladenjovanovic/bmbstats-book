@@ -46,7 +46,7 @@ head(height_data)
 #> 6 172.9078 158.9467
 ```
 
-## Visualization and analysis of a single group/variable
+## Visualization and analysis of a single group (or variable)
 
 The simplest descriptive task is the description of a single group. Let's use height of the females as an example. Function `bmbstats::plot_raincloud`[^function_names] can be used to plot the distribution and summary statistics (`mean` and `SD` as error bar):
 
@@ -448,7 +448,7 @@ independent_groups_estimators(
 #>         0.09457649         0.79394008
 ```
 
-`bmbstats::compare_independent_groups` uses by default the `bmbstats::independent_groups_estimators`, but we can write our own estimators function a bit later:
+`bmbstats::compare_independent_groups` uses by default the `independent_groups_estimators`, but we can write our own estimators function a bit later:
 
 
 ```r
@@ -1275,7 +1275,7 @@ plot(
 
 Before jumping on the *responders vs. non-responders* bandwagon, it would be wise to check the statistical error committed by Dankel and Loenneke [@dankelMethodStopAnalyzing2019] pointed out in the letter-to-the-editor by Tenan *et al.*  [@tenanStatisticalPropertiesDankelLoenneke]. This is a lesson to us all who are trying to come up with a *novel analyses*, like myself, so I am trying to be very cautious in using any bold statements. 
 
-### Analysis of the dependent groups using `bmbstats::compare_dependent_groups`
+### Analysis of the dependent groups using `compare_dependent_groups`
 
 To perform dependent group comparison, we will use `bmbstats::compare_dependent_groups` function, and `bmbstats::dependent_groups_estimators` estimator function. Let's first do it with the true Pre- and Post- scores:
 

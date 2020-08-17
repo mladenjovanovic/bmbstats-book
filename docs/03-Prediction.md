@@ -474,7 +474,7 @@ In [Describing relationship between two variables] we have used two physical per
 
 Let's first estimate predictive performance when predicting MAS scores from the YoYoIR1 score using MAS SESOI ±0.5km/h and linear regression.
 
-Figure \@ref(fig:mas-yoyo-ba) consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts $y_{predicted}$ (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals $y_residual = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. The data points represent model performance on the full training data set.  
+Figure \@ref(fig:mas-yoyo-ba) consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts $y_{predicted}$ (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals $y_{residual} = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. The data points represent model performance on the full training data set.  
 
 \begin{figure}[!htb]
 

@@ -10,5 +10,7 @@ bookdown::gitbook:
     sharing: yes
 bookdown::pdf_book:
   keep_tex: yes
+  dev: "cairo_pdf"
   includes:
       in_header: tex/preamble_nonpar.tex
+

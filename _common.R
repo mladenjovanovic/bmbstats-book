@@ -1,12 +1,12 @@
 my_random_seed <- 1667
 set.seed(my_random_seed)
 
-options("width"=100)
+options("width"=96)
 
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
   fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
   dpi = 600,
   out.width = "90%",
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   message = FALSE,
-  width = 100,
+  width = 96,
   fig.pos = '!htb',
   tab.pos = "!htb"
 )

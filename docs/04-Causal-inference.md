@@ -473,14 +473,14 @@ The following equation captures the essence of estimating Treatment effects from
 
 \begin{equation}
   \begin{split}
-    Treatment_{post} &= Treatment_{pre} + Treatment \; Effect + NonTreatment \; Effect \\
-    Control_{post} &= Control_{pre} + NonTreatment \; Effect \\
+    Treatment_{post} &= Treat_{pre} + Treat \; Effect + NonTreat \; Effect \\
+    Control_{post} &= Control_{pre} + NonTreat \; Effect \\
 \\
     NonTreatment \; Effect &= Control_{post} - Control_{pre} \\
-    Treatment \; Effect &= Treatment_{post} - Treatment_{pre} - NonTreatment \; Effect \\
+    Treatment \; Effect &= Treat_{post} - Treat_{pre} - NonTreat \; Effect \\
 \\
-    Treatment \; Effect &= (Treatment_{post} - Treatment_{pre}) - (Control_{post} - Control_{pre}) \\
-    Treatment \; Effect &= Treatment_{change} - Control_{change}
+    Treatment \; Effect &= (Treat_{post} - Treat_{pre}) - (Control_{post} - Control_{pre}) \\
+    Treatment \; Effect &= Treat_{change} - Control_{change}
   \end{split}
   (\#eq:te-and-nte-equation)
 \end{equation}

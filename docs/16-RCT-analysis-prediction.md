@@ -59,8 +59,15 @@ RCT_data <- tibble(
   True_score.Pre = rnorm(n_subjects, 45, 5),
 
   # Treatment effect
-  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
-  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+  Treatment_effect = rnorm(
+    n = n_subjects,
+    mean = treatment_systematic,
+    sd = treatment_random),
+  
+  Non_treatment_effect = rnorm(
+    n = n_subjects,
+    mean = non_treatment_systematic,
+    sd = non_treatment_random),
 
   # Calculate the change in true score
   True_score.Change = if_else(
@@ -73,14 +80,24 @@ RCT_data <- tibble(
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
-  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+  Manifested_score.Pre = True_score.Pre +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Post = True_score.Post +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Change = Manifested_score.Post -
+    Manifested_score.Pre,
 
   # Measured score
-  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+  Measured_score.Pre = Manifested_score.Pre + 
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Post = Manifested_score.Post +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Change = Measured_score.Post -
+    Measured_score.Pre
 )
 
 # Make sure that the Group column is a factor
@@ -89,17 +106,17 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~ True_score.Post
-#>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>           <dbl>
-#> 1 Athlet~ Trea~           52.9                0                0                0            52.9
-#> 2 Athlet~ Cont~           42.4                0                0                0            42.4
-#> 3 Athlet~ Trea~           49.2                0                0                0            49.2
-#> 4 Athlet~ Cont~           44.8                0                0                0            44.8
-#> 5 Athlet~ Trea~           40.0                0                0                0            40.0
-#> 6 Athlet~ Cont~           42.6                0                0                0            42.6
-#> # ... with 6 more variables: Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>,
-#> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>, Measured_score.Post <dbl>,
-#> #   Measured_score.Change <dbl>
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~
+#>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>
+#> 1 Athlet~ Trea~           52.9                0                0                0
+#> 2 Athlet~ Cont~           42.4                0                0                0
+#> 3 Athlet~ Trea~           49.2                0                0                0
+#> 4 Athlet~ Cont~           44.8                0                0                0
+#> 5 Athlet~ Trea~           40.0                0                0                0
+#> 6 Athlet~ Cont~           42.6                0                0                0
+#> # ... with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
+#> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
+#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
 
 Since we have generated this data, we know that there are no treatment nor non-treatment effects (neither systematic, nor random or variable effects). But let's plot the data.
@@ -413,20 +430,20 @@ The data used to create this graph can be found in the returned object:
 
 ```r
 head(simple_RCT$extra$treatment_responses)
-#>    id     group pre_test post_test     change      SDC change_lower change_upper adjusted_change
-#> 11  1 Treatment 52.87665  53.06613  0.1894841 3.222294   -3.0328104    3.4117785       0.5746587
-#> 12  2 Treatment 48.86917  51.26538  2.3962116 3.222294   -0.8260828    5.6185061       2.7813863
-#> 13  3 Treatment 41.83908  39.31947 -2.5196029 3.222294   -5.7418974    0.7026915      -2.1344283
-#> 14  4 Treatment 43.14467  40.80646 -2.3382079 3.222294   -5.5605023    0.8840866      -1.9530332
-#> 15  5 Treatment 32.93471  33.26669  0.3319806 3.222294   -2.8903138    3.5542751       0.7171553
-#> 16  6 Treatment 34.17358  33.61544 -0.5581425 3.222294   -3.7804369    2.6641520      -0.1729678
-#>    adjusted_change_lower adjusted_change_upper
-#> 11            -2.6476357              3.796953
-#> 12            -0.4409082              6.003681
-#> 13            -5.3567227              1.087866
-#> 14            -5.1753277              1.269261
-#> 15            -2.5051392              3.939450
-#> 16            -3.3952623              3.049327
+#>    id     group pre_test post_test     change      SDC change_lower change_upper
+#> 11  1 Treatment 52.87665  53.06613  0.1894841 3.222294   -3.0328104    3.4117785
+#> 12  2 Treatment 48.86917  51.26538  2.3962116 3.222294   -0.8260828    5.6185061
+#> 13  3 Treatment 41.83908  39.31947 -2.5196029 3.222294   -5.7418974    0.7026915
+#> 14  4 Treatment 43.14467  40.80646 -2.3382079 3.222294   -5.5605023    0.8840866
+#> 15  5 Treatment 32.93471  33.26669  0.3319806 3.222294   -2.8903138    3.5542751
+#> 16  6 Treatment 34.17358  33.61544 -0.5581425 3.222294   -3.7804369    2.6641520
+#>    adjusted_change adjusted_change_lower adjusted_change_upper
+#> 11       0.5746587            -2.6476357              3.796953
+#> 12       2.7813863            -0.4409082              6.003681
+#> 13      -2.1344283            -5.3567227              1.087866
+#> 14      -1.9530332            -5.1753277              1.269261
+#> 15       0.7171553            -2.5051392              3.939450
+#> 16      -0.1729678            -3.3952623              3.049327
 ```
 
 We can also plot the un-adjusted treatment responses:
@@ -455,7 +472,9 @@ control_group <- filter(
 )
 
 treatment_responses <- bmbstats::observations_MET(
-  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations = treatment_group$Measured_score.Change -
+    mean(control_group$Measured_score.Change),
+  
   observations_label = treatment_group$Athlete,
 
   # Use control group change as measurement error
@@ -581,7 +600,10 @@ SD_summary
 #> 2 Treatment          1.75
 ```
 
-Estimating random treatment effect is thus equal to $\sqrt{SD_{Treatment \;group}^2 - SD_{Control \; group}^2}$: 
+Estimating random treatment effect is thus equal to:
+\begin{equation}
+  \sqrt{SD_{Treatment \;group}^2 - SD_{Control \; group}^2}
+\end{equation}
 
 
 ```r
@@ -783,7 +805,8 @@ model3 <- cv_model(
 )
 
 model3
-#> Training data consists of 3 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 3 folds.
+#> Training data consists of 3 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 3 folds.
 #> 
 #> Model performance:
 #> 
@@ -826,7 +849,8 @@ prediction_RCT <- RCT_predict(
 )
 
 prediction_RCT
-#> Training data consists of 3 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 3 folds.
+#> Training data consists of 3 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 3 folds.
 #> 
 #> Model performance:
 #> 
@@ -1060,8 +1084,15 @@ RCT_data <- tibble(
   True_score.Pre = rnorm(n_subjects, 45, 5),
 
   # Treatment effect
-  Treatment_effect = rnorm(n = n_subjects, mean = treatment_systematic, sd = treatment_random),
-  Non_treatment_effect = rnorm(n = n_subjects, mean = non_treatment_systematic, sd = non_treatment_random),
+  Treatment_effect = rnorm(
+    n = n_subjects,
+    mean = treatment_systematic,
+    sd = treatment_random),
+  
+  Non_treatment_effect = rnorm(
+    n = n_subjects,
+    mean = non_treatment_systematic,
+    sd = non_treatment_random),
 
   # Calculate the change in true score
   True_score.Change = if_else(
@@ -1074,31 +1105,41 @@ RCT_data <- tibble(
   True_score.Post = True_score.Pre + True_score.Change,
 
   # Manifested score
-  Manifested_score.Pre = True_score.Pre + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Post = True_score.Post + rnorm(n_subjects, 0, biological_variation),
-  Manifested_score.Change = Manifested_score.Post - Manifested_score.Pre,
+  Manifested_score.Pre = True_score.Pre +
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Post = True_score.Post + 
+    rnorm(n_subjects, 0, biological_variation),
+  
+  Manifested_score.Change = Manifested_score.Post -
+    Manifested_score.Pre,
 
   # Measured score
-  Measured_score.Pre = Manifested_score.Pre + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Post = Manifested_score.Post + rnorm(n_subjects, 0, instrumentation_noise),
-  Measured_score.Change = Measured_score.Post - Measured_score.Pre
+  Measured_score.Pre = Manifested_score.Pre +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Post = Manifested_score.Post +
+    rnorm(n_subjects, 0, instrumentation_noise),
+  
+  Measured_score.Change = Measured_score.Post -
+    Measured_score.Pre
 )
 
 RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~ True_score.Post
-#>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>           <dbl>
-#> 1 Athlet~ Trea~           47.4           -3.24              1.17            -2.06            45.3
-#> 2 Athlet~ Cont~           44.4            3.43              4.57             4.57            48.9
-#> 3 Athlet~ Trea~           50.5            4.09              2.74             6.83            57.3
-#> 4 Athlet~ Cont~           37.8           12.4               2.15             2.15            39.9
-#> 5 Athlet~ Trea~           50.7            0.671             1.87             2.54            53.3
-#> 6 Athlet~ Cont~           42.7           12.6               2.78             2.78            45.4
-#> # ... with 6 more variables: Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>,
-#> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>, Measured_score.Post <dbl>,
-#> #   Measured_score.Change <dbl>
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~
+#>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>
+#> 1 Athlet~ Trea~           47.4           -3.24              1.17            -2.06
+#> 2 Athlet~ Cont~           44.4            3.43              4.57             4.57
+#> 3 Athlet~ Trea~           50.5            4.09              2.74             6.83
+#> 4 Athlet~ Cont~           37.8           12.4               2.15             2.15
+#> 5 Athlet~ Trea~           50.7            0.671             1.87             2.54
+#> 6 Athlet~ Cont~           42.7           12.6               2.78             2.78
+#> # ... with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
+#> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
+#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
 
 Let's plot the data using Pre-test as predictor (x-axis) and Post-test as the outcome (y-axis). Please remember that this plot provide simple linear regression for each group independently. I will add identity line for easier comparison:
@@ -1312,7 +1353,9 @@ Adjusted treatment response would deduct `mean` change from the Control group an
 treatment_responses <- bmbstats::observations_MET(
 
   # Adjustment
-  observations = treatment_group$Measured_score.Change - mean(control_group$Measured_score.Change),
+  observations = treatment_group$Measured_score.Change -
+    mean(control_group$Measured_score.Change),
+  
   observations_label = treatment_group$Athlete,
 
   # Use control group change as measurement error
@@ -1342,12 +1385,13 @@ plot(
 
 \begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
+
 ## What goes inside the *measurement error* (or Control group change or residuals `SD`)?
 
-As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to 2.23cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation and instrumentation affects the change score twice (at Pre- and Post-test) we get the following:
+As already explained, Control group serves as a counter-factual proxy of what would happen to the treatment group if not-receiving the treatment. `SD` of Control group change is used to represent an estimate of uncertainty around individual responses. In our RCT data, `SD` of the Control group measured change is equal to 2.23cm. This is equal to the root of squared sums of non-treatment random effect, biological variation and instrumentation noise. Since biological variation (BV) and instrumentation noise (IN) affects the change score twice (at Pre- and Post-test) we get the following (where *NTRE* is Non-treatment effect random error):
 
 \begin{equation}
-  SD_{control\;change} = \sqrt{2\times biological\;variation^2 + 2\times instrumentation\;noise^2 + non\;treatment\;random\;effect^2}
+  SD_{control\;change} = \sqrt{2\times BV^2 + 2\times IN^2 + NTRE^2}
 \end{equation}
 
 If we plug our DGP values, we get the following expected `SD` of the Control group change: 2.45cm. If there is no non-treatment random effect, then `SD` for the control group would only consist of measurement error. 
@@ -1454,9 +1498,9 @@ SD_summary_measured
 #> 2 Treatment          5.39
 ```
 
-The `SD` of the Control group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm) and 2 x instrumentation noise (0.5cm), which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2}$, or 2.45cm. 
+The `SD` of the Control group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm) and 2 x instrumentation noise (0.5cm), which is around $\sqrt{1^2 + 2 \times 1.5^2 + 2 \times 0.5^2}$, or 2.45cm. 
 
-The `SD` of the Treatment group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm), 2 x instrumentation noise (0.5cm), and additional random treatment effect (5cm) which is around $\sqrt{1^2 + 2*1.5^2 + 2*0.5^2 + 5^2}$, or 5.57cm. 
+The `SD` of the Treatment group residuals using the measured scores should now involve random non-treatment effect (1cm), 2 x biological variation (1.5cm), 2 x instrumentation noise (0.5cm), and additional random treatment effect (5cm) which is around $\sqrt{1^2 + 2 \times 1.5^2 + 2 \times 0.5^2 + 5^2}$, or 5.57cm. 
 
 Estimated random treatment effects:
 
@@ -1504,7 +1548,8 @@ prediction_RCT <- RCT_predict(
 )
 
 prediction_RCT
-#> Training data consists of 3 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 3 folds.
+#> Training data consists of 3 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 3 folds.
 #> 
 #> Model performance:
 #> 
@@ -1720,17 +1765,17 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 14
-#>   Athlete Group Squat_1RM_relat~ True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~
-#>   <chr>   <fct>            <dbl>          <dbl>            <dbl>            <dbl>            <dbl>
-#> 1 Athlet~ Trea~            1.19            36.8             9.88             8.24            18.1 
-#> 2 Athlet~ Cont~            0.950           43.4             6.87             5.57             5.57
-#> 3 Athlet~ Trea~            1.44            44.1            10.2              5.28            15.5 
-#> 4 Athlet~ Cont~            0.422           52.4             2.33             1.30             1.30
-#> 5 Athlet~ Trea~            1.46            40.7            11.2              6.73            18.0 
-#> 6 Athlet~ Cont~            0.813           52.6             4.44             1.15             1.15
-#> # ... with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
-#> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
-#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
+#>   Athlete Group Squat_1RM_relat~ True_score.Pre Treatment_effect Non_treatment_e~
+#>   <chr>   <fct>            <dbl>          <dbl>            <dbl>            <dbl>
+#> 1 Athlet~ Trea~            1.19            36.8             9.88             8.24
+#> 2 Athlet~ Cont~            0.950           43.4             6.87             5.57
+#> 3 Athlet~ Trea~            1.44            44.1            10.2              5.28
+#> 4 Athlet~ Cont~            0.422           52.4             2.33             1.30
+#> 5 Athlet~ Trea~            1.46            40.7            11.2              6.73
+#> 6 Athlet~ Cont~            0.813           52.6             4.44             1.15
+#> # ... with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
+#> #   Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>, Manifested_score.Change <dbl>,
+#> #   Measured_score.Pre <dbl>, Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
 
 Let's plot before we jump into the analysis. In the next plot we will depict measured Post-test (y-axis) and measured Pre-test (x-axis) per group.
@@ -2136,7 +2181,8 @@ Here is our baseline model:
 base_model <- model_RCT(Measured_score.Post ~ Group)
 
 base_model
-#> Training data consists of 2 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 2 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -2255,7 +2301,8 @@ Our next model is the one that uses Pre-test and Group. Let's call it `pre_test_
 pre_test_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre)
 
 pre_test_model
-#> Training data consists of 3 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 3 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -2392,7 +2439,8 @@ Next model adds additional predictor (covariate): relative squat 1RM:
 covariate_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative)
 
 covariate_model
-#> Training data consists of 4 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 4 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
@@ -2534,7 +2582,8 @@ And the final model is the interaction model:
 interaction_model <- model_RCT(Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre)
 
 interaction_model
-#> Training data consists of 5 predictors and 20 observations. Cross-Validation of the model was performed using 10 repeats of 5 folds.
+#> Training data consists of 5 predictors and 20 observations.
+#> Cross-Validation of the model was performed using 10 repeats of 5 folds.
 #> 
 #> Model performance:
 #> 
