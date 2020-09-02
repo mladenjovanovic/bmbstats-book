@@ -1,0 +1,16 @@
+base
+bmbstats
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+cowplot
+ggridges
+psych
+minerva
+kableExtra
