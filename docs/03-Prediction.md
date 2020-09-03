@@ -53,14 +53,10 @@ The objective of causal inference or explanatory modeling is to estimate the $f(
 
 To demonstrate a concept of overfitting, we are going to generate two samples (N=35 observations) from the DGP with BS ranging from 0.8 to 2.5. These samples are *training* and *testing* sample (Figure \@ref(fig:bs-sj-training-testing)). Training sample is used to *train* the prediction model, while *testing* sample will be used as a *holdout* sample for evaluating model performance on the *unseen* data.  
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/bs-sj-training-testing-1} 
-
-}
-
-\caption{(ref:bs-sj-training-testing-caption)}(\#fig:bs-sj-training-testing)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/bs-sj-training-testing-1.png" alt="(ref:bs-sj-training-testing-caption)" width="90%" />
+<p class="caption">(\#fig:bs-sj-training-testing)(ref:bs-sj-training-testing-caption)</p>
+</div>
 (ref:bs-sj-training-testing-caption) **Two samples simulated from the known DGP. **Black line represents systematic component of the DGP and it is equal for both training and testing samples. Observations vary in the two samples due stochastic component in the DGP
 
 Model used to predict SJ from BS will be *polynomial linear regression*. Equation \@ref(eq:polynomial-equation) explains first, second, and third degree polynomial linear regression function and provides a form for n-degree polynomials. Please, note that first degree polynomial function represents simple linear regression. 
@@ -79,26 +75,18 @@ Model used to predict SJ from BS will be *polynomial linear regression*. Equatio
 
 Increasing polynomial degrees increases the *flexibility* of the polynomial regression model, and thus can represent *tuning parameter* that we can select based on the model performance. In other words, we might be interested in finding polynomial degree that minimized model error (or maximize model fit). Figure \@ref(fig:poly-fit-model) contains model performance on the training data for polynomial degrees ranging from 1 to 20.  
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/poly-fit-model-1} 
-
-}
-
-\caption{(ref:poly-fit-model-caption)}(\#fig:poly-fit-model)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/poly-fit-model-1.png" alt="(ref:poly-fit-model-caption)" width="90%" />
+<p class="caption">(\#fig:poly-fit-model)(ref:poly-fit-model-caption)</p>
+</div>
 (ref:poly-fit-model-caption) **Model fit with varying polynomial degrees. **More degrees equals better model fit
 
 As can be seen from the Figure \@ref(fig:poly-fit-model), the more flexible the model (or the higher the polynomial degree) the better it fits the data. But how do these models perform on the unseen, testing data sample? In order to quantify model performance, `RMSE` metric is used. Figure \@ref(fig:testing-training-poly-errors) demonstrates performance of the polynomial regression model on the training and testing data sample across different polynomial degrees.  
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/testing-training-poly-errors-1} 
-
-}
-
-\caption{(ref:testing-training-poly-errors-caption)}(\#fig:testing-training-poly-errors)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/testing-training-poly-errors-1.png" alt="(ref:testing-training-poly-errors-caption)" width="90%" />
+<p class="caption">(\#fig:testing-training-poly-errors)(ref:testing-training-poly-errors-caption)</p>
+</div>
 (ref:testing-training-poly-errors-caption) **Testing and training errors across varying polynomial degrees. **Model error is estimated with the `RMSE` metric, while polynomial degree represents tuning or flexibility parameter of the model. As can be noted from the figure, better training performance doesn't imply better testing performance. Vertical dashed line represents the polynomial degree at which testing error is lowest. Polynomial degrees on the right of the vertical dashed line are said to overfit the data, while polynomial degree on the left are said to underfit the data
 
 As can be seen from the Figure \@ref(fig:testing-training-poly-errors), models with higher polynomial degrees tend to overfit (indicated by performance better than the known irreducible error $\epsilon$ visualized with the horizontal line at 2cm). Performance on the training data sample improves as the polynomial degrees increase, which is not the case with the performance on the testing data sample. There is clearly the best polynomial degree that has the best predictive performance on the unseen data. Polynomial degrees on the left of the vertical dashed line are said to *underfit*, while polynomial degrees on the right are said to overfit. 
@@ -109,14 +97,10 @@ The take home message is that predictive performance on the training data can be
 
 In order to evaluate predictive performance of the model, researchers usually remove some percent of data to be used as a testing or holdout sample. Unfortunately, this is not always possible (although it is recommended, particularly to evaluate final model performance, especially when there are multiple models and model tuning). One solution to these problems is *cross-validation* technique [@jamesIntroductionStatisticalLearning2017; @kuhnAppliedPredictiveModeling2018; @yarkoniChoosingPredictionExplanation2017]. There are numerous variations of the cross-validation, but the simplest one is *n-fold* cross validation (Figure 15). N-fold cross validation involve splitting the data into 5 to 10 equal folds and using one fold as a testing or hold-out sample while performing model training on the other folds. This is repeated over N-iteration (in this case 5 to 10) and the model performance is averaged to get *cross-validated model performance*.   
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/cross-validation} 
-
-}
-
-\caption{(ref:cross-validation-caption)}(\#fig:cross-validation)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/cross-validation.png" alt="(ref:cross-validation-caption)" width="90%" />
+<p class="caption">(\#fig:cross-validation)(ref:cross-validation-caption)</p>
+</div>
 (ref:cross-validation-caption) **Cross-Validation**
 
 With predictive analysis and *machine learning*, different model's tuning parameters are evaluated (as well as multiple different models) to estimate the one that gives the best predictive performance. It is thus important to utilize techniques such as cross-validation to avoid overfitting and too optimistic model selection.
@@ -133,28 +117,90 @@ Here is an example to demonstrate both sample `mean` as a predictive model, as w
 
 (ref:mean-as-prediction-differences-caption) **Sample `mean` as prediction with associated prediction errors**
 
-\begin{table}
-
-\caption{(\#tab:mean-as-prediction-differences)(ref:mean-as-prediction-differences-caption)}
-\centering
-\begin{tabular}[t]{rrrrr}
-\toprule
-Observed & Predicted & Error & Absolute Error & Squared Error\\
-\midrule
-15 & 52.8 & 37.8 & 37.8 & 1428.84\\
-19 & 52.8 & 33.8 & 33.8 & 1142.44\\
-28 & 52.8 & 24.8 & 24.8 & 615.04\\
-28 & 52.8 & 24.8 & 24.8 & 615.04\\
-30 & 52.8 & 22.8 & 22.8 & 519.84\\
-\addlinespace
-57 & 52.8 & -4.2 & 4.2 & 17.64\\
-71 & 52.8 & -18.2 & 18.2 & 331.24\\
-88 & 52.8 & -35.2 & 35.2 & 1239.04\\
-95 & 52.8 & -42.2 & 42.2 & 1780.84\\
-97 & 52.8 & -44.2 & 44.2 & 1953.64\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table>
+<caption>(\#tab:mean-as-prediction-differences)(ref:mean-as-prediction-differences-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Observed </th>
+   <th style="text-align:right;"> Predicted </th>
+   <th style="text-align:right;"> Error </th>
+   <th style="text-align:right;"> Absolute Error </th>
+   <th style="text-align:right;"> Squared Error </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> 37.8 </td>
+   <td style="text-align:right;"> 37.8 </td>
+   <td style="text-align:right;"> 1428.84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> 33.8 </td>
+   <td style="text-align:right;"> 33.8 </td>
+   <td style="text-align:right;"> 1142.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> 24.8 </td>
+   <td style="text-align:right;"> 24.8 </td>
+   <td style="text-align:right;"> 615.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> 24.8 </td>
+   <td style="text-align:right;"> 24.8 </td>
+   <td style="text-align:right;"> 615.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 519.84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> -4.2 </td>
+   <td style="text-align:right;"> 4.2 </td>
+   <td style="text-align:right;"> 17.64 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> -18.2 </td>
+   <td style="text-align:right;"> 18.2 </td>
+   <td style="text-align:right;"> 331.24 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 88 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> -35.2 </td>
+   <td style="text-align:right;"> 35.2 </td>
+   <td style="text-align:right;"> 1239.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> -42.2 </td>
+   <td style="text-align:right;"> 42.2 </td>
+   <td style="text-align:right;"> 1780.84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> 52.8 </td>
+   <td style="text-align:right;"> -44.2 </td>
+   <td style="text-align:right;"> 44.2 </td>
+   <td style="text-align:right;"> 1953.64 </td>
+  </tr>
+</tbody>
+</table>
 
 Besides simple difference, Table \@ref(tab:mean-as-prediction-differences) provides errors (or losses) using two common *loss functions* (see [Sample `mean` as the simplest statistical model] section in [Description] chapter): *absolute loss* (column `Absolute Error`) and *quadratic loss* (column `Squared Error`). 
 
@@ -172,14 +218,10 @@ The are, of course, other loss and cost functions that could be used. For exampl
 
 [^HUBER_RIDGE]: Although I've used the term *loss* here, these loss functions are also aggregated using `sum` or `mean` to create `Huber cost` or `Ridge cost`. `Huber loss` is a combination of absolute and quadratic losses and it's property is better *robustness* to outliers.
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/loss-function-metrics-example-1} 
-
-}
-
-\caption{(ref:loss-function-metrics-example-caption)}(\#fig:loss-function-metrics-example)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/loss-function-metrics-example-1.png" alt="(ref:loss-function-metrics-example-caption)" width="90%" />
+<p class="caption">(\#fig:loss-function-metrics-example)(ref:loss-function-metrics-example-caption)</p>
+</div>
 
 (ref:loss-function-metrics-example-caption) **Common loss functions. A. ** Trellis plot of each loss function. **B.** Plot of all loss functions on a common scale. *Huber loss* is a combination of absolute and quadratic loss. 
 
@@ -191,72 +233,287 @@ Estimates for `MBE`, `MAE`, `MSE`[^MSE_REMOVED], and `RMSE` represent *training 
 
 (ref:mean-cross-validation-caption) **Example cross-validation using sample `mean` as the prediction model**
 
-\begin{table}
-
-\caption{(\#tab:mean-cross-validation)(ref:mean-cross-validation-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{rlrlrrrrr}
-\toprule
-Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & MinErr & MaxErr\\
-\midrule
-1 & 15  19  28  --  30  --  71  88  95  -- & 49.43 & --  --  --  28  --  57  --  --  --  97 & -11.24 & 25.52 & 30.44 & -47.57 & 21.43\\
-2 & 15  19  --  28  --  57  --  88  --  97 & 50.67 & --  --  28  --  30  --  71  --  95  -- & -5.33 & 27.00 & 28.81 & -44.33 & 22.67\\
-3 & --  --  28  28  30  57  71  --  95  97 & 58.00 & 15  19  --  --  --  --  --  88  --  -- & 17.33 & 37.33 & 37.73 & -30.00 & 43.00\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:mean-cross-validation)(ref:mean-cross-validation-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Fold </th>
+   <th style="text-align:left;"> Training sample </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:left;"> Testing Sample </th>
+   <th style="text-align:right;"> MBE </th>
+   <th style="text-align:right;"> MAE </th>
+   <th style="text-align:right;"> RMSE </th>
+   <th style="text-align:right;"> MinErr </th>
+   <th style="text-align:right;"> MaxErr </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 15  19  28  --  30  --  71  88  95  -- </td>
+   <td style="text-align:right;"> 49.43 </td>
+   <td style="text-align:left;"> --  --  --  28  --  57  --  --  --  97 </td>
+   <td style="text-align:right;"> -11.24 </td>
+   <td style="text-align:right;"> 25.52 </td>
+   <td style="text-align:right;"> 30.44 </td>
+   <td style="text-align:right;"> -47.57 </td>
+   <td style="text-align:right;"> 21.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  19  --  28  --  57  --  88  --  97 </td>
+   <td style="text-align:right;"> 50.67 </td>
+   <td style="text-align:left;"> --  --  28  --  30  --  71  --  95  -- </td>
+   <td style="text-align:right;"> -5.33 </td>
+   <td style="text-align:right;"> 27.00 </td>
+   <td style="text-align:right;"> 28.81 </td>
+   <td style="text-align:right;"> -44.33 </td>
+   <td style="text-align:right;"> 22.67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> --  --  28  28  30  57  71  --  95  97 </td>
+   <td style="text-align:right;"> 58.00 </td>
+   <td style="text-align:left;"> 15  19  --  --  --  --  --  88  --  -- </td>
+   <td style="text-align:right;"> 17.33 </td>
+   <td style="text-align:right;"> 37.33 </td>
+   <td style="text-align:right;"> 37.73 </td>
+   <td style="text-align:right;"> -30.00 </td>
+   <td style="text-align:right;"> 43.00 </td>
+  </tr>
+</tbody>
+</table>
 
 Since this is a small sample, we can repeat cross-validation few times. This is called *repeated cross-validation*. Let's repeat 3-folds cross-validation for 5 repeats (Table \@ref(tab:repeated-cross-validation)).
 
 (ref:repeated-cross-validation-caption) **Example repeated cross-validation using sample `mean` as the prediction model**
 
-\begin{table}
-
-\caption{(\#tab:repeated-cross-validation)(ref:repeated-cross-validation-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{rrlrlrrrrr}
-\toprule
-Repeat & Fold & Training sample & mean & Testing Sample & MBE & MAE & RMSE & MinErr & MaxErr\\
-\midrule
-1 & 1 & 15  19  28  --  30  --  71  88  95  -- & 49.43 & --  --  --  28  --  57  --  --  --  97 & -11.24 & 25.52 & 30.44 & -47.57 & 21.43\\
-1 & 2 & 15  19  --  28  --  57  --  88  --  97 & 50.67 & --  --  28  --  30  --  71  --  95  -- & -5.33 & 27.00 & 28.81 & -44.33 & 22.67\\
-1 & 3 & --  --  28  28  30  57  71  --  95  97 & 58.00 & 15  19  --  --  --  --  --  88  --  -- & 17.33 & 37.33 & 37.73 & -30.00 & 43.00\\
-2 & 1 & --  19  28  --  30  57  71  88  --  -- & 48.83 & 15  --  --  28  --  --  --  --  95  97 & -9.92 & 37.25 & 38.83 & -48.17 & 33.83\\
-2 & 2 & 15  --  28  28  --  57  --  --  95  97 & 53.33 & --  19  --  --  30  --  71  88  --  -- & 1.33 & 27.50 & 28.45 & -34.67 & 34.33\\
-\addlinespace
-2 & 3 & 15  19  --  28  30  --  71  88  95  97 & 55.38 & --  --  28  --  --  57  --  --  --  -- & 12.87 & 14.50 & 19.39 & -1.63 & 27.37\\
-3 & 1 & --  19  28  28  30  57  71  88  --  -- & 45.86 & 15  --  --  --  --  --  --  --  95  97 & -23.14 & 43.71 & 44.66 & -51.14 & 30.86\\
-3 & 2 & 15  19  --  --  30  --  --  88  95  97 & 57.33 & --  --  28  28  --  57  71  --  --  -- & 11.33 & 18.17 & 21.84 & -13.67 & 29.33\\
-3 & 3 & 15  --  28  28  --  57  71  --  95  97 & 55.86 & --  19  --  --  30  --  --  88  --  -- & 10.19 & 31.62 & 31.94 & -32.14 & 36.86\\
-4 & 1 & --  19  28  --  30  57  71  88  --  97 & 55.71 & 15  --  --  28  --  --  --  --  95  -- & 9.71 & 35.90 & 36.37 & -39.29 & 40.71\\
-\addlinespace
-4 & 2 & 15  --  --  28  30  --  71  --  95  97 & 56.00 & --  19  28  --  --  57  --  88  --  -- & 8.00 & 24.50 & 28.19 & -32.00 & 37.00\\
-4 & 3 & 15  19  28  28  --  57  --  88  95  -- & 47.14 & --  --  --  --  30  --  71  --  --  97 & -18.86 & 30.29 & 33.41 & -49.86 & 17.14\\
-5 & 1 & 15  19  --  28  --  57  --  88  95  97 & 57.00 & --  --  28  --  30  --  71  --  --  -- & 14.00 & 23.33 & 24.26 & -14.00 & 29.00\\
-5 & 2 & 15  --  28  28  30  --  71  88  95  -- & 50.71 & --  19  --  --  --  57  --  --  --  97 & -6.95 & 28.10 & 32.60 & -46.29 & 31.71\\
-5 & 3 & --  19  28  --  30  57  71  --  --  97 & 50.33 & 15  --  --  28  --  --  --  88  95  -- & -6.17 & 35.00 & 35.92 & -44.67 & 35.33\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:repeated-cross-validation)(ref:repeated-cross-validation-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Repeat </th>
+   <th style="text-align:right;"> Fold </th>
+   <th style="text-align:left;"> Training sample </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:left;"> Testing Sample </th>
+   <th style="text-align:right;"> MBE </th>
+   <th style="text-align:right;"> MAE </th>
+   <th style="text-align:right;"> RMSE </th>
+   <th style="text-align:right;"> MinErr </th>
+   <th style="text-align:right;"> MaxErr </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 15  19  28  --  30  --  71  88  95  -- </td>
+   <td style="text-align:right;"> 49.43 </td>
+   <td style="text-align:left;"> --  --  --  28  --  57  --  --  --  97 </td>
+   <td style="text-align:right;"> -11.24 </td>
+   <td style="text-align:right;"> 25.52 </td>
+   <td style="text-align:right;"> 30.44 </td>
+   <td style="text-align:right;"> -47.57 </td>
+   <td style="text-align:right;"> 21.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  19  --  28  --  57  --  88  --  97 </td>
+   <td style="text-align:right;"> 50.67 </td>
+   <td style="text-align:left;"> --  --  28  --  30  --  71  --  95  -- </td>
+   <td style="text-align:right;"> -5.33 </td>
+   <td style="text-align:right;"> 27.00 </td>
+   <td style="text-align:right;"> 28.81 </td>
+   <td style="text-align:right;"> -44.33 </td>
+   <td style="text-align:right;"> 22.67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> --  --  28  28  30  57  71  --  95  97 </td>
+   <td style="text-align:right;"> 58.00 </td>
+   <td style="text-align:left;"> 15  19  --  --  --  --  --  88  --  -- </td>
+   <td style="text-align:right;"> 17.33 </td>
+   <td style="text-align:right;"> 37.33 </td>
+   <td style="text-align:right;"> 37.73 </td>
+   <td style="text-align:right;"> -30.00 </td>
+   <td style="text-align:right;"> 43.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> --  19  28  --  30  57  71  88  --  -- </td>
+   <td style="text-align:right;"> 48.83 </td>
+   <td style="text-align:left;"> 15  --  --  28  --  --  --  --  95  97 </td>
+   <td style="text-align:right;"> -9.92 </td>
+   <td style="text-align:right;"> 37.25 </td>
+   <td style="text-align:right;"> 38.83 </td>
+   <td style="text-align:right;"> -48.17 </td>
+   <td style="text-align:right;"> 33.83 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  --  28  28  --  57  --  --  95  97 </td>
+   <td style="text-align:right;"> 53.33 </td>
+   <td style="text-align:left;"> --  19  --  --  30  --  71  88  --  -- </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 27.50 </td>
+   <td style="text-align:right;"> 28.45 </td>
+   <td style="text-align:right;"> -34.67 </td>
+   <td style="text-align:right;"> 34.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> 15  19  --  28  30  --  71  88  95  97 </td>
+   <td style="text-align:right;"> 55.38 </td>
+   <td style="text-align:left;"> --  --  28  --  --  57  --  --  --  -- </td>
+   <td style="text-align:right;"> 12.87 </td>
+   <td style="text-align:right;"> 14.50 </td>
+   <td style="text-align:right;"> 19.39 </td>
+   <td style="text-align:right;"> -1.63 </td>
+   <td style="text-align:right;"> 27.37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> --  19  28  28  30  57  71  88  --  -- </td>
+   <td style="text-align:right;"> 45.86 </td>
+   <td style="text-align:left;"> 15  --  --  --  --  --  --  --  95  97 </td>
+   <td style="text-align:right;"> -23.14 </td>
+   <td style="text-align:right;"> 43.71 </td>
+   <td style="text-align:right;"> 44.66 </td>
+   <td style="text-align:right;"> -51.14 </td>
+   <td style="text-align:right;"> 30.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  19  --  --  30  --  --  88  95  97 </td>
+   <td style="text-align:right;"> 57.33 </td>
+   <td style="text-align:left;"> --  --  28  28  --  57  71  --  --  -- </td>
+   <td style="text-align:right;"> 11.33 </td>
+   <td style="text-align:right;"> 18.17 </td>
+   <td style="text-align:right;"> 21.84 </td>
+   <td style="text-align:right;"> -13.67 </td>
+   <td style="text-align:right;"> 29.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> 15  --  28  28  --  57  71  --  95  97 </td>
+   <td style="text-align:right;"> 55.86 </td>
+   <td style="text-align:left;"> --  19  --  --  30  --  --  88  --  -- </td>
+   <td style="text-align:right;"> 10.19 </td>
+   <td style="text-align:right;"> 31.62 </td>
+   <td style="text-align:right;"> 31.94 </td>
+   <td style="text-align:right;"> -32.14 </td>
+   <td style="text-align:right;"> 36.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> --  19  28  --  30  57  71  88  --  97 </td>
+   <td style="text-align:right;"> 55.71 </td>
+   <td style="text-align:left;"> 15  --  --  28  --  --  --  --  95  -- </td>
+   <td style="text-align:right;"> 9.71 </td>
+   <td style="text-align:right;"> 35.90 </td>
+   <td style="text-align:right;"> 36.37 </td>
+   <td style="text-align:right;"> -39.29 </td>
+   <td style="text-align:right;"> 40.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  --  --  28  30  --  71  --  95  97 </td>
+   <td style="text-align:right;"> 56.00 </td>
+   <td style="text-align:left;"> --  19  28  --  --  57  --  88  --  -- </td>
+   <td style="text-align:right;"> 8.00 </td>
+   <td style="text-align:right;"> 24.50 </td>
+   <td style="text-align:right;"> 28.19 </td>
+   <td style="text-align:right;"> -32.00 </td>
+   <td style="text-align:right;"> 37.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> 15  19  28  28  --  57  --  88  95  -- </td>
+   <td style="text-align:right;"> 47.14 </td>
+   <td style="text-align:left;"> --  --  --  --  30  --  71  --  --  97 </td>
+   <td style="text-align:right;"> -18.86 </td>
+   <td style="text-align:right;"> 30.29 </td>
+   <td style="text-align:right;"> 33.41 </td>
+   <td style="text-align:right;"> -49.86 </td>
+   <td style="text-align:right;"> 17.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 15  19  --  28  --  57  --  88  95  97 </td>
+   <td style="text-align:right;"> 57.00 </td>
+   <td style="text-align:left;"> --  --  28  --  30  --  71  --  --  -- </td>
+   <td style="text-align:right;"> 14.00 </td>
+   <td style="text-align:right;"> 23.33 </td>
+   <td style="text-align:right;"> 24.26 </td>
+   <td style="text-align:right;"> -14.00 </td>
+   <td style="text-align:right;"> 29.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 15  --  28  28  30  --  71  88  95  -- </td>
+   <td style="text-align:right;"> 50.71 </td>
+   <td style="text-align:left;"> --  19  --  --  --  57  --  --  --  97 </td>
+   <td style="text-align:right;"> -6.95 </td>
+   <td style="text-align:right;"> 28.10 </td>
+   <td style="text-align:right;"> 32.60 </td>
+   <td style="text-align:right;"> -46.29 </td>
+   <td style="text-align:right;"> 31.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> --  19  28  --  30  57  71  --  --  97 </td>
+   <td style="text-align:right;"> 50.33 </td>
+   <td style="text-align:left;"> 15  --  --  28  --  --  --  88  95  -- </td>
+   <td style="text-align:right;"> -6.17 </td>
+   <td style="text-align:right;"> 35.00 </td>
+   <td style="text-align:right;"> 35.92 </td>
+   <td style="text-align:right;"> -44.67 </td>
+   <td style="text-align:right;"> 35.33 </td>
+  </tr>
+</tbody>
+</table>
 
 To calculate cross-validated prediction performance metrics, average of testing `MBE`, `MAE`, `RMSE`, `MinErr`, and `MaxErr` is calculated and reported as `cvMBE`, `cvMAE`, `cvRMSE`, `cvMinErr`, and `cvMaxErr` (Table \@ref(tab:cv-performance-metrics)). Prediction performance metrics don't need to be averaged across cross-validation samples and can be instead estimated by *binding* (or *pooling*) all cross-validated samples together (i.e. target variable and predicted target variable). More about this at the end of this chapter in [Practical example: MAS and YoYoIR1 prediction] section. 
 
 (ref:cv-performance-metrics-caption) **Cross-validated prediction performance metrics (estimators)**
 
-\begin{table}
-
-\caption{(\#tab:cv-performance-metrics)(ref:cv-performance-metrics-caption)}
-\centering
-\begin{tabular}[t]{rrrrr}
-\toprule
-cvMBE & cvMAE & cvRMSE & cvMinErr & cvMaxErr\\
-\midrule
-0.21 & 29.32 & 31.52 & -35.29 & 31.37\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table>
+<caption>(\#tab:cv-performance-metrics)(ref:cv-performance-metrics-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> cvMBE </th>
+   <th style="text-align:right;"> cvMAE </th>
+   <th style="text-align:right;"> cvRMSE </th>
+   <th style="text-align:right;"> cvMinErr </th>
+   <th style="text-align:right;"> cvMaxErr </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 29.32 </td>
+   <td style="text-align:right;"> 31.52 </td>
+   <td style="text-align:right;"> -35.29 </td>
+   <td style="text-align:right;"> 31.37 </td>
+  </tr>
+</tbody>
+</table>
 
 As can be seen from the Table \@ref(tab:cv-performance-metrics), all performance metrics estimated using repeated cross-validation are larger than the when estimated using the training data (full sample). Utilizing cross-validated estimates of performance (or error) should be used over training estimates when discussing predictive performance of the models. Unfortunately, this is almost never the case in sport science literature, where prediction is never estimated on unseen data and the model performance estimates can suffer from over-fitting. 
 
@@ -280,14 +537,10 @@ Prediction error can be *decomposed* into two components, *reducible* and *irred
  
 $Bias^2$ represents constant or systematic error, which is introduced by approximating a real-life problem, which may be extremely complicated, by a much simpler model [@jamesIntroductionStatisticalLearning2017]. $Variance$ represents variable or random error, and refers to the amount by which model parameters would change if we estimated it by using a different training data set [@jamesIntroductionStatisticalLearning2017]. 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=1\linewidth]{figures/bias-variance} 
-
-}
-
-\caption{(ref:bias-variance-caption)}(\#fig:bias-variance)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/bias-variance.png" alt="(ref:bias-variance-caption)" width="100%" />
+<p class="caption">(\#fig:bias-variance)(ref:bias-variance-caption)</p>
+</div>
 (ref:bias-variance-caption) **Bias and variance decomposition of the error. A. **Visual representation of $Bias^2$ and $Variance$ using the shooting target. **B.** Error can be decomposed to $Bias^2$, $Variance$, and $Irreducible \: error$, where $Bias^2$ represents constant or systematic error and $Variance$ represents variable or random error
 
 To understand this concept, we need to run a simulation using *known* relationship between BS and SJ (see Figure \@ref(fig:bs-sj-training-testing), Figure \@ref(fig:poly-fit-model), and Equation \@ref(eq:sj-bs-equation)). Prediction error decomposition to bias and variance is done for a *single* data point. To do that we need to differentiate between the following variables:
@@ -303,28 +556,101 @@ Table \@ref(tab:ten-simulations-bias-variance) contains results of the first 10 
 
 (ref:ten-simulations-bias-variance-caption) **Results of first 10 simulations for 2nd degree polynomial linear regression model**
 
-\begin{table}
-
-\caption{(\#tab:ten-simulations-bias-variance)(ref:ten-simulations-bias-variance-caption)}
-\centering
-\begin{tabular}[t]{rrrrrr}
-\toprule
-sim & model & x & y\_true & y\_observed & y\_predicted\\
-\midrule
-1 & 2 & 1.75 & 55.83 & 54.65 & 55.27\\
-2 & 2 & 1.75 & 55.83 & 53.80 & 55.34\\
-3 & 2 & 1.75 & 55.83 & 56.03 & 55.34\\
-4 & 2 & 1.75 & 55.83 & 55.71 & 55.68\\
-5 & 2 & 1.75 & 55.83 & 55.52 & 54.91\\
-\addlinespace
-6 & 2 & 1.75 & 55.83 & 57.55 & 55.81\\
-7 & 2 & 1.75 & 55.83 & 52.03 & 55.08\\
-8 & 2 & 1.75 & 55.83 & 56.35 & 55.92\\
-9 & 2 & 1.75 & 55.83 & 54.05 & 54.64\\
-10 & 2 & 1.75 & 55.83 & 58.16 & 55.57\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table>
+<caption>(\#tab:ten-simulations-bias-variance)(ref:ten-simulations-bias-variance-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> sim </th>
+   <th style="text-align:right;"> model </th>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> y_true </th>
+   <th style="text-align:right;"> y_observed </th>
+   <th style="text-align:right;"> y_predicted </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 54.65 </td>
+   <td style="text-align:right;"> 55.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 53.80 </td>
+   <td style="text-align:right;"> 55.34 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 56.03 </td>
+   <td style="text-align:right;"> 55.34 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 55.71 </td>
+   <td style="text-align:right;"> 55.68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 55.52 </td>
+   <td style="text-align:right;"> 54.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 57.55 </td>
+   <td style="text-align:right;"> 55.81 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 52.03 </td>
+   <td style="text-align:right;"> 55.08 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 56.35 </td>
+   <td style="text-align:right;"> 55.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 54.05 </td>
+   <td style="text-align:right;"> 54.64 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 58.16 </td>
+   <td style="text-align:right;"> 55.57 </td>
+  </tr>
+</tbody>
+</table>
 
 To estimate reducible error, `MSE` estimator is used (Equation \@ref(eq:MSE-reducible-error).
 
@@ -372,32 +698,40 @@ As explained in Equation \@ref(eq:reducible-irreducible), $Prediction \: error$ 
 
 (ref:example-error-decomposition-caption) **Calculated errors for all 200 simulations for 2nd degree polynomial linear regression**
 
-\begin{table}
-
-\caption{(\#tab:example-error-decomposition)(ref:example-error-decomposition-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{rrrrrrr}
-\toprule
-model & x & y\_true & Prediction error & Bias\textasciicircum{}2 & Variance & Irreducible error\\
-\midrule
-2 & 1.75 & 55.83 & 5.17 & 0.09 & 0.21 & 4.87\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:example-error-decomposition)(ref:example-error-decomposition-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> model </th>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> y_true </th>
+   <th style="text-align:right;"> Prediction error </th>
+   <th style="text-align:right;"> Bias^2 </th>
+   <th style="text-align:right;"> Variance </th>
+   <th style="text-align:right;"> Irreducible error </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 55.83 </td>
+   <td style="text-align:right;"> 5.17 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 4.87 </td>
+  </tr>
+</tbody>
+</table>
 
 This decomposition of errors is one useful mathematical property when using squared erors that I alluded to in the [Cross-Validation] section when discussing prediction error metrics.
 
 If we perfrom this analysis for each degree of polynomial fit, we will estimate prediction error, as well as $Bias^2$ and $Variance$ across model complexity (i.e. polynomial degrees). This is visualized in the Figure \@ref(fig:bias-variance-simulation). 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/bias-variance-simulation-1} 
-
-}
-
-\caption{(ref:bias-variance-simulation-caption)}(\#fig:bias-variance-simulation)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/bias-variance-simulation-1.png" alt="(ref:bias-variance-simulation-caption)" width="90%" />
+<p class="caption">(\#fig:bias-variance-simulation)(ref:bias-variance-simulation-caption)</p>
+</div>
 (ref:bias-variance-simulation-caption) **Bias and Variance error decomposition. **$Prediction \: error$ is indicated with the black line, and is decomposed to $Bias^2$, $Variance$, and $Irreducible \: error$. These are represents with areas of different color
 
 Beside decomposition of $Prediction \: error$ to $Bias^2$, $Variance$ and $Irreducible \: error$, it is important to notice the *trade-off* between $Bias^2$ and $Variance$. Linear regression models with lower polynomial degree, particularly 1st degree which is simple linear regression, has higher $Bias^2$ due imposed *linearity* of the model (we can say that linear regression model is more *biased*). As $Bias^2$ decreases with more flexible models (i.e. higher polynomial degree), $Variance$ increase due model being too *jumpy* across simulations. To achieve best prediction (or the lower $Prediction \: error$) a balance between $Bias^2$ and $Variance$ needs to be found, both within a particular model and across models. The *free lunch* theorem [@kuhnAppliedPredictiveModeling2018; @yarkoniChoosingPredictionExplanation2017] states that there is no single model that is the best across all different sets of problems. One needs to evaluate multiple models[^domain_expertise] to estimate which one is the best for a particular problem at hand.
@@ -434,32 +768,40 @@ Elastic-net model represents regression method that linearly combines the *L1* a
 
 (ref:predictive-metrics-mag-based-caption) **Common predictive metrics and magnitude-based predictive metrics. **Metrics starting with **cv** indicate cross-validated performance metrics. Metrics without **cv** indicate performance metrics on the training data set, which is often more optimistic
 
-\begin{table}
-
-\caption{(\#tab:predictive-metrics-mag-based)(ref:predictive-metrics-mag-based-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{lrrrrrr}
-\toprule
-SESOI (cm) & cvRMSE (cm) & SESOI to cvRMSE & cvPPER & RMSE (cm) & SESOI to RMSE & PPER\\
-\midrule
-±1 & 2.19 & 0.91 & 0.33 & 1.99 & 1.01 & 0.38\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:predictive-metrics-mag-based)(ref:predictive-metrics-mag-based-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> SESOI (cm) </th>
+   <th style="text-align:right;"> cvRMSE (cm) </th>
+   <th style="text-align:right;"> SESOI to cvRMSE </th>
+   <th style="text-align:right;"> cvPPER </th>
+   <th style="text-align:right;"> RMSE (cm) </th>
+   <th style="text-align:right;"> SESOI to RMSE </th>
+   <th style="text-align:right;"> PPER </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> ±1 </td>
+   <td style="text-align:right;"> 2.19 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 1.99 </td>
+   <td style="text-align:right;"> 1.01 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+</tbody>
+</table>
 
 Utilizing *apriori* known SESOI gives us practical *anchor* to evaluate predictive model performance. Reported `SESOI to cvRMSE` (0.91) as well as `cvPPER` (0.33) indicate very poor predictive performance of the model. In practical terms, utilizing relative squat 1RM doesn't produce practically meaningful predictions given SESOI of ±1cm and the model as well as the data sample utilized. 
 
 Model performance can be visualized using the training data set (Figure \@ref(fig:elastic-net-prediction)). `PPER` estimator, for both cross-validate estimate and training data performance estimate, utilized `SD` of the residuals and provided SESOI. Grey band on panels A and B on Figure \@ref(fig:elastic-net-prediction) represents SESOI, and as can be visually inspected, model residuals are much wider than the SESOI, indicating poor practical predictive performance. 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/elastic-net-prediction-1} 
-
-}
-
-\caption{(ref:elastic-net-prediction)}(\#fig:elastic-net-prediction)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/elastic-net-prediction-1.png" alt="(ref:elastic-net-prediction)" width="90%" />
+<p class="caption">(\#fig:elastic-net-prediction)(ref:elastic-net-prediction)</p>
+</div>
 (ref:elastic-net-prediction) **Model performance on the training data set. A. **Model with the lowest `cvRMSE` is selected. SESOI is depicted as grey band around the model prediction (blue line). **B.** Residuals scatter plot. Residuals outside of the SESOI band (grey band) indicate prediction which error is practically significant. `PPER` represents proportion of residuals inside the SESOI band
 
 Predictive tasks are focusing on providing the best predictions on the novel or unseen data without much concern about the underlying DGP. Predictive model performance can be evaluated by using magnitude-based approach to give insights into practical significance of the predictions. These magnitude-based prediction estimators, can be used to complement explanatory or causal inference tasks, rather than relying solely on the group-based and average-based estimators. This topic is further discussed in the [Prediction as a complement to causal inference] section.
@@ -476,78 +818,272 @@ Let's first estimate predictive performance when predicting MAS scores from the 
 
 Figure \@ref(fig:mas-yoyo-ba) consists of two panels. Panel A depicts scatter plot between YoYoIR1 and MAS scores (black line represents linear model fit). Panel B depicts $y_{predicted}$ (predicted or fitted MAS using simple linear regression; i.e. the black line on the panel A) against the model residuals $y_{residual} = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. The data points represent model performance on the full training data set.  
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-ba-1} 
-
-}
-
-\caption{(ref:mas-yoyo-ba-caption)}(\#fig:mas-yoyo-ba)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-1.png" alt="(ref:mas-yoyo-ba-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-ba)(ref:mas-yoyo-ba-caption)</p>
+</div>
 (ref:mas-yoyo-ba-caption) **Scatter plot for simple linear regression between MAS and YoYoIR1 using the full training data sample. A. ** Scatter plot between MAS and YoYoIR1 scores. Black line indicates model prediction. **B.** Scatter plot between $y_{predicted}$ (fitted or predicted MAS) against model residual $y_{residual} = y_{predicted} - y_{observed}$, or Predicted MAS - MAS. Dotted lines indicate *Levels of Agreement* (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
 
 Predictive performance for the full training data set is enlisted in the Table \@ref(tab:mas-yoyo-training-performance). 
 
 (ref:mas-yoyo-training-performance-caption) **Predictive performance using the full training data set**
 
-\begin{table}
-
-\caption{(\#tab:mas-yoyo-training-performance)(ref:mas-yoyo-training-performance-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{rrrrrrrrr}
-\toprule
-MBE & MAE & RMSE & PPER & SESOI.to.RMSE & R.squared & MinErr & MaxErr & MaxAbsErr\\
-\midrule
-0 & 0.17 & 0.21 & 0.97 & 4.73 & 0.74 & -0.44 & 0.39 & 0.44\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:mas-yoyo-training-performance)(ref:mas-yoyo-training-performance-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> MBE </th>
+   <th style="text-align:right;"> MAE </th>
+   <th style="text-align:right;"> RMSE </th>
+   <th style="text-align:right;"> PPER </th>
+   <th style="text-align:right;"> SESOI.to.RMSE </th>
+   <th style="text-align:right;"> R.squared </th>
+   <th style="text-align:right;"> MinErr </th>
+   <th style="text-align:right;"> MaxErr </th>
+   <th style="text-align:right;"> MaxAbsErr </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 4.73 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> -0.44 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+</tbody>
+</table>
 
 But as already explained, these are not predictive performance estimators for the unseen data. To estimate how the model performs on the unseen data (i.e. unseen athletes in this case), cross-validation is performed using 3 folds and 5 repeats. Estimated predictive performance for every cross-validation sample is enlisted in the Table \@ref(tab:mas-yoyo-cv-performance).
 
 (ref:mas-yoyo-cv-performance-caption) **Predictive performance for every repeated cross-validated sample**
 
-\begin{table}
-
-\caption{(\#tab:mas-yoyo-cv-performance)(ref:mas-yoyo-cv-performance-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{llrrrrrrrrr}
-\toprule
-  & fold & MBE & MAE & RMSE & PPER & SESOI to RMSE & R-squared & MinErr & MaxErr & MaxAbsErr\\
-\midrule
-1 & Fold1.Rep1 & -0.13 & 0.27 & 0.29 & 0.87 & 3.42 & 0.62 & -0.46 & 0.38 & 0.46\\
-2 & Fold1.Rep2 & -0.04 & 0.13 & 0.14 & 0.99 & 7.15 & 0.87 & -0.22 & 0.15 & 0.22\\
-3 & Fold1.Rep3 & 0.13 & 0.24 & 0.27 & 0.90 & 3.74 & 0.79 & -0.27 & 0.49 & 0.49\\
-4 & Fold1.Rep4 & -0.17 & 0.25 & 0.28 & 0.89 & 3.52 & 0.41 & -0.51 & 0.26 & 0.51\\
-5 & Fold1.Rep5 & 0.08 & 0.20 & 0.24 & 0.92 & 4.20 & 0.77 & -0.28 & 0.46 & 0.46\\
-\addlinespace
-6 & Fold2.Rep1 & 0.09 & 0.15 & 0.19 & 0.97 & 5.18 & 0.87 & -0.27 & 0.37 & 0.37\\
-7 & Fold2.Rep2 & 0.05 & 0.20 & 0.24 & 0.93 & 4.16 & 0.71 & -0.31 & 0.41 & 0.41\\
-8 & Fold2.Rep3 & -0.14 & 0.18 & 0.22 & 0.96 & 4.65 & 0.81 & -0.38 & 0.18 & 0.38\\
-9 & Fold2.Rep4 & -0.02 & 0.13 & 0.17 & 0.98 & 5.92 & 0.75 & -0.30 & 0.33 & 0.33\\
-10 & Fold2.Rep5 & -0.07 & 0.21 & 0.27 & 0.89 & 3.76 & 0.27 & -0.50 & 0.33 & 0.50\\
-\addlinespace
-11 & Fold3.Rep1 & 0.04 & 0.13 & 0.16 & 0.99 & 6.27 & 0.60 & -0.20 & 0.31 & 0.31\\
-12 & Fold3.Rep2 & -0.01 & 0.20 & 0.24 & 0.92 & 4.21 & 0.54 & -0.45 & 0.34 & 0.45\\
-13 & Fold3.Rep3 & 0.02 & 0.15 & 0.21 & 0.95 & 4.74 & 0.51 & -0.44 & 0.35 & 0.44\\
-14 & Fold3.Rep4 & 0.21 & 0.23 & 0.28 & 0.91 & 3.57 & 0.83 & -0.06 & 0.53 & 0.53\\
-15 & Fold3.Rep5 & -0.01 & 0.17 & 0.19 & 0.97 & 5.29 & 0.82 & -0.32 & 0.34 & 0.34\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:mas-yoyo-cv-performance)(ref:mas-yoyo-cv-performance-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> fold </th>
+   <th style="text-align:right;"> MBE </th>
+   <th style="text-align:right;"> MAE </th>
+   <th style="text-align:right;"> RMSE </th>
+   <th style="text-align:right;"> PPER </th>
+   <th style="text-align:right;"> SESOI to RMSE </th>
+   <th style="text-align:right;"> R-squared </th>
+   <th style="text-align:right;"> MinErr </th>
+   <th style="text-align:right;"> MaxErr </th>
+   <th style="text-align:right;"> MaxAbsErr </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> Fold1.Rep1 </td>
+   <td style="text-align:right;"> -0.13 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 3.42 </td>
+   <td style="text-align:right;"> 0.62 </td>
+   <td style="text-align:right;"> -0.46 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> Fold1.Rep2 </td>
+   <td style="text-align:right;"> -0.04 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 7.15 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> -0.22 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> Fold1.Rep3 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.90 </td>
+   <td style="text-align:right;"> 3.74 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> -0.27 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.49 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> Fold1.Rep4 </td>
+   <td style="text-align:right;"> -0.17 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 3.52 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> -0.51 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> Fold1.Rep5 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 0.20 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 4.20 </td>
+   <td style="text-align:right;"> 0.77 </td>
+   <td style="text-align:right;"> -0.28 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:left;"> Fold2.Rep1 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 5.18 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> -0.27 </td>
+   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:left;"> Fold2.Rep2 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.20 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 4.16 </td>
+   <td style="text-align:right;"> 0.71 </td>
+   <td style="text-align:right;"> -0.31 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:left;"> Fold2.Rep3 </td>
+   <td style="text-align:right;"> -0.14 </td>
+   <td style="text-align:right;"> 0.18 </td>
+   <td style="text-align:right;"> 0.22 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 4.65 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> -0.38 </td>
+   <td style="text-align:right;"> 0.18 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 9 </td>
+   <td style="text-align:left;"> Fold2.Rep4 </td>
+   <td style="text-align:right;"> -0.02 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 5.92 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> -0.30 </td>
+   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> Fold2.Rep5 </td>
+   <td style="text-align:right;"> -0.07 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 3.76 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> -0.50 </td>
+   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 11 </td>
+   <td style="text-align:left;"> Fold3.Rep1 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.16 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 6.27 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> -0.20 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 12 </td>
+   <td style="text-align:left;"> Fold3.Rep2 </td>
+   <td style="text-align:right;"> -0.01 </td>
+   <td style="text-align:right;"> 0.20 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 4.21 </td>
+   <td style="text-align:right;"> 0.54 </td>
+   <td style="text-align:right;"> -0.45 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 13 </td>
+   <td style="text-align:left;"> Fold3.Rep3 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 4.74 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> -0.44 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 14 </td>
+   <td style="text-align:left;"> Fold3.Rep4 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 3.57 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> -0.06 </td>
+   <td style="text-align:right;"> 0.53 </td>
+   <td style="text-align:right;"> 0.53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:left;"> Fold3.Rep5 </td>
+   <td style="text-align:right;"> -0.01 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 5.29 </td>
+   <td style="text-align:right;"> 0.82 </td>
+   <td style="text-align:right;"> -0.32 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr>
+</tbody>
+</table>
 
 As explained in [Cross-Validation] section, to calculate overall cross-validated performance, the `mean` is calculated for the performance metrics in the Table \@ref(tab:mas-yoyo-cv-performance). Besides reporting the `mean` as the summary for predictive performances across cross-validated samples, `SD`, `min`, and `max` can be reported too. Another method of summarizing predictive performance over cross-validated samples would be to *bind* or *pool* all $y_{observed}$ and $y_{predicted}$ scores from the test samples together and then calculate *overall* predictive performance metrics. These pooled cross_validated $y_{observed}$ and $y_{predicted}$ can also be visualized using the residuals plot (Panel C in Figure \@ref(fig:mas-yoyo-ba-cross-validated)). 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-ba-cross-validated-1} 
-
-}
-
-\caption{(ref:mas-yoyo-ba-cross-validated-caption)}(\#fig:mas-yoyo-ba-cross-validated)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-ba-cross-validated-1.png" alt="(ref:mas-yoyo-ba-cross-validated-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-ba-cross-validated)(ref:mas-yoyo-ba-cross-validated-caption)</p>
+</div>
 
 (ref:mas-yoyo-ba-cross-validated-caption) **Residuals plot. A. ** Model residuals using the training data. This is exactly the same as panel B in Figure \@ref(fig:mas-yoyo-ba). **B.** Model residuals using the cross-validated training data. **C.** Model residuals using the cross-validated testing data. 
 
@@ -555,47 +1091,31 @@ As can be seen from the panels B and C in Figure \@ref(fig:mas-yoyo-ba-cross-val
 
 But these can be useful diagnostic tools for checking where the model fails (e.g. what particular observation might be problematic or outlier, as well how does $Bias^2$ and $Variance$ changes across $y_{observed}$ continuum). These two concepts are depicted on Figure \@ref(fig:mas-yoyo-bias-variance-index) and Figure \@ref(fig:mas-yoyo-bias-variance-y-obs). 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-variance-index-1} 
-
-}
-
-\caption{(ref:mas-yoyo-bias-variance-index-caption)}(\#fig:mas-yoyo-bias-variance-index)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-index-1.png" alt="(ref:mas-yoyo-bias-variance-index-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-bias-variance-index)(ref:mas-yoyo-bias-variance-index-caption)</p>
+</div>
 (ref:mas-yoyo-bias-variance-index-caption) **Prediction error ($MSE$), $Bias^2$, and $Variance$ across repeated cross-validated testing data. **X-axis on the panels represents observation *index*, as in $y_{i, observed}$
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-variance-y-obs-1} 
-
-}
-
-\caption{(ref:mas-yoyo-bias-variance-y-obs-caption)}(\#fig:mas-yoyo-bias-variance-y-obs)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-variance-y-obs-1.png" alt="(ref:mas-yoyo-bias-variance-y-obs-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-bias-variance-y-obs)(ref:mas-yoyo-bias-variance-y-obs-caption)</p>
+</div>
 (ref:mas-yoyo-bias-variance-y-obs-caption) **Prediction error ($MSE$), $Bias^2$ and $Variance$ across repeated cross-validated testing data. **X-axis on the panels represent $y_{observed}$. Since there might be multiple equal $y_{observed}$, `min` and `max` are used and represent *ribbon* over `mean` (indicated by line)
 
 Since $Bias$ and $Variance$ represent a quantitative summary of the residuals across cross-validations, the residuals and predicted observations across cross-validation testing folds can be visualized in more details as depicted on Figures \@ref(fig:mas-yoyo-bias-cv-prediction-index) and \@ref(fig:mas-yoyo-bias-cv-prediction-observation). 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-cv-prediction-index-1} 
-
-}
-
-\caption{(ref:mas-yoyo-bias-cv-prediction-index-caption)}(\#fig:mas-yoyo-bias-cv-prediction-index)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-index-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-index-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-bias-cv-prediction-index)(ref:mas-yoyo-bias-cv-prediction-index-caption)</p>
+</div>
 
 (ref:mas-yoyo-bias-cv-prediction-index-caption) **Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation.** Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents $Variance$, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents $Bias$. 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-bias-cv-prediction-observation-1} 
-
-}
-
-\caption{(ref:mas-yoyo-bias-cv-prediction-observation-caption)}(\#fig:mas-yoyo-bias-cv-prediction-observation)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-bias-cv-prediction-observation-1.png" alt="(ref:mas-yoyo-bias-cv-prediction-observation-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-bias-cv-prediction-observation)(ref:mas-yoyo-bias-cv-prediction-observation-caption)</p>
+</div>
 
 (ref:mas-yoyo-bias-cv-prediction-observation-caption) **Testing prediction residuals across cross-validation folds summarized with cross-bars for every observation value.** Cross-bars represent ranges of testing residuals for each observation, while horizontal bar represent mean residual. The length of the bar represents $Variance$, while distance between horizontal dashed line and horizontal line in the cross-bar (i.e. mean residual) represents $Bias$.
 
@@ -603,39 +1123,120 @@ Cross-validated, *pooled*, and full training data set predictive performance met
 
 (ref:mas-yoyo-cv-performance-summary-caption) **Predictive performance summary**
 
-\begin{table}
-
-\caption{(\#tab:mas-yoyo-cv-performance-summary)(ref:mas-yoyo-cv-performance-summary-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{lrrrrrrr}
-\toprule
-metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
-\midrule
-MBE & 0.00 & 0.00 & 0.00 & 0.00 & 0.10 & -0.17 & 0.21\\
-MAE & 0.17 & 0.17 & 0.19 & 0.19 & 0.05 & 0.13 & 0.27\\
-RMSE & 0.21 & 0.21 & 0.23 & 0.23 & 0.05 & 0.14 & 0.29\\
-PPER & 0.97 & 0.98 & 0.97 & 0.94 & 0.04 & 0.87 & 0.99\\
-SESOI to RMSE & 4.73 & 4.83 & 4.33 & 4.65 & 1.12 & 3.42 & 7.15\\
-\addlinespace
-R-squared & 0.74 & 0.75 & 0.68 & 0.68 & 0.18 & 0.27 & 0.87\\
-MinErr & -0.44 & -0.49 & -0.51 & -0.33 & 0.13 & -0.51 & -0.06\\
-MaxErr & 0.39 & 0.42 & 0.53 & 0.35 & 0.10 & 0.15 & 0.53\\
-MaxAbsErr & 0.44 & 0.49 & 0.53 & 0.41 & 0.09 & 0.22 & 0.53\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:mas-yoyo-cv-performance-summary)(ref:mas-yoyo-cv-performance-summary-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> metric </th>
+   <th style="text-align:right;"> training </th>
+   <th style="text-align:right;"> training.pooled </th>
+   <th style="text-align:right;"> testing.pooled </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> min </th>
+   <th style="text-align:right;"> max </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> MBE </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> -0.17 </td>
+   <td style="text-align:right;"> 0.21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MAE </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.21 </td>
+   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PPER </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.99 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SESOI to RMSE </td>
+   <td style="text-align:right;"> 4.73 </td>
+   <td style="text-align:right;"> 4.83 </td>
+   <td style="text-align:right;"> 4.33 </td>
+   <td style="text-align:right;"> 4.65 </td>
+   <td style="text-align:right;"> 1.12 </td>
+   <td style="text-align:right;"> 3.42 </td>
+   <td style="text-align:right;"> 7.15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R-squared </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.18 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.87 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MinErr </td>
+   <td style="text-align:right;"> -0.44 </td>
+   <td style="text-align:right;"> -0.49 </td>
+   <td style="text-align:right;"> -0.51 </td>
+   <td style="text-align:right;"> -0.33 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> -0.51 </td>
+   <td style="text-align:right;"> -0.06 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MaxErr </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.53 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MaxAbsErr </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.53 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.22 </td>
+   <td style="text-align:right;"> 0.53 </td>
+  </tr>
+</tbody>
+</table>
 
 Summary from the Table \@ref(tab:mas-yoyo-cv-performance-summary) as well as the individual cross-validated sample predictive performance from the Table \@ref(tab:mas-yoyo-cv-performance) are visually represented in the Figure \@ref(fig:mas-yoyo-cv-graphical)). 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/mas-yoyo-cv-graphical-1} 
-
-}
-
-\caption{(ref:mas-yoyo-cv-graphical-caption)}(\#fig:mas-yoyo-cv-graphical)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/mas-yoyo-cv-graphical-1.png" alt="(ref:mas-yoyo-cv-graphical-caption)" width="90%" />
+<p class="caption">(\#fig:mas-yoyo-cv-graphical)(ref:mas-yoyo-cv-graphical-caption)</p>
+</div>
 (ref:mas-yoyo-cv-graphical-caption) **Cross-validated model performance. **Dot and line bar indicate `mean`, `min` and `max` of the cross-validated performance. Dotted line indicate model performance on the training data set. 
 
 As can be seen from the Figure \@ref(fig:mas-yoyo-cv-graphical), cross-validated prediction performance metrics do not differ much[^PREDICTION_T_TEST] from the metrics estimated using the full training sample (calculated in [Describing relationship between two variables] section and in the Table \@ref(tab:mas-yoyo-training-performance), and indicated by the dotted horizontal line in the Figure \@ref(fig:mas-yoyo-cv-graphical)). For some more complex models, these differences can be much larger and are clear indication of the model over-fitting. 
@@ -650,41 +1251,122 @@ As shown in [Describing relationship between two variables], predicting YoYoIR1 
 
 Figure \@ref(fig:yoyo-mas-ba) depicts modified Bland-Altman plot for predictions using the full training data set. Visual inspection demonstrates that many points are outside of SESOI band, indicating poor practically significant (or useful) predictions. 
 
-\begin{figure}[!htb]
-
-{\centering \includegraphics[width=0.9\linewidth]{03-Prediction_files/figure-latex/yoyo-mas-ba-1} 
-
-}
-
-\caption{(ref:yoyo-mas-ba-caption)}(\#fig:yoyo-mas-ba)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-Prediction_files/figure-html/yoyo-mas-ba-1.png" alt="(ref:yoyo-mas-ba-caption)" width="90%" />
+<p class="caption">(\#fig:yoyo-mas-ba)(ref:yoyo-mas-ba-caption)</p>
+</div>
 (ref:yoyo-mas-ba-caption) **Scatter plot for simple linear regression between YoYoIR1 and MAS using the full training data sample. A. ** Scatter plot between YoYoIR1 and MAS scores. Black line indicates model prediction. **B.** Scatter plot between $y_{predicted}$ (fitted or predicted YoYoIR1) against model residual $y_{residual} = y_{predicted} - y_{observed}$, or Predicted YoYoIR1 - YoYoIR1. Dotted lines indicate *Levels of Agreement* (LOA; i.e. upper and lower threshold that contain 95% of residuals distribution) and grey band indicates SESOI. Blue line indicate linear regression fit of the residuals and is used to indicate issues with the model (residuals)
 
 Predictive performance metrics can be found in the Table \@ref(tab:mas-yoyo-cv-performance-summary). As already expected, predicting YoYoIR1 from the MAS score, **given** the data collected, SESOI and linear regression model is not precise enough to be practically useful. Please note that the `R-squared` is very close to `R-squared` from the Table \@ref(tab:mas-yoyo-cv-performance-summary), but the `PPER` is much worse. Another reason to complement contemporary estimators with magnitude-based ones. 
 
 (ref:yoyo-mas-cv-performance-summary-caption) **Predictive performance summary**
 
-\begin{table}
-
-\caption{(\#tab:yoyo-mas-cv-performance-summary)(ref:yoyo-mas-cv-performance-summary-caption)}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{lrrrrrrr}
-\toprule
-metric & training & training.pooled & testing.pooled & mean & SD & min & max\\
-\midrule
-MBE & 0.00 & 0.00 & 3.13 & 1.95 & 50.33 & -96.20 & 82.14\\
-MAE & 104.69 & 103.04 & 112.98 & 112.59 & 24.99 & 66.61 & 154.76\\
-RMSE & 129.30 & 127.55 & 138.73 & 135.92 & 26.46 & 82.62 & 175.52\\
-PPER & 0.24 & 0.25 & 0.23 & 0.22 & 0.05 & 0.17 & 0.34\\
-SESOI to RMSE & 0.62 & 0.63 & 0.58 & 0.61 & 0.14 & 0.46 & 0.97\\
-\addlinespace
-R-squared & 0.74 & 0.74 & 0.70 & 0.70 & 0.14 & 0.48 & 0.88\\
-MinErr & -235.93 & -261.63 & -253.04 & -193.59 & 43.68 & -253.04 & -76.70\\
-MaxErr & 284.07 & 309.00 & 323.53 & 225.37 & 89.69 & 51.02 & 323.53\\
-MaxAbsErr & 284.07 & 309.00 & 323.53 & 260.89 & 44.88 & 158.47 & 323.53\\
-\bottomrule
-\end{tabular}}
-\end{table}
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:yoyo-mas-cv-performance-summary)(ref:yoyo-mas-cv-performance-summary-caption)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> metric </th>
+   <th style="text-align:right;"> training </th>
+   <th style="text-align:right;"> training.pooled </th>
+   <th style="text-align:right;"> testing.pooled </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> min </th>
+   <th style="text-align:right;"> max </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> MBE </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 3.13 </td>
+   <td style="text-align:right;"> 1.95 </td>
+   <td style="text-align:right;"> 50.33 </td>
+   <td style="text-align:right;"> -96.20 </td>
+   <td style="text-align:right;"> 82.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MAE </td>
+   <td style="text-align:right;"> 104.69 </td>
+   <td style="text-align:right;"> 103.04 </td>
+   <td style="text-align:right;"> 112.98 </td>
+   <td style="text-align:right;"> 112.59 </td>
+   <td style="text-align:right;"> 24.99 </td>
+   <td style="text-align:right;"> 66.61 </td>
+   <td style="text-align:right;"> 154.76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:right;"> 129.30 </td>
+   <td style="text-align:right;"> 127.55 </td>
+   <td style="text-align:right;"> 138.73 </td>
+   <td style="text-align:right;"> 135.92 </td>
+   <td style="text-align:right;"> 26.46 </td>
+   <td style="text-align:right;"> 82.62 </td>
+   <td style="text-align:right;"> 175.52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PPER </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.22 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SESOI to RMSE </td>
+   <td style="text-align:right;"> 0.62 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.58 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.97 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R-squared </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 0.88 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MinErr </td>
+   <td style="text-align:right;"> -235.93 </td>
+   <td style="text-align:right;"> -261.63 </td>
+   <td style="text-align:right;"> -253.04 </td>
+   <td style="text-align:right;"> -193.59 </td>
+   <td style="text-align:right;"> 43.68 </td>
+   <td style="text-align:right;"> -253.04 </td>
+   <td style="text-align:right;"> -76.70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MaxErr </td>
+   <td style="text-align:right;"> 284.07 </td>
+   <td style="text-align:right;"> 309.00 </td>
+   <td style="text-align:right;"> 323.53 </td>
+   <td style="text-align:right;"> 225.37 </td>
+   <td style="text-align:right;"> 89.69 </td>
+   <td style="text-align:right;"> 51.02 </td>
+   <td style="text-align:right;"> 323.53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MaxAbsErr </td>
+   <td style="text-align:right;"> 284.07 </td>
+   <td style="text-align:right;"> 309.00 </td>
+   <td style="text-align:right;"> 323.53 </td>
+   <td style="text-align:right;"> 260.89 </td>
+   <td style="text-align:right;"> 44.88 </td>
+   <td style="text-align:right;"> 158.47 </td>
+   <td style="text-align:right;"> 323.53 </td>
+  </tr>
+</tbody>
+</table>
 
 In the second part of this book, we will get back to this example and estimate predictive performance using different models besides linear regression (like baseline prediction and *regression trees*)

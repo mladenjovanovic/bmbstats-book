@@ -141,9 +141,7 @@ ggplot(kimberley_profile$data, aes(x = distance)) +
   ylab("Time (s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
 
 To plot predicted velocity, acceleration, and relative power over distance, use `shorts:predict_`
 
@@ -182,9 +180,7 @@ ggplot(kimberley_pred, aes(x = distance, y = value)) +
   ylab(NULL)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
 
 To do prediction simpler, use `shorts::predict_kinematics` function. This will provide kinematics for 0-6s sprint using 100Hz. 
 
@@ -360,9 +356,7 @@ ggplot(velocity_over_distance, aes(x = distance, y = pred_velocity, color = athl
   ylab("Predicted velocity (m/s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-12-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
 
 To modify random effects, which are by default `MSS` and `TAU` (`MSS + TAU ~ 1`), use the `random` parameter. For example, we can assume same `TAU` for all athletes and only use `MSS` as random effect:
 
@@ -454,9 +448,7 @@ ggplot(jim_profile$data, aes(x = time)) +
   ylab("Velocity (m/s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-15-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
 
 Radar gun data can be modeled individually or using *non-linear mixed model* implemented in `shorts::mixed_model_using_radar`:
 
@@ -536,9 +528,7 @@ ggplot(model_predictions, aes(x = time, y = acceleration, color = athlete)) +
   ylab("Predicted acceleration (m/s^2)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
 
 ### Using corrections
 
@@ -640,9 +630,7 @@ ggplot(velocity_over_distance_corrected, aes(x = distance, y = pred_velocity, co
   ylab("Predicted velocity (m/s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-19-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
 
 Instead of providing for `time_correction`, this parameter can be estimated using `shorts::model_using_splits_with_time_correction` and `shorts::mixed_model_using_splits_with_time_correction`:
 
@@ -763,9 +751,7 @@ ggplot(LOOCV_parameters, aes(y = value)) +
   theme(axis.ticks.x = element_blank(), axis.text.x = element_blank())
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-22-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
 
 Let's plot model LOOCV predictions and training (when using all data set) predictions against observed performance:
 
@@ -786,9 +772,7 @@ ggplot(kimberley_data, aes(x = distance)) +
   ylab("Time (s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-23-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
 
 Let's plot predicted velocity using LOOCV estimate parameters to check robustness of the model predictions:
 
@@ -820,9 +804,7 @@ ggplot(plot_data, aes(x = time, y = LOOCV_velocity, group = LOOCV)) +
   ylab("Velocity (m/s)")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-24-1} \end{center}
+<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
 
 ## `shorts` Citation
 

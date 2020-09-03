@@ -100,9 +100,7 @@ response <- ggplot(bike_score, aes(x = Day, y = pred)) +
 cowplot::plot_grid(dose, response, ncol = 1)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-2-1} \end{center}
+<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-2-1.png" width="90%" style="display: block; margin: auto;" />
 
 `dorem` also allows more control and setup using the `control` parameter. In the next example, cross-validation of 3 repeats and 5 folds will be performed, with additional feature of *shuffling* the predictors and evaluating how the model predicts on random predictors (i.e., dose):
 
@@ -167,9 +165,7 @@ To plot model predictions, including the CV as gray area and shuffle as dotted l
 plot(banister_model, type = "pred") + theme_minimal()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
 
 To plot model coefficients across CV folds:
 
@@ -178,9 +174,7 @@ To plot model coefficients across CV folds:
 plot(banister_model, type = "coef") + theme_minimal()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
 
 To plot model performance across CV folds (i.e., training and testing folds):
 
@@ -189,8 +183,6 @@ To plot model performance across CV folds (i.e., training and testing folds):
 plot(banister_model, type = "perf") + theme_minimal()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
 
 

@@ -8,6 +8,7 @@ bookdown::gitbook:
       link: https://github.com/mladenjovanovic/bmbstats-book/%s
       text: "Edit"
     sharing: yes
+    download: "pdf"
 bookdown::pdf_book:
   keep_tex: yes
   dev: "cairo_pdf"
