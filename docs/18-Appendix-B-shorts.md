@@ -71,8 +71,10 @@ kimberley_profile
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 
+#>        MAPE 
+#>  1.19263116
 
 summary(kimberley_profile)
 #> 
@@ -141,7 +143,9 @@ ggplot(kimberley_profile$data, aes(x = distance)) +
   ylab("Time (s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 To plot predicted velocity, acceleration, and relative power over distance, use `shorts:predict_`
 
@@ -180,7 +184,9 @@ ggplot(kimberley_pred, aes(x = distance, y = value)) +
   ylab(NULL)
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 To do prediction simpler, use `shorts::predict_kinematics` function. This will provide kinematics for 0-6s sprint using 100Hz. 
 
@@ -281,8 +287,10 @@ mixed_model
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.02600213  0.99982036 -0.02934519  0.04964582  0.04964582  0.02139178  0.01722581  0.90185579
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.02600213  0.99982036 -0.02934519  0.04964582  0.04964582  0.02139178  0.01722581 
+#>        MAPE 
+#>  0.90185579
 
 summary(mixed_model)
 #> Nonlinear mixed-effects model fit by maximum likelihood
@@ -356,7 +364,9 @@ ggplot(velocity_over_distance, aes(x = distance, y = pred_velocity, color = athl
   ylab("Predicted velocity (m/s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 To modify random effects, which are by default `MSS` and `TAU` (`MSS + TAU ~ 1`), use the `random` parameter. For example, we can assume same `TAU` for all athletes and only use `MSS` as random effect:
 
@@ -389,8 +399,10 @@ mixed_model
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.07635631  0.99801628 -0.10228573  0.15987989  0.15987989  0.06979851  0.05845303  2.68555639
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.07635631  0.99801628 -0.10228573  0.15987989  0.15987989  0.06979851  0.05845303 
+#>        MAPE 
+#>  2.68555639
 ```
 
 ### Profiling using radar gun data
@@ -416,8 +428,10 @@ jim_profile
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.05058726  0.99924408 -0.15099212  0.16415830  0.16415830  0.05050288  0.03927901         NaN
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.05058726  0.99924408 -0.15099212  0.16415830  0.16415830  0.05050288  0.03927901 
+#>        MAPE 
+#>         NaN
 
 summary(jim_profile)
 #> 
@@ -448,7 +462,9 @@ ggplot(jim_profile$data, aes(x = time)) +
   ylab("Velocity (m/s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Radar gun data can be modeled individually or using *non-linear mixed model* implemented in `shorts::mixed_model_using_radar`:
 
@@ -480,8 +496,10 @@ mixed_model
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.05164818  0.99942171 -0.21912952  0.19832897  0.21912952  0.05156203  0.03949473         NaN
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.05164818  0.99942171 -0.21912952  0.19832897  0.21912952  0.05156203  0.03949473 
+#>        MAPE 
+#>         NaN
 
 summary(mixed_model)
 #> Nonlinear mixed-effects model fit by maximum likelihood
@@ -528,7 +546,9 @@ ggplot(model_predictions, aes(x = time, y = acceleration, color = athlete)) +
   ylab("Predicted acceleration (m/s^2)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 ### Using corrections
 
@@ -569,10 +589,10 @@ mixed_model_corrected
 #> 
 #> Model fit estimators
 #> --------------------
-#>          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE          MAE 
-#>  0.015195052  0.999941466 -0.041155421  0.020298042  0.041155421  0.012443740  0.009087699 
-#>         MAPE 
-#>  0.496822694
+#>          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE 
+#>  0.015195052  0.999941466 -0.041155421  0.020298042  0.041155421  0.012443740 
+#>          MAE         MAPE 
+#>  0.009087699  0.496822694
 
 summary(mixed_model_corrected)
 #> Nonlinear mixed-effects model fit by maximum likelihood
@@ -630,7 +650,9 @@ ggplot(velocity_over_distance_corrected, aes(x = distance, y = pred_velocity, co
   ylab("Predicted velocity (m/s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Instead of providing for `time_correction`, this parameter can be estimated using `shorts::model_using_splits_with_time_correction` and `shorts::mixed_model_using_splits_with_time_correction`:
 
@@ -684,10 +706,10 @@ mixed_model_with_time_correction
 #> 
 #> Model fit estimators
 #> --------------------
-#>          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE          MAE 
-#>  0.005976815  0.999990286 -0.016508275  0.009370607  0.016508275  0.004882226  0.003481096 
-#>         MAPE 
-#>  0.186135567
+#>          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE 
+#>  0.005976815  0.999990286 -0.016508275  0.009370607  0.016508275  0.004882226 
+#>          MAE         MAPE 
+#>  0.003481096  0.186135567
 ```
 
 For more details, please refer to `sprint-corrections` [vignette](https://mladenjovanovic.github.io/shorts/articles/sprint-corrections.html).
@@ -713,8 +735,10 @@ kimberley_profile_LOOCV
 #> 
 #> Model fit estimators
 #> --------------------
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116 
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 
+#>        MAPE 
+#>  1.19263116 
 #> 
 #> 
 #> Leave-One-Out Cross-Validation
@@ -729,8 +753,10 @@ kimberley_profile_LOOCV
 #> 6 8.394673 0.7596923 11.05010 23.19049               0                   0
 #> 
 #> Model fit:
-#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE 
-#>          NA  0.99901083 -0.03444984  0.08009048  0.08009048  0.04742769  0.03923869  1.72270273
+#>         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE 
+#>          NA  0.99901083 -0.03444984  0.08009048  0.08009048  0.04742769  0.03923869 
+#>        MAPE 
+#>  1.72270273
 ```
 
 Box-plot is suitable method for plotting estimated parameters: 
@@ -751,7 +777,9 @@ ggplot(LOOCV_parameters, aes(y = value)) +
   theme(axis.ticks.x = element_blank(), axis.text.x = element_blank())
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 Let's plot model LOOCV predictions and training (when using all data set) predictions against observed performance:
 
@@ -772,7 +800,9 @@ ggplot(kimberley_data, aes(x = distance)) +
   ylab("Time (s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Let's plot predicted velocity using LOOCV estimate parameters to check robustness of the model predictions:
 
@@ -804,7 +834,9 @@ ggplot(plot_data, aes(x = time, y = LOOCV_velocity, group = LOOCV)) +
   ylab("Velocity (m/s)")
 ```
 
-<img src="18-Appendix-B-shorts_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{18-Appendix-B-shorts_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 ## `shorts` Citation
 

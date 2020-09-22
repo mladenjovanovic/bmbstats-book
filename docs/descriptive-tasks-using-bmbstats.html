@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-09-03" />
+<meta name="date" content="2020-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -659,14 +659,16 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb23-4"><a href="descriptive-tasks-using-bmbstats.html#cb23-4"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
 <span id="cb23-5"><a href="descriptive-tasks-using-bmbstats.html#cb23-5"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
 <span id="cb23-6"><a href="descriptive-tasks-using-bmbstats.html#cb23-6"></a>)</span>
-<span id="cb23-7"><a href="descriptive-tasks-using-bmbstats.html#cb23-7"></a><span class="co">#&gt;        SESOI lower        SESOI upper        SESOI range          Mean diff            SD diff </span></span>
-<span id="cb23-8"><a href="descriptive-tasks-using-bmbstats.html#cb23-8"></a><span class="co">#&gt;        -2.50000000         2.50000000         5.00000000        12.72521903        12.41402468 </span></span>
-<span id="cb23-9"><a href="descriptive-tasks-using-bmbstats.html#cb23-9"></a><span class="co">#&gt;          SD pooled           %CV diff             % diff              Ratio          Cohen&#39;s d </span></span>
-<span id="cb23-10"><a href="descriptive-tasks-using-bmbstats.html#cb23-10"></a><span class="co">#&gt;         8.77804103        97.55450689         7.79837084         1.07798371         1.44966502 </span></span>
-<span id="cb23-11"><a href="descriptive-tasks-using-bmbstats.html#cb23-11"></a><span class="co">#&gt;               CLES                OVL Mean diff to SESOI   SD diff to SESOI             pLower </span></span>
-<span id="cb23-12"><a href="descriptive-tasks-using-bmbstats.html#cb23-12"></a><span class="co">#&gt;         0.84733444         0.46855479         2.54504381         2.48280494         0.11148343 </span></span>
-<span id="cb23-13"><a href="descriptive-tasks-using-bmbstats.html#cb23-13"></a><span class="co">#&gt;        pEquivalent            pHigher </span></span>
-<span id="cb23-14"><a href="descriptive-tasks-using-bmbstats.html#cb23-14"></a><span class="co">#&gt;         0.09457649         0.79394008</span></span></code></pre></div>
+<span id="cb23-7"><a href="descriptive-tasks-using-bmbstats.html#cb23-7"></a><span class="co">#&gt;        SESOI lower        SESOI upper        SESOI range          Mean diff </span></span>
+<span id="cb23-8"><a href="descriptive-tasks-using-bmbstats.html#cb23-8"></a><span class="co">#&gt;        -2.50000000         2.50000000         5.00000000        12.72521903 </span></span>
+<span id="cb23-9"><a href="descriptive-tasks-using-bmbstats.html#cb23-9"></a><span class="co">#&gt;            SD diff          SD pooled           %CV diff             % diff </span></span>
+<span id="cb23-10"><a href="descriptive-tasks-using-bmbstats.html#cb23-10"></a><span class="co">#&gt;        12.41402468         8.77804103        97.55450689         7.79837084 </span></span>
+<span id="cb23-11"><a href="descriptive-tasks-using-bmbstats.html#cb23-11"></a><span class="co">#&gt;              Ratio          Cohen&#39;s d               CLES                OVL </span></span>
+<span id="cb23-12"><a href="descriptive-tasks-using-bmbstats.html#cb23-12"></a><span class="co">#&gt;         1.07798371         1.44966502         0.84733444         0.46855479 </span></span>
+<span id="cb23-13"><a href="descriptive-tasks-using-bmbstats.html#cb23-13"></a><span class="co">#&gt; Mean diff to SESOI   SD diff to SESOI             pLower        pEquivalent </span></span>
+<span id="cb23-14"><a href="descriptive-tasks-using-bmbstats.html#cb23-14"></a><span class="co">#&gt;         2.54504381         2.48280494         0.11148343         0.09457649 </span></span>
+<span id="cb23-15"><a href="descriptive-tasks-using-bmbstats.html#cb23-15"></a><span class="co">#&gt;            pHigher </span></span>
+<span id="cb23-16"><a href="descriptive-tasks-using-bmbstats.html#cb23-16"></a><span class="co">#&gt;         0.79394008</span></span></code></pre></div>
 <p><code>bmbstats::compare_independent_groups</code> uses by default the <code>independent_groups_estimators</code>, but we can write our own estimators function a bit later:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="descriptive-tasks-using-bmbstats.html#cb24-1"></a>males_females_comp &lt;-<span class="st"> </span><span class="kw">compare_independent_groups</span>(</span>
 <span id="cb24-2"><a href="descriptive-tasks-using-bmbstats.html#cb24-2"></a>  <span class="dt">group_a =</span> height_data<span class="op">$</span>Female,</span>
@@ -942,29 +944,29 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb39-59"><a href="descriptive-tasks-using-bmbstats.html#cb39-59"></a></span>
 <span id="cb39-60"><a href="descriptive-tasks-using-bmbstats.html#cb39-60"></a>bench_press_data</span>
 <span id="cb39-61"><a href="descriptive-tasks-using-bmbstats.html#cb39-61"></a><span class="co">#&gt; # A tibble: 20 x 7</span></span>
-<span id="cb39-62"><a href="descriptive-tasks-using-bmbstats.html#cb39-62"></a><span class="co">#&gt;    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse… `Post-test (obs…</span></span>
-<span id="cb39-63"><a href="descriptive-tasks-using-bmbstats.html#cb39-63"></a><span class="co">#&gt;    &lt;fct&gt;              &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb39-64"><a href="descriptive-tasks-using-bmbstats.html#cb39-64"></a><span class="co">#&gt;  1 Athlet…            111.                0            111.             112.             112. </span></span>
-<span id="cb39-65"><a href="descriptive-tasks-using-bmbstats.html#cb39-65"></a><span class="co">#&gt;  2 Athlet…            102.                0            102.             108.              97.7</span></span>
-<span id="cb39-66"><a href="descriptive-tasks-using-bmbstats.html#cb39-66"></a><span class="co">#&gt;  3 Athlet…             93.4               0             93.4             90.8             92.0</span></span>
-<span id="cb39-67"><a href="descriptive-tasks-using-bmbstats.html#cb39-67"></a><span class="co">#&gt;  4 Athlet…             95.4               0             95.4             93.2             94.0</span></span>
-<span id="cb39-68"><a href="descriptive-tasks-using-bmbstats.html#cb39-68"></a><span class="co">#&gt;  5 Athlet…            111.                0            111.             111.             110. </span></span>
-<span id="cb39-69"><a href="descriptive-tasks-using-bmbstats.html#cb39-69"></a><span class="co">#&gt;  6 Athlet…            110.                0            110.             109.             111. </span></span>
-<span id="cb39-70"><a href="descriptive-tasks-using-bmbstats.html#cb39-70"></a><span class="co">#&gt;  7 Athlet…            104.                0            104.             105.             110. </span></span>
-<span id="cb39-71"><a href="descriptive-tasks-using-bmbstats.html#cb39-71"></a><span class="co">#&gt;  8 Athlet…             93.7               0             93.7             94.5             93.0</span></span>
-<span id="cb39-72"><a href="descriptive-tasks-using-bmbstats.html#cb39-72"></a><span class="co">#&gt;  9 Athlet…             99.6               0             99.6            102.              99.8</span></span>
-<span id="cb39-73"><a href="descriptive-tasks-using-bmbstats.html#cb39-73"></a><span class="co">#&gt; 10 Athlet…            106.                0            106.             109.             106. </span></span>
-<span id="cb39-74"><a href="descriptive-tasks-using-bmbstats.html#cb39-74"></a><span class="co">#&gt; 11 Athlet…            102.                0            102.             105.             103. </span></span>
-<span id="cb39-75"><a href="descriptive-tasks-using-bmbstats.html#cb39-75"></a><span class="co">#&gt; 12 Athlet…            101.                0            101.             100.             102. </span></span>
-<span id="cb39-76"><a href="descriptive-tasks-using-bmbstats.html#cb39-76"></a><span class="co">#&gt; 13 Athlet…             92.9               0             92.9             90.5             96.2</span></span>
-<span id="cb39-77"><a href="descriptive-tasks-using-bmbstats.html#cb39-77"></a><span class="co">#&gt; 14 Athlet…             98.2               0             98.2             96.5            100. </span></span>
-<span id="cb39-78"><a href="descriptive-tasks-using-bmbstats.html#cb39-78"></a><span class="co">#&gt; 15 Athlet…             88.3               0             88.3             89.7             92.5</span></span>
-<span id="cb39-79"><a href="descriptive-tasks-using-bmbstats.html#cb39-79"></a><span class="co">#&gt; 16 Athlet…            106.                0            106.             109.             111. </span></span>
-<span id="cb39-80"><a href="descriptive-tasks-using-bmbstats.html#cb39-80"></a><span class="co">#&gt; 17 Athlet…             95.8               0             95.8             98.2             94.1</span></span>
-<span id="cb39-81"><a href="descriptive-tasks-using-bmbstats.html#cb39-81"></a><span class="co">#&gt; 18 Athlet…             92.9               0             92.9             90.8             87.9</span></span>
-<span id="cb39-82"><a href="descriptive-tasks-using-bmbstats.html#cb39-82"></a><span class="co">#&gt; 19 Athlet…            103.                0            103.             104.             107. </span></span>
-<span id="cb39-83"><a href="descriptive-tasks-using-bmbstats.html#cb39-83"></a><span class="co">#&gt; 20 Athlet…            104.                0            104.             107.             107. </span></span>
-<span id="cb39-84"><a href="descriptive-tasks-using-bmbstats.html#cb39-84"></a><span class="co">#&gt; # … with 1 more variable: `Change (observed)` &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb39-62"><a href="descriptive-tasks-using-bmbstats.html#cb39-62"></a><span class="co">#&gt;    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse…</span></span>
+<span id="cb39-63"><a href="descriptive-tasks-using-bmbstats.html#cb39-63"></a><span class="co">#&gt;    &lt;fct&gt;              &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb39-64"><a href="descriptive-tasks-using-bmbstats.html#cb39-64"></a><span class="co">#&gt;  1 Athlet…            111.                0            111.             112. </span></span>
+<span id="cb39-65"><a href="descriptive-tasks-using-bmbstats.html#cb39-65"></a><span class="co">#&gt;  2 Athlet…            102.                0            102.             108. </span></span>
+<span id="cb39-66"><a href="descriptive-tasks-using-bmbstats.html#cb39-66"></a><span class="co">#&gt;  3 Athlet…             93.4               0             93.4             90.8</span></span>
+<span id="cb39-67"><a href="descriptive-tasks-using-bmbstats.html#cb39-67"></a><span class="co">#&gt;  4 Athlet…             95.4               0             95.4             93.2</span></span>
+<span id="cb39-68"><a href="descriptive-tasks-using-bmbstats.html#cb39-68"></a><span class="co">#&gt;  5 Athlet…            111.                0            111.             111. </span></span>
+<span id="cb39-69"><a href="descriptive-tasks-using-bmbstats.html#cb39-69"></a><span class="co">#&gt;  6 Athlet…            110.                0            110.             109. </span></span>
+<span id="cb39-70"><a href="descriptive-tasks-using-bmbstats.html#cb39-70"></a><span class="co">#&gt;  7 Athlet…            104.                0            104.             105. </span></span>
+<span id="cb39-71"><a href="descriptive-tasks-using-bmbstats.html#cb39-71"></a><span class="co">#&gt;  8 Athlet…             93.7               0             93.7             94.5</span></span>
+<span id="cb39-72"><a href="descriptive-tasks-using-bmbstats.html#cb39-72"></a><span class="co">#&gt;  9 Athlet…             99.6               0             99.6            102. </span></span>
+<span id="cb39-73"><a href="descriptive-tasks-using-bmbstats.html#cb39-73"></a><span class="co">#&gt; 10 Athlet…            106.                0            106.             109. </span></span>
+<span id="cb39-74"><a href="descriptive-tasks-using-bmbstats.html#cb39-74"></a><span class="co">#&gt; 11 Athlet…            102.                0            102.             105. </span></span>
+<span id="cb39-75"><a href="descriptive-tasks-using-bmbstats.html#cb39-75"></a><span class="co">#&gt; 12 Athlet…            101.                0            101.             100. </span></span>
+<span id="cb39-76"><a href="descriptive-tasks-using-bmbstats.html#cb39-76"></a><span class="co">#&gt; 13 Athlet…             92.9               0             92.9             90.5</span></span>
+<span id="cb39-77"><a href="descriptive-tasks-using-bmbstats.html#cb39-77"></a><span class="co">#&gt; 14 Athlet…             98.2               0             98.2             96.5</span></span>
+<span id="cb39-78"><a href="descriptive-tasks-using-bmbstats.html#cb39-78"></a><span class="co">#&gt; 15 Athlet…             88.3               0             88.3             89.7</span></span>
+<span id="cb39-79"><a href="descriptive-tasks-using-bmbstats.html#cb39-79"></a><span class="co">#&gt; 16 Athlet…            106.                0            106.             109. </span></span>
+<span id="cb39-80"><a href="descriptive-tasks-using-bmbstats.html#cb39-80"></a><span class="co">#&gt; 17 Athlet…             95.8               0             95.8             98.2</span></span>
+<span id="cb39-81"><a href="descriptive-tasks-using-bmbstats.html#cb39-81"></a><span class="co">#&gt; 18 Athlet…             92.9               0             92.9             90.8</span></span>
+<span id="cb39-82"><a href="descriptive-tasks-using-bmbstats.html#cb39-82"></a><span class="co">#&gt; 19 Athlet…            103.                0            103.             104. </span></span>
+<span id="cb39-83"><a href="descriptive-tasks-using-bmbstats.html#cb39-83"></a><span class="co">#&gt; 20 Athlet…            104.                0            104.             107. </span></span>
+<span id="cb39-84"><a href="descriptive-tasks-using-bmbstats.html#cb39-84"></a><span class="co">#&gt; # … with 2 more variables: `Post-test (observed)` &lt;dbl&gt;, `Change (observed)` &lt;dbl&gt;</span></span></code></pre></div>
 <p>Let’s plot the true Pre-test and Post-test scores using a scatter plot and SESOI band of -5 to 5kg:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="descriptive-tasks-using-bmbstats.html#cb40-1"></a><span class="kw">plot_pair_changes</span>(</span>
 <span id="cb40-2"><a href="descriptive-tasks-using-bmbstats.html#cb40-2"></a>  <span class="dt">group_a =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Pre-test (true)</span><span class="st">`</span>,</span>
@@ -1144,29 +1146,29 @@ Rather than comparing individual group estimates, we can perform independent gro
 <span id="cb49-59"><a href="descriptive-tasks-using-bmbstats.html#cb49-59"></a></span>
 <span id="cb49-60"><a href="descriptive-tasks-using-bmbstats.html#cb49-60"></a>bench_press_data</span>
 <span id="cb49-61"><a href="descriptive-tasks-using-bmbstats.html#cb49-61"></a><span class="co">#&gt; # A tibble: 20 x 7</span></span>
-<span id="cb49-62"><a href="descriptive-tasks-using-bmbstats.html#cb49-62"></a><span class="co">#&gt;    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse… `Post-test (obs…</span></span>
-<span id="cb49-63"><a href="descriptive-tasks-using-bmbstats.html#cb49-63"></a><span class="co">#&gt;    &lt;fct&gt;              &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb49-64"><a href="descriptive-tasks-using-bmbstats.html#cb49-64"></a><span class="co">#&gt;  1 Athlet…            111.           13.8              125.             112.             126. </span></span>
-<span id="cb49-65"><a href="descriptive-tasks-using-bmbstats.html#cb49-65"></a><span class="co">#&gt;  2 Athlet…            102.           34.3              136.              97.7            135. </span></span>
-<span id="cb49-66"><a href="descriptive-tasks-using-bmbstats.html#cb49-66"></a><span class="co">#&gt;  3 Athlet…             93.4          -0.428             93.0             92.0             95.0</span></span>
-<span id="cb49-67"><a href="descriptive-tasks-using-bmbstats.html#cb49-67"></a><span class="co">#&gt;  4 Athlet…             95.4           1.27              96.7             94.0             95.4</span></span>
-<span id="cb49-68"><a href="descriptive-tasks-using-bmbstats.html#cb49-68"></a><span class="co">#&gt;  5 Athlet…            111.            9.65             120.             110.             128. </span></span>
-<span id="cb49-69"><a href="descriptive-tasks-using-bmbstats.html#cb49-69"></a><span class="co">#&gt;  6 Athlet…            110.            6.41             116.             111.             117. </span></span>
-<span id="cb49-70"><a href="descriptive-tasks-using-bmbstats.html#cb49-70"></a><span class="co">#&gt;  7 Athlet…            104.           13.3              118.             110.             116. </span></span>
-<span id="cb49-71"><a href="descriptive-tasks-using-bmbstats.html#cb49-71"></a><span class="co">#&gt;  8 Athlet…             93.7          13.4              107.              93.0            101. </span></span>
-<span id="cb49-72"><a href="descriptive-tasks-using-bmbstats.html#cb49-72"></a><span class="co">#&gt;  9 Athlet…             99.6          19.3              119.              99.8            120. </span></span>
-<span id="cb49-73"><a href="descriptive-tasks-using-bmbstats.html#cb49-73"></a><span class="co">#&gt; 10 Athlet…            106.           22.1              129.             106.             131. </span></span>
-<span id="cb49-74"><a href="descriptive-tasks-using-bmbstats.html#cb49-74"></a><span class="co">#&gt; 11 Athlet…            102.           23.1              125.             103.             128. </span></span>
-<span id="cb49-75"><a href="descriptive-tasks-using-bmbstats.html#cb49-75"></a><span class="co">#&gt; 12 Athlet…            101.            5.59             107.             102.             106. </span></span>
-<span id="cb49-76"><a href="descriptive-tasks-using-bmbstats.html#cb49-76"></a><span class="co">#&gt; 13 Athlet…             92.9           0.190             93.1             96.2             95.6</span></span>
-<span id="cb49-77"><a href="descriptive-tasks-using-bmbstats.html#cb49-77"></a><span class="co">#&gt; 14 Athlet…             98.2           3.17             101.             100.             102. </span></span>
-<span id="cb49-78"><a href="descriptive-tasks-using-bmbstats.html#cb49-78"></a><span class="co">#&gt; 15 Athlet…             88.3          15.5              104.              92.5            105. </span></span>
-<span id="cb49-79"><a href="descriptive-tasks-using-bmbstats.html#cb49-79"></a><span class="co">#&gt; 16 Athlet…            106.           21.1              127.             111.             128. </span></span>
-<span id="cb49-80"><a href="descriptive-tasks-using-bmbstats.html#cb49-80"></a><span class="co">#&gt; 17 Athlet…             95.8          19.6              115.              94.1            117. </span></span>
-<span id="cb49-81"><a href="descriptive-tasks-using-bmbstats.html#cb49-81"></a><span class="co">#&gt; 18 Athlet…             92.9           1.54              94.4             87.9            101. </span></span>
-<span id="cb49-82"><a href="descriptive-tasks-using-bmbstats.html#cb49-82"></a><span class="co">#&gt; 19 Athlet…            103.           14.6              117.             107.             113. </span></span>
-<span id="cb49-83"><a href="descriptive-tasks-using-bmbstats.html#cb49-83"></a><span class="co">#&gt; 20 Athlet…            104.           19.1              123.             107.             131. </span></span>
-<span id="cb49-84"><a href="descriptive-tasks-using-bmbstats.html#cb49-84"></a><span class="co">#&gt; # … with 1 more variable: `Change (observed)` &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb49-62"><a href="descriptive-tasks-using-bmbstats.html#cb49-62"></a><span class="co">#&gt;    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse…</span></span>
+<span id="cb49-63"><a href="descriptive-tasks-using-bmbstats.html#cb49-63"></a><span class="co">#&gt;    &lt;fct&gt;              &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb49-64"><a href="descriptive-tasks-using-bmbstats.html#cb49-64"></a><span class="co">#&gt;  1 Athlet…            111.           13.8              125.             112. </span></span>
+<span id="cb49-65"><a href="descriptive-tasks-using-bmbstats.html#cb49-65"></a><span class="co">#&gt;  2 Athlet…            102.           34.3              136.              97.7</span></span>
+<span id="cb49-66"><a href="descriptive-tasks-using-bmbstats.html#cb49-66"></a><span class="co">#&gt;  3 Athlet…             93.4          -0.428             93.0             92.0</span></span>
+<span id="cb49-67"><a href="descriptive-tasks-using-bmbstats.html#cb49-67"></a><span class="co">#&gt;  4 Athlet…             95.4           1.27              96.7             94.0</span></span>
+<span id="cb49-68"><a href="descriptive-tasks-using-bmbstats.html#cb49-68"></a><span class="co">#&gt;  5 Athlet…            111.            9.65             120.             110. </span></span>
+<span id="cb49-69"><a href="descriptive-tasks-using-bmbstats.html#cb49-69"></a><span class="co">#&gt;  6 Athlet…            110.            6.41             116.             111. </span></span>
+<span id="cb49-70"><a href="descriptive-tasks-using-bmbstats.html#cb49-70"></a><span class="co">#&gt;  7 Athlet…            104.           13.3              118.             110. </span></span>
+<span id="cb49-71"><a href="descriptive-tasks-using-bmbstats.html#cb49-71"></a><span class="co">#&gt;  8 Athlet…             93.7          13.4              107.              93.0</span></span>
+<span id="cb49-72"><a href="descriptive-tasks-using-bmbstats.html#cb49-72"></a><span class="co">#&gt;  9 Athlet…             99.6          19.3              119.              99.8</span></span>
+<span id="cb49-73"><a href="descriptive-tasks-using-bmbstats.html#cb49-73"></a><span class="co">#&gt; 10 Athlet…            106.           22.1              129.             106. </span></span>
+<span id="cb49-74"><a href="descriptive-tasks-using-bmbstats.html#cb49-74"></a><span class="co">#&gt; 11 Athlet…            102.           23.1              125.             103. </span></span>
+<span id="cb49-75"><a href="descriptive-tasks-using-bmbstats.html#cb49-75"></a><span class="co">#&gt; 12 Athlet…            101.            5.59             107.             102. </span></span>
+<span id="cb49-76"><a href="descriptive-tasks-using-bmbstats.html#cb49-76"></a><span class="co">#&gt; 13 Athlet…             92.9           0.190             93.1             96.2</span></span>
+<span id="cb49-77"><a href="descriptive-tasks-using-bmbstats.html#cb49-77"></a><span class="co">#&gt; 14 Athlet…             98.2           3.17             101.             100. </span></span>
+<span id="cb49-78"><a href="descriptive-tasks-using-bmbstats.html#cb49-78"></a><span class="co">#&gt; 15 Athlet…             88.3          15.5              104.              92.5</span></span>
+<span id="cb49-79"><a href="descriptive-tasks-using-bmbstats.html#cb49-79"></a><span class="co">#&gt; 16 Athlet…            106.           21.1              127.             111. </span></span>
+<span id="cb49-80"><a href="descriptive-tasks-using-bmbstats.html#cb49-80"></a><span class="co">#&gt; 17 Athlet…             95.8          19.6              115.              94.1</span></span>
+<span id="cb49-81"><a href="descriptive-tasks-using-bmbstats.html#cb49-81"></a><span class="co">#&gt; 18 Athlet…             92.9           1.54              94.4             87.9</span></span>
+<span id="cb49-82"><a href="descriptive-tasks-using-bmbstats.html#cb49-82"></a><span class="co">#&gt; 19 Athlet…            103.           14.6              117.             107. </span></span>
+<span id="cb49-83"><a href="descriptive-tasks-using-bmbstats.html#cb49-83"></a><span class="co">#&gt; 20 Athlet…            104.           19.1              123.             107. </span></span>
+<span id="cb49-84"><a href="descriptive-tasks-using-bmbstats.html#cb49-84"></a><span class="co">#&gt; # … with 2 more variables: `Post-test (observed)` &lt;dbl&gt;, `Change (observed)` &lt;dbl&gt;</span></span></code></pre></div>
 <p>Let’s plot true scores:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="descriptive-tasks-using-bmbstats.html#cb50-1"></a><span class="kw">plot_pair_changes</span>(</span>
 <span id="cb50-2"><a href="descriptive-tasks-using-bmbstats.html#cb50-2"></a>  <span class="dt">group_a =</span> bench_press_data<span class="op">$</span><span class="st">`</span><span class="dt">Pre-test (true)</span><span class="st">`</span>,</span>

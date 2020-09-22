@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-09-03" />
+<meta name="date" content="2020-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -400,47 +400,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb288-27"><a href="appendix-a-dorem-package.html#cb288-27"></a><span class="co">#&gt; </span></span>
 <span id="cb288-28"><a href="appendix-a-dorem-package.html#cb288-28"></a><span class="co">#&gt; Estimated model coefficients are the following:</span></span>
 <span id="cb288-29"><a href="appendix-a-dorem-package.html#cb288-29"></a><span class="co">#&gt; </span></span>
-<span id="cb288-30"><a href="appendix-a-dorem-package.html#cb288-30"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau </span></span>
-<span id="cb288-31"><a href="appendix-a-dorem-package.html#cb288-31"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 </span></span>
-<span id="cb288-32"><a href="appendix-a-dorem-package.html#cb288-32"></a><span class="co">#&gt; </span></span>
-<span id="cb288-33"><a href="appendix-a-dorem-package.html#cb288-33"></a><span class="co">#&gt; Objective function equal to: 2.1939 </span></span>
+<span id="cb288-30"><a href="appendix-a-dorem-package.html#cb288-30"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain </span></span>
+<span id="cb288-31"><a href="appendix-a-dorem-package.html#cb288-31"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750 </span></span>
+<span id="cb288-32"><a href="appendix-a-dorem-package.html#cb288-32"></a><span class="co">#&gt;  BikeScore.NTE_tau </span></span>
+<span id="cb288-33"><a href="appendix-a-dorem-package.html#cb288-33"></a><span class="co">#&gt;         24.6056388 </span></span>
 <span id="cb288-34"><a href="appendix-a-dorem-package.html#cb288-34"></a><span class="co">#&gt; </span></span>
-<span id="cb288-35"><a href="appendix-a-dorem-package.html#cb288-35"></a><span class="co">#&gt; Cross-Validation of the model was not performed. Shuffling of the predictors was not performed.</span></span>
+<span id="cb288-35"><a href="appendix-a-dorem-package.html#cb288-35"></a><span class="co">#&gt; Objective function equal to: 2.1939 </span></span>
 <span id="cb288-36"><a href="appendix-a-dorem-package.html#cb288-36"></a><span class="co">#&gt; </span></span>
-<span id="cb288-37"><a href="appendix-a-dorem-package.html#cb288-37"></a><span class="co">#&gt; Overall model performance using selected estimators is the following:</span></span>
+<span id="cb288-37"><a href="appendix-a-dorem-package.html#cb288-37"></a><span class="co">#&gt; Cross-Validation of the model was not performed. Shuffling of the predictors was not performed.</span></span>
 <span id="cb288-38"><a href="appendix-a-dorem-package.html#cb288-38"></a><span class="co">#&gt; </span></span>
-<span id="cb288-39"><a href="appendix-a-dorem-package.html#cb288-39"></a><span class="co">#&gt;              training</span></span>
-<span id="cb288-40"><a href="appendix-a-dorem-package.html#cb288-40"></a><span class="co">#&gt; N          9.00000000</span></span>
-<span id="cb288-41"><a href="appendix-a-dorem-package.html#cb288-41"></a><span class="co">#&gt; meanDiff   0.01374013</span></span>
-<span id="cb288-42"><a href="appendix-a-dorem-package.html#cb288-42"></a><span class="co">#&gt; SDdiff     1.57096328</span></span>
-<span id="cb288-43"><a href="appendix-a-dorem-package.html#cb288-43"></a><span class="co">#&gt; RMSE       1.48118212</span></span>
-<span id="cb288-44"><a href="appendix-a-dorem-package.html#cb288-44"></a><span class="co">#&gt; MAE        1.16731419</span></span>
-<span id="cb288-45"><a href="appendix-a-dorem-package.html#cb288-45"></a><span class="co">#&gt; minErr    -2.71352646</span></span>
-<span id="cb288-46"><a href="appendix-a-dorem-package.html#cb288-46"></a><span class="co">#&gt; maxErr     2.22332820</span></span>
-<span id="cb288-47"><a href="appendix-a-dorem-package.html#cb288-47"></a><span class="co">#&gt; MAPE       0.40904959</span></span>
-<span id="cb288-48"><a href="appendix-a-dorem-package.html#cb288-48"></a><span class="co">#&gt; R_squared  0.97975692</span></span>
-<span id="cb288-49"><a href="appendix-a-dorem-package.html#cb288-49"></a></span>
-<span id="cb288-50"><a href="appendix-a-dorem-package.html#cb288-50"></a><span class="co"># get coefs</span></span>
-<span id="cb288-51"><a href="appendix-a-dorem-package.html#cb288-51"></a><span class="kw">coef</span>(banister_model)</span>
-<span id="cb288-52"><a href="appendix-a-dorem-package.html#cb288-52"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau </span></span>
-<span id="cb288-53"><a href="appendix-a-dorem-package.html#cb288-53"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388</span></span>
-<span id="cb288-54"><a href="appendix-a-dorem-package.html#cb288-54"></a></span>
-<span id="cb288-55"><a href="appendix-a-dorem-package.html#cb288-55"></a><span class="co"># Get model predictions</span></span>
-<span id="cb288-56"><a href="appendix-a-dorem-package.html#cb288-56"></a>bike_score<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(banister_model, bike_score)<span class="op">$</span>.pred</span>
-<span id="cb288-57"><a href="appendix-a-dorem-package.html#cb288-57"></a></span>
-<span id="cb288-58"><a href="appendix-a-dorem-package.html#cb288-58"></a><span class="co"># Plot</span></span>
-<span id="cb288-59"><a href="appendix-a-dorem-package.html#cb288-59"></a>dose &lt;-<span class="st"> </span><span class="kw">ggplot</span>(bike_score, <span class="kw">aes</span>(<span class="dt">x =</span> Day, <span class="dt">y =</span> BikeScore)) <span class="op">+</span></span>
-<span id="cb288-60"><a href="appendix-a-dorem-package.html#cb288-60"></a><span class="st">  </span><span class="kw">theme_cowplot</span>(<span class="dv">10</span>) <span class="op">+</span></span>
-<span id="cb288-61"><a href="appendix-a-dorem-package.html#cb288-61"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
-<span id="cb288-62"><a href="appendix-a-dorem-package.html#cb288-62"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="ot">NULL</span>)</span>
-<span id="cb288-63"><a href="appendix-a-dorem-package.html#cb288-63"></a></span>
-<span id="cb288-64"><a href="appendix-a-dorem-package.html#cb288-64"></a>response &lt;-<span class="st"> </span><span class="kw">ggplot</span>(bike_score, <span class="kw">aes</span>(<span class="dt">x =</span> Day, <span class="dt">y =</span> pred)) <span class="op">+</span></span>
-<span id="cb288-65"><a href="appendix-a-dorem-package.html#cb288-65"></a><span class="st">   </span><span class="kw">theme_cowplot</span>(<span class="dv">10</span>) <span class="op">+</span></span>
-<span id="cb288-66"><a href="appendix-a-dorem-package.html#cb288-66"></a><span class="st">   </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb288-67"><a href="appendix-a-dorem-package.html#cb288-67"></a><span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Test_5min_Power), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb288-68"><a href="appendix-a-dorem-package.html#cb288-68"></a><span class="st">   </span><span class="kw">ylab</span>(<span class="st">&quot;Test 5min Power&quot;</span>)</span>
-<span id="cb288-69"><a href="appendix-a-dorem-package.html#cb288-69"></a></span>
-<span id="cb288-70"><a href="appendix-a-dorem-package.html#cb288-70"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dose, response, <span class="dt">ncol =</span> <span class="dv">1</span>)</span></code></pre></div>
+<span id="cb288-39"><a href="appendix-a-dorem-package.html#cb288-39"></a><span class="co">#&gt; Overall model performance using selected estimators is the following:</span></span>
+<span id="cb288-40"><a href="appendix-a-dorem-package.html#cb288-40"></a><span class="co">#&gt; </span></span>
+<span id="cb288-41"><a href="appendix-a-dorem-package.html#cb288-41"></a><span class="co">#&gt;              training</span></span>
+<span id="cb288-42"><a href="appendix-a-dorem-package.html#cb288-42"></a><span class="co">#&gt; N          9.00000000</span></span>
+<span id="cb288-43"><a href="appendix-a-dorem-package.html#cb288-43"></a><span class="co">#&gt; meanDiff   0.01374013</span></span>
+<span id="cb288-44"><a href="appendix-a-dorem-package.html#cb288-44"></a><span class="co">#&gt; SDdiff     1.57096328</span></span>
+<span id="cb288-45"><a href="appendix-a-dorem-package.html#cb288-45"></a><span class="co">#&gt; RMSE       1.48118212</span></span>
+<span id="cb288-46"><a href="appendix-a-dorem-package.html#cb288-46"></a><span class="co">#&gt; MAE        1.16731419</span></span>
+<span id="cb288-47"><a href="appendix-a-dorem-package.html#cb288-47"></a><span class="co">#&gt; minErr    -2.71352646</span></span>
+<span id="cb288-48"><a href="appendix-a-dorem-package.html#cb288-48"></a><span class="co">#&gt; maxErr     2.22332820</span></span>
+<span id="cb288-49"><a href="appendix-a-dorem-package.html#cb288-49"></a><span class="co">#&gt; MAPE       0.40904959</span></span>
+<span id="cb288-50"><a href="appendix-a-dorem-package.html#cb288-50"></a><span class="co">#&gt; R_squared  0.97975692</span></span>
+<span id="cb288-51"><a href="appendix-a-dorem-package.html#cb288-51"></a></span>
+<span id="cb288-52"><a href="appendix-a-dorem-package.html#cb288-52"></a><span class="co"># get coefs</span></span>
+<span id="cb288-53"><a href="appendix-a-dorem-package.html#cb288-53"></a><span class="kw">coef</span>(banister_model)</span>
+<span id="cb288-54"><a href="appendix-a-dorem-package.html#cb288-54"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain </span></span>
+<span id="cb288-55"><a href="appendix-a-dorem-package.html#cb288-55"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750 </span></span>
+<span id="cb288-56"><a href="appendix-a-dorem-package.html#cb288-56"></a><span class="co">#&gt;  BikeScore.NTE_tau </span></span>
+<span id="cb288-57"><a href="appendix-a-dorem-package.html#cb288-57"></a><span class="co">#&gt;         24.6056388</span></span>
+<span id="cb288-58"><a href="appendix-a-dorem-package.html#cb288-58"></a></span>
+<span id="cb288-59"><a href="appendix-a-dorem-package.html#cb288-59"></a><span class="co"># Get model predictions</span></span>
+<span id="cb288-60"><a href="appendix-a-dorem-package.html#cb288-60"></a>bike_score<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(banister_model, bike_score)<span class="op">$</span>.pred</span>
+<span id="cb288-61"><a href="appendix-a-dorem-package.html#cb288-61"></a></span>
+<span id="cb288-62"><a href="appendix-a-dorem-package.html#cb288-62"></a><span class="co"># Plot</span></span>
+<span id="cb288-63"><a href="appendix-a-dorem-package.html#cb288-63"></a>dose &lt;-<span class="st"> </span><span class="kw">ggplot</span>(bike_score, <span class="kw">aes</span>(<span class="dt">x =</span> Day, <span class="dt">y =</span> BikeScore)) <span class="op">+</span></span>
+<span id="cb288-64"><a href="appendix-a-dorem-package.html#cb288-64"></a><span class="st">  </span><span class="kw">theme_cowplot</span>(<span class="dv">10</span>) <span class="op">+</span></span>
+<span id="cb288-65"><a href="appendix-a-dorem-package.html#cb288-65"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb288-66"><a href="appendix-a-dorem-package.html#cb288-66"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="ot">NULL</span>)</span>
+<span id="cb288-67"><a href="appendix-a-dorem-package.html#cb288-67"></a></span>
+<span id="cb288-68"><a href="appendix-a-dorem-package.html#cb288-68"></a>response &lt;-<span class="st"> </span><span class="kw">ggplot</span>(bike_score, <span class="kw">aes</span>(<span class="dt">x =</span> Day, <span class="dt">y =</span> pred)) <span class="op">+</span></span>
+<span id="cb288-69"><a href="appendix-a-dorem-package.html#cb288-69"></a><span class="st">   </span><span class="kw">theme_cowplot</span>(<span class="dv">10</span>) <span class="op">+</span></span>
+<span id="cb288-70"><a href="appendix-a-dorem-package.html#cb288-70"></a><span class="st">   </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb288-71"><a href="appendix-a-dorem-package.html#cb288-71"></a><span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Test_5min_Power), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb288-72"><a href="appendix-a-dorem-package.html#cb288-72"></a><span class="st">   </span><span class="kw">ylab</span>(<span class="st">&quot;Test 5min Power&quot;</span>)</span>
+<span id="cb288-73"><a href="appendix-a-dorem-package.html#cb288-73"></a></span>
+<span id="cb288-74"><a href="appendix-a-dorem-package.html#cb288-74"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dose, response, <span class="dt">ncol =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-2-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p><code>dorem</code> also allows more control and setup using the <code>control</code> parameter. In the next example, cross-validation of 3 repeats and 5 folds will be performed, with additional feature of <em>shuffling</em> the predictors and evaluating how the model predicts on random predictors (i.e., dose):</p>
 <div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="appendix-a-dorem-package.html#cb289-1"></a>banister_model &lt;-<span class="st"> </span><span class="kw">dorem</span>(</span>
@@ -474,25 +478,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb289-29"><a href="appendix-a-dorem-package.html#cb289-29"></a><span class="co">#&gt; </span></span>
 <span id="cb289-30"><a href="appendix-a-dorem-package.html#cb289-30"></a><span class="co">#&gt; Estimated model coefficients are the following:</span></span>
 <span id="cb289-31"><a href="appendix-a-dorem-package.html#cb289-31"></a><span class="co">#&gt; </span></span>
-<span id="cb289-32"><a href="appendix-a-dorem-package.html#cb289-32"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau </span></span>
-<span id="cb289-33"><a href="appendix-a-dorem-package.html#cb289-33"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 </span></span>
-<span id="cb289-34"><a href="appendix-a-dorem-package.html#cb289-34"></a><span class="co">#&gt; </span></span>
-<span id="cb289-35"><a href="appendix-a-dorem-package.html#cb289-35"></a><span class="co">#&gt; Objective function equal to: 2.1939 </span></span>
+<span id="cb289-32"><a href="appendix-a-dorem-package.html#cb289-32"></a><span class="co">#&gt;          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain </span></span>
+<span id="cb289-33"><a href="appendix-a-dorem-package.html#cb289-33"></a><span class="co">#&gt;        266.0204779          0.3020749         33.6433797          0.3514750 </span></span>
+<span id="cb289-34"><a href="appendix-a-dorem-package.html#cb289-34"></a><span class="co">#&gt;  BikeScore.NTE_tau </span></span>
+<span id="cb289-35"><a href="appendix-a-dorem-package.html#cb289-35"></a><span class="co">#&gt;         24.6056388 </span></span>
 <span id="cb289-36"><a href="appendix-a-dorem-package.html#cb289-36"></a><span class="co">#&gt; </span></span>
-<span id="cb289-37"><a href="appendix-a-dorem-package.html#cb289-37"></a><span class="co">#&gt; Cross-Validation of the model was performed using 5 repeats of 3 folds. Shuffling of the predictors was performed.</span></span>
+<span id="cb289-37"><a href="appendix-a-dorem-package.html#cb289-37"></a><span class="co">#&gt; Objective function equal to: 2.1939 </span></span>
 <span id="cb289-38"><a href="appendix-a-dorem-package.html#cb289-38"></a><span class="co">#&gt; </span></span>
-<span id="cb289-39"><a href="appendix-a-dorem-package.html#cb289-39"></a><span class="co">#&gt; Overall model performance using selected estimators is the following:</span></span>
+<span id="cb289-39"><a href="appendix-a-dorem-package.html#cb289-39"></a><span class="co">#&gt; Cross-Validation of the model was performed using 5 repeats of 3 folds. Shuffling of the predictors was performed.</span></span>
 <span id="cb289-40"><a href="appendix-a-dorem-package.html#cb289-40"></a><span class="co">#&gt; </span></span>
-<span id="cb289-41"><a href="appendix-a-dorem-package.html#cb289-41"></a><span class="co">#&gt;              training          CV    shuffle</span></span>
-<span id="cb289-42"><a href="appendix-a-dorem-package.html#cb289-42"></a><span class="co">#&gt; N          9.00000000  45.0000000  9.0000000</span></span>
-<span id="cb289-43"><a href="appendix-a-dorem-package.html#cb289-43"></a><span class="co">#&gt; meanDiff   0.01374013  -1.4468364 -0.0149063</span></span>
-<span id="cb289-44"><a href="appendix-a-dorem-package.html#cb289-44"></a><span class="co">#&gt; SDdiff     1.57096328   6.5352444  3.8231697</span></span>
-<span id="cb289-45"><a href="appendix-a-dorem-package.html#cb289-45"></a><span class="co">#&gt; RMSE       1.48118212   6.6222094  3.6045497</span></span>
-<span id="cb289-46"><a href="appendix-a-dorem-package.html#cb289-46"></a><span class="co">#&gt; MAE        1.16731419   3.8249026  3.5302780</span></span>
-<span id="cb289-47"><a href="appendix-a-dorem-package.html#cb289-47"></a><span class="co">#&gt; minErr    -2.71352646 -35.6767605 -3.9240093</span></span>
-<span id="cb289-48"><a href="appendix-a-dorem-package.html#cb289-48"></a><span class="co">#&gt; maxErr     2.22332820  13.4489856  4.9477488</span></span>
-<span id="cb289-49"><a href="appendix-a-dorem-package.html#cb289-49"></a><span class="co">#&gt; MAPE       0.40904959   1.3119052  1.2250645</span></span>
-<span id="cb289-50"><a href="appendix-a-dorem-package.html#cb289-50"></a><span class="co">#&gt; R_squared  0.97975692   0.6838326  0.8800912</span></span></code></pre></div>
+<span id="cb289-41"><a href="appendix-a-dorem-package.html#cb289-41"></a><span class="co">#&gt; Overall model performance using selected estimators is the following:</span></span>
+<span id="cb289-42"><a href="appendix-a-dorem-package.html#cb289-42"></a><span class="co">#&gt; </span></span>
+<span id="cb289-43"><a href="appendix-a-dorem-package.html#cb289-43"></a><span class="co">#&gt;              training          CV    shuffle</span></span>
+<span id="cb289-44"><a href="appendix-a-dorem-package.html#cb289-44"></a><span class="co">#&gt; N          9.00000000  45.0000000  9.0000000</span></span>
+<span id="cb289-45"><a href="appendix-a-dorem-package.html#cb289-45"></a><span class="co">#&gt; meanDiff   0.01374013  -1.4468364 -0.0149063</span></span>
+<span id="cb289-46"><a href="appendix-a-dorem-package.html#cb289-46"></a><span class="co">#&gt; SDdiff     1.57096328   6.5352444  3.8231697</span></span>
+<span id="cb289-47"><a href="appendix-a-dorem-package.html#cb289-47"></a><span class="co">#&gt; RMSE       1.48118212   6.6222094  3.6045497</span></span>
+<span id="cb289-48"><a href="appendix-a-dorem-package.html#cb289-48"></a><span class="co">#&gt; MAE        1.16731419   3.8249026  3.5302780</span></span>
+<span id="cb289-49"><a href="appendix-a-dorem-package.html#cb289-49"></a><span class="co">#&gt; minErr    -2.71352646 -35.6767605 -3.9240093</span></span>
+<span id="cb289-50"><a href="appendix-a-dorem-package.html#cb289-50"></a><span class="co">#&gt; maxErr     2.22332820  13.4489856  4.9477488</span></span>
+<span id="cb289-51"><a href="appendix-a-dorem-package.html#cb289-51"></a><span class="co">#&gt; MAPE       0.40904959   1.3119052  1.2250645</span></span>
+<span id="cb289-52"><a href="appendix-a-dorem-package.html#cb289-52"></a><span class="co">#&gt; R_squared  0.97975692   0.6838326  0.8800912</span></span></code></pre></div>
 <p>To plot model predictions, including the CV as gray area and shuffle as dotted line, use:</p>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="appendix-a-dorem-package.html#cb290-1"></a><span class="kw">plot</span>(banister_model, <span class="dt">type =</span> <span class="st">&quot;pred&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>

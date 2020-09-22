@@ -57,14 +57,14 @@ agreement_data <- tibble(
 
 head(agreement_data)
 #> # A tibble: 6 x 6
-#>   Athlete  True_score Criterion_score.t… Criterion_score.t… Practical_score.t… Practical_score.…
-#>   <chr>         <dbl>              <dbl>              <dbl>              <dbl>             <dbl>
-#> 1 Athlete…       52.9               52.9               52.9               60.2              60.6
-#> 2 Athlete…       42.4               42.3               42.2               48.7              48.6
-#> 3 Athlete…       49.2               49.1               49.5               56.0              57.2
-#> 4 Athlete…       44.8               44.7               44.8               51.5              51.3
-#> 5 Athlete…       40.0               40.4               40.1               45.7              43.8
-#> 6 Athlete…       42.6               42.5               42.2               49.7              50.4
+#>   Athlete  True_score Criterion_score.~ Criterion_score~ Practical_score~ Practical_score~
+#>   <chr>         <dbl>             <dbl>            <dbl>            <dbl>            <dbl>
+#> 1 Athlete~       52.9              52.9             52.9             60.2             60.6
+#> 2 Athlete~       42.4              42.3             42.2             48.7             48.6
+#> 3 Athlete~       49.2              49.1             49.5             56.0             57.2
+#> 4 Athlete~       44.8              44.7             44.8             51.5             51.3
+#> 5 Athlete~       40.0              40.4             40.1             45.7             43.8
+#> 6 Athlete~       42.6              42.5             42.2             49.7             50.4
 ```
 
 The assumption of the above DGP is that true score stays unchanged for trial 1 and trial 2. Thus, the only thing that creates variance in the criterion and practical measures is the random error component of the measurement error. 
@@ -92,7 +92,9 @@ ggplot(
   geom_point()
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 For the sake of this example, let's assume that SESOI is equal to ±2.5cm (for the criterion score). We are interested in few things: (1) re-create the DGP components, or (2) can we predict the true score from the criterion score (which implies flipping predictor and outcome variables). Most validity research papers in the sports science are concerned with with describing or explaining the validity by trying to re-create the DGP components, while not many are concerned with predictive performance of the model. Let's deal with the descriptive (i.e explanatory) tasks first. 
 
@@ -112,7 +114,9 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Panel A in the previous figure depicts simple scatter plot with added *identity line* (dashed line), SESOI band around identity line, and linear regression model (blue line; this could be changed using the `control = bmbstats::plot_contron()` parameter). Panel B depicts the difference between criterion and true score (oy y-axis) and their average (on the x-axis). Using SESOI of ±2.5cm, we can conclude that all the differences fall within the SESOI band, confirming that the criterion measure has outstanding practical validity characteristic. 
 
@@ -201,7 +205,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 The linear regression parameters are used as estimates of the measurement error:
 
@@ -357,7 +363,9 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Let's write the OLP validity estimators and check the output. OLP regression is implemented in the `bmbstats::OLP_regression` function.
 
@@ -532,7 +540,8 @@ As can be seen from the table, the estimates for the random error component of t
 
 In the real-world, we do not know the true scores. We can only use some type of the gold standard measure. In our DGP simulation we have generated both criterion and practical measures using the known true scores and measurement error for the each measure.
 
-<img src="figures/validity-analysis.png" width="50%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.5\linewidth]{figures/validity-analysis} \end{center}
 
 Let's check if we can re-create DGP parameters for the practical measure (which has both proportional and fixed bias, as well as larger random error than criterion) using the criterion score. Here is the scatter plot of the two:
 
@@ -549,7 +558,9 @@ ggplot(
   geom_point()
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 To re-create DGP for the practical measure, we need to use true score as the predictor (since that is how we have generated the practical scores). Let's use the simple linear regression method to do so:
 
@@ -563,7 +574,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 And let's estimate the 95% bootstrap confidence intervals:
 
@@ -603,7 +616,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 And let's estimate the bootstrap 95% CIs:
 
@@ -720,7 +735,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 To understand how these methods and how their estimates behave when there is random error in the predictor variable (x-value; criterion in this case), let's create a quick simulation (see also the SIMEX procedure explained in the [What to do when we know the error?] section of the [Measurement Error] chapter). The DGP parameters of the practical measure will stay the same, but we will change the random error for the criterion score from 0 (i.e. making it essentially the true score), to double th random error of the practical score. 
 
@@ -756,20 +773,20 @@ simulation_df <- simulation_df %>%
   })
 
 head(simulation_df)
-#>   simulation criterion_random_error True_score Criterion_score.trial1 Criterion_score.trial2
-#> 1          1                      0   41.44284               41.44284               41.44284
-#> 2          1                      0   42.76338               42.76338               42.76338
-#> 3          1                      0   39.33558               39.33558               39.33558
-#> 4          1                      0   54.14657               54.14657               54.14657
-#> 5          1                      0   42.17742               42.17742               42.17742
-#> 6          1                      0   50.57845               50.57845               50.57845
-#>   Practical_score.trial1 Practical_score.trial2
-#> 1               47.36111               47.05610
-#> 2               49.30239               47.59944
-#> 3               46.81175               45.48609
-#> 4               62.99236               62.44907
-#> 5               49.52856               49.12834
-#> 6               56.14485               59.70339
+#>   simulation criterion_random_error True_score Criterion_score.trial1
+#> 1          1                      0   41.44284               41.44284
+#> 2          1                      0   42.76338               42.76338
+#> 3          1                      0   39.33558               39.33558
+#> 4          1                      0   54.14657               54.14657
+#> 5          1                      0   42.17742               42.17742
+#> 6          1                      0   50.57845               50.57845
+#>   Criterion_score.trial2 Practical_score.trial1 Practical_score.trial2
+#> 1               41.44284               47.36111               47.05610
+#> 2               42.76338               49.30239               47.59944
+#> 3               39.33558               46.81175               45.48609
+#> 4               54.14657               62.99236               62.44907
+#> 5               42.17742               49.52856               49.12834
+#> 6               50.57845               56.14485               59.70339
 ```
 
 Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, slope, and random error) using simple linear regression and OLP regression using criterion as predictor and practical as the outcome variables. 
@@ -885,7 +902,9 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 Red dashed horizontal line on the graph indicate the true DGP parameter value, which we want to estimate. Thin black lines (spaghetti anyone?) indicate simulation results across different levels of random error in the criterion measure. These black lines are summarized with `mean` (thick white line) ± `SD` (blue ribbon). 
 
@@ -1035,7 +1054,9 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 Using the simple linear regression, we managed to adjust the bias of the slope estimate, although variance still increases with increasing criterion random error (which will probably affect the Type I error rates). Adjustment didn't help the OLP estimate slope. Adjusting `RSE` seems to remove the bias for both simple linear regression and OLP, but simulation variance keeps increasing with increase in criterion random error. 
 
@@ -1095,7 +1116,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 `SDC`, or *Level of Agreement* used in Bland-Altman analysis, is depicted with two horizontal dashed lines. Since these lines are within SESOI bands, this implies that practical measure has outstanding practical prediction validity (after calibration with simple linear regression, in this case to correct for fixed and proportional biases). 
 
@@ -1117,26 +1140,26 @@ lm_predictive_validity
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363 0.52102607 -1.0035037
-#>            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212 0.21891902  0.2938133
-#>           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710 0.23117615  0.4147218
-#>           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067 0.05265932  0.6919549
-#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442  3.3199413
-#>      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772 0.56589940 -2.5312392
-#>         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158 0.40660854 -1.3641311
-#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843 -0.2737126
-#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222  0.7468639
-#>         max
-#>   1.0131942
-#>   1.4283624
-#>   1.5060507
-#>   0.9885303
-#>  12.0562748
-#>   0.9953966
-#>   0.4769940
-#>   2.3455653
-#>   2.3455653
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363 0.52102607
+#>            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212 0.21891902
+#>           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710 0.23117615
+#>           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067 0.05265932
+#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442
+#>      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772 0.56589940
+#>         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158 0.40660854
+#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843
+#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222
+#>         min        max
+#>  -1.0035037  1.0131942
+#>   0.2938133  1.4283624
+#>   0.4147218  1.5060507
+#>   0.6919549  0.9885303
+#>   3.3199413 12.0562748
+#>  -2.5312392  0.9953966
+#>  -1.3641311  0.4769940
+#>  -0.2737126  2.3455653
+#>   0.7468639  2.3455653
 ```
 
 If we check `MaxAbsErr` we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing `RMSE` (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% `SDC` multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice. 
@@ -1256,7 +1279,9 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 As can be seen from the figure, `RSE` for the simple linear regression model (where criterion is the outcome and practical is the predictor) climbs up as criterion random error increases. When using adjusted `RSE`, up until the point where criterion has lower or equal random error to a practical score, we are able to correctly adjust `RSE` to give us estimation of the model fit using the true score (which is unknown of course, but we have used known criterion random error). 
 
@@ -1285,7 +1310,8 @@ How is reliability evaluated? We need to make a distinction between few methods.
 
 Second method is concerned with the scenario when we do not have the criterion or the true score available. Theoretically, we want a measuring instrument of interest to measure the same phenomena multiple times, to check measurement *reproducibility*. This can be achieved in few ways - we might have a special device that produce perfectly repeatable phenomena that is measured multiple times with one unit. This scenario is simulated within our DGP that we have used so far: the true score stays the same across two trial, which is then estimated with criterion and practical measures. 
 
-<img src="figures/reproducibility.png" width="50%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.5\linewidth]{figures/reproducibility} \end{center}
 
 But that is easily done in simulations, and not so in real life. The other option is to measure with two or more devices of the the same measuring unit. Thus, each trial is measured with two or more devices. The assumption must be made that the random error in each device is the same. Let's see how this plays out with our simulated data.
 
@@ -1307,7 +1333,9 @@ ggplot(
   ggtitle("Criterion measure")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 
 ```r
@@ -1323,7 +1351,9 @@ ggplot(
   ggtitle("Practical measure")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 Let's check the reproducibility of the criterion measure. Same as with validity analysis, we can use few methods to estimate reproducibility: (1) method of differences (i.e. Bland-Altman), (2) simple linear regression, and (3) OLP regression. When there are more than two trials, there are few options that can be considered, and the simplest it pairwise analysis (i.e. 2-1, 3-2, 4-3  or all combinations; this technique estimates average reproducibility) or use of *ANOVA* or repeated-measures analysis. These will not be considered in this book. 
 
@@ -1341,7 +1371,9 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 To provide estimators we will use functions that we have already written:
 
@@ -1391,7 +1423,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 We can also use the function we wrote to provide validity analysis using simple linear regression:
 
@@ -1428,7 +1462,9 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 
 ```r
@@ -1456,10 +1492,10 @@ bmbstats::reliability_estimators(
   SESOI_lower = -2.5,
   SESOI_upper = 2.5
 )
-#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE  Pearson's r 
-#>   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774    0.9984753 
-#>    R Squared SESOI to RSE         PPER           TE          SDC 
-#>    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761
+#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE 
+#>   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774 
+#>  Pearson's r    R Squared SESOI to RSE         PPER           TE          SDC 
+#>    0.9984753    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761
 ```
 
 `bmbstats::reliability_estimators` provides additional estimators, including `TE` and `SDC`. To get 95% bootstrap confidence intervals, use:
@@ -1610,7 +1646,9 @@ ggplot(
   xlab("Criterion random error")
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 Although all three methods are good in estimating `TE`, only OLP should be used when estimating reproducibility fixed and proportional biases (i.e. intercept and slope; which are simulated to be 0 and 1 respectively, since both criterion measure trials have same fixed and proportional biases against the true score). Again, this recommendation is given under the assumption that the random error involved in two units/trials is the same. 
 
@@ -1630,7 +1668,9 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 
 ```r
@@ -1714,7 +1754,9 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 
 ```r
@@ -1743,7 +1785,9 @@ bmbstats::plot_pair_BA(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-60-1} \end{center}
 
 
 ```r
@@ -1766,7 +1810,8 @@ So far, we have assumed no change in the true score across trials, thus no effec
 
 In this DGP, we will assume that this *stochastic* biological effect (i.e. random error or biological noise) is equal for all individuals (please see the [Ergodicity] section for more information about this assumption) and that there is not systematic effect (i.e. fatigue, learning effects and so forth). 
 
-<img src="figures/measurement-error-two-measures.png" width="50%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.5\linewidth]{figures/measurement-error-two-measures} \end{center}
 
 This vertical jump is measured with our practical measuring unit, that we have shown to be reliable, and for which we have estimated `TE` and `SDC`. 
 
@@ -1812,15 +1857,15 @@ repeatability_data <- tibble(
 
 head(repeatability_data)
 #> # A tibble: 6 x 10
-#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor… Manifested_scor…
+#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor~ Manifested_scor~
 #>   <chr>            <dbl>       <dbl>           <dbl>            <dbl>            <dbl>
-#> 1 Athlet…           52.9           0            52.9             52.9             52.8
-#> 2 Athlet…           42.4           0            42.4             42.3             41.5
-#> 3 Athlet…           49.2           0            49.2             48.9             51.2
-#> 4 Athlet…           44.8           0            44.8             44.1             44.9
-#> 5 Athlet…           40.0           0            40.0             42.7             40.6
-#> 6 Athlet…           42.6           0            42.6             41.7             39.6
-#> # … with 4 more variables: Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
+#> 1 Athlet~           52.9           0            52.9             52.9             52.8
+#> 2 Athlet~           42.4           0            42.4             42.3             41.5
+#> 3 Athlet~           49.2           0            49.2             48.9             51.2
+#> 4 Athlet~           44.8           0            44.8             44.1             44.9
+#> 5 Athlet~           40.0           0            40.0             42.7             40.6
+#> 6 Athlet~           42.6           0            42.6             41.7             39.6
+#> # ... with 4 more variables: Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
 #> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
 
@@ -1840,7 +1885,9 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-64-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-64-1} \end{center}
 
 
 ```r
@@ -1887,7 +1934,9 @@ bmbstats::plot_pair_OLP(
 )
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-66-1} \end{center}
 
 
 ```r
@@ -1960,19 +2009,19 @@ repeatability_data <- repeatability_data %>%
 
 head(repeatability_data)
 #> # A tibble: 6 x 16
-#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor… Manifested_scor…
+#>   Athlete True_score.Pre True_change True_score.Post Manifested_scor~ Manifested_scor~
 #>   <chr>            <dbl>       <dbl>           <dbl>            <dbl>            <dbl>
-#> 1 Athlet…           52.9           0            52.9             52.9             52.8
-#> 2 Athlet…           42.4           0            42.4             42.3             41.5
-#> 3 Athlet…           49.2           0            49.2             48.9             51.2
-#> 4 Athlet…           44.8           0            44.8             44.1             44.9
-#> 5 Athlet…           40.0           0            40.0             42.7             40.6
-#> 6 Athlet…           42.6           0            42.6             41.7             39.6
-#> # … with 10 more variables: Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
-#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>, True_score_measured.Pre <dbl>,
-#> #   True_score_measured.Post <dbl>, True_score_measured.Change <dbl>,
-#> #   Manifested_score_measured.Pre <dbl>, Manifested_score_measured.Post <dbl>,
-#> #   Manifested_score_measured.Change <dbl>
+#> 1 Athlet~           52.9           0            52.9             52.9             52.8
+#> 2 Athlet~           42.4           0            42.4             42.3             41.5
+#> 3 Athlet~           49.2           0            49.2             48.9             51.2
+#> 4 Athlet~           44.8           0            44.8             44.1             44.9
+#> 5 Athlet~           40.0           0            40.0             42.7             40.6
+#> 6 Athlet~           42.6           0            42.6             41.7             39.6
+#> # ... with 10 more variables: Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
+#> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>,
+#> #   True_score_measured.Pre <dbl>, True_score_measured.Post <dbl>,
+#> #   True_score_measured.Change <dbl>, Manifested_score_measured.Pre <dbl>,
+#> #   Manifested_score_measured.Post <dbl>, Manifested_score_measured.Change <dbl>
 ```
 
 Now let's plot measured change (i.e. difference between measured Post-test and Pre-test using practical measure), together with manifested change (as would be measured with practical measure with no random error). Confidence intervals around measured change represent 95% `SDC` that is calculated using known practical measure random error (i.e. estimated `TE` from reproducibility analysis - the sole instrumentation noise). CIs should capture vertical red lines (manifested change):
@@ -2001,7 +2050,9 @@ plot(
   xlim(-8, 9)
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-69-1} \end{center}
 
 Our CIs using sole instrumentation noise (I have used DGP parameter, but in real life we can use `TE` from reproducibility analysis) managed to capture manifested change (i.e. true change plus biological variation). 
 
@@ -2032,7 +2083,9 @@ plot(
   control = plot_control(points_size = 5))
 ```
 
-<img src="15-Validity-and-reliability_files/figure-html/unnamed-chunk-70-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{15-Validity-and-reliability_files/figure-latex/unnamed-chunk-70-1} \end{center}
 
 Since there is no true change in this DGP, all vertical red lines are aligned at 0. Our CIs in this case represent 95% `SDC` estimated using both biological variation and instrumentation error. 
 

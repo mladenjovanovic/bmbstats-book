@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-09-03" />
+<meta name="date" content="2020-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -406,31 +406,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb296-12"><a href="appendix-b-shorts-package.html#cb296-12"></a><span class="co">#&gt; </span></span>
 <span id="cb296-13"><a href="appendix-b-shorts-package.html#cb296-13"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb296-14"><a href="appendix-b-shorts-package.html#cb296-14"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb296-15"><a href="appendix-b-shorts-package.html#cb296-15"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb296-16"><a href="appendix-b-shorts-package.html#cb296-16"></a><span class="co">#&gt;  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116</span></span>
-<span id="cb296-17"><a href="appendix-b-shorts-package.html#cb296-17"></a></span>
-<span id="cb296-18"><a href="appendix-b-shorts-package.html#cb296-18"></a><span class="kw">summary</span>(kimberley_profile)</span>
-<span id="cb296-19"><a href="appendix-b-shorts-package.html#cb296-19"></a><span class="co">#&gt; </span></span>
-<span id="cb296-20"><a href="appendix-b-shorts-package.html#cb296-20"></a><span class="co">#&gt; Formula: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS * </span></span>
-<span id="cb296-21"><a href="appendix-b-shorts-package.html#cb296-21"></a><span class="co">#&gt;     TAU) - 1))) + distance/MSS + TAU</span></span>
-<span id="cb296-22"><a href="appendix-b-shorts-package.html#cb296-22"></a><span class="co">#&gt; </span></span>
-<span id="cb296-23"><a href="appendix-b-shorts-package.html#cb296-23"></a><span class="co">#&gt; Parameters:</span></span>
-<span id="cb296-24"><a href="appendix-b-shorts-package.html#cb296-24"></a><span class="co">#&gt;     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb296-25"><a href="appendix-b-shorts-package.html#cb296-25"></a><span class="co">#&gt; MSS  8.59114    0.12251   70.13 2.48e-07 ***</span></span>
-<span id="cb296-26"><a href="appendix-b-shorts-package.html#cb296-26"></a><span class="co">#&gt; TAU  0.81133    0.04581   17.71 5.97e-05 ***</span></span>
-<span id="cb296-27"><a href="appendix-b-shorts-package.html#cb296-27"></a><span class="co">#&gt; ---</span></span>
-<span id="cb296-28"><a href="appendix-b-shorts-package.html#cb296-28"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb296-29"><a href="appendix-b-shorts-package.html#cb296-29"></a><span class="co">#&gt; </span></span>
-<span id="cb296-30"><a href="appendix-b-shorts-package.html#cb296-30"></a><span class="co">#&gt; Residual standard error: 0.03403 on 4 degrees of freedom</span></span>
+<span id="cb296-15"><a href="appendix-b-shorts-package.html#cb296-15"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb296-16"><a href="appendix-b-shorts-package.html#cb296-16"></a><span class="co">#&gt;  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 </span></span>
+<span id="cb296-17"><a href="appendix-b-shorts-package.html#cb296-17"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb296-18"><a href="appendix-b-shorts-package.html#cb296-18"></a><span class="co">#&gt;  1.19263116</span></span>
+<span id="cb296-19"><a href="appendix-b-shorts-package.html#cb296-19"></a></span>
+<span id="cb296-20"><a href="appendix-b-shorts-package.html#cb296-20"></a><span class="kw">summary</span>(kimberley_profile)</span>
+<span id="cb296-21"><a href="appendix-b-shorts-package.html#cb296-21"></a><span class="co">#&gt; </span></span>
+<span id="cb296-22"><a href="appendix-b-shorts-package.html#cb296-22"></a><span class="co">#&gt; Formula: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS * </span></span>
+<span id="cb296-23"><a href="appendix-b-shorts-package.html#cb296-23"></a><span class="co">#&gt;     TAU) - 1))) + distance/MSS + TAU</span></span>
+<span id="cb296-24"><a href="appendix-b-shorts-package.html#cb296-24"></a><span class="co">#&gt; </span></span>
+<span id="cb296-25"><a href="appendix-b-shorts-package.html#cb296-25"></a><span class="co">#&gt; Parameters:</span></span>
+<span id="cb296-26"><a href="appendix-b-shorts-package.html#cb296-26"></a><span class="co">#&gt;     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb296-27"><a href="appendix-b-shorts-package.html#cb296-27"></a><span class="co">#&gt; MSS  8.59114    0.12251   70.13 2.48e-07 ***</span></span>
+<span id="cb296-28"><a href="appendix-b-shorts-package.html#cb296-28"></a><span class="co">#&gt; TAU  0.81133    0.04581   17.71 5.97e-05 ***</span></span>
+<span id="cb296-29"><a href="appendix-b-shorts-package.html#cb296-29"></a><span class="co">#&gt; ---</span></span>
+<span id="cb296-30"><a href="appendix-b-shorts-package.html#cb296-30"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb296-31"><a href="appendix-b-shorts-package.html#cb296-31"></a><span class="co">#&gt; </span></span>
-<span id="cb296-32"><a href="appendix-b-shorts-package.html#cb296-32"></a><span class="co">#&gt; Number of iterations to convergence: 4 </span></span>
-<span id="cb296-33"><a href="appendix-b-shorts-package.html#cb296-33"></a><span class="co">#&gt; Achieved convergence tolerance: 4.058e-06</span></span>
-<span id="cb296-34"><a href="appendix-b-shorts-package.html#cb296-34"></a></span>
-<span id="cb296-35"><a href="appendix-b-shorts-package.html#cb296-35"></a><span class="kw">coef</span>(kimberley_profile)</span>
-<span id="cb296-36"><a href="appendix-b-shorts-package.html#cb296-36"></a><span class="co">#&gt;                 MSS                 TAU                 MAC                PMAX </span></span>
-<span id="cb296-37"><a href="appendix-b-shorts-package.html#cb296-37"></a><span class="co">#&gt;           8.5911421           0.8113282          10.5889855          22.7428698 </span></span>
-<span id="cb296-38"><a href="appendix-b-shorts-package.html#cb296-38"></a><span class="co">#&gt;     time_correction distance_correction </span></span>
-<span id="cb296-39"><a href="appendix-b-shorts-package.html#cb296-39"></a><span class="co">#&gt;           0.0000000           0.0000000</span></span></code></pre></div>
+<span id="cb296-32"><a href="appendix-b-shorts-package.html#cb296-32"></a><span class="co">#&gt; Residual standard error: 0.03403 on 4 degrees of freedom</span></span>
+<span id="cb296-33"><a href="appendix-b-shorts-package.html#cb296-33"></a><span class="co">#&gt; </span></span>
+<span id="cb296-34"><a href="appendix-b-shorts-package.html#cb296-34"></a><span class="co">#&gt; Number of iterations to convergence: 4 </span></span>
+<span id="cb296-35"><a href="appendix-b-shorts-package.html#cb296-35"></a><span class="co">#&gt; Achieved convergence tolerance: 4.058e-06</span></span>
+<span id="cb296-36"><a href="appendix-b-shorts-package.html#cb296-36"></a></span>
+<span id="cb296-37"><a href="appendix-b-shorts-package.html#cb296-37"></a><span class="kw">coef</span>(kimberley_profile)</span>
+<span id="cb296-38"><a href="appendix-b-shorts-package.html#cb296-38"></a><span class="co">#&gt;                 MSS                 TAU                 MAC                PMAX </span></span>
+<span id="cb296-39"><a href="appendix-b-shorts-package.html#cb296-39"></a><span class="co">#&gt;           8.5911421           0.8113282          10.5889855          22.7428698 </span></span>
+<span id="cb296-40"><a href="appendix-b-shorts-package.html#cb296-40"></a><span class="co">#&gt;     time_correction distance_correction </span></span>
+<span id="cb296-41"><a href="appendix-b-shorts-package.html#cb296-41"></a><span class="co">#&gt;           0.0000000           0.0000000</span></span></code></pre></div>
 <p>To return the predicted outcome (in this case time variable), use <code>predict</code> function:</p>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="appendix-b-shorts-package.html#cb297-1"></a><span class="kw">predict</span>(kimberley_profile)</span>
 <span id="cb297-2"><a href="appendix-b-shorts-package.html#cb297-2"></a><span class="co">#&gt; [1] 1.210934 1.897021 2.521028 3.122008 4.299243 5.466325</span></span></code></pre></div>
@@ -574,54 +576,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb304-24"><a href="appendix-b-shorts-package.html#cb304-24"></a><span class="co">#&gt; </span></span>
 <span id="cb304-25"><a href="appendix-b-shorts-package.html#cb304-25"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb304-26"><a href="appendix-b-shorts-package.html#cb304-26"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb304-27"><a href="appendix-b-shorts-package.html#cb304-27"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb304-28"><a href="appendix-b-shorts-package.html#cb304-28"></a><span class="co">#&gt;  0.02600213  0.99982036 -0.02934519  0.04964582  0.04964582  0.02139178  0.01722581  0.90185579</span></span>
-<span id="cb304-29"><a href="appendix-b-shorts-package.html#cb304-29"></a></span>
-<span id="cb304-30"><a href="appendix-b-shorts-package.html#cb304-30"></a><span class="kw">summary</span>(mixed_model)</span>
-<span id="cb304-31"><a href="appendix-b-shorts-package.html#cb304-31"></a><span class="co">#&gt; Nonlinear mixed-effects model fit by maximum likelihood</span></span>
-<span id="cb304-32"><a href="appendix-b-shorts-package.html#cb304-32"></a><span class="co">#&gt;   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU </span></span>
-<span id="cb304-33"><a href="appendix-b-shorts-package.html#cb304-33"></a><span class="co">#&gt;  Data: train </span></span>
-<span id="cb304-34"><a href="appendix-b-shorts-package.html#cb304-34"></a><span class="co">#&gt;         AIC       BIC  logLik</span></span>
-<span id="cb304-35"><a href="appendix-b-shorts-package.html#cb304-35"></a><span class="co">#&gt;   -75.06719 -66.66001 43.5336</span></span>
-<span id="cb304-36"><a href="appendix-b-shorts-package.html#cb304-36"></a><span class="co">#&gt; </span></span>
-<span id="cb304-37"><a href="appendix-b-shorts-package.html#cb304-37"></a><span class="co">#&gt; Random effects:</span></span>
-<span id="cb304-38"><a href="appendix-b-shorts-package.html#cb304-38"></a><span class="co">#&gt;  Formula: list(MSS ~ 1, TAU ~ 1)</span></span>
-<span id="cb304-39"><a href="appendix-b-shorts-package.html#cb304-39"></a><span class="co">#&gt;  Level: athlete</span></span>
-<span id="cb304-40"><a href="appendix-b-shorts-package.html#cb304-40"></a><span class="co">#&gt;  Structure: General positive-definite, Log-Cholesky parametrization</span></span>
-<span id="cb304-41"><a href="appendix-b-shorts-package.html#cb304-41"></a><span class="co">#&gt;          StdDev     Corr </span></span>
-<span id="cb304-42"><a href="appendix-b-shorts-package.html#cb304-42"></a><span class="co">#&gt; MSS      1.06581655 MSS  </span></span>
-<span id="cb304-43"><a href="appendix-b-shorts-package.html#cb304-43"></a><span class="co">#&gt; TAU      0.17821114 0.877</span></span>
-<span id="cb304-44"><a href="appendix-b-shorts-package.html#cb304-44"></a><span class="co">#&gt; Residual 0.02600213      </span></span>
-<span id="cb304-45"><a href="appendix-b-shorts-package.html#cb304-45"></a><span class="co">#&gt; </span></span>
-<span id="cb304-46"><a href="appendix-b-shorts-package.html#cb304-46"></a><span class="co">#&gt; Fixed effects: MSS + TAU ~ 1 </span></span>
-<span id="cb304-47"><a href="appendix-b-shorts-package.html#cb304-47"></a><span class="co">#&gt;        Value Std.Error DF   t-value p-value</span></span>
-<span id="cb304-48"><a href="appendix-b-shorts-package.html#cb304-48"></a><span class="co">#&gt; MSS 8.064911 0.4949104 24 16.295699       0</span></span>
-<span id="cb304-49"><a href="appendix-b-shorts-package.html#cb304-49"></a><span class="co">#&gt; TAU 0.655199 0.0837593 24  7.822404       0</span></span>
-<span id="cb304-50"><a href="appendix-b-shorts-package.html#cb304-50"></a><span class="co">#&gt;  Correlation: </span></span>
-<span id="cb304-51"><a href="appendix-b-shorts-package.html#cb304-51"></a><span class="co">#&gt;     MSS  </span></span>
-<span id="cb304-52"><a href="appendix-b-shorts-package.html#cb304-52"></a><span class="co">#&gt; TAU 0.874</span></span>
-<span id="cb304-53"><a href="appendix-b-shorts-package.html#cb304-53"></a><span class="co">#&gt; </span></span>
-<span id="cb304-54"><a href="appendix-b-shorts-package.html#cb304-54"></a><span class="co">#&gt; Standardized Within-Group Residuals:</span></span>
-<span id="cb304-55"><a href="appendix-b-shorts-package.html#cb304-55"></a><span class="co">#&gt;        Min         Q1        Med         Q3        Max </span></span>
-<span id="cb304-56"><a href="appendix-b-shorts-package.html#cb304-56"></a><span class="co">#&gt; -1.9092981 -0.6050683  0.1536529  0.5226467  1.1285687 </span></span>
-<span id="cb304-57"><a href="appendix-b-shorts-package.html#cb304-57"></a><span class="co">#&gt; </span></span>
-<span id="cb304-58"><a href="appendix-b-shorts-package.html#cb304-58"></a><span class="co">#&gt; Number of Observations: 30</span></span>
-<span id="cb304-59"><a href="appendix-b-shorts-package.html#cb304-59"></a><span class="co">#&gt; Number of Groups: 5</span></span>
-<span id="cb304-60"><a href="appendix-b-shorts-package.html#cb304-60"></a></span>
-<span id="cb304-61"><a href="appendix-b-shorts-package.html#cb304-61"></a><span class="kw">coef</span>(mixed_model)</span>
-<span id="cb304-62"><a href="appendix-b-shorts-package.html#cb304-62"></a><span class="co">#&gt; $fixed</span></span>
-<span id="cb304-63"><a href="appendix-b-shorts-package.html#cb304-63"></a><span class="co">#&gt;                 MSS                 TAU                 MAC                PMAX </span></span>
-<span id="cb304-64"><a href="appendix-b-shorts-package.html#cb304-64"></a><span class="co">#&gt;           8.0649112           0.6551988          12.3091052          24.8179600 </span></span>
-<span id="cb304-65"><a href="appendix-b-shorts-package.html#cb304-65"></a><span class="co">#&gt;     time_correction distance_correction </span></span>
-<span id="cb304-66"><a href="appendix-b-shorts-package.html#cb304-66"></a><span class="co">#&gt;           0.0000000           0.0000000 </span></span>
-<span id="cb304-67"><a href="appendix-b-shorts-package.html#cb304-67"></a><span class="co">#&gt; </span></span>
-<span id="cb304-68"><a href="appendix-b-shorts-package.html#cb304-68"></a><span class="co">#&gt; $random</span></span>
-<span id="cb304-69"><a href="appendix-b-shorts-package.html#cb304-69"></a><span class="co">#&gt;     athlete      MSS       TAU      MAC     PMAX time_correction distance_correction</span></span>
-<span id="cb304-70"><a href="appendix-b-shorts-package.html#cb304-70"></a><span class="co">#&gt; 1     James 9.691736 0.8469741 11.44278 27.72510               0                   0</span></span>
-<span id="cb304-71"><a href="appendix-b-shorts-package.html#cb304-71"></a><span class="co">#&gt; 2       Jim 7.833622 0.5048535 15.51663 30.38785               0                   0</span></span>
-<span id="cb304-72"><a href="appendix-b-shorts-package.html#cb304-72"></a><span class="co">#&gt; 3      John 7.780395 0.7274302 10.69573 20.80424               0                   0</span></span>
-<span id="cb304-73"><a href="appendix-b-shorts-package.html#cb304-73"></a><span class="co">#&gt; 4 Kimberley 8.569518 0.8022235 10.68221 22.88535               0                   0</span></span>
-<span id="cb304-74"><a href="appendix-b-shorts-package.html#cb304-74"></a><span class="co">#&gt; 5  Samantha 6.449284 0.3945129 16.34746 26.35735               0                   0</span></span></code></pre></div>
+<span id="cb304-27"><a href="appendix-b-shorts-package.html#cb304-27"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb304-28"><a href="appendix-b-shorts-package.html#cb304-28"></a><span class="co">#&gt;  0.02600213  0.99982036 -0.02934519  0.04964582  0.04964582  0.02139178  0.01722581 </span></span>
+<span id="cb304-29"><a href="appendix-b-shorts-package.html#cb304-29"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb304-30"><a href="appendix-b-shorts-package.html#cb304-30"></a><span class="co">#&gt;  0.90185579</span></span>
+<span id="cb304-31"><a href="appendix-b-shorts-package.html#cb304-31"></a></span>
+<span id="cb304-32"><a href="appendix-b-shorts-package.html#cb304-32"></a><span class="kw">summary</span>(mixed_model)</span>
+<span id="cb304-33"><a href="appendix-b-shorts-package.html#cb304-33"></a><span class="co">#&gt; Nonlinear mixed-effects model fit by maximum likelihood</span></span>
+<span id="cb304-34"><a href="appendix-b-shorts-package.html#cb304-34"></a><span class="co">#&gt;   Model: corrected_time ~ TAU * I(LambertW::W(-exp(1)^(-distance/(MSS *      TAU) - 1))) + distance/MSS + TAU </span></span>
+<span id="cb304-35"><a href="appendix-b-shorts-package.html#cb304-35"></a><span class="co">#&gt;  Data: train </span></span>
+<span id="cb304-36"><a href="appendix-b-shorts-package.html#cb304-36"></a><span class="co">#&gt;         AIC       BIC  logLik</span></span>
+<span id="cb304-37"><a href="appendix-b-shorts-package.html#cb304-37"></a><span class="co">#&gt;   -75.06719 -66.66001 43.5336</span></span>
+<span id="cb304-38"><a href="appendix-b-shorts-package.html#cb304-38"></a><span class="co">#&gt; </span></span>
+<span id="cb304-39"><a href="appendix-b-shorts-package.html#cb304-39"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb304-40"><a href="appendix-b-shorts-package.html#cb304-40"></a><span class="co">#&gt;  Formula: list(MSS ~ 1, TAU ~ 1)</span></span>
+<span id="cb304-41"><a href="appendix-b-shorts-package.html#cb304-41"></a><span class="co">#&gt;  Level: athlete</span></span>
+<span id="cb304-42"><a href="appendix-b-shorts-package.html#cb304-42"></a><span class="co">#&gt;  Structure: General positive-definite, Log-Cholesky parametrization</span></span>
+<span id="cb304-43"><a href="appendix-b-shorts-package.html#cb304-43"></a><span class="co">#&gt;          StdDev     Corr </span></span>
+<span id="cb304-44"><a href="appendix-b-shorts-package.html#cb304-44"></a><span class="co">#&gt; MSS      1.06581655 MSS  </span></span>
+<span id="cb304-45"><a href="appendix-b-shorts-package.html#cb304-45"></a><span class="co">#&gt; TAU      0.17821114 0.877</span></span>
+<span id="cb304-46"><a href="appendix-b-shorts-package.html#cb304-46"></a><span class="co">#&gt; Residual 0.02600213      </span></span>
+<span id="cb304-47"><a href="appendix-b-shorts-package.html#cb304-47"></a><span class="co">#&gt; </span></span>
+<span id="cb304-48"><a href="appendix-b-shorts-package.html#cb304-48"></a><span class="co">#&gt; Fixed effects: MSS + TAU ~ 1 </span></span>
+<span id="cb304-49"><a href="appendix-b-shorts-package.html#cb304-49"></a><span class="co">#&gt;        Value Std.Error DF   t-value p-value</span></span>
+<span id="cb304-50"><a href="appendix-b-shorts-package.html#cb304-50"></a><span class="co">#&gt; MSS 8.064911 0.4949104 24 16.295699       0</span></span>
+<span id="cb304-51"><a href="appendix-b-shorts-package.html#cb304-51"></a><span class="co">#&gt; TAU 0.655199 0.0837593 24  7.822404       0</span></span>
+<span id="cb304-52"><a href="appendix-b-shorts-package.html#cb304-52"></a><span class="co">#&gt;  Correlation: </span></span>
+<span id="cb304-53"><a href="appendix-b-shorts-package.html#cb304-53"></a><span class="co">#&gt;     MSS  </span></span>
+<span id="cb304-54"><a href="appendix-b-shorts-package.html#cb304-54"></a><span class="co">#&gt; TAU 0.874</span></span>
+<span id="cb304-55"><a href="appendix-b-shorts-package.html#cb304-55"></a><span class="co">#&gt; </span></span>
+<span id="cb304-56"><a href="appendix-b-shorts-package.html#cb304-56"></a><span class="co">#&gt; Standardized Within-Group Residuals:</span></span>
+<span id="cb304-57"><a href="appendix-b-shorts-package.html#cb304-57"></a><span class="co">#&gt;        Min         Q1        Med         Q3        Max </span></span>
+<span id="cb304-58"><a href="appendix-b-shorts-package.html#cb304-58"></a><span class="co">#&gt; -1.9092981 -0.6050683  0.1536529  0.5226467  1.1285687 </span></span>
+<span id="cb304-59"><a href="appendix-b-shorts-package.html#cb304-59"></a><span class="co">#&gt; </span></span>
+<span id="cb304-60"><a href="appendix-b-shorts-package.html#cb304-60"></a><span class="co">#&gt; Number of Observations: 30</span></span>
+<span id="cb304-61"><a href="appendix-b-shorts-package.html#cb304-61"></a><span class="co">#&gt; Number of Groups: 5</span></span>
+<span id="cb304-62"><a href="appendix-b-shorts-package.html#cb304-62"></a></span>
+<span id="cb304-63"><a href="appendix-b-shorts-package.html#cb304-63"></a><span class="kw">coef</span>(mixed_model)</span>
+<span id="cb304-64"><a href="appendix-b-shorts-package.html#cb304-64"></a><span class="co">#&gt; $fixed</span></span>
+<span id="cb304-65"><a href="appendix-b-shorts-package.html#cb304-65"></a><span class="co">#&gt;                 MSS                 TAU                 MAC                PMAX </span></span>
+<span id="cb304-66"><a href="appendix-b-shorts-package.html#cb304-66"></a><span class="co">#&gt;           8.0649112           0.6551988          12.3091052          24.8179600 </span></span>
+<span id="cb304-67"><a href="appendix-b-shorts-package.html#cb304-67"></a><span class="co">#&gt;     time_correction distance_correction </span></span>
+<span id="cb304-68"><a href="appendix-b-shorts-package.html#cb304-68"></a><span class="co">#&gt;           0.0000000           0.0000000 </span></span>
+<span id="cb304-69"><a href="appendix-b-shorts-package.html#cb304-69"></a><span class="co">#&gt; </span></span>
+<span id="cb304-70"><a href="appendix-b-shorts-package.html#cb304-70"></a><span class="co">#&gt; $random</span></span>
+<span id="cb304-71"><a href="appendix-b-shorts-package.html#cb304-71"></a><span class="co">#&gt;     athlete      MSS       TAU      MAC     PMAX time_correction distance_correction</span></span>
+<span id="cb304-72"><a href="appendix-b-shorts-package.html#cb304-72"></a><span class="co">#&gt; 1     James 9.691736 0.8469741 11.44278 27.72510               0                   0</span></span>
+<span id="cb304-73"><a href="appendix-b-shorts-package.html#cb304-73"></a><span class="co">#&gt; 2       Jim 7.833622 0.5048535 15.51663 30.38785               0                   0</span></span>
+<span id="cb304-74"><a href="appendix-b-shorts-package.html#cb304-74"></a><span class="co">#&gt; 3      John 7.780395 0.7274302 10.69573 20.80424               0                   0</span></span>
+<span id="cb304-75"><a href="appendix-b-shorts-package.html#cb304-75"></a><span class="co">#&gt; 4 Kimberley 8.569518 0.8022235 10.68221 22.88535               0                   0</span></span>
+<span id="cb304-76"><a href="appendix-b-shorts-package.html#cb304-76"></a><span class="co">#&gt; 5  Samantha 6.449284 0.3945129 16.34746 26.35735               0                   0</span></span></code></pre></div>
 <p><code>shorts::mixed_model_using_splits</code> return the similar object, but <code>parameters</code> contain two elements: <code>fixed</code> and <code>random</code>.</p>
 <p>Let’s plot predicted velocity over distance for athletes in the <code>split_times</code> data set:</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="appendix-b-shorts-package.html#cb305-1"></a>velocity_over_distance &lt;-<span class="st"> </span><span class="kw">merge</span>(</span>
@@ -670,8 +674,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb306-25"><a href="appendix-b-shorts-package.html#cb306-25"></a><span class="co">#&gt; </span></span>
 <span id="cb306-26"><a href="appendix-b-shorts-package.html#cb306-26"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb306-27"><a href="appendix-b-shorts-package.html#cb306-27"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb306-28"><a href="appendix-b-shorts-package.html#cb306-28"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb306-29"><a href="appendix-b-shorts-package.html#cb306-29"></a><span class="co">#&gt;  0.07635631  0.99801628 -0.10228573  0.15987989  0.15987989  0.06979851  0.05845303  2.68555639</span></span></code></pre></div>
+<span id="cb306-28"><a href="appendix-b-shorts-package.html#cb306-28"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb306-29"><a href="appendix-b-shorts-package.html#cb306-29"></a><span class="co">#&gt;  0.07635631  0.99801628 -0.10228573  0.15987989  0.15987989  0.06979851  0.05845303 </span></span>
+<span id="cb306-30"><a href="appendix-b-shorts-package.html#cb306-30"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb306-31"><a href="appendix-b-shorts-package.html#cb306-31"></a><span class="co">#&gt;  2.68555639</span></span></code></pre></div>
 </div>
 </div>
 <div id="profiling-using-radar-gun-data" class="section level3" number="18.2.2">
@@ -694,24 +700,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb307-15"><a href="appendix-b-shorts-package.html#cb307-15"></a><span class="co">#&gt; </span></span>
 <span id="cb307-16"><a href="appendix-b-shorts-package.html#cb307-16"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb307-17"><a href="appendix-b-shorts-package.html#cb307-17"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb307-18"><a href="appendix-b-shorts-package.html#cb307-18"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb307-19"><a href="appendix-b-shorts-package.html#cb307-19"></a><span class="co">#&gt;  0.05058726  0.99924408 -0.15099212  0.16415830  0.16415830  0.05050288  0.03927901         NaN</span></span>
-<span id="cb307-20"><a href="appendix-b-shorts-package.html#cb307-20"></a></span>
-<span id="cb307-21"><a href="appendix-b-shorts-package.html#cb307-21"></a><span class="kw">summary</span>(jim_profile)</span>
-<span id="cb307-22"><a href="appendix-b-shorts-package.html#cb307-22"></a><span class="co">#&gt; </span></span>
-<span id="cb307-23"><a href="appendix-b-shorts-package.html#cb307-23"></a><span class="co">#&gt; Formula: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU))</span></span>
+<span id="cb307-18"><a href="appendix-b-shorts-package.html#cb307-18"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb307-19"><a href="appendix-b-shorts-package.html#cb307-19"></a><span class="co">#&gt;  0.05058726  0.99924408 -0.15099212  0.16415830  0.16415830  0.05050288  0.03927901 </span></span>
+<span id="cb307-20"><a href="appendix-b-shorts-package.html#cb307-20"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb307-21"><a href="appendix-b-shorts-package.html#cb307-21"></a><span class="co">#&gt;         NaN</span></span>
+<span id="cb307-22"><a href="appendix-b-shorts-package.html#cb307-22"></a></span>
+<span id="cb307-23"><a href="appendix-b-shorts-package.html#cb307-23"></a><span class="kw">summary</span>(jim_profile)</span>
 <span id="cb307-24"><a href="appendix-b-shorts-package.html#cb307-24"></a><span class="co">#&gt; </span></span>
-<span id="cb307-25"><a href="appendix-b-shorts-package.html#cb307-25"></a><span class="co">#&gt; Parameters:</span></span>
-<span id="cb307-26"><a href="appendix-b-shorts-package.html#cb307-26"></a><span class="co">#&gt;     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb307-27"><a href="appendix-b-shorts-package.html#cb307-27"></a><span class="co">#&gt; MSS 7.997933   0.003069  2606.3   &lt;2e-16 ***</span></span>
-<span id="cb307-28"><a href="appendix-b-shorts-package.html#cb307-28"></a><span class="co">#&gt; TAU 0.888659   0.001564   568.2   &lt;2e-16 ***</span></span>
-<span id="cb307-29"><a href="appendix-b-shorts-package.html#cb307-29"></a><span class="co">#&gt; ---</span></span>
-<span id="cb307-30"><a href="appendix-b-shorts-package.html#cb307-30"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb307-31"><a href="appendix-b-shorts-package.html#cb307-31"></a><span class="co">#&gt; </span></span>
-<span id="cb307-32"><a href="appendix-b-shorts-package.html#cb307-32"></a><span class="co">#&gt; Residual standard error: 0.05059 on 598 degrees of freedom</span></span>
+<span id="cb307-25"><a href="appendix-b-shorts-package.html#cb307-25"></a><span class="co">#&gt; Formula: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU))</span></span>
+<span id="cb307-26"><a href="appendix-b-shorts-package.html#cb307-26"></a><span class="co">#&gt; </span></span>
+<span id="cb307-27"><a href="appendix-b-shorts-package.html#cb307-27"></a><span class="co">#&gt; Parameters:</span></span>
+<span id="cb307-28"><a href="appendix-b-shorts-package.html#cb307-28"></a><span class="co">#&gt;     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb307-29"><a href="appendix-b-shorts-package.html#cb307-29"></a><span class="co">#&gt; MSS 7.997933   0.003069  2606.3   &lt;2e-16 ***</span></span>
+<span id="cb307-30"><a href="appendix-b-shorts-package.html#cb307-30"></a><span class="co">#&gt; TAU 0.888659   0.001564   568.2   &lt;2e-16 ***</span></span>
+<span id="cb307-31"><a href="appendix-b-shorts-package.html#cb307-31"></a><span class="co">#&gt; ---</span></span>
+<span id="cb307-32"><a href="appendix-b-shorts-package.html#cb307-32"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb307-33"><a href="appendix-b-shorts-package.html#cb307-33"></a><span class="co">#&gt; </span></span>
-<span id="cb307-34"><a href="appendix-b-shorts-package.html#cb307-34"></a><span class="co">#&gt; Number of iterations to convergence: 3 </span></span>
-<span id="cb307-35"><a href="appendix-b-shorts-package.html#cb307-35"></a><span class="co">#&gt; Achieved convergence tolerance: 9.313e-07</span></span></code></pre></div>
+<span id="cb307-34"><a href="appendix-b-shorts-package.html#cb307-34"></a><span class="co">#&gt; Residual standard error: 0.05059 on 598 degrees of freedom</span></span>
+<span id="cb307-35"><a href="appendix-b-shorts-package.html#cb307-35"></a><span class="co">#&gt; </span></span>
+<span id="cb307-36"><a href="appendix-b-shorts-package.html#cb307-36"></a><span class="co">#&gt; Number of iterations to convergence: 3 </span></span>
+<span id="cb307-37"><a href="appendix-b-shorts-package.html#cb307-37"></a><span class="co">#&gt; Achieved convergence tolerance: 9.313e-07</span></span></code></pre></div>
 <p>The object returned from <code>shorts::model_using_radar</code> is same as object returned from <code>shorts::model_using_splits</code>. Let’s plot Jim’s measured velocity and predicted velocity:</p>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="appendix-b-shorts-package.html#cb308-1"></a><span class="kw">ggplot</span>(jim_profile<span class="op">$</span>data, <span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></span>
 <span id="cb308-2"><a href="appendix-b-shorts-package.html#cb308-2"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
@@ -747,39 +755,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb309-24"><a href="appendix-b-shorts-package.html#cb309-24"></a><span class="co">#&gt; </span></span>
 <span id="cb309-25"><a href="appendix-b-shorts-package.html#cb309-25"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb309-26"><a href="appendix-b-shorts-package.html#cb309-26"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb309-27"><a href="appendix-b-shorts-package.html#cb309-27"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb309-28"><a href="appendix-b-shorts-package.html#cb309-28"></a><span class="co">#&gt;  0.05164818  0.99942171 -0.21912952  0.19832897  0.21912952  0.05156203  0.03949473         NaN</span></span>
-<span id="cb309-29"><a href="appendix-b-shorts-package.html#cb309-29"></a></span>
-<span id="cb309-30"><a href="appendix-b-shorts-package.html#cb309-30"></a><span class="kw">summary</span>(mixed_model)</span>
-<span id="cb309-31"><a href="appendix-b-shorts-package.html#cb309-31"></a><span class="co">#&gt; Nonlinear mixed-effects model fit by maximum likelihood</span></span>
-<span id="cb309-32"><a href="appendix-b-shorts-package.html#cb309-32"></a><span class="co">#&gt;   Model: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU)) </span></span>
-<span id="cb309-33"><a href="appendix-b-shorts-package.html#cb309-33"></a><span class="co">#&gt;  Data: train </span></span>
-<span id="cb309-34"><a href="appendix-b-shorts-package.html#cb309-34"></a><span class="co">#&gt;         AIC       BIC   logLik</span></span>
-<span id="cb309-35"><a href="appendix-b-shorts-package.html#cb309-35"></a><span class="co">#&gt;   -9150.177 -9114.139 4581.089</span></span>
-<span id="cb309-36"><a href="appendix-b-shorts-package.html#cb309-36"></a><span class="co">#&gt; </span></span>
-<span id="cb309-37"><a href="appendix-b-shorts-package.html#cb309-37"></a><span class="co">#&gt; Random effects:</span></span>
-<span id="cb309-38"><a href="appendix-b-shorts-package.html#cb309-38"></a><span class="co">#&gt;  Formula: list(MSS ~ 1, TAU ~ 1)</span></span>
-<span id="cb309-39"><a href="appendix-b-shorts-package.html#cb309-39"></a><span class="co">#&gt;  Level: athlete</span></span>
-<span id="cb309-40"><a href="appendix-b-shorts-package.html#cb309-40"></a><span class="co">#&gt;  Structure: General positive-definite, Log-Cholesky parametrization</span></span>
-<span id="cb309-41"><a href="appendix-b-shorts-package.html#cb309-41"></a><span class="co">#&gt;          StdDev     Corr </span></span>
-<span id="cb309-42"><a href="appendix-b-shorts-package.html#cb309-42"></a><span class="co">#&gt; MSS      1.16535852 MSS  </span></span>
-<span id="cb309-43"><a href="appendix-b-shorts-package.html#cb309-43"></a><span class="co">#&gt; TAU      0.20497379 0.811</span></span>
-<span id="cb309-44"><a href="appendix-b-shorts-package.html#cb309-44"></a><span class="co">#&gt; Residual 0.05164818      </span></span>
-<span id="cb309-45"><a href="appendix-b-shorts-package.html#cb309-45"></a><span class="co">#&gt; </span></span>
-<span id="cb309-46"><a href="appendix-b-shorts-package.html#cb309-46"></a><span class="co">#&gt; Fixed effects: MSS + TAU ~ 1 </span></span>
-<span id="cb309-47"><a href="appendix-b-shorts-package.html#cb309-47"></a><span class="co">#&gt;        Value Std.Error   DF  t-value p-value</span></span>
-<span id="cb309-48"><a href="appendix-b-shorts-package.html#cb309-48"></a><span class="co">#&gt; MSS 8.301178 0.5213403 2994 15.92276       0</span></span>
-<span id="cb309-49"><a href="appendix-b-shorts-package.html#cb309-49"></a><span class="co">#&gt; TAU 1.007782 0.0917011 2994 10.98986       0</span></span>
-<span id="cb309-50"><a href="appendix-b-shorts-package.html#cb309-50"></a><span class="co">#&gt;  Correlation: </span></span>
-<span id="cb309-51"><a href="appendix-b-shorts-package.html#cb309-51"></a><span class="co">#&gt;     MSS  </span></span>
-<span id="cb309-52"><a href="appendix-b-shorts-package.html#cb309-52"></a><span class="co">#&gt; TAU 0.811</span></span>
-<span id="cb309-53"><a href="appendix-b-shorts-package.html#cb309-53"></a><span class="co">#&gt; </span></span>
-<span id="cb309-54"><a href="appendix-b-shorts-package.html#cb309-54"></a><span class="co">#&gt; Standardized Within-Group Residuals:</span></span>
-<span id="cb309-55"><a href="appendix-b-shorts-package.html#cb309-55"></a><span class="co">#&gt;           Min            Q1           Med            Q3           Max </span></span>
-<span id="cb309-56"><a href="appendix-b-shorts-package.html#cb309-56"></a><span class="co">#&gt; -3.8399995748 -0.5932967650 -0.0002562518  0.6111624765  4.2427350284 </span></span>
-<span id="cb309-57"><a href="appendix-b-shorts-package.html#cb309-57"></a><span class="co">#&gt; </span></span>
-<span id="cb309-58"><a href="appendix-b-shorts-package.html#cb309-58"></a><span class="co">#&gt; Number of Observations: 3000</span></span>
-<span id="cb309-59"><a href="appendix-b-shorts-package.html#cb309-59"></a><span class="co">#&gt; Number of Groups: 5</span></span></code></pre></div>
+<span id="cb309-27"><a href="appendix-b-shorts-package.html#cb309-27"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb309-28"><a href="appendix-b-shorts-package.html#cb309-28"></a><span class="co">#&gt;  0.05164818  0.99942171 -0.21912952  0.19832897  0.21912952  0.05156203  0.03949473 </span></span>
+<span id="cb309-29"><a href="appendix-b-shorts-package.html#cb309-29"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb309-30"><a href="appendix-b-shorts-package.html#cb309-30"></a><span class="co">#&gt;         NaN</span></span>
+<span id="cb309-31"><a href="appendix-b-shorts-package.html#cb309-31"></a></span>
+<span id="cb309-32"><a href="appendix-b-shorts-package.html#cb309-32"></a><span class="kw">summary</span>(mixed_model)</span>
+<span id="cb309-33"><a href="appendix-b-shorts-package.html#cb309-33"></a><span class="co">#&gt; Nonlinear mixed-effects model fit by maximum likelihood</span></span>
+<span id="cb309-34"><a href="appendix-b-shorts-package.html#cb309-34"></a><span class="co">#&gt;   Model: velocity ~ MSS * (1 - exp(1)^(-(corrected_time)/TAU)) </span></span>
+<span id="cb309-35"><a href="appendix-b-shorts-package.html#cb309-35"></a><span class="co">#&gt;  Data: train </span></span>
+<span id="cb309-36"><a href="appendix-b-shorts-package.html#cb309-36"></a><span class="co">#&gt;         AIC       BIC   logLik</span></span>
+<span id="cb309-37"><a href="appendix-b-shorts-package.html#cb309-37"></a><span class="co">#&gt;   -9150.177 -9114.139 4581.089</span></span>
+<span id="cb309-38"><a href="appendix-b-shorts-package.html#cb309-38"></a><span class="co">#&gt; </span></span>
+<span id="cb309-39"><a href="appendix-b-shorts-package.html#cb309-39"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb309-40"><a href="appendix-b-shorts-package.html#cb309-40"></a><span class="co">#&gt;  Formula: list(MSS ~ 1, TAU ~ 1)</span></span>
+<span id="cb309-41"><a href="appendix-b-shorts-package.html#cb309-41"></a><span class="co">#&gt;  Level: athlete</span></span>
+<span id="cb309-42"><a href="appendix-b-shorts-package.html#cb309-42"></a><span class="co">#&gt;  Structure: General positive-definite, Log-Cholesky parametrization</span></span>
+<span id="cb309-43"><a href="appendix-b-shorts-package.html#cb309-43"></a><span class="co">#&gt;          StdDev     Corr </span></span>
+<span id="cb309-44"><a href="appendix-b-shorts-package.html#cb309-44"></a><span class="co">#&gt; MSS      1.16535852 MSS  </span></span>
+<span id="cb309-45"><a href="appendix-b-shorts-package.html#cb309-45"></a><span class="co">#&gt; TAU      0.20497379 0.811</span></span>
+<span id="cb309-46"><a href="appendix-b-shorts-package.html#cb309-46"></a><span class="co">#&gt; Residual 0.05164818      </span></span>
+<span id="cb309-47"><a href="appendix-b-shorts-package.html#cb309-47"></a><span class="co">#&gt; </span></span>
+<span id="cb309-48"><a href="appendix-b-shorts-package.html#cb309-48"></a><span class="co">#&gt; Fixed effects: MSS + TAU ~ 1 </span></span>
+<span id="cb309-49"><a href="appendix-b-shorts-package.html#cb309-49"></a><span class="co">#&gt;        Value Std.Error   DF  t-value p-value</span></span>
+<span id="cb309-50"><a href="appendix-b-shorts-package.html#cb309-50"></a><span class="co">#&gt; MSS 8.301178 0.5213403 2994 15.92276       0</span></span>
+<span id="cb309-51"><a href="appendix-b-shorts-package.html#cb309-51"></a><span class="co">#&gt; TAU 1.007782 0.0917011 2994 10.98986       0</span></span>
+<span id="cb309-52"><a href="appendix-b-shorts-package.html#cb309-52"></a><span class="co">#&gt;  Correlation: </span></span>
+<span id="cb309-53"><a href="appendix-b-shorts-package.html#cb309-53"></a><span class="co">#&gt;     MSS  </span></span>
+<span id="cb309-54"><a href="appendix-b-shorts-package.html#cb309-54"></a><span class="co">#&gt; TAU 0.811</span></span>
+<span id="cb309-55"><a href="appendix-b-shorts-package.html#cb309-55"></a><span class="co">#&gt; </span></span>
+<span id="cb309-56"><a href="appendix-b-shorts-package.html#cb309-56"></a><span class="co">#&gt; Standardized Within-Group Residuals:</span></span>
+<span id="cb309-57"><a href="appendix-b-shorts-package.html#cb309-57"></a><span class="co">#&gt;           Min            Q1           Med            Q3           Max </span></span>
+<span id="cb309-58"><a href="appendix-b-shorts-package.html#cb309-58"></a><span class="co">#&gt; -3.8399995748 -0.5932967650 -0.0002562518  0.6111624765  4.2427350284 </span></span>
+<span id="cb309-59"><a href="appendix-b-shorts-package.html#cb309-59"></a><span class="co">#&gt; </span></span>
+<span id="cb309-60"><a href="appendix-b-shorts-package.html#cb309-60"></a><span class="co">#&gt; Number of Observations: 3000</span></span>
+<span id="cb309-61"><a href="appendix-b-shorts-package.html#cb309-61"></a><span class="co">#&gt; Number of Groups: 5</span></span></code></pre></div>
 <p>Let’s plot predicted acceleration over time (0-6sec) for athletes in the <code>radar_gun_data</code> data set:</p>
 <div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="appendix-b-shorts-package.html#cb310-1"></a>model_predictions &lt;-<span class="st"> </span>shorts<span class="op">::</span><span class="kw">predict_kinematics</span>(mixed_model)</span>
 <span id="cb310-2"><a href="appendix-b-shorts-package.html#cb310-2"></a></span>
@@ -822,10 +832,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb312-25"><a href="appendix-b-shorts-package.html#cb312-25"></a><span class="co">#&gt; </span></span>
 <span id="cb312-26"><a href="appendix-b-shorts-package.html#cb312-26"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb312-27"><a href="appendix-b-shorts-package.html#cb312-27"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb312-28"><a href="appendix-b-shorts-package.html#cb312-28"></a><span class="co">#&gt;          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE          MAE </span></span>
-<span id="cb312-29"><a href="appendix-b-shorts-package.html#cb312-29"></a><span class="co">#&gt;  0.015195052  0.999941466 -0.041155421  0.020298042  0.041155421  0.012443740  0.009087699 </span></span>
-<span id="cb312-30"><a href="appendix-b-shorts-package.html#cb312-30"></a><span class="co">#&gt;         MAPE </span></span>
-<span id="cb312-31"><a href="appendix-b-shorts-package.html#cb312-31"></a><span class="co">#&gt;  0.496822694</span></span>
+<span id="cb312-28"><a href="appendix-b-shorts-package.html#cb312-28"></a><span class="co">#&gt;          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE </span></span>
+<span id="cb312-29"><a href="appendix-b-shorts-package.html#cb312-29"></a><span class="co">#&gt;  0.015195052  0.999941466 -0.041155421  0.020298042  0.041155421  0.012443740 </span></span>
+<span id="cb312-30"><a href="appendix-b-shorts-package.html#cb312-30"></a><span class="co">#&gt;          MAE         MAPE </span></span>
+<span id="cb312-31"><a href="appendix-b-shorts-package.html#cb312-31"></a><span class="co">#&gt;  0.009087699  0.496822694</span></span>
 <span id="cb312-32"><a href="appendix-b-shorts-package.html#cb312-32"></a></span>
 <span id="cb312-33"><a href="appendix-b-shorts-package.html#cb312-33"></a><span class="kw">summary</span>(mixed_model_corrected)</span>
 <span id="cb312-34"><a href="appendix-b-shorts-package.html#cb312-34"></a><span class="co">#&gt; Nonlinear mixed-effects model fit by maximum likelihood</span></span>
@@ -926,10 +936,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb314-46"><a href="appendix-b-shorts-package.html#cb314-46"></a><span class="co">#&gt; </span></span>
 <span id="cb314-47"><a href="appendix-b-shorts-package.html#cb314-47"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb314-48"><a href="appendix-b-shorts-package.html#cb314-48"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb314-49"><a href="appendix-b-shorts-package.html#cb314-49"></a><span class="co">#&gt;          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE          MAE </span></span>
-<span id="cb314-50"><a href="appendix-b-shorts-package.html#cb314-50"></a><span class="co">#&gt;  0.005976815  0.999990286 -0.016508275  0.009370607  0.016508275  0.004882226  0.003481096 </span></span>
-<span id="cb314-51"><a href="appendix-b-shorts-package.html#cb314-51"></a><span class="co">#&gt;         MAPE </span></span>
-<span id="cb314-52"><a href="appendix-b-shorts-package.html#cb314-52"></a><span class="co">#&gt;  0.186135567</span></span></code></pre></div>
+<span id="cb314-49"><a href="appendix-b-shorts-package.html#cb314-49"></a><span class="co">#&gt;          RSE    R_squared       minErr       maxErr    maxAbsErr         RMSE </span></span>
+<span id="cb314-50"><a href="appendix-b-shorts-package.html#cb314-50"></a><span class="co">#&gt;  0.005976815  0.999990286 -0.016508275  0.009370607  0.016508275  0.004882226 </span></span>
+<span id="cb314-51"><a href="appendix-b-shorts-package.html#cb314-51"></a><span class="co">#&gt;          MAE         MAPE </span></span>
+<span id="cb314-52"><a href="appendix-b-shorts-package.html#cb314-52"></a><span class="co">#&gt;  0.003481096  0.186135567</span></span></code></pre></div>
 <p>For more details, please refer to <code>sprint-corrections</code> <a href="https://mladenjovanovic.github.io/shorts/articles/sprint-corrections.html">vignette</a>.</p>
 </div>
 <div id="leave-one-out-cross-validation-loocv" class="section level3" number="18.2.4">
@@ -950,24 +960,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb315-13"><a href="appendix-b-shorts-package.html#cb315-13"></a><span class="co">#&gt; </span></span>
 <span id="cb315-14"><a href="appendix-b-shorts-package.html#cb315-14"></a><span class="co">#&gt; Model fit estimators</span></span>
 <span id="cb315-15"><a href="appendix-b-shorts-package.html#cb315-15"></a><span class="co">#&gt; --------------------</span></span>
-<span id="cb315-16"><a href="appendix-b-shorts-package.html#cb315-16"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb315-17"><a href="appendix-b-shorts-package.html#cb315-17"></a><span class="co">#&gt;  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116 </span></span>
-<span id="cb315-18"><a href="appendix-b-shorts-package.html#cb315-18"></a><span class="co">#&gt; </span></span>
-<span id="cb315-19"><a href="appendix-b-shorts-package.html#cb315-19"></a><span class="co">#&gt; </span></span>
-<span id="cb315-20"><a href="appendix-b-shorts-package.html#cb315-20"></a><span class="co">#&gt; Leave-One-Out Cross-Validation</span></span>
-<span id="cb315-21"><a href="appendix-b-shorts-package.html#cb315-21"></a><span class="co">#&gt; ------------------------------</span></span>
-<span id="cb315-22"><a href="appendix-b-shorts-package.html#cb315-22"></a><span class="co">#&gt; Parameters:</span></span>
-<span id="cb315-23"><a href="appendix-b-shorts-package.html#cb315-23"></a><span class="co">#&gt;        MSS       TAU      MAC     PMAX time_correction distance_correction</span></span>
-<span id="cb315-24"><a href="appendix-b-shorts-package.html#cb315-24"></a><span class="co">#&gt; 1 8.693799 0.8561004 10.15512 22.07164               0                   0</span></span>
-<span id="cb315-25"><a href="appendix-b-shorts-package.html#cb315-25"></a><span class="co">#&gt; 2 8.599598 0.8152654 10.54822 22.67761               0                   0</span></span>
-<span id="cb315-26"><a href="appendix-b-shorts-package.html#cb315-26"></a><span class="co">#&gt; 3 8.560665 0.7953644 10.76320 23.03504               0                   0</span></span>
-<span id="cb315-27"><a href="appendix-b-shorts-package.html#cb315-27"></a><span class="co">#&gt; 4 8.571599 0.7972996 10.75079 23.03786               0                   0</span></span>
-<span id="cb315-28"><a href="appendix-b-shorts-package.html#cb315-28"></a><span class="co">#&gt; 5 8.608051 0.8130138 10.58783 22.78514               0                   0</span></span>
-<span id="cb315-29"><a href="appendix-b-shorts-package.html#cb315-29"></a><span class="co">#&gt; 6 8.394673 0.7596923 11.05010 23.19049               0                   0</span></span>
-<span id="cb315-30"><a href="appendix-b-shorts-package.html#cb315-30"></a><span class="co">#&gt; </span></span>
-<span id="cb315-31"><a href="appendix-b-shorts-package.html#cb315-31"></a><span class="co">#&gt; Model fit:</span></span>
-<span id="cb315-32"><a href="appendix-b-shorts-package.html#cb315-32"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE </span></span>
-<span id="cb315-33"><a href="appendix-b-shorts-package.html#cb315-33"></a><span class="co">#&gt;          NA  0.99901083 -0.03444984  0.08009048  0.08009048  0.04742769  0.03923869  1.72270273</span></span></code></pre></div>
+<span id="cb315-16"><a href="appendix-b-shorts-package.html#cb315-16"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb315-17"><a href="appendix-b-shorts-package.html#cb315-17"></a><span class="co">#&gt;  0.03403413  0.99965531 -0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 </span></span>
+<span id="cb315-18"><a href="appendix-b-shorts-package.html#cb315-18"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb315-19"><a href="appendix-b-shorts-package.html#cb315-19"></a><span class="co">#&gt;  1.19263116 </span></span>
+<span id="cb315-20"><a href="appendix-b-shorts-package.html#cb315-20"></a><span class="co">#&gt; </span></span>
+<span id="cb315-21"><a href="appendix-b-shorts-package.html#cb315-21"></a><span class="co">#&gt; </span></span>
+<span id="cb315-22"><a href="appendix-b-shorts-package.html#cb315-22"></a><span class="co">#&gt; Leave-One-Out Cross-Validation</span></span>
+<span id="cb315-23"><a href="appendix-b-shorts-package.html#cb315-23"></a><span class="co">#&gt; ------------------------------</span></span>
+<span id="cb315-24"><a href="appendix-b-shorts-package.html#cb315-24"></a><span class="co">#&gt; Parameters:</span></span>
+<span id="cb315-25"><a href="appendix-b-shorts-package.html#cb315-25"></a><span class="co">#&gt;        MSS       TAU      MAC     PMAX time_correction distance_correction</span></span>
+<span id="cb315-26"><a href="appendix-b-shorts-package.html#cb315-26"></a><span class="co">#&gt; 1 8.693799 0.8561004 10.15512 22.07164               0                   0</span></span>
+<span id="cb315-27"><a href="appendix-b-shorts-package.html#cb315-27"></a><span class="co">#&gt; 2 8.599598 0.8152654 10.54822 22.67761               0                   0</span></span>
+<span id="cb315-28"><a href="appendix-b-shorts-package.html#cb315-28"></a><span class="co">#&gt; 3 8.560665 0.7953644 10.76320 23.03504               0                   0</span></span>
+<span id="cb315-29"><a href="appendix-b-shorts-package.html#cb315-29"></a><span class="co">#&gt; 4 8.571599 0.7972996 10.75079 23.03786               0                   0</span></span>
+<span id="cb315-30"><a href="appendix-b-shorts-package.html#cb315-30"></a><span class="co">#&gt; 5 8.608051 0.8130138 10.58783 22.78514               0                   0</span></span>
+<span id="cb315-31"><a href="appendix-b-shorts-package.html#cb315-31"></a><span class="co">#&gt; 6 8.394673 0.7596923 11.05010 23.19049               0                   0</span></span>
+<span id="cb315-32"><a href="appendix-b-shorts-package.html#cb315-32"></a><span class="co">#&gt; </span></span>
+<span id="cb315-33"><a href="appendix-b-shorts-package.html#cb315-33"></a><span class="co">#&gt; Model fit:</span></span>
+<span id="cb315-34"><a href="appendix-b-shorts-package.html#cb315-34"></a><span class="co">#&gt;         RSE   R_squared      minErr      maxErr   maxAbsErr        RMSE         MAE </span></span>
+<span id="cb315-35"><a href="appendix-b-shorts-package.html#cb315-35"></a><span class="co">#&gt;          NA  0.99901083 -0.03444984  0.08009048  0.08009048  0.04742769  0.03923869 </span></span>
+<span id="cb315-36"><a href="appendix-b-shorts-package.html#cb315-36"></a><span class="co">#&gt;        MAPE </span></span>
+<span id="cb315-37"><a href="appendix-b-shorts-package.html#cb315-37"></a><span class="co">#&gt;  1.72270273</span></span></code></pre></div>
 <p>Box-plot is suitable method for plotting estimated parameters:</p>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="appendix-b-shorts-package.html#cb316-1"></a>LOOCV_parameters &lt;-<span class="st"> </span><span class="kw">gather</span>(kimberley_profile_LOOCV<span class="op">$</span>LOOCV<span class="op">$</span>parameters) <span class="op">%&gt;%</span></span>
 <span id="cb316-2"><a href="appendix-b-shorts-package.html#cb316-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">key =</span> <span class="kw">factor</span>(</span>

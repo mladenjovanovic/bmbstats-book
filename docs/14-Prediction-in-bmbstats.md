@@ -50,7 +50,9 @@ ggplot(sinus_data, aes(x = x)) +
   geom_line(aes(y = true_y))
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 This data has *irreducible error* with `SD` equal to 2 (a.u.). Let's use simple linear regression to predict observed $y$, but evaluate model performance using 10 repeats of 5-folds cross-validations:
 
@@ -79,26 +81,26 @@ model1
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD         min
-#>            MBE -1.786530e-14    3.608730e-15     0.01201151  0.03878805 1.39091047 -3.56918463
-#>            MAE  3.307366e+00    3.281275e+00     3.42055845  3.40542550 0.71086848  1.90802477
-#>           RMSE  3.830961e+00    3.811531e+00     4.00171168  3.91431323 0.78174879  2.19948265
-#>           PPER  2.500597e-01    2.532192e-01     0.24118080  0.22872198 0.05453147  0.15058656
-#>  SESOI to RMSE  6.520075e-01    6.461322e-01     0.61542490  0.67035639 0.16588651  0.47111531
-#>      R-squared  6.125604e-01    6.164804e-01     0.57725715  0.59398198 0.20141946 -0.07623944
-#>         MinErr -5.833192e+00   -6.481721e+00    -6.66660654 -4.83585586 1.34488218 -6.66660654
-#>         MaxErr  9.531759e+00    1.069301e+01    10.89240388  5.74134976 2.57512537  1.06931471
-#>      MaxAbsErr  9.531759e+00    1.069301e+01    10.89240388  6.54646863 1.91850684  3.68446911
-#>         max
-#>   2.8362928
-#>   4.6087168
-#>   5.4637498
-#>   0.3811788
-#>   1.1614533
-#>   0.8893906
-#>  -1.8826434
-#>  10.8924039
-#>  10.8924039
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE -1.786530e-14    3.608730e-15     0.01201151  0.03878805 1.39091047
+#>            MAE  3.307366e+00    3.281275e+00     3.42055845  3.40542550 0.71086848
+#>           RMSE  3.830961e+00    3.811531e+00     4.00171168  3.91431323 0.78174879
+#>           PPER  2.500597e-01    2.532192e-01     0.24118080  0.22872198 0.05453147
+#>  SESOI to RMSE  6.520075e-01    6.461322e-01     0.61542490  0.67035639 0.16588651
+#>      R-squared  6.125604e-01    6.164804e-01     0.57725715  0.59398198 0.20141946
+#>         MinErr -5.833192e+00   -6.481721e+00    -6.66660654 -4.83585586 1.34488218
+#>         MaxErr  9.531759e+00    1.069301e+01    10.89240388  5.74134976 2.57512537
+#>      MaxAbsErr  9.531759e+00    1.069301e+01    10.89240388  6.54646863 1.91850684
+#>          min        max
+#>  -3.56918463  2.8362928
+#>   1.90802477  4.6087168
+#>   2.19948265  5.4637498
+#>   0.15058656  0.3811788
+#>   0.47111531  1.1614533
+#>  -0.07623944  0.8893906
+#>  -6.66660654 -1.8826434
+#>   1.06931471 10.8924039
+#>   3.68446911 10.8924039
 ```
 
 SESOI in the above example is calculated using 0.2 x `SD` of the outcome variable (i.e. `observed_y`) which represents Cohen's trivial effect. SESOI constants of estimation function (that uses training data set to estimate SESOI) can be set up using the `SESOI_lower` and `SESOI_upper` parameters (to which the default are `bmbstats::SESOI_lower_func` and `bmbstats::SESOI_upper_func` respectively). 
@@ -112,7 +114,9 @@ The above output can be plotted using the `plot` command and `type = "estimators
 plot(model1, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Error bars represent range of estimator values across cross-validation folds, while the dashed line indicate training performance. There estimates can be accessed in the returned object, i.e. `model1$performance` for training, and `model1$cross_validation$performance` for cross-validation. 
 
@@ -178,17 +182,23 @@ model2
 #> 
 #> Model performance:
 #> 
-#>     metric  training training.pooled testing.pooled     mean         SD         min       max
-#>       RMSE 3.8309607       3.8115312      4.0017117 3.914313 0.78174879  2.19948265 5.4637498
-#>       PPER 0.2500597       0.2532192      0.2411808 0.228722 0.05453147  0.15058656 0.3811788
-#>  R-squared 0.6125604       0.6164804      0.5772572 0.593982 0.20141946 -0.07623944 0.8893906
+#>     metric  training training.pooled testing.pooled     mean         SD         min
+#>       RMSE 3.8309607       3.8115312      4.0017117 3.914313 0.78174879  2.19948265
+#>       PPER 0.2500597       0.2532192      0.2411808 0.228722 0.05453147  0.15058656
+#>  R-squared 0.6125604       0.6164804      0.5772572 0.593982 0.20141946 -0.07623944
+#>        max
+#>  5.4637498
+#>  0.3811788
+#>  0.8893906
 ```
 
 ```r
 plot(model2, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 ## How to use different prediction model?
 
@@ -234,33 +244,35 @@ model3
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE  2.030618e-16   -3.045865e-16     0.03760974  0.03641386 1.38472089 -3.5600378
-#>            MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150  0.9905252
-#>           RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316  1.1382304
-#>           PPER  3.621870e-01    3.437038e-01     0.29087228  0.27713101 0.07822901  0.1429604
-#>  SESOI to RMSE  9.639014e-01    8.905739e-01     0.74773376  0.83310652 0.26906599  0.5367524
-#>      R-squared  8.227265e-01    7.981214e-01     0.71366153  0.74453263 0.13595473  0.3724261
-#>         MinErr -5.699018e+00   -6.168662e+00    -9.88715278 -4.49333669 2.25968230 -9.8871528
-#>         MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134 -0.3225821
-#>      MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516  1.8902345
-#>         max
-#>   2.4319242
-#>   3.7964691
-#>   4.6196434
-#>   0.6357025
-#>   2.2239463
-#>   0.9682861
-#>  -0.4531138
-#>   7.2216714
-#>   9.8871528
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE  2.030618e-16   -3.045865e-16     0.03760974  0.03641386 1.38472089
+#>            MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150
+#>           RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316
+#>           PPER  3.621870e-01    3.437038e-01     0.29087228  0.27713101 0.07822901
+#>  SESOI to RMSE  9.639014e-01    8.905739e-01     0.74773376  0.83310652 0.26906599
+#>      R-squared  8.227265e-01    7.981214e-01     0.71366153  0.74453263 0.13595473
+#>         MinErr -5.699018e+00   -6.168662e+00    -9.88715278 -4.49333669 2.25968230
+#>         MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134
+#>      MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516
+#>         min        max
+#>  -3.5600378  2.4319242
+#>   0.9905252  3.7964691
+#>   1.1382304  4.6196434
+#>   0.1429604  0.6357025
+#>   0.5367524  2.2239463
+#>   0.3724261  0.9682861
+#>  -9.8871528 -0.4531138
+#>  -0.3225821  7.2216714
+#>   1.8902345  9.8871528
 ```
 
 ```r
 plot(model3, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 ## Example of using tuning parameter
 
@@ -330,7 +342,9 @@ ggplot(poly_perf, aes(x = poly_n)) +
   facet_wrap(~metric, scales = "free_y")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 As can be seen, the best predictive performance is with 3rd polynomial degrees. The figure below depicts `RMSE` estimator for higher resolution image. 
 
@@ -349,7 +363,9 @@ ggplot(
   ylab("RMSE")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 ## Plotting
 
@@ -375,26 +391,26 @@ model4
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE -1.299275e-14    2.060564e-15    -0.03724767 -0.02930855 0.83265732 -2.3250491
-#>            MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744  1.0364816
-#>           RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351  1.3940723
-#>           PPER  4.925435e-01    5.041349e-01     0.44022003  0.40113906 0.05824287  0.2221031
-#>  SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558  0.9198745
-#>      R-squared  9.108623e-01    9.137963e-01     0.88289646  0.89017328 0.04568934  0.7776291
-#>         MinErr -3.676547e+00   -4.335315e+00    -4.57284164 -2.99135803 0.81846093 -4.5728416
-#>         MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338 -0.2033888
-#>      MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575  2.3829256
-#>        max
-#>  1.3681763
-#>  2.3883585
-#>  2.7092065
-#>  0.5513211
-#>  1.7145206
-#>  0.9626275
-#>  0.2782154
-#>  4.4350671
-#>  4.5728416
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE -1.299275e-14    2.060564e-15    -0.03724767 -0.02930855 0.83265732
+#>            MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744
+#>           RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351
+#>           PPER  4.925435e-01    5.041349e-01     0.44022003  0.40113906 0.05824287
+#>  SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558
+#>      R-squared  9.108623e-01    9.137963e-01     0.88289646  0.89017328 0.04568934
+#>         MinErr -3.676547e+00   -4.335315e+00    -4.57284164 -2.99135803 0.81846093
+#>         MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338
+#>      MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575
+#>         min       max
+#>  -2.3250491 1.3681763
+#>   1.0364816 2.3883585
+#>   1.3940723 2.7092065
+#>   0.2221031 0.5513211
+#>   0.9198745 1.7145206
+#>   0.7776291 0.9626275
+#>  -4.5728416 0.2782154
+#>  -0.2033888 4.4350671
+#>   2.3829256 4.5728416
 ```
 
 To plot the residuals, use `type="residuals"` in the `plot` function:
@@ -404,7 +420,9 @@ To plot the residuals, use `type="residuals"` in the `plot` function:
 plot(model4, "residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The following code will plot the training and testing residuals across cross-validation folds:
 
@@ -413,14 +431,18 @@ The following code will plot the training and testing residuals across cross-val
 plot(model4, "training-residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 
 ```r
 plot(model4, "testing-residuals")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 To plot bias-variance error decomposition across cross-validation folds use:
 
@@ -429,7 +451,9 @@ To plot bias-variance error decomposition across cross-validation folds use:
 plot(model4, "bias-variance-index")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The above figure depicts bias-variance for each observation index. To plot against the outcome variable value use:
 
@@ -438,7 +462,9 @@ The above figure depicts bias-variance for each observation index. To plot again
 plot(model4, "bias-variance-observed")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Prediction error (i.e. residuals) can also be plotted as boxes, demonstrating the mean (i.e. bias) and spread (i.e. variance). To plot prediction error again outcome index use:
 
@@ -447,7 +473,9 @@ Prediction error (i.e. residuals) can also be plotted as boxes, demonstrating th
 plot(model4, "prediction-index")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Similar to plotting bias-variance, prediction error distribution (actually, a spread or range) can be plotted against outcome variable value:
 
@@ -456,7 +484,9 @@ Similar to plotting bias-variance, prediction error distribution (actually, a sp
 plot(model4, "prediction-observed")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-20-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 And finally, to plot the performance estimator use:
 
@@ -465,7 +495,9 @@ And finally, to plot the performance estimator use:
 plot(model4, "estimators")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Each of these plots can be customized using the `control=bmbstats::plot_control` argument and function.
 
@@ -481,44 +513,44 @@ plot_data <- rbind(
 )
 
 plot_data
-#>    model        metric      training training.pooled testing.pooled        mean         SD
-#> 1  rpart           MBE  2.030618e-16   -3.045865e-16     0.03760974  0.03641386 1.38472089
-#> 2  rpart           MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150
-#> 3  rpart          RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316
-#> 4  rpart          PPER  3.621870e-01    3.437038e-01     0.29087228  0.27713101 0.07822901
-#> 5  rpart SESOI to RMSE  9.639014e-01    8.905739e-01     0.74773376  0.83310652 0.26906599
-#> 6  rpart     R-squared  8.227265e-01    7.981214e-01     0.71366153  0.74453263 0.13595473
-#> 7  rpart        MinErr -5.699018e+00   -6.168662e+00    -9.88715278 -4.49333669 2.25968230
-#> 8  rpart        MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134
-#> 9  rpart     MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516
-#> 10  poly           MBE -1.299275e-14    2.060564e-15    -0.03724767 -0.02930855 0.83265732
-#> 11  poly           MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744
-#> 12  poly          RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351
-#> 13  poly          PPER  4.925435e-01    5.041349e-01     0.44022003  0.40113906 0.05824287
-#> 14  poly SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558
-#> 15  poly     R-squared  9.108623e-01    9.137963e-01     0.88289646  0.89017328 0.04568934
-#> 16  poly        MinErr -3.676547e+00   -4.335315e+00    -4.57284164 -2.99135803 0.81846093
-#> 17  poly        MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338
-#> 18  poly     MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575
-#>           min        max
-#> 1  -3.5600378  2.4319242
-#> 2   0.9905252  3.7964691
-#> 3   1.1382304  4.6196434
-#> 4   0.1429604  0.6357025
-#> 5   0.5367524  2.2239463
-#> 6   0.3724261  0.9682861
-#> 7  -9.8871528 -0.4531138
-#> 8  -0.3225821  7.2216714
-#> 9   1.8902345  9.8871528
-#> 10 -2.3250491  1.3681763
-#> 11  1.0364816  2.3883585
-#> 12  1.3940723  2.7092065
-#> 13  0.2221031  0.5513211
-#> 14  0.9198745  1.7145206
-#> 15  0.7776291  0.9626275
-#> 16 -4.5728416  0.2782154
-#> 17 -0.2033888  4.4350671
-#> 18  2.3829256  4.5728416
+#>    model        metric      training training.pooled testing.pooled        mean
+#> 1  rpart           MBE  2.030618e-16   -3.045865e-16     0.03760974  0.03641386
+#> 2  rpart           MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008
+#> 3  rpart          RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487
+#> 4  rpart          PPER  3.621870e-01    3.437038e-01     0.29087228  0.27713101
+#> 5  rpart SESOI to RMSE  9.639014e-01    8.905739e-01     0.74773376  0.83310652
+#> 6  rpart     R-squared  8.227265e-01    7.981214e-01     0.71366153  0.74453263
+#> 7  rpart        MinErr -5.699018e+00   -6.168662e+00    -9.88715278 -4.49333669
+#> 8  rpart        MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323
+#> 9  rpart     MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382
+#> 10  poly           MBE -1.299275e-14    2.060564e-15    -0.03724767 -0.02930855
+#> 11  poly           MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879
+#> 12  poly          RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558
+#> 13  poly          PPER  4.925435e-01    5.041349e-01     0.44022003  0.40113906
+#> 14  poly SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404
+#> 15  poly     R-squared  9.108623e-01    9.137963e-01     0.88289646  0.89017328
+#> 16  poly        MinErr -3.676547e+00   -4.335315e+00    -4.57284164 -2.99135803
+#> 17  poly        MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044
+#> 18  poly     MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085
+#>            SD        min        max
+#> 1  1.38472089 -3.5600378  2.4319242
+#> 2  0.60425150  0.9905252  3.7964691
+#> 3  0.67699316  1.1382304  4.6196434
+#> 4  0.07822901  0.1429604  0.6357025
+#> 5  0.26906599  0.5367524  2.2239463
+#> 6  0.13595473  0.3724261  0.9682861
+#> 7  2.25968230 -9.8871528 -0.4531138
+#> 8  1.95348134 -0.3225821  7.2216714
+#> 9  1.31129516  1.8902345  9.8871528
+#> 10 0.83265732 -2.3250491  1.3681763
+#> 11 0.33144744  1.0364816  2.3883585
+#> 12 0.29737351  1.3940723  2.7092065
+#> 13 0.05824287  0.2221031  0.5513211
+#> 14 0.18072558  0.9198745  1.7145206
+#> 15 0.04568934  0.7776291  0.9626275
+#> 16 0.81846093 -4.5728416  0.2782154
+#> 17 1.17063338 -0.2033888  4.4350671
+#> 18 0.57631575  2.3829256  4.5728416
 ```
 
 
@@ -539,7 +571,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 As can be seen from the figure, polynomial fit represents a more predictive model. But we can also perform statistical significance test using the cross-validation performance, for let's say `RMSE` estimator. Since the CV folds are the same (which we achieved by using the same `seed` number), we can do dependent groups analysis. But before, let's plot the CV estimates of the `RMSE`:
 
@@ -590,7 +624,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 And we can finally perform the dependent groups analysis:
 
@@ -644,7 +680,9 @@ rmse_NHST
 plot(rmse_NHST)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-29-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 So we can conclude that polynomial model has significantly better performance, using `RMSE` estimator, than Regression Tree model that cannot be explained as a pure (sampling) chance. 
 
@@ -665,7 +703,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 Or their difference:
 
@@ -679,7 +719,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 And we can finally perform the dependent groups analysis:
 
@@ -732,7 +774,9 @@ resid_NHST
 plot(resid_NHST)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 According to Cross-Validation residuals analysis, the two models didn't perform statistically different that can be attributed to chance. 
 
@@ -771,7 +815,9 @@ model4.boot.coef
 plot(model4.boot.coef)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 And here are the model performance estimators and their 95% bootstrap confidence intervals:
 
@@ -813,6 +859,8 @@ model4.boot.perf
 plot(model4.boot.perf)
 ```
 
-<img src="14-Prediction-in-bmbstats_files/figure-html/unnamed-chunk-38-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{14-Prediction-in-bmbstats_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
 It is important to remember that these model analysis are trying to answer different questions - one predictive and one inferential. 

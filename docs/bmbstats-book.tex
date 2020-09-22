@@ -144,7 +144,7 @@
 
 % to change the paper size and the margins
 \usepackage{geometry}
-\geometry{paperwidth=6in,paperheight=9in,inner=15.9mm,outer=8mm,bottom=20mm,top=20mm}
+\geometry{paperwidth=6in,paperheight=9in,inner=20mm,outer=10mm,bottom=20mm,top=20mm}
 
 % to select font
 \usepackage[T1]{fontenc}
@@ -214,8 +214,8 @@
 
     \vspace{10\baselineskip}
     First Paperback Edition\\
-    Version number: 1\\
-    Version date: 2020-08-17\\
+    Version number: 2\\
+    Version date: 2020-09-20\\
     For information: www.complementarytraining.net
     }
     % DEDICATION
@@ -269,7 +269,7 @@
 
 \title{bmbstats: bootstrap magnitude-based statistics for sports scientists}
 \author{Mladen Jovanovic}
-\date{2020-09-02}
+\date{2020-09-22}
 
 \begin{document}
 \maketitle
@@ -5051,14 +5051,16 @@ To perform descriptive analysis of the independent groups, we will use \texttt{b
   \DataTypeTok{SESOI\_lower =} \FloatTok{{-}2.5}\NormalTok{,}
   \DataTypeTok{SESOI\_upper =} \FloatTok{2.5}
 \NormalTok{)}
-\CommentTok{\#>        SESOI lower        SESOI upper        SESOI range          Mean diff            SD diff }
-\CommentTok{\#>        {-}2.50000000         2.50000000         5.00000000        12.72521903        12.41402468 }
-\CommentTok{\#>          SD pooled           \%CV diff             \% diff              Ratio          Cohen\textquotesingle{}s d }
-\CommentTok{\#>         8.77804103        97.55450689         7.79837084         1.07798371         1.44966502 }
-\CommentTok{\#>               CLES                OVL Mean diff to SESOI   SD diff to SESOI             pLower }
-\CommentTok{\#>         0.84733444         0.46855479         2.54504381         2.48280494         0.11148343 }
-\CommentTok{\#>        pEquivalent            pHigher }
-\CommentTok{\#>         0.09457649         0.79394008}
+\CommentTok{\#>        SESOI lower        SESOI upper        SESOI range          Mean diff }
+\CommentTok{\#>        {-}2.50000000         2.50000000         5.00000000        12.72521903 }
+\CommentTok{\#>            SD diff          SD pooled           \%CV diff             \% diff }
+\CommentTok{\#>        12.41402468         8.77804103        97.55450689         7.79837084 }
+\CommentTok{\#>              Ratio          Cohen\textquotesingle{}s d               CLES                OVL }
+\CommentTok{\#>         1.07798371         1.44966502         0.84733444         0.46855479 }
+\CommentTok{\#> Mean diff to SESOI   SD diff to SESOI             pLower        pEquivalent }
+\CommentTok{\#>         2.54504381         2.48280494         0.11148343         0.09457649 }
+\CommentTok{\#>            pHigher }
+\CommentTok{\#>         0.79394008}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5441,29 +5443,29 @@ In the \protect\hyperlink{description}{Description} chapter, to showcase compari
 
 \NormalTok{bench\_press\_data}
 \CommentTok{\#> \# A tibble: 20 x 7}
-\CommentTok{\#>    Athlete \textasciigrave{}Pre{-}test (true\textasciitilde{} \textasciigrave{}Change (true)\textasciigrave{} \textasciigrave{}Post{-}test (tru\textasciitilde{} \textasciigrave{}Pre{-}test (obse\textasciitilde{} \textasciigrave{}Post{-}test (obs\textasciitilde{}}
-\CommentTok{\#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>}
-\CommentTok{\#>  1 Athlet\textasciitilde{}            111.                0            111.             112.             112. }
-\CommentTok{\#>  2 Athlet\textasciitilde{}            102.                0            102.             108.              97.7}
-\CommentTok{\#>  3 Athlet\textasciitilde{}             93.4               0             93.4             90.8             92.0}
-\CommentTok{\#>  4 Athlet\textasciitilde{}             95.4               0             95.4             93.2             94.0}
-\CommentTok{\#>  5 Athlet\textasciitilde{}            111.                0            111.             111.             110. }
-\CommentTok{\#>  6 Athlet\textasciitilde{}            110.                0            110.             109.             111. }
-\CommentTok{\#>  7 Athlet\textasciitilde{}            104.                0            104.             105.             110. }
-\CommentTok{\#>  8 Athlet\textasciitilde{}             93.7               0             93.7             94.5             93.0}
-\CommentTok{\#>  9 Athlet\textasciitilde{}             99.6               0             99.6            102.              99.8}
-\CommentTok{\#> 10 Athlet\textasciitilde{}            106.                0            106.             109.             106. }
-\CommentTok{\#> 11 Athlet\textasciitilde{}            102.                0            102.             105.             103. }
-\CommentTok{\#> 12 Athlet\textasciitilde{}            101.                0            101.             100.             102. }
-\CommentTok{\#> 13 Athlet\textasciitilde{}             92.9               0             92.9             90.5             96.2}
-\CommentTok{\#> 14 Athlet\textasciitilde{}             98.2               0             98.2             96.5            100. }
-\CommentTok{\#> 15 Athlet\textasciitilde{}             88.3               0             88.3             89.7             92.5}
-\CommentTok{\#> 16 Athlet\textasciitilde{}            106.                0            106.             109.             111. }
-\CommentTok{\#> 17 Athlet\textasciitilde{}             95.8               0             95.8             98.2             94.1}
-\CommentTok{\#> 18 Athlet\textasciitilde{}             92.9               0             92.9             90.8             87.9}
-\CommentTok{\#> 19 Athlet\textasciitilde{}            103.                0            103.             104.             107. }
-\CommentTok{\#> 20 Athlet\textasciitilde{}            104.                0            104.             107.             107. }
-\CommentTok{\#> \# ... with 1 more variable: \textasciigrave{}Change (observed)\textasciigrave{} <dbl>}
+\CommentTok{\#>    Athlete \textasciigrave{}Pre{-}test (true\textasciitilde{} \textasciigrave{}Change (true)\textasciigrave{} \textasciigrave{}Post{-}test (tru\textasciitilde{} \textasciigrave{}Pre{-}test (obse\textasciitilde{}}
+\CommentTok{\#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>}
+\CommentTok{\#>  1 Athlet\textasciitilde{}            111.                0            111.             112. }
+\CommentTok{\#>  2 Athlet\textasciitilde{}            102.                0            102.             108. }
+\CommentTok{\#>  3 Athlet\textasciitilde{}             93.4               0             93.4             90.8}
+\CommentTok{\#>  4 Athlet\textasciitilde{}             95.4               0             95.4             93.2}
+\CommentTok{\#>  5 Athlet\textasciitilde{}            111.                0            111.             111. }
+\CommentTok{\#>  6 Athlet\textasciitilde{}            110.                0            110.             109. }
+\CommentTok{\#>  7 Athlet\textasciitilde{}            104.                0            104.             105. }
+\CommentTok{\#>  8 Athlet\textasciitilde{}             93.7               0             93.7             94.5}
+\CommentTok{\#>  9 Athlet\textasciitilde{}             99.6               0             99.6            102. }
+\CommentTok{\#> 10 Athlet\textasciitilde{}            106.                0            106.             109. }
+\CommentTok{\#> 11 Athlet\textasciitilde{}            102.                0            102.             105. }
+\CommentTok{\#> 12 Athlet\textasciitilde{}            101.                0            101.             100. }
+\CommentTok{\#> 13 Athlet\textasciitilde{}             92.9               0             92.9             90.5}
+\CommentTok{\#> 14 Athlet\textasciitilde{}             98.2               0             98.2             96.5}
+\CommentTok{\#> 15 Athlet\textasciitilde{}             88.3               0             88.3             89.7}
+\CommentTok{\#> 16 Athlet\textasciitilde{}            106.                0            106.             109. }
+\CommentTok{\#> 17 Athlet\textasciitilde{}             95.8               0             95.8             98.2}
+\CommentTok{\#> 18 Athlet\textasciitilde{}             92.9               0             92.9             90.8}
+\CommentTok{\#> 19 Athlet\textasciitilde{}            103.                0            103.             104. }
+\CommentTok{\#> 20 Athlet\textasciitilde{}            104.                0            104.             107. }
+\CommentTok{\#> \# ... with 2 more variables: \textasciigrave{}Post{-}test (observed)\textasciigrave{} <dbl>, \textasciigrave{}Change (observed)\textasciigrave{} <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5712,29 +5714,29 @@ Let's now generate the data with true changes, where systematic change is 10kg a
 
 \NormalTok{bench\_press\_data}
 \CommentTok{\#> \# A tibble: 20 x 7}
-\CommentTok{\#>    Athlete \textasciigrave{}Pre{-}test (true\textasciitilde{} \textasciigrave{}Change (true)\textasciigrave{} \textasciigrave{}Post{-}test (tru\textasciitilde{} \textasciigrave{}Pre{-}test (obse\textasciitilde{} \textasciigrave{}Post{-}test (obs\textasciitilde{}}
-\CommentTok{\#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>}
-\CommentTok{\#>  1 Athlet\textasciitilde{}            111.           13.8              125.             112.             126. }
-\CommentTok{\#>  2 Athlet\textasciitilde{}            102.           34.3              136.              97.7            135. }
-\CommentTok{\#>  3 Athlet\textasciitilde{}             93.4          {-}0.428             93.0             92.0             95.0}
-\CommentTok{\#>  4 Athlet\textasciitilde{}             95.4           1.27              96.7             94.0             95.4}
-\CommentTok{\#>  5 Athlet\textasciitilde{}            111.            9.65             120.             110.             128. }
-\CommentTok{\#>  6 Athlet\textasciitilde{}            110.            6.41             116.             111.             117. }
-\CommentTok{\#>  7 Athlet\textasciitilde{}            104.           13.3              118.             110.             116. }
-\CommentTok{\#>  8 Athlet\textasciitilde{}             93.7          13.4              107.              93.0            101. }
-\CommentTok{\#>  9 Athlet\textasciitilde{}             99.6          19.3              119.              99.8            120. }
-\CommentTok{\#> 10 Athlet\textasciitilde{}            106.           22.1              129.             106.             131. }
-\CommentTok{\#> 11 Athlet\textasciitilde{}            102.           23.1              125.             103.             128. }
-\CommentTok{\#> 12 Athlet\textasciitilde{}            101.            5.59             107.             102.             106. }
-\CommentTok{\#> 13 Athlet\textasciitilde{}             92.9           0.190             93.1             96.2             95.6}
-\CommentTok{\#> 14 Athlet\textasciitilde{}             98.2           3.17             101.             100.             102. }
-\CommentTok{\#> 15 Athlet\textasciitilde{}             88.3          15.5              104.              92.5            105. }
-\CommentTok{\#> 16 Athlet\textasciitilde{}            106.           21.1              127.             111.             128. }
-\CommentTok{\#> 17 Athlet\textasciitilde{}             95.8          19.6              115.              94.1            117. }
-\CommentTok{\#> 18 Athlet\textasciitilde{}             92.9           1.54              94.4             87.9            101. }
-\CommentTok{\#> 19 Athlet\textasciitilde{}            103.           14.6              117.             107.             113. }
-\CommentTok{\#> 20 Athlet\textasciitilde{}            104.           19.1              123.             107.             131. }
-\CommentTok{\#> \# ... with 1 more variable: \textasciigrave{}Change (observed)\textasciigrave{} <dbl>}
+\CommentTok{\#>    Athlete \textasciigrave{}Pre{-}test (true\textasciitilde{} \textasciigrave{}Change (true)\textasciigrave{} \textasciigrave{}Post{-}test (tru\textasciitilde{} \textasciigrave{}Pre{-}test (obse\textasciitilde{}}
+\CommentTok{\#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>}
+\CommentTok{\#>  1 Athlet\textasciitilde{}            111.           13.8              125.             112. }
+\CommentTok{\#>  2 Athlet\textasciitilde{}            102.           34.3              136.              97.7}
+\CommentTok{\#>  3 Athlet\textasciitilde{}             93.4          {-}0.428             93.0             92.0}
+\CommentTok{\#>  4 Athlet\textasciitilde{}             95.4           1.27              96.7             94.0}
+\CommentTok{\#>  5 Athlet\textasciitilde{}            111.            9.65             120.             110. }
+\CommentTok{\#>  6 Athlet\textasciitilde{}            110.            6.41             116.             111. }
+\CommentTok{\#>  7 Athlet\textasciitilde{}            104.           13.3              118.             110. }
+\CommentTok{\#>  8 Athlet\textasciitilde{}             93.7          13.4              107.              93.0}
+\CommentTok{\#>  9 Athlet\textasciitilde{}             99.6          19.3              119.              99.8}
+\CommentTok{\#> 10 Athlet\textasciitilde{}            106.           22.1              129.             106. }
+\CommentTok{\#> 11 Athlet\textasciitilde{}            102.           23.1              125.             103. }
+\CommentTok{\#> 12 Athlet\textasciitilde{}            101.            5.59             107.             102. }
+\CommentTok{\#> 13 Athlet\textasciitilde{}             92.9           0.190             93.1             96.2}
+\CommentTok{\#> 14 Athlet\textasciitilde{}             98.2           3.17             101.             100. }
+\CommentTok{\#> 15 Athlet\textasciitilde{}             88.3          15.5              104.              92.5}
+\CommentTok{\#> 16 Athlet\textasciitilde{}            106.           21.1              127.             111. }
+\CommentTok{\#> 17 Athlet\textasciitilde{}             95.8          19.6              115.              94.1}
+\CommentTok{\#> 18 Athlet\textasciitilde{}             92.9           1.54              94.4             87.9}
+\CommentTok{\#> 19 Athlet\textasciitilde{}            103.           14.6              117.             107. }
+\CommentTok{\#> 20 Athlet\textasciitilde{}            104.           19.1              123.             107. }
+\CommentTok{\#> \# ... with 2 more variables: \textasciigrave{}Post{-}test (observed)\textasciigrave{} <dbl>, \textasciigrave{}Change (observed)\textasciigrave{} <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6489,26 +6491,26 @@ This data has \emph{irreducible error} with \texttt{SD} equal to 2 (a.u.). Let's
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD         min}
-\CommentTok{\#>            MBE {-}1.786530e{-}14    3.608730e{-}15     0.01201151  0.03878805 1.39091047 {-}3.56918463}
-\CommentTok{\#>            MAE  3.307366e+00    3.281275e+00     3.42055845  3.40542550 0.71086848  1.90802477}
-\CommentTok{\#>           RMSE  3.830961e+00    3.811531e+00     4.00171168  3.91431323 0.78174879  2.19948265}
-\CommentTok{\#>           PPER  2.500597e{-}01    2.532192e{-}01     0.24118080  0.22872198 0.05453147  0.15058656}
-\CommentTok{\#>  SESOI to RMSE  6.520075e{-}01    6.461322e{-}01     0.61542490  0.67035639 0.16588651  0.47111531}
-\CommentTok{\#>      R{-}squared  6.125604e{-}01    6.164804e{-}01     0.57725715  0.59398198 0.20141946 {-}0.07623944}
-\CommentTok{\#>         MinErr {-}5.833192e+00   {-}6.481721e+00    {-}6.66660654 {-}4.83585586 1.34488218 {-}6.66660654}
-\CommentTok{\#>         MaxErr  9.531759e+00    1.069301e+01    10.89240388  5.74134976 2.57512537  1.06931471}
-\CommentTok{\#>      MaxAbsErr  9.531759e+00    1.069301e+01    10.89240388  6.54646863 1.91850684  3.68446911}
-\CommentTok{\#>         max}
-\CommentTok{\#>   2.8362928}
-\CommentTok{\#>   4.6087168}
-\CommentTok{\#>   5.4637498}
-\CommentTok{\#>   0.3811788}
-\CommentTok{\#>   1.1614533}
-\CommentTok{\#>   0.8893906}
-\CommentTok{\#>  {-}1.8826434}
-\CommentTok{\#>  10.8924039}
-\CommentTok{\#>  10.8924039}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE {-}1.786530e{-}14    3.608730e{-}15     0.01201151  0.03878805 1.39091047}
+\CommentTok{\#>            MAE  3.307366e+00    3.281275e+00     3.42055845  3.40542550 0.71086848}
+\CommentTok{\#>           RMSE  3.830961e+00    3.811531e+00     4.00171168  3.91431323 0.78174879}
+\CommentTok{\#>           PPER  2.500597e{-}01    2.532192e{-}01     0.24118080  0.22872198 0.05453147}
+\CommentTok{\#>  SESOI to RMSE  6.520075e{-}01    6.461322e{-}01     0.61542490  0.67035639 0.16588651}
+\CommentTok{\#>      R{-}squared  6.125604e{-}01    6.164804e{-}01     0.57725715  0.59398198 0.20141946}
+\CommentTok{\#>         MinErr {-}5.833192e+00   {-}6.481721e+00    {-}6.66660654 {-}4.83585586 1.34488218}
+\CommentTok{\#>         MaxErr  9.531759e+00    1.069301e+01    10.89240388  5.74134976 2.57512537}
+\CommentTok{\#>      MaxAbsErr  9.531759e+00    1.069301e+01    10.89240388  6.54646863 1.91850684}
+\CommentTok{\#>          min        max}
+\CommentTok{\#>  {-}3.56918463  2.8362928}
+\CommentTok{\#>   1.90802477  4.6087168}
+\CommentTok{\#>   2.19948265  5.4637498}
+\CommentTok{\#>   0.15058656  0.3811788}
+\CommentTok{\#>   0.47111531  1.1614533}
+\CommentTok{\#>  {-}0.07623944  0.8893906}
+\CommentTok{\#>  {-}6.66660654 {-}1.8826434}
+\CommentTok{\#>   1.06931471 10.8924039}
+\CommentTok{\#>   3.68446911 10.8924039}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6591,10 +6593,14 @@ To implement different performance metrics you need to write your own function t
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>     metric  training training.pooled testing.pooled     mean         SD         min       max}
-\CommentTok{\#>       RMSE 3.8309607       3.8115312      4.0017117 3.914313 0.78174879  2.19948265 5.4637498}
-\CommentTok{\#>       PPER 0.2500597       0.2532192      0.2411808 0.228722 0.05453147  0.15058656 0.3811788}
-\CommentTok{\#>  R{-}squared 0.6125604       0.6164804      0.5772572 0.593982 0.20141946 {-}0.07623944 0.8893906}
+\CommentTok{\#>     metric  training training.pooled testing.pooled     mean         SD         min}
+\CommentTok{\#>       RMSE 3.8309607       3.8115312      4.0017117 3.914313 0.78174879  2.19948265}
+\CommentTok{\#>       PPER 0.2500597       0.2532192      0.2411808 0.228722 0.05453147  0.15058656}
+\CommentTok{\#>  R{-}squared 0.6125604       0.6164804      0.5772572 0.593982 0.20141946 {-}0.07623944}
+\CommentTok{\#>        max}
+\CommentTok{\#>  5.4637498}
+\CommentTok{\#>  0.3811788}
+\CommentTok{\#>  0.8893906}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6651,26 +6657,26 @@ To use different prediction model instead of \texttt{stats::lm}, you will need t
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE  2.030618e{-}16   {-}3.045865e{-}16     0.03760974  0.03641386 1.38472089 {-}3.5600378}
-\CommentTok{\#>            MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150  0.9905252}
-\CommentTok{\#>           RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316  1.1382304}
-\CommentTok{\#>           PPER  3.621870e{-}01    3.437038e{-}01     0.29087228  0.27713101 0.07822901  0.1429604}
-\CommentTok{\#>  SESOI to RMSE  9.639014e{-}01    8.905739e{-}01     0.74773376  0.83310652 0.26906599  0.5367524}
-\CommentTok{\#>      R{-}squared  8.227265e{-}01    7.981214e{-}01     0.71366153  0.74453263 0.13595473  0.3724261}
-\CommentTok{\#>         MinErr {-}5.699018e+00   {-}6.168662e+00    {-}9.88715278 {-}4.49333669 2.25968230 {-}9.8871528}
-\CommentTok{\#>         MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134 {-}0.3225821}
-\CommentTok{\#>      MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516  1.8902345}
-\CommentTok{\#>         max}
-\CommentTok{\#>   2.4319242}
-\CommentTok{\#>   3.7964691}
-\CommentTok{\#>   4.6196434}
-\CommentTok{\#>   0.6357025}
-\CommentTok{\#>   2.2239463}
-\CommentTok{\#>   0.9682861}
-\CommentTok{\#>  {-}0.4531138}
-\CommentTok{\#>   7.2216714}
-\CommentTok{\#>   9.8871528}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE  2.030618e{-}16   {-}3.045865e{-}16     0.03760974  0.03641386 1.38472089}
+\CommentTok{\#>            MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150}
+\CommentTok{\#>           RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316}
+\CommentTok{\#>           PPER  3.621870e{-}01    3.437038e{-}01     0.29087228  0.27713101 0.07822901}
+\CommentTok{\#>  SESOI to RMSE  9.639014e{-}01    8.905739e{-}01     0.74773376  0.83310652 0.26906599}
+\CommentTok{\#>      R{-}squared  8.227265e{-}01    7.981214e{-}01     0.71366153  0.74453263 0.13595473}
+\CommentTok{\#>         MinErr {-}5.699018e+00   {-}6.168662e+00    {-}9.88715278 {-}4.49333669 2.25968230}
+\CommentTok{\#>         MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134}
+\CommentTok{\#>      MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516}
+\CommentTok{\#>         min        max}
+\CommentTok{\#>  {-}3.5600378  2.4319242}
+\CommentTok{\#>   0.9905252  3.7964691}
+\CommentTok{\#>   1.1382304  4.6196434}
+\CommentTok{\#>   0.1429604  0.6357025}
+\CommentTok{\#>   0.5367524  2.2239463}
+\CommentTok{\#>   0.3724261  0.9682861}
+\CommentTok{\#>  {-}9.8871528 {-}0.4531138}
+\CommentTok{\#>  {-}0.3225821  7.2216714}
+\CommentTok{\#>   1.8902345  9.8871528}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6800,26 +6806,26 @@ Various diagnostic graphs can be easily generated using a generic \texttt{plot} 
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE {-}1.299275e{-}14    2.060564e{-}15    {-}0.03724767 {-}0.02930855 0.83265732 {-}2.3250491}
-\CommentTok{\#>            MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744  1.0364816}
-\CommentTok{\#>           RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351  1.3940723}
-\CommentTok{\#>           PPER  4.925435e{-}01    5.041349e{-}01     0.44022003  0.40113906 0.05824287  0.2221031}
-\CommentTok{\#>  SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558  0.9198745}
-\CommentTok{\#>      R{-}squared  9.108623e{-}01    9.137963e{-}01     0.88289646  0.89017328 0.04568934  0.7776291}
-\CommentTok{\#>         MinErr {-}3.676547e+00   {-}4.335315e+00    {-}4.57284164 {-}2.99135803 0.81846093 {-}4.5728416}
-\CommentTok{\#>         MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338 {-}0.2033888}
-\CommentTok{\#>      MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575  2.3829256}
-\CommentTok{\#>        max}
-\CommentTok{\#>  1.3681763}
-\CommentTok{\#>  2.3883585}
-\CommentTok{\#>  2.7092065}
-\CommentTok{\#>  0.5513211}
-\CommentTok{\#>  1.7145206}
-\CommentTok{\#>  0.9626275}
-\CommentTok{\#>  0.2782154}
-\CommentTok{\#>  4.4350671}
-\CommentTok{\#>  4.5728416}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE {-}1.299275e{-}14    2.060564e{-}15    {-}0.03724767 {-}0.02930855 0.83265732}
+\CommentTok{\#>            MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744}
+\CommentTok{\#>           RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351}
+\CommentTok{\#>           PPER  4.925435e{-}01    5.041349e{-}01     0.44022003  0.40113906 0.05824287}
+\CommentTok{\#>  SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558}
+\CommentTok{\#>      R{-}squared  9.108623e{-}01    9.137963e{-}01     0.88289646  0.89017328 0.04568934}
+\CommentTok{\#>         MinErr {-}3.676547e+00   {-}4.335315e+00    {-}4.57284164 {-}2.99135803 0.81846093}
+\CommentTok{\#>         MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338}
+\CommentTok{\#>      MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575}
+\CommentTok{\#>         min       max}
+\CommentTok{\#>  {-}2.3250491 1.3681763}
+\CommentTok{\#>   1.0364816 2.3883585}
+\CommentTok{\#>   1.3940723 2.7092065}
+\CommentTok{\#>   0.2221031 0.5513211}
+\CommentTok{\#>   0.9198745 1.7145206}
+\CommentTok{\#>   0.7776291 0.9626275}
+\CommentTok{\#>  {-}4.5728416 0.2782154}
+\CommentTok{\#>  {-}0.2033888 4.4350671}
+\CommentTok{\#>   2.3829256 4.5728416}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6916,44 +6922,44 @@ Comparing models is beyond the scope of this book, but I will provide a short in
 \NormalTok{)}
 
 \NormalTok{plot\_data}
-\CommentTok{\#>    model        metric      training training.pooled testing.pooled        mean         SD}
-\CommentTok{\#> 1  rpart           MBE  2.030618e{-}16   {-}3.045865e{-}16     0.03760974  0.03641386 1.38472089}
-\CommentTok{\#> 2  rpart           MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008 0.60425150}
-\CommentTok{\#> 3  rpart          RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487 0.67699316}
-\CommentTok{\#> 4  rpart          PPER  3.621870e{-}01    3.437038e{-}01     0.29087228  0.27713101 0.07822901}
-\CommentTok{\#> 5  rpart SESOI to RMSE  9.639014e{-}01    8.905739e{-}01     0.74773376  0.83310652 0.26906599}
-\CommentTok{\#> 6  rpart     R{-}squared  8.227265e{-}01    7.981214e{-}01     0.71366153  0.74453263 0.13595473}
-\CommentTok{\#> 7  rpart        MinErr {-}5.699018e+00   {-}6.168662e+00    {-}9.88715278 {-}4.49333669 2.25968230}
-\CommentTok{\#> 8  rpart        MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323 1.95348134}
-\CommentTok{\#> 9  rpart     MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382 1.31129516}
-\CommentTok{\#> 10  poly           MBE {-}1.299275e{-}14    2.060564e{-}15    {-}0.03724767 {-}0.02930855 0.83265732}
-\CommentTok{\#> 11  poly           MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879 0.33144744}
-\CommentTok{\#> 12  poly          RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558 0.29737351}
-\CommentTok{\#> 13  poly          PPER  4.925435e{-}01    5.041349e{-}01     0.44022003  0.40113906 0.05824287}
-\CommentTok{\#> 14  poly SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404 0.18072558}
-\CommentTok{\#> 15  poly     R{-}squared  9.108623e{-}01    9.137963e{-}01     0.88289646  0.89017328 0.04568934}
-\CommentTok{\#> 16  poly        MinErr {-}3.676547e+00   {-}4.335315e+00    {-}4.57284164 {-}2.99135803 0.81846093}
-\CommentTok{\#> 17  poly        MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044 1.17063338}
-\CommentTok{\#> 18  poly     MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085 0.57631575}
-\CommentTok{\#>           min        max}
-\CommentTok{\#> 1  {-}3.5600378  2.4319242}
-\CommentTok{\#> 2   0.9905252  3.7964691}
-\CommentTok{\#> 3   1.1382304  4.6196434}
-\CommentTok{\#> 4   0.1429604  0.6357025}
-\CommentTok{\#> 5   0.5367524  2.2239463}
-\CommentTok{\#> 6   0.3724261  0.9682861}
-\CommentTok{\#> 7  {-}9.8871528 {-}0.4531138}
-\CommentTok{\#> 8  {-}0.3225821  7.2216714}
-\CommentTok{\#> 9   1.8902345  9.8871528}
-\CommentTok{\#> 10 {-}2.3250491  1.3681763}
-\CommentTok{\#> 11  1.0364816  2.3883585}
-\CommentTok{\#> 12  1.3940723  2.7092065}
-\CommentTok{\#> 13  0.2221031  0.5513211}
-\CommentTok{\#> 14  0.9198745  1.7145206}
-\CommentTok{\#> 15  0.7776291  0.9626275}
-\CommentTok{\#> 16 {-}4.5728416  0.2782154}
-\CommentTok{\#> 17 {-}0.2033888  4.4350671}
-\CommentTok{\#> 18  2.3829256  4.5728416}
+\CommentTok{\#>    model        metric      training training.pooled testing.pooled        mean}
+\CommentTok{\#> 1  rpart           MBE  2.030618e{-}16   {-}3.045865e{-}16     0.03760974  0.03641386}
+\CommentTok{\#> 2  rpart           MAE  2.023389e+00    2.268546e+00     2.60389737  2.57549008}
+\CommentTok{\#> 3  rpart          RMSE  2.591359e+00    2.765355e+00     3.29362285  3.19456487}
+\CommentTok{\#> 4  rpart          PPER  3.621870e{-}01    3.437038e{-}01     0.29087228  0.27713101}
+\CommentTok{\#> 5  rpart SESOI to RMSE  9.639014e{-}01    8.905739e{-}01     0.74773376  0.83310652}
+\CommentTok{\#> 6  rpart     R{-}squared  8.227265e{-}01    7.981214e{-}01     0.71366153  0.74453263}
+\CommentTok{\#> 7  rpart        MinErr {-}5.699018e+00   {-}6.168662e+00    {-}9.88715278 {-}4.49333669}
+\CommentTok{\#> 8  rpart        MaxErr  6.097584e+00    6.427283e+00     7.22167137  4.47699323}
+\CommentTok{\#> 9  rpart     MaxAbsErr  6.097584e+00    6.427283e+00     9.88715278  5.86162382}
+\CommentTok{\#> 10  poly           MBE {-}1.299275e{-}14    2.060564e{-}15    {-}0.03724767 {-}0.02930855}
+\CommentTok{\#> 11  poly           MAE  1.534398e+00    1.509623e+00     1.77622691  1.77362879}
+\CommentTok{\#> 12  poly          RMSE  1.837539e+00    1.807043e+00     2.10648622  2.07925558}
+\CommentTok{\#> 13  poly          PPER  4.925435e{-}01    5.041349e{-}01     0.44022003  0.40113906}
+\CommentTok{\#> 14  poly SESOI to RMSE  1.359326e+00    1.362863e+00     1.16912846  1.22806404}
+\CommentTok{\#> 15  poly     R{-}squared  9.108623e{-}01    9.137963e{-}01     0.88289646  0.89017328}
+\CommentTok{\#> 16  poly        MinErr {-}3.676547e+00   {-}4.335315e+00    {-}4.57284164 {-}2.99135803}
+\CommentTok{\#> 17  poly        MaxErr  3.819068e+00    4.380287e+00     4.43506709  2.54927044}
+\CommentTok{\#> 18  poly     MaxAbsErr  3.819068e+00    4.380287e+00     4.57284164  3.45414085}
+\CommentTok{\#>            SD        min        max}
+\CommentTok{\#> 1  1.38472089 {-}3.5600378  2.4319242}
+\CommentTok{\#> 2  0.60425150  0.9905252  3.7964691}
+\CommentTok{\#> 3  0.67699316  1.1382304  4.6196434}
+\CommentTok{\#> 4  0.07822901  0.1429604  0.6357025}
+\CommentTok{\#> 5  0.26906599  0.5367524  2.2239463}
+\CommentTok{\#> 6  0.13595473  0.3724261  0.9682861}
+\CommentTok{\#> 7  2.25968230 {-}9.8871528 {-}0.4531138}
+\CommentTok{\#> 8  1.95348134 {-}0.3225821  7.2216714}
+\CommentTok{\#> 9  1.31129516  1.8902345  9.8871528}
+\CommentTok{\#> 10 0.83265732 {-}2.3250491  1.3681763}
+\CommentTok{\#> 11 0.33144744  1.0364816  2.3883585}
+\CommentTok{\#> 12 0.29737351  1.3940723  2.7092065}
+\CommentTok{\#> 13 0.05824287  0.2221031  0.5513211}
+\CommentTok{\#> 14 0.18072558  0.9198745  1.7145206}
+\CommentTok{\#> 15 0.04568934  0.7776291  0.9626275}
+\CommentTok{\#> 16 0.81846093 {-}4.5728416  0.2782154}
+\CommentTok{\#> 17 1.17063338 {-}0.2033888  4.4350671}
+\CommentTok{\#> 18 0.57631575  2.3829256  4.5728416}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7327,14 +7333,14 @@ The below code generates the data for both criteriona and practical measures usi
 
 \KeywordTok{head}\NormalTok{(agreement\_data)}
 \CommentTok{\#> \# A tibble: 6 x 6}
-\CommentTok{\#>   Athlete  True\_score Criterion\_score.t\textasciitilde{} Criterion\_score.t\textasciitilde{} Practical\_score.t\textasciitilde{} Practical\_score.\textasciitilde{}}
-\CommentTok{\#>   <chr>         <dbl>              <dbl>              <dbl>              <dbl>             <dbl>}
-\CommentTok{\#> 1 Athlete\textasciitilde{}       52.9               52.9               52.9               60.2              60.6}
-\CommentTok{\#> 2 Athlete\textasciitilde{}       42.4               42.3               42.2               48.7              48.6}
-\CommentTok{\#> 3 Athlete\textasciitilde{}       49.2               49.1               49.5               56.0              57.2}
-\CommentTok{\#> 4 Athlete\textasciitilde{}       44.8               44.7               44.8               51.5              51.3}
-\CommentTok{\#> 5 Athlete\textasciitilde{}       40.0               40.4               40.1               45.7              43.8}
-\CommentTok{\#> 6 Athlete\textasciitilde{}       42.6               42.5               42.2               49.7              50.4}
+\CommentTok{\#>   Athlete  True\_score Criterion\_score.\textasciitilde{} Criterion\_score\textasciitilde{} Practical\_score\textasciitilde{} Practical\_score\textasciitilde{}}
+\CommentTok{\#>   <chr>         <dbl>             <dbl>            <dbl>            <dbl>            <dbl>}
+\CommentTok{\#> 1 Athlete\textasciitilde{}       52.9              52.9             52.9             60.2             60.6}
+\CommentTok{\#> 2 Athlete\textasciitilde{}       42.4              42.3             42.2             48.7             48.6}
+\CommentTok{\#> 3 Athlete\textasciitilde{}       49.2              49.1             49.5             56.0             57.2}
+\CommentTok{\#> 4 Athlete\textasciitilde{}       44.8              44.7             44.8             51.5             51.3}
+\CommentTok{\#> 5 Athlete\textasciitilde{}       40.0              40.4             40.1             45.7             43.8}
+\CommentTok{\#> 6 Athlete\textasciitilde{}       42.6              42.5             42.2             49.7             50.4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8062,20 +8068,20 @@ To understand how these methods and how their estimates behave when there is ran
 \NormalTok{  \})}
 
 \KeywordTok{head}\NormalTok{(simulation\_df)}
-\CommentTok{\#>   simulation criterion\_random\_error True\_score Criterion\_score.trial1 Criterion\_score.trial2}
-\CommentTok{\#> 1          1                      0   41.44284               41.44284               41.44284}
-\CommentTok{\#> 2          1                      0   42.76338               42.76338               42.76338}
-\CommentTok{\#> 3          1                      0   39.33558               39.33558               39.33558}
-\CommentTok{\#> 4          1                      0   54.14657               54.14657               54.14657}
-\CommentTok{\#> 5          1                      0   42.17742               42.17742               42.17742}
-\CommentTok{\#> 6          1                      0   50.57845               50.57845               50.57845}
-\CommentTok{\#>   Practical\_score.trial1 Practical\_score.trial2}
-\CommentTok{\#> 1               47.36111               47.05610}
-\CommentTok{\#> 2               49.30239               47.59944}
-\CommentTok{\#> 3               46.81175               45.48609}
-\CommentTok{\#> 4               62.99236               62.44907}
-\CommentTok{\#> 5               49.52856               49.12834}
-\CommentTok{\#> 6               56.14485               59.70339}
+\CommentTok{\#>   simulation criterion\_random\_error True\_score Criterion\_score.trial1}
+\CommentTok{\#> 1          1                      0   41.44284               41.44284}
+\CommentTok{\#> 2          1                      0   42.76338               42.76338}
+\CommentTok{\#> 3          1                      0   39.33558               39.33558}
+\CommentTok{\#> 4          1                      0   54.14657               54.14657}
+\CommentTok{\#> 5          1                      0   42.17742               42.17742}
+\CommentTok{\#> 6          1                      0   50.57845               50.57845}
+\CommentTok{\#>   Criterion\_score.trial2 Practical\_score.trial1 Practical\_score.trial2}
+\CommentTok{\#> 1               41.44284               47.36111               47.05610}
+\CommentTok{\#> 2               42.76338               49.30239               47.59944}
+\CommentTok{\#> 3               39.33558               46.81175               45.48609}
+\CommentTok{\#> 4               54.14657               62.99236               62.44907}
+\CommentTok{\#> 5               42.17742               49.52856               49.12834}
+\CommentTok{\#> 6               50.57845               56.14485               59.70339}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8432,26 +8438,26 @@ This is better seen and understood using the residual graph on the panel B below
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE  1.882940e{-}14   {-}3.925753e{-}15     0.02821925  0.01349363 0.52102607 {-}1.0035037}
-\CommentTok{\#>            MAE  7.209755e{-}01    7.106871e{-}01     0.80067569  0.79019212 0.21891902  0.2938133}
-\CommentTok{\#>           RMSE  8.310824e{-}01    8.191433e{-}01     0.94237977  0.90134710 0.23117615  0.4147218}
-\CommentTok{\#>           PPER  9.914445e{-}01    9.976365e{-}01     0.99121033  0.91768067 0.05265932  0.6919549}
-\CommentTok{\#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442  3.3199413}
-\CommentTok{\#>      R{-}squared  9.752786e{-}01    9.759837e{-}01     0.96824238  0.83850772 0.56589940 {-}2.5312392}
-\CommentTok{\#>         MinErr {-}1.085374e+00   {-}1.302228e+00    {-}1.36413113 {-}0.87328158 0.40660854 {-}1.3641311}
-\CommentTok{\#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843 {-}0.2737126}
-\CommentTok{\#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222  0.7468639}
-\CommentTok{\#>         max}
-\CommentTok{\#>   1.0131942}
-\CommentTok{\#>   1.4283624}
-\CommentTok{\#>   1.5060507}
-\CommentTok{\#>   0.9885303}
-\CommentTok{\#>  12.0562748}
-\CommentTok{\#>   0.9953966}
-\CommentTok{\#>   0.4769940}
-\CommentTok{\#>   2.3455653}
-\CommentTok{\#>   2.3455653}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE  1.882940e{-}14   {-}3.925753e{-}15     0.02821925  0.01349363 0.52102607}
+\CommentTok{\#>            MAE  7.209755e{-}01    7.106871e{-}01     0.80067569  0.79019212 0.21891902}
+\CommentTok{\#>           RMSE  8.310824e{-}01    8.191433e{-}01     0.94237977  0.90134710 0.23117615}
+\CommentTok{\#>           PPER  9.914445e{-}01    9.976365e{-}01     0.99121033  0.91768067 0.05265932}
+\CommentTok{\#>  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442}
+\CommentTok{\#>      R{-}squared  9.752786e{-}01    9.759837e{-}01     0.96824238  0.83850772 0.56589940}
+\CommentTok{\#>         MinErr {-}1.085374e+00   {-}1.302228e+00    {-}1.36413113 {-}0.87328158 0.40660854}
+\CommentTok{\#>         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843}
+\CommentTok{\#>      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222}
+\CommentTok{\#>         min        max}
+\CommentTok{\#>  {-}1.0035037  1.0131942}
+\CommentTok{\#>   0.2938133  1.4283624}
+\CommentTok{\#>   0.4147218  1.5060507}
+\CommentTok{\#>   0.6919549  0.9885303}
+\CommentTok{\#>   3.3199413 12.0562748}
+\CommentTok{\#>  {-}2.5312392  0.9953966}
+\CommentTok{\#>  {-}1.3641311  0.4769940}
+\CommentTok{\#>  {-}0.2737126  2.3455653}
+\CommentTok{\#>   0.7468639  2.3455653}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8787,10 +8793,10 @@ In \texttt{bmbstats}, reliability is estimated using \texttt{bmbstats::reliabili
   \DataTypeTok{SESOI\_lower =} \FloatTok{{-}2.5}\NormalTok{,}
   \DataTypeTok{SESOI\_upper =} \FloatTok{2.5}
 \NormalTok{)}
-\CommentTok{\#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE  Pearson\textquotesingle{}s r }
-\CommentTok{\#>   {-}2.5000000    2.5000000    5.0000000   {-}0.4982932    1.0124861    0.3076774    0.9984753 }
-\CommentTok{\#>    R Squared SESOI to RSE         PPER           TE          SDC }
-\CommentTok{\#>    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761}
+\CommentTok{\#>  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE }
+\CommentTok{\#>   {-}2.5000000    2.5000000    5.0000000   {-}0.4982932    1.0124861    0.3076774 }
+\CommentTok{\#>  Pearson\textquotesingle{}s r    R Squared SESOI to RSE         PPER           TE          SDC }
+\CommentTok{\#>    0.9984753    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9321,10 +9327,10 @@ To demonstrate and plot these differences, let's use \texttt{bmbstats::observati
 \CommentTok{\#> 5 Athlet\textasciitilde{}           40.0           0            40.0             42.7             40.6}
 \CommentTok{\#> 6 Athlet\textasciitilde{}           42.6           0            42.6             41.7             39.6}
 \CommentTok{\#> \# ... with 10 more variables: Manifested\_score.Change <dbl>, Measured\_score.Pre <dbl>,}
-\CommentTok{\#> \#   Measured\_score.Post <dbl>, Measured\_score.Change <dbl>, True\_score\_measured.Pre <dbl>,}
-\CommentTok{\#> \#   True\_score\_measured.Post <dbl>, True\_score\_measured.Change <dbl>,}
-\CommentTok{\#> \#   Manifested\_score\_measured.Pre <dbl>, Manifested\_score\_measured.Post <dbl>,}
-\CommentTok{\#> \#   Manifested\_score\_measured.Change <dbl>}
+\CommentTok{\#> \#   Measured\_score.Post <dbl>, Measured\_score.Change <dbl>,}
+\CommentTok{\#> \#   True\_score\_measured.Pre <dbl>, True\_score\_measured.Post <dbl>,}
+\CommentTok{\#> \#   True\_score\_measured.Change <dbl>, Manifested\_score\_measured.Pre <dbl>,}
+\CommentTok{\#> \#   Manifested\_score\_measured.Post <dbl>, Manifested\_score\_measured.Change <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10240,26 +10246,26 @@ Using simple linear regression function brings us to the prediction perspective 
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE  2.202681e{-}14    1.918475e{-}15    {-}0.04123424 {-}0.06466644 0.91228266 {-}2.0716103}
-\CommentTok{\#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044  0.8701076}
-\CommentTok{\#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297  1.1312614}
-\CommentTok{\#>           PPER  9.963039e{-}01    9.995798e{-}01     0.99312088  0.96151334 0.02661372  0.8929713}
-\CommentTok{\#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378  3.7299209}
-\CommentTok{\#>      R{-}squared  9.235673e{-}01    9.305786e{-}01     0.88259682  0.86160357 0.10805679  0.5866306}
-\CommentTok{\#>         MinErr {-}3.138804e+00   {-}3.623411e+00    {-}5.03757174 {-}2.56189890 1.14780901 {-}5.0375717}
-\CommentTok{\#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433 {-}0.4470821}
-\CommentTok{\#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989  1.7111147}
-\CommentTok{\#>        max}
-\CommentTok{\#>  1.8762924}
-\CommentTok{\#>  2.0982105}
-\CommentTok{\#>  2.6810220}
-\CommentTok{\#>  0.9939017}
-\CommentTok{\#>  8.8396899}
-\CommentTok{\#>  0.9743506}
-\CommentTok{\#>  0.3235147}
-\CommentTok{\#>  3.5399140}
-\CommentTok{\#>  5.0375717}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE  2.202681e{-}14    1.918475e{-}15    {-}0.04123424 {-}0.06466644 0.91228266}
+\CommentTok{\#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044}
+\CommentTok{\#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297}
+\CommentTok{\#>           PPER  9.963039e{-}01    9.995798e{-}01     0.99312088  0.96151334 0.02661372}
+\CommentTok{\#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378}
+\CommentTok{\#>      R{-}squared  9.235673e{-}01    9.305786e{-}01     0.88259682  0.86160357 0.10805679}
+\CommentTok{\#>         MinErr {-}3.138804e+00   {-}3.623411e+00    {-}5.03757174 {-}2.56189890 1.14780901}
+\CommentTok{\#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433}
+\CommentTok{\#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989}
+\CommentTok{\#>         min       max}
+\CommentTok{\#>  {-}2.0716103 1.8762924}
+\CommentTok{\#>   0.8701076 2.0982105}
+\CommentTok{\#>   1.1312614 2.6810220}
+\CommentTok{\#>   0.8929713 0.9939017}
+\CommentTok{\#>   3.7299209 8.8396899}
+\CommentTok{\#>   0.5866306 0.9743506}
+\CommentTok{\#>  {-}5.0375717 0.3235147}
+\CommentTok{\#>  {-}0.4470821 3.5399140}
+\CommentTok{\#>   1.7111147 5.0375717}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10285,26 +10291,26 @@ As can be seen from the performance results, we have pretty good prediction of t
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE  2.202681e{-}14    1.918475e{-}15    {-}0.04123424 {-}0.06466644 0.91228266 {-}2.0716103}
-\CommentTok{\#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044  0.8701076}
-\CommentTok{\#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297  1.1312614}
-\CommentTok{\#>           PPER  9.963039e{-}01    9.995798e{-}01     0.99312088  0.96151334 0.02661372  0.8929713}
-\CommentTok{\#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378  3.7299209}
-\CommentTok{\#>      R{-}squared  9.235673e{-}01    9.305786e{-}01     0.88259682  0.86160357 0.10805679  0.5866306}
-\CommentTok{\#>         MinErr {-}3.138804e+00   {-}3.623411e+00    {-}5.03757174 {-}2.56189890 1.14780901 {-}5.0375717}
-\CommentTok{\#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433 {-}0.4470821}
-\CommentTok{\#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989  1.7111147}
-\CommentTok{\#>        max}
-\CommentTok{\#>  1.8762924}
-\CommentTok{\#>  2.0982105}
-\CommentTok{\#>  2.6810220}
-\CommentTok{\#>  0.9939017}
-\CommentTok{\#>  8.8396899}
-\CommentTok{\#>  0.9743506}
-\CommentTok{\#>  0.3235147}
-\CommentTok{\#>  3.5399140}
-\CommentTok{\#>  5.0375717}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE  2.202681e{-}14    1.918475e{-}15    {-}0.04123424 {-}0.06466644 0.91228266}
+\CommentTok{\#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044}
+\CommentTok{\#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297}
+\CommentTok{\#>           PPER  9.963039e{-}01    9.995798e{-}01     0.99312088  0.96151334 0.02661372}
+\CommentTok{\#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378}
+\CommentTok{\#>      R{-}squared  9.235673e{-}01    9.305786e{-}01     0.88259682  0.86160357 0.10805679}
+\CommentTok{\#>         MinErr {-}3.138804e+00   {-}3.623411e+00    {-}5.03757174 {-}2.56189890 1.14780901}
+\CommentTok{\#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433}
+\CommentTok{\#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989}
+\CommentTok{\#>         min       max}
+\CommentTok{\#>  {-}2.0716103 1.8762924}
+\CommentTok{\#>   0.8701076 2.0982105}
+\CommentTok{\#>   1.1312614 2.6810220}
+\CommentTok{\#>   0.8929713 0.9939017}
+\CommentTok{\#>   3.7299209 8.8396899}
+\CommentTok{\#>   0.5866306 0.9743506}
+\CommentTok{\#>  {-}5.0375717 0.3235147}
+\CommentTok{\#>  {-}0.4470821 3.5399140}
+\CommentTok{\#>   1.7111147 5.0375717}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -10984,26 +10990,26 @@ Let's see what happens when we run this RCT through predictive model.
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD         min}
-\CommentTok{\#>            MBE {-}9.947541e{-}15    3.055367e{-}15     {-}0.1404122 {-}0.02732047 2.12193361  {-}3.5145897}
-\CommentTok{\#>            MAE  3.175698e+00    3.037705e+00      3.8691755  3.90512133 0.93683875   2.6186933}
-\CommentTok{\#>           RMSE  3.959134e+00    3.786361e+00      4.7871794  4.73835660 0.85876892   3.4284211}
-\CommentTok{\#>           PPER  7.666283e{-}01    8.120334e{-}01      0.7012521  0.63888951 0.07928795   0.4413183}
-\CommentTok{\#>  SESOI to RMSE  2.525805e+00    2.641058e+00      2.0889127  2.17362777 0.37022957   1.3710286}
-\CommentTok{\#>      R{-}squared  6.289308e{-}01    6.606104e{-}01      0.4579491  0.21880124 0.64551950  {-}1.5780914}
-\CommentTok{\#>         MinErr {-}7.921899e+00   {-}1.032365e+01    {-}10.0942651 {-}6.76317807 2.33015461 {-}10.0942651}
-\CommentTok{\#>         MaxErr  6.582672e+00    8.806128e+00      9.2485263  6.05923474 2.11053360   0.1401500}
-\CommentTok{\#>      MaxAbsErr  7.921899e+00    1.032365e+01     10.0942651  8.02937811 1.17919840   5.5787979}
-\CommentTok{\#>         max}
-\CommentTok{\#>   3.3371789}
-\CommentTok{\#>   6.8884587}
-\CommentTok{\#>   7.2937938}
-\CommentTok{\#>   0.7862394}
-\CommentTok{\#>   2.9167945}
-\CommentTok{\#>   0.7986431}
-\CommentTok{\#>  {-}2.7453015}
-\CommentTok{\#>   9.2485263}
-\CommentTok{\#>  10.0942651}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE {-}9.947541e{-}15    3.055367e{-}15     {-}0.1404122 {-}0.02732047 2.12193361}
+\CommentTok{\#>            MAE  3.175698e+00    3.037705e+00      3.8691755  3.90512133 0.93683875}
+\CommentTok{\#>           RMSE  3.959134e+00    3.786361e+00      4.7871794  4.73835660 0.85876892}
+\CommentTok{\#>           PPER  7.666283e{-}01    8.120334e{-}01      0.7012521  0.63888951 0.07928795}
+\CommentTok{\#>  SESOI to RMSE  2.525805e+00    2.641058e+00      2.0889127  2.17362777 0.37022957}
+\CommentTok{\#>      R{-}squared  6.289308e{-}01    6.606104e{-}01      0.4579491  0.21880124 0.64551950}
+\CommentTok{\#>         MinErr {-}7.921899e+00   {-}1.032365e+01    {-}10.0942651 {-}6.76317807 2.33015461}
+\CommentTok{\#>         MaxErr  6.582672e+00    8.806128e+00      9.2485263  6.05923474 2.11053360}
+\CommentTok{\#>      MaxAbsErr  7.921899e+00    1.032365e+01     10.0942651  8.02937811 1.17919840}
+\CommentTok{\#>          min        max}
+\CommentTok{\#>   {-}3.5145897  3.3371789}
+\CommentTok{\#>    2.6186933  6.8884587}
+\CommentTok{\#>    3.4284211  7.2937938}
+\CommentTok{\#>    0.4413183  0.7862394}
+\CommentTok{\#>    1.3710286  2.9167945}
+\CommentTok{\#>   {-}1.5780914  0.7986431}
+\CommentTok{\#>  {-}10.0942651 {-}2.7453015}
+\CommentTok{\#>    0.1401500  9.2485263}
+\CommentTok{\#>    5.5787979 10.0942651}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -11203,8 +11209,9 @@ The following code represented DGP, where the effects of the training interventi
 \CommentTok{\#> 5 Athlet\textasciitilde{} Trea\textasciitilde{}            1.46            40.7            11.2              6.73}
 \CommentTok{\#> 6 Athlet\textasciitilde{} Cont\textasciitilde{}            0.813           52.6             4.44             1.15}
 \CommentTok{\#> \# ... with 8 more variables: True\_score.Change <dbl>, True\_score.Post <dbl>,}
-\CommentTok{\#> \#   Manifested\_score.Pre <dbl>, Manifested\_score.Post <dbl>, Manifested\_score.Change <dbl>,}
-\CommentTok{\#> \#   Measured\_score.Pre <dbl>, Measured\_score.Post <dbl>, Measured\_score.Change <dbl>}
+\CommentTok{\#> \#   Manifested\_score.Pre <dbl>, Manifested\_score.Post <dbl>,}
+\CommentTok{\#> \#   Manifested\_score.Change <dbl>, Measured\_score.Pre <dbl>, Measured\_score.Post <dbl>,}
+\CommentTok{\#> \#   Measured\_score.Change <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11519,7 +11526,8 @@ This implies that with this model we were able to explain more of the treatment 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{model8 <{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(}
-\NormalTok{  Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Measured\_score.Pre }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative}\OperatorTok{:}\NormalTok{Group }\OperatorTok{+}\StringTok{ }\NormalTok{Group,}
+\NormalTok{  Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }
+\StringTok{    }\NormalTok{Measured\_score.Pre }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative}\OperatorTok{:}\NormalTok{Group }\OperatorTok{+}\StringTok{ }\NormalTok{Group,}
   \CommentTok{\# OR we can specify the model with this}
   \CommentTok{\# Measured\_score.Post \textasciitilde{} Measured\_score.Pre + Squat\_1RM\_relative * Group}
 \NormalTok{  RCT\_data}
@@ -11620,26 +11628,26 @@ Here is our baseline model:
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled          mean         SD        min}
-\CommentTok{\#>            MBE {-}4.618506e{-}15    1.634262e{-}15   1.634259e{-}15  1.634238e{-}15 1.33279182 {-}2.5926409}
-\CommentTok{\#>            MAE  1.793742e+00    1.768937e+00   1.997720e+00  1.997720e+00 0.55544631  1.0781811}
-\CommentTok{\#>           RMSE  2.238021e+00    2.206270e+00   2.505740e+00  2.393620e+00 0.74868547  1.1928031}
-\CommentTok{\#>           PPER  9.577526e{-}01    9.762111e{-}01   9.520871e{-}01  8.549957e{-}01 0.08929827  0.6560171}
-\CommentTok{\#>  SESOI to RMSE  4.468233e+00    4.532536e+00   3.990837e+00  4.591613e+00 1.42736849  2.4405997}
-\CommentTok{\#>      R{-}squared  7.224490e{-}01    7.302684e{-}01   6.520744e{-}01  6.595240e{-}01 0.32999136 {-}0.5542973}
-\CommentTok{\#>         MinErr {-}5.933469e+00   {-}6.532374e+00  {-}7.016430e+00 {-}2.794574e+00 2.16480138 {-}7.0164300}
-\CommentTok{\#>         MaxErr  3.414524e+00    3.926733e+00   4.141234e+00  2.385040e+00 1.21855651 {-}0.2376657}
-\CommentTok{\#>      MaxAbsErr  5.933469e+00    6.532374e+00   7.016430e+00  3.768324e+00 1.58419875  1.4647768}
-\CommentTok{\#>        max}
-\CommentTok{\#>  2.7658984}
-\CommentTok{\#>  3.3474423}
-\CommentTok{\#>  4.0973536}
-\CommentTok{\#>  0.9718218}
-\CommentTok{\#>  8.3836132}
-\CommentTok{\#>  0.9646862}
-\CommentTok{\#>  2.0578483}
-\CommentTok{\#>  4.1412343}
-\CommentTok{\#>  7.0164300}
+\CommentTok{\#>         metric      training training.pooled testing.pooled          mean         SD}
+\CommentTok{\#>            MBE {-}4.618506e{-}15    1.634262e{-}15   1.634259e{-}15  1.634238e{-}15 1.33279182}
+\CommentTok{\#>            MAE  1.793742e+00    1.768937e+00   1.997720e+00  1.997720e+00 0.55544631}
+\CommentTok{\#>           RMSE  2.238021e+00    2.206270e+00   2.505740e+00  2.393620e+00 0.74868547}
+\CommentTok{\#>           PPER  9.577526e{-}01    9.762111e{-}01   9.520871e{-}01  8.549957e{-}01 0.08929827}
+\CommentTok{\#>  SESOI to RMSE  4.468233e+00    4.532536e+00   3.990837e+00  4.591613e+00 1.42736849}
+\CommentTok{\#>      R{-}squared  7.224490e{-}01    7.302684e{-}01   6.520744e{-}01  6.595240e{-}01 0.32999136}
+\CommentTok{\#>         MinErr {-}5.933469e+00   {-}6.532374e+00  {-}7.016430e+00 {-}2.794574e+00 2.16480138}
+\CommentTok{\#>         MaxErr  3.414524e+00    3.926733e+00   4.141234e+00  2.385040e+00 1.21855651}
+\CommentTok{\#>      MaxAbsErr  5.933469e+00    6.532374e+00   7.016430e+00  3.768324e+00 1.58419875}
+\CommentTok{\#>         min       max}
+\CommentTok{\#>  {-}2.5926409 2.7658984}
+\CommentTok{\#>   1.0781811 3.3474423}
+\CommentTok{\#>   1.1928031 4.0973536}
+\CommentTok{\#>   0.6560171 0.9718218}
+\CommentTok{\#>   2.4405997 8.3836132}
+\CommentTok{\#>  {-}0.5542973 0.9646862}
+\CommentTok{\#>  {-}7.0164300 2.0578483}
+\CommentTok{\#>  {-}0.2376657 4.1412343}
+\CommentTok{\#>   1.4647768 7.0164300}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -11739,26 +11747,26 @@ Our next model is the one that uses Pre-test and Group. Let's call it \texttt{pr
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE {-}1.385555e{-}14    3.774758e{-}15     0.03197143  0.03197143 1.25159476 {-}2.5288076}
-\CommentTok{\#>            MAE  1.757354e+00    1.700865e+00     2.04500207  2.04500207 0.53059190  0.8621495}
-\CommentTok{\#>           RMSE  2.112647e+00    2.066468e+00     2.51137986  2.43165066 0.63415044  1.0726499}
-\CommentTok{\#>           PPER  9.675019e{-}01    9.841744e{-}01     0.95158915  0.84684948 0.07383527  0.6842390}
-\CommentTok{\#>  SESOI to RMSE  4.733399e+00    4.839174e+00     3.98187473  4.44664689 1.40990552  2.5812789}
-\CommentTok{\#>      R{-}squared  7.526750e{-}01    7.633690e{-}01     0.65056316  0.63480891 0.32450934 {-}0.7834415}
-\CommentTok{\#>         MinErr {-}4.979659e+00   {-}5.620519e+00    {-}6.48925129 {-}2.73668942 1.95426062 {-}6.4892513}
-\CommentTok{\#>         MaxErr  3.381897e+00    4.723784e+00     4.36811806  2.71096150 1.23032364 {-}0.6916705}
-\CommentTok{\#>      MaxAbsErr  4.979659e+00    5.620519e+00     6.48925129  3.85285271 1.30595427  1.9061280}
-\CommentTok{\#>        max}
-\CommentTok{\#>  2.8367663}
-\CommentTok{\#>  3.2662051}
-\CommentTok{\#>  3.8740486}
-\CommentTok{\#>  0.9746472}
-\CommentTok{\#>  9.3227066}
-\CommentTok{\#>  0.9507508}
-\CommentTok{\#>  1.9406012}
-\CommentTok{\#>  4.3681181}
-\CommentTok{\#>  6.4892513}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE {-}1.385555e{-}14    3.774758e{-}15     0.03197143  0.03197143 1.25159476}
+\CommentTok{\#>            MAE  1.757354e+00    1.700865e+00     2.04500207  2.04500207 0.53059190}
+\CommentTok{\#>           RMSE  2.112647e+00    2.066468e+00     2.51137986  2.43165066 0.63415044}
+\CommentTok{\#>           PPER  9.675019e{-}01    9.841744e{-}01     0.95158915  0.84684948 0.07383527}
+\CommentTok{\#>  SESOI to RMSE  4.733399e+00    4.839174e+00     3.98187473  4.44664689 1.40990552}
+\CommentTok{\#>      R{-}squared  7.526750e{-}01    7.633690e{-}01     0.65056316  0.63480891 0.32450934}
+\CommentTok{\#>         MinErr {-}4.979659e+00   {-}5.620519e+00    {-}6.48925129 {-}2.73668942 1.95426062}
+\CommentTok{\#>         MaxErr  3.381897e+00    4.723784e+00     4.36811806  2.71096150 1.23032364}
+\CommentTok{\#>      MaxAbsErr  4.979659e+00    5.620519e+00     6.48925129  3.85285271 1.30595427}
+\CommentTok{\#>         min       max}
+\CommentTok{\#>  {-}2.5288076 2.8367663}
+\CommentTok{\#>   0.8621495 3.2662051}
+\CommentTok{\#>   1.0726499 3.8740486}
+\CommentTok{\#>   0.6842390 0.9746472}
+\CommentTok{\#>   2.5812789 9.3227066}
+\CommentTok{\#>  {-}0.7834415 0.9507508}
+\CommentTok{\#>  {-}6.4892513 1.9406012}
+\CommentTok{\#>  {-}0.6916705 4.3681181}
+\CommentTok{\#>   1.9061280 6.4892513}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -11866,7 +11874,9 @@ Next model adds additional predictor (covariate): relative squat 1RM:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{covariate\_model <{-}}\StringTok{ }\KeywordTok{model\_RCT}\NormalTok{(Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Group }\OperatorTok{+}\StringTok{ }\NormalTok{Measured\_score.Pre }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative)}
+\NormalTok{covariate\_model <{-}}\StringTok{ }\KeywordTok{model\_RCT}\NormalTok{(}
+\NormalTok{  Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Group }\OperatorTok{+}\StringTok{ }\NormalTok{Measured\_score.Pre }\OperatorTok{+}\StringTok{ }\NormalTok{Squat\_1RM\_relative}
+\NormalTok{  )}
 
 \NormalTok{covariate\_model}
 \CommentTok{\#> Training data consists of 4 predictors and 20 observations.}
@@ -11874,26 +11884,26 @@ Next model adds additional predictor (covariate): relative squat 1RM:
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD        min}
-\CommentTok{\#>            MBE {-}1.492140e{-}14    3.641497e{-}15    {-}0.04731864 {-}0.04731864 1.27184288 {-}2.4388220}
-\CommentTok{\#>            MAE  1.609713e+00    1.560087e+00     1.99431750  1.99431750 0.67386685  0.3458090}
-\CommentTok{\#>           RMSE  1.959142e+00    1.895527e+00     2.51905179  2.40288524 0.76382791  0.4106030}
-\CommentTok{\#>           PPER  9.776803e{-}01    9.914518e{-}01     0.95090835  0.84667956 0.08174096  0.6970788}
-\CommentTok{\#>  SESOI to RMSE  5.104275e+00    5.275579e+00     3.96974768  5.02832487 3.49488784  2.6565400}
-\CommentTok{\#>      R{-}squared  7.873104e{-}01    8.008987e{-}01     0.64849202  0.58513228 0.56466111 {-}1.9362660}
-\CommentTok{\#>         MinErr {-}3.795052e+00   {-}4.671246e+00    {-}6.30927941 {-}2.64672001 1.65641966 {-}6.3092794}
-\CommentTok{\#>         MaxErr  3.673197e+00    4.356870e+00     5.13611940  2.81303001 1.68991662 {-}0.2922030}
-\CommentTok{\#>      MaxAbsErr  3.795052e+00    4.671246e+00     6.30927941  3.84840058 1.32366331  0.7157490}
-\CommentTok{\#>         max}
-\CommentTok{\#>   2.4598851}
-\CommentTok{\#>   3.4404583}
-\CommentTok{\#>   3.7642949}
-\CommentTok{\#>   0.9981811}
-\CommentTok{\#>  24.3544266}
-\CommentTok{\#>   0.9784156}
-\CommentTok{\#>   0.8127197}
-\CommentTok{\#>   5.1361194}
-\CommentTok{\#>   6.3092794}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE {-}1.492140e{-}14    3.641497e{-}15    {-}0.04731864 {-}0.04731864 1.27184288}
+\CommentTok{\#>            MAE  1.609713e+00    1.560087e+00     1.99431750  1.99431750 0.67386685}
+\CommentTok{\#>           RMSE  1.959142e+00    1.895527e+00     2.51905179  2.40288524 0.76382791}
+\CommentTok{\#>           PPER  9.776803e{-}01    9.914518e{-}01     0.95090835  0.84667956 0.08174096}
+\CommentTok{\#>  SESOI to RMSE  5.104275e+00    5.275579e+00     3.96974768  5.02832487 3.49488784}
+\CommentTok{\#>      R{-}squared  7.873104e{-}01    8.008987e{-}01     0.64849202  0.58513228 0.56466111}
+\CommentTok{\#>         MinErr {-}3.795052e+00   {-}4.671246e+00    {-}6.30927941 {-}2.64672001 1.65641966}
+\CommentTok{\#>         MaxErr  3.673197e+00    4.356870e+00     5.13611940  2.81303001 1.68991662}
+\CommentTok{\#>      MaxAbsErr  3.795052e+00    4.671246e+00     6.30927941  3.84840058 1.32366331}
+\CommentTok{\#>         min        max}
+\CommentTok{\#>  {-}2.4388220  2.4598851}
+\CommentTok{\#>   0.3458090  3.4404583}
+\CommentTok{\#>   0.4106030  3.7642949}
+\CommentTok{\#>   0.6970788  0.9981811}
+\CommentTok{\#>   2.6565400 24.3544266}
+\CommentTok{\#>  {-}1.9362660  0.9784156}
+\CommentTok{\#>  {-}6.3092794  0.8127197}
+\CommentTok{\#>  {-}0.2922030  5.1361194}
+\CommentTok{\#>   0.7157490  6.3092794}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -12005,7 +12015,9 @@ And the final model is the interaction model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{interaction\_model <{-}}\StringTok{ }\KeywordTok{model\_RCT}\NormalTok{(Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Group}\OperatorTok{*}\NormalTok{Squat\_1RM\_relative }\OperatorTok{+}\StringTok{ }\NormalTok{Measured\_score.Pre)}
+\NormalTok{interaction\_model <{-}}\StringTok{ }\KeywordTok{model\_RCT}\NormalTok{(}
+\NormalTok{  Measured\_score.Post }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Group}\OperatorTok{*}\NormalTok{Squat\_1RM\_relative }\OperatorTok{+}\StringTok{ }\NormalTok{Measured\_score.Pre}
+\NormalTok{  )}
 
 \NormalTok{interaction\_model}
 \CommentTok{\#> Training data consists of 5 predictors and 20 observations.}
@@ -12013,26 +12025,26 @@ And the final model is the interaction model:
 \CommentTok{\#> }
 \CommentTok{\#> Model performance:}
 \CommentTok{\#> }
-\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD         min}
-\CommentTok{\#>            MBE  2.486856e{-}15    5.107026e{-}15    {-}0.02897255 {-}0.02897255 0.96232473 {-}2.10791777}
-\CommentTok{\#>            MAE  1.102035e+00    1.073541e+00     1.51448758  1.51448758 0.62541112  0.42250638}
-\CommentTok{\#>           RMSE  1.481278e+00    1.420252e+00     2.00731144  1.86964221 0.73799039  0.62520553}
-\CommentTok{\#>           PPER  9.961488e{-}01    9.995411e{-}01     0.98620762  0.90318747 0.07713261  0.73706941}
-\CommentTok{\#>  SESOI to RMSE  6.750926e+00    7.041003e+00     4.98178798  6.39845655 2.94071918  3.06196160}
-\CommentTok{\#>      R{-}squared  8.784129e{-}01    8.882249e{-}01     0.77676962  0.72661171 0.39233243 {-}1.30891277}
-\CommentTok{\#>         MinErr {-}2.887520e+00   {-}3.387465e+00    {-}4.84781640 {-}2.22509568 1.45777723 {-}4.84781640}
-\CommentTok{\#>         MaxErr  3.883197e+00    4.125618e+00     5.22505955  2.04804580 1.57273644  0.03320484}
-\CommentTok{\#>      MaxAbsErr  3.883197e+00    4.125618e+00     5.22505955  3.10011470 1.33675406  1.05228122}
-\CommentTok{\#>         max}
-\CommentTok{\#>   2.0771169}
-\CommentTok{\#>   2.9228564}
-\CommentTok{\#>   3.2658803}
-\CommentTok{\#>   0.9955572}
-\CommentTok{\#>  15.9947402}
-\CommentTok{\#>   0.9875223}
-\CommentTok{\#>   1.2235186}
-\CommentTok{\#>   5.2250596}
-\CommentTok{\#>   5.2250596}
+\CommentTok{\#>         metric      training training.pooled testing.pooled        mean         SD}
+\CommentTok{\#>            MBE  2.486856e{-}15    5.107026e{-}15    {-}0.02897255 {-}0.02897255 0.96232473}
+\CommentTok{\#>            MAE  1.102035e+00    1.073541e+00     1.51448758  1.51448758 0.62541112}
+\CommentTok{\#>           RMSE  1.481278e+00    1.420252e+00     2.00731144  1.86964221 0.73799039}
+\CommentTok{\#>           PPER  9.961488e{-}01    9.995411e{-}01     0.98620762  0.90318747 0.07713261}
+\CommentTok{\#>  SESOI to RMSE  6.750926e+00    7.041003e+00     4.98178798  6.39845655 2.94071918}
+\CommentTok{\#>      R{-}squared  8.784129e{-}01    8.882249e{-}01     0.77676962  0.72661171 0.39233243}
+\CommentTok{\#>         MinErr {-}2.887520e+00   {-}3.387465e+00    {-}4.84781640 {-}2.22509568 1.45777723}
+\CommentTok{\#>         MaxErr  3.883197e+00    4.125618e+00     5.22505955  2.04804580 1.57273644}
+\CommentTok{\#>      MaxAbsErr  3.883197e+00    4.125618e+00     5.22505955  3.10011470 1.33675406}
+\CommentTok{\#>          min        max}
+\CommentTok{\#>  {-}2.10791777  2.0771169}
+\CommentTok{\#>   0.42250638  2.9228564}
+\CommentTok{\#>   0.62520553  3.2658803}
+\CommentTok{\#>   0.73706941  0.9955572}
+\CommentTok{\#>   3.06196160 15.9947402}
+\CommentTok{\#>  {-}1.30891277  0.9875223}
+\CommentTok{\#>  {-}4.84781640  1.2235186}
+\CommentTok{\#>   0.03320484  5.2250596}
+\CommentTok{\#>   1.05228122  5.2250596}
 \CommentTok{\#> }
 \CommentTok{\#> Individual model results:}
 \CommentTok{\#> }
@@ -12335,8 +12347,10 @@ To provide very simplistic example of \texttt{dorem}, I will use example data pr
 \CommentTok{\#> }
 \CommentTok{\#> Estimated model coefficients are the following:}
 \CommentTok{\#> }
-\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain  BikeScore.NTE\_tau }
-\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 }
+\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain }
+\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750 }
+\CommentTok{\#>  BikeScore.NTE\_tau }
+\CommentTok{\#>         24.6056388 }
 \CommentTok{\#> }
 \CommentTok{\#> Objective function equal to: 2.1939 }
 \CommentTok{\#> }
@@ -12357,8 +12371,10 @@ To provide very simplistic example of \texttt{dorem}, I will use example data pr
 
 \CommentTok{\# get coefs}
 \KeywordTok{coef}\NormalTok{(banister\_model)}
-\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain  BikeScore.NTE\_tau }
-\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388}
+\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain }
+\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750 }
+\CommentTok{\#>  BikeScore.NTE\_tau }
+\CommentTok{\#>         24.6056388}
 
 \CommentTok{\# Get model predictions}
 \NormalTok{bike\_score}\OperatorTok{$}\NormalTok{pred <{-}}\StringTok{ }\KeywordTok{predict}\NormalTok{(banister\_model, bike\_score)}\OperatorTok{$}\NormalTok{.pred}
@@ -12416,8 +12432,10 @@ To provide very simplistic example of \texttt{dorem}, I will use example data pr
 \CommentTok{\#> }
 \CommentTok{\#> Estimated model coefficients are the following:}
 \CommentTok{\#> }
-\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain  BikeScore.NTE\_tau }
-\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 }
+\CommentTok{\#>          intercept BikeScore.PTE\_gain  BikeScore.PTE\_tau BikeScore.NTE\_gain }
+\CommentTok{\#>        266.0204779          0.3020749         33.6433797          0.3514750 }
+\CommentTok{\#>  BikeScore.NTE\_tau }
+\CommentTok{\#>         24.6056388 }
 \CommentTok{\#> }
 \CommentTok{\#> Objective function equal to: 2.1939 }
 \CommentTok{\#> }
@@ -12541,8 +12559,10 @@ To model sprint performance using split times, distance will be used as predicto
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>  1.19263116}
 
 \KeywordTok{summary}\NormalTok{(kimberley\_profile)}
 \CommentTok{\#> }
@@ -12760,8 +12780,10 @@ Each individual can be modeled separately, or we can perform \emph{non-linear mi
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.02600213  0.99982036 {-}0.02934519  0.04964582  0.04964582  0.02139178  0.01722581  0.90185579}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.02600213  0.99982036 {-}0.02934519  0.04964582  0.04964582  0.02139178  0.01722581 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>  0.90185579}
 
 \KeywordTok{summary}\NormalTok{(mixed\_model)}
 \CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
@@ -12870,8 +12892,10 @@ To modify random effects, which are by default \texttt{MSS} and \texttt{TAU} (\t
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.07635631  0.99801628 {-}0.10228573  0.15987989  0.15987989  0.06979851  0.05845303  2.68555639}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.07635631  0.99801628 {-}0.10228573  0.15987989  0.15987989  0.06979851  0.05845303 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>  2.68555639}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12899,8 +12923,10 @@ The radar gun data is modeled using measured velocity as target variable and tim
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.05058726  0.99924408 {-}0.15099212  0.16415830  0.16415830  0.05050288  0.03927901         NaN}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.05058726  0.99924408 {-}0.15099212  0.16415830  0.16415830  0.05050288  0.03927901 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>         NaN}
 
 \KeywordTok{summary}\NormalTok{(jim\_profile)}
 \CommentTok{\#> }
@@ -12965,8 +12991,10 @@ Radar gun data can be modeled individually or using \emph{non-linear mixed model
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.05164818  0.99942171 {-}0.21912952  0.19832897  0.21912952  0.05156203  0.03949473         NaN}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.05164818  0.99942171 {-}0.21912952  0.19832897  0.21912952  0.05156203  0.03949473 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>         NaN}
 
 \KeywordTok{summary}\NormalTok{(mixed\_model)}
 \CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
@@ -13059,10 +13087,10 @@ Here I will provide quick summary. Often, this bias in estimates is dealt with b
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>          RSE    R\_squared       minErr       maxErr    maxAbsErr         RMSE          MAE }
-\CommentTok{\#>  0.015195052  0.999941466 {-}0.041155421  0.020298042  0.041155421  0.012443740  0.009087699 }
-\CommentTok{\#>         MAPE }
-\CommentTok{\#>  0.496822694}
+\CommentTok{\#>          RSE    R\_squared       minErr       maxErr    maxAbsErr         RMSE }
+\CommentTok{\#>  0.015195052  0.999941466 {-}0.041155421  0.020298042  0.041155421  0.012443740 }
+\CommentTok{\#>          MAE         MAPE }
+\CommentTok{\#>  0.009087699  0.496822694}
 
 \KeywordTok{summary}\NormalTok{(mixed\_model\_corrected)}
 \CommentTok{\#> Nonlinear mixed{-}effects model fit by maximum likelihood}
@@ -13176,10 +13204,10 @@ Instead of providing for \texttt{time\_correction}, this parameter can be estima
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>          RSE    R\_squared       minErr       maxErr    maxAbsErr         RMSE          MAE }
-\CommentTok{\#>  0.005976815  0.999990286 {-}0.016508275  0.009370607  0.016508275  0.004882226  0.003481096 }
-\CommentTok{\#>         MAPE }
-\CommentTok{\#>  0.186135567}
+\CommentTok{\#>          RSE    R\_squared       minErr       maxErr    maxAbsErr         RMSE }
+\CommentTok{\#>  0.005976815  0.999990286 {-}0.016508275  0.009370607  0.016508275  0.004882226 }
+\CommentTok{\#>          MAE         MAPE }
+\CommentTok{\#>  0.003481096  0.186135567}
 \end{Highlighting}
 \end{Shaded}
 
@@ -13207,8 +13235,10 @@ For more details, please refer to \texttt{sprint-corrections} \href{https://mlad
 \CommentTok{\#> }
 \CommentTok{\#> Model fit estimators}
 \CommentTok{\#> {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444  0.05293444  0.02778875  0.02333342  1.19263116 }
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>  0.03403413  0.99965531 {-}0.02699169  0.05293444  0.05293444  0.02778875  0.02333342 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>  1.19263116 }
 \CommentTok{\#> }
 \CommentTok{\#> }
 \CommentTok{\#> Leave{-}One{-}Out Cross{-}Validation}
@@ -13223,8 +13253,10 @@ For more details, please refer to \texttt{sprint-corrections} \href{https://mlad
 \CommentTok{\#> 6 8.394673 0.7596923 11.05010 23.19049               0                   0}
 \CommentTok{\#> }
 \CommentTok{\#> Model fit:}
-\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE        MAPE }
-\CommentTok{\#>          NA  0.99901083 {-}0.03444984  0.08009048  0.08009048  0.04742769  0.03923869  1.72270273}
+\CommentTok{\#>         RSE   R\_squared      minErr      maxErr   maxAbsErr        RMSE         MAE }
+\CommentTok{\#>          NA  0.99901083 {-}0.03444984  0.08009048  0.08009048  0.04742769  0.03923869 }
+\CommentTok{\#>        MAPE }
+\CommentTok{\#>  1.72270273}
 \end{Highlighting}
 \end{Shaded}
 

@@ -1,0 +1,152 @@
+\contentsline {chapter}{Welcome}{13}{chapter*.2}%
+\contentsline {subsubsection}{bmbstats package}{13}{chapter*.2}%
+\contentsline {subsubsection}{bmbstats book}{13}{chapter*.2}%
+\contentsline {section}{R and R packages}{13}{section*.3}%
+\contentsline {section}{License}{14}{section*.3}%
+\contentsline {part}{I\hspace {1em}Part One}{15}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{17}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Description}{19}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Comparing two independent groups}{19}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Sample \texttt {mean} as the simplest statistical model}{21}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Effect Sizes}{24}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}The Smallest Effect Size Of Interest}{28}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Comparing dependent groups}{31}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Describing groups as independent}{33}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Effect Sizes}{33}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Describing relationship between two variables}{36}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Magnitude-based estimators}{42}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Advanced uses}{47}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Prediction}{49}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overfitting}{50}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Cross-Validation}{52}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Sample \texttt {mean} as the simplest predictive model}{55}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}Bias-Variance decomposition and trade-off}{59}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Interpretability}{63}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Magnitude-based prediction estimators}{64}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Practical example: MAS and YoYoIR1 prediction}{66}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Predicting MAS from YoYoIR1}{66}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Predicting YoYoIR1 from MAS}{71}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Causal inference}{77}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Necessary versus sufficient causality}{77}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Observational data}{78}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Potential outcomes or counterfactuals}{80}{section.4.3}%
+\contentsline {section}{\numberline {4.4}\emph {Ceteris paribus} and the biases}{82}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Randomization}{83}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Subject matter knowledge}{85}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Example of randomized control trial}{85}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Prediction as a complement to causal inference}{93}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Analysis of the individual residuals: responders vs non-responders}{100}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Counterfactual analysis and Individual Treatment Effects}{103}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Direct and indirect effect, covariates and then some}{107}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Model selection}{119}{subsection.4.7.4}%
+\contentsline {section}{\numberline {4.8}Ergodicity}{119}{section.4.8}%
+\contentsline {chapter}{\numberline {5}Statistical inference}{123}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Two kinds of uncertainty, probability, and statistical inference}{124}{section.5.1}%
+\contentsline {chapter}{\numberline {6}Frequentist perspective}{127}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Null-Hypothesis Significance Testing}{128}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Statistical Power}{131}{section.6.2}%
+\contentsline {section}{\numberline {6.3}New Statistics: Confidence Intervals and Estimation}{132}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Minimum Effect Tests}{133}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Individual vs.\nobreakspace {}Parameter SESOI}{133}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Two one-sided tests of equivalence}{134}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Superiority and Non-Inferiority}{134}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Inferiority and Non-Superiority}{134}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}Inference from METs}{135}{subsection.6.4.5}%
+\contentsline {section}{\numberline {6.5}Magnitude Based Inference}{135}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Bayesian perspective}{147}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Grid approximation}{147}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Priors}{148}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Likelihood function}{149}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Posterior probability}{151}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Adding more possibilities}{153}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Different prior}{155}{section.7.6}%
+\contentsline {section}{\numberline {7.7}More data}{156}{section.7.7}%
+\contentsline {section}{\numberline {7.8}Summarizing prior and posterior distributions with MAP and HDI}{156}{section.7.8}%
+\contentsline {section}{\numberline {7.9}Comparison to NHST Type I errors}{158}{section.7.9}%
+\contentsline {chapter}{\numberline {8}Bootstrap}{161}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summarizing bootstrap distribution}{163}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Bootstrap Type I errors}{164}{section.8.2}%
+\contentsline {chapter}{\numberline {9}Statistical inference conclusion}{167}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Measurement Error}{169}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Estimating \texttt {TE} using \emph {ordinary least products} regression}{175}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Smallest Detectable Change}{176}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Interpreting individual changes using SESOI and SDC}{178}{section.10.3}%
+\contentsline {section}{\numberline {10.4}What to do when we know the error?}{182}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Extending the Classical Test Theory}{185}{section.10.5}%
+\contentsline {chapter}{\numberline {11}Conclusion}{187}{chapter.11}%
+\contentsline {part}{II\hspace {1em}Part Two}{189}{part.2}%
+\contentsline {chapter}{\numberline {12}\texttt {bmbstats}: Bootstrap Magnitude-based Statistics package}{191}{chapter.12}%
+\contentsline {section}{\numberline {12.1}\texttt {bmbstats} Installation}{191}{section.12.1}%
+\contentsline {chapter}{\numberline {13}Descriptive tasks using \texttt {bmbstats}}{193}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Generating \emph {height data}}{193}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Visualization and analysis of a single group (or variable)}{194}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Using your own estimators}{197}{subsection.13.2.1}%
+\contentsline {section}{\numberline {13.3}Visualization and analysis of the two independent groups}{202}{section.13.3}%
+\contentsline {section}{\numberline {13.4}NHST, METs and MBI functions}{208}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Comparing two dependent groups}{214}{section.13.5}%
+\contentsline {subsection}{\numberline {13.5.1}Measurement error issues}{214}{subsection.13.5.1}%
+\contentsline {subsection}{\numberline {13.5.2}Analysis of the dependent groups using \texttt {compare\_dependent\_groups}}{226}{subsection.13.5.2}%
+\contentsline {subsection}{\numberline {13.5.3}Statistical tests}{232}{subsection.13.5.3}%
+\contentsline {section}{\numberline {13.6}Describing relationship between two groups}{234}{section.13.6}%
+\contentsline {chapter}{\numberline {14}Predictive tasks using \texttt {bmbstats}}{239}{chapter.14}%
+\contentsline {section}{\numberline {14.1}How to implement different performance metrics?}{242}{section.14.1}%
+\contentsline {section}{\numberline {14.2}How to use different prediction model?}{244}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Example of using tuning parameter}{246}{section.14.3}%
+\contentsline {section}{\numberline {14.4}Plotting}{248}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Comparing models}{253}{section.14.5}%
+\contentsline {section}{\numberline {14.6}Bootstrapping model}{260}{section.14.6}%
+\contentsline {chapter}{\numberline {15}Validity and Reliability}{263}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Data generation}{263}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Validity}{264}{section.15.2}%
+\contentsline {subsection}{\numberline {15.2.1}True vs Criterion}{265}{subsection.15.2.1}%
+\contentsline {subsubsection}{\numberline {15.2.1.1}Method of the differences}{266}{subsubsection.15.2.1.1}%
+\contentsline {subsubsection}{\numberline {15.2.1.2}Linear Regression method}{268}{subsubsection.15.2.1.2}%
+\contentsline {subsubsection}{\numberline {15.2.1.3}OLP method}{270}{subsubsection.15.2.1.3}%
+\contentsline {subsubsection}{\numberline {15.2.1.4}What happens if we flip the variables?}{273}{subsubsection.15.2.1.4}%
+\contentsline {subsection}{\numberline {15.2.2}Practical vs Criterion}{275}{subsection.15.2.2}%
+\contentsline {subsection}{\numberline {15.2.3}Prediction approach}{287}{subsection.15.2.3}%
+\contentsline {subsection}{\numberline {15.2.4}Can we adjust for the know criterion measure random error?}{289}{subsection.15.2.4}%
+\contentsline {subsection}{\numberline {15.2.5}Estimating SESOI for the practical score}{292}{subsection.15.2.5}%
+\contentsline {section}{\numberline {15.3}Reliability}{292}{section.15.3}%
+\contentsline {subsection}{\numberline {15.3.1}Reproducibility}{293}{subsection.15.3.1}%
+\contentsline {subsubsection}{\numberline {15.3.1.1}Simulating effects of different levels of random error on reproducibility results}{299}{subsubsection.15.3.1.1}%
+\contentsline {subsubsection}{\numberline {15.3.1.2}Reproducibility of the practical measure}{302}{subsubsection.15.3.1.2}%
+\contentsline {subsubsection}{\numberline {15.3.1.3}Uses of reproducibility analyses}{303}{subsubsection.15.3.1.3}%
+\contentsline {section}{\numberline {15.4}Repeatability}{305}{section.15.4}%
+\contentsline {section}{\numberline {15.5}The difference between Reproducibility and Repeatability}{310}{section.15.5}%
+\contentsline {chapter}{\numberline {16}RCT analysis and prediction in \texttt {bmbstats}}{315}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Data Generating Process behind RCT}{315}{section.16.1}%
+\contentsline {section}{\numberline {16.2}RCT analysis using \texttt {bmbstats::RCT\_analysis} function}{320}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Linear Regression Perspective}{331}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Prediction perspective 1}{337}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Adding some effects}{345}{section.16.5}%
+\contentsline {section}{\numberline {16.6}What goes inside the \emph {measurement error} (or Control group change or residuals \texttt {SD})?}{353}{section.16.6}%
+\contentsline {section}{\numberline {16.7}Prediction perspective 2}{356}{section.16.7}%
+\contentsline {section}{\numberline {16.8}Making it more complex by adding covariate}{360}{section.16.8}%
+\contentsline {section}{\numberline {16.9}Prediction perspective 3}{370}{section.16.9}%
+\contentsline {chapter}{\numberline {17}Appendix A: \texttt {dorem} package}{389}{chapter.17}%
+\contentsline {section}{\numberline {17.1}\texttt {dorem} Installation}{389}{section.17.1}%
+\contentsline {section}{\numberline {17.2}\texttt {dorem} Example}{389}{section.17.2}%
+\contentsline {chapter}{\numberline {18}Appendix B: \texttt {shorts} package}{395}{chapter.18}%
+\contentsline {section}{\numberline {18.1}\texttt {shorts} Installation}{395}{section.18.1}%
+\contentsline {section}{\numberline {18.2}\texttt {short} Examples}{395}{section.18.2}%
+\contentsline {subsection}{\numberline {18.2.1}Profiling using split times}{396}{subsection.18.2.1}%
+\contentsline {subsubsection}{\numberline {18.2.1.1}Mixed-effect models}{400}{subsubsection.18.2.1.1}%
+\contentsline {subsection}{\numberline {18.2.2}Profiling using radar gun data}{403}{subsection.18.2.2}%
+\contentsline {subsection}{\numberline {18.2.3}Using corrections}{406}{subsection.18.2.3}%
+\contentsline {subsection}{\numberline {18.2.4}Leave-One-Out Cross-Validation (LOOCV)}{409}{subsection.18.2.4}%
+\contentsline {section}{\numberline {18.3}\texttt {shorts} Citation}{412}{section.18.3}%
+\contentsline {chapter}{\numberline {19}Appendix C: \texttt {vjsim} package}{413}{chapter.19}%
+\contentsline {section}{\numberline {19.1}\texttt {vjsim} Installation}{413}{section.19.1}%
+\contentsline {section}{\numberline {19.2}\texttt {vjsim} Usage}{413}{section.19.2}%
+\contentsline {subsection}{\numberline {19.2.1}\href {https://mladenjovanovic.github.io/vjsim/articles/introduction-vjsim.html}{Introduction to vjsim}}{413}{subsection.19.2.1}%
+\contentsline {subsection}{\numberline {19.2.2}\href {https://mladenjovanovic.github.io/vjsim/articles/simulation-vjsim.html}{Simulation}}{414}{subsection.19.2.2}%
+\contentsline {subsection}{\numberline {19.2.3}\href {https://mladenjovanovic.github.io/vjsim/articles/profiling-vjsim.html}{Profiling}}{414}{subsection.19.2.3}%
+\contentsline {subsection}{\numberline {19.2.4}\href {https://mladenjovanovic.github.io/vjsim/articles/optimization-vjsim.html}{Optimization}}{414}{subsection.19.2.4}%
+\contentsline {subsection}{\numberline {19.2.5}\href {https://mladenjovanovic.github.io/vjsim/articles/exploring-vjsim.html}{Exploring}}{414}{subsection.19.2.5}%
+\contentsline {subsection}{\numberline {19.2.6}\href {https://mladenjovanovic.github.io/vjsim/articles/modeling-vjsim.html}{Modeling}}{415}{subsection.19.2.6}%
+\contentsline {subsection}{\numberline {19.2.7}\href {https://athletess.shinyapps.io/shiny-simulator/}{Shiny App}}{415}{subsection.19.2.7}%
+\contentsline {section}{\numberline {19.3}\texttt {vjsim} Example}{415}{section.19.3}%
+\contentsline {chapter}{\numberline {20}Appendix D: Recommended material}{421}{chapter.20}%
+\contentsline {chapter}{\numberline {21}About}{425}{chapter.21}%
+\contentsline {chapter}{\numberline {22}References}{427}{chapter.22}%

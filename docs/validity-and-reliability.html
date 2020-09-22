@@ -24,7 +24,7 @@
 <meta name="author" content="Mladen Jovanovic" />
 
 
-<meta name="date" content="2020-09-03" />
+<meta name="date" content="2020-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -403,14 +403,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-38"><a href="validity-and-reliability.html#cb114-38"></a></span>
 <span id="cb114-39"><a href="validity-and-reliability.html#cb114-39"></a><span class="kw">head</span>(agreement_data)</span>
 <span id="cb114-40"><a href="validity-and-reliability.html#cb114-40"></a><span class="co">#&gt; # A tibble: 6 x 6</span></span>
-<span id="cb114-41"><a href="validity-and-reliability.html#cb114-41"></a><span class="co">#&gt;   Athlete  True_score Criterion_score.t… Criterion_score.t… Practical_score.t… Practical_score.…</span></span>
-<span id="cb114-42"><a href="validity-and-reliability.html#cb114-42"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;             &lt;dbl&gt;</span></span>
-<span id="cb114-43"><a href="validity-and-reliability.html#cb114-43"></a><span class="co">#&gt; 1 Athlete…       52.9               52.9               52.9               60.2              60.6</span></span>
-<span id="cb114-44"><a href="validity-and-reliability.html#cb114-44"></a><span class="co">#&gt; 2 Athlete…       42.4               42.3               42.2               48.7              48.6</span></span>
-<span id="cb114-45"><a href="validity-and-reliability.html#cb114-45"></a><span class="co">#&gt; 3 Athlete…       49.2               49.1               49.5               56.0              57.2</span></span>
-<span id="cb114-46"><a href="validity-and-reliability.html#cb114-46"></a><span class="co">#&gt; 4 Athlete…       44.8               44.7               44.8               51.5              51.3</span></span>
-<span id="cb114-47"><a href="validity-and-reliability.html#cb114-47"></a><span class="co">#&gt; 5 Athlete…       40.0               40.4               40.1               45.7              43.8</span></span>
-<span id="cb114-48"><a href="validity-and-reliability.html#cb114-48"></a><span class="co">#&gt; 6 Athlete…       42.6               42.5               42.2               49.7              50.4</span></span></code></pre></div>
+<span id="cb114-41"><a href="validity-and-reliability.html#cb114-41"></a><span class="co">#&gt;   Athlete  True_score Criterion_score.… Criterion_score… Practical_score… Practical_score…</span></span>
+<span id="cb114-42"><a href="validity-and-reliability.html#cb114-42"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb114-43"><a href="validity-and-reliability.html#cb114-43"></a><span class="co">#&gt; 1 Athlete…       52.9              52.9             52.9             60.2             60.6</span></span>
+<span id="cb114-44"><a href="validity-and-reliability.html#cb114-44"></a><span class="co">#&gt; 2 Athlete…       42.4              42.3             42.2             48.7             48.6</span></span>
+<span id="cb114-45"><a href="validity-and-reliability.html#cb114-45"></a><span class="co">#&gt; 3 Athlete…       49.2              49.1             49.5             56.0             57.2</span></span>
+<span id="cb114-46"><a href="validity-and-reliability.html#cb114-46"></a><span class="co">#&gt; 4 Athlete…       44.8              44.7             44.8             51.5             51.3</span></span>
+<span id="cb114-47"><a href="validity-and-reliability.html#cb114-47"></a><span class="co">#&gt; 5 Athlete…       40.0              40.4             40.1             45.7             43.8</span></span>
+<span id="cb114-48"><a href="validity-and-reliability.html#cb114-48"></a><span class="co">#&gt; 6 Athlete…       42.6              42.5             42.2             49.7             50.4</span></span></code></pre></div>
 <p>The assumption of the above DGP is that true score stays unchanged for trial 1 and trial 2. Thus, the only thing that creates variance in the criterion and practical measures is the random error component of the measurement error.</p>
 <p>It is also assumed that there is no <em>biological noise</em> involved in the measurement error. We will make this example a bit more complex later on, so for now let’s stick to this sand box example.</p>
 </div>
@@ -957,20 +957,20 @@ When investigators plan experiments to compare methods of measurement, they must
 <span id="cb141-28"><a href="validity-and-reliability.html#cb141-28"></a>  })</span>
 <span id="cb141-29"><a href="validity-and-reliability.html#cb141-29"></a></span>
 <span id="cb141-30"><a href="validity-and-reliability.html#cb141-30"></a><span class="kw">head</span>(simulation_df)</span>
-<span id="cb141-31"><a href="validity-and-reliability.html#cb141-31"></a><span class="co">#&gt;   simulation criterion_random_error True_score Criterion_score.trial1 Criterion_score.trial2</span></span>
-<span id="cb141-32"><a href="validity-and-reliability.html#cb141-32"></a><span class="co">#&gt; 1          1                      0   41.44284               41.44284               41.44284</span></span>
-<span id="cb141-33"><a href="validity-and-reliability.html#cb141-33"></a><span class="co">#&gt; 2          1                      0   42.76338               42.76338               42.76338</span></span>
-<span id="cb141-34"><a href="validity-and-reliability.html#cb141-34"></a><span class="co">#&gt; 3          1                      0   39.33558               39.33558               39.33558</span></span>
-<span id="cb141-35"><a href="validity-and-reliability.html#cb141-35"></a><span class="co">#&gt; 4          1                      0   54.14657               54.14657               54.14657</span></span>
-<span id="cb141-36"><a href="validity-and-reliability.html#cb141-36"></a><span class="co">#&gt; 5          1                      0   42.17742               42.17742               42.17742</span></span>
-<span id="cb141-37"><a href="validity-and-reliability.html#cb141-37"></a><span class="co">#&gt; 6          1                      0   50.57845               50.57845               50.57845</span></span>
-<span id="cb141-38"><a href="validity-and-reliability.html#cb141-38"></a><span class="co">#&gt;   Practical_score.trial1 Practical_score.trial2</span></span>
-<span id="cb141-39"><a href="validity-and-reliability.html#cb141-39"></a><span class="co">#&gt; 1               47.36111               47.05610</span></span>
-<span id="cb141-40"><a href="validity-and-reliability.html#cb141-40"></a><span class="co">#&gt; 2               49.30239               47.59944</span></span>
-<span id="cb141-41"><a href="validity-and-reliability.html#cb141-41"></a><span class="co">#&gt; 3               46.81175               45.48609</span></span>
-<span id="cb141-42"><a href="validity-and-reliability.html#cb141-42"></a><span class="co">#&gt; 4               62.99236               62.44907</span></span>
-<span id="cb141-43"><a href="validity-and-reliability.html#cb141-43"></a><span class="co">#&gt; 5               49.52856               49.12834</span></span>
-<span id="cb141-44"><a href="validity-and-reliability.html#cb141-44"></a><span class="co">#&gt; 6               56.14485               59.70339</span></span></code></pre></div>
+<span id="cb141-31"><a href="validity-and-reliability.html#cb141-31"></a><span class="co">#&gt;   simulation criterion_random_error True_score Criterion_score.trial1</span></span>
+<span id="cb141-32"><a href="validity-and-reliability.html#cb141-32"></a><span class="co">#&gt; 1          1                      0   41.44284               41.44284</span></span>
+<span id="cb141-33"><a href="validity-and-reliability.html#cb141-33"></a><span class="co">#&gt; 2          1                      0   42.76338               42.76338</span></span>
+<span id="cb141-34"><a href="validity-and-reliability.html#cb141-34"></a><span class="co">#&gt; 3          1                      0   39.33558               39.33558</span></span>
+<span id="cb141-35"><a href="validity-and-reliability.html#cb141-35"></a><span class="co">#&gt; 4          1                      0   54.14657               54.14657</span></span>
+<span id="cb141-36"><a href="validity-and-reliability.html#cb141-36"></a><span class="co">#&gt; 5          1                      0   42.17742               42.17742</span></span>
+<span id="cb141-37"><a href="validity-and-reliability.html#cb141-37"></a><span class="co">#&gt; 6          1                      0   50.57845               50.57845</span></span>
+<span id="cb141-38"><a href="validity-and-reliability.html#cb141-38"></a><span class="co">#&gt;   Criterion_score.trial2 Practical_score.trial1 Practical_score.trial2</span></span>
+<span id="cb141-39"><a href="validity-and-reliability.html#cb141-39"></a><span class="co">#&gt; 1               41.44284               47.36111               47.05610</span></span>
+<span id="cb141-40"><a href="validity-and-reliability.html#cb141-40"></a><span class="co">#&gt; 2               42.76338               49.30239               47.59944</span></span>
+<span id="cb141-41"><a href="validity-and-reliability.html#cb141-41"></a><span class="co">#&gt; 3               39.33558               46.81175               45.48609</span></span>
+<span id="cb141-42"><a href="validity-and-reliability.html#cb141-42"></a><span class="co">#&gt; 4               54.14657               62.99236               62.44907</span></span>
+<span id="cb141-43"><a href="validity-and-reliability.html#cb141-43"></a><span class="co">#&gt; 5               42.17742               49.52856               49.12834</span></span>
+<span id="cb141-44"><a href="validity-and-reliability.html#cb141-44"></a><span class="co">#&gt; 6               50.57845               56.14485               59.70339</span></span></code></pre></div>
 <p>Now, for each simulation, we will estimate the DGP parameters (i.e. intercept, slope, and random error) using simple linear regression and OLP regression using criterion as predictor and practical as the outcome variables.</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="validity-and-reliability.html#cb142-1"></a>estimation_wrapper &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</span>
 <span id="cb142-2"><a href="validity-and-reliability.html#cb142-2"></a>  lm_true &lt;-<span class="st"> </span><span class="kw">lm_method</span>(</span>
@@ -1267,26 +1267,26 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb149-12"><a href="validity-and-reliability.html#cb149-12"></a><span class="co">#&gt; </span></span>
 <span id="cb149-13"><a href="validity-and-reliability.html#cb149-13"></a><span class="co">#&gt; Model performance:</span></span>
 <span id="cb149-14"><a href="validity-and-reliability.html#cb149-14"></a><span class="co">#&gt; </span></span>
-<span id="cb149-15"><a href="validity-and-reliability.html#cb149-15"></a><span class="co">#&gt;         metric      training training.pooled testing.pooled        mean         SD        min</span></span>
-<span id="cb149-16"><a href="validity-and-reliability.html#cb149-16"></a><span class="co">#&gt;            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363 0.52102607 -1.0035037</span></span>
-<span id="cb149-17"><a href="validity-and-reliability.html#cb149-17"></a><span class="co">#&gt;            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212 0.21891902  0.2938133</span></span>
-<span id="cb149-18"><a href="validity-and-reliability.html#cb149-18"></a><span class="co">#&gt;           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710 0.23117615  0.4147218</span></span>
-<span id="cb149-19"><a href="validity-and-reliability.html#cb149-19"></a><span class="co">#&gt;           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067 0.05265932  0.6919549</span></span>
-<span id="cb149-20"><a href="validity-and-reliability.html#cb149-20"></a><span class="co">#&gt;  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442  3.3199413</span></span>
-<span id="cb149-21"><a href="validity-and-reliability.html#cb149-21"></a><span class="co">#&gt;      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772 0.56589940 -2.5312392</span></span>
-<span id="cb149-22"><a href="validity-and-reliability.html#cb149-22"></a><span class="co">#&gt;         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158 0.40660854 -1.3641311</span></span>
-<span id="cb149-23"><a href="validity-and-reliability.html#cb149-23"></a><span class="co">#&gt;         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843 -0.2737126</span></span>
-<span id="cb149-24"><a href="validity-and-reliability.html#cb149-24"></a><span class="co">#&gt;      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222  0.7468639</span></span>
-<span id="cb149-25"><a href="validity-and-reliability.html#cb149-25"></a><span class="co">#&gt;         max</span></span>
-<span id="cb149-26"><a href="validity-and-reliability.html#cb149-26"></a><span class="co">#&gt;   1.0131942</span></span>
-<span id="cb149-27"><a href="validity-and-reliability.html#cb149-27"></a><span class="co">#&gt;   1.4283624</span></span>
-<span id="cb149-28"><a href="validity-and-reliability.html#cb149-28"></a><span class="co">#&gt;   1.5060507</span></span>
-<span id="cb149-29"><a href="validity-and-reliability.html#cb149-29"></a><span class="co">#&gt;   0.9885303</span></span>
-<span id="cb149-30"><a href="validity-and-reliability.html#cb149-30"></a><span class="co">#&gt;  12.0562748</span></span>
-<span id="cb149-31"><a href="validity-and-reliability.html#cb149-31"></a><span class="co">#&gt;   0.9953966</span></span>
-<span id="cb149-32"><a href="validity-and-reliability.html#cb149-32"></a><span class="co">#&gt;   0.4769940</span></span>
-<span id="cb149-33"><a href="validity-and-reliability.html#cb149-33"></a><span class="co">#&gt;   2.3455653</span></span>
-<span id="cb149-34"><a href="validity-and-reliability.html#cb149-34"></a><span class="co">#&gt;   2.3455653</span></span></code></pre></div>
+<span id="cb149-15"><a href="validity-and-reliability.html#cb149-15"></a><span class="co">#&gt;         metric      training training.pooled testing.pooled        mean         SD</span></span>
+<span id="cb149-16"><a href="validity-and-reliability.html#cb149-16"></a><span class="co">#&gt;            MBE  1.882940e-14   -3.925753e-15     0.02821925  0.01349363 0.52102607</span></span>
+<span id="cb149-17"><a href="validity-and-reliability.html#cb149-17"></a><span class="co">#&gt;            MAE  7.209755e-01    7.106871e-01     0.80067569  0.79019212 0.21891902</span></span>
+<span id="cb149-18"><a href="validity-and-reliability.html#cb149-18"></a><span class="co">#&gt;           RMSE  8.310824e-01    8.191433e-01     0.94237977  0.90134710 0.23117615</span></span>
+<span id="cb149-19"><a href="validity-and-reliability.html#cb149-19"></a><span class="co">#&gt;           PPER  9.914445e-01    9.976365e-01     0.99121033  0.91768067 0.05265932</span></span>
+<span id="cb149-20"><a href="validity-and-reliability.html#cb149-20"></a><span class="co">#&gt;  SESOI to RMSE  6.016250e+00    6.103938e+00     5.30571663  5.92631136 1.61587442</span></span>
+<span id="cb149-21"><a href="validity-and-reliability.html#cb149-21"></a><span class="co">#&gt;      R-squared  9.752786e-01    9.759837e-01     0.96824238  0.83850772 0.56589940</span></span>
+<span id="cb149-22"><a href="validity-and-reliability.html#cb149-22"></a><span class="co">#&gt;         MinErr -1.085374e+00   -1.302228e+00    -1.36413113 -0.87328158 0.40660854</span></span>
+<span id="cb149-23"><a href="validity-and-reliability.html#cb149-23"></a><span class="co">#&gt;         MaxErr  1.792261e+00    1.901850e+00     2.34556533  0.99120816 0.71495843</span></span>
+<span id="cb149-24"><a href="validity-and-reliability.html#cb149-24"></a><span class="co">#&gt;      MaxAbsErr  1.792261e+00    1.901850e+00     2.34556533  1.33156462 0.43907222</span></span>
+<span id="cb149-25"><a href="validity-and-reliability.html#cb149-25"></a><span class="co">#&gt;         min        max</span></span>
+<span id="cb149-26"><a href="validity-and-reliability.html#cb149-26"></a><span class="co">#&gt;  -1.0035037  1.0131942</span></span>
+<span id="cb149-27"><a href="validity-and-reliability.html#cb149-27"></a><span class="co">#&gt;   0.2938133  1.4283624</span></span>
+<span id="cb149-28"><a href="validity-and-reliability.html#cb149-28"></a><span class="co">#&gt;   0.4147218  1.5060507</span></span>
+<span id="cb149-29"><a href="validity-and-reliability.html#cb149-29"></a><span class="co">#&gt;   0.6919549  0.9885303</span></span>
+<span id="cb149-30"><a href="validity-and-reliability.html#cb149-30"></a><span class="co">#&gt;   3.3199413 12.0562748</span></span>
+<span id="cb149-31"><a href="validity-and-reliability.html#cb149-31"></a><span class="co">#&gt;  -2.5312392  0.9953966</span></span>
+<span id="cb149-32"><a href="validity-and-reliability.html#cb149-32"></a><span class="co">#&gt;  -1.3641311  0.4769940</span></span>
+<span id="cb149-33"><a href="validity-and-reliability.html#cb149-33"></a><span class="co">#&gt;  -0.2737126  2.3455653</span></span>
+<span id="cb149-34"><a href="validity-and-reliability.html#cb149-34"></a><span class="co">#&gt;   0.7468639  2.3455653</span></span></code></pre></div>
 <p>If we check <code>MaxAbsErr</code> we can also see that the maximal absolute error is below SESOI, even for the unseen data, which is outstanding. Using testing <code>RMSE</code> (i.e. mean across CV fold, which is equal to 0.9cm) we can calculate 95% <code>SDC</code> multiplying with 1.96 (or simple heuristic is just doubling the value), which gives us 1.8cm. This implies that using calibrated practical measure score (i.e. predicted criterion score), we are able to predict with 95% confidence at least change equal to 1.8cm, which is below our SESOI of 2.5cm. This concludes that calibrated practical measure has outstanding practical predictive validity of the criterion score and can be used in practice.</p>
 </div>
 <div id="can-we-adjust-for-the-know-criterion-measure-random-error" class="section level3" number="15.2.4">
@@ -1530,10 +1530,10 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb161-5"><a href="validity-and-reliability.html#cb161-5"></a>  <span class="dt">SESOI_lower =</span> <span class="fl">-2.5</span>,</span>
 <span id="cb161-6"><a href="validity-and-reliability.html#cb161-6"></a>  <span class="dt">SESOI_upper =</span> <span class="fl">2.5</span></span>
 <span id="cb161-7"><a href="validity-and-reliability.html#cb161-7"></a>)</span>
-<span id="cb161-8"><a href="validity-and-reliability.html#cb161-8"></a><span class="co">#&gt;  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE  Pearson&#39;s r </span></span>
-<span id="cb161-9"><a href="validity-and-reliability.html#cb161-9"></a><span class="co">#&gt;   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774    0.9984753 </span></span>
-<span id="cb161-10"><a href="validity-and-reliability.html#cb161-10"></a><span class="co">#&gt;    R Squared SESOI to RSE         PPER           TE          SDC </span></span>
-<span id="cb161-11"><a href="validity-and-reliability.html#cb161-11"></a><span class="co">#&gt;    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761</span></span></code></pre></div>
+<span id="cb161-8"><a href="validity-and-reliability.html#cb161-8"></a><span class="co">#&gt;  SESOI lower  SESOI upper  SESOI range    Intercept        Slope          RSE </span></span>
+<span id="cb161-9"><a href="validity-and-reliability.html#cb161-9"></a><span class="co">#&gt;   -2.5000000    2.5000000    5.0000000   -0.4982932    1.0124861    0.3076774 </span></span>
+<span id="cb161-10"><a href="validity-and-reliability.html#cb161-10"></a><span class="co">#&gt;  Pearson&#39;s r    R Squared SESOI to RSE         PPER           TE          SDC </span></span>
+<span id="cb161-11"><a href="validity-and-reliability.html#cb161-11"></a><span class="co">#&gt;    0.9984753    0.9969529   16.2507895    0.9999999    0.2175607    0.6439761</span></span></code></pre></div>
 <p><code>bmbstats::reliability_estimators</code> provides additional estimators, including <code>TE</code> and <code>SDC</code>. To get 95% bootstrap confidence intervals, use:</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="validity-and-reliability.html#cb162-1"></a>criterion_reproducibility &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">reliability_analysis</span>(</span>
 <span id="cb162-2"><a href="validity-and-reliability.html#cb162-2"></a>  <span class="dt">data =</span> agreement_data,</span>
@@ -1953,10 +1953,10 @@ Estimating Type I errors using the bootstrapped CIs would involve slower/longer 
 <span id="cb177-25"><a href="validity-and-reliability.html#cb177-25"></a><span class="co">#&gt; 5 Athlet…           40.0           0            40.0             42.7             40.6</span></span>
 <span id="cb177-26"><a href="validity-and-reliability.html#cb177-26"></a><span class="co">#&gt; 6 Athlet…           42.6           0            42.6             41.7             39.6</span></span>
 <span id="cb177-27"><a href="validity-and-reliability.html#cb177-27"></a><span class="co">#&gt; # … with 10 more variables: Manifested_score.Change &lt;dbl&gt;, Measured_score.Pre &lt;dbl&gt;,</span></span>
-<span id="cb177-28"><a href="validity-and-reliability.html#cb177-28"></a><span class="co">#&gt; #   Measured_score.Post &lt;dbl&gt;, Measured_score.Change &lt;dbl&gt;, True_score_measured.Pre &lt;dbl&gt;,</span></span>
-<span id="cb177-29"><a href="validity-and-reliability.html#cb177-29"></a><span class="co">#&gt; #   True_score_measured.Post &lt;dbl&gt;, True_score_measured.Change &lt;dbl&gt;,</span></span>
-<span id="cb177-30"><a href="validity-and-reliability.html#cb177-30"></a><span class="co">#&gt; #   Manifested_score_measured.Pre &lt;dbl&gt;, Manifested_score_measured.Post &lt;dbl&gt;,</span></span>
-<span id="cb177-31"><a href="validity-and-reliability.html#cb177-31"></a><span class="co">#&gt; #   Manifested_score_measured.Change &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb177-28"><a href="validity-and-reliability.html#cb177-28"></a><span class="co">#&gt; #   Measured_score.Post &lt;dbl&gt;, Measured_score.Change &lt;dbl&gt;,</span></span>
+<span id="cb177-29"><a href="validity-and-reliability.html#cb177-29"></a><span class="co">#&gt; #   True_score_measured.Pre &lt;dbl&gt;, True_score_measured.Post &lt;dbl&gt;,</span></span>
+<span id="cb177-30"><a href="validity-and-reliability.html#cb177-30"></a><span class="co">#&gt; #   True_score_measured.Change &lt;dbl&gt;, Manifested_score_measured.Pre &lt;dbl&gt;,</span></span>
+<span id="cb177-31"><a href="validity-and-reliability.html#cb177-31"></a><span class="co">#&gt; #   Manifested_score_measured.Post &lt;dbl&gt;, Manifested_score_measured.Change &lt;dbl&gt;</span></span></code></pre></div>
 <p>Now let’s plot measured change (i.e. difference between measured Post-test and Pre-test using practical measure), together with manifested change (as would be measured with practical measure with no random error). Confidence intervals around measured change represent 95% <code>SDC</code> that is calculated using known practical measure random error (i.e. estimated <code>TE</code> from reproducibility analysis - the sole instrumentation noise). CIs should capture vertical red lines (manifested change):</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="validity-and-reliability.html#cb178-1"></a>measured_change &lt;-<span class="st"> </span>bmbstats<span class="op">::</span><span class="kw">observations_MET</span>(</span>
 <span id="cb178-2"><a href="validity-and-reliability.html#cb178-2"></a>  <span class="dt">observations =</span> repeatability_data<span class="op">$</span>Measured_score.Change,</span>

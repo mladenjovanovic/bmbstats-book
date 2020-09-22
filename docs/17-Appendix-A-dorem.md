@@ -57,8 +57,10 @@ banister_model
 #> 
 #> Estimated model coefficients are the following:
 #> 
-#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
-#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain 
+#>        266.0204779          0.3020749         33.6433797          0.3514750 
+#>  BikeScore.NTE_tau 
+#>         24.6056388 
 #> 
 #> Objective function equal to: 2.1939 
 #> 
@@ -79,8 +81,10 @@ banister_model
 
 # get coefs
 coef(banister_model)
-#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
-#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain 
+#>        266.0204779          0.3020749         33.6433797          0.3514750 
+#>  BikeScore.NTE_tau 
+#>         24.6056388
 
 # Get model predictions
 bike_score$pred <- predict(banister_model, bike_score)$.pred
@@ -100,7 +104,9 @@ response <- ggplot(bike_score, aes(x = Day, y = pred)) +
 cowplot::plot_grid(dose, response, ncol = 1)
 ```
 
-<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-2-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 `dorem` also allows more control and setup using the `control` parameter. In the next example, cross-validation of 3 repeats and 5 folds will be performed, with additional feature of *shuffling* the predictors and evaluating how the model predicts on random predictors (i.e., dose):
 
@@ -137,8 +143,10 @@ banister_model
 #> 
 #> Estimated model coefficients are the following:
 #> 
-#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain  BikeScore.NTE_tau 
-#>        266.0204779          0.3020749         33.6433797          0.3514750         24.6056388 
+#>          intercept BikeScore.PTE_gain  BikeScore.PTE_tau BikeScore.NTE_gain 
+#>        266.0204779          0.3020749         33.6433797          0.3514750 
+#>  BikeScore.NTE_tau 
+#>         24.6056388 
 #> 
 #> Objective function equal to: 2.1939 
 #> 
@@ -165,7 +173,9 @@ To plot model predictions, including the CV as gray area and shuffle as dotted l
 plot(banister_model, type = "pred") + theme_minimal()
 ```
 
-<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 To plot model coefficients across CV folds:
 
@@ -174,7 +184,9 @@ To plot model coefficients across CV folds:
 plot(banister_model, type = "coef") + theme_minimal()
 ```
 
-<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 To plot model performance across CV folds (i.e., training and testing folds):
 
@@ -183,6 +195,8 @@ To plot model performance across CV folds (i.e., training and testing folds):
 plot(banister_model, type = "perf") + theme_minimal()
 ```
 
-<img src="17-Appendix-A-dorem_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{17-Appendix-A-dorem_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 
