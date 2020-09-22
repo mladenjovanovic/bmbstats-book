@@ -1285,7 +1285,8 @@ This implies that with this model we were able to explain more of the treatment 
 
 ```{r echo=TRUE}
 model8 <- lm(
-  Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + Squat_1RM_relative:Group + Group,
+  Measured_score.Post ~ 
+    Measured_score.Pre + Squat_1RM_relative + Squat_1RM_relative:Group + Group,
   # OR we can specify the model with this
   # Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative * Group
   RCT_data
@@ -1396,7 +1397,9 @@ plot(pre_test_model, "pdp+ice", predictor = "Measured_score.Pre")
 Next model adds additional predictor (covariate): relative squat 1RM:
 
 ```{r echo=TRUE}
-covariate_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative)
+covariate_model <- model_RCT(
+  Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative
+  )
 
 covariate_model
 ```
@@ -1424,7 +1427,9 @@ plot(covariate_model, "pdp+ice", predictor = "Squat_1RM_relative")
 And the final model is the interaction model:
 
 ```{r echo=TRUE}
-interaction_model <- model_RCT(Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre)
+interaction_model <- model_RCT(
+  Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre
+  )
 
 interaction_model
 ```

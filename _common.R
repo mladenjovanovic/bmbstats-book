@@ -1,7 +1,7 @@
 my_random_seed <- 1667
 set.seed(my_random_seed)
 
-options("width"=96)
+options("width"=90)
 
 knitr::opts_chunk$set(
   comment = "#>",
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   message = FALSE,
-  width = 96,
+  width = 90,
   fig.pos = '!htb',
   tab.pos = "!htb"
 )

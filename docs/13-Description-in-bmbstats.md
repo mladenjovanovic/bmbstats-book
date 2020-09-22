@@ -61,7 +61,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 Functions in `bmbstats` package use `control` parameter to setup graphing or modeling parameters. For example, we can remove the quantile lines, resize points, change color by using `bmbstats::plot_control` function in the `control` parameter:
 
@@ -81,7 +83,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 One of the core functions in `bmbstats` package is `bmbstats::bmbstats`, around which multiple *wrapper* functions are built, such as `bmbstats::describe_data`. `bmbstats::describe_data` performs bootstrap using the estimators provided in the `estimator_function` parameter. To modify bootstrap parameters, use `control` parameter and `bmbstats::model_control` function:
 
@@ -122,7 +126,9 @@ To plot bootstrap distributions, use simple `plot` function:
 plot(female_analysis)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 The figure above depicts distribution of the bootstrap resamples with the error bar representing estimator value and upper and lower confidence thresholds (in this case 90% estimated using *percentile* method). To change the colors, use `control` and `plot_control`:
 
@@ -137,7 +143,9 @@ plot(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 ### Using your own estimators
 
@@ -196,7 +204,9 @@ female_analysis_my_est
 plot(female_analysis_my_est)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 `bmbstats::describe_data` comes with three estimator functions: `bmbstats::data_estimators`, `bmbstats::data_estimators_simple`, and `bmbstats::data_estimators_robust`. Let's run the `bmbstats::data_estimators` and `bmbstats::data_estimators_robust`, but this time using *bca* method of estimating 95% bootstrap confidence intervals (CIs):
 
@@ -233,7 +243,9 @@ female_analysis_extensive
 plot(female_analysis_extensive)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 
 As can be seen from the bootstrap estimators distribution, some estimators, like `mode`, `median`, `min`, `max` and `range` have *weird* distribution and their CIs should not be trusted. 
@@ -268,7 +280,9 @@ female_analysis_robust
 plot(female_analysis_robust)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 The simplicity of the bootstrap is that it can provide CIs for any estimator you can think of. But as always, Devil is in the details and some CIs for certain estimators (or small sample sizes) cannot be trusted and can be biased. This topic is beyond this book. The easiest test you can do is to run a simulation and see if the Type I error rates are not inflated. 
 
@@ -326,7 +340,9 @@ tall_females
 plot(tall_females)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 
 ## Visualization and analysis of the two independent groups
@@ -366,7 +382,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 As can be seen from the figure, males have higher `mean` height, higher `SD` (but not sure if it is *statistically significant* nor *practically significant* - you can check this later with a few `bmbstats` functions) and higher proportion of individual over 180cm. 
 Rather than comparing individual group estimates, we can perform independent group analysis using `bmbstats::compare_independent_groups`. But before we do that, let's plot the groups using `bmbstats::plot_raincloud` function. To do that, we need to convert our *wide* height data to *long* format:
@@ -406,7 +424,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 To perform descriptive analysis of the independent groups, we will use `bmbstats::compare_independent_groups` function. This function use estimator function `bmbstats::independent_groups_estimators` that provide all the major estimators introduced in the [Comparing dependent groups] section. For the SESOI we will use 2.5cm, like we have done in the [Comparing dependent groups] section as well:
 
@@ -418,14 +438,16 @@ independent_groups_estimators(
   SESOI_lower = -2.5,
   SESOI_upper = 2.5
 )
-#>        SESOI lower        SESOI upper        SESOI range          Mean diff            SD diff 
-#>        -2.50000000         2.50000000         5.00000000        12.72521903        12.41402468 
-#>          SD pooled           %CV diff             % diff              Ratio          Cohen's d 
-#>         8.77804103        97.55450689         7.79837084         1.07798371         1.44966502 
-#>               CLES                OVL Mean diff to SESOI   SD diff to SESOI             pLower 
-#>         0.84733444         0.46855479         2.54504381         2.48280494         0.11148343 
-#>        pEquivalent            pHigher 
-#>         0.09457649         0.79394008
+#>        SESOI lower        SESOI upper        SESOI range          Mean diff 
+#>        -2.50000000         2.50000000         5.00000000        12.72521903 
+#>            SD diff          SD pooled           %CV diff             % diff 
+#>        12.41402468         8.77804103        97.55450689         7.79837084 
+#>              Ratio          Cohen's d               CLES                OVL 
+#>         1.07798371         1.44966502         0.84733444         0.46855479 
+#> Mean diff to SESOI   SD diff to SESOI             pLower        pEquivalent 
+#>         2.54504381         2.48280494         0.11148343         0.09457649 
+#>            pHigher 
+#>         0.79394008
 ```
 
 `bmbstats::compare_independent_groups` uses by default the `independent_groups_estimators`, but we can write our own estimators function a bit later:
@@ -468,7 +490,9 @@ males_females_comp
 plot(males_females_comp)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 You can notice that SESOI threshold doesn't have any bootstrap distribution. That is because we have provide *a priori* SESOI. We can also estimate SESOI within the bootstrap loop. For SESOI we can use `pooled SD` of the `group_a` and `group_b` multiplied by 0.2, which represents Cohen's trivial magnitude. This is the default behavior of the `bmbstats::compare_independent_groups` and other similar functions. You can write your own function for estimating SESOI by providing function argument to `SESOI_lower` and `SESOI_upper` parameters. For the sake of example, I will do that here, but only for the `SESOI_upper` and will stick to -2.5cm for the `SESOI_lower`:
 
@@ -510,7 +534,9 @@ males_females_comp_est
 plot(males_females_comp_est)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 You can now notice that `SESOI upper` and `SESOI range` have bootstrap distribution. It is important that if we estimate SESOI from the obtained sample, the SESOI estimation *must* be in the bootstrap loop, and our uncertainty about it's estimate must be propagated to other estimators that uses SESOI (e.g. `pLower`, `pEquivalent`, `pHigher`). To demonstrate the difference, consider the following two analyses using different SESOI estimation. One estimates SESOI *inside* the bootstrap loop, and the other estimates SESOI *outside* the bootstrap loop. To make sure the same bootstrap is performed, we will set the same `seed` parameter:
 
@@ -561,7 +587,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 The difference in CIs for the estimators that uses SESOI (i.e. magnitude-based estimators) is not staggering, but CIs are wider for the *inside* method (for example, compare `Mean diff to SESOI` estimator). 
 
@@ -614,7 +642,9 @@ Graphically, this test looks like this:
 plot(males_females_NHST)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 In the above graph, the estimator bootstrap distribution (i.e. `mean difference`) is centered around Null Hypothesis (i.e. 10cm). If we perform this same test, but using two sided NHST (which is default), we will the the following result and plot:
 
@@ -629,7 +659,9 @@ males_females_NHST <- bmbstats::bootstrap_NHST(
 plot(males_females_NHST)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-31-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 We have already decided that our SESOI in height is 2.5cm. But this SESOI is related to individual observations, not necessary to estimators (i.e. `mean difference`). This topic is discussed in the [Individual vs. Parameter SESOI] section of this book. Let's use 10cm as SESOI for the `mean difference` estimator and perform METs using `bmbstats::bootstrap_MET` function and alpha level set to 0.05:
 
@@ -665,7 +697,9 @@ As can be seen from the result of the MET analysis, the final inference is that 
 plot(males_females_MET)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-33-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 We can also plot each individual MET test, for example *equivalence* and *non-inferiority* tests:
 
@@ -674,14 +708,18 @@ We can also plot each individual MET test, for example *equivalence* and *non-in
 plot(males_females_MET, type = "equivalence")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-34-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 
 ```r
 plot(males_females_MET, type = "non-inferiority")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-35-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 What if I decide about different SESOI values or different Null Hypothesis or even alpha levels? Well, that is and example of *p-harking* discussed in the [Statistical Power] section. P-harking represents *hypothesizing after results are known*, or in other words tuning your analysis to be more acceptable for publications. That's why it is important for the *confirmatory* studies to have all the threshold and the analysis *a priori* defined or pre-registered. 
 
@@ -716,7 +754,9 @@ The final inference of the MBI is "likely higher" `mean difference`. As always, 
 plot(males_females_MBI)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-37-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 ## Comparing two dependent groups 
 
@@ -787,29 +827,29 @@ bench_press_data <- tibble(
 
 bench_press_data
 #> # A tibble: 20 x 7
-#>    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse… `Post-test (obs…
-#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>
-#>  1 Athlet…            111.                0            111.             112.             112. 
-#>  2 Athlet…            102.                0            102.             108.              97.7
-#>  3 Athlet…             93.4               0             93.4             90.8             92.0
-#>  4 Athlet…             95.4               0             95.4             93.2             94.0
-#>  5 Athlet…            111.                0            111.             111.             110. 
-#>  6 Athlet…            110.                0            110.             109.             111. 
-#>  7 Athlet…            104.                0            104.             105.             110. 
-#>  8 Athlet…             93.7               0             93.7             94.5             93.0
-#>  9 Athlet…             99.6               0             99.6            102.              99.8
-#> 10 Athlet…            106.                0            106.             109.             106. 
-#> 11 Athlet…            102.                0            102.             105.             103. 
-#> 12 Athlet…            101.                0            101.             100.             102. 
-#> 13 Athlet…             92.9               0             92.9             90.5             96.2
-#> 14 Athlet…             98.2               0             98.2             96.5            100. 
-#> 15 Athlet…             88.3               0             88.3             89.7             92.5
-#> 16 Athlet…            106.                0            106.             109.             111. 
-#> 17 Athlet…             95.8               0             95.8             98.2             94.1
-#> 18 Athlet…             92.9               0             92.9             90.8             87.9
-#> 19 Athlet…            103.                0            103.             104.             107. 
-#> 20 Athlet…            104.                0            104.             107.             107. 
-#> # … with 1 more variable: `Change (observed)` <dbl>
+#>    Athlete `Pre-test (true~ `Change (true)` `Post-test (tru~ `Pre-test (obse~
+#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>
+#>  1 Athlet~            111.                0            111.             112. 
+#>  2 Athlet~            102.                0            102.             108. 
+#>  3 Athlet~             93.4               0             93.4             90.8
+#>  4 Athlet~             95.4               0             95.4             93.2
+#>  5 Athlet~            111.                0            111.             111. 
+#>  6 Athlet~            110.                0            110.             109. 
+#>  7 Athlet~            104.                0            104.             105. 
+#>  8 Athlet~             93.7               0             93.7             94.5
+#>  9 Athlet~             99.6               0             99.6            102. 
+#> 10 Athlet~            106.                0            106.             109. 
+#> 11 Athlet~            102.                0            102.             105. 
+#> 12 Athlet~            101.                0            101.             100. 
+#> 13 Athlet~             92.9               0             92.9             90.5
+#> 14 Athlet~             98.2               0             98.2             96.5
+#> 15 Athlet~             88.3               0             88.3             89.7
+#> 16 Athlet~            106.                0            106.             109. 
+#> 17 Athlet~             95.8               0             95.8             98.2
+#> 18 Athlet~             92.9               0             92.9             90.8
+#> 19 Athlet~            103.                0            103.             104. 
+#> 20 Athlet~            104.                0            104.             107. 
+#> # ... with 2 more variables: `Post-test (observed)` <dbl>, `Change (observed)` <dbl>
 ```
 
 Let's plot the true Pre-test and Post-test scores using a scatter plot and SESOI band of -5 to 5kg:
@@ -826,7 +866,9 @@ plot_pair_changes(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-39-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 As can be seen, there is no true change. Let's see what happens when we plot observed scores: 
 
@@ -842,7 +884,9 @@ plot_pair_changes(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 We can also plot distribution of the Change scores:
 
@@ -856,7 +900,9 @@ plot_raincloud_SESOI(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-41-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 We would be very quick to claim that there are individuals that demonstrated higher or lower change (compared to SESOI). But remember that in this data set there is not *true* change - implying that all observed change is due to measurement error. 
 
@@ -924,7 +970,9 @@ plot(
   xlim(-18, 20)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-45-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 To perform METs, use `bmbstats::observations_MET` function:
 
@@ -950,7 +998,9 @@ plot(
   xlim(-18, 20)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-46-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 It seems like the Athlete 02 showed *true* Change, but since we generated the data we know that there is no true Change (also check the vertical red lines for the true Change scores). Thus, if we conclude that this individual showed lower change, we would be making *Type I* error. Since we are performing multiple individual tests, we could/should *adjust* the `alpha` parameter (e.g. by dividing it by number of tests, or in this case athletes - *Bonferroni correction*) to avoid *inflating* family-wise error rates, since particular athlete can show significant change due to chance alone (due to multiple comparisons/test). To do that, simply divide `alpha` by the number of athletes:
 
@@ -979,7 +1029,9 @@ plot(
   xlim(-18, 20)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-47-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 The point of this analysis is that we need to know measurement error to infer about true change in individuals. Since we do know that there is no real change in this example, we can see how measurement error cause cause wrong inferences about the true changes. 
 
@@ -1048,29 +1100,29 @@ bench_press_data <- tibble(
 
 bench_press_data
 #> # A tibble: 20 x 7
-#>    Athlete `Pre-test (true… `Change (true)` `Post-test (tru… `Pre-test (obse… `Post-test (obs…
-#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>            <dbl>
-#>  1 Athlet…            111.           13.8              125.             112.             126. 
-#>  2 Athlet…            102.           34.3              136.              97.7            135. 
-#>  3 Athlet…             93.4          -0.428             93.0             92.0             95.0
-#>  4 Athlet…             95.4           1.27              96.7             94.0             95.4
-#>  5 Athlet…            111.            9.65             120.             110.             128. 
-#>  6 Athlet…            110.            6.41             116.             111.             117. 
-#>  7 Athlet…            104.           13.3              118.             110.             116. 
-#>  8 Athlet…             93.7          13.4              107.              93.0            101. 
-#>  9 Athlet…             99.6          19.3              119.              99.8            120. 
-#> 10 Athlet…            106.           22.1              129.             106.             131. 
-#> 11 Athlet…            102.           23.1              125.             103.             128. 
-#> 12 Athlet…            101.            5.59             107.             102.             106. 
-#> 13 Athlet…             92.9           0.190             93.1             96.2             95.6
-#> 14 Athlet…             98.2           3.17             101.             100.             102. 
-#> 15 Athlet…             88.3          15.5              104.              92.5            105. 
-#> 16 Athlet…            106.           21.1              127.             111.             128. 
-#> 17 Athlet…             95.8          19.6              115.              94.1            117. 
-#> 18 Athlet…             92.9           1.54              94.4             87.9            101. 
-#> 19 Athlet…            103.           14.6              117.             107.             113. 
-#> 20 Athlet…            104.           19.1              123.             107.             131. 
-#> # … with 1 more variable: `Change (observed)` <dbl>
+#>    Athlete `Pre-test (true~ `Change (true)` `Post-test (tru~ `Pre-test (obse~
+#>    <fct>              <dbl>           <dbl>            <dbl>            <dbl>
+#>  1 Athlet~            111.           13.8              125.             112. 
+#>  2 Athlet~            102.           34.3              136.              97.7
+#>  3 Athlet~             93.4          -0.428             93.0             92.0
+#>  4 Athlet~             95.4           1.27              96.7             94.0
+#>  5 Athlet~            111.            9.65             120.             110. 
+#>  6 Athlet~            110.            6.41             116.             111. 
+#>  7 Athlet~            104.           13.3              118.             110. 
+#>  8 Athlet~             93.7          13.4              107.              93.0
+#>  9 Athlet~             99.6          19.3              119.              99.8
+#> 10 Athlet~            106.           22.1              129.             106. 
+#> 11 Athlet~            102.           23.1              125.             103. 
+#> 12 Athlet~            101.            5.59             107.             102. 
+#> 13 Athlet~             92.9           0.190             93.1             96.2
+#> 14 Athlet~             98.2           3.17             101.             100. 
+#> 15 Athlet~             88.3          15.5              104.              92.5
+#> 16 Athlet~            106.           21.1              127.             111. 
+#> 17 Athlet~             95.8          19.6              115.              94.1
+#> 18 Athlet~             92.9           1.54              94.4             87.9
+#> 19 Athlet~            103.           14.6              117.             107. 
+#> 20 Athlet~            104.           19.1              123.             107. 
+#> # ... with 2 more variables: `Post-test (observed)` <dbl>, `Change (observed)` <dbl>
 ```
 
 Let's plot true scores:
@@ -1087,7 +1139,9 @@ plot_pair_changes(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 Since there are true changes (systematic and random) in this DGP, estimating `mean` and `SD` fo the true Change scores will give us the estimate of the DGP parameters:
 
@@ -1140,7 +1194,9 @@ plot_pair_changes(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-53-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 The image looks similar to true scores analysis. Let's estimate `mean` and `SD` CIs:
 
@@ -1188,7 +1244,9 @@ plot(
   xlim(-10, 65)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 
 ```r
@@ -1213,7 +1271,9 @@ plot(
   xlim(-15, 65)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-56-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 Before jumping on the *responders vs. non-responders* bandwagon, it would be wise to check the statistical error committed by Dankel and Loenneke [@dankelMethodStopAnalyzing2019] pointed out in the letter-to-the-editor by Tenan *et al.*  [@tenanStatisticalPropertiesDankelLoenneke]. This is a lesson to us all who are trying to come up with a *novel analyses*, like myself, so I am trying to be very cautious in using any bold statements. 
 
@@ -1266,7 +1326,9 @@ true_pre_post
 plot(true_pre_post)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 And now with the observed Pre- and Post- scores:
 
@@ -1315,7 +1377,9 @@ obs_pre_post
 plot(obs_pre_post)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-60-1} \end{center}
 
 Let's plot the estimated CIs for all the estimators:
 
@@ -1342,7 +1406,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-61-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-61-1} \end{center}
 
 As can be seen on the figure, some estimators (those depending on the `SD`) are more affected by the measurement error. Since we do not know *true* scores, we can perform SIMEX analysis on the observed scores, or adjust `SD` of the change using the change measurement error. Let's do that by writing our own estimator equation that uses adjustment for the change `SD`:
 
@@ -1466,7 +1532,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-63-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-63-1} \end{center}
 
 To be fair, some estimators like `Cohen's d` and those depending on it and Pre-test `SD` were not adjusted (which we can do that too as well), but `SD change`and other estimators dependent on that it we adjusted and much closer to the estimates using the true scores. 
 
@@ -1499,7 +1567,9 @@ pre_vs_post_NHST
 plot(pre_vs_post_NHST)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-65-1} \end{center}
 
 Using SESOI of ±5kg for the `mean change` estimator as well, let's do the METs:
 
@@ -1533,7 +1603,9 @@ pre_vs_post_MET
 plot(pre_vs_post_MET)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-67-1} \end{center}
 
 And finally MBI:
 
@@ -1564,7 +1636,9 @@ pre_vs_post_MBI
 plot(pre_vs_post_MBI)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-69-1} \end{center}
 
 ## Describing relationship between two groups
 
@@ -1608,7 +1682,7 @@ yoyo_mas_data
 #>  8 Athlete 08   1424.  15.2
 #>  9 Athlete 09    633.  14.1
 #> 10 Athlete 10   1348.  14.9
-#> # … with 20 more rows
+#> # ... with 20 more rows
 ```
 
 Let's create a scatter plot with linear regression model using `bmbstats::plot_pair_lm`, with YoYoIR1 being outcome variable and MAS being predictor, with SESOI being ±40m
@@ -1625,7 +1699,9 @@ bmbstats::plot_pair_lm(
 )
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-71-1} \end{center}
 
 To get bootstrapped CIs of the estimators, use `bmbstats::describe_relationship` and `bmbstats::relationship_lm_estimators` functions:
 
@@ -1667,11 +1743,14 @@ boot_relationship
 plot(boot_relationship)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-73-1} \end{center}
 
 Magnitude-based estimators `SESOI to RSE` and `PPER` are useful in judging practical significance of this model, which is this case very bad. For example, if we now use MAS as outcome and YoYoIR1 as predictor with SESOI equal to ±0.5kmh, `R Squared` and `Pearson's r` will stay the same, but `SESOI to RSE` and `PPER` will demonstrate model that now had much better practical significance:
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-74-1} \end{center}
 
 
 ```r
@@ -1711,6 +1790,8 @@ boot_relationship
 plot(boot_relationship)
 ```
 
-<img src="13-Description-in-bmbstats_files/figure-html/unnamed-chunk-76-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{13-Description-in-bmbstats_files/figure-latex/unnamed-chunk-76-1} \end{center}
 
 In the next chapter we will continue with the prediction tasks. 

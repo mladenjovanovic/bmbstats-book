@@ -13,7 +13,8 @@ In this chapter I will demonstrate how to analyze simple randomized controlled t
 
 The following image is re-posted from the [Causal inference] chapter, outlining Treatment and Non-Treatment effects. 
 
-<img src="figures/treatment-and-non-treatment-effects.png" width="100%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=1\linewidth]{figures/treatment-and-non-treatment-effects} \end{center}
 
 Let's consider the following RCT DGP. We have two group (Control and Treatment), each with N=10 athletes, measured twice (Pre-test and Post-test) on the vertical jump height, using a measuring device with a known measurement error (i.e. only instrumentation noise; see [Validity and Reliability] chapter for more info) estimated through validity and reliability studies and equal to 0.5cm. Control group are doing their normal training for 4 weeks, while Treatment group is doing EMS stimulation of their calf muscles on top of their normal training. 
 
@@ -105,15 +106,15 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e… True_score.Chan…
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~
 #>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>
-#> 1 Athlet… Trea…           52.9                0                0                0
-#> 2 Athlet… Cont…           42.4                0                0                0
-#> 3 Athlet… Trea…           49.2                0                0                0
-#> 4 Athlet… Cont…           44.8                0                0                0
-#> 5 Athlet… Trea…           40.0                0                0                0
-#> 6 Athlet… Cont…           42.6                0                0                0
-#> # … with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
+#> 1 Athlet~ Trea~           52.9                0                0                0
+#> 2 Athlet~ Cont~           42.4                0                0                0
+#> 3 Athlet~ Trea~           49.2                0                0                0
+#> 4 Athlet~ Cont~           44.8                0                0                0
+#> 5 Athlet~ Trea~           40.0                0                0                0
+#> 6 Athlet~ Cont~           42.6                0                0                0
+#> # ... with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
 #> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
 #> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
@@ -131,7 +132,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 And the Post-test:
 
@@ -144,7 +147,9 @@ bmbstats::plot_raincloud(
 )
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 And finally measured change scores:
 
@@ -159,7 +164,9 @@ bmbstats::plot_raincloud_SESOI(
 )
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 From these graphs we can see that there is no difference between group. We have also selected large SESOI taking into account our *a priori* knowledge about biological variation and measurement error in the vertical jump height. 
 
@@ -177,7 +184,9 @@ bmbstats::plot_pair_changes(
 )
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 ## RCT analysis using `bmbstats::RCT_analysis` function
 
@@ -251,7 +260,9 @@ We can also plot the estimators bootstrap distributions:
 plot(extensive_RCT)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 If we use `bmbstats::RCT_estimators_simple`, we will get much more condensed output: 
 
@@ -294,7 +305,9 @@ simple_RCT
 plot(simple_RCT)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 As can be seen, the analysis correctly identified no treatment effect. There is an issue with random treatment effects estimation since is demonstrates distribution with two peaks. This effect is due to random treatment effect being zero and the way the root of the squared differences is calculated to avoid irrational numbers (i.e. taking root of negative number). 
 
@@ -307,7 +320,9 @@ Control group Pre- and Post-test distribution:
 plot(simple_RCT, type = "control-pre-post")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Treatment group Pre- and Post-test distribution:
 
@@ -316,7 +331,9 @@ Treatment group Pre- and Post-test distribution:
 plot(simple_RCT, type = "treatment-pre-post")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Control change graph:
 
@@ -325,7 +342,9 @@ Control change graph:
 plot(simple_RCT, type = "control-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Treatment change graph:
 
@@ -334,7 +353,9 @@ Treatment change graph:
 plot(simple_RCT, type = "treatment-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Change graph:
 
@@ -343,7 +364,9 @@ Change graph:
 plot(simple_RCT, type = "change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Individual changes in the Control group:
 
@@ -352,7 +375,9 @@ Individual changes in the Control group:
 plot(simple_RCT, type = "control-paired-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Individual changes in the Treatment group:
 
@@ -361,7 +386,9 @@ Individual changes in the Treatment group:
 plot(simple_RCT, type = "treatment-paired-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Distribution of the change scores:
 
@@ -370,7 +397,9 @@ Distribution of the change scores:
 plot(simple_RCT, type = "change-distribution")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Treatment effect distribution:
 
@@ -379,7 +408,9 @@ Treatment effect distribution:
 plot(simple_RCT, type = "effect-distribution")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-20-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 And finally, adjusted treatment responses:
 
@@ -388,7 +419,9 @@ And finally, adjusted treatment responses:
 plot(simple_RCT, type = "adjusted-treatment-responses")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 The adjusted treatment responses are calculated by deducting `mean` Control group change from individual change in the Treatment group (i.e. *adjusted change*). Error-bars represent 95% confidence intervals (i.e. `SDC`) using change `SD` of the Control group. 
 
@@ -420,7 +453,9 @@ We can also plot the un-adjusted treatment responses:
 plot(simple_RCT, type = "treatment-responses")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-23-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Let's re-create this graph using `bmbstats::observations_MET` function since that function also allows us to set Type I error rates and confidence for plotting. 
 
@@ -464,7 +499,9 @@ plot(
   xlim(-9, 9)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-24-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 This way, Control group is used as *sort-of* reliability study (see [Repeatability] section in the [Validity and Reliability] chapter) that provides source of information about the non-treatment effect (in this case 0 for both systematic and random components), biological variation and instrumentation noise. This helps us to provide uncertainty intervals around individual treatment (adjusted) effects.
 
@@ -483,7 +520,9 @@ ggplot(
   scale_color_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 If we perform the linear regression, we will get the following:
 
@@ -540,7 +579,9 @@ ggplot(
   )
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 Random components of the treatment and non-treatment effects can be seen as *residuals* (actually as `SD` of the residuals) around `mean` of the group changes. `RSE` of this model (1.59cm) represents *pooled* random errors of both Treatment and Control groups. If we perform `SD` of the residuals for each Group, we will get the following:
 
@@ -588,7 +629,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-30-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 And estimated linear regression model:
 
@@ -644,7 +687,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-32-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 As can be seen from the figure, lines are almost identical, but more importantly, they are now parallel. 
 
@@ -734,7 +779,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-36-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 Which method should be used? For simple designs, these provide almost identical results. We could perform simulations as we have done in the [Validity and Reliability] chapter to see the behavior of the estimates, but I will leave that to you as an exercise. I would generally follow the advice by [Frank Harrell](https://www.fharrell.com/post/errmed/#change) and avoid the use of the change scores, particularly for more complex designs involving covariates and extra parameters of the treatment (i.e. when treatment is not only TRUE/FALSE but can have a continuous membership function, or some type of the loading parameter, like number of jumps performed and so forth). 
 
@@ -763,26 +810,26 @@ model3
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE  2.202681e-14    1.918475e-15    -0.04123424 -0.06466644 0.91228266 -2.0716103
-#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044  0.8701076
-#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297  1.1312614
-#>           PPER  9.963039e-01    9.995798e-01     0.99312088  0.96151334 0.02661372  0.8929713
-#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378  3.7299209
-#>      R-squared  9.235673e-01    9.305786e-01     0.88259682  0.86160357 0.10805679  0.5866306
-#>         MinErr -3.138804e+00   -3.623411e+00    -5.03757174 -2.56189890 1.14780901 -5.0375717
-#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433 -0.4470821
-#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989  1.7111147
-#>        max
-#>  1.8762924
-#>  2.0982105
-#>  2.6810220
-#>  0.9939017
-#>  8.8396899
-#>  0.9743506
-#>  0.3235147
-#>  3.5399140
-#>  5.0375717
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE  2.202681e-14    1.918475e-15    -0.04123424 -0.06466644 0.91228266
+#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044
+#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297
+#>           PPER  9.963039e-01    9.995798e-01     0.99312088  0.96151334 0.02661372
+#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378
+#>      R-squared  9.235673e-01    9.305786e-01     0.88259682  0.86160357 0.10805679
+#>         MinErr -3.138804e+00   -3.623411e+00    -5.03757174 -2.56189890 1.14780901
+#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433
+#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989
+#>         min       max
+#>  -2.0716103 1.8762924
+#>   0.8701076 2.0982105
+#>   1.1312614 2.6810220
+#>   0.8929713 0.9939017
+#>   3.7299209 8.8396899
+#>   0.5866306 0.9743506
+#>  -5.0375717 0.3235147
+#>  -0.4470821 3.5399140
+#>   1.7111147 5.0375717
 ```
 
 As can be seen from the performance results, we have pretty good prediction of the individual responses since our SESOI is pretty large and we do not have any treatment nor non-treatment effects. 
@@ -807,26 +854,26 @@ prediction_RCT
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE  2.202681e-14    1.918475e-15    -0.04123424 -0.06466644 0.91228266 -2.0716103
-#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044  0.8701076
-#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297  1.1312614
-#>           PPER  9.963039e-01    9.995798e-01     0.99312088  0.96151334 0.02661372  0.8929713
-#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378  3.7299209
-#>      R-squared  9.235673e-01    9.305786e-01     0.88259682  0.86160357 0.10805679  0.5866306
-#>         MinErr -3.138804e+00   -3.623411e+00    -5.03757174 -2.56189890 1.14780901 -5.0375717
-#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433 -0.4470821
-#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989  1.7111147
-#>        max
-#>  1.8762924
-#>  2.0982105
-#>  2.6810220
-#>  0.9939017
-#>  8.8396899
-#>  0.9743506
-#>  0.3235147
-#>  3.5399140
-#>  5.0375717
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE  2.202681e-14    1.918475e-15    -0.04123424 -0.06466644 0.91228266
+#>            MAE  1.176009e+00    1.125490e+00     1.47603175  1.47790175 0.33700044
+#>           RMSE  1.473109e+00    1.403919e+00     1.82619034  1.79036050 0.37125297
+#>           PPER  9.963039e-01    9.995798e-01     0.99312088  0.96151334 0.02661372
+#>  SESOI to RMSE  6.788364e+00    7.122918e+00     5.47588047  5.82060839 1.20914378
+#>      R-squared  9.235673e-01    9.305786e-01     0.88259682  0.86160357 0.10805679
+#>         MinErr -3.138804e+00   -3.623411e+00    -5.03757174 -2.56189890 1.14780901
+#>         MaxErr  2.600139e+00    2.890624e+00     3.53991399  2.08918814 0.96885433
+#>      MaxAbsErr  3.138804e+00    3.623411e+00     5.03757174  3.08675364 0.76498989
+#>         min       max
+#>  -2.0716103 1.8762924
+#>   0.8701076 2.0982105
+#>   1.1312614 2.6810220
+#>   0.8929713 0.9939017
+#>   3.7299209 8.8396899
+#>   0.5866306 0.9743506
+#>  -5.0375717 0.3235147
+#>  -0.4470821 3.5399140
+#>   1.7111147 5.0375717
 #> 
 #> Individual model results:
 #> 
@@ -902,7 +949,9 @@ Now that we have the more info about the underlying RCT, we can do various plots
 plot(prediction_RCT, "residuals")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-39-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 To plot individual model predictions use the following:
 
@@ -911,7 +960,9 @@ To plot individual model predictions use the following:
 plot(prediction_RCT, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-40-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 Circlets or dots represent observed (i.e. outcome or target variable), and vertical line represent model predictions. Residual between the two is color coded based on the provided SESOI threshold. 
 
@@ -922,7 +973,9 @@ By default, prediction plot uses `metric = "RMSE"` and `metric_cv = "testing.poo
 plot(prediction_RCT, "prediction", metric = "MaxAbsErr", metric_cv = "mean")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-41-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 To plot individual bias-variance error decomposition thorough testing CV folds use:
 
@@ -931,7 +984,9 @@ To plot individual bias-variance error decomposition thorough testing CV folds u
 plot(prediction_RCT, "bias-variance")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-42-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Here we can see which athletes are prediction outliers and generally present issues for the predictive model. Together with the individual predictions, we can use this plot and data to gain more info regarding individual reactions to intervention (i.e. who jumps out from the model prediction).
 
@@ -942,7 +997,9 @@ To gain understanding into counterfactual prediction, we could use PDP and ICE p
 plot(prediction_RCT, "pdp+ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-43-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 This plot gives us insights into model prediction for each athlete when the Group variable changes, while keeping all other variables the same. Since this is RCT, this plot can be given counterfactual interpretation. The PDP line (thick red line) represent the average of these individual prediction (ICE lines), and as can be seen, the counterfactual effects of changing group is zero (since the line is parallel) and thus represents *expected* or systematic effect of the treatment. 
 
@@ -954,7 +1011,9 @@ plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
   geom_abline(slope = 1, linetype = "dashed")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 To plot these individual ICE line for each athlete we can use counterfactual plot:
 
@@ -963,7 +1022,9 @@ To plot these individual ICE line for each athlete we can use counterfactual plo
 plot(prediction_RCT, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-45-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 Since the systematic treatment effect is zero, these are very small. The mean of these individual counterfactual prediction effect is presented in the object printout in the last table as `pATE` (predicted average treatment effect) and `SD` of these effects as `pVTE` (predicted variable treatment effect). In this case, due simple model, the predicted treatment effects are the same, thus the `pVTE` is equal to zero. 
 
@@ -974,7 +1035,9 @@ Different way to plot these is to have *trellis* plot for each individual:
 plot(prediction_RCT, "ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-46-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 These plots represent strong tool for understanding predictive model performance for the RCT data and study designs. 
 
@@ -1066,15 +1129,15 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 13
-#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e… True_score.Chan…
+#>   Athlete Group True_score.Pre Treatment_effect Non_treatment_e~ True_score.Chan~
 #>   <chr>   <fct>          <dbl>            <dbl>            <dbl>            <dbl>
-#> 1 Athlet… Trea…           47.4           -3.24              1.17            -2.06
-#> 2 Athlet… Cont…           44.4            3.43              4.57             4.57
-#> 3 Athlet… Trea…           50.5            4.09              2.74             6.83
-#> 4 Athlet… Cont…           37.8           12.4               2.15             2.15
-#> 5 Athlet… Trea…           50.7            0.671             1.87             2.54
-#> 6 Athlet… Cont…           42.7           12.6               2.78             2.78
-#> # … with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
+#> 1 Athlet~ Trea~           47.4           -3.24              1.17            -2.06
+#> 2 Athlet~ Cont~           44.4            3.43              4.57             4.57
+#> 3 Athlet~ Trea~           50.5            4.09              2.74             6.83
+#> 4 Athlet~ Cont~           37.8           12.4               2.15             2.15
+#> 5 Athlet~ Trea~           50.7            0.671             1.87             2.54
+#> 6 Athlet~ Cont~           42.7           12.6               2.78             2.78
+#> # ... with 7 more variables: True_score.Post <dbl>, Manifested_score.Pre <dbl>,
 #> #   Manifested_score.Post <dbl>, Manifested_score.Change <dbl>, Measured_score.Pre <dbl>,
 #> #   Measured_score.Post <dbl>, Measured_score.Change <dbl>
 ```
@@ -1095,7 +1158,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-48-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 We can see that both Control and Treatment group demonstrated improvements since both lines are above the dashed identity line. 
 
@@ -1199,7 +1264,9 @@ Here is the estimators bootstrap distribution:
 plot(regression_RCT)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-53-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 As can be seen from the results, both systematic and random components of the treatment effects were estimated correctly. 
 
@@ -1210,14 +1277,18 @@ Let's plot the Pre- and Post-Test results for each group (I will let you play an
 plot(regression_RCT, type = "control-paired-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-54-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 
 ```r
 plot(regression_RCT, type = "treatment-paired-change")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 Let's now plot individual treatment responses with uncertainty intervals: 
 
@@ -1226,7 +1297,9 @@ Let's now plot individual treatment responses with uncertainty intervals:
 plot(regression_RCT, type = "treatment-responses")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-56-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 As explained previously, this type of analysis and plot, uses Control group change score as some type of a *proxy* to quantify the uncertainty around observed treatment group change scores. Please note that even though we have used linear regression approach to estimate treatment effects, the plots still rely on the change scores. 
 
@@ -1269,7 +1342,9 @@ plot(
   xlim(-10, 28)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-57-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 Adjusted treatment response would deduct `mean` change from the Control group and would show individual effect ONLY with treatment effect (without non-treatment effect). We can use our DGP generated data frame to generate that graph (or to recreate it) and plot true treatment effects:
 
@@ -1306,7 +1381,9 @@ plot(
   xlim(-10, 28)
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 
 ## What goes inside the *measurement error* (or Control group change or residuals `SD`)?
@@ -1476,26 +1553,26 @@ prediction_RCT
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD         min
-#>            MBE -9.947541e-15    3.055367e-15     -0.1404122 -0.02732047 2.12193361  -3.5145897
-#>            MAE  3.175698e+00    3.037705e+00      3.8691755  3.90512133 0.93683875   2.6186933
-#>           RMSE  3.959134e+00    3.786361e+00      4.7871794  4.73835660 0.85876892   3.4284211
-#>           PPER  7.666283e-01    8.120334e-01      0.7012521  0.63888951 0.07928795   0.4413183
-#>  SESOI to RMSE  2.525805e+00    2.641058e+00      2.0889127  2.17362777 0.37022957   1.3710286
-#>      R-squared  6.289308e-01    6.606104e-01      0.4579491  0.21880124 0.64551950  -1.5780914
-#>         MinErr -7.921899e+00   -1.032365e+01    -10.0942651 -6.76317807 2.33015461 -10.0942651
-#>         MaxErr  6.582672e+00    8.806128e+00      9.2485263  6.05923474 2.11053360   0.1401500
-#>      MaxAbsErr  7.921899e+00    1.032365e+01     10.0942651  8.02937811 1.17919840   5.5787979
-#>         max
-#>   3.3371789
-#>   6.8884587
-#>   7.2937938
-#>   0.7862394
-#>   2.9167945
-#>   0.7986431
-#>  -2.7453015
-#>   9.2485263
-#>  10.0942651
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE -9.947541e-15    3.055367e-15     -0.1404122 -0.02732047 2.12193361
+#>            MAE  3.175698e+00    3.037705e+00      3.8691755  3.90512133 0.93683875
+#>           RMSE  3.959134e+00    3.786361e+00      4.7871794  4.73835660 0.85876892
+#>           PPER  7.666283e-01    8.120334e-01      0.7012521  0.63888951 0.07928795
+#>  SESOI to RMSE  2.525805e+00    2.641058e+00      2.0889127  2.17362777 0.37022957
+#>      R-squared  6.289308e-01    6.606104e-01      0.4579491  0.21880124 0.64551950
+#>         MinErr -7.921899e+00   -1.032365e+01    -10.0942651 -6.76317807 2.33015461
+#>         MaxErr  6.582672e+00    8.806128e+00      9.2485263  6.05923474 2.11053360
+#>      MaxAbsErr  7.921899e+00    1.032365e+01     10.0942651  8.02937811 1.17919840
+#>          min        max
+#>   -3.5145897  3.3371789
+#>    2.6186933  6.8884587
+#>    3.4284211  7.2937938
+#>    0.4413183  0.7862394
+#>    1.3710286  2.9167945
+#>   -1.5780914  0.7986431
+#>  -10.0942651 -2.7453015
+#>    0.1401500  9.2485263
+#>    5.5787979 10.0942651
 #> 
 #> Individual model results:
 #> 
@@ -1571,7 +1648,9 @@ Let's check the individual predictions:
 plot(prediction_RCT, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-66-1} \end{center}
 
 We can now see that certain residuals are larger than SESOI (indicated by green or red color on the figure). 
 
@@ -1582,7 +1661,9 @@ Here is the PDP+ICE plot:
 plot(prediction_RCT, "pdp+ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-67-1} \end{center}
 
 Parallel lines indicate that we predict that each individual will have same treatment effect (indicated by `pVTE` as well as with the arrows of same length in the counterfactual plot that follows). If we plot PDP+ICE for the measured Pre-test, we will get the following figure:
 
@@ -1592,7 +1673,9 @@ plot(prediction_RCT, "pdp+ice", predictor = "Measured_score.Pre") +
   geom_abline(slope = 1, linetype = "dashed")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-68-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-68-1} \end{center}
 
 Two thin lines indicate two groups and the gap between them represents the systematic treatment effect. 
 
@@ -1603,7 +1686,9 @@ Estimating individual counterfactual effects when switching group:
 plot(prediction_RCT, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-69-1} \end{center}
 
 As can be seen, counterfactual plot depicts same treatment effect for every individual. 
 
@@ -1680,17 +1765,18 @@ RCT_data$Group <- factor(RCT_data$Group)
 
 head(RCT_data)
 #> # A tibble: 6 x 14
-#>   Athlete Group Squat_1RM_relat… True_score.Pre Treatment_effect Non_treatment_e…
+#>   Athlete Group Squat_1RM_relat~ True_score.Pre Treatment_effect Non_treatment_e~
 #>   <chr>   <fct>            <dbl>          <dbl>            <dbl>            <dbl>
-#> 1 Athlet… Trea…            1.19            36.8             9.88             8.24
-#> 2 Athlet… Cont…            0.950           43.4             6.87             5.57
-#> 3 Athlet… Trea…            1.44            44.1            10.2              5.28
-#> 4 Athlet… Cont…            0.422           52.4             2.33             1.30
-#> 5 Athlet… Trea…            1.46            40.7            11.2              6.73
-#> 6 Athlet… Cont…            0.813           52.6             4.44             1.15
-#> # … with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
-#> #   Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>, Manifested_score.Change <dbl>,
-#> #   Measured_score.Pre <dbl>, Measured_score.Post <dbl>, Measured_score.Change <dbl>
+#> 1 Athlet~ Trea~            1.19            36.8             9.88             8.24
+#> 2 Athlet~ Cont~            0.950           43.4             6.87             5.57
+#> 3 Athlet~ Trea~            1.44            44.1            10.2              5.28
+#> 4 Athlet~ Cont~            0.422           52.4             2.33             1.30
+#> 5 Athlet~ Trea~            1.46            40.7            11.2              6.73
+#> 6 Athlet~ Cont~            0.813           52.6             4.44             1.15
+#> # ... with 8 more variables: True_score.Change <dbl>, True_score.Post <dbl>,
+#> #   Manifested_score.Pre <dbl>, Manifested_score.Post <dbl>,
+#> #   Manifested_score.Change <dbl>, Measured_score.Pre <dbl>, Measured_score.Post <dbl>,
+#> #   Measured_score.Change <dbl>
 ```
 
 Let's plot before we jump into the analysis. In the next plot we will depict measured Post-test (y-axis) and measured Pre-test (x-axis) per group.
@@ -1709,7 +1795,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-71-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-71-1} \end{center}
 
 Might be also usable to plot the change score:
 
@@ -1727,7 +1815,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-72-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-72-1} \end{center}
 
 From these two graph we can see that as one has higher Pre-test, change scores gets smaller (i.e. effect decreases). 
 
@@ -1746,7 +1836,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-73-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-73-1} \end{center}
 
 As can be seen from the figure, there is interaction between 1RM and group (the lines are not parallel). Let's check with the change score:
 
@@ -1764,7 +1856,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-74-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-74-1} \end{center}
 
 With change score we have *controlled* for Pre-test, which gives us information that the stronger someone is, the higher the improvement. This is even more evident for the Treatment group. 
 
@@ -1859,7 +1953,9 @@ ggplot(
   scale_fill_manual(values = c(Treatment = "#FAA43A", Control = "#5DA5DA"))
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-77-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-77-1} \end{center}
 
 Estimated random treatment effect is equal to:
 
@@ -1936,7 +2032,9 @@ ggplot(
   facet_wrap(~estimator, scales = "free_x")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-80-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-80-1} \end{center}
 
 Please note that the estimated systematic treatment effect is smaller for the linear regression method compared to method of differences. It is the opposite for the random treatment effect estimate. This is because linear regression method estimates the effect of the group while controlling for the Pre-test.
 
@@ -1992,7 +2090,8 @@ This implies that with this model we were able to explain more of the treatment 
 
 ```r
 model8 <- lm(
-  Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative + Squat_1RM_relative:Group + Group,
+  Measured_score.Post ~ 
+    Measured_score.Pre + Squat_1RM_relative + Squat_1RM_relative:Group + Group,
   # OR we can specify the model with this
   # Measured_score.Post ~ Measured_score.Pre + Squat_1RM_relative * Group
   RCT_data
@@ -2089,26 +2188,26 @@ base_model
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled          mean         SD        min
-#>            MBE -4.618506e-15    1.634262e-15   1.634259e-15  1.634238e-15 1.33279182 -2.5926409
-#>            MAE  1.793742e+00    1.768937e+00   1.997720e+00  1.997720e+00 0.55544631  1.0781811
-#>           RMSE  2.238021e+00    2.206270e+00   2.505740e+00  2.393620e+00 0.74868547  1.1928031
-#>           PPER  9.577526e-01    9.762111e-01   9.520871e-01  8.549957e-01 0.08929827  0.6560171
-#>  SESOI to RMSE  4.468233e+00    4.532536e+00   3.990837e+00  4.591613e+00 1.42736849  2.4405997
-#>      R-squared  7.224490e-01    7.302684e-01   6.520744e-01  6.595240e-01 0.32999136 -0.5542973
-#>         MinErr -5.933469e+00   -6.532374e+00  -7.016430e+00 -2.794574e+00 2.16480138 -7.0164300
-#>         MaxErr  3.414524e+00    3.926733e+00   4.141234e+00  2.385040e+00 1.21855651 -0.2376657
-#>      MaxAbsErr  5.933469e+00    6.532374e+00   7.016430e+00  3.768324e+00 1.58419875  1.4647768
-#>        max
-#>  2.7658984
-#>  3.3474423
-#>  4.0973536
-#>  0.9718218
-#>  8.3836132
-#>  0.9646862
-#>  2.0578483
-#>  4.1412343
-#>  7.0164300
+#>         metric      training training.pooled testing.pooled          mean         SD
+#>            MBE -4.618506e-15    1.634262e-15   1.634259e-15  1.634238e-15 1.33279182
+#>            MAE  1.793742e+00    1.768937e+00   1.997720e+00  1.997720e+00 0.55544631
+#>           RMSE  2.238021e+00    2.206270e+00   2.505740e+00  2.393620e+00 0.74868547
+#>           PPER  9.577526e-01    9.762111e-01   9.520871e-01  8.549957e-01 0.08929827
+#>  SESOI to RMSE  4.468233e+00    4.532536e+00   3.990837e+00  4.591613e+00 1.42736849
+#>      R-squared  7.224490e-01    7.302684e-01   6.520744e-01  6.595240e-01 0.32999136
+#>         MinErr -5.933469e+00   -6.532374e+00  -7.016430e+00 -2.794574e+00 2.16480138
+#>         MaxErr  3.414524e+00    3.926733e+00   4.141234e+00  2.385040e+00 1.21855651
+#>      MaxAbsErr  5.933469e+00    6.532374e+00   7.016430e+00  3.768324e+00 1.58419875
+#>         min       max
+#>  -2.5926409 2.7658984
+#>   1.0781811 3.3474423
+#>   1.1928031 4.0973536
+#>   0.6560171 0.9718218
+#>   2.4405997 8.3836132
+#>  -0.5542973 0.9646862
+#>  -7.0164300 2.0578483
+#>  -0.2376657 4.1412343
+#>   1.4647768 7.0164300
 #> 
 #> Individual model results:
 #> 
@@ -2182,14 +2281,18 @@ Let's plot key model predictions (individual and counterfactual).
 plot(base_model, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-87-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-87-1} \end{center}
 
 
 ```r
 plot(base_model, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-88-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-88-1} \end{center}
 
 As can be seen, base model predict the same Post-test scores for each athlete (depending on the group).
 
@@ -2205,26 +2308,26 @@ pre_test_model
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE -1.385555e-14    3.774758e-15     0.03197143  0.03197143 1.25159476 -2.5288076
-#>            MAE  1.757354e+00    1.700865e+00     2.04500207  2.04500207 0.53059190  0.8621495
-#>           RMSE  2.112647e+00    2.066468e+00     2.51137986  2.43165066 0.63415044  1.0726499
-#>           PPER  9.675019e-01    9.841744e-01     0.95158915  0.84684948 0.07383527  0.6842390
-#>  SESOI to RMSE  4.733399e+00    4.839174e+00     3.98187473  4.44664689 1.40990552  2.5812789
-#>      R-squared  7.526750e-01    7.633690e-01     0.65056316  0.63480891 0.32450934 -0.7834415
-#>         MinErr -4.979659e+00   -5.620519e+00    -6.48925129 -2.73668942 1.95426062 -6.4892513
-#>         MaxErr  3.381897e+00    4.723784e+00     4.36811806  2.71096150 1.23032364 -0.6916705
-#>      MaxAbsErr  4.979659e+00    5.620519e+00     6.48925129  3.85285271 1.30595427  1.9061280
-#>        max
-#>  2.8367663
-#>  3.2662051
-#>  3.8740486
-#>  0.9746472
-#>  9.3227066
-#>  0.9507508
-#>  1.9406012
-#>  4.3681181
-#>  6.4892513
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE -1.385555e-14    3.774758e-15     0.03197143  0.03197143 1.25159476
+#>            MAE  1.757354e+00    1.700865e+00     2.04500207  2.04500207 0.53059190
+#>           RMSE  2.112647e+00    2.066468e+00     2.51137986  2.43165066 0.63415044
+#>           PPER  9.675019e-01    9.841744e-01     0.95158915  0.84684948 0.07383527
+#>  SESOI to RMSE  4.733399e+00    4.839174e+00     3.98187473  4.44664689 1.40990552
+#>      R-squared  7.526750e-01    7.633690e-01     0.65056316  0.63480891 0.32450934
+#>         MinErr -4.979659e+00   -5.620519e+00    -6.48925129 -2.73668942 1.95426062
+#>         MaxErr  3.381897e+00    4.723784e+00     4.36811806  2.71096150 1.23032364
+#>      MaxAbsErr  4.979659e+00    5.620519e+00     6.48925129  3.85285271 1.30595427
+#>         min       max
+#>  -2.5288076 2.8367663
+#>   0.8621495 3.2662051
+#>   1.0726499 3.8740486
+#>   0.6842390 0.9746472
+#>   2.5812789 9.3227066
+#>  -0.7834415 0.9507508
+#>  -6.4892513 1.9406012
+#>  -0.6916705 4.3681181
+#>   1.9061280 6.4892513
 #> 
 #> Individual model results:
 #> 
@@ -2296,14 +2399,18 @@ pre_test_model
 plot(pre_test_model, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-90-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-90-1} \end{center}
 
 
 ```r
 plot(pre_test_model, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-91-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-91-1} \end{center}
 
 Additional plot we can do is the PDP+ICE for group predictor (i.e. treatment effect):
 
@@ -2312,7 +2419,9 @@ Additional plot we can do is the PDP+ICE for group predictor (i.e. treatment eff
 plot(pre_test_model, "pdp+ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-92-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-92-1} \end{center}
 
 And also for the Pre-test predictor:
 
@@ -2321,13 +2430,17 @@ And also for the Pre-test predictor:
 plot(pre_test_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-93-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-93-1} \end{center}
 
 Next model adds additional predictor (covariate): relative squat 1RM:
 
 
 ```r
-covariate_model <- model_RCT(Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative)
+covariate_model <- model_RCT(
+  Measured_score.Post ~ Group + Measured_score.Pre + Squat_1RM_relative
+  )
 
 covariate_model
 #> Training data consists of 4 predictors and 20 observations.
@@ -2335,26 +2448,26 @@ covariate_model
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD        min
-#>            MBE -1.492140e-14    3.641497e-15    -0.04731864 -0.04731864 1.27184288 -2.4388220
-#>            MAE  1.609713e+00    1.560087e+00     1.99431750  1.99431750 0.67386685  0.3458090
-#>           RMSE  1.959142e+00    1.895527e+00     2.51905179  2.40288524 0.76382791  0.4106030
-#>           PPER  9.776803e-01    9.914518e-01     0.95090835  0.84667956 0.08174096  0.6970788
-#>  SESOI to RMSE  5.104275e+00    5.275579e+00     3.96974768  5.02832487 3.49488784  2.6565400
-#>      R-squared  7.873104e-01    8.008987e-01     0.64849202  0.58513228 0.56466111 -1.9362660
-#>         MinErr -3.795052e+00   -4.671246e+00    -6.30927941 -2.64672001 1.65641966 -6.3092794
-#>         MaxErr  3.673197e+00    4.356870e+00     5.13611940  2.81303001 1.68991662 -0.2922030
-#>      MaxAbsErr  3.795052e+00    4.671246e+00     6.30927941  3.84840058 1.32366331  0.7157490
-#>         max
-#>   2.4598851
-#>   3.4404583
-#>   3.7642949
-#>   0.9981811
-#>  24.3544266
-#>   0.9784156
-#>   0.8127197
-#>   5.1361194
-#>   6.3092794
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE -1.492140e-14    3.641497e-15    -0.04731864 -0.04731864 1.27184288
+#>            MAE  1.609713e+00    1.560087e+00     1.99431750  1.99431750 0.67386685
+#>           RMSE  1.959142e+00    1.895527e+00     2.51905179  2.40288524 0.76382791
+#>           PPER  9.776803e-01    9.914518e-01     0.95090835  0.84667956 0.08174096
+#>  SESOI to RMSE  5.104275e+00    5.275579e+00     3.96974768  5.02832487 3.49488784
+#>      R-squared  7.873104e-01    8.008987e-01     0.64849202  0.58513228 0.56466111
+#>         MinErr -3.795052e+00   -4.671246e+00    -6.30927941 -2.64672001 1.65641966
+#>         MaxErr  3.673197e+00    4.356870e+00     5.13611940  2.81303001 1.68991662
+#>      MaxAbsErr  3.795052e+00    4.671246e+00     6.30927941  3.84840058 1.32366331
+#>         min        max
+#>  -2.4388220  2.4598851
+#>   0.3458090  3.4404583
+#>   0.4106030  3.7642949
+#>   0.6970788  0.9981811
+#>   2.6565400 24.3544266
+#>  -1.9362660  0.9784156
+#>  -6.3092794  0.8127197
+#>  -0.2922030  5.1361194
+#>   0.7157490  6.3092794
 #> 
 #> Individual model results:
 #> 
@@ -2426,41 +2539,53 @@ covariate_model
 plot(covariate_model, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-95-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-95-1} \end{center}
 
 
 ```r
 plot(covariate_model, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-96-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-96-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-97-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-97-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-98-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-98-1} \end{center}
 
 
 ```r
 plot(covariate_model, "pdp+ice", predictor = "Squat_1RM_relative")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-99-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-99-1} \end{center}
 
 And the final model is the interaction model:
 
 
 ```r
-interaction_model <- model_RCT(Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre)
+interaction_model <- model_RCT(
+  Measured_score.Post ~ Group*Squat_1RM_relative + Measured_score.Pre
+  )
 
 interaction_model
 #> Training data consists of 5 predictors and 20 observations.
@@ -2468,26 +2593,26 @@ interaction_model
 #> 
 #> Model performance:
 #> 
-#>         metric      training training.pooled testing.pooled        mean         SD         min
-#>            MBE  2.486856e-15    5.107026e-15    -0.02897255 -0.02897255 0.96232473 -2.10791777
-#>            MAE  1.102035e+00    1.073541e+00     1.51448758  1.51448758 0.62541112  0.42250638
-#>           RMSE  1.481278e+00    1.420252e+00     2.00731144  1.86964221 0.73799039  0.62520553
-#>           PPER  9.961488e-01    9.995411e-01     0.98620762  0.90318747 0.07713261  0.73706941
-#>  SESOI to RMSE  6.750926e+00    7.041003e+00     4.98178798  6.39845655 2.94071918  3.06196160
-#>      R-squared  8.784129e-01    8.882249e-01     0.77676962  0.72661171 0.39233243 -1.30891277
-#>         MinErr -2.887520e+00   -3.387465e+00    -4.84781640 -2.22509568 1.45777723 -4.84781640
-#>         MaxErr  3.883197e+00    4.125618e+00     5.22505955  2.04804580 1.57273644  0.03320484
-#>      MaxAbsErr  3.883197e+00    4.125618e+00     5.22505955  3.10011470 1.33675406  1.05228122
-#>         max
-#>   2.0771169
-#>   2.9228564
-#>   3.2658803
-#>   0.9955572
-#>  15.9947402
-#>   0.9875223
-#>   1.2235186
-#>   5.2250596
-#>   5.2250596
+#>         metric      training training.pooled testing.pooled        mean         SD
+#>            MBE  2.486856e-15    5.107026e-15    -0.02897255 -0.02897255 0.96232473
+#>            MAE  1.102035e+00    1.073541e+00     1.51448758  1.51448758 0.62541112
+#>           RMSE  1.481278e+00    1.420252e+00     2.00731144  1.86964221 0.73799039
+#>           PPER  9.961488e-01    9.995411e-01     0.98620762  0.90318747 0.07713261
+#>  SESOI to RMSE  6.750926e+00    7.041003e+00     4.98178798  6.39845655 2.94071918
+#>      R-squared  8.784129e-01    8.882249e-01     0.77676962  0.72661171 0.39233243
+#>         MinErr -2.887520e+00   -3.387465e+00    -4.84781640 -2.22509568 1.45777723
+#>         MaxErr  3.883197e+00    4.125618e+00     5.22505955  2.04804580 1.57273644
+#>      MaxAbsErr  3.883197e+00    4.125618e+00     5.22505955  3.10011470 1.33675406
+#>          min        max
+#>  -2.10791777  2.0771169
+#>   0.42250638  2.9228564
+#>   0.62520553  3.2658803
+#>   0.73706941  0.9955572
+#>   3.06196160 15.9947402
+#>  -1.30891277  0.9875223
+#>  -4.84781640  1.2235186
+#>   0.03320484  5.2250596
+#>   1.05228122  5.2250596
 #> 
 #> Individual model results:
 #> 
@@ -2559,35 +2684,45 @@ interaction_model
 plot(interaction_model, "prediction")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-101-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-101-1} \end{center}
 
 
 ```r
 plot(interaction_model, "counterfactual")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-102-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-102-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-103-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-103-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice", predictor = "Measured_score.Pre")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-104-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-104-1} \end{center}
 
 
 ```r
 plot(interaction_model, "pdp+ice", predictor = "Squat_1RM_relative")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-105-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-105-1} \end{center}
 
 For the sake of comparisson between the models, let's pull out estimated average, random, and variable treatment effects. Average treatment effect (`pATE`) is estimated using the `mean` of the pooled (absolute) counterfactual effects (see the previous model print summaries). Variable treatment effect (`pVTE`) is estimated using the `SD` of the pooled (absolute) counterfactual effects. Random treatment effect (`RTE`) is estimated using the group residuals as explained thorough this chapter. 
 
@@ -2673,7 +2808,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-107-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-107-1} \end{center}
 
 As can be seen from the figure, interaction model has the best training folds predictive performance. What about performance on the testing CV folds?
 
@@ -2718,7 +2855,9 @@ ggplot(
   facet_wrap(~metric, scales = "free_x")
 ```
 
-<img src="16-RCT-analysis-prediction_files/figure-html/unnamed-chunk-108-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{16-RCT-analysis-prediction_files/figure-latex/unnamed-chunk-108-1} \end{center}
 
 Interaction model is better, but not drastically better. Mean testing `PPER` is pretty good, over 0.9 indicating good practical predictive performance of this model. 
 
